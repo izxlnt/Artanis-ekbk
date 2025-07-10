@@ -1,0 +1,64 @@
+<table>
+    <thead>
+        <tr>
+            <th>{{ strtoupper($title) }} BAGI TAHUN {{ $tahun }}</th>
+        </tr>
+        <tr>
+            @foreach ($columns as $data)
+                @if ($data == 'Jumlah')
+                    <th>{{ $data }} (m³)</th>
+                @else
+                    <th>{{ $data }}</th>
+                @endif
+            @endforeach
+
+        </tr>
+    </thead>
+    <tbody>
+
+        @php
+            for ($bulan_counter = 1; $bulan_counter <= 12; $bulan_counter++) {
+                $jumlah_column[$bulan_counter] = 0;
+            }
+
+            $jumlah_keseluruhan = 0;
+        @endphp
+
+        @foreach ($datas as $negeri => $data)
+            @php
+                $jumlah_m3 = 0;
+            @endphp
+            <tr>
+                <td>{{ $loop->iteration }}</td>
+                <td> {{ $negeri }}</td>
+                @foreach ($data as $bulan => $data_negeri)
+                    <td style="text-align: right">
+                        {{ number_format($data_negeri[0]->jumlah_penggunaan, 0) }}
+                    </td>
+
+                    @php
+                        $jumlah_m3 = $jumlah_m3 + $data_negeri[0]->jumlah_penggunaan;
+                        $jumlah_column[$bulan] += $data_negeri[0]->jumlah_penggunaan;
+                        $jumlah_keseluruhan += $data_negeri[0]->jumlah_penggunaan;
+                    @endphp
+                @endforeach
+
+                <td style="text-align: right">{{ number_format($jumlah_m3, 0) }}</td>
+
+            </tr>
+        @endforeach
+
+        <tr style="background-color: lightgray; font-weight: bold;">
+            <td></td>
+            <td>Jumlah (m³)</td>
+
+            @for ($bulan_counter = 1; $bulan_counter <= 12; $bulan_counter++)
+                <td style="text-align: right">
+                    {{ number_format($jumlah_column[$bulan_counter], 0) }}</td>
+            @endfor
+
+
+            <td style="text-align: right">{{ number_format($jumlah_keseluruhan, 0) }}</td>
+        </tr>
+    </tbody>
+</table>

@@ -1,0 +1,136 @@
+<style>
+    table {
+        border-collapse: collapse;
+        font-size: 7px;
+    }
+
+    td,
+    th {
+        border: 1px solid black;
+    }
+
+    th {
+        background-color: lightgrey;
+    }
+
+</style>
+@php
+$shuttle = $results['shuttle'] ?? [];
+            $datas_formc = $results['datas_formc'] ?? [];
+            $produk_pengeluaran = $results['produk_pengeluaran'] ?? [];
+            $rekod_muka = $results['rekod_muka'] ?? [];
+@endphp
+
+<div class="text-center card-header" style="text-align: center;">{{ $title }} Bagi Tahun {{ $tahun }}</div> <br>
+
+                            <table id="example" class="table-bordered">
+                                <thead >
+
+                                    <tr>
+                                        @foreach ($columns as $data)
+                                            @if ($data == 'Jumlah Pengeluaran Papan Lapis Mengikut Jenis')
+                                                <th  colspan="2" rowspan="1">{{ $data }}</th>
+                                            @elseif($data == 'Jumlah Pengeluaran Papan Lapis Mengikut Ketebalan')
+                                                <th  colspan="2" rowspan="1">{{ $data }}</th>
+                                            @elseif($data == 'Jumlah Pengeluaran Papan Venir Mengikut Jenis')
+                                                <th  colspan="2" rowspan="1">{{ $data }}</th>
+                                            @else
+                                                <th  rowspan="3">{{ $data }}</th>
+                                            @endif
+                                        @endforeach
+                                    </tr>
+                                    <tr>
+
+                                            <th >MR</th>
+                                            <th >WBP</th>
+                                            <th >Nipis</th>
+                                            <th >Tebal</th>
+
+                                    </tr>
+                                    <tr>
+
+                                            <th >m³</th>
+                                            <th >m³</th>
+                                            <th >m³</th>
+                                            <th >m³</th>
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+                                    @foreach ($shuttle as $kilang)
+                                        <tr >
+                                            <td>{{ $loop->iteration }}</td>
+                                            <td >{{ $kilang->shuttle->nama_kilang }}</td>
+                                            <td >{{ $kilang->shuttle->no_ssm }}</td>
+                                            <td >{{ $kilang->shuttle->no_lesen }}</td>
+                                            <td >{{ $kilang->shuttle->no_telefon }}</td>
+                                            <td >{{ $kilang->shuttle->no_faks ?? '-' }}</td>
+                                            <td >{{ $kilang->shuttle->email }}</td>
+                                            <td >{{ $kilang->shuttle->alamat_kilang_1 }}</td>
+                                            <td >{{ $kilang->shuttle->alamat_kilang_2 }}</td>
+                                            <td >{{ $kilang->shuttle->alamat_kilang_poskod }}</td>
+                                            <td >{{ $kilang->shuttle->daerah_id }}</td>
+                                            <td >{{ $kilang->shuttle->negeri_id }}</td>
+                                            <td >{{ $kilang->shuttle->alamat_surat_menyurat_1 }}
+                                            </td>
+                                            <td >{{ $kilang->shuttle->alamat_surat_menyurat_2 }}
+                                            </td>
+                                            <td >
+                                                {{ $kilang->shuttle->alamat_surat_menyurat_poskod }}</td>
+                                            <td >
+                                                {{ $kilang->shuttle->alamat_surat_menyurat_daerah }}</td>
+                                            <td >
+                                                {{ Carbon\Carbon::parse($kilang->shuttle->tarikh_tubuh)->format('d-m-Y') }}
+                                            </td>
+                                            <td >
+                                                {{ Carbon\Carbon::parse($kilang->shuttle->tarikh_operasi)->format('d-m-Y') }}
+                                            </td>
+                                            <td >{{ $kilang->shuttle->taraf_syarikat_catatan }}
+                                            </td>
+                                            <td >{{ $kilang->shuttle->status_hak_milik }}</td>
+
+                                            @php
+                                            $jumlah_penggunaan = 0;
+                                            $baki_stok_kehadapan = 0;
+                                            $jumlah_besar_mr = 0;
+                                            $jumlah_besar_wbp = 0;
+                                            $export_papan_lapis = 0;
+                                            $export_venier = 0;
+                                            $domestik_papan_lapis = 0;
+                                            $domestik_venier = 0;
+
+
+                                            $export = 0;
+                                            $domestik = 0;
+                                        @endphp
+
+                                            @foreach ($produk_pengeluaran as $produk)
+                                                @if ($produk->shuttle_id == $kilang->shuttle->id)
+                                                    @php
+                                                        $jumlah_besar_mr += $produk->jumlah_besar_mr;
+                                                        $jumlah_besar_wbp += $produk->jumlah_besar_wbp;
+                                                    @endphp
+                                                @endif
+                                            @endforeach
+
+                                            <td >{{ number_format($jumlah_besar_mr, 0) }}</td>
+                                            <td >{{ number_format($jumlah_besar_wbp, 0) }}</td>
+
+                                            @foreach ($produk_pengeluaran as $produk)
+                                                @if ($produk->shuttle_id == $kilang->shuttle->id)
+                                                    @php
+                                                        $nipis = $produk->jumlah_kecil_1_mr + $produk->jumlah_kecil_1_wbp ;
+                                                        $tebal = $produk->jumlah_kecil_2_mr + $produk->jumlah_kecil_2_wbp ;
+
+                                                    @endphp
+                                                @endif
+                                            @endforeach
+
+                                            <td >{{ number_format($nipis, 0) }}</td>
+                                            <td >{{ number_format($tebal, 0) }}</td>
+                                        </tr>
+                                    @endforeach
+
+                                </tbody>
+                            </table>
