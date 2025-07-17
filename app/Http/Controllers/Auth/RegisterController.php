@@ -13,6 +13,7 @@ use App\Models\User;
 use App\Notifications\IPJPSM\SahPenggunaNotification;
 use App\Rules\UniqueEmailAcrossAllTables;
 use App\Rules\DifferentEmailFields;
+use App\Rules\MalaysianIC;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -78,7 +79,7 @@ class RegisterController extends Controller
                 'jantina'=> ['required', 'string', 'max:255'],
                 'warganegara'=> ['required', 'string', 'max:255'],
                 'kaum'=> ['required', 'string', 'max:255'],
-                'no_kad_pengenalan'=> ['required', 'string', 'max:255','unique:pengguna_kilangs'],
+                'no_kad_pengenalan'=> ['required', 'string', 'max:12', new MalaysianIC, 'unique:pengguna_kilangs'],
                 'gambar_ic_hadapan'=> ['required','max:10000', 'mimes:jpeg,jpg,png,gif'],
                 'gambar_ic_belakang'=> ['required','max:10000', 'mimes:jpeg,jpg,png,gif'],
                 'gambar_passport'=> ['required','max:10000', 'mimes:jpeg,jpg,png,gif'],
@@ -144,7 +145,7 @@ class RegisterController extends Controller
                 'jantina'=> ['required', 'string', 'max:255'],
                 'warganegara'=> ['required', 'string', 'max:255'],
                 'kaum'=> ['required', 'string', 'max:255'],
-                'no_kad_pengenalan'=> ['required', 'string', 'max:255'],
+                'no_kad_pengenalan'=> ['required', 'string', 'max:12', new MalaysianIC],
                 'gambar_ic_hadapan'=> ['required','max:10000'],
                 'gambar_ic_belakang'=> ['required','max:10000'],
                 'gambar_passport'=> ['required','max:10000'],

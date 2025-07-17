@@ -152,9 +152,14 @@
                                                 Pengenalan</label>
                                             <div class="col-sm-9">
                                                 <input type="text" class="form-control" id="login_id" name='login_id'
-                                                    placeholder="No. Kad Pengenalan" maxlength="12" minlength="12"
+                                                    placeholder="No. Kad Pengenalan (cth: 890123101234)" maxlength="12" minlength="12"
                                                     onkeypress="return onlyNumberKey(event)"
+                                                    oninput="validateMalaysianIC(this)"
                                                     value="{{ old('login_id') }}">
+                                                <p>
+                                                    <small>* Sila masukkan 12 digit nombor kad pengenalan tanpa ruang atau sengkang.</small>
+                                                </p>
+                                                <div id="ic-validation-message" style="color: red; font-size: 12px; margin-top: 5px;"></div>>
                                                 @error('login_id')
                                                     <div class="alert alert-danger">
                                                         <strong>{{ $message }}</strong>
@@ -412,6 +417,101 @@
             if (ASCIICode > 31 && (ASCIICode < 48 || ASCIICode > 57))
                 return false;
             return true;
+        }
+
+        function validateMalaysianIC(input) {
+            const ic = input.value.replace(/[\s-]/g, ''); // Remove spaces and dashes
+            const messageDiv = document.getElementById('ic-validation-message');
+            
+            // Clear previous validation styling
+            input.classList.remove('is-invalid', 'is-valid');
+            
+            if (ic.length === 0) {
+                messageDiv.textContent = '';
+                return;
+            }
+            
+            // Check if IC is exactly 12 digits
+            if (!/^\d{12}$/.test(ic)) {
+                input.classList.add('is-invalid');
+                messageDiv.textContent = 'Nombor kad pengenalan mesti 12 digit.';
+                return;
+            }
+            
+            // Extract parts
+            const year = ic.substr(0, 2);
+            const month = ic.substr(2, 2);
+            const day = ic.substr(4, 2);
+            const birthPlace = ic.substr(6, 2);
+            
+            // Validate date
+            if (!isValidDate(year, month, day)) {
+                input.classList.add('is-invalid');
+                messageDiv.textContent = 'Tarikh lahir dalam kad pengenalan tidak sah.';
+                return;
+            }
+            
+            // Validate birth place
+            if (!isValidBirthPlace(birthPlace)) {
+                input.classList.add('is-invalid');
+                messageDiv.textContent = 'Kod negeri dalam kad pengenalan tidak sah.';
+                return;
+            }
+            
+            // Validate check digit
+            if (!isValidCheckDigit(ic)) {
+                input.classList.add('is-invalid');
+                messageDiv.textContent = 'Nombor kad pengenalan tidak sah (digit semak salah).';
+                return;
+            }
+            
+            // If all validations pass
+            input.classList.add('is-valid');
+            messageDiv.textContent = '';
+        }
+        
+        function isValidDate(year, month, day) {
+            const currentYear = new Date().getFullYear();
+            const currentCentury = Math.floor(currentYear / 100) * 100;
+            let fullYear = currentCentury + parseInt(year);
+            
+            // If the year is greater than current year, it's from previous century
+            if (fullYear > currentYear) {
+                fullYear -= 100;
+            }
+            
+            const date = new Date(fullYear, parseInt(month) - 1, parseInt(day));
+            return date.getFullYear() === fullYear && 
+                   date.getMonth() === parseInt(month) - 1 && 
+                   date.getDate() === parseInt(day);
+        }
+        
+        function isValidBirthPlace(birthPlace) {
+            const validCodes = [
+                '01', '02', '03', '04', '05', '06', '07', '08', '09', '10',
+                '11', '12', '13', '14', '15', '16', '21', '22', '23', '24',
+                '25', '26', '27', '28', '29', '30', '31', '32', '33', '34',
+                '35', '36', '37', '38', '39', '40', '41', '42', '43', '44',
+                '45', '46', '47', '48', '49', '50', '51', '52', '53', '54',
+                '55', '56', '57', '58', '59', '82', '83'
+            ];
+            return validCodes.includes(birthPlace);
+        }
+        
+        function isValidCheckDigit(ic) {
+            const weights = [2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2];
+            let sum = 0;
+            
+            for (let i = 0; i < 11; i++) {
+                const digit = parseInt(ic[i]);
+                const product = digit * weights[i];
+                sum += (product > 9) ? (product - 9) : product;
+            }
+            
+            const remainder = sum % 10;
+            const checkDigit = (remainder === 0) ? 0 : (10 - remainder);
+            
+            return checkDigit === parseInt(ic[11]);
         }
     </script>
 

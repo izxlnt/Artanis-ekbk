@@ -6,6 +6,7 @@ use App\Models\Daerah;
 use App\Models\User;
 use App\Notifications\IPJPSM\SahPenggunaNotification;
 use App\Rules\UniqueEmailAcrossAllTables;
+use App\Rules\MalaysianIC;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -99,7 +100,7 @@ class DaftarController extends Controller
         if($data['jenis_pengguna']== "PHD"){
             return Validator::make($data, [
                 'name' => ['required', 'string', 'max:255'],
-                'login_id' => ['required','string','unique:users'],
+                'login_id' => ['required','string','max:12', new MalaysianIC, 'unique:users'],
                 'email' => ['required', 'string', 'email', 'max:255', new UniqueEmailAcrossAllTables()],
                 'no_telefon' => ['required', 'string', 'max:11', 'min:9'],
                 'jawatan' => ['required', 'string', 'max:255'],
@@ -113,7 +114,7 @@ class DaftarController extends Controller
             return Validator::make($data, [
                 'negeri_id' => ['required', 'string', 'max:255'],
                 'name' => ['required', 'string', 'max:255'],
-                'login_id' => ['required','string','unique:users'],
+                'login_id' => ['required','string','max:12', new MalaysianIC, 'unique:users'],
                 'email' => ['required', 'string', 'email', 'max:255', new UniqueEmailAcrossAllTables()],
                 'no_telefon' => ['required', 'string', 'max:11', 'min:9'],
                 'jawatan' => ['required', 'string', 'max:255'],
