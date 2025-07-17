@@ -11,6 +11,8 @@ use App\Models\Shuttle;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
 use App\Notifications\IPJPSM\SahPenggunaNotification;
+use App\Rules\UniqueEmailAcrossAllTables;
+use App\Rules\DifferentEmailFields;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -63,7 +65,14 @@ class RegisterController extends Controller
 
             return Validator::make($data, [
                 'name' => ['required', 'string', 'max:255'],
-                'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+                'email' => [
+                    'required', 
+                    'string', 
+                    'email', 
+                    'max:255', 
+                    new UniqueEmailAcrossAllTables(),
+                    new DifferentEmailFields('email_kilang', $data['email_kilang'] ?? null)
+                ],
                 'password' => ['nullable', 'string', 'min:8', 'confirmed'],
                 'jawatan'=> ['required', 'string', 'max:255'],
                 'jantina'=> ['required', 'string', 'max:255'],
@@ -103,8 +112,13 @@ class RegisterController extends Controller
                 'catatan_2'=> ['nullable', 'string', 'max:255'],
                 'status'=> ['nullable', 'string', 'max:255'],
                 'daerah_id'=> ['required', 'string', 'max:255'],
-                'email'=> ['required', 'email'],
-                'email_kilang'=> ['required', 'email'],
+                'email'=> ['required', 'email', new UniqueEmailAcrossAllTables()],
+                'email_kilang'=> [
+                    'required', 
+                    'email', 
+                    new UniqueEmailAcrossAllTables(),
+                    new DifferentEmailFields('email', $data['email'] ?? null)
+                ],
                 'website'=> ['nullable', 'string', 'max:255'],
                 'no_lesen'=> ['required', 'string', 'max:255'],
                 'status_hak_milik'=> ['required', 'string', 'max:255'],
@@ -117,7 +131,14 @@ class RegisterController extends Controller
         else{
             return Validator::make($data, [
                 'name' => ['required', 'string', 'max:255'],
-                'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+                'email' => [
+                    'required', 
+                    'string', 
+                    'email', 
+                    'max:255', 
+                    new UniqueEmailAcrossAllTables(),
+                    new DifferentEmailFields('email_kilang', $data['email_kilang'] ?? null)
+                ],
                 'password' => ['nullable', 'string', 'min:8', 'confirmed'],
                 'jawatan'=> ['required', 'string', 'max:255'],
                 'jantina'=> ['required', 'string', 'max:255'],
@@ -157,8 +178,13 @@ class RegisterController extends Controller
                 'catatan_2'=> ['nullable', 'string', 'max:255'],
                 'status'=> ['nullable', 'string', 'max:255'],
                 'daerah_id'=> ['required', 'string', 'max:255'],
-                'email'=> ['required', 'email'],
-                'email_kilang'=> ['required', 'email'],
+                'email'=> ['required', 'email', new UniqueEmailAcrossAllTables()],
+                'email_kilang'=> [
+                    'required', 
+                    'email', 
+                    new UniqueEmailAcrossAllTables(),
+                    new DifferentEmailFields('email', $data['email'] ?? null)
+                ],
                 'website'=> ['nullable', 'string', 'max:255'],
                 'no_lesen'=> ['required', 'string', 'max:255'],
                 'status_hak_milik'=> ['required', 'string', 'max:255'],

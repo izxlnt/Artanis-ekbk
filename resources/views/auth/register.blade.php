@@ -9,6 +9,7 @@
     <meta name="viewport" content="target-densitydpi=device-dpi">
     <meta name="description" content="">
     <meta name="author" content="">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="../../assets/images/favicon.png">
     <title>SISTEM eSHUTTLE</title>
@@ -818,7 +819,7 @@
                                                             <div class="col-md-6">
                                                                 <input type="email" class="form-control"
                                                                     name='email_kilang' placeholder="Emel Kilang"
-                                                                    value="{{ old('email') }}">
+                                                                    value="{{ old('email_kilang') }}" required title="Sila isikan butiran ini.">
                                                                 @error('email_kilang')
                                                                     <div class="alert alert-danger">
                                                                         <strong>{{ $message }}</strong>
@@ -1180,7 +1181,7 @@
                                                             <label for="fname"
                                                                 class="text-right col-sm-3 control-label col-form-label required">Emel</label>
                                                             <div class="col-md-6">
-                                                                <input type="text" class="form-control" name='email' required title="Sila isikan butiran ini."
+                                                                <input type="email" class="form-control" name='email' required title="Sila isikan butiran ini."
                                                                     placeholder="Emel" value="{{ old('email') }}">
                                                                 @error('email')
                                                                     <div class="alert alert-danger">
@@ -1984,6 +1985,8 @@ $( document ).ready(function() {
 });
 </script>
 
+<!-- Email validation script -->
+<script src="{{ asset('js/email-validation.js') }}"></script>
 
 
 

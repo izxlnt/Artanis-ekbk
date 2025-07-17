@@ -39,6 +39,10 @@ Route::get('/register/ajax/fetch-warganegara/{warganegara}', [App\Http\Controlle
 Route::get('/register/ajax/fetch-poskod/{poskod}', [App\Http\Controllers\AjaxController::class, 'poskod'])->name('ajax-poskod');
 Route::get('/register/ajax/fetch-poskod-surat-menyurat/{poskod_surat}', [App\Http\Controllers\AjaxController::class, 'poskod_surat_menyurat'])->name('ajax-poskod-surat-menyurat');
 
+// Email validation routes
+Route::post('/check-email-uniqueness', [App\Http\Controllers\EmailValidationController::class, 'checkEmailUniqueness'])->name('check-email-uniqueness');
+Route::post('/get-email-occurrences', [App\Http\Controllers\EmailValidationController::class, 'getEmailOccurrences'])->name('get-email-occurrences');
+
 Route::get('/shuttle-3-view-form3B/{id}', [App\Http\Controllers\ShuttleThree\ViewFormBController::class, 'shuttle_3_form_view_form3B'])->name('shuttle-3-view-formB');
 
 //custom forget password
