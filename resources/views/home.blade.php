@@ -578,6 +578,8 @@
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 
     <script>
+        let currentChart = null; // Store current chart instance
+        
         window.addEventListener("load", function() {
             $.ajax({
                 url: "{{ route('ipjpsm.graph_dashboard.default') }}",
@@ -610,6 +612,8 @@
                 dataType: "JSON",
                 success: function(data) {
                     console.log(data);
+                    // Update selected value before rendering chart
+                    $('#select_kilang').val(shuttle);
                     ChartResponden(data);
                 }
             });
@@ -618,58 +622,157 @@
 
 <script>
     function ChartResponden(data) {
-
         var jsonData = data;
         console.log(jsonData);
 
-        var bar = document.getElementById('bar');
-        var barConfig = new Chart(bar, {
-        type: 'bar',
+        // Get the currently selected kilang type
+        var selectedKilang = $('#select_kilang').val();
+        var kilangTypes = {
+            '3': 'Kilang Papan',
+            '4': 'Kilang Papan Lapis/Venir', 
+            '5': 'Kilang Kayu Kumai'
+        };
+        
+        // Destroy existing chart if it exists
+        if (currentChart) {
+            currentChart.destroy();
+        }
 
-        data: {
+        var bar = document.getElementById('bar');
+        var ctx = bar.getContext('2d');
+        
+        // Clear the canvas
+        ctx.clearRect(0, 0, bar.width, bar.height);
+        
+        currentChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
                 labels: ['Johor', 'Kedah', 'Kelantan',
                         'Melaka', 'Negeri Sembilan', 'Pahang',
                         'Perak', 'Perlis', 'Pulau Pinang', 'Selangor', 'Terengganu', 'Wilayah Persekutuan'],
                 datasets: [{
-                    label: 'Bilangan Responden',
-                    data: [jsonData.johor,jsonData.kedah,jsonData.kelantan,jsonData.melaka,jsonData.n9,jsonData.pahang,jsonData.perak,jsonData.perlis,jsonData.pinang,jsonData.selangor,jsonData.terengganu,jsonData.wp ],
+                    label: kilangTypes[selectedKilang] || 'Bilangan Responden',
+                    data: [jsonData.johor, jsonData.kedah, jsonData.kelantan, jsonData.melaka, jsonData.n9, jsonData.pahang, jsonData.perak, jsonData.perlis, jsonData.pinang, jsonData.selangor, jsonData.terengganu, jsonData.wp],
                     backgroundColor: [
-
+                        'rgba(255, 99, 132, 0.8)',
+                        'rgba(54, 162, 235, 0.8)',
+                        'rgba(255, 206, 86, 0.8)',
+                        'rgba(75, 192, 192, 0.8)',
+                        'rgba(153, 102, 255, 0.8)',
+                        'rgba(255, 159, 64, 0.8)',
+                        'rgba(75, 192, 192, 0.8)',
+                        'rgba(153, 102, 255, 0.8)',
+                        'rgba(255, 99, 132, 0.8)',
+                        'rgba(54, 162, 235, 0.8)',
+                        'rgba(255, 206, 86, 0.8)',
+                        'rgba(75, 192, 192, 0.8)',
+                    ],
+                    borderColor: [
                         'rgba(255, 99, 132, 1)',
                         'rgba(54, 162, 235, 1)',
                         'rgba(255, 206, 86, 1)',
                         'rgba(75, 192, 192, 1)',
                         'rgba(153, 102, 255, 1)',
-                        'rgba(225, 50, 64, 1)',
-                        'rgba(64, 159, 64, 1)',
-                        'rgba(45, 129, 100, 1)',
-                        'rgba(11, 19, 64, 1)',
-                        'rgba(99, 59, 64, 1)',
-                        'rgba(11, 19, 64, 1)',
-                        'rgba(11, 19, 64, 1)',
+                        'rgba(255, 159, 64, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
                     ],
-                    borderWidth: 1
+                    borderWidth: 2
                 }]
             },
             options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                legend: {
+                    display: true,
+                    position: 'top',
+                    labels: {
+                        fontSize: 14,
+                        fontStyle: 'bold'
+                    }
+                },
+                tooltips: {
+                    enabled: true,
+                    mode: 'index',
+                    intersect: false,
+                    backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                    titleFontColor: 'white',
+                    bodyFontColor: 'white',
+                    cornerRadius: 5,
+                    displayColors: false,
+                    callbacks: {
+                        title: function(tooltipItems, data) {
+                            return tooltipItems[0].label;
+                        },
+                        label: function(tooltipItem, data) {
+                            var kilangType = kilangTypes[selectedKilang] || 'Bilangan Responden';
+                            return kilangType + ': ' + tooltipItem.value;
+                        }
+                    }
+                },
                 scales: {
                     yAxes: [{
                         ticks: {
                             beginAtZero: true,
-                            precision:0
-
+                            precision: 0,
+                            fontSize: 12
+                        },
+                        gridLines: {
+                            display: true,
+                            color: 'rgba(0, 0, 0, 0.1)'
+                        }
+                    }],
+                    xAxes: [{
+                        ticks: {
+                            fontSize: 11
+                        },
+                        gridLines: {
+                            display: false
                         }
                     }]
                 },
-            responsive: true, // Instruct chart js to respond nicely.
-            maintainAspectRatio: false, // Add to prevent default behaviour of full-width/height
-            legend:
-                        {
-                            display: false
+                animation: {
+                    duration: 1000,
+                    easing: 'easeInOutQuart'
+                },
+                hover: {
+                    mode: 'nearest',
+                    intersect: true,
+                    onHover: function(event, elements) {
+                        event.target.style.cursor = elements.length > 0 ? 'pointer' : 'default';
+                    }
+                }
+            },
+            plugins: [{
+                afterDatasetsDraw: function(chart) {
+                    var ctx = chart.ctx;
+                    chart.data.datasets.forEach(function(dataset, i) {
+                        var meta = chart.getDatasetMeta(i);
+                        if (!meta.hidden) {
+                            meta.data.forEach(function(element, index) {
+                                // Draw the text in black above the bar
+                                ctx.fillStyle = 'black';
+                                ctx.font = 'bold 12px Arial';
+                                ctx.textAlign = 'center';
+                                ctx.textBaseline = 'bottom';
+                                
+                                var position = element.tooltipPosition();
+                                var value = dataset.data[index];
+                                
+                                // Only show value if it's greater than 0
+                                if (value > 0) {
+                                    ctx.fillText(value, position.x, position.y - 5);
+                                }
+                            });
                         }
-            }
-        })
+                    });
+                }
+            }]
+        });
     }
-
 </script>
 @endsection

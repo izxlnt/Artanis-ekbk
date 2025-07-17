@@ -343,8 +343,19 @@
     function ChartResponden(data) {
         var jsonData = data;
         console.log(jsonData);
+        
+        // Destroy existing chart if it exists
+        if (currentChart) {
+            currentChart.destroy();
+        }
+        
         var bar = document.getElementById('bar');
-        var barConfig = new Chart(bar, {
+        var ctx = bar.getContext('2d');
+        
+        // Clear the canvas
+        ctx.clearRect(0, 0, bar.width, bar.height);
+        
+        currentChart = new Chart(ctx, {
             type: 'bar',
             data: {
                 labels: ['Shuttle 3- Kilang Papan', 'Shuttle 4- Kilang Papan Lapis/Venir',
@@ -356,43 +367,112 @@
                         {{ $s5[0]->total_kilang ?? 0 }}
                     ],
                     backgroundColor: [
-
-                        '#ee8dcd',
-                        '#f0e10dbd',
-                        '#6df173',
-                        // 'rgba(75, 192, 192, 1)',
-                        // 'rgba(153, 102, 255, 1)',
-                        // 'rgba(225, 50, 64, 1)',
-                        // 'rgba(64, 159, 64, 1)',
-                        // 'rgba(45, 129, 100, 1)',
-                        // 'rgba(11, 19, 64, 1)',
-                        // 'rgba(99, 59, 64, 1)',
-                        // 'rgba(11, 19, 64, 1)',
-                        // 'rgba(11, 19, 64, 1)',
+                        'rgba(238, 141, 205, 0.8)',
+                        'rgba(240, 225, 13, 0.8)',
+                        'rgba(109, 241, 115, 0.8)',
                     ],
-                    borderWidth: 1
+                    borderColor: [
+                        'rgba(238, 141, 205, 1)',
+                        'rgba(240, 225, 13, 1)',
+                        'rgba(109, 241, 115, 1)',
+                    ],
+                    borderWidth: 2
                 }]
             },
             options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                legend: {
+                    display: true,
+                    position: 'top',
+                    labels: {
+                        fontSize: 14,
+                        fontStyle: 'bold'
+                    }
+                },
+                tooltips: {
+                    enabled: true,
+                    mode: 'index',
+                    intersect: false,
+                    backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                    titleFontColor: 'white',
+                    bodyFontColor: 'white',
+                    cornerRadius: 5,
+                    displayColors: false,
+                    callbacks: {
+                        title: function(tooltipItems, data) {
+                            return tooltipItems[0].label;
+                        },
+                        label: function(tooltipItem, data) {
+                            return 'Bilangan Responden: ' + tooltipItem.value;
+                        }
+                    }
+                },
                 scales: {
                     yAxes: [{
                         ticks: {
                             beginAtZero: true,
-                            precision: 0
+                            precision: 0,
+                            fontSize: 12
+                        },
+                        gridLines: {
+                            display: true,
+                            color: 'rgba(0, 0, 0, 0.1)'
+                        }
+                    }],
+                    xAxes: [{
+                        ticks: {
+                            fontSize: 11
+                        },
+                        gridLines: {
+                            display: false
                         }
                     }]
                 },
-                responsive: true, // Instruct chart js to respond nicely.
-                maintainAspectRatio: false, // Add to prevent default behaviour of full-width/height
-                legend: {
-                    display: false
+                animation: {
+                    duration: 1000,
+                    easing: 'easeInOutQuart'
+                },
+                hover: {
+                    mode: 'nearest',
+                    intersect: true,
+                    onHover: function(event, elements) {
+                        event.target.style.cursor = elements.length > 0 ? 'pointer' : 'default';
+                    }
                 }
-            }
-        })
+            },
+            plugins: [{
+                afterDatasetsDraw: function(chart) {
+                    var ctx = chart.ctx;
+                    chart.data.datasets.forEach(function(dataset, i) {
+                        var meta = chart.getDatasetMeta(i);
+                        if (!meta.hidden) {
+                            meta.data.forEach(function(element, index) {
+                                // Draw the text in black above the bar
+                                ctx.fillStyle = 'black';
+                                ctx.font = 'bold 12px Arial';
+                                ctx.textAlign = 'center';
+                                ctx.textBaseline = 'bottom';
+                                
+                                var position = element.tooltipPosition();
+                                var value = dataset.data[index];
+                                
+                                // Only show value if it's greater than 0
+                                if (value > 0) {
+                                    ctx.fillText(value, position.x, position.y - 5);
+                                }
+                            });
+                        }
+                    });
+                }
+            }]
+        });
     }
 </script>
 
     <script type="text/javascript">
+        let currentChart = null; // Store current chart instance
+        
         window.addEventListener("load", function() {
             $.ajax({
                 url: "{{ route('ipjpsm.graph_dashboard.default') }}",
