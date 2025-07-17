@@ -4,6 +4,42 @@
     <script src="https://code.highcharts.com/maps/highmaps.js"></script>
     <script src="https://code.highcharts.com/maps/modules/exporting.js"></script>
     <script src="https://code.highcharts.com/mapdata/countries/my/my-all.js"></script>
+    
+<style>
+    .chart-container {
+        background: linear-gradient(145deg, #ffffff, #f8f9fa);
+        border-radius: 15px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        padding: 25px;
+        margin-bottom: 30px;
+        border: 1px solid #e9ecef;
+    }
+    
+    .alert-info {
+        background: linear-gradient(135deg, #e3f2fd, #bbdefb);
+        border: 1px solid #2196F3;
+        color: #1976D2;
+        border-radius: 10px;
+        padding: 15px;
+        margin-bottom: 20px;
+    }
+    
+    .form-label {
+        color: #495057 !important;
+        margin-bottom: 8px !important;
+    }
+    
+    #select_kilang {
+        -webkit-appearance: none !important;
+        -moz-appearance: none !important;
+        appearance: none !important;
+        background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e") !important;
+        background-position: right 12px center !important;
+        background-repeat: no-repeat !important;
+        background-size: 16px 16px !important;
+        padding-right: 40px !important;
+    }
+</style>
     <!-- ============================================================== -->
     <!-- Container fluid  -->
     <!-- ============================================================== -->
@@ -235,18 +271,21 @@
                       </div>
                     </div>
                     <div class="col-md-6">
-                        <div class="card" style="height: 500px">
+                        <div class="card" style="height: 550px">
                             <div class="border card-header bg-info ">
                                 <h4 class="text-white m-b-0" style="text-align: center; background-color: #f3ce8f "><b>BILANGAN RESPONDEN</b></h4>
                             </div>
                             <div class="border card-body" style="">
-                                <div class="chart1 m-t-40" align='center' style="position: relative; height:400px;">
-                                    {{-- <div id="barchart_material"></div> --}}
-                                    {{-- <div id="top_x_div" style="width: 800px; height: 100%;"></div> --}}
-
-                                    <canvas class="bar-chart" id="bar">
-                                    </canvas>
-
+                                <div class="row mb-3">
+                                    <div class="col-md-12">
+                                        <div class="alert alert-info mb-0">
+                                            <i class="fas fa-info-circle mr-2"></i>
+                                            <strong>Info:</strong> Nilai ditunjukkan di atas setiap bar. Hover untuk maklumat lanjut.
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="chart-container" style="position: relative; height: 400px; background: #f8f9fa; border-radius: 10px; padding: 20px;">
+                                    <canvas class="bar-chart" id="bar"></canvas>
                                 </div>
                             </div>
                         </div>
@@ -382,29 +421,36 @@
             options: {
                 responsive: true,
                 maintainAspectRatio: false,
-                legend: {
-                    display: true,
-                    position: 'top',
-                    labels: {
-                        fontSize: 14,
-                        fontStyle: 'bold'
+                layout: {
+                    padding: {
+                        top: 40,
+                        bottom: 20,
+                        left: 10,
+                        right: 10
                     }
+                },
+                legend: {
+                    display: false
                 },
                 tooltips: {
                     enabled: true,
                     mode: 'index',
                     intersect: false,
-                    backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                    backgroundColor: 'rgba(0, 0, 0, 0.9)',
                     titleFontColor: 'white',
                     bodyFontColor: 'white',
-                    cornerRadius: 5,
+                    titleFontSize: 14,
+                    bodyFontSize: 13,
+                    cornerRadius: 8,
                     displayColors: false,
+                    xPadding: 12,
+                    yPadding: 12,
                     callbacks: {
                         title: function(tooltipItems, data) {
-                            return tooltipItems[0].label;
+                            return 'Jenis: ' + tooltipItems[0].label;
                         },
                         label: function(tooltipItem, data) {
-                            return 'Bilangan Responden: ' + tooltipItem.value;
+                            return 'Bilangan Responden: ' + tooltipItem.value + ' responden';
                         }
                     }
                 },
@@ -413,29 +459,52 @@
                         ticks: {
                             beginAtZero: true,
                             precision: 0,
-                            fontSize: 12
+                            fontSize: 12,
+                            fontColor: '#666',
+                            callback: function(value) {
+                                return value + ' responden';
+                            }
                         },
                         gridLines: {
                             display: true,
-                            color: 'rgba(0, 0, 0, 0.1)'
+                            color: 'rgba(0, 0, 0, 0.1)',
+                            lineWidth: 1
+                        },
+                        scaleLabel: {
+                            display: true,
+                            labelString: 'Bilangan Responden',
+                            fontColor: '#666',
+                            fontSize: 14,
+                            fontStyle: 'bold'
                         }
                     }],
                     xAxes: [{
                         ticks: {
-                            fontSize: 11
+                            fontSize: 11,
+                            fontColor: '#666',
+                            maxRotation: 0,
+                            minRotation: 0
                         },
                         gridLines: {
                             display: false
+                        },
+                        scaleLabel: {
+                            display: true,
+                            labelString: 'Jenis Kilang',
+                            fontColor: '#666',
+                            fontSize: 14,
+                            fontStyle: 'bold'
                         }
                     }]
                 },
                 animation: {
-                    duration: 1000,
+                    duration: 1200,
                     easing: 'easeInOutQuart'
                 },
                 hover: {
                     mode: 'nearest',
                     intersect: true,
+                    animationDuration: 200,
                     onHover: function(event, elements) {
                         event.target.style.cursor = elements.length > 0 ? 'pointer' : 'default';
                     }
@@ -448,18 +517,32 @@
                         var meta = chart.getDatasetMeta(i);
                         if (!meta.hidden) {
                             meta.data.forEach(function(element, index) {
-                                // Draw the text in black above the bar
-                                ctx.fillStyle = 'black';
-                                ctx.font = 'bold 12px Arial';
-                                ctx.textAlign = 'center';
-                                ctx.textBaseline = 'bottom';
-                                
-                                var position = element.tooltipPosition();
                                 var value = dataset.data[index];
                                 
                                 // Only show value if it's greater than 0
                                 if (value > 0) {
-                                    ctx.fillText(value, position.x, position.y - 5);
+                                    var position = element.tooltipPosition();
+                                    
+                                    // Add background box for better readability
+                                    ctx.fillStyle = 'rgba(255, 255, 255, 0.9)';
+                                    ctx.strokeStyle = 'rgba(0, 0, 0, 0.2)';
+                                    ctx.lineWidth = 1;
+                                    
+                                    var textWidth = ctx.measureText(value).width;
+                                    var padding = 6;
+                                    var boxWidth = textWidth + padding * 2;
+                                    var boxHeight = 20;
+                                    
+                                    // Draw background box
+                                    ctx.fillRect(position.x - boxWidth/2, position.y - boxHeight - 10, boxWidth, boxHeight);
+                                    ctx.strokeRect(position.x - boxWidth/2, position.y - boxHeight - 10, boxWidth, boxHeight);
+                                    
+                                    // Draw the text
+                                    ctx.fillStyle = '#333';
+                                    ctx.font = 'bold 12px Arial';
+                                    ctx.textAlign = 'center';
+                                    ctx.textBaseline = 'middle';
+                                    ctx.fillText(value, position.x, position.y - boxHeight/2 - 10);
                                 }
                             });
                         }
