@@ -54,8 +54,10 @@
                     <label for="fname" class="text-right col-sm-3 control-label col-form-label">No. Kad Pengenalan
                         (pengguna)</label>
                     <div class="col-sm-9">
-                        <input type="text" class="form-control" name='kad_pengenalan' placeholder="No. Kad Pengenalan"
-                            maxlength="12" onkeypress="return isNumberKey(event)" value="{{ old('kad_pengenalan') }}">
+                        <input type="text" class="form-control" id="kad_pengenalan" name='kad_pengenalan' placeholder="No. Kad Pengenalan"
+                            maxlength="12" onkeypress="return isNumberKey(event)" value="{{ old('kad_pengenalan') }}"
+                            oninput="validateMalaysianIC(this)">
+                        <div id="ic-validation-message" class="invalid-feedback"></div>
                         @error('kad_pengenalan')
                             <div class="alert alert-danger">{{ $message }}</div>
                         @enderror
@@ -216,8 +218,10 @@
                 <div class="form-group row">
                     <label for="cono1" class="text-right col-sm-3 control-label col-form-label required">Emel</label>
                     <div class="col-sm-9">
-                        <input type="email" class="form-control" id="cono1" name='email' placeholder="Emel"
-                            title="Sila isikan butiran ini." value="{{ old('email') }}">
+                        <input type="email" class="form-control" id="email" name='email' placeholder="Emel"
+                            title="Sila isikan butiran ini." value="{{ old('email') }}"
+                            oninput="validateEmail(this)">
+                        <div id="email-validation-message" class="invalid-feedback"></div>
                         @error('email')
                             <div class="alert alert-danger">{{ $message }}</div>
                         @enderror
@@ -353,6 +357,133 @@
             if (ASCIICode > 31 && (ASCIICode < 48 || ASCIICode > 57))
                 return false;
             return true;
+        }
+        
+        function validateEmail(input) {
+            const email = input.value;
+            const messageDiv = document.getElementById('email-validation-message');
+            
+            // Clear previous validation
+            input.classList.remove('is-invalid', 'is-valid');
+            messageDiv.textContent = '';
+            
+            if (!email) {
+                return;
+            }
+            
+            // Basic email format validation
+            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailPattern.test(email)) {
+                input.classList.add('is-invalid');
+                messageDiv.textContent = 'Format emel tidak sah.';
+                return;
+            }
+            
+            // Check email uniqueness via AJAX
+            fetch('/email/check-unique', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                },
+                body: JSON.stringify({ email: email })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.unique) {
+                    input.classList.add('is-valid');
+                    messageDiv.textContent = '';
+                } else {
+                    input.classList.add('is-invalid');
+                    messageDiv.textContent = 'Emel ini telah digunakan.';
+                }
+            })
+            .catch(error => {
+                console.error('Error checking email:', error);
+            });
+        }
+        
+        function validateMalaysianIC(input) {
+            const ic = input.value;
+            const messageDiv = document.getElementById('ic-validation-message');
+            
+            // Clear previous validation
+            input.classList.remove('is-invalid', 'is-valid');
+            messageDiv.textContent = '';
+            
+            if (!ic) {
+                return;
+            }
+            
+            // Check format - must be 12 digits
+            if (!/^\d{12}$/.test(ic)) {
+                input.classList.add('is-invalid');
+                messageDiv.textContent = 'Nombor kad pengenalan mesti 12 digit.';
+                return;
+            }
+            
+            // Validate date
+            const year = parseInt(ic.substring(0, 2));
+            const month = parseInt(ic.substring(2, 4));
+            const day = parseInt(ic.substring(4, 6));
+            
+            // Convert 2-digit year to 4-digit year
+            const currentYear = new Date().getFullYear();
+            const currentCentury = Math.floor(currentYear / 100) * 100;
+            const cutoffYear = currentYear - currentCentury + 10;
+            
+            let fullYear;
+            if (year <= cutoffYear) {
+                fullYear = currentCentury + year;
+            } else {
+                fullYear = currentCentury - 100 + year;
+            }
+            
+            if (month < 1 || month > 12) {
+                input.classList.add('is-invalid');
+                messageDiv.textContent = 'Bulan tidak sah dalam nombor kad pengenalan.';
+                return;
+            }
+            
+            if (day < 1 || day > 31) {
+                input.classList.add('is-invalid');
+                messageDiv.textContent = 'Hari tidak sah dalam nombor kad pengenalan.';
+                return;
+            }
+            
+            // Check if date is valid
+            const testDate = new Date(fullYear, month - 1, day);
+            if (testDate.getFullYear() !== fullYear || 
+                testDate.getMonth() !== month - 1 || 
+                testDate.getDate() !== day) {
+                input.classList.add('is-invalid');
+                messageDiv.textContent = 'Tarikh tidak sah dalam nombor kad pengenalan.';
+                return;
+            }
+            
+            // Validate birth place code
+            const birthPlace = ic.substring(6, 8);
+            if (!isValidBirthPlace(birthPlace)) {
+                input.classList.add('is-invalid');
+                messageDiv.textContent = 'Kod tempat lahir tidak sah dalam nombor kad pengenalan.';
+                return;
+            }
+            
+            // If all validations pass
+            input.classList.add('is-valid');
+            messageDiv.textContent = '';
+        }
+        
+        function isValidBirthPlace(birthPlace) {
+            const validCodes = [
+                '01', '02', '03', '04', '05', '06', '07', '08', '09', '10',
+                '11', '12', '13', '14', '15', '16', '21', '22', '23', '24',
+                '25', '26', '27', '28', '29', '30', '31', '32', '33', '34',
+                '35', '36', '37', '38', '39', '40', '41', '42', '43', '44',
+                '45', '46', '47', '48', '49', '50', '51', '52', '53', '54',
+                '55', '56', '57', '58', '59', '82', '83'
+            ];
+            return validCodes.includes(birthPlace);
         }
     </script>
 @endsection

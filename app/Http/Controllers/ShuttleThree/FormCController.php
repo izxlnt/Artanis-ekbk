@@ -21,8 +21,13 @@ class FormCController extends Controller
 {
     public $jumlah_besar_baki_stok_bulan_lepas;
 
-    public function shuttle_3_formCKKB($bulan_id)
+    public function shuttle_3_formCKKB($bulan_id, $year = null)
     {
+        // Default to current year if not provided
+        if (!$year) {
+            $year = date('Y');
+        }
+        
         $shuttle_type = auth()->user()->shuttle->shuttle_type;
         $recovery_rate = RecoveryRate::where('shuttle_type', $shuttle_type)->first();
         $min_recovery_rate = $recovery_rate->min_recovery_rate;
@@ -35,11 +40,11 @@ class FormCController extends Controller
         $kumpulan_kayu = KumpulanKayu::where('id', $kayu_id)->get();
 
         $kilang_info = Shuttle::where('id', auth()->user()->shuttle_id)->first();
-        $formc = ModelsFormC::where('shuttle_id', auth()->user()->shuttle_id)->where('bulan', $bulan_id)->whereYear('created_at', date("Y"))->first();
+        $formc = ModelsFormC::where('shuttle_id', auth()->user()->shuttle_id)->where('bulan', $bulan_id)->whereYear('created_at', $year)->first();
 
         if ($bulan_id != 1) {
             $lastmonth = $bulan_id - 1; //create
-            $lastMonthformc = ModelsFormC::where('shuttle_id', auth()->user()->shuttle_id)->where('bulan', $lastmonth)->whereYear('created_at', date("Y"))->first();
+            $lastMonthformc = ModelsFormC::where('shuttle_id', auth()->user()->shuttle_id)->where('bulan', $lastmonth)->whereYear('created_at', $year)->first();
 
             $kemasukan_bahans_lastmonth = KemasukanBahan::with('spesis_id')
                 ->whereHas('spesis_id', function ($q) use ($kayu_id) {
@@ -205,7 +210,7 @@ class FormCController extends Controller
         ];
 
         // dd($returnArr);
-        return view('admins.shuttle-three.FormC.shuttle-3-formC-KKB', $returnArr);
+        return view('admins.shuttle-three.FormC.shuttle-3-formC-KKB', $returnArr, compact('year'));
     }
 
     public function store_kkb(Request $request, $bulan_id)
@@ -336,8 +341,13 @@ class FormCController extends Controller
 
 
     // KKS PAGE 2
-    public function shuttle_3_formCKKS($bulan_id)
+    public function shuttle_3_formCKKS($bulan_id, $year = null)
     {
+        // Default to current year if not provided
+        if (!$year) {
+            $year = date('Y');
+        }
+        
         $shuttle_type = auth()->user()->shuttle->shuttle_type;
         $recovery_rate = RecoveryRate::where('shuttle_type', $shuttle_type)->first();
         $min_recovery_rate = $recovery_rate->min_recovery_rate;
@@ -350,11 +360,11 @@ class FormCController extends Controller
         $kumpulan_kayu = KumpulanKayu::where('id', $kayu_id)->get();
 
         $kilang_info = Shuttle::where('id', auth()->user()->shuttle_id)->first();
-        $formc = ModelsFormC::where('shuttle_id', auth()->user()->shuttle_id)->where('bulan', $bulan_id)->whereYear('created_at', date("Y"))->first();
+        $formc = ModelsFormC::where('shuttle_id', auth()->user()->shuttle_id)->where('bulan', $bulan_id)->whereYear('created_at', $year)->first();
 
         if ($bulan_id != 1) {
             $lastmonth = $bulan_id - 1; //create
-            $lastMonthformc = ModelsFormC::where('shuttle_id', auth()->user()->shuttle_id)->where('bulan', $lastmonth)->whereYear('created_at', date("Y"))->first();
+            $lastMonthformc = ModelsFormC::where('shuttle_id', auth()->user()->shuttle_id)->where('bulan', $lastmonth)->whereYear('created_at', $year)->first();
 
             $kemasukan_bahans_lastmonth = KemasukanBahan::with('spesis_id')
                 ->whereHas('spesis_id', function ($q) use ($kayu_id) {
@@ -520,7 +530,7 @@ class FormCController extends Controller
         ];
 
         // dd($returnArr);
-        return view('admins.shuttle-three.FormC.shuttle-3-formC-KKS', $returnArr);
+        return view('admins.shuttle-three.FormC.shuttle-3-formC-KKS', $returnArr, compact('year'));
     }
 
     public function store_kks(Request $request, $bulan_id)

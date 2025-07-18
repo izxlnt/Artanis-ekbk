@@ -77,17 +77,17 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <a type="button " href="{{ route('user.shuttle-3-senaraiA', date('Y')) }}"
+                                        <a type="button " href="{{ route('user.shuttle-3-senaraiA', $year) }}"
                                             class="btn"
                                             style="background-color:white;color:black;border-color:black">Borang 3A</a>
-                                        <a type="button" href="{{ route('user.shuttle-3-senaraiB', date('Y')) }}"
+                                        <a type="button" href="{{ route('user.shuttle-3-senaraiB', $year) }}"
                                             class="btn"
                                             style="background-color:white;color:black;border-color:#e72cc8f3">Borang 3B</a>
-                                        <a type="button" href="{{ route('user.shuttle-3-senaraiC', date('Y')) }}"
+                                        <a type="button" href="{{ route('user.shuttle-3-senaraiC', $year) }}"
                                             class="btn"
                                             style="background-color:#f3e741f3;color:black;border-color:#f3e741f3">Borang
                                             3C</a>
-                                        <a type="button" href="{{ route('user.shuttle-3-senaraiD', date('Y')) }}"
+                                        <a type="button" href="{{ route('user.shuttle-3-senaraiD', $year) }}"
                                             class="btn"
                                             style="background-color:white;color:black;border-color:#1b9e21f3">Borang 3D</a>
                                     </div>
@@ -133,7 +133,7 @@
                                                             $tarikh_tutup_terkini = date('Y-m-d', strtotime($delay, $time));
                                                         @endphp
                                                         @if (date('Y-m-d') >= $data->tarikh_buka_borang && date('Y-m-d') <= $tarikh_tutup_terkini)
-                                                            <a href="{{ route('user.shuttle-3-formC.KKB', $id = 1) }}"
+                                                            <a href="{{ route('user.shuttle-3-formC.KKB', [1, $year]) }}"
                                                                 data-toggle="tooltip" data-placement="bottom"
                                                                 title="Borang belum diisi">
                                                                 <img src="{{ asset('circle_times.png') }}" height='30px'
@@ -990,10 +990,39 @@
     </div>
     <script>
         function changePage() {
-
             var year = $("#select_year").val();
-
             window.location.href = "<?php echo URL::to('/pengguna/shuttle-3-senaraiC/" + year +"'); ?>";
+        }
+        
+        // Update all form links when page loads
+        $(document).ready(function() {
+            updateFormLinks();
+        });
+        
+        function updateFormLinks() {
+            var currentYear = {{ $year }};
+            
+            // Update all KKB form links
+            $('a[href*="shuttle-3-formC/KKB"]').each(function() {
+                var href = $(this).attr('href');
+                var monthMatch = href.match(/KKB\/(\d+)/);
+                if (monthMatch) {
+                    var month = monthMatch[1];
+                    var newHref = '/pengguna/shuttle-3-formC/KKB/' + month + '/' + currentYear;
+                    $(this).attr('href', newHref);
+                }
+            });
+            
+            // Update all KKS form links
+            $('a[href*="shuttle-3-formC/KKS"]').each(function() {
+                var href = $(this).attr('href');
+                var monthMatch = href.match(/KKS\/(\d+)/);
+                if (monthMatch) {
+                    var month = monthMatch[1];
+                    var newHref = '/pengguna/shuttle-3-formC/KKS/' + month + '/' + currentYear;
+                    $(this).attr('href', newHref);
+                }
+            });
         }
     </script>
 

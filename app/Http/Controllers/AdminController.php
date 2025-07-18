@@ -88,103 +88,282 @@ class AdminController extends Controller{
 
     public function update_profile_ipjpsm(Request $request)
     {
-
-        // Validate change password form
-        // $this->validator($request->all())->validate();
-
         $user = User::findOrFail(Auth::user()->id);
-        // dd($user);
+        $oldEmail = $user->email;
 
+        // Validate email with unique check across all tables
+        $request->validate([
+            'email' => [
+                'required',
+                'email',
+                new \App\Rules\UniqueEmailAcrossAllTables($user->id)
+            ]
+        ]);
 
+        // Update user fields
         $user->email = $request->email;
-
-        $user->jawatan= $request->jawatan;
-
-
-
+        $user->jawatan = $request->jawatan;
+        
+        // Update updated_at timestamp
+        $user->updated_at = now();
+        
         $user->save();
 
-        return redirect()->back()->with("success", "Berjaya kemaskini profil.");
+        // Update related PenggunaKilang email if it exists and matches the old email
+        if ($user->pengguna_kilang_id) {
+            $penggunaKilang = \App\Models\PenggunaKilang::find($user->pengguna_kilang_id);
+            if ($penggunaKilang && $penggunaKilang->email === $oldEmail) {
+                $penggunaKilang->email = $request->email;
+                $penggunaKilang->updated_at = now();
+                $penggunaKilang->save();
+            }
+        }
+
+        // Update related Shuttle email if it exists and matches the old email
+        if ($user->shuttle_id) {
+            $shuttle = \App\Models\Shuttle::find($user->shuttle_id);
+            if ($shuttle && $shuttle->email === $oldEmail) {
+                $shuttle->email = $request->email;
+                $shuttle->updated_at = now();
+                $shuttle->save();
+            }
+        }
+
+        return redirect()->back()->with("success", "Profil dan emel berkaitan berjaya dikemaskini.");
     }
 
     public function update_emel_kilang(Request $request, $id)
     {
-        $user = User::findOrFail($id);
+        $user = User::with(['pengguna_kilang', 'shuttle'])->findOrFail($id);
+        $oldEmail = $user->getCurrentEmail(); // Get the current email from the appropriate table
 
-        // dd($user);
+        // Validate email with unique check across all tables
+        $request->validate([
+            'email' => [
+                'required',
+                'email',
+                new \App\Rules\UniqueEmailAcrossAllTables($user->id)
+            ]
+        ]);
+
+        // Update the user's email
         $user->email = $request->email;
-
+        
+        // Update updated_at timestamp
+        $user->updated_at = now();
+        
         $user->save();
 
+        // Update related PenggunaKilang email if it exists
+        if ($user->pengguna_kilang_id) {
+            $penggunaKilang = \App\Models\PenggunaKilang::find($user->pengguna_kilang_id);
+            if ($penggunaKilang) {
+                $penggunaKilang->email = $request->email;
+                $penggunaKilang->updated_at = now();
+                $penggunaKilang->save();
+            }
+        }
 
+        // Update related Shuttle email if it exists
+        if ($user->shuttle_id) {
+            $shuttle = \App\Models\Shuttle::find($user->shuttle_id);
+            if ($shuttle) {
+                $shuttle->email = $request->email;
+                $shuttle->updated_at = now();
+                $shuttle->save();
+            }
+        }
 
-        $user->save();
-
-        return redirect()->back()->with("success", "Emel pengguna berjaya dikemaskini.");
+        return redirect()->back()->with("success", "Emel pengguna dan maklumat berkaitan berjaya dikemaskini.");
     }
 
     public function update_emel_phd(Request $request, $id)
     {
-        $user = User::findOrFail($id);
+        $user = User::with(['pengguna_kilang', 'shuttle'])->findOrFail($id);
+        $oldEmail = $user->getCurrentEmail(); // Get the current email from the appropriate table
 
-        // dd($request->all());
+        // Validate email with unique check across all tables
+        $request->validate([
+            'email' => [
+                'required',
+                'email',
+                new \App\Rules\UniqueEmailAcrossAllTables($user->id)
+            ]
+        ]);
 
         $negeri_name= Daerah::where('id',$request->negeri_id)->first('negeri');
         $daerah_name= Daerah::where('id',$request->daerah_id)->first('daerah_hutan');
 
-        // dd($daerah_name);
+        // Update user fields
         $user->email = $request->email;
         $user->daerah = $daerah_name->daerah_hutan;
         $user->negeri = $negeri_name->negeri;
-
+        
+        // Update updated_at timestamp
+        $user->updated_at = now();
+        
         $user->save();
 
+        // Update related PenggunaKilang email if it exists
+        if ($user->pengguna_kilang_id) {
+            $penggunaKilang = \App\Models\PenggunaKilang::find($user->pengguna_kilang_id);
+            if ($penggunaKilang) {
+                $penggunaKilang->email = $request->email;
+                $penggunaKilang->updated_at = now();
+                $penggunaKilang->save();
+            }
+        }
 
+        // Update related Shuttle email if it exists
+        if ($user->shuttle_id) {
+            $shuttle = \App\Models\Shuttle::find($user->shuttle_id);
+            if ($shuttle) {
+                $shuttle->email = $request->email;
+                $shuttle->updated_at = now();
+                $shuttle->save();
+            }
+        }
 
-        $user->save();
-
-        return redirect()->back()->with("success", "Maklumat pengguna berjaya dikemaskini.");
+        return redirect()->back()->with("success", "Maklumat pengguna dan emel berkaitan berjaya dikemaskini.");
     }
 
 
     public function update_emel_jpn(Request $request, $id)
     {
-        $user = User::findOrFail($id);
+        $user = User::with(['pengguna_kilang', 'shuttle'])->findOrFail($id);
+        $oldEmail = $user->getCurrentEmail(); // Get the current email from the appropriate table
 
-        // dd($user);
+        // Validate email with unique check across all tables
+        $request->validate([
+            'email' => [
+                'required',
+                'email',
+                new \App\Rules\UniqueEmailAcrossAllTables($user->id)
+            ]
+        ]);
+
         $negeri_name= Daerah::where('id',$request->negeri_id)->first('negeri');
 
+        // Update user fields
         $user->email = $request->email;
         $user->negeri = $negeri_name->negeri;
+        
+        // Update updated_at timestamp
+        $user->updated_at = now();
+        
         $user->save();
 
-        return redirect()->back()->with("success", "Maklumat pengguna berjaya dikemaskini.");
+        // Update related PenggunaKilang email if it exists
+        if ($user->pengguna_kilang_id) {
+            $penggunaKilang = \App\Models\PenggunaKilang::find($user->pengguna_kilang_id);
+            if ($penggunaKilang) {
+                $penggunaKilang->email = $request->email;
+                $penggunaKilang->updated_at = now();
+                $penggunaKilang->save();
+            }
+        }
+
+        // Update related Shuttle email if it exists
+        if ($user->shuttle_id) {
+            $shuttle = \App\Models\Shuttle::find($user->shuttle_id);
+            if ($shuttle) {
+                $shuttle->email = $request->email;
+                $shuttle->updated_at = now();
+                $shuttle->save();
+            }
+        }
+
+        return redirect()->back()->with("success", "Maklumat pengguna dan emel berkaitan berjaya dikemaskini.");
     }
 
     public function update_emel_pengguna(Request $request, $id)
     {
-        $user = User::findOrFail($id);
+        $user = User::with(['pengguna_kilang', 'shuttle'])->findOrFail($id);
+        $oldEmail = $user->getCurrentEmail(); // Get the current email from the appropriate table
 
-        // dd($user);
+        // Validate email with unique check across all tables
+        $request->validate([
+            'email' => [
+                'required',
+                'email',
+                new \App\Rules\UniqueEmailAcrossAllTables($user->id)
+            ]
+        ]);
+
+        // Update user email
         $user->email = $request->email;
-
+        
+        // Update updated_at timestamp
+        $user->updated_at = now();
+        
         $user->save();
 
+        // Update related PenggunaKilang email if it exists
+        if ($user->pengguna_kilang_id) {
+            $penggunaKilang = \App\Models\PenggunaKilang::find($user->pengguna_kilang_id);
+            if ($penggunaKilang) {
+                $penggunaKilang->email = $request->email;
+                $penggunaKilang->updated_at = now();
+                $penggunaKilang->save();
+            }
+        }
 
-        return redirect()->back()->with("success", "Maklumat pengguna berjaya dikemaskini.");
+        // Update related Shuttle email if it exists
+        if ($user->shuttle_id) {
+            $shuttle = \App\Models\Shuttle::find($user->shuttle_id);
+            if ($shuttle) {
+                $shuttle->email = $request->email;
+                $shuttle->updated_at = now();
+                $shuttle->save();
+            }
+        }
+
+        return redirect()->back()->with("success", "Maklumat pengguna dan emel berkaitan berjaya dikemaskini.");
     }
 
     public function update_emel_ipjpsm(Request $request, $id)
     {
-        $user = User::findOrFail($id);
+        $user = User::with(['pengguna_kilang', 'shuttle'])->findOrFail($id);
+        $oldEmail = $user->getCurrentEmail(); // Get the current email from the appropriate table
 
-        // dd($user);
+        // Validate email with unique check across all tables
+        $request->validate([
+            'email' => [
+                'required',
+                'email',
+                new \App\Rules\UniqueEmailAcrossAllTables($user->id)
+            ]
+        ]);
+
+        // Update user email
         $user->email = $request->email;
-
+        
+        // Update updated_at timestamp
+        $user->updated_at = now();
+        
         $user->save();
 
+        // Update related PenggunaKilang email if it exists
+        if ($user->pengguna_kilang_id) {
+            $penggunaKilang = \App\Models\PenggunaKilang::find($user->pengguna_kilang_id);
+            if ($penggunaKilang) {
+                $penggunaKilang->email = $request->email;
+                $penggunaKilang->updated_at = now();
+                $penggunaKilang->save();
+            }
+        }
 
-        return redirect()->back()->with("success", "Maklumat pengguna berjaya dikemaskini.");
+        // Update related Shuttle email if it exists
+        if ($user->shuttle_id) {
+            $shuttle = \App\Models\Shuttle::find($user->shuttle_id);
+            if ($shuttle) {
+                $shuttle->email = $request->email;
+                $shuttle->updated_at = now();
+                $shuttle->save();
+            }
+        }
+
+        return redirect()->back()->with("success", "Maklumat pengguna dan emel berkaitan berjaya dikemaskini.");
     }
 
     public function update_profile_phd(Request $request)

@@ -257,7 +257,10 @@ class MainController extends Controller
     public function senarai_phd()
     {
 
-        $users = User::where('kategori_pengguna', 'PHD')->where('is_approved_ipjpsm', 1)->get();
+        $users = User::with(['pengguna_kilang', 'shuttle'])
+            ->where('kategori_pengguna', 'PHD')
+            ->where('is_approved_ipjpsm', 1)
+            ->get();
         // dd($users);
 
         $breadcrumbs    = [
@@ -286,7 +289,10 @@ class MainController extends Controller
     public function senarai_ipjpsm()
     {
 
-        $users = User::where('kategori_pengguna', 'BPE')->where('is_approved_ipjpsm', 1)->get();
+        $users = User::with(['pengguna_kilang', 'shuttle'])
+            ->where('kategori_pengguna', 'BPE')
+            ->where('is_approved_ipjpsm', 1)
+            ->get();
         // dd($users);
 
         if (auth()->user()->kategori_pengguna == "BPE") {
@@ -314,7 +320,10 @@ class MainController extends Controller
     public function senarai_jpn()
     {
 
-        $users = User::where('kategori_pengguna', 'JPN')->where('is_approved_ipjpsm', 1)->get();
+        $users = User::with(['pengguna_kilang', 'shuttle'])
+            ->where('kategori_pengguna', 'JPN')
+            ->where('is_approved_ipjpsm', 1)
+            ->get();
         // dd($users);
 
         if (auth()->user()->kategori_pengguna == "BPE") {
@@ -342,7 +351,10 @@ class MainController extends Controller
     public function senarai_bpm()
     {
 
-        $users = User::where('kategori_pengguna', 'BPM')->where('is_approved_ipjpsm', 1)->get();
+        $users = User::with(['pengguna_kilang', 'shuttle'])
+            ->where('kategori_pengguna', 'BPM')
+            ->where('is_approved_ipjpsm', 1)
+            ->get();
         // dd($users);
 
         if (auth()->user()->kategori_pengguna == "BPE") {
@@ -437,7 +449,11 @@ class MainController extends Controller
     public function senarai_kilang3()
     {
 
-        $users = User::with('shuttle')->where('kategori_pengguna', 'IBK')->where('shuttle_type', 3)->where('is_approved', 1)->where('pengguna_kilang_id', NULL)->get();
+        $users = User::with(['shuttle', 'pengguna_kilang'])
+            ->where('kategori_pengguna', 'IBK')
+            ->where('shuttle_type', 3)
+            ->where('is_approved', 1)
+            ->get();
         // dd($users);
 
         $breadcrumbs    = [

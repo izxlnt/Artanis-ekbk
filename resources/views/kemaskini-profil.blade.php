@@ -2,6 +2,7 @@
 
 @section('content')
 
+<meta name="csrf-token" content="{{ csrf_token() }}">
 
 <!-- ============================================================== -->
 <!-- Container fluid  -->
@@ -125,12 +126,7 @@
                     <div class="col-md">
                         <label>Jantina</label>
                         <div class="mb-3 input-group">
-                            <input readonly class="form-control  @error('email') is-invalid @else border-dark @enderror" id="email" name="jantina" type="email" value="{{ $pengguna->jantina }}" oninput="let p=this.selectionStart;this.value=this.value.toUpperCase();this.setSelectionRange(p, p);">
-                          @error('email')
-                          <span class="invalid-feedback" role="alert">
-                                  <strong>{{ $message }}</strong>
-                          </span>
-                          @enderror
+                            <input readonly class="form-control border-dark" id="jantina" name="jantina" type="text" value="{{ $pengguna->jantina }}" oninput="let p=this.selectionStart;this.value=this.value.toUpperCase();this.setSelectionRange(p, p);">
                         </div>
                     </div>
 
@@ -142,12 +138,7 @@
                     <div class="col-md">
                         <label>Warganegara</label>
                         <div class="mb-3 input-group">
-                            <input readonly class="form-control  @error('email') is-invalid @else border-dark @enderror" id="email" name="email" type="email" value="{{ $pengguna->warganegara }}" oninput="let p=this.selectionStart;this.value=this.value.toUpperCase();this.setSelectionRange(p, p);">
-                          @error('email')
-                          <span class="invalid-feedback" role="alert">
-                                  <strong>{{ $message }}</strong>
-                          </span>
-                          @enderror
+                            <input readonly class="form-control border-dark" id="warganegara" name="warganegara" type="text" value="{{ $pengguna->warganegara }}" oninput="let p=this.selectionStart;this.value=this.value.toUpperCase();this.setSelectionRange(p, p);">
                         </div>
                     </div>
 
@@ -159,12 +150,7 @@
                     <div class="col-md">
                         <label>Kaum</label>
                         <div class="mb-3 input-group">
-                            <input readonly class="form-control  @error('email') is-invalid @else border-dark @enderror" id="email" name="email" type="email" value="{{ $pengguna->kaum }}" oninput="let p=this.selectionStart;this.value=this.value.toUpperCase();this.setSelectionRange(p, p);">
-                          @error('email')
-                          <span class="invalid-feedback" role="alert">
-                                  <strong>{{ $message }}</strong>
-                          </span>
-                          @enderror
+                            <input readonly class="form-control border-dark" id="kaum" name="kaum" type="text" value="{{ $pengguna->kaum }}" oninput="let p=this.selectionStart;this.value=this.value.toUpperCase();this.setSelectionRange(p, p);">
                         </div>
                     </div>
 
@@ -193,7 +179,9 @@
                     <div class="col-md">
                         <label>Emel</label>
                         <div class="mb-3 input-group">
-                            <input class="form-control  @error('email') is-invalid @else border-dark @enderror" id="email" name="email" type="email" value="{{ $pengguna->email }}" >
+                            <input class="form-control  @error('email') is-invalid @else border-dark @enderror" id="email" name="email" type="email" value="{{ $user->getCurrentEmail() }}"
+                                   oninput="validateEmail(this)">
+                            <div id="email-validation-message" class="invalid-feedback"></div>
                           @error('email')
                           <span class="invalid-feedback" role="alert">
                                   <strong>{{ $message }}</strong>
@@ -385,6 +373,50 @@
         if (ASCIICode > 31 && (ASCIICode < 48 || ASCIICode > 57))
             return false;
         return true;
+  }
+
+  function validateEmail(input) {
+      const email = input.value;
+      const messageDiv = document.getElementById('email-validation-message');
+
+      // Clear previous validation
+      input.classList.remove('is-invalid', 'is-valid');
+      messageDiv.textContent = '';
+
+      if (!email) {
+          return;
+      }
+
+      // Basic email format validation
+      const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailPattern.test(email)) {
+          input.classList.add('is-invalid');
+          messageDiv.textContent = 'Format emel tidak sah.';
+          return;
+      }
+
+      // Check email uniqueness via AJAX
+      fetch('/email/check-unique', {
+          method: 'POST',
+          headers: {
+              'Content-Type': 'application/json',
+              'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+          },
+          body: JSON.stringify({ email: email })
+      })
+      .then(response => response.json())
+      .then(data => {
+          if (data.unique) {
+              input.classList.add('is-valid');
+              messageDiv.textContent = '';
+          } else {
+              input.classList.add('is-invalid');
+              messageDiv.textContent = 'Emel ini telah digunakan.';
+          }
+      })
+      .catch(error => {
+          console.error('Error checking email:', error);
+      });
   }
 </script>
 @endsection

@@ -376,10 +376,15 @@ class MainController extends Controller
 
     // SHUTTLE 3 FORM C
 
-    public function shuttle_3_formCKKB($id)
+    public function shuttle_3_formCKKB($id, $year = null)
     {
+        // Default to current year if not provided
+        if (!$year) {
+            $year = date('Y');
+        }
+        
         if (auth()->user()->kategori_pengguna == "IBK") {
-            $form_a_checker = FormA::where('tahun', date("Y"))
+            $form_a_checker = FormA::where('tahun', $year)
                 ->where('shuttle_id', auth()->user()->shuttle->id)
                 ->where('status', '!=', 'Tidak Diisi')
                 ->count();
@@ -404,7 +409,7 @@ class MainController extends Controller
 
             // $form_b_checker = FormB::where('shuttle_id', auth()->user()->shuttle_id)
             // ->where('suku_tahun', $suku_tahun)
-            // ->whereYear('created_at', date("Y"))
+            // ->whereYear('created_at', $year)
             // ->where('status', '!=', 'Tidak Diisi')
             // ->count();
 
@@ -416,10 +421,20 @@ class MainController extends Controller
             }else{
                 $buffer = Buffer::where('shuttle', 5)->where('borang', 'C')->first();
             }
-            $early_buffer_date = (int)date('m') - (int)$buffer->delay;
+            
+            // Fix the buffer calculation - early_buffer_date should be the allowed earliest month
+            $current_month = (int)date('m');
+            $buffer_delay = $buffer ? (int)$buffer->delay : 0;
+            $early_buffer_date = $current_month - $buffer_delay;
+            
+            // If early_buffer_date is negative, it means previous year months
+            if ($early_buffer_date <= 0) {
+                $early_buffer_date = 12 + $early_buffer_date; // Convert to previous year month
+            }
+            
             $form_c_checker = FormC::where('shuttle_id', auth()->user()->shuttle_id)
                 ->where('bulan', $lastmonth)
-                ->whereYear('created_at', date("Y"))
+                ->whereYear('created_at', $year)
                 ->where('status', '!=', 'Tidak Diisi')
                 ->count();
 
@@ -427,7 +442,8 @@ class MainController extends Controller
                 return redirect()->back()->with('error', 'Sila isi Borang A terlebih dahulu.');
             }
 
-            if ($id != $early_buffer_date) {
+            // Only check previous month if current month is NOT the first allowed month
+            if ($id != 1 && $id > $early_buffer_date) {
                 if ($form_c_checker == 0) {
                     return redirect()->back()->with('error', 'Sila isi Borang C bulan sebelum ini terlebih dahulu.');
                 }
@@ -438,19 +454,24 @@ class MainController extends Controller
             // }
 
             if ($id == 1) {
-                return redirect()->route('user.view.shuttle-3-formC.KKB', $id);
+                return redirect()->route('user.view.shuttle-3-formC.KKB', [$id, $year]);
             }
 
 
         }
 
-        return redirect()->route('user.view.shuttle-3-formC.KKB', $id);
+        return redirect()->route('user.view.shuttle-3-formC.KKB', [$id, $year]);
     }
 
-    public function shuttle_3_formCKKS($id)
+    public function shuttle_3_formCKKS($id, $year = null)
     {
+        // Default to current year if not provided
+        if (!$year) {
+            $year = date('Y');
+        }
+        
         if (auth()->user()->kategori_pengguna == "IBK") {
-            $form_a_checker = FormA::where('tahun', date("Y"))
+            $form_a_checker = FormA::where('tahun', $year)
                 ->where('shuttle_id', auth()->user()->shuttle->id)
                 ->where('status', '!=', 'Tidak Diisi')
                 ->count();
@@ -467,10 +488,20 @@ class MainController extends Controller
             }else{
                 $buffer = Buffer::where('shuttle', 5)->where('borang', 'C')->first();
             }
-            $early_buffer_date = (int)date('m') - (int)$buffer->delay;
+            
+            // Fix the buffer calculation - early_buffer_date should be the allowed earliest month
+            $current_month = (int)date('m');
+            $buffer_delay = $buffer ? (int)$buffer->delay : 0;
+            $early_buffer_date = $current_month - $buffer_delay;
+            
+            // If early_buffer_date is negative, it means previous year months
+            if ($early_buffer_date <= 0) {
+                $early_buffer_date = 12 + $early_buffer_date; // Convert to previous year month
+            }
+            
             $form_c_checker = FormC::where('shuttle_id', auth()->user()->shuttle_id)
                 ->where('bulan', $lastmonth)
-                ->whereYear('created_at', date("Y"))
+                ->whereYear('created_at', $year)
                 ->where('status', '!=', 'Tidak Diisi')
                 ->count();
 
@@ -479,17 +510,18 @@ class MainController extends Controller
             }
 
             if ($id == 1) {
-                return redirect()->route('user.view.shuttle-3-formC.KKS', $id);
+                return redirect()->route('user.view.shuttle-3-formC.KKS', [$id, $year]);
             }
 
-            if ($id != $early_buffer_date) {
+            // Only check previous month if current month is NOT the first allowed month
+            if ($id != 1 && $id > $early_buffer_date) {
                 if ($form_c_checker == 0) {
                     return redirect()->back()->with('error', 'Sila isi Borang C bulan sebelum ini terlebih dahulu.');
                 }
             }
         }
 
-        return redirect()->route('user.view.shuttle-3-formC.KKS', $id);
+        return redirect()->route('user.view.shuttle-3-formC.KKS', [$id, $year]);
 
     }
 
@@ -1352,14 +1384,17 @@ class MainController extends Controller
 
         //notification hantar borang IBK to PHD
         $pengguna_kilang = auth()->user();
-        $daerah_id = $pengguna_kilang->shuttle()->first('daerah_id');
+        $user_shuttle = $pengguna_kilang->shuttle;
+        $daerah_id = $user_shuttle ? $user_shuttle->daerah_id : null;
 
-        $pegawais = User::where('daerah', $daerah_id->daerah_id)->where('kategori_pengguna', 'PHD')->get();
+        if ($daerah_id) {
+            $pegawais = User::where('daerah', $daerah_id)->where('kategori_pengguna', 'PHD')->get();
 
-        $delay = now()->addMinutes(1);
+            $delay = now()->addMinutes(1);
 
-        foreach ($pegawais as $pegawai) {
-            $pegawai->notify((new BorangDiHantar($pengguna_kilang, $pegawai, $formA_update))->delay($delay));
+            foreach ($pegawais as $pegawai) {
+                $pegawai->notify((new BorangDiHantar($pengguna_kilang, $pegawai, $formA_update))->delay($delay));
+            }
         }
 
         return redirect()->route('home-user')->with('success', 'Maklumat berjaya dimasukkan. Sila tunggu untuk pengesahan PHD.');

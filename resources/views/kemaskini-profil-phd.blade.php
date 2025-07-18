@@ -2,6 +2,7 @@
 
 @section('content')
 
+<meta name="csrf-token" content="{{ csrf_token() }}">
 
 <!-- ============================================================== -->
 <!-- Container fluid  -->
@@ -150,7 +151,9 @@
                     <div class="col-md">
                         <label>Emel</label>
                         <div class="mb-3 input-group">
-                            <input  class="form-control @error('email') is-invalid @else border-dark @enderror" id="email" name="email" type="email" value="{{ $user->email }}" >
+                            <input  class="form-control @error('email') is-invalid @else border-dark @enderror" id="email" name="email" type="email" value="{{ $user->email }}" 
+                                    oninput="validateEmail(this)">
+                            <div id="email-validation-message" class="invalid-feedback"></div>
                           @error('email')
                           <span class="invalid-feedback" role="alert">
                                   <strong>{{ $message }}</strong>
@@ -239,6 +242,50 @@
         if (ASCIICode > 31 && (ASCIICode < 48 || ASCIICode > 57))
             return false;
         return true;
+  }
+  
+  function validateEmail(input) {
+      const email = input.value;
+      const messageDiv = document.getElementById('email-validation-message');
+      
+      // Clear previous validation
+      input.classList.remove('is-invalid', 'is-valid');
+      messageDiv.textContent = '';
+      
+      if (!email) {
+          return;
+      }
+      
+      // Basic email format validation
+      const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailPattern.test(email)) {
+          input.classList.add('is-invalid');
+          messageDiv.textContent = 'Format emel tidak sah.';
+          return;
+      }
+      
+      // Check email uniqueness via AJAX
+      fetch('/email/check-unique', {
+          method: 'POST',
+          headers: {
+              'Content-Type': 'application/json',
+              'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+          },
+          body: JSON.stringify({ email: email })
+      })
+      .then(response => response.json())
+      .then(data => {
+          if (data.unique) {
+              input.classList.add('is-valid');
+              messageDiv.textContent = '';
+          } else {
+              input.classList.add('is-invalid');
+              messageDiv.textContent = 'Emel ini telah digunakan.';
+          }
+      })
+      .catch(error => {
+          console.error('Error checking email:', error);
+      });
   }
 </script>
 @endsection

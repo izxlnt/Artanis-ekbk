@@ -152,7 +152,7 @@
                                                                 <label><b>Tahun:</b></label>
                                                                 <input type="text" class="form-control"
                                                                     style="background-color: #f0e10dbd; border-color: #a79c09"
-                                                                    value="{{ $kilang_info->tahun }}" readonly />
+                                                                    value="{{ $year ?? $kilang_info->tahun }}" readonly />
                                                             </div>
                                                             <div class="col-md-2">
                                                                 <label><b>Bulan:</b></label>

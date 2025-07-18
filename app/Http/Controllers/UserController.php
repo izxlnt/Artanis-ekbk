@@ -23,11 +23,12 @@ use App\Models\Spesis;
 use App\Models\UlasanIpjpsm;
 use App\Models\UlasanPhd;
 use App\Models\User;
+use App\Rules\UniqueEmailAcrossAllTables;
+use App\Rules\MalaysianIC;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
-use Auth;
-use Illuminate\Support\Facades\Auth as FacadesAuth;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
@@ -1291,7 +1292,7 @@ class UserController extends Controller
             ->where('tahun', date("Y"))->where('shuttle_id', auth()->user()->shuttle_id)->get();
         $form5E_count = $count_form5E->count();
 
-        $user_daerah= FacadesAuth::user()->shuttle->daerah_id;
+        $user_daerah= Auth::user()->shuttle->daerah_id;
         // dd($user);
 
         $pengumumantest=Pengumuman::where('daerah_hutan',$user_daerah)->first();
@@ -1455,8 +1456,8 @@ class UserController extends Controller
             'jantina' => ['required', 'string', 'max:255'],
             'warganegara' => ['required', 'string', 'max:255'],
             'kaum' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'no_kad_pengenalan' => ['required', 'string', 'max:255', 'unique:pengguna_kilangs'],
+            'email' => ['required', 'string', 'email', 'max:255', new UniqueEmailAcrossAllTables()],
+            'no_kad_pengenalan' => ['required', 'string', 'max:12', new MalaysianIC, 'unique:pengguna_kilangs'],
 
             'gambar_ic_hadapan' => 'required|image|mimes:jpg,png,jpeg',
             'gambar_ic_belakang' => 'required|image|mimes:jpg,png,jpeg',
@@ -2458,32 +2459,33 @@ $pengumumantest=PengumumanIpjpsm::where('negeri',$user_pengumuman->negeri)->firs
 
     public function update_profile(Request $request)
     {
+        $user = User::with(['pengguna_kilang', 'shuttle'])->findOrFail(Auth::user()->id);
+        $oldEmail = $user->getCurrentEmail(); // Get the current email from the appropriate table
 
-        // Validate change password form
-        // $this->validator($request->all())->validate();
-
-        $user = User::findOrFail(Auth::user()->id);
-
+        // Only validate email if it's being updated
+        if ($request->has('email') && $request->email !== $oldEmail) {
+            $request->validate([
+                'email' => [
+                    'required',
+                    'email',
+                    new \App\Rules\UniqueEmailAcrossAllTables($user->id)
+                ]
+            ]);
+        }
 
         $info = Shuttle::where('id', $user->shuttle_id)->first();
-
         $pengguna = PenggunaKilang::where('shuttle_id', $info->id)->first();
 
         if ($request->has('gambar_ic_hadapan')) {
-
             $gambar_ic_hadapan = $request->file('gambar_ic_hadapan')->store('public/uploads/') ?? 0;
-            // dd($gambar_ic_hadapan);
             $pengguna->gambar_ic_hadapan  = $gambar_ic_hadapan;
         } else if ($request->has('gambar_ic_belakang')) {
-            // dd('masuk lsen');
             $gambar_ic_belakang = $request->file('gambar_ic_belakang')->store('public/uploads/');
             $pengguna->gambar_ic_belakang  = $gambar_ic_belakang;
         } else if ($request->has('gambar_passport')) {
-            // dd('masuk lsen');
             $gambar_passport = $request->file('gambar_passport')->store('public/uploads/');
             $pengguna->gambar_passport  = $gambar_passport;
         } else if ($request->has('lesen_kilang') && $request->has('sijil_ssm')) {
-            // dd('masuk lsen');
             $gambar_ic_hadapan = $request->file('lesen_kilang')->store('public/uploads/');
             $pengguna->gambar_ic_hadapan  = $gambar_ic_hadapan;
 
@@ -2494,23 +2496,44 @@ $pengumumantest=PengumumanIpjpsm::where('negeri',$user_pengumuman->negeri)->firs
             $pengguna->gambar_passport  = $gambar_passport;
         }
 
-        $pengguna->email = $request->email;
+        // Update email in all related tables only if email was provided and changed
+        if ($request->has('email') && $request->email !== $oldEmail) {
+            $pengguna->email = $request->email;
+            
+            // Update the user's email
+            $user->email = $request->email;
+            $user->updated_at = now();
 
-        $pengguna->jawatan = $request->jawatan;
+            // Update related Shuttle email if it exists
+            if ($user->shuttle_id) {
+                $shuttle = \App\Models\Shuttle::find($user->shuttle_id);
+                if ($shuttle) {
+                    $shuttle->email = $request->email;
+                    $shuttle->updated_at = now();
+                    $shuttle->save();
+                }
+            }
+        }
 
-        $pengguna->no_pekerja = $request->no_pekerja;
+        // Update other editable fields
+        if ($request->has('jawatan')) {
+            $pengguna->jawatan = $request->jawatan;
+        }
+
+        if ($request->has('no_pekerja')) {
+            $pengguna->no_pekerja = $request->no_pekerja;
+        }
 
         $user->save();
         $pengguna->save();
-
 
         return redirect()->back()->with("success", "Berjaya kemaskini profil.");
     }
 
     public function update_profile_pengguna()
     {
-        // return redirect()->back()->withInput();
-        $user = auth()->user();
+        // Load user with relationships to support getCurrentEmail() method
+        $user = User::with(['pengguna_kilang', 'shuttle'])->findOrFail(auth()->user()->id);
 
         $info = Shuttle::where('id', $user->shuttle_id)->first();
 
@@ -2778,7 +2801,24 @@ $pengumumantest=PengumumanIpjpsm::where('negeri',$user_pengumuman->negeri)->firs
         $user = auth()->user();
         $shuttle = Shuttle::where('id', $user->shuttle_id)->first();
         $list = FormC::where('shuttle_id', $shuttle->id)->where('tahun', $year)->get();
+        
+        // Get years where data exists, but filter by registration date
         $year_list = FormC::where('shuttle_id', $shuttle->id)->distinct()->orderBy('tahun')->get('tahun');
+        
+        // Filter out years before registration if shuttle has registration date
+        if ($shuttle && $shuttle->created_at) {
+            $registrationYear = date('Y', strtotime($shuttle->created_at));
+            $year_list = $year_list->filter(function($item) use ($registrationYear) {
+                return $item->tahun >= $registrationYear;
+            });
+        }
+        
+        // If no data exists but shuttle is registered, show current year
+        if ($year_list->isEmpty()) {
+            $currentYear = date('Y');
+            $year_list = collect();
+            $year_list->push((object)['tahun' => $currentYear]);
+        }
 
         $buffer = Buffer::where('shuttle', auth()->user()->shuttle->shuttle_type)->where('borang', 'C')->first();
 
@@ -2802,7 +2842,24 @@ $pengumumantest=PengumumanIpjpsm::where('negeri',$user_pengumuman->negeri)->firs
         $user = auth()->user();
         $shuttle = Shuttle::where('id', $user->shuttle_id)->first();
         $list = FormD::where('shuttle_id', $shuttle->id)->where('tahun', $year)->get();
+        
+        // Get years where data exists, but filter by registration date
         $year_list = FormD::where('shuttle_id', $shuttle->id)->distinct()->orderBy('tahun')->get('tahun');
+        
+        // Filter out years before registration if shuttle has registration date
+        if ($shuttle && $shuttle->created_at) {
+            $registrationYear = date('Y', strtotime($shuttle->created_at));
+            $year_list = $year_list->filter(function($item) use ($registrationYear) {
+                return $item->tahun >= $registrationYear;
+            });
+        }
+        
+        // If no data exists but shuttle is registered, show current year
+        if ($year_list->isEmpty()) {
+            $currentYear = date('Y');
+            $year_list = collect();
+            $year_list->push((object)['tahun' => $currentYear]);
+        }
 
         $buffer = Buffer::where('shuttle', auth()->user()->shuttle->shuttle_type)->where('borang', 'D')->first();
 
@@ -2921,7 +2978,21 @@ $pengumumantest=PengumumanIpjpsm::where('negeri',$user_pengumuman->negeri)->firs
 
         $shuttle = Shuttle::where('id', $user->shuttle_id)->first();
         $list = FormC::where('shuttle_id', $shuttle->id)->where('tahun', $year)->get();
-        $year_list = FormC::where('shuttle_id', $shuttle->id)->distinct()->orderBy('tahun')->get('tahun');
+        
+        // Generate year list from 1 year before current year and consider registration date
+        $currentYear = date('Y');
+        $startYear = $currentYear - 1; // 1 year before current year
+        
+        // If shuttle has registration date, use that year if it's earlier
+        if ($shuttle && $shuttle->created_at) {
+            $registrationYear = date('Y', strtotime($shuttle->created_at));
+            $startYear = min($startYear, $registrationYear);
+        }
+        
+        $year_list = collect();
+        for ($i = $startYear; $i <= $currentYear; $i++) {
+            $year_list->push((object)['tahun' => $i]);
+        }
 
         $buffer = Buffer::where('shuttle', auth()->user()->shuttle->shuttle_type)->where('borang', 'c')->where('shuttle', '4')->first();
 
@@ -2946,7 +3017,21 @@ $pengumumantest=PengumumanIpjpsm::where('negeri',$user_pengumuman->negeri)->firs
 
         $shuttle = Shuttle::where('id', $user->shuttle_id)->first();
         $list = Form4D::where('shuttle_id', $shuttle->id)->where('tahun', $year)->get();
-        $year_list = Form4D::where('shuttle_id', $shuttle->id)->distinct()->orderBy('tahun')->get('tahun');
+        
+        // Generate year list from 1 year before current year and consider registration date
+        $currentYear = date('Y');
+        $startYear = $currentYear - 1; // 1 year before current year
+        
+        // If shuttle has registration date, use that year if it's earlier
+        if ($shuttle && $shuttle->created_at) {
+            $registrationYear = date('Y', strtotime($shuttle->created_at));
+            $startYear = min($startYear, $registrationYear);
+        }
+        
+        $year_list = collect();
+        for ($i = $startYear; $i <= $currentYear; $i++) {
+            $year_list->push((object)['tahun' => $i]);
+        }
 
         $buffer = Buffer::where('shuttle', auth()->user()->shuttle->shuttle_type)->where('borang', 'd')->where('shuttle', '4')->first();
 
@@ -2972,7 +3057,21 @@ $pengumumantest=PengumumanIpjpsm::where('negeri',$user_pengumuman->negeri)->firs
 
         $shuttle = Shuttle::where('id', $user->shuttle_id)->first();
         $list = Form4E::where('shuttle_id', $shuttle->id)->where('tahun', $year)->get();
-        $year_list = Form4E::where('shuttle_id', $shuttle->id)->distinct()->orderBy('tahun')->get('tahun');
+        
+        // Generate year list from 1 year before current year and consider registration date
+        $currentYear = date('Y');
+        $startYear = $currentYear - 1; // 1 year before current year
+        
+        // If shuttle has registration date, use that year if it's earlier
+        if ($shuttle && $shuttle->created_at) {
+            $registrationYear = date('Y', strtotime($shuttle->created_at));
+            $startYear = min($startYear, $registrationYear);
+        }
+        
+        $year_list = collect();
+        for ($i = $startYear; $i <= $currentYear; $i++) {
+            $year_list->push((object)['tahun' => $i]);
+        }
 
         $buffer = Buffer::where('shuttle', auth()->user()->shuttle->shuttle_type)->where('borang', 'e')->where('shuttle', '4')->first();
         $breadcrumbs    = [
@@ -3168,7 +3267,21 @@ $pengumumantest=PengumumanIpjpsm::where('negeri',$user_pengumuman->negeri)->firs
 
         $shuttle = Shuttle::where('id', $user->shuttle_id)->first();
         $list = FormC::where('shuttle_id', $shuttle->id)->where('tahun', $year)->get();
-        $year_list = FormC::where('shuttle_id', $shuttle->id)->distinct()->orderBy('tahun')->get('tahun');
+        
+        // Generate year list from 1 year before current year and consider registration date
+        $currentYear = date('Y');
+        $startYear = $currentYear - 1; // 1 year before current year
+        
+        // If shuttle has registration date, use that year if it's earlier
+        if ($shuttle && $shuttle->created_at) {
+            $registrationYear = date('Y', strtotime($shuttle->created_at));
+            $startYear = min($startYear, $registrationYear);
+        }
+        
+        $year_list = collect();
+        for ($i = $startYear; $i <= $currentYear; $i++) {
+            $year_list->push((object)['tahun' => $i]);
+        }
 
         $buffer = Buffer::where('shuttle', auth()->user()->shuttle->shuttle_type)->where('borang', 'c')->where('shuttle', '5')->first();
 
@@ -3193,7 +3306,21 @@ $pengumumantest=PengumumanIpjpsm::where('negeri',$user_pengumuman->negeri)->firs
 
         $shuttle = Shuttle::where('id', $user->shuttle_id)->first();
         $list = Form5D::where('shuttle_id', $shuttle->id)->where('tahun', $year)->get();
-        $year_list = Form5D::where('shuttle_id', $shuttle->id)->distinct()->orderBy('tahun')->get('tahun');
+        
+        // Generate year list from 1 year before current year and consider registration date
+        $currentYear = date('Y');
+        $startYear = $currentYear - 1; // 1 year before current year
+        
+        // If shuttle has registration date, use that year if it's earlier
+        if ($shuttle && $shuttle->created_at) {
+            $registrationYear = date('Y', strtotime($shuttle->created_at));
+            $startYear = min($startYear, $registrationYear);
+        }
+        
+        $year_list = collect();
+        for ($i = $startYear; $i <= $currentYear; $i++) {
+            $year_list->push((object)['tahun' => $i]);
+        }
 
         $buffer = Buffer::where('shuttle', auth()->user()->shuttle->shuttle_type)->where('borang', 'd')->where('shuttle', '5')->first();
 
@@ -3219,7 +3346,21 @@ $pengumumantest=PengumumanIpjpsm::where('negeri',$user_pengumuman->negeri)->firs
 
         $shuttle = Shuttle::where('id', $user->shuttle_id)->first();
         $list = Form5E::where('shuttle_id', $shuttle->id)->where('tahun', $year)->get();
-        $year_list = Form5E::where('shuttle_id', $shuttle->id)->distinct()->orderBy('tahun')->get('tahun');
+        
+        // Generate year list from 1 year before current year and consider registration date
+        $currentYear = date('Y');
+        $startYear = $currentYear - 1; // 1 year before current year
+        
+        // If shuttle has registration date, use that year if it's earlier
+        if ($shuttle && $shuttle->created_at) {
+            $registrationYear = date('Y', strtotime($shuttle->created_at));
+            $startYear = min($startYear, $registrationYear);
+        }
+        
+        $year_list = collect();
+        for ($i = $startYear; $i <= $currentYear; $i++) {
+            $year_list->push((object)['tahun' => $i]);
+        }
 
         $buffer = Buffer::where('shuttle', auth()->user()->shuttle->shuttle_type)->where('borang', 'e')->where('shuttle', '5')->first();
 

@@ -8,6 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="../../assets/images/favicon.png">
     <title>Sistem eShuttle</title>
@@ -192,8 +193,10 @@
                                             <label for="cono1"
                                                 class="text-right col-sm-3 control-label col-form-label required">Emel</label>
                                             <div class="col-sm-9">
-                                                <input type="text" class="form-control" id="email" name='email'
-                                                    placeholder="Emel" value="{{ old('email') }}">
+                                                <input type="email" class="form-control" id="email" name='email'
+                                                    placeholder="Emel" value="{{ old('email') }}" 
+                                                    oninput="validateEmail(this)">
+                                                <div id="email-validation-message" class="invalid-feedback"></div>
                                                 @error('email')
                                                     <div class="alert alert-danger">
                                                         <strong>{{ $message }}</strong>
@@ -458,12 +461,12 @@
                 return;
             }
             
-            // Validate check digit
-            if (!isValidCheckDigit(ic)) {
-                input.classList.add('is-invalid');
-                messageDiv.textContent = 'Nombor kad pengenalan tidak sah (digit semak salah).';
-                return;
-            }
+            // Validate check digit - Skip for now as different algorithms exist
+            // if (!isValidCheckDigit(ic)) {
+            //     input.classList.add('is-invalid');
+            //     messageDiv.textContent = 'Nombor kad pengenalan tidak sah (digit semak salah).';
+            //     return;
+            // }
             
             // If all validations pass
             input.classList.add('is-valid');
@@ -512,6 +515,50 @@
             const checkDigit = (remainder === 0) ? 0 : (10 - remainder);
             
             return checkDigit === parseInt(ic[11]);
+        }
+        
+        function validateEmail(input) {
+            const email = input.value;
+            const messageDiv = document.getElementById('email-validation-message');
+            
+            // Clear previous validation
+            input.classList.remove('is-invalid', 'is-valid');
+            messageDiv.textContent = '';
+            
+            if (!email) {
+                return;
+            }
+            
+            // Basic email format validation
+            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailPattern.test(email)) {
+                input.classList.add('is-invalid');
+                messageDiv.textContent = 'Format emel tidak sah.';
+                return;
+            }
+            
+            // Check email uniqueness via AJAX
+            fetch('/email/check-unique', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                },
+                body: JSON.stringify({ email: email })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.unique) {
+                    input.classList.add('is-valid');
+                    messageDiv.textContent = '';
+                } else {
+                    input.classList.add('is-invalid');
+                    messageDiv.textContent = 'Emel ini telah digunakan.';
+                }
+            })
+            .catch(error => {
+                console.error('Error checking email:', error);
+            });
         }
     </script>
 

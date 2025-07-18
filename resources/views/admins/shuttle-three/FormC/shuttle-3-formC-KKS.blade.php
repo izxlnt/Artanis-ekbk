@@ -7,7 +7,10 @@
         th,
         td {
             border: 1px solid black;
-        }
+                                                               <label><b>Tahun:</b></label>
+                                                            <input type="text" class="form-control"
+                                                                style="background-color: #f0e10dbd; border-color: #a79c09"
+                                                                value="{{ $year ?? $kilang_info->tahun }}" readonly /> }
 
         th {
             overflow: auto;

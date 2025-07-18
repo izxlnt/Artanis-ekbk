@@ -17,6 +17,7 @@ use Livewire\Component;
 class FormC extends Component
 {
     public $bulan_id;
+    public $tahun;
     public $kilang_info , $kumpulan_kayu, $species;
     public $baki_stok, $jumlah_baki_stok, $kayu_masuk, $proses_masuk, $proses_keluar, $jumlah_kayu_masuk, $jumlah_stok_kayu_balak, $baki_stok_kehadapan, $jumlah, $total_stok_kayu_balak,
         $total_kayu_masuk_jentera, $total_kayu_keluar_jentera, $total_kayu_dibawa_bulan_hadapan, $jumlah_besar_baki_stok_bulan_lepas, $jumlah_besar_kemasukan_kayu_ke_kilang,
@@ -192,7 +193,7 @@ class FormC extends Component
         $user = auth()->user();
         // dd($this->suku_id);
 
-        $formc = ModelsFormC::where('shuttle_id', $user->shuttle_id)->where('bulan', $this->bulan_id)->whereYear('created_at', date("Y"))->first();
+        $formc = ModelsFormC::where('shuttle_id', $user->shuttle_id)->where('bulan', $this->bulan_id)->whereYear('created_at', $this->tahun ?? date("Y"))->first();
 
         $formc->status = 'Sedang Diproses';
         $formc->save();
@@ -303,7 +304,7 @@ class FormC extends Component
         $user = auth()->user();
         // dd($this->suku_id);
 
-        $formc = ModelsFormC::where('shuttle_id', $user->shuttle_id)->where('bulan', $this->bulan_id)->whereYear('created_at', date("Y"))->first();
+        $formc = ModelsFormC::where('shuttle_id', $user->shuttle_id)->where('bulan', $this->bulan_id)->whereYear('created_at', $this->tahun ?? date("Y"))->first();
 
         $formc->status = 'Tiada Pengeluaran';
         $formc->save();

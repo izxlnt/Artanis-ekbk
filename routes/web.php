@@ -41,6 +41,8 @@ Route::get('/register/ajax/fetch-poskod-surat-menyurat/{poskod_surat}', [App\Htt
 
 // Email validation routes
 Route::post('/check-email-uniqueness', [App\Http\Controllers\EmailValidationController::class, 'checkEmailUniqueness'])->name('check-email-uniqueness');
+Route::post('/email/check-unique', [App\Http\Controllers\EmailValidationController::class, 'checkEmailUniqueness'])->name('email-check-unique');
+Route::post('/validate-email', [App\Http\Controllers\EmailValidationController::class, 'validateEmailForUpdate'])->name('validate-email');
 Route::post('/get-email-occurrences', [App\Http\Controllers\EmailValidationController::class, 'getEmailOccurrences'])->name('get-email-occurrences');
 
 Route::get('/shuttle-3-view-form3B/{id}', [App\Http\Controllers\ShuttleThree\ViewFormBController::class, 'shuttle_3_form_view_form3B'])->name('shuttle-3-view-formB');
@@ -123,13 +125,13 @@ Route::middleware('auth')->group(
 
                 Route::get('/pengguna/shuttle-3-formC/{id}', [App\Http\Controllers\ShuttleThree\MainController::class, 'shuttle_3_formC'])->name('user.shuttle-3-formC');
 
-                Route::get('/pengguna/shuttle-3-formC/KKB/{bulan}', [App\Http\Controllers\ShuttleThree\MainController::class, 'shuttle_3_formCKKB'])->name('user.shuttle-3-formC.KKB');
-                Route::get('/pengguna/shuttle-3-formC/view/KKB/{bulan}', [App\Http\Controllers\ShuttleThree\FormCController::class, 'shuttle_3_formCKKB'])->name('user.view.shuttle-3-formC.KKB');
-                Route::post('/pengguna/shuttle-3-formC/store/KKB/{bulan}', [App\Http\Controllers\ShuttleThree\FormCController::class, 'store_kkb'])->name('user.view.shuttle-3-formC.KKB.store');
+                Route::get('/pengguna/shuttle-3-formC/KKB/{bulan}/{year?}', [App\Http\Controllers\ShuttleThree\MainController::class, 'shuttle_3_formCKKB'])->name('user.shuttle-3-formC.KKB');
+                Route::get('/pengguna/shuttle-3-formC/view/KKB/{bulan}/{year?}', [App\Http\Controllers\ShuttleThree\FormCController::class, 'shuttle_3_formCKKB'])->name('user.view.shuttle-3-formC.KKB');
+                Route::post('/pengguna/shuttle-3-formC/store/KKB/{bulan}/{year?}', [App\Http\Controllers\ShuttleThree\FormCController::class, 'store_kkb'])->name('user.view.shuttle-3-formC.KKB.store');
 
-                Route::get('/pengguna/shuttle-3-formC/KKS/{bulan}', [App\Http\Controllers\ShuttleThree\MainController::class, 'shuttle_3_formCKKS'])->name('user.shuttle-3-formC.KKS');
-                Route::get('/pengguna/shuttle-3-formC/view/KKS/{bulan}', [App\Http\Controllers\ShuttleThree\FormCController::class, 'shuttle_3_formCKKS'])->name('user.view.shuttle-3-formC.KKS');
-                Route::post('/pengguna/shuttle-3-formC/store/KKS/{bulan}', [App\Http\Controllers\ShuttleThree\FormCController::class, 'store_kks'])->name('user.view.shuttle-3-formC.KKS.store');
+                Route::get('/pengguna/shuttle-3-formC/KKS/{bulan}/{year?}', [App\Http\Controllers\ShuttleThree\MainController::class, 'shuttle_3_formCKKS'])->name('user.shuttle-3-formC.KKS');
+                Route::get('/pengguna/shuttle-3-formC/view/KKS/{bulan}/{year?}', [App\Http\Controllers\ShuttleThree\FormCController::class, 'shuttle_3_formCKKS'])->name('user.view.shuttle-3-formC.KKS');
+                Route::post('/pengguna/shuttle-3-formC/store/KKS/{bulan}/{year?}', [App\Http\Controllers\ShuttleThree\FormCController::class, 'store_kks'])->name('user.view.shuttle-3-formC.KKS.store');
 
 
                 Route::get('/pengguna/shuttle-3-formC/KKR/{bulan}', [App\Http\Controllers\ShuttleThree\MainController::class, 'shuttle_3_formCKKR'])->name('user.shuttle-3-formC.KKR');
@@ -336,7 +338,7 @@ Route::middleware('auth')->group(
             Route::get('/jpn/kemaskini-profil', [App\Http\Controllers\AdminController::class, 'kemaskini_profil_jpn'])->name('jpn.kemaskini-profil');
             Route::post('/jpn/kemaskini-profil-update', [App\Http\Controllers\AdminController::class, 'update_profile_jpn'])->name('jpn.kemaskini-profil-update');
             //Senarai Status Permohonan Pengguna
-            Route::get('/jpn/status-permohonan', [App\Http\Controllers\StatusPermofhonanPengguna\PermohonanPenggunaController::class, 'status_permohonan_pengguna_jpn'])->name('jpn.status-permohonan-pengguna');
+            Route::get('/jpn/status-permohonan', [App\Http\Controllers\StatusPermohonanPengguna\PermohonanPenggunaController::class, 'status_permohonan_pengguna_jpn'])->name('jpn.status-permohonan-pengguna');
             Route::get('/jpn/lampiran-permohonan/{id}', [App\Http\Controllers\StatusPermohonanPengguna\PermohonanPenggunaController::class, 'lampiran_permohonan_jpn'])->name('jpn.lampiran-permohonan-pengguna');
 
             Route::middleware('phd')->group(function () {

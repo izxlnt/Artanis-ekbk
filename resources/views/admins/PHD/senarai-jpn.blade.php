@@ -1,8 +1,8 @@
 @extends($layout)
 
-
 @section('content')
 
+<meta name="csrf-token" content="{{ csrf_token() }}">
 
     {{-- @livewire('shuttle-three.shuttle3') --}}
 
@@ -246,13 +246,28 @@
                                                                     @csrf
                                                                     <div class="modal-body">
                                                                         <div class="form-group row">
-                                                                            <label for="cono1"
-                                                                                class="text-right col-sm-3 control-label col-form-label ">Emel</label>
+                                                                            <label for="current_email_{{ $data->id }}"
+                                                                                class="text-right col-sm-3 control-label col-form-label">Emel Semasa</label>
+                                                                            <div class="col-sm-9">
+                                                                                <input type="text" class="form-control" 
+                                                                                    id="current_email_{{ $data->id }}"
+                                                                                    value="{{ $data->getCurrentEmail() }}" 
+                                                                                    readonly 
+                                                                                    style="background-color: #f8f9fa; color: #6c757d;">
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="form-group row">
+                                                                            <label for="email_{{ $data->id }}"
+                                                                                class="text-right col-sm-3 control-label col-form-label">Emel Baru</label>
                                                                             <div class="col-sm-9">
                                                                                 <input type="email"
-                                                                                    class="form-control" id="email"
+                                                                                    class="form-control" id="email_{{ $data->id }}"
                                                                                     name="email"
-                                                                                    value="{{ $data->email }}">
+                                                                                    value=""
+                                                                                    placeholder="Masukkan emel baru..."
+                                                                                    oninput="validateEmail(this, {{ $data->id }})"
+                                                                                    required>
+                                                                                <div id="email_feedback_{{ $data->id }}" class="feedback-message"></div>
                                                                             </div>
                                                                             @error('email')
                                                                                 <div class="alert alert-danger">
@@ -417,7 +432,86 @@
                 return false;
             return true;
         }
+
+        // Email validation function
+        function validateEmail(input, userId) {
+            const email = input.value;
+            const feedbackDiv = document.getElementById(`email_feedback_${userId}`);
+
+            // Clear previous feedback
+            feedbackDiv.innerHTML = '';
+            input.classList.remove('is-valid', 'is-invalid');
+
+            if (email === '') {
+                return;
+            }
+
+            // Basic email format validation
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                input.classList.add('is-invalid');
+                feedbackDiv.innerHTML = '<div class="invalid-feedback" style="display: block; color: red;">Format emel tidak sah.</div>';
+                return;
+            }
+
+            // Show loading state
+            feedbackDiv.innerHTML = '<div style="display: block; color: #007bff;"><i class="fas fa-spinner fa-spin"></i> Memeriksa emel...</div>';
+
+            // AJAX call to check email uniqueness
+            fetch('/validate-email', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                },
+                body: JSON.stringify({
+                    email: email,
+                    user_id: userId
+                })
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                return response.json();
+            })
+            .then(data => {
+                if (data.valid) {
+                    input.classList.add('is-valid');
+                    feedbackDiv.innerHTML = '<div class="valid-feedback" style="display: block; color: green;"><i class="fas fa-check"></i> Emel ini boleh digunakan.</div>';
+                } else {
+                    input.classList.add('is-invalid');
+                    feedbackDiv.innerHTML = '<div class="invalid-feedback" style="display: block; color: red;"><i class="fas fa-exclamation-triangle"></i> ' + data.message + '</div>';
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                input.classList.add('is-invalid');
+                feedbackDiv.innerHTML = '<div class="invalid-feedback" style="display: block; color: red;"><i class="fas fa-exclamation-triangle"></i> Ralat semasa memeriksa emel. Sila cuba lagi.</div>';
+            });
+        }
     </script>
 
+    <style>
+        .feedback-message {
+            margin-top: 5px;
+        }
+        .is-valid {
+            border-color: #28a745;
+        }
+        .is-invalid {
+            border-color: #dc3545;
+        }
+        .valid-feedback {
+            display: block;
+            color: #28a745;
+            font-size: 0.875em;
+        }
+        .invalid-feedback {
+            display: block;
+            color: #dc3545;
+            font-size: 0.875em;
+        }
+    </style>
 
 @endsection
