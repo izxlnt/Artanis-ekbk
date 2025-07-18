@@ -363,10 +363,12 @@ class MainController extends Controller
 
     // SHUTTLE 4 FORM C
 
-    public function shuttle_4_formCKKB($id)
+    public function shuttle_4_formCKKB($id, $year = null)
     {
+        $year = $year ?? date("Y");
+        
         if (auth()->user()->kategori_pengguna == "IBK") {
-            $form_a_checker = FormA::where('tahun', date("Y"))
+            $form_a_checker = FormA::where('tahun', $year)
                 ->where('shuttle_id', auth()->user()->shuttle->id)
                 ->where('status', '!=', 'Tidak Diisi')
                 ->count();
@@ -393,27 +395,15 @@ class MainController extends Controller
 
             $form_b_checker = FormB::where('shuttle_id', auth()->user()->shuttle_id)
             ->where('suku_tahun', $suku_tahun)
-            ->whereYear('created_at', date("Y"))
+            ->whereYear('created_at', $year)
             ->where('status', '!=', 'Tidak Diisi')
             ->count();
 
             $buffer = Buffer::where('shuttle', 4)->where('borang', 'C')->first();
             $early_buffer_date = (int)date('m') - (int)$buffer->delay;
 
-            $form_c_checker = FormC::where('shuttle_id', auth()->user()->shuttle_id)
-                ->where('bulan', $lastmonth)
-                ->whereYear('created_at', date("Y"))
-                ->where('status', '!=', 'Tidak Diisi')
-                ->count();
-
             if ($form_a_checker == 0) {
                 return redirect()->back()->with('error', 'Sila isi Borang A terlebih dahulu.');
-            }
-
-            if ($id != $early_buffer_date) {
-                if ($form_c_checker == 0) {
-                    return redirect()->back()->with('error', 'Sila isi Borang C bulan sebelum ini terlebih dahulu.');
-                }
             }
 
             // if ($form_b_checker == 0) {
@@ -422,19 +412,20 @@ class MainController extends Controller
 
             if ($id == 1) {
                 // return view('admins.shuttle-four.FormC.shuttle-4-formC-KKB', compact('id'));
-                return redirect()->route('user.view.shuttle-4-formC.KKB', $id);
+                return redirect()->route('user.view.shuttle-4-formC.KKB', ['bulan' => $id, 'year' => $year]);
             }
 
 
         }
 
         // return view('admins.shuttle-four.FormC.shuttle-4-formC-KKB', compact('id'));
-        return redirect()->route('user.view.shuttle-4-formC.KKB', $id);
+        return redirect()->route('user.view.shuttle-4-formC.KKB', ['bulan' => $id, 'year' => $year]);
     }
 
-    public function shuttle_4_formCKKS($id)
+    public function shuttle_4_formCKKS($id, $year = null)
     {
-        return redirect()->route('user.view.shuttle-4-formC.KKS', $id);
+        $year = $year ?? date("Y");
+        return redirect()->route('user.view.shuttle-4-formC.KKS', ['bulan' => $id, 'year' => $year]);
     }
 
     public function shuttle_4_formCKKR($id)

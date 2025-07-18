@@ -339,9 +339,11 @@ class MainController extends Controller
         // }
         return view('admins.shuttle-five.shuttle-5-formB',compact('id'));
     }
-    public function shuttle_5_formC($id)
+    public function shuttle_5_formC($id, $year = null)
     {
-        $form_a_checker = FormA::where('tahun', date("Y"))
+        $year = $year ?? date("Y");
+        
+        $form_a_checker = FormA::where('tahun', $year)
         ->where('shuttle_id', auth()->user()->shuttle->id)
         ->where('status', '!=', 'Tidak Diisi')
         ->count();
@@ -349,7 +351,7 @@ class MainController extends Controller
         if($form_a_checker == 0){
             return redirect()->back()->with('error', 'Sila isi Borang A terlebih dahulu.');
         }
-        return view('admins.shuttle-five.shuttle-5-formC',compact('id'));
+        return view('admins.shuttle-five.shuttle-5-formC',compact('id', 'year'));
     }
     public function shuttle_5_formD($id)
     {
@@ -400,11 +402,6 @@ class MainController extends Controller
             return view('admins.shuttle-five.shuttle-5-formD',compact('id','form_c_data'));
         }
 
-        if ($id != $early_buffer_date) {
-            if ($form_d_checker == 0) {
-                return redirect()->back()->with('error', 'Sila isi Borang D bulan sebelum ini terlebih dahulu.');
-            }
-        }
         return view('admins.shuttle-five.shuttle-5-formD',compact('id','form_c_data'));
     }
 
@@ -470,11 +467,6 @@ class MainController extends Controller
             return view('admins.shuttle-five.shuttle-5-formE',compact('id'));
         }
 
-        if ($id != $early_buffer_date) {
-            if ($form_e_checker == 0) {
-                return redirect()->back()->with('error', 'Sila isi Borang E bulan sebelum ini terlebih dahulu.');
-            }
-        }
         return view('admins.shuttle-five.shuttle-5-formE',compact('id'));
     }
 

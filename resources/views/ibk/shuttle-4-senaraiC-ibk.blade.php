@@ -903,6 +903,33 @@
 
             window.location.href = "<?php echo URL::to('/pengguna/shuttle-4-senaraiC/" + year +"'); ?>";
         }
+        
+        function updateFormLinks() {
+            var year = $("#select_year").val();
+            
+            // Update KKB links
+            $('a[href*="shuttle-4-formC.KKB"]').each(function() {
+                var href = $(this).attr('href');
+                var baseUrl = href.split('/').slice(0, -1).join('/');
+                var month = href.split('/').pop();
+                $(this).attr('href', baseUrl + '/' + month + '/' + year);
+            });
+            
+            // Update KKS links
+            $('a[href*="shuttle-4-formC.KKS"]').each(function() {
+                var href = $(this).attr('href');
+                var baseUrl = href.split('/').slice(0, -1).join('/');
+                var month = href.split('/').pop();
+                $(this).attr('href', baseUrl + '/' + month + '/' + year);
+            });
+        }
+        
+        $(document).ready(function() {
+            updateFormLinks();
+            $("#select_year").change(function() {
+                updateFormLinks();
+            });
+        });
     </script>
 
     <script>
