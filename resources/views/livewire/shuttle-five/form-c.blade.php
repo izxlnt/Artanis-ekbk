@@ -32,7 +32,7 @@
                                                                     <div class="row">
                                                                         <div class="col-md-6">
                                                                             <label>Tahun:</label>
-                                                                            <input type="text" class="form-control" style="background-color: #e0ec3754;" value="{{ $kilang_info->tahun }}" readonly />
+                                                                            <input type="text" class="form-control" style="background-color: #e0ec3754;" value="{{ date('Y') }}" readonly />
                                                                         </div>
                                                                         <div class="col-md-6">
                                                                             <label>Bulan:</label>

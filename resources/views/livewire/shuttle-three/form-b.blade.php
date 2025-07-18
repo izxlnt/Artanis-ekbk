@@ -53,7 +53,7 @@
                                                             <label><b>Tahun:</b></label>
                                                            <input type="text" class="form-control"
                                                                 style="background-color: #f8dbee; border-color: #d89bc4"
-                                                                value="{{ $kilang_info->tahun }}" readonly />
+                                                                value="{{ date('Y') }}" readonly />
                                                         </div>
                                                         <div class="col-md-2">
                                                             <label><b>Suku Tahun:</b></label>

@@ -73,6 +73,49 @@ Route::get('/admin/kemaskini-status-pengguna-aktif/{id}', [App\Http\Controllers\
 Route::get('/admin/kemaskini-status-kilang/{id}', [App\Http\Controllers\PengurusanPengguna\MainController::class, 'updateStatusKilang'])->name('ipjpsm.updateStatusKilang');
 Route::get('/admin/kemaskini-status-kilang-aktif/{id}', [App\Http\Controllers\PengurusanPengguna\MainController::class, 'updateStatusKilangAktif'])->name('ipjpsm.updateStatusAktifKilang');
 
+// Hak Milik Syarikat routes
+Route::get('/admin/hak-milik-syarikat', [App\Http\Controllers\HakMilikSyarikat\MainController::class, 'hak_milik_syarikat'])->name('hak-milik-syarikat');
+Route::get('/admin/hak-milik-syarikat-update', [App\Http\Controllers\HakMilikSyarikat\MainController::class, 'hak_milik_syarikat_update'])->name('hak-milik-syarikat-update');
+Route::get('/bpm/hak-milik-syarikat', [App\Http\Controllers\HakMilikSyarikat\MainController::class, 'hak_milik_syarikat'])->name('bpm.hak-milik-syarikat');
+
+// Jenis Pembeli routes
+Route::get('/admin/jenis-pembeli-shuttle3', [App\Http\Controllers\JenisPembeliShuttle3\MainController::class, 'jenis_pembeli_shuttle3'])->name('jenis-pembeli-shuttle3');
+Route::get('/admin/jenis-pembeli-shuttle4', [App\Http\Controllers\JenisPembeliShuttle4\MainController::class, 'jenis_pembeli_shuttle4'])->name('jenis-pembeli-shuttle4');
+
+// Other admin routes
+Route::get('/admin/jenis-kayu-kumai', [App\Http\Controllers\JenisKayuKumai\MainController::class, 'jenis_kayu_kumai'])->name('jenis-kayu-kumai');
+Route::get('/bpm/jenis-kayu-kumai', [App\Http\Controllers\JenisKayuKumai\MainController::class, 'jenis_kayu_kumai'])->name('bpm.jenis-kayu-kumai');
+Route::get('/admin/kategori-pekerja', [App\Http\Controllers\KategoriPekerja\MainController::class, 'kategori_pekerja'])->name('kategori-pekerja');
+Route::get('/bpm/kategori-pekerja', [App\Http\Controllers\KategoriPekerja\MainController::class, 'kategori_pekerja'])->name('bpm.kategori-pekerja');
+Route::get('/admin/kewarganegaraan', [App\Http\Controllers\Kewarganegaraan\MainController::class, 'kewarganegaraan'])->name('kewarganegaraan');
+Route::get('/bpm/kewarganegaraan', [App\Http\Controllers\Kewarganegaraan\MainController::class, 'kewarganegaraan'])->name('bpm.kewarganegaraan');
+Route::get('/admin/kumpulan-kayu', [App\Http\Controllers\KumpulanKayu\MainController::class, 'kumpulan_kayu'])->name('kumpulan-kayu');
+Route::get('/bpm/kumpulan-kayu', [App\Http\Controllers\KumpulanKayu\MainController::class, 'kumpulan_kayu'])->name('bpm.kumpulan-kayu');
+Route::get('/admin/recovery-rate', [App\Http\Controllers\RecoveryRateController::class, 'index'])->name('recovery-rate');
+Route::get('/admin/recovery-rate/edit/{id}', [App\Http\Controllers\RecoveryRateController::class, 'edit'])->name('recovery-rate.edit');
+Route::post('/admin/recovery-rate/update/{id}', [App\Http\Controllers\RecoveryRateController::class, 'update'])->name('recovery-rate.update');
+Route::get('/admin/spesis', [App\Http\Controllers\Spesis\MainController::class, 'spesis'])->name('spesis');
+Route::get('/bpm/spesis', [App\Http\Controllers\Spesis\MainController::class, 'spesis'])->name('bpm.spesis');
+Route::get('/admin/spesis-aktif', [App\Http\Controllers\SpesisAktif\MainController::class, 'spesis_aktif'])->name('spesis-aktif');
+Route::get('/bpm/spesis-aktif', [App\Http\Controllers\SpesisAktif\MainController::class, 'spesis_aktif'])->name('bpm.spesis-aktif');
+Route::get('/admin/taraf-syarikat', [App\Http\Controllers\TarafSyarikat\MainController::class, 'taraf_syarikat'])->name('taraf-syarikat');
+Route::get('/bpm/taraf-syarikat', [App\Http\Controllers\TarafSyarikat\MainController::class, 'taraf_syarikat'])->name('bpm.taraf-syarikat');
+Route::get('/admin/daerah', [App\Http\Controllers\DaerahController::class, 'daerah'])->name('daerah');
+Route::get('/admin/tetapan-buffer', [App\Http\Controllers\BufferController::class, 'papar_buffer'])->name('tetapan.buffer.papar');
+Route::get('/admin/tetapan-buffer-update', [App\Http\Controllers\BufferController::class, 'update_buffer'])->name('tetapan.buffer.update');
+
+// BPM specific routes
+Route::get('/bpm/jenis-pembeli-shuttle3', [App\Http\Controllers\JenisPembeliShuttle3\MainController::class, 'jenis_pembeli_shuttle3'])->name('bpm.jenis-pembeli-shuttle3');
+Route::get('/bpm/jenis-pembeli-shuttle4', [App\Http\Controllers\JenisPembeliShuttle4\MainController::class, 'jenis_pembeli_shuttle4'])->name('bpm.jenis-pembeli-shuttle4');
+
+// Pengumuman routes
+Route::get('/admin/pengumuman-ipjpsm', [App\Http\Controllers\PengumumanController::class, 'pengumuman_ipjpsm'])->name('pengumuman-ipjpsm');
+Route::get('/admin/pengumuman-tambah-ipjpsm', [App\Http\Controllers\PengumumanController::class, 'pengumuman_tambah_ipjpsm'])->name('pengumuman-tambah-ipjpsm');
+Route::post('/admin/pengumuman-add-ipjpsm', [App\Http\Controllers\PengumumanController::class, 'pengumuman_add_ipjpsm'])->name('pengumuman-add-ipjpsm');
+Route::get('/admin/pengumuman-kemaskini-ipjpsm/{id}', [App\Http\Controllers\PengumumanController::class, 'pengumuman_kemaskini_ipjpsm'])->name('pengumuman-kemaskini-ipjpsm');
+Route::post('/admin/pengumuman-edit-ipjpsm/{id}', [App\Http\Controllers\PengumumanController::class, 'pengumuman_edit_ipjpsm'])->name('pengumuman-edit-ipjpsm');
+Route::post('/admin/pengumuman-delete-ipjpsm/{id}', [App\Http\Controllers\PengumumanController::class, 'pengumuman_delete_ipjpsm'])->name('pengumuman-delete-ipjpsm');
+
 Route::get('/admin/status-permohonan-bpe', [App\Http\Controllers\StatusPermohonanPengguna\PermohonanPenggunaController::class, 'status_permohonan_bpe_ipjpsm'])->name('ipjpsm.status-permohonan-bpe');
 Route::get('/admin/status-permohonan-phd', [App\Http\Controllers\StatusPermohonanPengguna\PermohonanPenggunaController::class, 'status_permohonan_phd_ipjpsm'])->name('ipjpsm.status-permohonan-phd');
 Route::get('/admin/status-permohonan-jpn', [App\Http\Controllers\StatusPermohonanPengguna\PermohonanPenggunaController::class, 'status_permohonan_jpn_ipjpsm'])->name('ipjpsm.status-permohonan-jpn');
@@ -167,6 +210,14 @@ Route::middleware('auth')->group(
                     Route::get('/pengguna/shuttle-3-senaraiB/{year}', [App\Http\Controllers\UserController::class, 'shuttle_3_senaraiB_ibk'])->name('user.shuttle-3-senaraiB');
                     Route::get('/pengguna/shuttle-3-senaraiC/{year}', [App\Http\Controllers\UserController::class, 'shuttle_3_senaraiC_ibk'])->name('user.shuttle-3-senaraiC');
                     Route::get('/pengguna/shuttle-3-senaraiD/{year}', [App\Http\Controllers\UserController::class, 'shuttle_3_senaraiD_ibk'])->name('user.shuttle-3-senaraiD');
+
+                    // PDF Routes for Senarai
+                    Route::get('/pengguna/shuttle-3-senaraiB/{year}/pdf', [App\Http\Controllers\PDF\SenaraiPDFController::class, 'printSenaraiB'])->name('user.shuttle-3-senaraiB.pdf');
+                    Route::get('/pengguna/shuttle-3-senaraiC/{year}/pdf', [App\Http\Controllers\PDF\SenaraiPDFController::class, 'printSenaraiC'])->name('user.shuttle-3-senaraiC.pdf');
+                    Route::get('/pengguna/shuttle-3-senaraiD/{year}/pdf', [App\Http\Controllers\PDF\SenaraiPDFController::class, 'printSenaraiD'])->name('user.shuttle-3-senaraiD.pdf');
+
+
+                    //shuttle 3
                     Route::get('/pengguna/shuttle-3-listA/{year}', [App\Http\Controllers\UserController::class, 'shuttle_3_listA_ibk'])->name('user.shuttle-3-listA');
                     Route::get('/pengguna/shuttle-3-listB/{year}', [App\Http\Controllers\UserController::class, 'shuttle_3_listB_ibk'])->name('user.shuttle-3-listB');
                     Route::get('/pengguna/shuttle-3-listC/{year}', [App\Http\Controllers\UserController::class, 'shuttle_3_listC_ibk'])->name('user.shuttle-3-listC');
@@ -180,6 +231,13 @@ Route::middleware('auth')->group(
                     Route::get('/pengguna/shuttle-4-senaraiC/{year}', [App\Http\Controllers\UserController::class, 'shuttle_4_senaraiC_ibk'])->name('user.shuttle-4-senaraiC');
                     Route::get('/pengguna/shuttle-4-senaraiD/{year}', [App\Http\Controllers\UserController::class, 'shuttle_4_senaraiD_ibk'])->name('user.shuttle-4-senaraiD');
                     Route::get('/pengguna/shuttle-4-senaraiE/{year}', [App\Http\Controllers\UserController::class, 'shuttle_4_senaraiE_ibk'])->name('user.shuttle-4-senaraiE');
+
+                    // PDF Routes for Senarai
+                    Route::get('/pengguna/shuttle-4-senaraiD/{year}/pdf', [App\Http\Controllers\PDF\SenaraiPDFController::class, 'printSenarai4D'])->name('user.shuttle-4-senaraiD.pdf');
+                    Route::get('/pengguna/shuttle-4-senaraiE/{year}/pdf', [App\Http\Controllers\PDF\SenaraiPDFController::class, 'printSenarai4E'])->name('user.shuttle-4-senaraiE.pdf');
+
+
+                    //shuttle 4
                     Route::get('/pengguna/shuttle-4-listA/{year}', [App\Http\Controllers\UserController::class, 'shuttle_4_listA_ibk'])->name('user.shuttle-4-listA');
                     Route::get('/pengguna/shuttle-4-listB/{year}', [App\Http\Controllers\UserController::class, 'shuttle_4_listB_ibk'])->name('user.shuttle-4-listB');
                     Route::get('/pengguna/shuttle-4-listC/{year}', [App\Http\Controllers\UserController::class, 'shuttle_4_listC_ibk'])->name('user.shuttle-4-listC');
@@ -195,6 +253,12 @@ Route::middleware('auth')->group(
                     Route::get('/pengguna/shuttle-5-senaraiD/{year}', [App\Http\Controllers\UserController::class, 'shuttle_5_senaraiD_ibk'])->name('user.shuttle-5-senaraiD');
                     Route::get('/pengguna/shuttle-5-senaraiE/{year}', [App\Http\Controllers\UserController::class, 'shuttle_5_senaraiE_ibk'])->name('user.shuttle-5-senaraiE');
 
+                    // PDF Routes for Senarai
+                    Route::get('/pengguna/shuttle-5-senaraiD/{year}/pdf', [App\Http\Controllers\PDF\SenaraiPDFController::class, 'printSenarai5D'])->name('user.shuttle-5-senaraiD.pdf');
+                    Route::get('/pengguna/shuttle-5-senaraiE/{year}/pdf', [App\Http\Controllers\PDF\SenaraiPDFController::class, 'printSenarai5E'])->name('user.shuttle-5-senaraiE.pdf');
+
+
+                    //shuttle 5
                     Route::get('/pengguna/shuttle-5-listA/{year}', [App\Http\Controllers\UserController::class, 'shuttle_5_listA_ibk'])->name('user.shuttle-5-listA');
                     Route::get('/pengguna/shuttle-5-listB/{year}', [App\Http\Controllers\UserController::class, 'shuttle_5_listB_ibk'])->name('user.shuttle-5-listB');
                     Route::get('/pengguna/shuttle-5-listC/{year}', [App\Http\Controllers\UserController::class, 'shuttle_5_listC_ibk'])->name('user.shuttle-5-listC');
@@ -807,6 +871,17 @@ Route::middleware('auth')->group(
                 Route::get('/admin/shuttle-3-listB/{year}', [App\Http\Controllers\ShuttleThree\ListBController::class, 'shuttle_3_listB_ipjpsm'])->name('shuttle-3-listB');
                 Route::get('/admin/shuttle-3-listC/{year}', [App\Http\Controllers\ShuttleThree\ListCController::class, 'shuttle_3_listC_ipjpsm'])->name('shuttle-3-listC');
                 Route::get('/admin/shuttle-3-listD/{year}', [App\Http\Controllers\ShuttleThree\ListDController::class, 'shuttle_3_listD_ipjpsm'])->name('shuttle-3-listD');
+                Route::get('/admin/shuttle-3-view-formA/{id}', [App\Http\Controllers\ShuttleThree\ViewFormBController::class, 'shuttle_3_form_view_form3A_ipjpsm'])->name('ipjpsm.shuttle-3-view-formA');
+                Route::get('/admin/shuttle-3-view-formB/{id}', [App\Http\Controllers\ShuttleThree\ViewFormBController::class, 'shuttle_3_form_view_form3B_ipjpsm'])->name('ipjpsm.shuttle-3-view-formB');
+                Route::get('/admin/shuttle-3-view-formC/{id}', [App\Http\Controllers\ShuttleThree\ViewFormBController::class, 'shuttle_3_form_view_form3C_ipjpsm'])->name('ipjpsm.shuttle-3-view-formC');
+                Route::get('/admin/shuttle-3-view-formD/{id}', [App\Http\Controllers\ShuttleThree\ViewFormBController::class, 'shuttle_3_form_view_form3D_ipjpsm'])->name('ipjpsm.shuttle-3-view-formD');
+                Route::post('/admin/shuttle-3-update-status-formA/{id}', [App\Http\Controllers\ShuttleThree\MainController::class, 'update_status_ipjpsm3A'])->name('update_status_form3A_ipjpsm');
+                Route::post('/admin/shuttle-3-update-status-formB/{id}', [App\Http\Controllers\ShuttleThree\MainController::class, 'update_status_ipjpsm3B'])->name('update_status_form3B_ipjpsm');
+                Route::post('/admin/shuttle-3-update-status-formC/{id}', [App\Http\Controllers\ShuttleThree\MainController::class, 'update_status_ipjpsm3C'])->name('update_status_form3C_ipjpsm');
+                Route::post('/admin/shuttle-3-update-status-formD/{id}', [App\Http\Controllers\ShuttleThree\MainController::class, 'update_status_ipjpsm3D'])->name('update_status_form3D_ipjpsm');
+                
+                // Missing update_status_formB route
+                Route::post('/admin/shuttle-3-update-status-formB-user/{id}', [App\Http\Controllers\ShuttleThree\MainController::class, 'update_status_formB'])->name('update_status_formB');
 
                 //shuttle 4 IPJPSM
                 Route::get('/admin/shuttle-4-listA/{year}', [App\Http\Controllers\ShuttleFour\MainController::class, 'shuttle_4_listA_ipjpsm'])->name('shuttle-4-listA');
@@ -814,6 +889,14 @@ Route::middleware('auth')->group(
                 Route::get('/admin/shuttle-4-listC/{year}', [App\Http\Controllers\ShuttleFour\ListCController::class, 'shuttle_4_listC_ipjpsm'])->name('shuttle-4-listC');
                 Route::get('/admin/shuttle-4-listD/{year}', [App\Http\Controllers\ShuttleFour\ListDController::class, 'shuttle_4_listD_ipjpsm'])->name('shuttle-4-listD');
                 Route::get('/admin/shuttle-4-listE/{year}', [App\Http\Controllers\ShuttleFour\ListEController::class, 'shuttle_4_listE_ipjpsm'])->name('shuttle-4-listE');
+                Route::get('/admin/shuttle-4-view-formC/{id}', [App\Http\Controllers\ShuttleFour\MainController::class, 'shuttle_4_form_view_form4C_ipjpsm'])->name('ipjpsm.shuttle-4-view-formC');
+                Route::get('/admin/shuttle-4-view-formD/{id}', [App\Http\Controllers\ShuttleFour\MainController::class, 'shuttle_4_form_view_form4D_ipjpsm'])->name('ipjpsm.shuttle-4-view-formD');
+                Route::get('/admin/shuttle-4-view-formE/{id}', [App\Http\Controllers\ShuttleFour\MainController::class, 'shuttle_4_form_view_form4E_ipjpsm'])->name('ipjpsm.shuttle-4-view-formE');
+                Route::get('/admin/shuttle-4-listE/{year}', [App\Http\Controllers\ShuttleFour\ListEController::class, 'shuttle_4_listE_ipjpsm'])->name('shuttle-4-listE');
+                
+                // Missing shuttle 4 IPJPSM update status routes
+                Route::post('/admin/shuttle-4-update-status-formD/{id}', [App\Http\Controllers\ShuttleFour\MainController::class, 'update_status_ipjpsm4D'])->name('update_status_form4D_ipjpsm');
+                Route::post('/admin/shuttle-4-update-status-formE/{id}', [App\Http\Controllers\ShuttleFour\MainController::class, 'update_status_ipjpsm4E'])->name('update_status_form4E_ipjpsm');
 
                 //shuttle 5 IPJPSM
                 Route::get('/admin/shuttle-5-listA/{year}', [App\Http\Controllers\ShuttleFive\MainController::class, 'shuttle_5_listA_ipjpsm'])->name('shuttle-5-listA');
@@ -821,199 +904,42 @@ Route::middleware('auth')->group(
                 Route::get('/admin/shuttle-5-listC/{year}', [App\Http\Controllers\ShuttleFive\ListCController::class, 'shuttle_5_listC_ipjpsm'])->name('shuttle-5-listC');
                 Route::get('/admin/shuttle-5-listD/{year}', [App\Http\Controllers\ShuttleFive\ListDController::class, 'shuttle_5_listD_ipjpsm'])->name('shuttle-5-listD');
                 Route::get('/admin/shuttle-5-listE/{year}', [App\Http\Controllers\ShuttleFive\ListEController::class, 'shuttle_5_listE_ipjpsm'])->name('shuttle-5-listE');
+                Route::get('/admin/shuttle-5-view-formD/{id}', [App\Http\Controllers\ShuttleFive\ViewFormController::class, 'shuttle_5_form_view_form5D_ipjpsm'])->name('ipjpsm.shuttle-5-view-formD');
+                Route::get('/admin/shuttle-5-view-formE/{id}', [App\Http\Controllers\ShuttleFive\ViewFormController::class, 'shuttle_5_form_view_form5E_ipjpsm'])->name('ipjpsm.shuttle-5-view-formE');
+                
+                // Missing shuttle 5 IPJPSM update status routes
+                Route::post('/admin/shuttle-5-update-status-formD/{id}', [App\Http\Controllers\ShuttleFive\MainController::class, 'update_status_ipjpsm5D'])->name('update_status_form5D_ipjpsm');
+                Route::post('/admin/shuttle-5-update-status-formE/{id}', [App\Http\Controllers\ShuttleFive\MainController::class, 'update_status_ipjpsm5E'])->name('update_status_form5E_ipjpsm');
 
-                Route::get('/admin/shuttle-3-formA', [App\Http\Controllers\ShuttleThree\MainController::class, 'shuttle_3_formA'])->name('shuttle-3-formA');
-                Route::get('/admin/shuttle-3-formB', [App\Http\Controllers\ShuttleThree\MainController::class, 'shuttle_3_formB'])->name('shuttle-3-formB');
-                Route::get('/admin/shuttle-3-formC', [App\Http\Controllers\ShuttleThree\MainController::class, 'shuttle_3_formC'])->name('shuttle-3-formC');
-                Route::get('/admin/shuttle-3-formD', [App\Http\Controllers\ShuttleThree\MainController::class, 'shuttle_3_formD'])->name('shuttle-3-formD');
+                //PDF Print Routes - Only for completed forms
+                Route::middleware(['auth'])->group(function () {
 
-                //IPJPSM PENGESAHAN BORANG VIEW SHUTTLE 3
-                Route::get('/admin/shuttle-3-view-form3A-ipjpsm/{id}', [App\Http\Controllers\ShuttleThree\ViewFormBController::class, 'shuttle_3_form_view_form3A_ipjpsm'])->name('ipjpsm.shuttle-3-view-formA');
-                Route::get('/admin/shuttle-3-view-form3B-ipjpsm/{id}', [App\Http\Controllers\ShuttleThree\ViewFormBController::class, 'shuttle_3_form_view_form3B_ipjpsm'])->name('ipjpsm.shuttle-3-view-formB');
-                Route::get('/admin/shuttle-3-view-form3C-ipjpsm/{id}', [App\Http\Controllers\ShuttleThree\ViewFormBController::class, 'shuttle_3_form_view_form3C_ipjpsm'])->name('ipjpsm.shuttle-3-view-formC');
-                Route::get('/admin/shuttle-4-view-form4C-ipjpsm/{id}', [App\Http\Controllers\ShuttleFour\MainController::class, 'shuttle_4_form_view_form4C_ipjpsm'])->name('ipjpsm.shuttle-4-view-formC');
-                Route::get('/admin/view-formB-ipjpsm/{id}', [App\Http\Controllers\ShuttleThree\ViewFormBController::class, 'view_form3B_ipjpsm'])->name('ipjpsm.view-formB');
+                    // Shuttle 3 PDF Routes
+                    Route::prefix('pdf/shuttle3')->name('pdf.shuttle3.')->group(function () {
+                        Route::get('/form-a/{id}', [App\Http\Controllers\PDF\ShuttleThreePDFController::class, 'printFormA'])->name('form-a');
+                        Route::get('/form-b/{id}', [App\Http\Controllers\PDF\ShuttleThreePDFController::class, 'printFormB'])->name('form-b');
+                        Route::get('/form-c/{id}', [App\Http\Controllers\PDF\ShuttleThreePDFController::class, 'printFormC'])->name('form-c');
+                        Route::get('/form-d/{id}', [App\Http\Controllers\PDF\ShuttleThreePDFController::class, 'printFormD'])->name('form-d');
+                    });
 
-                Route::get('/admin/shuttle-3-view-form3D-ipjpsm/{id}', [App\Http\Controllers\ShuttleThree\ViewFormBController::class, 'shuttle_3_form_view_form3D_ipjpsm'])->name('ipjpsm.shuttle-3-view-formD');
-                Route::get('/admin/view-form3D-ipjpsm/{id}', [App\Http\Controllers\ShuttleThree\ViewFormBController::class, 'view_form3D_ipjpsm'])->name('ipjpsm.view-formD');
+                    // Shuttle 4 PDF Routes
+                    Route::prefix('pdf/shuttle4')->name('pdf.shuttle4.')->group(function () {
+                        Route::get('/form-a/{id}', [App\Http\Controllers\PDF\ShuttleFourPDFController::class, 'printFormA'])->name('form-a');
+                        Route::get('/form-b/{id}', [App\Http\Controllers\PDF\ShuttleFourPDFController::class, 'printFormB'])->name('form-b');
+                        Route::get('/form-c/{id}', [App\Http\Controllers\PDF\ShuttleFourPDFController::class, 'printFormC'])->name('form-c');
+                        Route::get('/form-d/{id}', [App\Http\Controllers\PDF\ShuttleFourPDFController::class, 'printFormD'])->name('form-d');
+                        Route::get('/form-e/{id}', [App\Http\Controllers\PDF\ShuttleFourPDFController::class, 'printFormE'])->name('form-e');
+                    });
 
-                Route::get('/admin/shuttle-4-view-form4D-ipjpsm/{id}', [App\Http\Controllers\ShuttleThree\ViewFormBController::class, 'shuttle_4_form_view_form4D_ipjpsm'])->name('ipjpsm.shuttle-4-view-formD');
-                Route::get('/admin/shuttle-4-view-form4E-ipjpsm/{id}', [App\Http\Controllers\ShuttleThree\ViewFormBController::class, 'shuttle_4_form_view_form4E_ipjpsm'])->name('ipjpsm.shuttle-4-view-formE');
-                Route::get('/admin/view-form4E-ipjpsm/{id}', [App\Http\Controllers\ShuttleThree\ViewFormBController::class, 'view_form4E_ipjpsm'])->name('ipjpsm.view-form4E');
-
-                Route::get('/admin/shuttle-5-view-form5D-ipjpsm/{id}', [App\Http\Controllers\ShuttleFive\ViewFormController::class, 'shuttle_5_form_view_form5D_ipjpsm'])->name('ipjpsm.shuttle-5-view-formD');
-                Route::get('/admin/shuttle-5-view-form5E-ipjpsm/{id}', [App\Http\Controllers\ShuttleFive\ViewFormController::class, 'shuttle_5_form_view_form5E_ipjpsm'])->name('ipjpsm.shuttle-5-view-formE');
-                Route::get('/admin/view-form5E-ipjpsm/{id}', [App\Http\Controllers\ShuttleFive\ViewFormController::class, 'view_form5E_ipjpsm'])->name('ipjpsm.view-formE');
-
-                Route::get('/admin/senarai-tugasan', [App\Http\Controllers\ShuttleThree\MainController::class, 'senarai_tugasan_ipjpsm'])->name('ipjpsm.senarai-tugasan');
-
-                Route::post('/admin/shuttle-3-update-status-formA/{id}', [App\Http\Controllers\ShuttleThree\MainController::class, 'update_status_ipjpsm3A'])->name('update_status_form3A_ipjpsm');
-                Route::post('/admin/shuttle-3-update-status-formB/{id}', [App\Http\Controllers\ShuttleThree\MainController::class, 'update_status_ipjpsm3B'])->name('update_status_form3B_ipjpsm');
-                Route::post('/admin/shuttle-3-update-status-formC/{id}', [App\Http\Controllers\ShuttleThree\MainController::class, 'update_status_ipjpsm3C'])->name('update_status_form3C_ipjpsm');
-                Route::post('/admin/shuttle-3-update-status-formD/{id}', [App\Http\Controllers\ShuttleThree\MainController::class, 'update_status_ipjpsm3D'])->name('update_status_form3D_ipjpsm');
-
-                Route::post('/admin/shuttle-4-update-status-formD/{id}', [App\Http\Controllers\ShuttleThree\MainController::class, 'update_status_ipjpsm4D'])->name('update_status_form4D_ipjpsm');
-                Route::post('/admin/shuttle-4-update-status-formE/{id}', [App\Http\Controllers\ShuttleThree\MainController::class, 'update_status_ipjpsm4E'])->name('update_status_form4E_ipjpsm');
-
-                Route::post('/admin/shuttle-5-update-status-formD/{id}', [App\Http\Controllers\ShuttleFive\ViewFormController::class, 'update_status_ipjpsm5D'])->name('update_status_form5D_ipjpsm');
-                Route::post('/admin/shuttle-5-update-status-formE/{id}', [App\Http\Controllers\ShuttleFive\ViewFormController::class, 'update_status_ipjpsm5E'])->name('update_status_form5E_ipjpsm');
-
-                // Route::get('/admin/shuttle-3', [App\Http\Controllers\AdminController::class, 'getShuttle3'])->name('shuttle-3-table');
-
-                Route::get('/admin/shuttle-4-formA', [App\Http\Controllers\ShuttleFour\MainController::class, 'shuttle_4_formA'])->name('shuttle-4-formA');
-                Route::get('/admin/shuttle-4-formB', [App\Http\Controllers\ShuttleFour\MainController::class, 'shuttle_4_formB'])->name('shuttle-4-formB');
-                Route::get('/admin/shuttle-4-formC', [App\Http\Controllers\ShuttleFour\MainController::class, 'shuttle_4_formC'])->name('shuttle-4-formC');
-                Route::get('/admin/shuttle-4-formD', [App\Http\Controllers\ShuttleFour\MainController::class, 'shuttle_4_formD'])->name('shuttle-4-formD');
-                Route::get('/admin/shuttle-4-formE', [App\Http\Controllers\ShuttleFour\MainController::class, 'shuttle_4_formE'])->name('shuttle-4-formE');
-
-
-                Route::get('/admin/shuttle-5-formA', [App\Http\Controllers\ShuttleFive\MainController::class, 'shuttle_5_formA'])->name('shuttle-5-formA');
-                Route::get('/admin/shuttle-5-formB', [App\Http\Controllers\ShuttleFive\MainController::class, 'shuttle_5_formB'])->name('shuttle-5-formB');
-                Route::get('/admin/shuttle-5-formC', [App\Http\Controllers\ShuttleFive\MainController::class, 'shuttle_5_formC'])->name('shuttle-5-formC');
-                Route::get('/admin/shuttle-5-formD', [App\Http\Controllers\ShuttleFive\MainController::class, 'shuttle_5_formD'])->name('shuttle-5-formD');
-                Route::get('/admin/shuttle-5-formE', [App\Http\Controllers\ShuttleFive\MainController::class, 'shuttle_5_formE'])->name('shuttle-5-formE');
-
-                // Route::get('/admin/pengesahan-permohonan', [App\Http\Controllers\PengesahanPermohonan\PengesahanController::class, 'pengesahan_permohonan'])->name('pengesahan-permohonan');
-
-                //Pengurusan Data Asas
-                Route::get('/admin/hak-milik-syarikat', [App\Http\Controllers\HakMilikSyarikat\MainController::class, 'hak_milik_syarikat'])->name('hak-milik-syarikat');
-                Route::get('/admin/jenis-kayu-kumai', [App\Http\Controllers\JenisKayuKumai\MainController::class, 'jenis_kayu_kumai'])->name('jenis-kayu-kumai');
-                Route::get('/admin/jenis-pembeli-shuttle3', [App\Http\Controllers\JenisPembeliShuttle3\MainController::class, 'jenis_pembeli_shuttle3'])->name('jenis-pembeli-shuttle3');
-                Route::get('/admin/jenis-pembeli-shuttle4', [App\Http\Controllers\JenisPembeliShuttle4\MainController::class, 'jenis_pembeli_shuttle4'])->name('jenis-pembeli-shuttle4');
-                Route::get('/admin/kategori-pekerja', [App\Http\Controllers\KategoriPekerja\MainController::class, 'kategori_pekerja'])->name('kategori-pekerja');
-                Route::get('/admin/kewarganegaraan', [App\Http\Controllers\Kewarganegaraan\MainController::class, 'kewarganegaraan'])->name('kewarganegaraan');
-                Route::get('/admin/kumpulan-kayu', [App\Http\Controllers\KumpulanKayu\MainController::class, 'kumpulan_kayu'])->name('kumpulan-kayu');
-                Route::get('/admin/spesis', [App\Http\Controllers\Spesis\MainController::class, 'spesis'])->name('spesis');
-                Route::get('/admin/spesis-aktif', [App\Http\Controllers\SpesisAktif\MainController::class, 'spesis_aktif'])->name('spesis-aktif');
-                Route::get('/admin/status-operasi', [App\Http\Controllers\StatusOperasi\MainController::class, 'status_operasi'])->name('status-operasi');
-                Route::get('/admin/taraf-syarikat', [App\Http\Controllers\TarafSyarikat\MainController::class, 'taraf_syarikat'])->name('taraf-syarikat');
-
-                Route::get('/admin/recovery-rate', [App\Http\Controllers\RecoveryRateController::class, 'index'])->name('recovery-rate');
-                Route::get('/admin/recovery-rate/edit/{id}', [App\Http\Controllers\RecoveryRateController::class, 'edit'])->name('recovery-rate.edit');
-                Route::post('/admin/recovery-rate/update/{id}', [App\Http\Controllers\RecoveryRateController::class, 'update'])->name('recovery-rate.update');
-
-                //daerah data asas
-                Route::get('/admin/daerah', [App\Http\Controllers\DaerahController::class, 'daerah'])->name('daerah');
-                Route::get('/admin/daerah-tambah', [App\Http\Controllers\DaerahController::class, 'daerah_tambah'])->name('daerah-tambah');
-                Route::post('/admin/daerah-add', [App\Http\Controllers\DaerahController::class, 'daerah_add'])->name('daerah-add');
-                Route::get('/admin/daerah-padam/{id}', [App\Http\Controllers\DaerahController::class, 'delete'])->name('delete_daerah');
-                Route::get('/admin/daerah-kemaskini/{id}', [App\Http\Controllers\DaerahController::class, 'daerah_kemaskini'])->name('daerah-kemaskini');
-                Route::post('/admin/daerah-edit/{id}', [App\Http\Controllers\DaerahController::class, 'daerah_edit'])->name('daerah-edit');
-
-                //pengumuman IPJPSM-JPN
-                Route::get('/admin/pengumuman-ipjpsm', [App\Http\Controllers\PengumumanController::class, 'pengumuman_ipjpsm'])->name('pengumuman-ipjpsm');
-                Route::get('/admin/pengumuman-tambah-ipjpsm', [App\Http\Controllers\PengumumanController::class, 'pengumuman_tambah_ipjpsm'])->name('pengumuman-tambah-ipjpsm');
-                Route::post('/admin/pengumuman-add-ipjpsm', [App\Http\Controllers\PengumumanController::class, 'pengumuman_add_ipjpsm'])->name('pengumuman-add-ipjpsm');
-                Route::get('/admin/pengumuman-kemaskini-ipjpsm/{id}', [App\Http\Controllers\PengumumanController::class, 'pengumuman_kemaskini_ipjpsm'])->name('pengumuman-kemaskini-ipjpsm');
-                Route::post('/admin/pengumuman-edit-ipjpsm/{id}', [App\Http\Controllers\PengumumanController::class, 'pengumuman_edit_ipjpsm'])->name('pengumuman-edit-ipjpsm');
-                Route::post('/admin/pengumuman-delete-ipjpsm/{id}', [App\Http\Controllers\PengumumanController::class, 'pengumuman_delete_ipjpsm'])->name('pengumuman-delete-ipjpsm');
-
-
-
-
-                //Senarai tugasan ipjpsm
-                // Route::get('/admin/senarai-tugasan-ipjpsm', [App\Http\Controllers\SenaraiTugasanIpjpsm\SenaraiBorangController::class, 'borang_belum_lengkap'])->name('senarai-tugasan-ipjpsm');
-
-                // //Senarai Status Permohonan Pengguna
-                // Route::get('/admin/status-permohonan', [App\Http\Controllers\StatusPermohonanPengguna\PermohonanPenggunaController::class, 'status_permohonan_pengguna'])->name('status-permohonan-pengguna');
-                // Route::get('/admin/lampiran-permohonan/{id}', [App\Http\Controllers\StatusPermohonanPengguna\PermohonanPenggunaController::class, 'lampiran_permohonan'])->name('lampiran-permohonan-pengguna');
-                // Route::get('/ipjpsm/lampiran-permohonan/{id}', [App\Http\Controllers\StatusPermohonanPengguna\PermohonanPenggunaController::class, 'lampiran_permohonan_ipjpsm'])->name('ipjpsm.lampiran-pengurusan-pengguna');
-                // Route::post('/ipjpsm/sahkan-permohonan-ipjpsm/{id}', [App\Http\Controllers\StatusPermohonanPengguna\PermohonanPenggunaController::class, 'sahkan_permohonan_ipjpsm'])->name('sahkan-permohonan-ipjpsm');
-
-                //buffer
-                Route::get('/admin/tetapan/senarai-buffer', [App\Http\Controllers\BufferController::class, 'papar_buffer'])->name('tetapan.buffer.papar');
-
-                Route::get('/admin/tetapan/senarai-buffer/update', [App\Http\Controllers\BufferController::class, 'update_buffer'])->name('tetapan.buffer.update');
-            });
-
-            Route::middleware('bpm')->group(function () {
-                Route::get('/bpm/home', [App\Http\Controllers\HomeController::class, 'index_bpm'])->name('home-bpm');
-                Route::get('/bpm/laporan', [App\Http\Controllers\ExcelController::class, 'importExportView'])->name('bpm.laporan');
-                Route::get('bpm/exportExcel/{type}', [App\Http\Controllers\ExcelController::class, 'ShuttleExcel'])->name('bpm.ShuttleExcel');
-                Route::get('bpm/laporan', [App\Http\Controllers\LaporanController::class, 'laporanView'])->name('bpm.laporanpopup');
-                // Route::get('report/{request}', [App\Http\Controllers\ReportController::class,'displayReport'])->name('Report');
-
-                //audit
-                Route::get('/audit-trails', [App\Http\Controllers\AdminController::class, 'viewAuditList'])->name('audit');
-                Route::get('/itadmin/audit/datatable', [App\Http\Controllers\AdminController::class, 'audit_datatable'])->name('user.it.audit.datatable');
-                Route::get('/itadmin/audit/user', [App\Http\Controllers\AdminController::class, 'auditTrailLogUser'])->name('user.it.auditUser');
-                Route::get('/bpm/logs', [\Rap2hpoutre\LaravelLogViewer\LogViewerController::class, 'index'])->name('logs');
-
-                //shuttle 3
-                Route::get('/bpm/shuttle-3-listA', [App\Http\Controllers\ShuttleThree\MainController::class, 'shuttle_3_listA_bpm'])->name('bpm.shuttle-3-listA');
-                Route::get('/bpm/shuttle-3-listB', [App\Http\Controllers\ShuttleThree\ListBController::class, 'shuttle_3_listB_bpm'])->name('bpm.shuttle-3-listB');
-                Route::get('/bpm/shuttle-3-listC', [App\Http\Controllers\ShuttleThree\ListCController::class, 'shuttle_3_listC_bpm'])->name('bpm.shuttle-3-listC');
-                Route::get('/bpm/shuttle-3-listD', [App\Http\Controllers\ShuttleThree\ListDController::class, 'shuttle_3_listD_bpm'])->name('bpm.shuttle-3-listD');
-                Route::get('/bpm/shuttle-3-formA', [App\Http\Controllers\ShuttleThree\MainController::class, 'shuttle_3_formA'])->name('bpm.shuttle-3-formA');
-                Route::get('/bpm/shuttle-3-formB', [App\Http\Controllers\ShuttleThree\MainController::class, 'shuttle_3_formB_bpe'])->name('bpm.shuttle-3-formB');
-                Route::get('/bpm/shuttle-3-formC', [App\Http\Controllers\ShuttleThree\MainController::class, 'shuttle_3_formC'])->name('bpm.shuttle-3-formC');
-                Route::get('/bpm/shuttle-3-formD', [App\Http\Controllers\ShuttleThree\MainController::class, 'shuttle_3_formD'])->name('bpm.shuttle-3-formD');
-
-                Route::get('/bpm/shuttle-3-view-formB-bpm/{id}', [App\Http\Controllers\ShuttleThree\ViewFormBController::class, 'shuttle_3_form_view_bpm'])->name('bpm.shuttle-3-view-formB');
-                Route::get('/bpm/senarai-tugasan', [App\Http\Controllers\ShuttleThree\MainController::class, 'senarai_tugasan_ipjpsm'])->name('bpm.senarai-tugasan');
-
-                Route::post('/bpm/shuttle-3-update-status-formB/{id}', [App\Http\Controllers\ShuttleThree\MainController::class, 'update_status_ipjpsm'])->name('bpm.update_status_formB');
-
-                //senarai kilang aktif
-                Route::get('/bpm/senarai_kilang_papan_aktif', [App\Http\Controllers\UserController::class, 'list_kilang_aktif_bpm'])->name('bpm.senarai_kilang_papan_aktif');
-                Route::get('/bpm/senarai_kilang_papan_lapis_aktif', [App\Http\Controllers\UserController::class, 'list_kilang_papan_lapis_aktif_bpm'])->name('bpm.senarai_kilang_papan_lapis_aktif');
-                Route::get('/bpm/senarai_kilang_kumai_aktif', [App\Http\Controllers\UserController::class, 'list_kilang_kumai_aktif_bpm'])->name('bpm.senarai_kilang_kumai_aktif');
-
-
-                // Route::get('/admin/shuttle-3', [App\Http\Controllers\AdminController::class, 'getShuttle3'])->name('shuttle-3-table');
-
-                //shuttle 4
-                // Route::get('/admin/shuttle-4', [App\Http\Controllers\ShuttleFour\MainController::class, 'shuttle_4'])->name('shuttle-4');
-                Route::get('/bpm/shuttle-4-listA', [App\Http\Controllers\ShuttleFour\MainController::class, 'shuttle_4_listA'])->name('bpm.shuttle-4-listA');
-                Route::get('/bpm/shuttle-4-listB', [App\Http\Controllers\ShuttleFour\ListBController::class, 'w'])->name('bpm.shuttle-4-listB');
-                Route::get('/bpm/shuttle-4-listC', [App\Http\Controllers\ShuttleFour\ListCController::class, 'shuttle_4_listC'])->name('bpm.shuttle-4-listC');
-                Route::get('/bpm/shuttle-4-listD', [App\Http\Controllers\ShuttleFour\ListDController::class, 'shuttle_4_listD'])->name('bpm.shuttle-4-listD');
-                Route::get('/bpm/shuttle-4-listE', [App\Http\Controllers\ShuttleFour\ListEController::class, 'shuttle_4_listE'])->name('bpm.shuttle-4-listE');
-                Route::get('/bpm/shuttle-4-formA', [App\Http\Controllers\ShuttleFour\MainController::class, 'shuttle_4_formA'])->name('bpm.shuttle-4-formA');
-                Route::get('/bpm/shuttle-4-formB', [App\Http\Controllers\ShuttleFour\MainController::class, 'shuttle_4_formB'])->name('bpm.shuttle-4-formB');
-                Route::get('/bpm/shuttle-4-formC', [App\Http\Controllers\ShuttleFour\MainController::class, 'shuttle_4_formC'])->name('bpm.shuttle-4-formC');
-                Route::get('/bpm/shuttle-4-formD', [App\Http\Controllers\ShuttleFour\MainController::class, 'shuttle_4_formD'])->name('bpm.shuttle-4-formD');
-                Route::get('/bpm/shuttle-4-formE', [App\Http\Controllers\ShuttleFour\MainController::class, 'shuttle_4_formE'])->name('bpm.shuttle-4-formE');
-
-                //shuttle 5
-                Route::get('/bpm/shuttle-5-listA', [App\Http\Controllers\ShuttleFive\MainController::class, 'shuttle_5_listA'])->name('bpm.shuttle-5-listA');
-                Route::get('/bpm/shuttle-5-listB', [App\Http\Controllers\ShuttleFive\ListBController::class, 'shuttle_5_listB'])->name('bpm.shuttle-5-listB');
-                Route::get('/bpm/shuttle-5-listC', [App\Http\Controllers\ShuttleFive\ListCController::class, 'shuttle_5_listC'])->name('bpm.shuttle-5-listC');
-                Route::get('/bpm/shuttle-5-listD', [App\Http\Controllers\ShuttleFive\ListDController::class, 'shuttle_5_listD'])->name('bpm.shuttle-5-listD');
-                Route::get('/bpm/shuttle-5-listE', [App\Http\Controllers\ShuttleFive\ListEController::class, 'shuttle_5_listE'])->name('bpm.shuttle-5-listE');
-                Route::get('/bpm/shuttle-5-formA', [App\Http\Controllers\ShuttleFive\MainController::class, 'shuttle_5_formA'])->name('bpm.shuttle-5-formA');
-                Route::get('/bpm/shuttle-5-formB', [App\Http\Controllers\ShuttleFive\MainController::class, 'shuttle_5_formB'])->name('bpm.shuttle-5-formB');
-                Route::get('/bpm/shuttle-5-formC', [App\Http\Controllers\ShuttleFive\MainController::class, 'shuttle_5_formC'])->name('bpm.shuttle-5-formC');
-                Route::get('/bpm/shuttle-5-formD', [App\Http\Controllers\ShuttleFive\MainController::class, 'shuttle_5_formD'])->name('bpm.shuttle-5-formD');
-                Route::get('/bpm/shuttle-5-formE', [App\Http\Controllers\ShuttleFive\MainController::class, 'shuttle_5_formE'])->name('bpm.shuttle-5-formE');
-
-                //pengurusan pengguna
-                Route::get('/bpm/pengurusan-pengguna', [App\Http\Controllers\PengurusanPengguna\MainController::class, 'pengurusan_pengguna_bpm'])->name('bpm.pengurusan-pengguna');
-                Route::get('/bpm/pengurusan-pengguna-tambah', [App\Http\Controllers\PengurusanPengguna\MainController::class, 'tambah_pengurusan_pengguna_bpm'])->name('bpm.tambah-pengurusan-pengguna-bpm');
-                Route::post('/bpm/tambah_pengguna_ipjpsm', [App\Http\Controllers\PengurusanPengguna\MainController::class, 'tambah_pengguna_bpm'])->name('bpm.tambah-pengurusan-pengguna.store');
-                Route::get('/bpm/pengesahan-permohonan', [App\Http\Controllers\PengesahanPermohonan\PengesahanController::class, 'pengesahan_permohonan'])->name('bpm.pengesahan-permohonan');
-
-                //Pengurusan Data Asas
-                Route::get('/bpm/hak-milik-syarikat', [App\Http\Controllers\HakMilikSyarikat\MainController::class, 'hak_milik_syarikat'])->name('bpm.hak-milik-syarikat');
-                Route::get('/bpm/jenis-kayu-kumai', [App\Http\Controllers\JenisKayuKumai\MainController::class, 'jenis_kayu_kumai'])->name('bpm.jenis-kayu-kumai');
-                Route::get('/bpm/jenis-pembeli-shuttle3', [App\Http\Controllers\JenisPembeliShuttle3\MainController::class, 'jenis_pembeli_shuttle3'])->name('bpm.jenis-pembeli-shuttle3');
-                Route::get('/bpm/jenis-pembeli-shuttle4', [App\Http\Controllers\JenisPembeliShuttle4\MainController::class, 'jenis_pembeli_shuttle4'])->name('bpm.jenis-pembeli-shuttle4');
-                Route::get('/bpm/kategori-pekerja', [App\Http\Controllers\KategoriPekerja\MainController::class, 'kategori_pekerja'])->name('bpm.kategori-pekerja');
-                Route::get('/bpm/kewarganegaraan', [App\Http\Controllers\Kewarganegaraan\MainController::class, 'kewarganegaraan'])->name('bpm.kewarganegaraan');
-                Route::get('/bpm/kumpulan-kayu', [App\Http\Controllers\KumpulanKayu\MainController::class, 'kumpulan_kayu'])->name('bpm.kumpulan-kayu');
-                Route::get('/bpm/spesis', [App\Http\Controllers\spesis\MainController::class, 'spesis'])->name('bpm.spesis');
-                Route::get('/bpm/spesis-aktif', [App\Http\Controllers\SpesisAktif\MainController::class, 'spesis_aktif'])->name('bpm.spesis-aktif');
-                Route::get('/bpm/status-operasi', [App\Http\Controllers\StatusOperasi\MainController::class, 'status_operasi'])->name('bpm.status-operasi');
-                Route::get('/bpm/taraf-syarikat', [App\Http\Controllers\TarafSyarikat\MainController::class, 'taraf_syarikat'])->name('bpm.taraf-syarikat');
-
-                //Senarai tugasan ipjpsm
-                // Route::get('/admin/senarai-tugasan-ipjpsm', [App\Http\Controllers\SenaraiTugasanIpjpsm\SenaraiBorangController::class, 'borang_belum_lengkap'])->name('senarai-tugasan-ipjpsm');
-
-                //Senarai Status Permohonan Pengguna
-                Route::get('/bpm/status-permohonan', [App\Http\Controllers\StatusPermohonanPengguna\PermohonanPenggunaController::class, 'status_permohonan_pengguna'])->name('bpm.status-permohonan-pengguna');
-                Route::get('/bpm/lampiran-permohonan/{id}', [App\Http\Controllers\StatusPermohonanPengguna\PermohonanPenggunaController::class, 'lampiran_permohonan'])->name('bpm.lampiran-permohonan-pengguna');
-                Route::get('/bpm/lampiran-permohonan/{id}', [App\Http\Controllers\StatusPermohonanPengguna\PermohonanPenggunaController::class, 'lampiran_permohonan_bpm'])->name('bpm.lampiran-pengurusan-pengguna');
-                Route::post('/bpm/sahkan-permohonan-bpm/{id}', [App\Http\Controllers\StatusPermohonanPengguna\PermohonanPenggunaController::class, 'sahkan_permohonan_bpm'])->name('bpm.sahkan-permohonan-ipjpsm');
+                    // Shuttle 5 PDF Routes
+                    Route::prefix('pdf/shuttle5')->name('pdf.shuttle5.')->group(function () {
+                        Route::get('/form-a/{id}', [App\Http\Controllers\PDF\ShuttleFivePDFController::class, 'printFormA'])->name('form-a');
+                        Route::get('/form-b/{id}', [App\Http\Controllers\PDF\ShuttleFivePDFController::class, 'printFormB'])->name('form-b');
+                        Route::get('/form-c/{id}', [App\Http\Controllers\PDF\ShuttleFivePDFController::class, 'printFormC'])->name('form-c');
+                        Route::get('/form-d/{id}', [App\Http\Controllers\PDF\ShuttleFivePDFController::class, 'printFormD'])->name('form-d');
+                        Route::get('/form-e/{id}', [App\Http\Controllers\PDF\ShuttleFivePDFController::class, 'printFormE'])->name('form-e');
+                    });
+                });
             });
         });
     }

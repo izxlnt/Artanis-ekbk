@@ -945,4 +945,128 @@ class MainController extends Controller
             'kemasukan_bahan_calc_lain_lain'
         ));
     }
+
+    public function shuttle_4_form_view_form4D_ipjpsm($id)
+    {
+        $form4d = Form4D::findorfail($id);
+        $kilang_info = Shuttle::findorfail($form4d->shuttle->id);
+        
+        $layout = auth()->user()->kategori_pengguna == 'BPE' ? 'layouts.layout-ipjpsm-nicepage' : 'layouts.layout-phd-nicepage';
+        
+        $breadcrumbs = [
+            ['link' => route('home'), 'name' => "Laman Utama"],
+            ['link' => route('shuttle-4-listD', date('Y')), 'name' => "Menu Utama Modul"],
+            ['link' => route('shuttle-4-listD', date('Y')), 'name' => "Perakuan Maklumat"],
+            ['link' => route('shuttle-4-listD', date('Y')), 'name' => "Shuttle 4 - Kilang Papan Lapis/Venir"],
+            ['link' => route('shuttle-4-listD', date('Y')), 'name' => "Senarai Borang 4D"],
+            ['link' => route('ipjpsm.shuttle-4-view-formD', $id), 'name' => "Borang 4D "],
+        ];
+
+        $kembali = route('shuttle-4-listD', date('Y'));
+
+        $returnArr = [
+            'breadcrumbs' => $breadcrumbs,
+            'kembali' => $kembali,
+            'layout' => $layout
+        ];
+
+        return view('admins.shuttle-four.view-form4d-ipjpsm', compact('returnArr', 'form4d', 'kilang_info'));
+    }
+
+    public function shuttle_4_form_view_form4E_ipjpsm($id)
+    {
+        $form4e = Form4E::findorfail($id);
+        $kilang_info = Shuttle::findorfail($form4e->shuttle->id);
+        
+        $layout = auth()->user()->kategori_pengguna == 'BPE' ? 'layouts.layout-ipjpsm-nicepage' : 'layouts.layout-phd-nicepage';
+        
+        $breadcrumbs = [
+            ['link' => route('home'), 'name' => "Laman Utama"],
+            ['link' => route('shuttle-4-listE', date('Y')), 'name' => "Menu Utama Modul"],
+            ['link' => route('shuttle-4-listE', date('Y')), 'name' => "Perakuan Maklumat"],
+            ['link' => route('shuttle-4-listE', date('Y')), 'name' => "Shuttle 4 - Kilang Papan Lapis/Venir"],
+            ['link' => route('shuttle-4-listE', date('Y')), 'name' => "Senarai Borang 4E"],
+            ['link' => route('ipjpsm.shuttle-4-view-formE', $id), 'name' => "Borang 4E "],
+        ];
+
+        $kembali = route('shuttle-4-listE', date('Y'));
+
+        $returnArr = [
+            'breadcrumbs' => $breadcrumbs,
+            'kembali' => $kembali,
+            'layout' => $layout
+        ];
+
+        return view('admins.shuttle-four.view-form4e-ipjpsm', compact('returnArr', 'form4e', 'kilang_info'));
+    }
+    
+    public function update_status_ipjpsm4D(Request $request, $id)
+    {
+        // Get the form based on ID
+        $form4D = Form4D::find($id);
+        
+        if (!$form4D) {
+            return redirect()->back()->with('error', 'Form not found');
+        }
+        
+        // Determine status based on request
+        if ($request->has('tak_lengkap')) {
+            $status = "Tidak Lengkap";
+        } else {
+            $status = "Dihantar ke IPJPSM";
+        }
+        
+        // Update the form status
+        $form4D->status = $status;
+        $form4D->save();
+        
+        // Add ulasan if provided
+        if ($request->has('ulasan') && !empty($request->ulasan)) {
+            UlasanPhd::create([
+                'form_id' => $id,
+                'form_type' => 'Form4D',
+                'ulasan' => $request->ulasan,
+                'user_id' => auth()->user()->id,
+                'created_at' => now(),
+                'updated_at' => now()
+            ]);
+        }
+        
+        return redirect()->back()->with('success', 'Status updated successfully');
+    }
+    
+    public function update_status_ipjpsm4E(Request $request, $id)
+    {
+        // Get the form based on ID
+        $form4E = Form4E::find($id);
+        
+        if (!$form4E) {
+            return redirect()->back()->with('error', 'Form not found');
+        }
+        
+        // Determine status based on request
+        if ($request->has('tak_lengkap')) {
+            $status = "Tidak Lengkap";
+        } else {
+            $status = "Dihantar ke IPJPSM";
+        }
+        
+        // Update the form status
+        $form4E->status = $status;
+        $form4E->save();
+        
+        // Add ulasan if provided
+        if ($request->has('ulasan') && !empty($request->ulasan)) {
+            UlasanPhd::create([
+                'form_id' => $id,
+                'form_type' => 'Form4E',
+                'ulasan' => $request->ulasan,
+                'user_id' => auth()->user()->id,
+                'created_at' => now(),
+                'updated_at' => now()
+            ]);
+        }
+        
+        return redirect()->back()->with('success', 'Status updated successfully');
+    }
 }

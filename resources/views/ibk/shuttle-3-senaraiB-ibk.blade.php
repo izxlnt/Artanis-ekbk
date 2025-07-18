@@ -77,16 +77,16 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <a type="button " href="{{ route('user.shuttle-3-senaraiA', date('Y')) }}"
+                                        <a type="button " href="{{ route('user.shuttle-3-senaraiA', $year) }}"
                                             class="btn"
                                             style="background-color:white;color:black;border-color:black">Borang 3A</a>
-                                        <a type="button" href="{{ route('user.shuttle-3-senaraiB', date('Y')) }}"
+                                        <a type="button" href="{{ route('user.shuttle-3-senaraiB', $year) }}"
                                             class="btn"
                                             style="background-color:#ee8dcd;color:black;border-color:#ee8dcd">Borang 3B</a>
-                                        <a type="button" href="{{ route('user.shuttle-3-senaraiC', date('Y')) }}"
+                                        <a type="button" href="{{ route('user.shuttle-3-senaraiC', $year) }}"
                                             class="btn"
                                             style="background-color:white;color:black;border-color:#bbb235f3">Borang 3C</a>
-                                        <a type="button" href="{{ route('user.shuttle-3-senaraiD', date('Y')) }}"
+                                        <a type="button" href="{{ route('user.shuttle-3-senaraiD', $year) }}"
                                             class="btn"
                                             style="background-color:white;color:black;border-color:#1b9e21f3">Borang 3D</a>
                                     </div>

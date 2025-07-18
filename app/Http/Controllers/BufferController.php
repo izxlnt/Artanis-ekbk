@@ -13,8 +13,8 @@ class BufferController extends Controller
 
         $breadcrumbs    = [
             ['link' => route('home'), 'name' => "Laman Utama"],
-            ['link' => route('tetapan.buffer.update', date('Y')), 'name' => "Menu Utama Modul"],
-            ['link' => route('tetapan.buffer.update', date('Y')), 'name' => "Tetapan Buffer Penghantaran Borang"],
+            ['link' => route('tetapan.buffer.papar'), 'name' => "Menu Utama Modul"],
+            ['link' => route('tetapan.buffer.papar'), 'name' => "Tetapan Buffer Penghantaran Borang"],
         ];
 
         $kembali = route('home');

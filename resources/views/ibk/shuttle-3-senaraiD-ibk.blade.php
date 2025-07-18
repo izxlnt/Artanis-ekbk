@@ -77,16 +77,16 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <a type="button " href="{{ route('user.shuttle-3-senaraiA', date('Y')) }}"
+                                        <a type="button " href="{{ route('user.shuttle-3-senaraiA', $year) }}"
                                             class="btn"
                                             style="background-color:white;color:black;border-color:black">Borang 3A</a>
-                                        <a type="button" href="{{ route('user.shuttle-3-senaraiB', date('Y')) }}"
+                                        <a type="button" href="{{ route('user.shuttle-3-senaraiB', $year) }}"
                                             class="btn"
                                             style="background-color:white;color:black;border-color:#e72cc8f3">Borang 3B</a>
-                                        <a type="button" href="{{ route('user.shuttle-3-senaraiC', date('Y')) }}"
+                                        <a type="button" href="{{ route('user.shuttle-3-senaraiC', $year) }}"
                                             class="btn"
                                             style="background-color:white;color:black;border-color:#bbb235f3">Borang 3C</a>
-                                        <a type="button" href="{{ route('user.shuttle-3-senaraiD', date('Y')) }}"
+                                        <a type="button" href="{{ route('user.shuttle-3-senaraiD', $year) }}"
                                             class="btn"
                                             style="background-color:rgb(33, 235, 77);color:black;border-color:rgb(33, 235, 77)">Borang
                                             3D</a>
@@ -753,8 +753,16 @@
                                 </table>
                                 <br>
                                 <div class="row">
-                                    <a class="btn btn-primary" href="{{ route('home-user') }}"
-                                        style="color:white">Kembali</a>
+                                    <div class="col-md-6">
+                                        <a class="btn btn-primary" href="{{ route('home-user') }}"
+                                            style="color:white">Kembali</a>
+                                    </div>
+                                    {{-- <div class="col-md-6 text-right">
+                                        <a class="btn btn-success" href="{{ route('user.shuttle-3-senaraiD.pdf', $year) }}"
+                                            style="color:white" target="_blank">
+                                            <i class="fas fa-file-pdf"></i> Muat Turun PDF
+                                        </a>
+                                    </div> --}}
                                 </div>
                             </div>
                         </div>

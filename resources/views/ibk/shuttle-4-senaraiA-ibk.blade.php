@@ -80,20 +80,20 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <a type="button " href="{{ route('user.shuttle-4-senaraiA', date('Y')) }}"
+                                        <a type="button " href="{{ route('user.shuttle-4-senaraiA', $year) }}"
                                             class="btn"
                                             style="background-color:rgb(196, 188, 186);color:black;border-color:rgb(196, 188, 186)">Borang
                                             4A</a>
-                                        <a type="button" href="{{ route('user.shuttle-4-senaraiB', date('Y')) }}"
+                                        <a type="button" href="{{ route('user.shuttle-4-senaraiB', $year) }}"
                                             class="btn"
                                             style="background-color:white;color:black;border-color:#e72cc8f3">Borang 4B</a>
-                                        <a type="button" href="{{ route('user.shuttle-4-senaraiC', date('Y')) }}"
+                                        <a type="button" href="{{ route('user.shuttle-4-senaraiC', $year) }}"
                                             class="btn"
                                             style="background-color:white;color:black;border-color:#bbb235f3">Borang 4C</a>
-                                        <a type="button" href="{{ route('user.shuttle-4-senaraiD', date('Y')) }}"
+                                        <a type="button" href="{{ route('user.shuttle-4-senaraiD', $year) }}"
                                             class="btn"
                                             style="background-color:white;color:black;border-color:#1b9e21f3">Borang 4D</a>
-                                        <a type="button" href="{{ route('user.shuttle-4-senaraiE', date('Y')) }}"
+                                        <a type="button" href="{{ route('user.shuttle-4-senaraiE', $year) }}"
                                             class="btn"
                                             style="background-color:white;color:black;border-color:rgb(54, 140, 238">Borang
                                             4E</a>

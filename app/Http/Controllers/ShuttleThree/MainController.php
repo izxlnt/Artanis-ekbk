@@ -1446,4 +1446,39 @@ class MainController extends Controller
             ]);
         }
     }
+    
+    public function update_status_formB(Request $request, $id)
+    {
+        // Get the form based on ID
+        $formB = FormB::find($id);
+        
+        if (!$formB) {
+            return redirect()->back()->with('error', 'Form not found');
+        }
+        
+        // Determine status based on request
+        if ($request->has('tak_lengkap')) {
+            $status = "Tidak Lengkap";
+        } else {
+            $status = "Dihantar ke IPJPSM";
+        }
+        
+        // Update the form status
+        $formB->status = $status;
+        $formB->save();
+        
+        // Add ulasan if provided
+        if ($request->has('ulasan') && !empty($request->ulasan)) {
+            UlasanPhd::create([
+                'form_id' => $id,
+                'form_type' => 'FormB',
+                'ulasan' => $request->ulasan,
+                'user_id' => auth()->user()->id,
+                'created_at' => now(),
+                'updated_at' => now()
+            ]);
+        }
+        
+        return redirect()->back()->with('success', 'Status updated successfully');
+    }
 }
