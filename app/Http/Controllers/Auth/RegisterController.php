@@ -67,10 +67,10 @@ class RegisterController extends Controller
             return Validator::make($data, [
                 'name' => ['required', 'string', 'max:255'],
                 'email' => [
-                    'required', 
-                    'string', 
-                    'email', 
-                    'max:255', 
+                    'required',
+                    'string',
+                    'email',
+                    'max:255',
                     new UniqueEmailAcrossAllTables(),
                     new DifferentEmailFields('email_kilang', $data['email_kilang'] ?? null)
                 ],
@@ -115,8 +115,8 @@ class RegisterController extends Controller
                 'daerah_id'=> ['required', 'string', 'max:255'],
                 'email'=> ['required', 'email', new UniqueEmailAcrossAllTables()],
                 'email_kilang'=> [
-                    'required', 
-                    'email', 
+                    'required',
+                    'email',
                     new UniqueEmailAcrossAllTables(),
                     new DifferentEmailFields('email', $data['email'] ?? null)
                 ],
@@ -133,10 +133,10 @@ class RegisterController extends Controller
             return Validator::make($data, [
                 'name' => ['required', 'string', 'max:255'],
                 'email' => [
-                    'required', 
-                    'string', 
-                    'email', 
-                    'max:255', 
+                    'required',
+                    'string',
+                    'email',
+                    'max:255',
                     new UniqueEmailAcrossAllTables(),
                     new DifferentEmailFields('email_kilang', $data['email_kilang'] ?? null)
                 ],
@@ -181,8 +181,8 @@ class RegisterController extends Controller
                 'daerah_id'=> ['required', 'string', 'max:255'],
                 'email'=> ['required', 'email', new UniqueEmailAcrossAllTables()],
                 'email_kilang'=> [
-                    'required', 
-                    'email', 
+                    'required',
+                    'email',
                     new UniqueEmailAcrossAllTables(),
                     new DifferentEmailFields('email', $data['email'] ?? null)
                 ],

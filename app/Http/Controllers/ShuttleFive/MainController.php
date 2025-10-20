@@ -342,7 +342,7 @@ class MainController extends Controller
     public function shuttle_5_formC($id, $year = null)
     {
         $year = $year ?? date("Y");
-        
+
         $form_a_checker = FormA::where('tahun', $year)
         ->where('shuttle_id', auth()->user()->shuttle->id)
         ->where('status', '!=', 'Tidak Diisi')
@@ -714,27 +714,27 @@ class MainController extends Controller
 
          return view('admins.PHD.senarai-tugasan-5E',compact('returnArr','form5E', 'year_list', 'year','batch'));
     }
-    
+
     public function update_status_ipjpsm5D(Request $request, $id)
     {
         // Get the form based on ID
         $form5D = Form5D::find($id);
-        
+
         if (!$form5D) {
             return redirect()->back()->with('error', 'Form not found');
         }
-        
+
         // Determine status based on request
         if ($request->has('tak_lengkap')) {
             $status = "Tidak Lengkap";
         } else {
             $status = "Dihantar ke IPJPSM";
         }
-        
+
         // Update the form status
         $form5D->status = $status;
         $form5D->save();
-        
+
         // Add ulasan if provided
         if ($request->has('ulasan') && !empty($request->ulasan)) {
             UlasanPhd::create([
@@ -746,30 +746,30 @@ class MainController extends Controller
                 'updated_at' => now()
             ]);
         }
-        
+
         return redirect()->back()->with('success', 'Status updated successfully');
     }
-    
+
     public function update_status_ipjpsm5E(Request $request, $id)
     {
         // Get the form based on ID
         $form5E = Form5E::find($id);
-        
+
         if (!$form5E) {
             return redirect()->back()->with('error', 'Form not found');
         }
-        
+
         // Determine status based on request
         if ($request->has('tak_lengkap')) {
             $status = "Tidak Lengkap";
         } else {
             $status = "Dihantar ke IPJPSM";
         }
-        
+
         // Update the form status
         $form5E->status = $status;
         $form5E->save();
-        
+
         // Add ulasan if provided
         if ($request->has('ulasan') && !empty($request->ulasan)) {
             UlasanPhd::create([
@@ -781,7 +781,7 @@ class MainController extends Controller
                 'updated_at' => now()
             ]);
         }
-        
+
         return redirect()->back()->with('success', 'Status updated successfully');
     }
 

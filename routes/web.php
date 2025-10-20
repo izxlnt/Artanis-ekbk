@@ -879,7 +879,7 @@ Route::middleware('auth')->group(
                 Route::post('/admin/shuttle-3-update-status-formB/{id}', [App\Http\Controllers\ShuttleThree\MainController::class, 'update_status_ipjpsm3B'])->name('update_status_form3B_ipjpsm');
                 Route::post('/admin/shuttle-3-update-status-formC/{id}', [App\Http\Controllers\ShuttleThree\MainController::class, 'update_status_ipjpsm3C'])->name('update_status_form3C_ipjpsm');
                 Route::post('/admin/shuttle-3-update-status-formD/{id}', [App\Http\Controllers\ShuttleThree\MainController::class, 'update_status_ipjpsm3D'])->name('update_status_form3D_ipjpsm');
-                
+
                 // Missing update_status_formB route
                 Route::post('/admin/shuttle-3-update-status-formB-user/{id}', [App\Http\Controllers\ShuttleThree\MainController::class, 'update_status_formB'])->name('update_status_formB');
 
@@ -893,7 +893,7 @@ Route::middleware('auth')->group(
                 Route::get('/admin/shuttle-4-view-formD/{id}', [App\Http\Controllers\ShuttleFour\MainController::class, 'shuttle_4_form_view_form4D_ipjpsm'])->name('ipjpsm.shuttle-4-view-formD');
                 Route::get('/admin/shuttle-4-view-formE/{id}', [App\Http\Controllers\ShuttleFour\MainController::class, 'shuttle_4_form_view_form4E_ipjpsm'])->name('ipjpsm.shuttle-4-view-formE');
                 Route::get('/admin/shuttle-4-listE/{year}', [App\Http\Controllers\ShuttleFour\ListEController::class, 'shuttle_4_listE_ipjpsm'])->name('shuttle-4-listE');
-                
+
                 // Missing shuttle 4 IPJPSM update status routes
                 Route::post('/admin/shuttle-4-update-status-formD/{id}', [App\Http\Controllers\ShuttleFour\MainController::class, 'update_status_ipjpsm4D'])->name('update_status_form4D_ipjpsm');
                 Route::post('/admin/shuttle-4-update-status-formE/{id}', [App\Http\Controllers\ShuttleFour\MainController::class, 'update_status_ipjpsm4E'])->name('update_status_form4E_ipjpsm');
@@ -906,7 +906,7 @@ Route::middleware('auth')->group(
                 Route::get('/admin/shuttle-5-listE/{year}', [App\Http\Controllers\ShuttleFive\ListEController::class, 'shuttle_5_listE_ipjpsm'])->name('shuttle-5-listE');
                 Route::get('/admin/shuttle-5-view-formD/{id}', [App\Http\Controllers\ShuttleFive\ViewFormController::class, 'shuttle_5_form_view_form5D_ipjpsm'])->name('ipjpsm.shuttle-5-view-formD');
                 Route::get('/admin/shuttle-5-view-formE/{id}', [App\Http\Controllers\ShuttleFive\ViewFormController::class, 'shuttle_5_form_view_form5E_ipjpsm'])->name('ipjpsm.shuttle-5-view-formE');
-                
+
                 // Missing shuttle 5 IPJPSM update status routes
                 Route::post('/admin/shuttle-5-update-status-formD/{id}', [App\Http\Controllers\ShuttleFive\MainController::class, 'update_status_ipjpsm5D'])->name('update_status_form5D_ipjpsm');
                 Route::post('/admin/shuttle-5-update-status-formE/{id}', [App\Http\Controllers\ShuttleFive\MainController::class, 'update_status_ipjpsm5E'])->name('update_status_form5E_ipjpsm');

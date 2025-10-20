@@ -22,7 +22,7 @@ class FormCController extends Controller
     public function shuttle_4_formCKKB($bulan_id, $year = null)
     {
         $year = $year ?? date("Y");
-        
+
         $shuttle_type = auth()->user()->shuttle->shuttle_type;
         $recovery_rate = RecoveryRate::where('shuttle_type', $shuttle_type)->first();
         $min_recovery_rate = $recovery_rate->min_recovery_rate;
@@ -195,7 +195,7 @@ class FormCController extends Controller
     public function store_kkb(Request $request, $bulan_id, $year = null)
     {
         $year = $year ?? date("Y");
-        
+
         // dd($request->all());
         if ($request->tiadaPengeluaran) {
             return redirect()->route('user.shuttle-4-formC.tiadaPengeluaran', $bulan_id);
@@ -318,7 +318,7 @@ class FormCController extends Controller
     public function shuttle_4_formCKKS($bulan_id, $year = null)
     {
         $year = $year ?? date("Y");
-        
+
         $shuttle_type = auth()->user()->shuttle->shuttle_type;
         $recovery_rate = RecoveryRate::where('shuttle_type', $shuttle_type)->first();
         $min_recovery_rate = $recovery_rate->min_recovery_rate;
@@ -491,7 +491,7 @@ class FormCController extends Controller
     public function store_kks(Request $request, $bulan_id, $year = null)
     {
         $year = $year ?? date("Y");
-        
+
         // dd($request->all());
         if ($request->tiadaPengeluaran) {
             return redirect()->route('user.shuttle-4-formC.tiadaPengeluaran', $bulan_id);

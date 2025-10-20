@@ -2499,7 +2499,7 @@ $pengumumantest=PengumumanIpjpsm::where('negeri',$user_pengumuman->negeri)->firs
         // Update email in all related tables only if email was provided and changed
         if ($request->has('email') && $request->email !== $oldEmail) {
             $pengguna->email = $request->email;
-            
+
             // Update the user's email
             $user->email = $request->email;
             $user->updated_at = now();
@@ -2801,10 +2801,10 @@ $pengumumantest=PengumumanIpjpsm::where('negeri',$user_pengumuman->negeri)->firs
         $user = auth()->user();
         $shuttle = Shuttle::where('id', $user->shuttle_id)->first();
         $list = FormC::where('shuttle_id', $shuttle->id)->where('tahun', $year)->get();
-        
+
         // Get years where data exists, but filter by registration date
         $year_list = FormC::where('shuttle_id', $shuttle->id)->distinct()->orderBy('tahun')->get('tahun');
-        
+
         // Filter out years before registration if shuttle has registration date
         if ($shuttle && $shuttle->created_at) {
             $registrationYear = date('Y', strtotime($shuttle->created_at));
@@ -2812,7 +2812,7 @@ $pengumumantest=PengumumanIpjpsm::where('negeri',$user_pengumuman->negeri)->firs
                 return $item->tahun >= $registrationYear;
             });
         }
-        
+
         // If no data exists but shuttle is registered, show current year
         if ($year_list->isEmpty()) {
             $currentYear = date('Y');
@@ -2842,10 +2842,10 @@ $pengumumantest=PengumumanIpjpsm::where('negeri',$user_pengumuman->negeri)->firs
         $user = auth()->user();
         $shuttle = Shuttle::where('id', $user->shuttle_id)->first();
         $list = FormD::where('shuttle_id', $shuttle->id)->where('tahun', $year)->get();
-        
+
         // Get years where data exists, but filter by registration date
         $year_list = FormD::where('shuttle_id', $shuttle->id)->distinct()->orderBy('tahun')->get('tahun');
-        
+
         // Filter out years before registration if shuttle has registration date
         if ($shuttle && $shuttle->created_at) {
             $registrationYear = date('Y', strtotime($shuttle->created_at));
@@ -2853,7 +2853,7 @@ $pengumumantest=PengumumanIpjpsm::where('negeri',$user_pengumuman->negeri)->firs
                 return $item->tahun >= $registrationYear;
             });
         }
-        
+
         // If no data exists but shuttle is registered, show current year
         if ($year_list->isEmpty()) {
             $currentYear = date('Y');
@@ -2978,17 +2978,17 @@ $pengumumantest=PengumumanIpjpsm::where('negeri',$user_pengumuman->negeri)->firs
 
         $shuttle = Shuttle::where('id', $user->shuttle_id)->first();
         $list = FormC::where('shuttle_id', $shuttle->id)->where('tahun', $year)->get();
-        
+
         // Generate year list from 1 year before current year and consider registration date
         $currentYear = date('Y');
         $startYear = $currentYear - 1; // 1 year before current year
-        
+
         // If shuttle has registration date, use that year if it's earlier
         if ($shuttle && $shuttle->created_at) {
             $registrationYear = date('Y', strtotime($shuttle->created_at));
             $startYear = min($startYear, $registrationYear);
         }
-        
+
         $year_list = collect();
         for ($i = $startYear; $i <= $currentYear; $i++) {
             $year_list->push((object)['tahun' => $i]);
@@ -3017,17 +3017,17 @@ $pengumumantest=PengumumanIpjpsm::where('negeri',$user_pengumuman->negeri)->firs
 
         $shuttle = Shuttle::where('id', $user->shuttle_id)->first();
         $list = Form4D::where('shuttle_id', $shuttle->id)->where('tahun', $year)->get();
-        
+
         // Generate year list from 1 year before current year and consider registration date
         $currentYear = date('Y');
         $startYear = $currentYear - 1; // 1 year before current year
-        
+
         // If shuttle has registration date, use that year if it's earlier
         if ($shuttle && $shuttle->created_at) {
             $registrationYear = date('Y', strtotime($shuttle->created_at));
             $startYear = min($startYear, $registrationYear);
         }
-        
+
         $year_list = collect();
         for ($i = $startYear; $i <= $currentYear; $i++) {
             $year_list->push((object)['tahun' => $i]);
@@ -3057,17 +3057,17 @@ $pengumumantest=PengumumanIpjpsm::where('negeri',$user_pengumuman->negeri)->firs
 
         $shuttle = Shuttle::where('id', $user->shuttle_id)->first();
         $list = Form4E::where('shuttle_id', $shuttle->id)->where('tahun', $year)->get();
-        
+
         // Generate year list from 1 year before current year and consider registration date
         $currentYear = date('Y');
         $startYear = $currentYear - 1; // 1 year before current year
-        
+
         // If shuttle has registration date, use that year if it's earlier
         if ($shuttle && $shuttle->created_at) {
             $registrationYear = date('Y', strtotime($shuttle->created_at));
             $startYear = min($startYear, $registrationYear);
         }
-        
+
         $year_list = collect();
         for ($i = $startYear; $i <= $currentYear; $i++) {
             $year_list->push((object)['tahun' => $i]);
@@ -3267,17 +3267,17 @@ $pengumumantest=PengumumanIpjpsm::where('negeri',$user_pengumuman->negeri)->firs
 
         $shuttle = Shuttle::where('id', $user->shuttle_id)->first();
         $list = FormC::where('shuttle_id', $shuttle->id)->where('tahun', $year)->get();
-        
+
         // Generate year list from 1 year before current year and consider registration date
         $currentYear = date('Y');
         $startYear = $currentYear - 1; // 1 year before current year
-        
+
         // If shuttle has registration date, use that year if it's earlier
         if ($shuttle && $shuttle->created_at) {
             $registrationYear = date('Y', strtotime($shuttle->created_at));
             $startYear = min($startYear, $registrationYear);
         }
-        
+
         $year_list = collect();
         for ($i = $startYear; $i <= $currentYear; $i++) {
             $year_list->push((object)['tahun' => $i]);
@@ -3306,17 +3306,17 @@ $pengumumantest=PengumumanIpjpsm::where('negeri',$user_pengumuman->negeri)->firs
 
         $shuttle = Shuttle::where('id', $user->shuttle_id)->first();
         $list = Form5D::where('shuttle_id', $shuttle->id)->where('tahun', $year)->get();
-        
+
         // Generate year list from 1 year before current year and consider registration date
         $currentYear = date('Y');
         $startYear = $currentYear - 1; // 1 year before current year
-        
+
         // If shuttle has registration date, use that year if it's earlier
         if ($shuttle && $shuttle->created_at) {
             $registrationYear = date('Y', strtotime($shuttle->created_at));
             $startYear = min($startYear, $registrationYear);
         }
-        
+
         $year_list = collect();
         for ($i = $startYear; $i <= $currentYear; $i++) {
             $year_list->push((object)['tahun' => $i]);
@@ -3346,17 +3346,17 @@ $pengumumantest=PengumumanIpjpsm::where('negeri',$user_pengumuman->negeri)->firs
 
         $shuttle = Shuttle::where('id', $user->shuttle_id)->first();
         $list = Form5E::where('shuttle_id', $shuttle->id)->where('tahun', $year)->get();
-        
+
         // Generate year list from 1 year before current year and consider registration date
         $currentYear = date('Y');
         $startYear = $currentYear - 1; // 1 year before current year
-        
+
         // If shuttle has registration date, use that year if it's earlier
         if ($shuttle && $shuttle->created_at) {
             $registrationYear = date('Y', strtotime($shuttle->created_at));
             $startYear = min($startYear, $registrationYear);
         }
-        
+
         $year_list = collect();
         for ($i = $startYear; $i <= $currentYear; $i++) {
             $year_list->push((object)['tahun' => $i]);

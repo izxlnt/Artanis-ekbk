@@ -200,10 +200,10 @@
                                                                             <label for="current_email_{{ $data->id }}"
                                                                                 class="text-right col-sm-3 control-label col-form-label">Emel Semasa</label>
                                                                             <div class="col-sm-9">
-                                                                                <input type="text" class="form-control" 
+                                                                                <input type="text" class="form-control"
                                                                                     id="current_email_{{ $data->id }}"
-                                                                                    value="{{ $data->getCurrentEmail() }}" 
-                                                                                    readonly 
+                                                                                    value="{{ $data->getCurrentEmail() }}"
+                                                                                    readonly
                                                                                     style="background-color: #f8f9fa; color: #6c757d;">
                                                                             </div>
                                                                         </div>

@@ -151,7 +151,7 @@
                     <div class="col-md">
                         <label>Emel</label>
                         <div class="mb-3 input-group">
-                            <input  class="form-control @error('email') is-invalid @else border-dark @enderror" id="email" name="email" type="email" value="{{ $user->email }}" 
+                            <input  class="form-control @error('email') is-invalid @else border-dark @enderror" id="email" name="email" type="email" value="{{ $user->email }}"
                                     oninput="validateEmail(this)">
                             <div id="email-validation-message" class="invalid-feedback"></div>
                           @error('email')
@@ -243,19 +243,19 @@
             return false;
         return true;
   }
-  
+
   function validateEmail(input) {
       const email = input.value;
       const messageDiv = document.getElementById('email-validation-message');
-      
+
       // Clear previous validation
       input.classList.remove('is-invalid', 'is-valid');
       messageDiv.textContent = '';
-      
+
       if (!email) {
           return;
       }
-      
+
       // Basic email format validation
       const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
       if (!emailPattern.test(email)) {
@@ -263,7 +263,7 @@
           messageDiv.textContent = 'Format emel tidak sah.';
           return;
       }
-      
+
       // Check email uniqueness via AJAX
       fetch('/email/check-unique', {
           method: 'POST',

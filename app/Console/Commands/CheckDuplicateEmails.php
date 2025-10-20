@@ -30,7 +30,7 @@ class CheckDuplicateEmails extends Command
     public function handle()
     {
         $this->info('Checking for duplicate emails across all tables...');
-        
+
         $tables = [
             'users' => 'email',
             'pengguna_kilangs' => 'email',
@@ -133,7 +133,7 @@ class CheckDuplicateEmails extends Command
         }
 
         $this->info('Please resolve these duplicates before implementing the new validation system.');
-        
+
         return 1;
     }
 }

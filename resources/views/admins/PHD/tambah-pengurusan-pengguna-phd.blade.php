@@ -21,7 +21,7 @@
                         (pengguna)</label>
                     <div class="col-sm-9">
                         <input type="text" class="form-control" id="kad_pengenalan" name='kad_pengenalan' placeholder="No. Kad Pengenalan"
-                               maxlength="12" onkeypress="return onlyNumberKey(event)" 
+                               maxlength="12" onkeypress="return onlyNumberKey(event)"
                                oninput="validateMalaysianIC(this)">
                         <div id="ic-validation-message" class="invalid-feedback"></div>
                     </div>
@@ -163,19 +163,19 @@
                 return false;
             return true;
         }
-        
+
         function validateEmail(input) {
             const email = input.value;
             const messageDiv = document.getElementById('email-validation-message');
-            
+
             // Clear previous validation
             input.classList.remove('is-invalid', 'is-valid');
             messageDiv.textContent = '';
-            
+
             if (!email) {
                 return;
             }
-            
+
             // Basic email format validation
             const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
             if (!emailPattern.test(email)) {
@@ -183,7 +183,7 @@
                 messageDiv.textContent = 'Format emel tidak sah.';
                 return;
             }
-            
+
             // Check email uniqueness via AJAX
             fetch('/email/check-unique', {
                 method: 'POST',
@@ -207,65 +207,65 @@
                 console.error('Error checking email:', error);
             });
         }
-        
+
         function validateMalaysianIC(input) {
             const ic = input.value;
             const messageDiv = document.getElementById('ic-validation-message');
-            
+
             // Clear previous validation
             input.classList.remove('is-invalid', 'is-valid');
             messageDiv.textContent = '';
-            
+
             if (!ic) {
                 return;
             }
-            
+
             // Check format - must be 12 digits
             if (!/^\d{12}$/.test(ic)) {
                 input.classList.add('is-invalid');
                 messageDiv.textContent = 'Nombor kad pengenalan mesti 12 digit.';
                 return;
             }
-            
+
             // Validate date
             const year = parseInt(ic.substring(0, 2));
             const month = parseInt(ic.substring(2, 4));
             const day = parseInt(ic.substring(4, 6));
-            
+
             // Convert 2-digit year to 4-digit year
             const currentYear = new Date().getFullYear();
             const currentCentury = Math.floor(currentYear / 100) * 100;
             const cutoffYear = currentYear - currentCentury + 10;
-            
+
             let fullYear;
             if (year <= cutoffYear) {
                 fullYear = currentCentury + year;
             } else {
                 fullYear = currentCentury - 100 + year;
             }
-            
+
             if (month < 1 || month > 12) {
                 input.classList.add('is-invalid');
                 messageDiv.textContent = 'Bulan tidak sah dalam nombor kad pengenalan.';
                 return;
             }
-            
+
             if (day < 1 || day > 31) {
                 input.classList.add('is-invalid');
                 messageDiv.textContent = 'Hari tidak sah dalam nombor kad pengenalan.';
                 return;
             }
-            
+
             // Check if date is valid
             const testDate = new Date(fullYear, month - 1, day);
-            if (testDate.getFullYear() !== fullYear || 
-                testDate.getMonth() !== month - 1 || 
+            if (testDate.getFullYear() !== fullYear ||
+                testDate.getMonth() !== month - 1 ||
                 testDate.getDate() !== day) {
                 input.classList.add('is-invalid');
                 messageDiv.textContent = 'Tarikh tidak sah dalam nombor kad pengenalan.';
                 return;
             }
-            
+
             // Validate birth place code
             const birthPlace = ic.substring(6, 8);
             if (!isValidBirthPlace(birthPlace)) {
@@ -273,12 +273,12 @@
                 messageDiv.textContent = 'Kod tempat lahir tidak sah dalam nombor kad pengenalan.';
                 return;
             }
-            
+
             // If all validations pass
             input.classList.add('is-valid');
             messageDiv.textContent = '';
         }
-        
+
         function isValidBirthPlace(birthPlace) {
             const validCodes = [
                 '01', '02', '03', '04', '05', '06', '07', '08', '09', '10',

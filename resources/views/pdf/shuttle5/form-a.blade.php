@@ -10,48 +10,48 @@
             margin: 0;
             padding: 20px;
         }
-        
+
         .header {
             text-align: center;
             margin-bottom: 20px;
             border-bottom: 2px solid #333;
             padding-bottom: 10px;
         }
-        
+
         .header h1 {
             margin: 0;
             color: #333;
             font-size: 18px;
         }
-        
+
         .header h2 {
             margin: 5px 0;
             color: #666;
             font-size: 14px;
         }
-        
+
         .info-section {
             margin-bottom: 20px;
         }
-        
+
         .info-row {
             display: flex;
             margin-bottom: 8px;
             align-items: center;
         }
-        
+
         .info-label {
             width: 200px;
             font-weight: bold;
             color: #333;
         }
-        
+
         .info-value {
             flex: 1;
             border-bottom: 1px solid #ccc;
             padding-bottom: 2px;
         }
-        
+
         .section-title {
             background-color: #f5f5f5;
             padding: 8px;
@@ -59,7 +59,7 @@
             font-weight: bold;
             border-left: 4px solid #6f42c1;
         }
-        
+
         .footer {
             position: fixed;
             bottom: 20px;
@@ -67,7 +67,7 @@
             font-size: 10px;
             color: #666;
         }
-        
+
         .status-badge {
             display: inline-block;
             padding: 4px 8px;
@@ -76,17 +76,17 @@
             font-weight: bold;
             margin-left: 10px;
         }
-        
+
         .status-dihantar {
             background-color: #d4edda;
             color: #155724;
         }
-        
+
         .status-lulus {
             background-color: #cce5ff;
             color: #004085;
         }
-        
+
         @media print {
             body {
                 -webkit-print-color-adjust: exact;

@@ -15,13 +15,13 @@ class EmailValidationController extends Controller
     {
         $email = $request->input('email');
         $field = $request->input('field');
-        
+
         if (!$email) {
             return response()->json(['unique' => true]);
         }
-        
+
         $isUnique = EmailValidationService::isEmailUnique($email);
-        
+
         return response()->json([
             'unique' => $isUnique,
             'email' => $email,
@@ -29,27 +29,27 @@ class EmailValidationController extends Controller
             'message' => $isUnique ? 'Email tersedia' : 'Email ini telah digunakan dalam sistem'
         ]);
     }
-    
+
     /**
      * Get email occurrences for debugging
      */
     public function getEmailOccurrences(Request $request)
     {
         $email = $request->input('email');
-        
+
         if (!$email) {
             return response()->json(['error' => 'Email required']);
         }
-        
+
         $occurrences = EmailValidationService::getEmailOccurrences($email);
-        
+
         return response()->json([
             'email' => $email,
             'occurrences' => $occurrences,
             'total' => array_sum($occurrences)
         ]);
     }
-    
+
     /**
      * Validate email for update operations (with user_id exclusion)
      */
@@ -57,34 +57,34 @@ class EmailValidationController extends Controller
     {
         $email = $request->input('email');
         $userId = $request->input('user_id');
-        
+
         if (!$email) {
             return response()->json([
                 'valid' => false,
                 'message' => 'Email diperlukan'
             ]);
         }
-        
+
         try {
             // Use the UniqueEmailAcrossAllTables rule for validation
             $rule = new \App\Rules\UniqueEmailAcrossAllTables($userId);
-            
+
             $validator = Validator::make(['email' => $email], [
                 'email' => ['required', 'email', $rule]
             ]);
-            
+
             if ($validator->fails()) {
                 return response()->json([
                     'valid' => false,
                     'message' => $validator->errors()->first('email')
                 ]);
             }
-            
+
             return response()->json([
                 'valid' => true,
                 'message' => 'Email tersedia untuk digunakan'
             ]);
-            
+
         } catch (\Exception $e) {
             return response()->json([
                 'valid' => false,

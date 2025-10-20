@@ -10,48 +10,48 @@
             margin: 0;
             padding: 15px;
         }
-        
+
         .header {
             text-align: center;
             margin-bottom: 20px;
             border-bottom: 2px solid #333;
             padding-bottom: 10px;
         }
-        
+
         .header h1 {
             margin: 0;
             color: #333;
             font-size: 16px;
         }
-        
+
         .header h2 {
             margin: 5px 0;
             color: #666;
             font-size: 12px;
         }
-        
+
         .info-section {
             margin-bottom: 15px;
         }
-        
+
         .info-row {
             display: flex;
             margin-bottom: 5px;
             align-items: center;
         }
-        
+
         .info-label {
             width: 150px;
             font-weight: bold;
             color: #333;
         }
-        
+
         .info-value {
             flex: 1;
             border-bottom: 1px solid #ccc;
             padding-bottom: 1px;
         }
-        
+
         .section-title {
             background-color: #f5f5f5;
             padding: 6px;
@@ -59,33 +59,33 @@
             font-weight: bold;
             border-left: 4px solid #007bff;
         }
-        
+
         .data-table {
             width: 100%;
             border-collapse: collapse;
             margin-top: 10px;
             font-size: 9px;
         }
-        
+
         .data-table th, .data-table td {
             border: 1px solid #333;
             padding: 4px;
             text-align: center;
         }
-        
+
         .data-table th {
             background-color: #f5f5f5;
             font-weight: bold;
         }
-        
+
         .data-table .text-left {
             text-align: left;
         }
-        
+
         .data-table .text-right {
             text-align: right;
         }
-        
+
         .footer {
             position: fixed;
             bottom: 15px;
@@ -93,7 +93,7 @@
             font-size: 8px;
             color: #666;
         }
-        
+
         .status-badge {
             display: inline-block;
             padding: 2px 6px;
@@ -102,22 +102,22 @@
             font-weight: bold;
             margin-left: 10px;
         }
-        
+
         .status-dihantar {
             background-color: #d4edda;
             color: #155724;
         }
-        
+
         .status-lulus {
             background-color: #cce5ff;
             color: #004085;
         }
-        
+
         .summary-row {
             font-weight: bold;
             background-color: #f8f9fa;
         }
-        
+
         @media print {
             body {
                 -webkit-print-color-adjust: exact;
@@ -169,7 +169,7 @@
     </div>
 
     <div class="section-title">Kemasukan Bahan Mentah</div>
-    
+
     <table class="data-table">
         <thead>
             <tr>
@@ -197,12 +197,12 @@
                 $total_keluar = 0;
                 $total_baki_hadapan = 0;
             @endphp
-            
+
             @foreach($kemasukanBahan as $item)
                 @php
                     $spesis = $species->where('id', $item->spesis_id)->first();
                     $kumpulan = $kumpulanKayu->where('id', $spesis->kumpulan_kayu_id ?? 0)->first();
-                    
+
                     $total_baki_lepas += $item->baki_stok ?? 0;
                     $total_kemasukan += $item->kayu_masuk ?? 0;
                     $total_stok += $item->jumlah_stok_kayu_balak ?? 0;
@@ -222,7 +222,7 @@
                     <td class="text-right">{{ number_format($item->baki_stok_kehadapan ?? 0, 2) }}</td>
                 </tr>
             @endforeach
-            
+
             <tr class="summary-row">
                 <td colspan="3">JUMLAH KESELURUHAN</td>
                 <td class="text-right">{{ number_format($total_baki_lepas, 2) }}</td>

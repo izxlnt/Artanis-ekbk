@@ -103,10 +103,10 @@ class AdminController extends Controller{
         // Update user fields
         $user->email = $request->email;
         $user->jawatan = $request->jawatan;
-        
+
         // Update updated_at timestamp
         $user->updated_at = now();
-        
+
         $user->save();
 
         // Update related PenggunaKilang email if it exists and matches the old email
@@ -148,10 +148,10 @@ class AdminController extends Controller{
 
         // Update the user's email
         $user->email = $request->email;
-        
+
         // Update updated_at timestamp
         $user->updated_at = now();
-        
+
         $user->save();
 
         // Update related PenggunaKilang email if it exists
@@ -198,10 +198,10 @@ class AdminController extends Controller{
         $user->email = $request->email;
         $user->daerah = $daerah_name->daerah_hutan;
         $user->negeri = $negeri_name->negeri;
-        
+
         // Update updated_at timestamp
         $user->updated_at = now();
-        
+
         $user->save();
 
         // Update related PenggunaKilang email if it exists
@@ -247,10 +247,10 @@ class AdminController extends Controller{
         // Update user fields
         $user->email = $request->email;
         $user->negeri = $negeri_name->negeri;
-        
+
         // Update updated_at timestamp
         $user->updated_at = now();
-        
+
         $user->save();
 
         // Update related PenggunaKilang email if it exists
@@ -292,10 +292,10 @@ class AdminController extends Controller{
 
         // Update user email
         $user->email = $request->email;
-        
+
         // Update updated_at timestamp
         $user->updated_at = now();
-        
+
         $user->save();
 
         // Update related PenggunaKilang email if it exists
@@ -337,10 +337,10 @@ class AdminController extends Controller{
 
         // Update user email
         $user->email = $request->email;
-        
+
         // Update updated_at timestamp
         $user->updated_at = now();
-        
+
         $user->save();
 
         // Update related PenggunaKilang email if it exists

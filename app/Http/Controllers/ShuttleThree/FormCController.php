@@ -27,7 +27,7 @@ class FormCController extends Controller
         if (!$year) {
             $year = date('Y');
         }
-        
+
         $shuttle_type = auth()->user()->shuttle->shuttle_type;
         $recovery_rate = RecoveryRate::where('shuttle_type', $shuttle_type)->first();
         $min_recovery_rate = $recovery_rate->min_recovery_rate;
@@ -347,7 +347,7 @@ class FormCController extends Controller
         if (!$year) {
             $year = date('Y');
         }
-        
+
         $shuttle_type = auth()->user()->shuttle->shuttle_type;
         $recovery_rate = RecoveryRate::where('shuttle_type', $shuttle_type)->first();
         $min_recovery_rate = $recovery_rate->min_recovery_rate;

@@ -382,7 +382,7 @@ class MainController extends Controller
         if (!$year) {
             $year = date('Y');
         }
-        
+
         if (auth()->user()->kategori_pengguna == "IBK") {
             $form_a_checker = FormA::where('tahun', $year)
                 ->where('shuttle_id', auth()->user()->shuttle->id)
@@ -421,17 +421,17 @@ class MainController extends Controller
             }else{
                 $buffer = Buffer::where('shuttle', 5)->where('borang', 'C')->first();
             }
-            
+
             // Fix the buffer calculation - early_buffer_date should be the allowed earliest month
             $current_month = (int)date('m');
             $buffer_delay = $buffer ? (int)$buffer->delay : 0;
             $early_buffer_date = $current_month - $buffer_delay;
-            
+
             // If early_buffer_date is negative, it means previous year months
             if ($early_buffer_date <= 0) {
                 $early_buffer_date = 12 + $early_buffer_date; // Convert to previous year month
             }
-            
+
             $form_c_checker = FormC::where('shuttle_id', auth()->user()->shuttle_id)
                 ->where('bulan', $lastmonth)
                 ->whereYear('created_at', $year)
@@ -469,7 +469,7 @@ class MainController extends Controller
         if (!$year) {
             $year = date('Y');
         }
-        
+
         if (auth()->user()->kategori_pengguna == "IBK") {
             $form_a_checker = FormA::where('tahun', $year)
                 ->where('shuttle_id', auth()->user()->shuttle->id)
@@ -488,17 +488,17 @@ class MainController extends Controller
             }else{
                 $buffer = Buffer::where('shuttle', 5)->where('borang', 'C')->first();
             }
-            
+
             // Fix the buffer calculation - early_buffer_date should be the allowed earliest month
             $current_month = (int)date('m');
             $buffer_delay = $buffer ? (int)$buffer->delay : 0;
             $early_buffer_date = $current_month - $buffer_delay;
-            
+
             // If early_buffer_date is negative, it means previous year months
             if ($early_buffer_date <= 0) {
                 $early_buffer_date = 12 + $early_buffer_date; // Convert to previous year month
             }
-            
+
             $form_c_checker = FormC::where('shuttle_id', auth()->user()->shuttle_id)
                 ->where('bulan', $lastmonth)
                 ->whereYear('created_at', $year)
@@ -1446,27 +1446,27 @@ class MainController extends Controller
             ]);
         }
     }
-    
+
     public function update_status_formB(Request $request, $id)
     {
         // Get the form based on ID
         $formB = FormB::find($id);
-        
+
         if (!$formB) {
             return redirect()->back()->with('error', 'Form not found');
         }
-        
+
         // Determine status based on request
         if ($request->has('tak_lengkap')) {
             $status = "Tidak Lengkap";
         } else {
             $status = "Dihantar ke IPJPSM";
         }
-        
+
         // Update the form status
         $formB->status = $status;
         $formB->save();
-        
+
         // Add ulasan if provided
         if ($request->has('ulasan') && !empty($request->ulasan)) {
             UlasanPhd::create([
@@ -1478,7 +1478,7 @@ class MainController extends Controller
                 'updated_at' => now()
             ]);
         }
-        
+
         return redirect()->back()->with('success', 'Status updated successfully');
     }
 }

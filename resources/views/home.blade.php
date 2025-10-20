@@ -10,55 +10,55 @@
     .shadow-lg {
         box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1) !important;
     }
-    
+
     .bg-gradient-info {
         background: linear-gradient(135deg, #17a2b8 0%, #138496 100%) !important;
     }
-    
+
     .card {
         border-radius: 15px !important;
         border: none !important;
     }
-    
+
     .card-header {
         border-radius: 15px 15px 0 0 !important;
         border-bottom: none !important;
     }
-    
+
     .form-control-lg {
         border-radius: 10px !important;
         border: 2px solid #e9ecef !important;
         transition: all 0.3s ease !important;
     }
-    
+
     .form-control-lg:focus {
         border-color: #17a2b8 !important;
         box-shadow: 0 0 0 0.2rem rgba(23, 162, 184, 0.25) !important;
     }
-    
+
     .chart-container {
         background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%) !important;
         border: 1px solid #e9ecef !important;
         border-radius: 15px !important;
         box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05) !important;
     }
-    
+
     .alert-info {
         background: linear-gradient(135deg, #d1ecf1 0%, #bee5eb 100%) !important;
         border: 1px solid #b6d7de !important;
         border-radius: 10px !important;
     }
-    
+
     .card-hover:hover {
         transform: translateY(-2px) !important;
         transition: all 0.3s ease !important;
     }
-    
+
     .form-label {
         color: #495057 !important;
         margin-bottom: 8px !important;
     }
-    
+
     #select_kilang {
         -webkit-appearance: none !important;
         -moz-appearance: none !important;
@@ -649,7 +649,7 @@
 
     <script>
         let currentChart = null; // Store current chart instance
-        
+
         window.addEventListener("load", function() {
             $.ajax({
                 url: "{{ route('ipjpsm.graph_dashboard.default') }}",
@@ -675,7 +675,7 @@
             // Add loading indicator
             $('#select_kilang').prop('disabled', true);
             $('.chart-container').css('opacity', '0.5');
-            
+
             $.ajax({
                 url: "{{ route('ipjpsm.graph_dashboard') }}",
                 method: "POST",
@@ -689,7 +689,7 @@
                     // Update selected value before rendering chart
                     $('#select_kilang').val(shuttle);
                     ChartResponden(data);
-                    
+
                     // Remove loading indicator
                     $('#select_kilang').prop('disabled', false);
                     $('.chart-container').css('opacity', '1');
@@ -713,10 +713,10 @@
         var selectedKilang = $('#select_kilang').val();
         var kilangTypes = {
             '3': 'Kilang Papan',
-            '4': 'Kilang Papan Lapis/Venir', 
+            '4': 'Kilang Papan Lapis/Venir',
             '5': 'Kilang Kayu Kumai'
         };
-        
+
         // Destroy existing chart if it exists
         if (currentChart) {
             currentChart.destroy();
@@ -724,10 +724,10 @@
 
         var bar = document.getElementById('bar');
         var ctx = bar.getContext('2d');
-        
+
         // Clear the canvas
         ctx.clearRect(0, 0, bar.width, bar.height);
-        
+
         currentChart = new Chart(ctx, {
             type: 'bar',
             data: {
@@ -869,25 +869,25 @@
                         if (!meta.hidden) {
                             meta.data.forEach(function(element, index) {
                                 var value = dataset.data[index];
-                                
+
                                 // Only show value if it's greater than 0
                                 if (value > 0) {
                                     var position = element.tooltipPosition();
-                                    
+
                                     // Add background box for better readability
                                     ctx.fillStyle = 'rgba(255, 255, 255, 0.9)';
                                     ctx.strokeStyle = 'rgba(0, 0, 0, 0.2)';
                                     ctx.lineWidth = 1;
-                                    
+
                                     var textWidth = ctx.measureText(value).width;
                                     var padding = 6;
                                     var boxWidth = textWidth + padding * 2;
                                     var boxHeight = 20;
-                                    
+
                                     // Draw background box
                                     ctx.fillRect(position.x - boxWidth/2, position.y - boxHeight - 10, boxWidth, boxHeight);
                                     ctx.strokeRect(position.x - boxWidth/2, position.y - boxHeight - 10, boxWidth, boxHeight);
-                                    
+
                                     // Draw the text
                                     ctx.fillStyle = '#333';
                                     ctx.font = 'bold 12px Arial';

@@ -44,12 +44,12 @@ class UniqueEmailAcrossAllTables implements Rule
 
         foreach ($tablesToCheck as $table => $column) {
             $query = DB::table($table)->where($column, $value);
-            
+
             // If we're excluding a specific record (for updates)
             if ($this->excludeId && $this->excludeTable === $table) {
                 $query->where('id', '!=', $this->excludeId);
             }
-            
+
             // Check if email exists in this table
             if ($query->exists()) {
                 return false;

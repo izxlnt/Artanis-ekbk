@@ -993,15 +993,15 @@
             var year = $("#select_year").val();
             window.location.href = "<?php echo URL::to('/pengguna/shuttle-3-senaraiC/" + year +"'); ?>";
         }
-        
+
         // Update all form links when page loads
         $(document).ready(function() {
             updateFormLinks();
         });
-        
+
         function updateFormLinks() {
             var currentYear = {{ $year }};
-            
+
             // Update all KKB form links
             $('a[href*="shuttle-3-formC/KKB"]').each(function() {
                 var href = $(this).attr('href');
@@ -1012,7 +1012,7 @@
                     $(this).attr('href', newHref);
                 }
             });
-            
+
             // Update all KKS form links
             $('a[href*="shuttle-3-formC/KKS"]').each(function() {
                 var href = $(this).attr('href');

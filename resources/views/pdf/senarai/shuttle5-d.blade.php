@@ -10,87 +10,87 @@
             margin: 0;
             padding: 20px;
         }
-        
+
         .header {
             text-align: center;
             margin-bottom: 30px;
             border-bottom: 2px solid #333;
             padding-bottom: 15px;
         }
-        
+
         .header h1 {
             margin: 0;
             color: #333;
             font-size: 18px;
         }
-        
+
         .header h2 {
             margin: 5px 0;
             color: #666;
             font-size: 14px;
         }
-        
+
         .company-info {
             background-color: #f8f9fa;
             padding: 15px;
             border-radius: 5px;
             margin-bottom: 20px;
         }
-        
+
         .company-info h3 {
             margin: 0 0 10px 0;
             color: #333;
         }
-        
+
         .info-row {
             margin-bottom: 5px;
         }
-        
+
         .info-label {
             font-weight: bold;
             display: inline-block;
             width: 150px;
         }
-        
+
         .summary-table {
             width: 100%;
             border-collapse: collapse;
             margin-bottom: 20px;
         }
-        
+
         .summary-table th,
         .summary-table td {
             border: 1px solid #ddd;
             padding: 8px;
             text-align: center;
         }
-        
+
         .summary-table th {
             background-color: #6f42c1;
             color: white;
             font-weight: bold;
         }
-        
+
         .status-completed {
             background-color: #d4edda;
             color: #155724;
         }
-        
+
         .status-pending {
             background-color: #fff3cd;
             color: #856404;
         }
-        
+
         .month-name {
             font-weight: bold;
             text-align: center;
         }
-        
+
         .total-row {
             font-weight: bold;
             background-color: #f8f9fa;
         }
-        
+
         .footer {
             position: fixed;
             bottom: 20px;
@@ -98,7 +98,7 @@
             font-size: 10px;
             color: #666;
         }
-        
+
         @media print {
             body {
                 -webkit-print-color-adjust: exact;
@@ -155,7 +155,7 @@
                 $totalEksport = 0;
                 $totalKeseluruhan = 0;
             @endphp
-            
+
             @foreach($list as $data)
                 @php
                     $tempatan = $data->jumlah_pasaran_tempatan ?? 0;
@@ -176,7 +176,7 @@
                     <td>{{ $data->updated_at ? $data->updated_at->format('d/m/Y') : '-' }}</td>
                 </tr>
             @endforeach
-            
+
             <tr class="total-row">
                 <td colspan="2">JUMLAH KESELURUHAN</td>
                 <td>{{ number_format($totalTempatan, 2) }}</td>

@@ -85,23 +85,23 @@ class User extends Authenticatable implements Auditable
             if ($this->pengguna_kilang && !empty($this->pengguna_kilang->email)) {
                 return $this->pengguna_kilang->email;
             }
-            
+
             // Check if there's a shuttle record with email
             if ($this->shuttle && !empty($this->shuttle->email)) {
                 return $this->shuttle->email;
             }
         }
-        
+
         // For other user types, check pengguna_kilang first
         if ($this->pengguna_kilang && !empty($this->pengguna_kilang->email)) {
             return $this->pengguna_kilang->email;
         }
-        
+
         // Check if there's a shuttle record with email
         if ($this->shuttle && !empty($this->shuttle->email)) {
             return $this->shuttle->email;
         }
-        
+
         // Fall back to user email
         return $this->email;
     }
@@ -116,12 +116,12 @@ class User extends Authenticatable implements Auditable
         if ($this->pengguna_kilang && !empty($this->pengguna_kilang->name)) {
             return $this->pengguna_kilang->name;
         }
-        
+
         // Check if there's a shuttle record with name
         if ($this->shuttle && !empty($this->shuttle->name)) {
             return $this->shuttle->name;
         }
-        
+
         // Fall back to user name
         return $this->name;
     }

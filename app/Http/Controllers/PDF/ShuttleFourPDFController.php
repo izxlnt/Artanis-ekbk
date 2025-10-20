@@ -27,14 +27,14 @@ class ShuttleFourPDFController extends Controller
     public function printFormA($id)
     {
         $formA = FormA::findOrFail($id);
-        
+
         // Check if form is completed/approved
         if (!in_array($formA->status, ['Dihantar ke IPJPSM', 'Lulus'])) {
             return redirect()->back()->with('error', 'Borang A belum selesai untuk dicetak.');
         }
 
         $shuttle = Shuttle::findOrFail($formA->shuttle_id);
-        
+
         $data = [
             'formA' => $formA,
             'shuttle' => $shuttle,
@@ -44,7 +44,7 @@ class ShuttleFourPDFController extends Controller
 
         $pdf = PDF::loadView('pdf.shuttle4.form-a', $data);
         $pdf->setPaper('A4', 'portrait');
-        
+
         return $pdf->stream("Borang_4A_{$shuttle->nama_kilang}_{$formA->tahun}.pdf");
     }
 
@@ -54,7 +54,7 @@ class ShuttleFourPDFController extends Controller
     public function printFormB($id)
     {
         $formB = FormB::findOrFail($id);
-        
+
         // Check if form is completed/approved
         if (!in_array($formB->status, ['Dihantar ke IPJPSM', 'Lulus'])) {
             return redirect()->back()->with('error', 'Borang B belum selesai untuk dicetak.');
@@ -62,7 +62,7 @@ class ShuttleFourPDFController extends Controller
 
         $shuttle = Shuttle::findOrFail($formB->shuttle_id);
         $penggunaKilang = PenggunaKilang::where('formbs_id', $formB->id)->get();
-        
+
         $data = [
             'formB' => $formB,
             'shuttle' => $shuttle,
@@ -73,7 +73,7 @@ class ShuttleFourPDFController extends Controller
 
         $pdf = PDF::loadView('pdf.shuttle4.form-b', $data);
         $pdf->setPaper('A4', 'portrait');
-        
+
         return $pdf->stream("Borang_4B_{$shuttle->nama_kilang}_{$formB->tahun}_S{$formB->suku_tahun}.pdf");
     }
 
@@ -83,7 +83,7 @@ class ShuttleFourPDFController extends Controller
     public function printFormC($id)
     {
         $formC = FormC::findOrFail($id);
-        
+
         // Check if form is completed/approved
         if (!in_array($formC->status, ['Dihantar ke IPJPSM', 'Lulus'])) {
             return redirect()->back()->with('error', 'Borang C belum selesai untuk dicetak.');
@@ -93,7 +93,7 @@ class ShuttleFourPDFController extends Controller
         $kemasukanBahan = KemasukanBahan::where('formcs_id', $formC->id)->get();
         $species = Spesis::all();
         $kumpulanKayu = KumpulanKayu::all();
-        
+
         $data = [
             'formC' => $formC,
             'shuttle' => $shuttle,
@@ -112,7 +112,7 @@ class ShuttleFourPDFController extends Controller
 
         $pdf = PDF::loadView('pdf.shuttle4.form-c', $data);
         $pdf->setPaper('A4', 'landscape');
-        
+
         return $pdf->stream("Borang_4C_{$shuttle->nama_kilang}_{$formC->tahun}_{$bulan_nama[$formC->bulan]}.pdf");
     }
 
@@ -122,14 +122,14 @@ class ShuttleFourPDFController extends Controller
     public function printFormD($id)
     {
         $formD = Form4D::findOrFail($id);
-        
+
         // Check if form is completed/approved
         if (!in_array($formD->status, ['Dihantar ke IPJPSM', 'Lulus'])) {
             return redirect()->back()->with('error', 'Borang D belum selesai untuk dicetak.');
         }
 
         $shuttle = Shuttle::findOrFail($formD->shuttle_id);
-        
+
         $data = [
             'formD' => $formD,
             'shuttle' => $shuttle,
@@ -145,7 +145,7 @@ class ShuttleFourPDFController extends Controller
 
         $pdf = PDF::loadView('pdf.shuttle4.form-d', $data);
         $pdf->setPaper('A4', 'landscape');
-        
+
         return $pdf->stream("Borang_4D_{$shuttle->nama_kilang}_{$formD->tahun}_{$bulan_nama[$formD->bulan]}.pdf");
     }
 
@@ -155,14 +155,14 @@ class ShuttleFourPDFController extends Controller
     public function printFormE($id)
     {
         $formE = Form4E::findOrFail($id);
-        
+
         // Check if form is completed/approved
         if (!in_array($formE->status, ['Dihantar ke IPJPSM', 'Lulus'])) {
             return redirect()->back()->with('error', 'Borang E belum selesai untuk dicetak.');
         }
 
         $shuttle = Shuttle::findOrFail($formE->shuttle_id);
-        
+
         $data = [
             'formE' => $formE,
             'shuttle' => $shuttle,
@@ -178,7 +178,7 @@ class ShuttleFourPDFController extends Controller
 
         $pdf = PDF::loadView('pdf.shuttle4.form-e', $data);
         $pdf->setPaper('A4', 'portrait');
-        
+
         return $pdf->stream("Borang_4E_{$shuttle->nama_kilang}_{$formE->tahun}_{$bulan_nama[$formE->bulan]}.pdf");
     }
 }

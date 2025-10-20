@@ -4,7 +4,7 @@
     <script src="https://code.highcharts.com/maps/highmaps.js"></script>
     <script src="https://code.highcharts.com/maps/modules/exporting.js"></script>
     <script src="https://code.highcharts.com/mapdata/countries/my/my-all.js"></script>
-    
+
 <style>
     .chart-container {
         background: linear-gradient(145deg, #ffffff, #f8f9fa);
@@ -14,7 +14,7 @@
         margin-bottom: 30px;
         border: 1px solid #e9ecef;
     }
-    
+
     .alert-info {
         background: linear-gradient(135deg, #e3f2fd, #bbdefb);
         border: 1px solid #2196F3;
@@ -23,12 +23,12 @@
         padding: 15px;
         margin-bottom: 20px;
     }
-    
+
     .form-label {
         color: #495057 !important;
         margin-bottom: 8px !important;
     }
-    
+
     #select_kilang {
         -webkit-appearance: none !important;
         -moz-appearance: none !important;
@@ -382,18 +382,18 @@
     function ChartResponden(data) {
         var jsonData = data;
         console.log(jsonData);
-        
+
         // Destroy existing chart if it exists
         if (currentChart) {
             currentChart.destroy();
         }
-        
+
         var bar = document.getElementById('bar');
         var ctx = bar.getContext('2d');
-        
+
         // Clear the canvas
         ctx.clearRect(0, 0, bar.width, bar.height);
-        
+
         currentChart = new Chart(ctx, {
             type: 'bar',
             data: {
@@ -518,25 +518,25 @@
                         if (!meta.hidden) {
                             meta.data.forEach(function(element, index) {
                                 var value = dataset.data[index];
-                                
+
                                 // Only show value if it's greater than 0
                                 if (value > 0) {
                                     var position = element.tooltipPosition();
-                                    
+
                                     // Add background box for better readability
                                     ctx.fillStyle = 'rgba(255, 255, 255, 0.9)';
                                     ctx.strokeStyle = 'rgba(0, 0, 0, 0.2)';
                                     ctx.lineWidth = 1;
-                                    
+
                                     var textWidth = ctx.measureText(value).width;
                                     var padding = 6;
                                     var boxWidth = textWidth + padding * 2;
                                     var boxHeight = 20;
-                                    
+
                                     // Draw background box
                                     ctx.fillRect(position.x - boxWidth/2, position.y - boxHeight - 10, boxWidth, boxHeight);
                                     ctx.strokeRect(position.x - boxWidth/2, position.y - boxHeight - 10, boxWidth, boxHeight);
-                                    
+
                                     // Draw the text
                                     ctx.fillStyle = '#333';
                                     ctx.font = 'bold 12px Arial';
@@ -555,7 +555,7 @@
 
     <script type="text/javascript">
         let currentChart = null; // Store current chart instance
-        
+
         window.addEventListener("load", function() {
             $.ajax({
                 url: "{{ route('ipjpsm.graph_dashboard.default') }}",

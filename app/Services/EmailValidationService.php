@@ -25,12 +25,12 @@ class EmailValidationService
 
         foreach ($tablesToCheck as $table => $column) {
             $query = DB::table($table)->where($column, $email);
-            
+
             // If we're excluding a specific record (for updates)
             if ($excludeId && $excludeTable === $table) {
                 $query->where('id', '!=', $excludeId);
             }
-            
+
             // Check if email exists in this table
             if ($query->exists()) {
                 return false;
