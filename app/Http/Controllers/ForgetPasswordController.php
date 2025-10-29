@@ -18,7 +18,7 @@ class ForgetPasswordController extends Controller
 
     public function forgetPasswordSubmit(Request $request)
     {
-        dd($request->all());
+        // dd($request->all());
 
         $user = User::where('email', $request->email)->first();
 

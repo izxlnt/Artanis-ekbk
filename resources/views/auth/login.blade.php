@@ -48,35 +48,24 @@
                     <div class="border card-header" style="background-color:#f3ce8f">
                         <h3 class="text-white m-b-0" style="text-align: center"><b>Pengumuman</b></h3>
                     </div>
-                    <div class="container" style="opacity: 0.7;background: linear-gradient(135deg, #ffffff 0%, #ffffff 100%); height: 650px;">
+                    <section class="container py-4" style="opacity:0.95; background: linear-gradient(135deg, #fff 0%, #fff 100%); min-height: 650px;  box-shadow: 0 2px 12px rgba(0,0,0,0.08);">
                         <div class="card-body">
-                            <h3 class="card-title">Nota Arahan:</h3>
-                            <p class="card-text" style="text-align: justify;"><br>
-                                a. Ibu Pejabat Jabatan Perhutanan Semenanjung Malaysia (IPJPSM) bertanggungjawab untuk
-                                mengumpul, memproses dan menganalisa data bagi Industri Berasas Kayu (IBK) melibatkan
-                                Kilang Papan, Kilang Papan Lapis/Venir dan Kilang Kayu Kumai dibawah Penyata Shuttle 3,
-                                4 dan 5.<br>
-
-                                <br> b. Maklumat yang dikumpul adalah mengikut peruntukan yang tertakluk kepada Seksyen
-                                7, Enakmen Industri Berasas Kayu (EIBK) dan Kaedah 13, Kaedah-Kaedah Industri Berasas
-                                Kayu (KKIBK) 1989 dimana telah menggariskan kewajipan IBK untuk melaporkan data-data
-                                yang telah dinyatakan di dalam EIBK dan KKIBK tersebut.<br>
-
-                                <br> c. Tuan/Puan diminta melaporkan data-data dengan lengkap yang berkaitan dengan
-                                pertubuhan tuan/puan seperti pada borang penyata shuttle ini dan menghantar ke Jabatan
-                                ini.<br>
-
-                                <br> d. Sila baca dan rujuk "PANDUAN MENGISI BORANG" sebagai panduan tuan/puan
-                                melengkapkan penyata shuttle ini.<br>
-
-                                <br> e. Kerjasama tuan/puan dalam menjayakan penyata shuttle ini amatlah dihargai.<br>
-
-                                <br> Terima kasih.<br><br>
-                                <b>Ketua Pengarah Perhutanan Semenanjung Malaysia</b>
-                            </p>
-                            <span>  <b>Jabatan Perhutanan Semenanjung Malaysia</b></span>
+                            <h3 class="card-title mb-3" style="font-weight:600; color:#2d3a4b;">Nota Arahan</h3>
+                            <ol type="a" class="card-text" style="text-align:justify; font-size:1.08em; padding-left:1.2em;">
+                                <li style="margin-bottom:1em;"><strong>Ibu Pejabat Jabatan Perhutanan Semenanjung Malaysia (IPJPSM)</strong> bertanggungjawab untuk mengumpul, memproses dan menganalisa data bagi Industri Berasas Kayu (IBK) melibatkan Kilang Papan, Kilang Papan Lapis/Venir dan Kilang Kayu Kumai di bawah Penyata Shuttle 3, 4 dan 5.</li>
+                                <li style="margin-bottom:1em;">Maklumat yang dikumpul adalah mengikut peruntukan yang tertakluk kepada <strong>Seksyen 7, Enakmen Industri Berasas Kayu (EIBK)</strong> dan <strong>Kaedah 13, Kaedah-Kaedah Industri Berasas Kayu (KKIBK) 1989</strong> di mana telah menggariskan kewajipan IBK untuk melaporkan data-data yang telah dinyatakan di dalam EIBK dan KKIBK tersebut.</li>
+                                <li style="margin-bottom:1em;">Tuan/Puan diminta melaporkan data-data dengan lengkap yang berkaitan dengan pertubuhan tuan/puan seperti pada borang penyata shuttle ini dan menghantar ke Jabatan ini.</li>
+                                <li style="margin-bottom:1em;">Sila baca dan rujuk <strong>PANDUAN MENGISI BORANG</strong> sebagai panduan tuan/puan melengkapkan penyata shuttle ini.</li>
+                                <li style="margin-bottom:1em;">Kerjasama tuan/puan dalam menjayakan penyata shuttle ini amatlah dihargai.</li>
+                                <li style="margin-bottom:1em;">Pengguna yang lupa kata laluan boleh terus email kepada Pengurus Sistem di <a href="mailto:bpm@forestry.gov.my">bpm@forestry.gov.my</a> dengan memberikan ID dan email yang berdaftar.</li>
+                            </ol>
+                            <div class="mt-4" style="text-align:right;">
+                                <span style="display:block; font-weight:600;">Terima kasih.</span>
+                                <span style="display:block; font-weight:600;">Ketua Pengarah Perhutanan Semenanjung Malaysia</span>
+                                <span style="display:block; font-weight:600; color:#2d3a4b;">Jabatan Perhutanan Semenanjung Malaysia</span>
+                            </div>
                         </div>
-                    </div>
+                    </section>
                 </div>
                 {{-- <div class="col-md-2"> --}}
                 <div class="auth-box on-sidebar"
