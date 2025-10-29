@@ -48,16 +48,30 @@
                     <div class="border card-header" style="background-color:#f3ce8f">
                         <h3 class="text-white m-b-0" style="text-align: center"><b>Pengumuman</b></h3>
                     </div>
-                    <section class="container py-4" style="opacity:0.95; background: linear-gradient(135deg, #fff 0%, #fff 100%); min-height: 650px;  box-shadow: 0 2px 12px rgba(0,0,0,0.08);">
+                    <section class="container py-4"
+                        style="opacity:0.95; background: linear-gradient(135deg, #fff 0%, #fff 100%); min-height: 650px;  box-shadow: 0 2px 12px rgba(0,0,0,0.08);">
                         <div class="card-body">
                             <h3 class="card-title mb-3" style="font-weight:600; color:#2d3a4b;">Nota Arahan</h3>
-                            <ol type="a" class="card-text" style="text-align:justify; font-size:1.08em; padding-left:1.2em;">
-                                <li style="margin-bottom:1em;"><strong>Ibu Pejabat Jabatan Perhutanan Semenanjung Malaysia (IPJPSM)</strong> bertanggungjawab untuk mengumpul, memproses dan menganalisa data bagi Industri Berasas Kayu (IBK) melibatkan Kilang Papan, Kilang Papan Lapis/Venir dan Kilang Kayu Kumai di bawah Penyata Shuttle 3, 4 dan 5.</li>
-                                <li style="margin-bottom:1em;">Maklumat yang dikumpul adalah mengikut peruntukan yang tertakluk kepada <strong>Seksyen 7, Enakmen Industri Berasas Kayu (EIBK)</strong> dan <strong>Kaedah 13, Kaedah-Kaedah Industri Berasas Kayu (KKIBK) 1989</strong> di mana telah menggariskan kewajipan IBK untuk melaporkan data-data yang telah dinyatakan di dalam EIBK dan KKIBK tersebut.</li>
-                                <li style="margin-bottom:1em;">Tuan/Puan diminta melaporkan data-data dengan lengkap yang berkaitan dengan pertubuhan tuan/puan seperti pada borang penyata shuttle ini dan menghantar ke Jabatan ini.</li>
-                                <li style="margin-bottom:1em;">Sila baca dan rujuk <strong>PANDUAN MENGISI BORANG</strong> sebagai panduan tuan/puan melengkapkan penyata shuttle ini.</li>
-                                <li style="margin-bottom:1em;">Kerjasama tuan/puan dalam menjayakan penyata shuttle ini amatlah dihargai.</li>
-                                <li style="margin-bottom:1em;">Pengguna yang lupa kata laluan boleh terus email kepada Pengurus Sistem di <a href="mailto:bpm@forestry.gov.my">bpm@forestry.gov.my</a> dengan memberikan ID dan email yang berdaftar.</li>
+                            <ol type="a" class="card-text"
+                                style="text-align:justify; font-size:1.08em; padding-left:1.2em;">
+                                <li style="margin-bottom:1em;"><strong>Ibu Pejabat Jabatan Perhutanan Semenanjung
+                                        Malaysia (IPJPSM)</strong> bertanggungjawab untuk mengumpul, memproses dan
+                                    menganalisa data bagi Industri Berasas Kayu (IBK) melibatkan Kilang Papan, Kilang
+                                    Papan Lapis/Venir dan Kilang Kayu Kumai di bawah Penyata Shuttle 3, 4 dan 5.</li>
+                                <li style="margin-bottom:1em;">Maklumat yang dikumpul adalah mengikut peruntukan yang
+                                    tertakluk kepada <strong>Seksyen 7, Enakmen Industri Berasas Kayu (EIBK)</strong>
+                                    dan <strong>Kaedah 13, Kaedah-Kaedah Industri Berasas Kayu (KKIBK) 1989</strong> di
+                                    mana telah menggariskan kewajipan IBK untuk melaporkan data-data yang telah
+                                    dinyatakan di dalam EIBK dan KKIBK tersebut.</li>
+                                <li style="margin-bottom:1em;">Tuan/Puan diminta melaporkan data-data dengan lengkap
+                                    yang berkaitan dengan pertubuhan tuan/puan seperti pada borang penyata shuttle ini
+                                    dan menghantar ke Jabatan ini.</li>
+                                <li style="margin-bottom:1em;">Sila baca dan rujuk <strong>PANDUAN MENGISI
+                                        BORANG</strong> sebagai panduan tuan/puan melengkapkan penyata shuttle ini.</li>
+                                <li style="margin-bottom:1em;">Kerjasama tuan/puan dalam menjayakan penyata shuttle ini
+                                    amatlah dihargai.</li>
+                                <li style="margin-bottom:1em;">Pengguna yang lupa kata laluan boleh terus email kepada
+                                    Pengurus Sistem di <a href="mailto:bpm@forestry.gov.my">bpm@forestry.gov.my</a> dengan memberikan ID dan email yang berdaftar.</li>
                             </ol>
                             <div class="mt-4" style="text-align:right;">
                                 <span style="display:block; font-weight:600;">Terima kasih.</span>
@@ -105,21 +119,23 @@
                                         {{-- <input type="text" class="form-control form-control-lg" placeholder="ID KILANG (No.SSM)" name="email" aria-label="Username" aria-describedby="basic-addon1"> --}}
                                     </div>
                                     <div class="mb-3 input-group">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text" id="basic-addon2"><i
-                                                    class="ti-key"></i></span>
-                                        </div>
-                                        {{-- <input type="text" class="form-control form-control-lg" placeholder="KATA LALUAN" aria-label="Password" name="password" aria-describedby="basic-addon1"> --}}
-                                        <input id="password" type="password"
-                                            class="form-control @error('password') is-invalid @enderror" name="password"
-                                            required autocomplete="current-password" placeholder="Kata Laluan">
-
-                                            @error('password')
-                                            <div class="alert alert-danger">
-                                                <strong>{{ $message }}</strong>
-                                            </div>
-                                            @enderror
-                                    </div>
+    <div class="input-group-prepend">
+        <span class="input-group-text" id="basic-addon2"><i class="ti-key"></i></span>
+    </div>
+    <input id="password" type="password"
+        class="form-control @error('password') is-invalid @enderror" name="password"
+        required autocomplete="current-password" placeholder="Kata Laluan">
+    <div class="input-group-append">
+        <button type="button" class="btn btn-outline-secondary" id="togglePassword">
+            <i class="fa fa-eye"></i>
+        </button>
+    </div>
+    @error('password')
+    <div class="alert alert-danger">
+        <strong>{{ $message }}</strong>
+    </div>
+    @enderror
+</div>
                                     <div class="form-group row">
                                         <div class="col-md-12">
                                             <div class="custom-control custom-checkbox">
@@ -223,9 +239,22 @@
         @if (Session::get('success'))
             toastr.success('{{ session('success') }}', 'Berjaya', { "progressBar": true });
         @elseif ($message = Session::get('error'))
-            toastr.error('{{ session('error') }}', 'Ralat', { "progressBar": true });
-        @endif
+            toastr.error('{{ session('error') }}', 'Ralat', { "progressBar": true }); @endif
     </script>
+
+    <script>
+    $('#togglePassword').on('click', function() {
+        const passwordInput = $('#password');
+        const icon = $(this).find('i');
+        if (passwordInput.attr('type') === 'password') {
+            passwordInput.attr('type', 'text');
+            icon.removeClass('fa-eye').addClass('fa-eye-slash');
+        } else {
+            passwordInput.attr('type', 'password');
+            icon.removeClass('fa-eye-slash').addClass('fa-eye');
+        }
+    });
+</script>
 </body>
 
 </html>
