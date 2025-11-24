@@ -1937,63 +1937,56 @@ class UserController extends Controller
 
 
 
-        $user = auth()->user();
-        
-        $user3 = User::where('shuttle_type', 3)->where('is_approved', 1)->where('pengguna_kilang_id', null)->whereHas('shuttle', function ($q) use ($user) {
-            $q->where(function($query) use ($user) {
-                $query->where('daerah_id', $user->daerah)
-                      ->orWhere('daerah_id', 'LIKE', '%' . $user->daerah . '%');
-            });
+        $user3 = User::where('shuttle_type', 3)->where('is_approved', 1)->where('pengguna_kilang_id', null)->whereHas('shuttle', function ($q) {
+            $q->where('daerah_id', auth()->user()->daerah);
         })->get();
         $count_shuttle3 = $user3->count();
 
-        $user4 = User::where('shuttle_type', 4)->where('is_approved', 1)->where('pengguna_kilang_id', null)->whereHas('shuttle', function ($q) use ($user) {
-            $q->where(function($query) use ($user) {
-                $query->where('daerah_id', $user->daerah)
-                      ->orWhere('daerah_id', 'LIKE', '%' . $user->daerah . '%');
-            });
+        $user4 = User::where('shuttle_type', 4)->where('is_approved', 1)->where('pengguna_kilang_id', null)->whereHas('shuttle', function ($q) {
+            $q->where('daerah_id', auth()->user()->daerah);
         })->get();
         $count_shuttle4 = $user4->count();
 
-        $user5 = User::where('shuttle_type', 5)->where('is_approved', 1)->where('pengguna_kilang_id', null)->whereHas('shuttle', function ($q) use ($user) {
-            $q->where(function($query) use ($user) {
-                $query->where('daerah_id', $user->daerah)
-                      ->orWhere('daerah_id', 'LIKE', '%' . $user->daerah . '%');
-            });
+        $user5 = User::where('shuttle_type', 5)->where('is_approved', 1)->where('pengguna_kilang_id', null)->whereHas('shuttle', function ($q) {
+            $q->where('daerah_id', auth()->user()->daerah);
         })->get();
 
         $count_shuttle5 = $user5->count();
         // dd($count_shuttle5);
 
 
-        $daerah = $user->daerah;
+        $daerah= auth()->user()->daerah;
 
         $s3 = DB::select("SELECT COUNT(shuttles.daerah_id) as total_kilang
         FROM form_a_s
         INNER JOIN shuttles
         ON form_a_s.shuttle_id = shuttles.id
         WHERE shuttles.shuttle_type = '3'
-        AND (shuttles.daerah_id = ? OR shuttles.daerah_id LIKE ?)
+        AND shuttles.daerah_id = '$daerah'
         AND YEAR(date(form_a_s.created_at)) = YEAR(now())
-        GROUP BY shuttles.daerah_id", [$daerah, "%{$daerah}%"]);
+        GROUP BY shuttles.daerah_id");
+
+        // dd($s3);
 
         $s4 = DB::select("SELECT COUNT(shuttles.daerah_id) as total_kilang
         FROM form_a_s
         INNER JOIN shuttles
         ON form_a_s.shuttle_id = shuttles.id
         WHERE shuttles.shuttle_type = '4'
-        AND (shuttles.daerah_id = ? OR shuttles.daerah_id LIKE ?)
+        AND shuttles.daerah_id = '$daerah'
         AND YEAR(date(form_a_s.created_at)) = YEAR(now())
-        GROUP BY shuttles.daerah_id", [$daerah, "%{$daerah}%"]);
+        GROUP BY shuttles.daerah_id");
+
+// dd($s4);
 
         $s5 = DB::select("SELECT COUNT(shuttles.daerah_id) as total_kilang
                 FROM form_a_s
                 INNER JOIN shuttles
                 ON form_a_s.shuttle_id = shuttles.id
                 WHERE shuttles.shuttle_type = '5'
-                AND (shuttles.daerah_id = ? OR shuttles.daerah_id LIKE ?)
+                AND shuttles.daerah_id = '$daerah'
                 AND YEAR(date(form_a_s.created_at)) = YEAR(now())
-                GROUP BY shuttles.daerah_id", [$daerah, "%{$daerah}%"]);
+                GROUP BY shuttles.daerah_id");
 
 // dd($s5[0]);
 

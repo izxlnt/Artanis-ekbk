@@ -14,19 +14,13 @@ class ListAController extends Controller
         $user = auth()->user();
 
         $formA = FormA::where('status', '!=', 'Tidak Diisi')
-        ->whereHas('shuttle', function ($q) use ($user) {
-            $q->where(function($query) use ($user) {
-                $query->where('daerah_id', $user->daerah)
-                      ->orWhere('daerah_id', 'LIKE', '%' . $user->daerah . '%');
-            })->where('shuttle_type', '4');
+        ->whereHas('shuttle', function ($q) {
+            $q->where('daerah_id', auth()->user()->daerah)->where('shuttle_type', '4');
         })->where('tahun', $year)->get();
 
 
-        $year_list = FormA::whereHas('shuttle', function ($q) use ($user) {
-            $q->where(function($query) use ($user) {
-                $query->where('daerah_id', $user->daerah)
-                      ->orWhere('daerah_id', 'LIKE', '%' . $user->daerah . '%');
-            })->where('shuttle_type', '4');
+        $year_list = FormA::whereHas('shuttle', function ($q) {
+            $q->where('daerah_id', auth()->user()->daerah);
         })->distinct()->orderBy('tahun')->get('tahun');
 
         $buffer = Buffer::where('borang', 'b')->where('shuttle', '4')->first();
@@ -64,26 +58,17 @@ class ListAController extends Controller
         $user = auth()->user();
 
         $formA_kilang = FormA::select('shuttle_id')
-            ->whereHas('shuttle', function ($q) use ($user) {
-                $q->where(function($query) use ($user) {
-                    $query->where('negeri_id', $user->negeri)
-                          ->orWhere('negeri_id', 'LIKE', '%' . $user->negeri . '%');
-                })->where('shuttle_type', '4');
+            ->whereHas('shuttle', function ($q) {
+                $q->where('negeri_id', auth()->user()->negeri)->where('shuttle_type', '4');
             })
             ->distinct()->where('tahun', $year)->get();
 
-        $formA = FormA::whereHas('shuttle', function ($q) use ($user) {
-            $q->where(function($query) use ($user) {
-                $query->where('negeri_id', $user->negeri)
-                      ->orWhere('negeri_id', 'LIKE', '%' . $user->negeri . '%');
-            })->where('shuttle_type', '4');
+        $formA = FormA::whereHas('shuttle', function ($q) {
+            $q->where('negeri_id', auth()->user()->negeri)->where('shuttle_type', '4');
         })->where('tahun', $year)->get();
 
-        $year_list = FormA::whereHas('shuttle', function ($q) use ($user) {
-            $q->where(function($query) use ($user) {
-                $query->where('negeri_id', $user->negeri)
-                      ->orWhere('negeri_id', 'LIKE', '%' . $user->negeri . '%');
-            });
+        $year_list = FormA::whereHas('shuttle', function ($q) {
+            $q->where('negeri_id', auth()->user()->negeri);
         })->distinct()->orderBy('tahun')->get('tahun');
 
         // $year_list = FormA::select('shuttle_id')
