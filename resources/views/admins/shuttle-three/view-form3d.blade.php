@@ -180,7 +180,7 @@
                                                                                         dieksport ( m³ )</td>
                                                                                     <td style="text-align:center;">
                                                                                         <input readonly style="text-align:right" type="text"
-                                                                                            size="15" wire:model='total_export' value="{{ number_format($formd->total_export ?? 0,2) }}"></td>
+                                                                                            size="15" value="{{ number_format((float)($formd->total_export ?? 0), 2) }}"></td>
                                                                                 </tr>
 
                                                                                 <tr style="height:50px;">
@@ -190,7 +190,7 @@
                                                                                     <td style="text-align:center;">
                                                                                         <input readonly
                                                                                             style="background-color: #7ee48c6b;text-align:right;"
-                                                                                            type="text" size="15" value="{{ number_format($form_d[0]->total_jumlah_jualan ?? 0,2) }}"></td>
+                                                                                            type="text" size="15" value="{{ number_format((float)($form_d[0]->total_jumlah_jualan ?? 0), 2) }}"></td>
                                                                                 </tr>
 
                                                                                 <tr style="height:50px;">
@@ -217,17 +217,17 @@
                                                                                             {{ $data->keterangan }}
                                                                                             @if($data->keterangan == 'Sektor awam (Nyatakan)')
                                                                                             <br>
-                                                                                            <span type="text" style="margin:10px"  size="100" wire:model='catatan.{{ $key }}'> {{ $form_d[$key]->catatan}} </span>
+                                                                                            <span type="text" style="margin:10px"  size="100"> {{ $form_d[$key]->catatan}} </span>
 
                                                                                             @elseif($data->keterangan == 'Lain-lain (Nyatakan)')
                                                                                             <br>
-                                                                                            <span type="text" style="margin:10px"  size="100" wire:model='catatan.{{ $key }}'> {{ $form_d[$key]->catatan}} </span>
+                                                                                            <span type="text" style="margin:10px"  size="100"> {{ $form_d[$key]->catatan}} </span>
 
                                                                                             @endif
                                                                                         </td>
                                                                                         <td style="text-align:center;">
                                                                                             <input readonly style="text-align:right" type="text"
-                                                                                                size="15"  wire:model='jumlah_jualan.{{ $key }}' wire:change='calcTotalJumlahJualan()' value="{{ number_format($form_d[$key]->jumlah_jualan ?? 0, 2)}}"></td>
+                                                                                                size="15" value="{{ number_format((float)($form_d[$key]->jumlah_jualan ?? 0), 2) }}"></td>
                                                                                     </tr>
                                                                                 @endforeach
 
@@ -238,7 +238,7 @@
                                                                                     <td style="text-align:center;background-color: #7ee48c6b;">
                                                                                         <input readonly
                                                                                             style="text-align:right"
-                                                                                            type="text" size="15" wire:model='total_jumlah_jualan' value="{{ number_format($form_d[0]->total_jumlah_jualan ?? 0,2) }}"></span>
+                                                                                            type="text" size="15" value="{{ number_format((float)($form_d[0]->total_jumlah_jualan ?? 0), 2) }}"></span>
                                                                                 </tr>
                                                                             </table>
                                                                             <br>

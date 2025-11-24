@@ -181,7 +181,7 @@
                                                                                         (m³)</td>
                                                                                     <td style="text-align:center;">
                                                                                         <input readonly style="text-align:right" type="text"
-                                                                                            size="15" wire:model='total_export' value="{{ number_format($formd->total_export,2) }}"></td>
+                                                                                            size="15" value="{{ number_format((float)($formd->total_export ?? 0), 2) }}"></td>
                                                                                 </tr>
 
                                                                                 <tr style="height:50px;">

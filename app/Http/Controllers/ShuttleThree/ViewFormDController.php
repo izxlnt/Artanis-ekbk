@@ -79,7 +79,7 @@ class ViewFormDController extends Controller
         if ($form_d_checker == 0) {
             return redirect()->back()->with('error', 'Sila sahkan Borang D bulan sebelum ini terlebih dahulu.');
         }
-
+        
         return view('admins.shuttle-three.view-form3d', compact('kilang_info', 'form_d', 'id', 'jenis_pembeli', 'formd', 'returnArr'));
     }
 
