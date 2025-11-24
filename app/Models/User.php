@@ -125,4 +125,6 @@ class User extends Authenticatable implements Auditable
         // Fall back to user name
         return $this->name;
     }
+
+
 }

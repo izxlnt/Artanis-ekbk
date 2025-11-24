@@ -64,6 +64,31 @@ class Shuttle extends Model
         return $this->hasOne('App\Models\Negeri','id','alamat_surat_menyurat_daerah');
     }
 
+    public function daerah()
+    {
+        return $this->belongsTo('App\Models\Daerah', 'daerah_id', 'id');
+    }
+
+    public function getDaerahName()
+    {
+        // If daerah relationship exists and has name, use it
+        if ($this->daerah && $this->daerah->daerah_name) {
+            return $this->daerah->daerah_name;
+        }
+        
+        // If daerah_id is text (name stored directly), return it
+        if ($this->daerah_id && !is_numeric($this->daerah_id)) {
+            return $this->daerah_id;
+        }
+        
+        // If daerah_id is numeric but relationship failed, try manual lookup
+        if ($this->daerah_id && is_numeric($this->daerah_id)) {
+            $daerah = \App\Models\Daerah::find($this->daerah_id);
+            return $daerah ? $daerah->daerah_name : "ID: {$this->daerah_id}";
+        }
+        
+        return '-';
+    }
 
 
 

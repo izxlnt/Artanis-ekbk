@@ -2,7 +2,7 @@
 
 @section('content')
 
-<meta name="csrf-token" content="{{ csrf_token() }}">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
     {{-- @livewire('shuttle-three.shuttle3') --}}
 
@@ -76,8 +76,7 @@
                                     <br>
                                     <div class="row">
                                         <div class="col-md-12" style="text-align:left">
-                                            <a class="btn btn-primary"
-                                                href="{{ route('ipjpsm.senaraikilang3') }}">Industri
+                                            <a class="btn btn-primary" href="{{ route('ipjpsm.senaraikilang3') }}">Industri
                                                 Berasas Kayu (IBK)</a>
                                             <a class="btn btn-secondary" href="{{ route('ipjpsm.senaraiphd') }}">Pejabat
                                                 Hutan
@@ -100,8 +99,7 @@
                                     <br>
                                     <div class="row">
                                         <div class="col-md-12">
-                                            <a class="btn btn-primary"
-                                                href="{{ route('ipjpsm.senaraikilang3') }}">Shuttle
+                                            <a class="btn btn-primary" href="{{ route('ipjpsm.senaraikilang3') }}">Shuttle
                                                 3</a>
                                             <a class="btn btn-secondary"
                                                 href="{{ route('ipjpsm.senaraikilang4') }}">Shuttle 4</a>
@@ -133,8 +131,19 @@
                                                         @if ($data->kategori_pengguna == 'IBK')
                                                             <tr>
                                                                 <td>{{ $loop->iteration }}</td>
-                                                                <td style="text-align:left">{{ $data->getCurrentName() }}</td>
-                                                                <td >{{ $data->shuttle->daerah_id }}</td>
+                                                                <td style="text-align:left">{{ $data->getCurrentName() }}
+                                                                </td>
+                                                                <td>
+                                                                    @if ($data->shuttle && $data->shuttle->daerah && $data->shuttle->daerah->daerah_hutan)
+                                                                        {{ $data->shuttle->daerah->daerah_hutan }}
+                                                                    @elseif($data->shuttle && $data->shuttle->daerah_id && !is_numeric($data->shuttle->daerah_id))
+                                                                        {{ $data->shuttle->daerah_id }}
+                                                                    @elseif($data->shuttle && $data->shuttle->daerah_id)
+                                                                        ID: {{ $data->shuttle->daerah_id }}
+                                                                    @else
+                                                                        -
+                                                                    @endif
+                                                                </td>
                                                                 <td>{{ $data->login_id }}</td>
                                                                 @if ($data->shuttle_type == '3')
                                                                     <td class="txt-oflo">Kilang Papan</td>
@@ -154,27 +163,32 @@
                                                                             Aktif</span> </td>
                                                                 @endif
                                                                 <td>
-                                                                    <a href="{{ route('ipjpsm.senaraiibk3', $data->shuttle_id) }}"
-                                                                        ><img src="{{ asset('share.png') }}" height='30px' data-toggle="tooltip"
-                                                                        data-placement="bottom" title="Pengguna Kilang"></i></a>
+                                                                    <a
+                                                                        href="{{ route('ipjpsm.senaraiibk3', $data->shuttle_id) }}"><img
+                                                                            src="{{ asset('share.png') }}" height='30px'
+                                                                            data-toggle="tooltip" data-placement="bottom"
+                                                                            title="Pengguna Kilang"></i></a>
                                                                 </td>
                                                                 <td>
                                                                     <button class="mr-1 btn btn-warning" data-toggle="modal"
                                                                         data-target="#edit{{ $data->id }}"><i
                                                                             class="fas fa-pencil-alt" data-toggle="tooltip"
-                                                                            data-placement="bottom" title="Kemaskini Emel Kilang"></i></button>
+                                                                            data-placement="bottom"
+                                                                            title="Kemaskini Emel Kilang"></i></button>
 
                                                                     @if ($data->status == 1)
                                                                         <button class="mr-1 btn btn-danger"
                                                                             data-toggle="modal"
-                                                                            data-target="#confirmation_borang_a{{ $data->id }}" data-toggle="tooltip"
-                                                                        data-placement="bottom" title="Nyahaktifkan Pengguna"><i
+                                                                            data-target="#confirmation_borang_a{{ $data->id }}"
+                                                                            data-toggle="tooltip" data-placement="bottom"
+                                                                            title="Nyahaktifkan Pengguna"><i
                                                                                 class="fas fa-times"></i></button>
                                                                     @else
                                                                         <button class="mr-1 btn btn-success"
                                                                             data-toggle="modal"
-                                                                            data-target="#confirmation_borang_b{{ $data->id }}" data-toggle="tooltip"
-                                                                            data-placement="bottom" title="Aktifkan Pengguna"><i
+                                                                            data-target="#confirmation_borang_b{{ $data->id }}"
+                                                                            data-toggle="tooltip" data-placement="bottom"
+                                                                            title="Aktifkan Pengguna"><i
                                                                                 class="fas fa-check"></i></button>
                                                                     @endif
                                                                 </td>
@@ -182,10 +196,11 @@
                                                         @endif
 
 
-                                                        <div class="modal fade" id="edit{{ $data->id }}"
-                                                            tabindex="-1" role="dialog"
-                                                            aria-labelledby="confirmation_borang_aTitle" aria-hidden="true">
-                                                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                                        <div class="modal fade" id="edit{{ $data->id }}" tabindex="-1"
+                                                            role="dialog" aria-labelledby="confirmation_borang_aTitle"
+                                                            aria-hidden="true">
+                                                            <div class="modal-dialog modal-dialog-centered"
+                                                                role="document">
                                                                 <div class="modal-content">
                                                                     <div class="modal-header"
                                                                         style="background-color:#f3ce8f  !important">
@@ -206,10 +221,13 @@
                                                                         @csrf
                                                                         <div class="modal-body">
                                                                             <div class="form-group row">
-                                                                                <label for="current_email_{{ $data->id }}"
-                                                                                    class="text-right col-sm-3 control-label col-form-label">Emel Semasa</label>
+                                                                                <label
+                                                                                    for="current_email_{{ $data->id }}"
+                                                                                    class="text-right col-sm-3 control-label col-form-label">Emel
+                                                                                    Semasa</label>
                                                                                 <div class="col-sm-9">
-                                                                                    <input type="text" class="form-control"
+                                                                                    <input type="text"
+                                                                                        class="form-control"
                                                                                         id="current_email_{{ $data->id }}"
                                                                                         value="{{ $data->getCurrentEmail() }}"
                                                                                         readonly
@@ -218,16 +236,18 @@
                                                                             </div>
                                                                             <div class="form-group row">
                                                                                 <label for="email_{{ $data->id }}"
-                                                                                    class="text-right col-sm-3 control-label col-form-label">Emel Baru</label>
+                                                                                    class="text-right col-sm-3 control-label col-form-label">Emel
+                                                                                    Baru</label>
                                                                                 <div class="col-sm-9">
                                                                                     <input type="email"
-                                                                                        class="form-control" id="email_{{ $data->id }}"
-                                                                                        name="email"
-                                                                                        value=""
+                                                                                        class="form-control"
+                                                                                        id="email_{{ $data->id }}"
+                                                                                        name="email" value=""
                                                                                         placeholder="Masukkan emel baru..."
                                                                                         oninput="validateEmail(this, {{ $data->id }})"
                                                                                         required>
-                                                                                    <div id="email_feedback_{{ $data->id }}" class="feedback-message"></div>
+                                                                                    <div id="email_feedback_{{ $data->id }}"
+                                                                                        class="feedback-message"></div>
                                                                                 </div>
                                                                                 @error('email')
                                                                                     <div class="alert alert-danger">
@@ -239,7 +259,8 @@
                                                                         <div class="modal-footer">
                                                                             <button type="button" class="btn btn-danger"
                                                                                 data-dismiss="modal">Batal</button>
-                                                                            <button style="text-color:white;" type="submit"
+                                                                            <button style="text-color:white;"
+                                                                                type="submit"
                                                                                 class="btn btn-success">KEMASKINI</a>
                                                                         </div>
                                                                     </form>
@@ -252,7 +273,8 @@
                                                             id="confirmation_borang_a{{ $data->id }}" tabindex="-1"
                                                             role="dialog" aria-labelledby="confirmation_borang_aTitle"
                                                             aria-hidden="true">
-                                                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                                            <div class="modal-dialog modal-dialog-centered"
+                                                                role="document">
                                                                 <div class="modal-content">
                                                                     <div class="modal-header"
                                                                         style="background-color:#f3ce8f  !important">
@@ -284,7 +306,8 @@
                                                             id="confirmation_borang_b{{ $data->id }}" tabindex="-1"
                                                             role="dialog" aria-labelledby="confirmation_borang_aTitle"
                                                             aria-hidden="true">
-                                                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                                            <div class="modal-dialog modal-dialog-centered"
+                                                                role="document">
                                                                 <div class="modal-content">
                                                                     <div class="modal-header"
                                                                         style="background-color:#f3ce8f  !important">
@@ -359,7 +382,7 @@
     <script>
         $(document).ready(function() {
             var table = $('#example').DataTable({
-            ordering : false,
+                ordering: false,
                 "language": {
                     "lengthMenu": "Memaparkan _MENU_ rekod per halaman",
                     "zeroRecords": "Maaf, tiada rekod.",
@@ -423,45 +446,51 @@
             const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
             if (!emailRegex.test(email)) {
                 input.classList.add('is-invalid');
-                feedbackDiv.innerHTML = '<div class="invalid-feedback" style="display: block; color: red;">Format emel tidak sah.</div>';
+                feedbackDiv.innerHTML =
+                    '<div class="invalid-feedback" style="display: block; color: red;">Format emel tidak sah.</div>';
                 return;
             }
 
             // Show loading state
-            feedbackDiv.innerHTML = '<div style="display: block; color: #007bff;"><i class="fas fa-spinner fa-spin"></i> Memeriksa emel...</div>';
+            feedbackDiv.innerHTML =
+                '<div style="display: block; color: #007bff;"><i class="fas fa-spinner fa-spin"></i> Memeriksa emel...</div>';
 
             // AJAX call to check email uniqueness
             fetch('/validate-email', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-                },
-                body: JSON.stringify({
-                    email: email,
-                    user_id: userId
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                    },
+                    body: JSON.stringify({
+                        email: email,
+                        user_id: userId
+                    })
                 })
-            })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
-                }
-                return response.json();
-            })
-            .then(data => {
-                if (data.valid) {
-                    input.classList.add('is-valid');
-                    feedbackDiv.innerHTML = '<div class="valid-feedback" style="display: block; color: green;"><i class="fas fa-check"></i> Emel ini boleh digunakan.</div>';
-                } else {
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    if (data.valid) {
+                        input.classList.add('is-valid');
+                        feedbackDiv.innerHTML =
+                            '<div class="valid-feedback" style="display: block; color: green;"><i class="fas fa-check"></i> Emel ini boleh digunakan.</div>';
+                    } else {
+                        input.classList.add('is-invalid');
+                        feedbackDiv.innerHTML =
+                            '<div class="invalid-feedback" style="display: block; color: red;"><i class="fas fa-exclamation-triangle"></i> ' +
+                            data.message + '</div>';
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
                     input.classList.add('is-invalid');
-                    feedbackDiv.innerHTML = '<div class="invalid-feedback" style="display: block; color: red;"><i class="fas fa-exclamation-triangle"></i> ' + data.message + '</div>';
-                }
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                input.classList.add('is-invalid');
-                feedbackDiv.innerHTML = '<div class="invalid-feedback" style="display: block; color: red;"><i class="fas fa-exclamation-triangle"></i> Ralat semasa memeriksa emel. Sila cuba lagi.</div>';
-            });
+                    feedbackDiv.innerHTML =
+                        '<div class="invalid-feedback" style="display: block; color: red;"><i class="fas fa-exclamation-triangle"></i> Ralat semasa memeriksa emel. Sila cuba lagi.</div>';
+                });
         }
     </script>
 
@@ -469,17 +498,21 @@
         .feedback-message {
             margin-top: 5px;
         }
+
         .is-valid {
             border-color: #28a745;
         }
+
         .is-invalid {
             border-color: #dc3545;
         }
+
         .valid-feedback {
             display: block;
             color: #28a745;
             font-size: 0.875em;
         }
+
         .invalid-feedback {
             display: block;
             color: #dc3545;
