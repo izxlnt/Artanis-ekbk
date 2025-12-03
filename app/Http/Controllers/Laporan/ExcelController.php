@@ -3208,7 +3208,7 @@ class ExcelController extends Controller
 
 
                 //produk pengeluaran
-                $produk_pengeluaran[$data_shuttle->id] = DB::select("SELECT
+                $produk_pengeluaran_result = DB::select("SELECT
             shuttles.id ,
             sum( distinct produk_pengeluarans.jumlah_besar_mr)  as jumlah_besar_mr,
             sum( distinct produk_pengeluarans.jumlah_besar_wbp) as jumlah_besar_wbp,
@@ -3231,12 +3231,25 @@ class ExcelController extends Controller
             AND form4_d_s.tahun = '$tahun'
 
             GROUP BY shuttles.id
-        ")[0];
+        ");
+        
+                if (!empty($produk_pengeluaran_result)) {
+                    $produk_pengeluaran[$data_shuttle->id] = $produk_pengeluaran_result[0];
+                } else {
+                    $produk_pengeluaran[$data_shuttle->id] = (object)[];
+                    $produk_pengeluaran[$data_shuttle->id]->id = $data_shuttle->id;
+                    $produk_pengeluaran[$data_shuttle->id]->jumlah_besar_mr = 0;
+                    $produk_pengeluaran[$data_shuttle->id]->jumlah_besar_wbp = 0;
+                    $produk_pengeluaran[$data_shuttle->id]->jumlah_kecil_1_mr = 0;
+                    $produk_pengeluaran[$data_shuttle->id]->jumlah_kecil_1_wbp = 0;
+                    $produk_pengeluaran[$data_shuttle->id]->jumlah_kecil_2_mr = 0;
+                    $produk_pengeluaran[$data_shuttle->id]->jumlah_kecil_2_wbp = 0;
+                }
 
                 // dd($produk_pengeluaran);
 
                 //rekod_muka
-                $rekod_muka[$data_shuttle->id] = DB::select("SELECT
+                $rekod_muka_result = DB::select("SELECT
             shuttles.id,
             sum(form4_d_s.rekod_veniermuka)  as rekod_veniermuka,
             sum(form4_d_s.rekod_venierteras) as rekod_venierteras
@@ -3253,11 +3266,19 @@ class ExcelController extends Controller
 
 
             GROUP BY shuttles.id
-        ")[0];
-
+        ");
+        
+                if (!empty($rekod_muka_result)) {
+                    $rekod_muka[$data_shuttle->id] = $rekod_muka_result[0];
+                } else {
+                    $rekod_muka[$data_shuttle->id] = (object)[];
+                    $rekod_muka[$data_shuttle->id]->id = $data_shuttle->id;
+                    $rekod_muka[$data_shuttle->id]->rekod_veniermuka = 0;
+                    $rekod_muka[$data_shuttle->id]->rekod_venierteras = 0;
+                }
 
                 //datas_formd
-                $data_form_d_s[$data_shuttle->id] = DB::select("SELECT
+                $data_form_d_result = DB::select("SELECT
             shuttles.id,
             sum(round(form4_e_s.total_export_laporan))  as export_papan_lapis,
             sum(round(form4_e_s.jumlah_venier_eksport_laporan))  as export_venier,
@@ -3277,7 +3298,19 @@ class ExcelController extends Controller
 
 
             GROUP BY shuttles.id
-        ")[0];
+        ");
+        
+                if (!empty($data_form_d_result)) {
+                    $data_form_d_s[$data_shuttle->id] = $data_form_d_result[0];
+                } else {
+                    $data_form_d_s[$data_shuttle->id] = (object)[];
+                    $data_form_d_s[$data_shuttle->id]->id = $data_shuttle->id;
+                    $data_form_d_s[$data_shuttle->id]->export_papan_lapis = 0;
+                    $data_form_d_s[$data_shuttle->id]->export_venier = 0;
+                    $data_form_d_s[$data_shuttle->id]->domestik_papan_lapis = 0;
+                    $data_form_d_s[$data_shuttle->id]->domestik_venier = 0;
+                    $data_form_d_s[$data_shuttle->id]->jumlah_penjualan = 0;
+                }
             }
         } elseif ($title == "2") {
             $title_laporan = "2. Senarai Pemilik Kilang Papan Lapis/Venir Bumiputera";
@@ -4490,10 +4523,12 @@ class ExcelController extends Controller
 
         // dd(" tahun : " . $tahun . " start : " . $start_date . " end : " . $end_date);
         $negeri_list = Daerah::distinct()->orderBy('negeri')->get('negeri');
-        for ($i = $suku_tahun; $i <= $jumlah_suku_tahun; $i++) {
+        
+        // Fix the loop to iterate properly from suku_tahun to suku_tahun_akhir
+        for ($i = $suku_tahun; $i <= $suku_tahun_akhir; $i++) {
             foreach ($negeri_list as $key => $negeri) {
 
-                $datas[$i][$negeri->negeri] = DB::select("SELECT DISTINCT(shuttles.id), shuttles.negeri_id as negeri,
+                $data = DB::select("SELECT DISTINCT(shuttles.id), shuttles.negeri_id as negeri,
                     (guna_tenagas.total_pekerja_lelaki_laporan) as total_pekerja_lelaki,
                     (guna_tenagas.total_pekerja_perempuan_laporan) as total_pekerja_perempuan,
                     (guna_tenagas.jumlah_gaji_lelaki_laporan) as jumlah_gaji_lelaki,
@@ -4512,6 +4547,23 @@ class ExcelController extends Controller
                     AND shuttles.shuttle_type = '4'
                     AND shuttles.negeri_id = '$negeri->negeri'
                 ");
+                
+                if (!empty($data)) {
+                    $datas[$i][$negeri->negeri] = $data;
+                } else {
+                    // Initialize array properly to prevent undefined index errors
+                    if (!isset($datas[$i])) {
+                        $datas[$i] = [];
+                    }
+                    $datas[$i][$negeri->negeri] = [];
+                    $datas[$i][$negeri->negeri][0] = (object)[];
+                    $datas[$i][$negeri->negeri][0]->id = '';
+                    $datas[$i][$negeri->negeri][0]->negeri = $negeri->negeri;
+                    $datas[$i][$negeri->negeri][0]->total_pekerja_lelaki = 0;
+                    $datas[$i][$negeri->negeri][0]->total_pekerja_perempuan = 0;
+                    $datas[$i][$negeri->negeri][0]->jumlah_gaji_lelaki = 0;
+                    $datas[$i][$negeri->negeri][0]->jumlah_gaji_perempuan = 0;
+                }
             }
         }
 
@@ -4615,9 +4667,10 @@ class ExcelController extends Controller
 
         $kategori = KategoriGunaTenaga::get();
 
-        for ($i = $suku_tahun; $i <= $jumlah_suku_tahun; $i++) {
+        // Fix loop iteration - should go from suku_tahun to suku_tahun_akhir, not jumlah_suku_tahun
+        for ($i = $suku_tahun; $i <= $suku_tahun_akhir; $i++) {
             foreach ($kategori as $key => $data) {
-                $datas[$i][$data->keterangan] = DB::select("SELECT
+                $result = DB::select("SELECT
                                         kategori_guna_tenagas.keterangan as kategori,
                                         sum(guna_tenagas.jumlah_lelaki_laporan) as jumlah_lelaki,
                                         sum(guna_tenagas.jumlah_perempuan_laporan) as jumlah_perempuan,
@@ -4638,11 +4691,26 @@ class ExcelController extends Controller
                                         AND formbs.status = 'Lulus'
                                         AND formbs.tahun = '$tahun'
                                         AND formbs.suku_tahun = '$i'
-                                        AND (formbs.suku_tahun BETWEEN '$suku_tahun' AND '$suku_tahun_akhir')
 
                                         GROUP BY
                                         kategori_guna_tenagas.keterangan;
                                     ");
+                
+                if (!empty($result)) {
+                    $datas[$i][$data->keterangan] = $result;
+                } else {
+                    // Initialize array properly to prevent undefined index errors
+                    if (!isset($datas[$i])) {
+                        $datas[$i] = [];
+                    }
+                    $datas[$i][$data->keterangan] = [];
+                    $datas[$i][$data->keterangan][0] = (object)[];
+                    $datas[$i][$data->keterangan][0]->kategori = $data->keterangan;
+                    $datas[$i][$data->keterangan][0]->jumlah_lelaki = 0;
+                    $datas[$i][$data->keterangan][0]->jumlah_perempuan = 0;
+                    $datas[$i][$data->keterangan][0]->jumlah_gaji_lelaki = 0;
+                    $datas[$i][$data->keterangan][0]->jumlah_gaji_perempuan = 0;
+                }
             }
         }
         // dd($kategori);
@@ -4741,10 +4809,11 @@ class ExcelController extends Controller
 
         $kategori = KategoriGunaTenaga::get();
         // dd($kategori);
-        for ($i = $suku_tahun; $i <= $jumlah_suku_tahun; $i++) {
+        // Fix loop iteration and remove inconsistent date filtering
+        for ($i = $suku_tahun; $i <= $suku_tahun_akhir; $i++) {
 
             foreach ($kategori as $key => $data) {
-                $jumlah[$i][$data->keterangan] = DB::select("SELECT
+                $result = DB::select("SELECT
                                         kategori_guna_tenagas.keterangan as kategori,
                                         sum(guna_tenagas.pekerja_wargabumi_lelaki_laporan) as jumlah_bumiputera_lelaki,
                                         sum(guna_tenagas.pekerja_wargabumi_perempuan_laporan) as jumlah_bumiputera_perempuan,
@@ -4767,11 +4836,28 @@ class ExcelController extends Controller
                                         AND formbs.status = 'Lulus'
                                         AND formbs.tahun = '$tahun'
                                         AND formbs.suku_tahun = '$i'
-                                        AND (date(formbs.created_at) BETWEEN '$start_date' AND '$end_date')
 
                                         GROUP BY
                                         kategori_guna_tenagas.keterangan;
                                     ");
+                
+                if (!empty($result)) {
+                    $jumlah[$i][$data->keterangan] = $result;
+                } else {
+                    // Initialize array properly to prevent undefined index errors
+                    if (!isset($jumlah[$i])) {
+                        $jumlah[$i] = [];
+                    }
+                    $jumlah[$i][$data->keterangan] = [];
+                    $jumlah[$i][$data->keterangan][0] = (object)[];
+                    $jumlah[$i][$data->keterangan][0]->kategori = $data->keterangan;
+                    $jumlah[$i][$data->keterangan][0]->jumlah_bumiputera_lelaki = 0;
+                    $jumlah[$i][$data->keterangan][0]->jumlah_bumiputera_perempuan = 0;
+                    $jumlah[$i][$data->keterangan][0]->jumlah_bukan_bumiputera_lelaki = 0;
+                    $jumlah[$i][$data->keterangan][0]->jumlah_bukan_bumiputera_perempuan = 0;
+                    $jumlah[$i][$data->keterangan][0]->jumlah_bukan_warganegara_lelaki = 0;
+                    $jumlah[$i][$data->keterangan][0]->jumlah_bukan_warganegara_perempuan = 0;
+                }
             }
         }
 
@@ -4999,9 +5085,10 @@ class ExcelController extends Controller
         // dd($tahun . " / " . $suku_tahun . " / " . $start_date . " / " . $end_date . " / " . $nama_suku_tahun );
 
         $kategori = KategoriGunaTenaga::get();
-        for ($i = $suku_tahun; $i <= $jumlah_suku_tahun; $i++) {
+        // Fix loop iteration and remove redundant BETWEEN clause that conflicts with individual suku_tahun filter
+        for ($i = $suku_tahun; $i <= $suku_tahun_akhir; $i++) {
             foreach ($kategori as $key => $data) {
-                $jumlah[$i][$key] = DB::select("SELECT
+                $result = DB::select("SELECT
                                         kategori_guna_tenagas.keterangan as kategori,
                                         sum(guna_tenagas.pekerja_wargabumi_lelaki_laporan) as jumlah_bumiputera_lelaki,
                                         sum(guna_tenagas.pekerja_wargabumi_perempuan_laporan) as jumlah_bumiputera_perempuan,
@@ -5028,12 +5115,32 @@ class ExcelController extends Controller
                                         AND formbs.status = 'Lulus'
                                         AND formbs.tahun = '$tahun'
                                         AND formbs.suku_tahun = '$i'
-                                        AND (formbs.suku_tahun BETWEEN '$suku_tahun' AND '$suku_tahun_akhir')
-
 
                                         GROUP BY
                                         kategori_guna_tenagas.keterangan;
                                     ");
+                
+                if (!empty($result)) {
+                    $jumlah[$i][$key] = $result;
+                } else {
+                    // Initialize array properly to prevent undefined index errors and calculation problems
+                    if (!isset($jumlah[$i])) {
+                        $jumlah[$i] = [];
+                    }
+                    $jumlah[$i][$key] = [];
+                    $jumlah[$i][$key][0] = (object)[];
+                    $jumlah[$i][$key][0]->kategori = $data->keterangan;
+                    $jumlah[$i][$key][0]->jumlah_bumiputera_lelaki = 0;
+                    $jumlah[$i][$key][0]->jumlah_bumiputera_perempuan = 0;
+                    $jumlah[$i][$key][0]->jumlah_bukan_bumiputera_lelaki = 0;
+                    $jumlah[$i][$key][0]->jumlah_bukan_bumiputera_perempuan = 0;
+                    $jumlah[$i][$key][0]->jumlah_bukan_warganegara_lelaki = 0;
+                    $jumlah[$i][$key][0]->jumlah_bukan_warganegara_perempuan = 0;
+                    $jumlah[$i][$key][0]->jumlah_lelaki = 0;
+                    $jumlah[$i][$key][0]->jumlah_perempuan = 0;
+                    $jumlah[$i][$key][0]->jumlah_gaji_lelaki = 0;
+                    $jumlah[$i][$key][0]->jumlah_gaji_perempuan = 0;
+                }
             }
         }
         // dd($tahun . " / " . $suku_tahun . " / " . $start_date . " / " . $end_date . " / " . $nama_suku_tahun );
@@ -5189,6 +5296,9 @@ class ExcelController extends Controller
 
         $negeri_list = Daerah::distinct()->orderBy('negeri')->get('negeri');
 
+        // Initialize grandtotal array properly
+        $grandtotal = [];
+        
         //dynamic year
         for ($x = $tahun_mula; $x <= $tahun_akhir; $x++) {
             $grandtotal[$x] = 0;
@@ -5213,21 +5323,31 @@ class ExcelController extends Controller
                     shuttles.negeri_id;
                 ");
 
-                if ($data) {
+                if (!empty($data)) {
                     $datas[$negeri->negeri][$x] = $data;
+                    // Add to grandtotal from actual data
+                    $grandtotal[$x] += $data[0]->jumlah_penggunaan;
                 } else {
+                    // Initialize array properly to prevent undefined index errors
+                    if (!isset($datas[$negeri->negeri])) {
+                        $datas[$negeri->negeri] = [];
+                    }
+                    $datas[$negeri->negeri][$x] = [];
                     $datas[$negeri->negeri][$x][0] = (object)[];
                     $datas[$negeri->negeri][$x][0]->negeri = $negeri->negeri;
                     $datas[$negeri->negeri][$x][0]->jumlah_penggunaan = 0;
+                    // Add zero to grandtotal for empty data
+                    $grandtotal[$x] += 0;
                 }
-                $grandtotal[$x] += $datas[$negeri->negeri][$x][0]->jumlah_penggunaan;
             }
         }
 
-        $grandtotal[$x] = 0;
-        foreach ($grandtotal as $value) {
-            $grandtotal[$x] += $value;
+        // Fix broken grandtotal calculation - calculate total of all years
+        $total_grandtotal = 0;
+        foreach ($grandtotal as $yearly_total) {
+            $total_grandtotal += $yearly_total;
         }
+        $grandtotal['total'] = $total_grandtotal;
 
         // dd($datas);
 
@@ -7289,7 +7409,8 @@ class ExcelController extends Controller
 
 
             foreach ($data_shuttles as $data_shuttle) {
-                $data_guna_tenagas[$data_shuttle->id] = DB::select("SELECT
+                // Fix dangerous [0] array access - check if result exists first
+                $guna_tenaga_result = DB::select("SELECT
             DISTINCT(shuttles.id) as shuttle_id,
             formbs.suku_tahun,
 
@@ -7317,10 +7438,24 @@ class ExcelController extends Controller
                                                 AND guna_tenagas.formbs_id = formbs.id)
 
             ORDER BY formbs.suku_tahun DESC
-        ")[0];
+        ");
+        
+                if (!empty($guna_tenaga_result)) {
+                    $data_guna_tenagas[$data_shuttle->id] = $guna_tenaga_result[0];
+                } else {
+                    $data_guna_tenagas[$data_shuttle->id] = (object)[];
+                    $data_guna_tenagas[$data_shuttle->id]->shuttle_id = $data_shuttle->id;
+                    $data_guna_tenagas[$data_shuttle->id]->suku_tahun = 0;
+                    $data_guna_tenagas[$data_shuttle->id]->pekerja_wargabumi_lelaki_laporan = 0;
+                    $data_guna_tenagas[$data_shuttle->id]->pekerja_wargabumi_perempuan_laporan = 0;
+                    $data_guna_tenagas[$data_shuttle->id]->pekerja_bukan_wargabumi_lelaki_laporan = 0;
+                    $data_guna_tenagas[$data_shuttle->id]->pekerja_bukan_wargabumi_perempuan_laporan = 0;
+                    $data_guna_tenagas[$data_shuttle->id]->pekerja_asing_lelaki_laporan = 0;
+                    $data_guna_tenagas[$data_shuttle->id]->pekerja_asing_perempuan_laporan = 0;
+                }
 
-
-                $data_kemasukan_bahans[$data_shuttle->id] = DB::select("SELECT
+                // Fix dangerous [0] array access - check if result exists first
+                $kemasukan_bahan_result = DB::select("SELECT
             shuttles.id as shuttle_id,
 
             sum(kemasukan_bahans.total_kayu_masuk_jentera) as jumlah_penggunaan,
@@ -7337,10 +7472,19 @@ class ExcelController extends Controller
             AND form_c_s.tahun = '$tahun'
 
             GROUP BY shuttles.id
-        ")[0];
+        ");
+        
+                if (!empty($kemasukan_bahan_result)) {
+                    $data_kemasukan_bahans[$data_shuttle->id] = $kemasukan_bahan_result[0];
+                } else {
+                    $data_kemasukan_bahans[$data_shuttle->id] = (object)[];
+                    $data_kemasukan_bahans[$data_shuttle->id]->shuttle_id = $data_shuttle->id;
+                    $data_kemasukan_bahans[$data_shuttle->id]->jumlah_penggunaan = 0;
+                    $data_kemasukan_bahans[$data_shuttle->id]->jumlah_pengeluaran = 0;
+                }
 
-
-                $data_form_d_s[$data_shuttle->id] = DB::select("SELECT
+                // Fix dangerous [0] array access - check if result exists first
+                $form5_e_result = DB::select("SELECT
             shuttles.id as shuttle_id,
             sum( form5_e_s.jumlah_jualan_eksport_laporan)  as export,
             sum( form5_e_s.jumlah_jualan_pasaran_tempatan_laporan) as domestik,
@@ -7357,7 +7501,17 @@ class ExcelController extends Controller
             AND form5_e_s.tahun = '$tahun'
 
             GROUP BY shuttles.id
-        ")[0];
+        ");
+        
+                if (!empty($form5_e_result)) {
+                    $data_form_d_s[$data_shuttle->id] = $form5_e_result[0];
+                } else {
+                    $data_form_d_s[$data_shuttle->id] = (object)[];
+                    $data_form_d_s[$data_shuttle->id]->shuttle_id = $data_shuttle->id;
+                    $data_form_d_s[$data_shuttle->id]->export = 0;
+                    $data_form_d_s[$data_shuttle->id]->domestik = 0;
+                    $data_form_d_s[$data_shuttle->id]->jumlah_penjualan = 0;
+                }
             }
 
         } elseif ($title == "2") {
@@ -7959,10 +8113,11 @@ class ExcelController extends Controller
 
         // dd(" tahun : " . $tahun . " start : " . $start_date . " end : " . $end_date);
         $negeri_list = Daerah::distinct()->orderBy('negeri')->get('negeri');
-        for ($i = $suku_tahun; $i <= $jumlah_suku_tahun; $i++) {
+        // Fix loop iteration - should go from suku_tahun to suku_tahun_akhir, not jumlah_suku_tahun
+        for ($i = $suku_tahun; $i <= $suku_tahun_akhir; $i++) {
             foreach ($negeri_list as $key => $negeri) {
 
-                $datas[$i][$negeri->negeri] = DB::select("SELECT DISTINCT(shuttles.id), shuttles.negeri_id as negeri,
+                $data = DB::select("SELECT DISTINCT(shuttles.id), shuttles.negeri_id as negeri,
                     (guna_tenagas.total_pekerja_lelaki_laporan) as total_pekerja_lelaki,
                     (guna_tenagas.total_pekerja_perempuan_laporan) as total_pekerja_perempuan,
                     (guna_tenagas.jumlah_gaji_lelaki_laporan) as jumlah_gaji_lelaki,
@@ -7981,6 +8136,23 @@ class ExcelController extends Controller
                     AND shuttles.shuttle_type = '5'
                     AND shuttles.negeri_id = '$negeri->negeri'
                 ");
+                
+                if (!empty($data)) {
+                    $datas[$i][$negeri->negeri] = $data;
+                } else {
+                    // Initialize array properly to prevent undefined index errors
+                    if (!isset($datas[$i])) {
+                        $datas[$i] = [];
+                    }
+                    $datas[$i][$negeri->negeri] = [];
+                    $datas[$i][$negeri->negeri][0] = (object)[];
+                    $datas[$i][$negeri->negeri][0]->id = '';
+                    $datas[$i][$negeri->negeri][0]->negeri = $negeri->negeri;
+                    $datas[$i][$negeri->negeri][0]->total_pekerja_lelaki = 0;
+                    $datas[$i][$negeri->negeri][0]->total_pekerja_perempuan = 0;
+                    $datas[$i][$negeri->negeri][0]->jumlah_gaji_lelaki = 0;
+                    $datas[$i][$negeri->negeri][0]->jumlah_gaji_perempuan = 0;
+                }
             }
         }
         $columns = [
@@ -8083,9 +8255,10 @@ class ExcelController extends Controller
 
         $kategori = KategoriGunaTenaga::get();
 
-        for ($i = $suku_tahun; $i <= $jumlah_suku_tahun; $i++) {
+        // Fix loop iteration - should go from suku_tahun to suku_tahun_akhir, not jumlah_suku_tahun  
+        for ($i = $suku_tahun; $i <= $suku_tahun_akhir; $i++) {
             foreach ($kategori as $key => $data) {
-                $datas[$i][$data->keterangan] = DB::select("SELECT
+                $result = DB::select("SELECT
                                         kategori_guna_tenagas.keterangan as kategori,
                                         sum(guna_tenagas.jumlah_lelaki_laporan) as jumlah_lelaki,
                                         sum(guna_tenagas.jumlah_perempuan_laporan) as jumlah_perempuan,
@@ -8111,6 +8284,22 @@ class ExcelController extends Controller
                                         GROUP BY
                                         kategori_guna_tenagas.keterangan;
                                     ");
+                
+                if (!empty($result)) {
+                    $datas[$i][$data->keterangan] = $result;
+                } else {
+                    // Initialize array properly to prevent undefined index errors
+                    if (!isset($datas[$i])) {
+                        $datas[$i] = [];
+                    }
+                    $datas[$i][$data->keterangan] = [];
+                    $datas[$i][$data->keterangan][0] = (object)[];
+                    $datas[$i][$data->keterangan][0]->kategori = $data->keterangan;
+                    $datas[$i][$data->keterangan][0]->jumlah_lelaki = 0;
+                    $datas[$i][$data->keterangan][0]->jumlah_perempuan = 0;
+                    $datas[$i][$data->keterangan][0]->jumlah_gaji_lelaki = 0;
+                    $datas[$i][$data->keterangan][0]->jumlah_gaji_perempuan = 0;
+                }
             }
         }
         // dd($kategori);
@@ -8209,7 +8398,8 @@ class ExcelController extends Controller
 
         $kategori = KategoriGunaTenaga::get();
         // dd($kategori);
-        for ($i = $suku_tahun; $i <= $jumlah_suku_tahun; $i++) {
+        // Fix loop iteration - should go from suku_tahun to suku_tahun_akhir, not jumlah_suku_tahun
+        for ($i = $suku_tahun; $i <= $suku_tahun_akhir; $i++) {
 
             foreach ($kategori as $key => $data) {
                 $jumlah[$i][$data->keterangan] = DB::select("SELECT
@@ -8344,7 +8534,8 @@ class ExcelController extends Controller
 
         $negeri_list = Daerah::distinct()->orderBy('negeri')->get('negeri');
 
-        for ($i = $suku_tahun; $i <= $jumlah_suku_tahun; $i++) {
+        // Fix loop iteration - should go from suku_tahun to suku_tahun_akhir, not jumlah_suku_tahun
+        for ($i = $suku_tahun; $i <= $suku_tahun_akhir; $i++) {
             foreach ($negeri_list as $key => $negeri) {
                 $datas[$i][$negeri->negeri] = DB::select("SELECT shuttles.negeri_id as negeri,
                     sum(guna_tenagas.pekerja_wargabumi_lelaki_laporan) as jumlah_bumiputera_lelaki,
@@ -8467,7 +8658,8 @@ class ExcelController extends Controller
         // dd($tahun . " / " . $suku_tahun . " / " . $start_date . " / " . $end_date . " / " . $nama_suku_tahun );
 
         $kategori = KategoriGunaTenaga::get();
-        for ($i = $suku_tahun; $i <= $jumlah_suku_tahun; $i++) {
+        // Fix loop iteration - should go from suku_tahun to suku_tahun_akhir, not jumlah_suku_tahun
+        for ($i = $suku_tahun; $i <= $suku_tahun_akhir; $i++) {
             foreach ($kategori as $key => $data) {
                 $jumlah[$i][$key] = DB::select("SELECT
                                         kategori_guna_tenagas.keterangan as kategori,
@@ -8680,21 +8872,31 @@ class ExcelController extends Controller
                     shuttles.negeri_id;
                 ");
 
-                if ($data) {
+                if (!empty($data)) {
                     $datas[$negeri->negeri][$x] = $data;
+                    // Add to grandtotal from actual data
+                    $grandtotal[$x] += $data[0]->jumlah_penggunaan;
                 } else {
+                    // Initialize array properly to prevent undefined index errors
+                    if (!isset($datas[$negeri->negeri])) {
+                        $datas[$negeri->negeri] = [];
+                    }
+                    $datas[$negeri->negeri][$x] = [];
                     $datas[$negeri->negeri][$x][0] = (object)[];
                     $datas[$negeri->negeri][$x][0]->negeri = $negeri->negeri;
                     $datas[$negeri->negeri][$x][0]->jumlah_penggunaan = 0;
+                    // Add zero to grandtotal for empty data
+                    $grandtotal[$x] += 0;
                 }
-                $grandtotal[$x] += $datas[$negeri->negeri][$x][0]->jumlah_penggunaan;
             }
         }
 
-        $grandtotal[$x] = 0;
-        foreach ($grandtotal as $value) {
-            $grandtotal[$x] += $value;
+        // Fix broken grandtotal calculation - calculate total of all years
+        $total_grandtotal = 0;
+        foreach ($grandtotal as $yearly_total) {
+            $total_grandtotal += $yearly_total;
         }
+        $grandtotal['total'] = $total_grandtotal;
 
         // dd($datas);
 
@@ -9070,9 +9272,14 @@ class ExcelController extends Controller
                     shuttles.negeri_id
                     ;");
 
-                if ($data) {
+                if (!empty($data)) {
                     $datas[$negeri->negeri][$bulan] = $data;
                 } else {
+                    // Initialize array properly to prevent undefined index errors
+                    if (!isset($datas[$negeri->negeri])) {
+                        $datas[$negeri->negeri] = [];
+                    }
+                    $datas[$negeri->negeri][$bulan] = [];
                     $datas[$negeri->negeri][$bulan][0] = (object)[];
                     $datas[$negeri->negeri][$bulan][0]->negeri = $negeri->negeri;
                     $datas[$negeri->negeri][$bulan][0]->jumlah_pengeluaran = 0;
