@@ -1276,7 +1276,7 @@ class ExcelController extends Controller
                                         AND formbs.status = 'Lulus'
                                         AND formbs.tahun = '$tahun'
                                         AND formbs.suku_tahun = '$i'
-                                        AND (date(formbs.created_at) BETWEEN '$start_date' AND '$end_date')
+                                        AND (formbs.suku_tahun BETWEEN '$suku_tahun' AND '$suku_tahun_akhir')
 
                                         GROUP BY
                                         kategori_guna_tenagas.keterangan;
@@ -8426,7 +8426,7 @@ class ExcelController extends Controller
                                         AND formbs.status = 'Lulus'
                                         AND formbs.tahun = '$tahun'
                                         AND formbs.suku_tahun = '$i'
-                                        AND (date(formbs.created_at) BETWEEN '$start_date' AND '$end_date')
+                                        AND (formbs.suku_tahun BETWEEN '$suku_tahun' AND '$suku_tahun_akhir')
 
                                         GROUP BY
                                         kategori_guna_tenagas.keterangan;

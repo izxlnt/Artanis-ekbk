@@ -89,15 +89,17 @@ class HomeController extends Controller
 
     public function ajax_count_tugasan_ipjpsm_shuttle3()
     {
-
+        $currentYear = date('Y');
+        
         $form3A = DB::select(DB::raw('SELECT form_a_s.* FROM batches, form_a_s
         INNER JOIN shuttles ON form_a_s.shuttle_id = shuttles.id
-        AND (form_a_s.status = "Dihantar ke IPJPSM")
+        AND (form_a_s.status = "Dihantar ke IPJPSM" OR form_a_s.status = "Lulus")
         WHERE batches.tahun = form_a_s.tahun
         AND batches.shuttle_id = form_a_s.shuttle_id
         AND batches.borang_a = "2"
         AND batches.status = "Dihantar ke IPJPSM"
-        AND shuttles.shuttle_type = 3'));
+        AND shuttles.shuttle_type = 3
+        AND form_a_s.tahun = "'.$currentYear.'"'));
 
 // dd($form3A);
 
@@ -112,11 +114,12 @@ class HomeController extends Controller
         $form3B = DB::select(DB::raw("SELECT DISTINCT formbs.* FROM formbs
         INNER JOIN shuttles ON formbs.shuttle_id = shuttles.id
         INNER JOIN batches ON shuttles.id = batches.shuttle_id
-        AND (formbs.status = 'Dihantar ke IPJPSM')
+        AND (formbs.status = 'Dihantar ke IPJPSM' OR formbs.status = 'Lulus')
         AND batches.shuttle_id = formbs.shuttle_id
         AND batches.status = 'Dihantar ke IPJPSM'
         AND batches.borang_b = '2'
-        AND shuttles.shuttle_type = '3'"));
+        AND shuttles.shuttle_type = '3'
+        AND formbs.tahun = '".$currentYear."'"));
 
         if(empty($form3B)){
             $form3B_count = 0;
@@ -130,10 +133,11 @@ class HomeController extends Controller
         INNER JOIN batches ON shuttles.id = batches.shuttle_id
         WHERE batches.bulan = form_c_s.bulan
         AND batches.status = 'Dihantar ke IPJPSM'
-        AND form_c_s.status = 'Dihantar ke IPJPSM'
+        AND (form_c_s.status = 'Dihantar ke IPJPSM' OR form_c_s.status = 'Lulus')
         AND batches.shuttle_id = form_c_s.shuttle_id
         AND batches.borang_c = '2'
-        AND shuttles.shuttle_type = '3'"));
+        AND shuttles.shuttle_type = '3'
+        AND form_c_s.tahun = '".$currentYear."'"));
 
         if(empty($form3C)){
             $form3C_count = 0;
@@ -145,11 +149,12 @@ class HomeController extends Controller
         INNER JOIN shuttles ON form_d_s.shuttle_id = shuttles.id
         INNER JOIN batches ON shuttles.id = batches.shuttle_id
         WHERE batches.bulan = form_d_s.bulan
-        AND form_d_s.status = 'Dihantar ke IPJPSM'
+        AND (form_d_s.status = 'Dihantar ke IPJPSM' OR form_d_s.status = 'Lulus')
         AND batches.shuttle_id = form_d_s.shuttle_id
         AND batches.status = 'Dihantar ke IPJPSM'
         AND batches.borang_d = '2'
-        AND shuttles.shuttle_type = '3'"));
+        AND shuttles.shuttle_type = '3'
+        AND form_d_s.tahun = '".$currentYear."'"));
 
         if(empty($form3D)){
             $form3D_count = 0;
@@ -166,7 +171,7 @@ class HomeController extends Controller
 
     public function ajax_count_tugasan_ipjpsm_shuttle4()
     {
-
+        $currentYear = date('Y');
 
         $formA = DB::select(DB::raw('SELECT form_a_s.* FROM batches, form_a_s
         INNER JOIN shuttles ON form_a_s.shuttle_id = shuttles.id
@@ -174,9 +179,9 @@ class HomeController extends Controller
         AND batches.shuttle_id = form_a_s.shuttle_id
         AND batches.borang_a = "2"
         AND batches.status = "Dihantar ke IPJPSM"
-        AND (form_a_s.status = "Dihantar ke IPJPSM")
-
-        AND shuttles.shuttle_type = 4'));
+        AND (form_a_s.status = "Dihantar ke IPJPSM" OR form_a_s.status = "Lulus")
+        AND shuttles.shuttle_type = 4
+        AND form_a_s.tahun = "'.$currentYear.'"'));
 
 
         if(empty($formA)){
@@ -189,11 +194,12 @@ class HomeController extends Controller
         INNER JOIN shuttles ON formbs.shuttle_id = shuttles.id
         INNER JOIN batches ON shuttles.id = batches.shuttle_id
         WHERE batches.tahun = formbs.tahun
-        AND (formbs.status = 'Dihantar ke IPJPSM')
+        AND (formbs.status = 'Dihantar ke IPJPSM' OR formbs.status = 'Lulus')
         AND batches.shuttle_id = formbs.shuttle_id
         AND batches.status = 'Dihantar ke IPJPSM'
         AND batches.borang_b = '2'
-        AND shuttles.shuttle_type = '4'"));
+        AND shuttles.shuttle_type = '4'
+        AND formbs.tahun = '".$currentYear."'"));
 
         if(empty($formB)){
             $form4B_count = 0;
@@ -205,11 +211,12 @@ class HomeController extends Controller
         INNER JOIN shuttles ON form_c_s.shuttle_id = shuttles.id
         INNER JOIN batches ON shuttles.id = batches.shuttle_id
         WHERE batches.bulan = form_c_s.bulan
-        AND (form_c_s.status = 'Dihantar ke IPJPSM')
+        AND (form_c_s.status = 'Dihantar ke IPJPSM' OR form_c_s.status = 'Lulus')
         AND batches.shuttle_id = form_c_s.shuttle_id
         AND batches.status = 'Dihantar ke IPJPSM'
         AND batches.borang_c = '2'
-        AND shuttles.shuttle_type = '4'"));
+        AND shuttles.shuttle_type = '4'
+        AND form_c_s.tahun = '".$currentYear."'"));
 
         if(empty($formC)){
             $form4C_count = 0;
@@ -221,11 +228,12 @@ class HomeController extends Controller
         INNER JOIN shuttles ON form4_d_s.shuttle_id = shuttles.id
         INNER JOIN batches ON shuttles.id = batches.shuttle_id
         WHERE batches.bulan = form4_d_s.bulan
-        AND form4_d_s.status = 'Dihantar ke IPJPSM'
+        AND (form4_d_s.status = 'Dihantar ke IPJPSM' OR form4_d_s.status = 'Lulus')
         AND batches.shuttle_id = form4_d_s.shuttle_id
         AND batches.status = 'Dihantar ke IPJPSM'
         AND batches.borang_d = '2'
-        AND shuttles.shuttle_type = '4'"));
+        AND shuttles.shuttle_type = '4'
+        AND form4_d_s.tahun = '".$currentYear."'"));
 
         if(empty($formD)){
             $form4D_count = 0;
@@ -237,11 +245,12 @@ class HomeController extends Controller
         INNER JOIN shuttles ON form4_e_s.shuttle_id = shuttles.id
         INNER JOIN batches ON shuttles.id = batches.shuttle_id
         WHERE batches.bulan = form4_e_s.bulan
-        AND (form4_e_s.status = 'Dihantar ke IPJPSM')
+        AND (form4_e_s.status = 'Dihantar ke IPJPSM' OR form4_e_s.status = 'Lulus')
         AND batches.shuttle_id = form4_e_s.shuttle_id
         AND batches.status = 'Dihantar ke IPJPSM'
         AND batches.borang_e = '2'
-        AND shuttles.shuttle_type = '4'"));
+        AND shuttles.shuttle_type = '4'
+        AND form4_e_s.tahun = '".$currentYear."'"));
 
         if(empty($formE)){
             $form4E_count = 0;
@@ -256,15 +265,17 @@ class HomeController extends Controller
 
     public function ajax_count_tugasan_ipjpsm_shuttle5()
     {
-
+        $currentYear = date('Y');
+        
         $formA = DB::select(DB::raw('SELECT form_a_s.* FROM batches, form_a_s
         INNER JOIN shuttles ON form_a_s.shuttle_id = shuttles.id
         WHERE batches.tahun = form_a_s.tahun
         AND batches.shuttle_id = form_a_s.shuttle_id
         AND batches.borang_a = "2"
         AND batches.status = "Dihantar ke IPJPSM"
-        AND (form_a_s.status = "Dihantar ke IPJPSM")
-        AND shuttles.shuttle_type = 5'));
+        AND (form_a_s.status = "Dihantar ke IPJPSM" OR form_a_s.status = "Lulus")
+        AND shuttles.shuttle_type = 5
+        AND form_a_s.tahun = "'.$currentYear.'"'));
 
         if(empty($formA)){
             $form5A_count = 0;
@@ -277,11 +288,12 @@ class HomeController extends Controller
         INNER JOIN shuttles ON formbs.shuttle_id = shuttles.id
         INNER JOIN batches ON shuttles.id = batches.shuttle_id
         WHERE batches.tahun = formbs.tahun
-        AND (formbs.status = 'Dihantar ke IPJPSM')
+        AND (formbs.status = 'Dihantar ke IPJPSM' OR formbs.status = 'Lulus')
         AND batches.shuttle_id = formbs.shuttle_id
         AND batches.status = 'Dihantar ke IPJPSM'
         AND batches.borang_b = '2'
-        AND shuttles.shuttle_type = '5'"));
+        AND shuttles.shuttle_type = '5'
+        AND formbs.tahun = '".$currentYear."'"));
 
         if(empty($formB)){
             $form5B_count = 0;
@@ -295,11 +307,12 @@ class HomeController extends Controller
         INNER JOIN shuttles ON form_c_s.shuttle_id = shuttles.id
         INNER JOIN batches ON shuttles.id = batches.shuttle_id
         WHERE batches.bulan = form_c_s.bulan
-        AND (form_c_s.status = 'Dihantar ke IPJPSM')
+        AND (form_c_s.status = 'Dihantar ke IPJPSM' OR form_c_s.status = 'Lulus')
         AND batches.shuttle_id = form_c_s.shuttle_id
         AND batches.status = 'Dihantar ke IPJPSM'
         AND batches.borang_c = '2'
-        AND shuttles.shuttle_type = '5'"));
+        AND shuttles.shuttle_type = '5'
+        AND form_c_s.tahun = '".$currentYear."'"));
 
         if(empty($formC)){
             $form5C_count = 0;
@@ -313,11 +326,12 @@ class HomeController extends Controller
         INNER JOIN shuttles ON form5_d_s.shuttle_id = shuttles.id
         INNER JOIN batches ON shuttles.id = batches.shuttle_id
         WHERE batches.bulan = form5_d_s.bulan
-        AND form5_d_s.status = 'Dihantar ke IPJPSM'
+        AND (form5_d_s.status = 'Dihantar ke IPJPSM' OR form5_d_s.status = 'Lulus')
         AND batches.shuttle_id = form5_d_s.shuttle_id
         AND batches.status = 'Dihantar ke IPJPSM'
         AND batches.borang_d = '2'
-        AND shuttles.shuttle_type = '5'"));
+        AND shuttles.shuttle_type = '5'
+        AND form5_d_s.tahun = '".$currentYear."'"));
 
         if(empty($formD)){
             $form5D_count = 0;
@@ -330,11 +344,12 @@ class HomeController extends Controller
         INNER JOIN shuttles ON form5_e_s.shuttle_id = shuttles.id
         INNER JOIN batches ON shuttles.id = batches.shuttle_id
         WHERE batches.bulan = form5_e_s.bulan
-        AND (form5_e_s.status = 'Dihantar ke IPJPSM')
+        AND (form5_e_s.status = 'Dihantar ke IPJPSM' OR form5_e_s.status = 'Lulus')
         AND batches.shuttle_id = form5_e_s.shuttle_id
         AND batches.status = 'Dihantar ke IPJPSM'
         AND batches.borang_e = '2'
-        AND shuttles.shuttle_type = '5'"));
+        AND shuttles.shuttle_type = '5'
+        AND form5_e_s.tahun = '".$currentYear."'"));
 
         if(empty($formE)){
             $form5e_count = 0;

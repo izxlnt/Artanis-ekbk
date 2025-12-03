@@ -68,9 +68,10 @@
                             <h4 style="background-color: #f3ce8f "><b>SENARAI KILANG AKTIF</b></h4>
                         </div> --}}
 
+                        {{-- SECTION 1: Shows total count of active registered factories (approved users) --}}
                         <div class="card-header bg-info"
                             style="text-align:center; background-color: #f3ce8f !important; font-size: 130%; font-weight: bold;">
-                            <h4 class="text-white m-b-0" style="background-color: #f3ce8f "><b>SENARAI KILANG AKTIF</b></h4>
+                            <h4 class="text-white m-b-0" style="background-color: #f3ce8f "><b>JUMLAH KILANG AKTIF BERDAFTAR</b></h4>
                         </div>
                         <br>
 
@@ -145,10 +146,10 @@
                     <div class="col-md-12">
 
 
+                        {{-- SECTION 2: Shows count of forms with 'Sedang Diproses' status for current year (dynamically loaded via AJAX) --}}
                         <div class="card-header bg-info"
                             style="text-align:center; background-color: #f3ce8f !important; font-size: 130%; font-weight: bold;">
-                            <h4 class="text-white m-b-0" style="background-color: #f3ce8f "><b>SENARAI BORANG YANG BELUM DISAHKAN PEGAWAI HUTAN
-                                DAERAH</b></h4>
+                            <h4 class="text-white m-b-0" style="background-color: #f3ce8f "><b>JUMLAH BORANG MENUNGGU PENGESAHAN PHD ({{ date('Y') }})</b></h4>
                         </div>
                     </div>
                 </div>

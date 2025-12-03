@@ -18,7 +18,7 @@ class ListOverallController extends Controller
         $user = auth()->user();
 
         // $formB_kilang = FormB::select('shuttle_id')->distinct()->where('tahun', $year)->get();
-        $formA = FormA::where('status', '!=', 'Tidak Diisi')
+        $formA = FormA::where('status', 'Sedang Diproses')
             ->whereHas('shuttle', function ($q) {
                 $q->where('daerah_id', auth()->user()->daerah)->where('shuttle_type', '5');
             })->where('tahun', $year)->get();
@@ -67,9 +67,10 @@ class ListOverallController extends Controller
         })
         ->distinct()->where('tahun', $year)->get();
 
-        $formB = FormB::whereHas('shuttle', function($q){
-            $q->where('daerah_id',auth()->user()->daerah)->where('shuttle_type', '5');
-         })->where('tahun', $year)->get();
+        $formB = FormB::where('status', 'Sedang Diproses')
+            ->whereHas('shuttle', function($q){
+                $q->where('daerah_id',auth()->user()->daerah)->where('shuttle_type', '5');
+            })->where('tahun', $year)->get();
 
          $year_list = FormB::whereHas('shuttle', function($q){
             $q->where('daerah_id',auth()->user()->daerah)->where('shuttle_type', '5');

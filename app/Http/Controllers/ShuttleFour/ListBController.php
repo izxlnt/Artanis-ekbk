@@ -26,9 +26,10 @@ class ListBController extends Controller
 
         // dd($formB_kilang);
 
-        $formB = FormB::whereHas('shuttle', function($q){
-            $q->where('daerah_id',auth()->user()->daerah)->where('shuttle_type', '4');
-         })->where('tahun', $year)->get();
+        $formB = FormB::where('status', 'Sedang Diproses')
+            ->whereHas('shuttle', function($q){
+                $q->where('daerah_id',auth()->user()->daerah)->where('shuttle_type', '4');
+            })->where('tahun', $year)->get();
 
          $year_list = FormB::whereHas('shuttle', function($q){
             $q->where('daerah_id',auth()->user()->daerah)->where('shuttle_type', '4');
