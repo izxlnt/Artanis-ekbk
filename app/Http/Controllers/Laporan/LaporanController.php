@@ -506,7 +506,7 @@ class LaporanController extends LaporanDataLamaController
 
 
         foreach ($data_shuttles as $data_shuttle) {
-            $data_guna_tenagas[$data_shuttle->id] = DB::select("SELECT
+            $guna_tenaga_result = DB::select("SELECT
             DISTINCT(shuttles.id) as shuttle_id,
             formbs.suku_tahun,
 
@@ -534,7 +534,13 @@ class LaporanController extends LaporanDataLamaController
                                                 AND guna_tenagas.formbs_id = formbs.id)
 
             ORDER BY formbs.suku_tahun DESC
-        ")[0];
+        ");
+        
+        if (empty($guna_tenaga_result)) {
+            return redirect()->back()->with('error', 'Tiada data Guna Tenaga ditemui untuk tahun ' . $tahun . ' bagi Shuttle 3');
+        }
+        
+        $data_guna_tenagas[$data_shuttle->id] = $guna_tenaga_result[0];
 
 
         $data_kemasukan_bahans[$data_shuttle->id] = DB::select("SELECT
@@ -554,10 +560,20 @@ class LaporanController extends LaporanDataLamaController
             AND form_c_s.tahun = '$tahun'
 
             GROUP BY shuttles.id
-        ")[0];
+        ");
+        
+        if (empty($kemasukan_result)) {
+            $data_kemasukan_bahans[$data_shuttle->id] = (object)[
+                'shuttle_id' => $data_shuttle->id,
+                'jumlah_penggunaan' => 0,
+                'jumlah_pengeluaran' => 0
+            ];
+        } else {
+            $data_kemasukan_bahans[$data_shuttle->id] = $kemasukan_result[0];
+        }
 
 
-        $data_form_d_s[$data_shuttle->id] = DB::select("SELECT
+        $form_d_result = DB::select("SELECT
             shuttles.id,
             sum(form_d_s.total_export_laporan)  as export,
             sum(form_d_s.jumlah_pasaran_tempatan_laporan) as domestik
@@ -571,7 +587,17 @@ class LaporanController extends LaporanDataLamaController
             AND form_d_s.tahun = '$tahun'
 
             GROUP BY shuttles.id
-        ")[0];
+        ");
+        
+        if (empty($form_d_result)) {
+            $data_form_d_s[$data_shuttle->id] = (object)[
+                'id' => $data_shuttle->id,
+                'export' => 0,
+                'domestik' => 0
+            ];
+        } else {
+            $data_form_d_s[$data_shuttle->id] = $form_d_result[0];
+        }
 
         }
 
@@ -664,7 +690,7 @@ class LaporanController extends LaporanDataLamaController
 
 
 foreach ($data_shuttles as $data_shuttle) {
-    $data_guna_tenagas[$data_shuttle->id] = DB::select("SELECT
+    $guna_tenaga_result = DB::select("SELECT
     DISTINCT(shuttles.id) as shuttle_id,
     formbs.suku_tahun,
 

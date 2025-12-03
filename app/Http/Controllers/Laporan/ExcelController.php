@@ -1014,7 +1014,7 @@ class ExcelController extends Controller
                                         AND formbs.status = 'Lulus'
                                         AND formbs.tahun = '$tahun'
                                         AND formbs.suku_tahun = '$i'
-                                        AND (date(formbs.created_at) BETWEEN '$start_date' AND '$end_date')
+                                        AND (formbs.suku_tahun BETWEEN '$suku_tahun' AND '$suku_tahun_akhir')
 
                                         GROUP BY
                                         kategori_guna_tenagas.keterangan;
@@ -1763,7 +1763,7 @@ class ExcelController extends Controller
                     AND form_c_s.status = 'Lulus'
                     AND kumpulan_kayus.keterangan = '$kk->keterangan'
                     AND spesis.nama_tempatan = '$sp->nama_tempatan'
-                    AND (date(kemasukan_bahans.created_at) BETWEEN '$start_date' AND '$end_date')
+                    AND (form_c_s.tahun BETWEEN '$tahun_mula' AND '$tahun_akhir')
 
                     GROUP BY
                     form_c_s.tahun
@@ -1854,9 +1854,16 @@ class ExcelController extends Controller
                     shuttles.negeri_id
                     ;");
 
-                if ($data) {
+                if (!empty($data)) {
                     $datas[$negeri->negeri][$bulan] = $data;
                 } else {
+                    // Initialize array properly to prevent undefined index errors
+                    if (!isset($datas[$negeri->negeri])) {
+                        $datas[$negeri->negeri] = [];
+                    }
+                    if (!isset($datas[$negeri->negeri][$bulan])) {
+                        $datas[$negeri->negeri][$bulan] = [];
+                    }
                     $datas[$negeri->negeri][$bulan][0] = (object)[];
                     $datas[$negeri->negeri][$bulan][0]->negeri = $negeri->negeri;
                     $datas[$negeri->negeri][$bulan][0]->jumlah_pengeluaran = 0;
@@ -2321,7 +2328,7 @@ class ExcelController extends Controller
 
         for ($x = 1; $x <= 12; $x++) {
             foreach ($negeri_list as $key => $negeri) {
-                $datas[$negeri->negeri][$x] = DB::select("SELECT
+                $data = DB::select("SELECT
                              shuttles.negeri_id as negeri,
                              sum(kemasukan_bahans.proses_keluar) as jumlah_pengeluaran
                              FROM
@@ -2342,6 +2349,19 @@ class ExcelController extends Controller
                              GROUP BY
                              shuttles.negeri_id;
                 ");
+                
+                if (!empty($data)) {
+                    $datas[$negeri->negeri][$x] = $data;
+                } else {
+                    // Initialize array properly to prevent undefined index errors
+                    if (!isset($datas[$negeri->negeri])) {
+                        $datas[$negeri->negeri] = [];
+                    }
+                    $datas[$negeri->negeri][$x] = [];
+                    $datas[$negeri->negeri][$x][0] = (object)[];
+                    $datas[$negeri->negeri][$x][0]->negeri = $negeri->negeri;
+                    $datas[$negeri->negeri][$x][0]->jumlah_pengeluaran = 0;
+                }
             }
         }
 
@@ -2653,7 +2673,7 @@ class ExcelController extends Controller
 
         foreach ($pembelis as $pembeli) {
             for ($bulan = 1; $bulan <= 12; $bulan++) {
-                $datas[$pembeli->keterangan][$bulan] = DB::select("SELECT
+                $data = DB::select("SELECT
                 pembelis.keterangan as pembeli_keterangan,
                 sum(penjualan_pembelis.jumlah_jualan_laporan)  as jumlah_jualan,
                 form_d_s.bulan as bulan
@@ -2678,6 +2698,20 @@ class ExcelController extends Controller
                 GROUP BY
                 pembelis.keterangan
                 ;");
+                
+                if (!empty($data)) {
+                    $datas[$pembeli->keterangan][$bulan] = $data;
+                } else {
+                    // Initialize array properly to prevent undefined index errors
+                    if (!isset($datas[$pembeli->keterangan])) {
+                        $datas[$pembeli->keterangan] = [];
+                    }
+                    $datas[$pembeli->keterangan][$bulan] = [];
+                    $datas[$pembeli->keterangan][$bulan][0] = (object)[];
+                    $datas[$pembeli->keterangan][$bulan][0]->pembeli_keterangan = $pembeli->keterangan;
+                    $datas[$pembeli->keterangan][$bulan][0]->jumlah_jualan = 0;
+                    $datas[$pembeli->keterangan][$bulan][0]->bulan = $bulan;
+                }
             }
         }
 
@@ -2837,8 +2871,7 @@ class ExcelController extends Controller
         foreach ($pembeli_list as $pembeli) {
             for ($curr_year = $tahun_mula; $curr_year <= $tahun_akhir; $curr_year++) {
 
-                $datas[$pembeli->keterangan][$curr_year] =
-                    DB::select("SELECT
+                $data = DB::select("SELECT
                     pembelis.keterangan as pembeli_keterangan,
                     sum(round(penjualan_pembelis.jumlah_jualan_laporan))  as jumlah_jualan
 
@@ -2861,6 +2894,19 @@ class ExcelController extends Controller
                     GROUP BY
                     shuttles.negeri_id
             ;");
+            
+                if (!empty($data)) {
+                    $datas[$pembeli->keterangan][$curr_year] = $data;
+                } else {
+                    // Initialize array properly to prevent undefined index errors
+                    if (!isset($datas[$pembeli->keterangan])) {
+                        $datas[$pembeli->keterangan] = [];
+                    }
+                    $datas[$pembeli->keterangan][$curr_year] = [];
+                    $datas[$pembeli->keterangan][$curr_year][0] = (object)[];
+                    $datas[$pembeli->keterangan][$curr_year][0]->pembeli_keterangan = $pembeli->keterangan;
+                    $datas[$pembeli->keterangan][$curr_year][0]->jumlah_jualan = 0;
+                }
             }
         }
 
@@ -2912,7 +2958,7 @@ class ExcelController extends Controller
     public function laporan_shuttle_3_47($title, $tahun, $file_type)
     {
         for ($bulan = 1; $bulan <= 12; $bulan++) {
-            $datas[$bulan] = DB::select("SELECT
+            $data = DB::select("SELECT
             shuttles.negeri_id as negeri,
             sum(round(form_d_s.total_export_laporan))  as export,
             sum(form_d_s.jumlah_pasaran_tempatan_laporan) as domestik,
@@ -2932,6 +2978,18 @@ class ExcelController extends Controller
             GROUP BY
             shuttles.negeri_id
             ;");
+            
+            if (!empty($data)) {
+                $datas[$bulan] = $data;
+            } else {
+                // Initialize array properly to prevent undefined index errors
+                $datas[$bulan] = [];
+                $datas[$bulan][0] = (object)[];
+                $datas[$bulan][0]->negeri = '';
+                $datas[$bulan][0]->export = 0;
+                $datas[$bulan][0]->domestik = 0;
+                $datas[$bulan][0]->jumlah_penjualan = 0;
+            }
         }
 
         $bulan_senarai = [
@@ -2990,7 +3048,7 @@ class ExcelController extends Controller
 
 
         foreach ($negeri_list as $negeri) {
-            $datas[$negeri->negeri] = DB::select("SELECT
+            $data = DB::select("SELECT
                 shuttles.negeri_id as negeri,
                 sum(round(form_d_s.total_export_laporan))  as export,
                 sum(form_d_s.jumlah_pasaran_tempatan_laporan) as domestik,
@@ -3010,6 +3068,18 @@ class ExcelController extends Controller
                 GROUP BY
                 shuttles.negeri_id
             ;");
+            
+            if (!empty($data)) {
+                $datas[$negeri->negeri] = $data;
+            } else {
+                // Initialize array properly to prevent undefined index errors
+                $datas[$negeri->negeri] = [];
+                $datas[$negeri->negeri][0] = (object)[];
+                $datas[$negeri->negeri][0]->negeri = $negeri->negeri;
+                $datas[$negeri->negeri][0]->export = 0;
+                $datas[$negeri->negeri][0]->domestik = 0;
+                $datas[$negeri->negeri][0]->jumlah_penjualan = 0;
+            }
         }
 
         // dd($datas);
