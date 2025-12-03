@@ -145,12 +145,12 @@
                                                                     title="Kemaskini Emel Pengguna"></i></button>
                                                                     @if ($data->status == 1)
                                                                     <button class="mr-1 btn btn-danger" data-toggle="modal"
-                                                                        data-target="#confirmation_borang_a{{ $data->id }}"><i
+                                                                        data-target="#aktif{{ $data->id }}"><i
                                                                             class="fas fa-times" data-toggle="tooltip"
                                                                             data-placement="bottom" title="Nyahaktifkan Pengguna"></i></button>
                                                                 @else
                                                                     <button class="mr-1 btn btn-success" data-toggle="modal"
-                                                                        data-target="#confirmation_borang_b{{ $data->id }}"><i
+                                                                        data-target="#xaktif{{ $data->id }}"><i
                                                                             class="fas fa-check" data-toggle="tooltip"
                                                                             data-placement="bottom" title="Aktifkan Pengguna"><i
                                                                                 class="fas fa-check"></i></button>
