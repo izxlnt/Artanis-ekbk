@@ -277,8 +277,11 @@
                                 class="">Muat Naik Gambar
                                 Berukuran Passport</label>
 
+                                <small class="form-text text-muted mb-2">
+                                    <i class="fas fa-camera"></i> Format: JPG, PNG sahaja. Maks: 8MB
+                                </small>
                                 <label for="gambar_passport" class="form-control">PILIH FAIL</label>
-                                <input type="file" id="gambar_passport" name="gambar_passport" accept="*" style="display: none" required title="Sila isikan butiran ini.">
+                                <input type="file" id="gambar_passport" name="gambar_passport" accept="image/jpeg,image/jpg,image/png" style="display: none" required title="Sila isikan butiran ini.">
                             {{-- <input type="file" class="form-control"
                                 name="gambar_passport" id="lesenkilang">
                             @error('lesen_kilang')

@@ -1459,13 +1459,13 @@ class UserController extends Controller
             'email' => ['required', 'string', 'email', 'max:255', new UniqueEmailAcrossAllTables()],
             'no_kad_pengenalan' => ['required', 'string', 'max:12', new MalaysianIC, 'unique:pengguna_kilangs'],
 
-            'gambar_ic_hadapan' => 'required|image|mimes:jpg,png,jpeg',
-            'gambar_ic_belakang' => 'required|image|mimes:jpg,png,jpeg',
-            'gambar_passport' => 'required|image|mimes:jpg,png,jpeg',
+            'gambar_ic_hadapan' => 'required|image|mimes:jpeg,jpg,png|max:8192',
+            'gambar_ic_belakang' => 'required|image|mimes:jpeg,jpg,png|max:8192',
+            'gambar_passport' => 'required|image|mimes:jpeg,jpg,png|max:8192',
 
 
             'jawatan' => ['required', 'string', 'max:255'],
-            'gambar_kad_pekerja' => 'image|mimes:jpg,png,jpeg',
+            'gambar_kad_pekerja' => 'image|mimes:jpeg,jpg,png|max:8192',
 
         ]);
     }

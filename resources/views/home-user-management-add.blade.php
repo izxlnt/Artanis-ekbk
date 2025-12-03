@@ -178,8 +178,11 @@
                                         <label for="gambar_ic_hadapan" class="required">Muat Naik Gambar Hadapan<br>
                                             Kad
                                             Pengenalan</label>
+                                        <small class="form-text text-muted mb-2">
+                                            <i class="fas fa-camera"></i> Format: JPG, PNG sahaja. Maks: 8MB
+                                        </small>
                                         <label for="icfront" class="form-control">PILIH FAIL</label>
-                                        <input type="file" id="icfront" name="gambar_ic_hadapan" accept="*"
+                                        <input type="file" id="icfront" name="gambar_ic_hadapan" accept="image/jpeg,image/jpg,image/png"
                                             style="display: none">
 
                                         {{-- <input type="file" class="form-control"
@@ -196,9 +199,12 @@
                                         <label for="gambar_ic_belakang" class="required">Muat Naik Gambar
                                             Belakang <br> Kad
                                             Pengenalan</label>
+                                        <small class="form-text text-muted mb-2">
+                                            <i class="fas fa-camera"></i> Format: JPG, PNG sahaja. Maks: 8MB
+                                        </small>
 
                                         <label for="icback" class="form-control">PILIH FAIL</label>
-                                        <input type="file" id="icback" name="gambar_ic_belakang" accept="*"
+                                        <input type="file" id="icback" name="gambar_ic_belakang" accept="image/jpeg,image/jpg,image/png"
                                             style="display: none">
                                         {{-- <input type="file" class="form-control"
                                             name="gambar_ic_belakang" id="icback"> --}}
@@ -213,9 +219,12 @@
                                     <div class="form-group">
                                         <label for="gambar_passport" class="required">Muat Naik Gambar<br>
                                             Berukuran Passport</label>
+                                        <small class="form-text text-muted mb-2">
+                                            <i class="fas fa-camera"></i> Format: JPG, PNG sahaja. Maks: 8MB
+                                        </small>
 
                                         <label for="passport" class="form-control">PILIH FAIL</label>
-                                        <input type="file" id="passport" name="gambar_passport" accept="*"
+                                        <input type="file" id="passport" name="gambar_passport" accept="image/jpeg,image/jpg,image/png"
                                             style="display: none">
                                         {{-- <input type="file" class="form-control"
                                             name="gambar_passport" id="passport"> --}}
@@ -283,8 +292,11 @@
                                     Gambar Kad Pekerja</label>
                                 <div class="col-md-6">
                                     <div class="form-group">
+                                        <small class="form-text text-muted mb-2">
+                                            <i class="fas fa-camera"></i> Format: JPG, PNG sahaja. Maks: 8MB
+                                        </small>
                                         <label for="kad_pekerja" class="form-control">PILIH FAIL</label>
-                                        <input type="file" id="kad_pekerja" name="gambar_kad_pekerja" accept="*"
+                                        <input type="file" id="kad_pekerja" name="gambar_kad_pekerja" accept="image/jpeg,image/jpg,image/png"
                                             style="display: none">
                                     </div>
                                     @error('gambar_kad_pekerja')

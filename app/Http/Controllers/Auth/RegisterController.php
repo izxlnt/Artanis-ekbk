@@ -124,8 +124,8 @@ class RegisterController extends Controller
                 'no_lesen'=> ['required', 'string', 'max:255'],
                 'status_hak_milik'=> ['required', 'string', 'max:255'],
                 'status_warganegara'=> ['required', 'string', 'max:255'],
-                'sijil_ssm'=> ['required', 'max:10000', 'mimes:jpeg,jpg,png,gif'],
-                'lesen_kilang'=> ['required','max:10000', 'mimes:jpeg,jpg,png,gif'],
+                'sijil_ssm'=> ['required', 'image', 'mimes:jpeg,jpg,png', 'max:8192'],
+                'lesen_kilang'=> ['required', 'image', 'mimes:jpeg,jpg,png', 'max:8192'],
             ]);
         }
 

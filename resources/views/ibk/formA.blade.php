@@ -727,13 +727,16 @@
                                                                         <label for="wphoneNumber2"
                                                                             class="required">Muat Naik Sijil
                                                                             SSM</label>
+                                                                        <small class="form-text text-muted mb-2">
+                                                                            <i class="fas fa-info-circle"></i> Format: JPG, JPEG, PNG sahaja. Maks: 8MB
+                                                                        </small>
                                                                         {{-- <input type='file' class="form-control"
                                                                             name="sijil_ssm" id="ssm" /> --}}
 
                                                                         <label for="ssm" class="form-control">PILIH
                                                                             FAIL</label>
                                                                         <input type="file" id="ssm" name="sijil_ssm"
-                                                                            accept="*" style="display: none">
+                                                                            accept="image/jpeg,image/jpg,image/png" style="display: none">
 
                                                                         {{-- <img id="blah" /> --}}
 
@@ -750,13 +753,16 @@
                                                                         <label for="wphoneNumber2"
                                                                             class="required">Muat Naik Lesen
                                                                             Kilang</label>
+                                                                        <small class="form-text text-muted mb-2">
+                                                                            <i class="fas fa-info-circle"></i> Format: JPG, JPEG, PNG sahaja. Maks: 8MB
+                                                                        </small>
                                                                         {{-- <input type="file" class="form-control"
                                                                             name="lesen_kilang" id="lesenkilang"> --}}
 
                                                                         <label for="lesenkilang"
                                                                             class="form-control">PILIH FAIL</label>
                                                                         <input type="file" id="lesenkilang"
-                                                                            name="lesen_kilang" accept="*"
+                                                                            name="lesen_kilang" accept="image/jpeg,image/jpg,image/png"
                                                                             style="display: none">
                                                                         @error('lesen_kilang')
                                                                             <div class="alert alert-danger">

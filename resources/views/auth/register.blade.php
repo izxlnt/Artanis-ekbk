@@ -1061,10 +1061,13 @@
                                                                     <label for="wphoneNumber2"
                                                                         class="required">Muat Naik Sijil
                                                                         SSM</label>
+                                                                    <small class="form-text text-muted mb-2">
+                                                                        <i class="fas fa-info-circle"></i> Format yang disokong: JPG, JPEG, PNG sahaja. Saiz maksimum: 8MB
+                                                                    </small>
                                                                     {{-- <input type="file" class="form-control"
                                                                     name="sijil_ssm"> --}}
                                                                     <label for="ssm" class="form-control">PILIH FAIL</label>
-                                                                    <input type="file" id="ssm" name="sijil_ssm" accept="*" style="display: none" required title="Sila isikan butiran ini.">
+                                                                    <input type="file" id="ssm" name="sijil_ssm" accept="image/jpeg,image/jpg,image/png" style="display: none" required title="Sila isikan butiran ini.">
 
 
                                                                     @error('sijil_ssm')
@@ -1082,7 +1085,7 @@
                                                                         Kilang</label>
 
                                                                         <label for="lesenkilang" class="form-control">PILIH FAIL</label>
-                                                                        <input type="file" id="lesenkilang" name="lesen_kilang" accept="*" style="display: none" required title="Sila isikan butiran ini.">
+                                                                        <input type="file" id="lesenkilang" name="lesen_kilang" accept="image/jpeg,image/jpg,image/png" style="display: none" required title="Sila isikan butiran ini.">
                                                                     {{-- <input type="file" class="form-control"
                                                                         name="lesen_kilang" id="lesenkilang"> --}}
                                                                     @error('lesen_kilang')
@@ -1253,8 +1256,11 @@
                                                                         class="required">Muat Naik Gambar Hadapan<br>
                                                                         Kad
                                                                         Pengenalan</label>
+                                                                    <small class="form-text text-muted mb-2">
+                                                                        <i class="fas fa-camera"></i> Format: JPG, PNG sahaja. Maks: 8MB
+                                                                    </small>
                                                                         <label for="icfront" class="form-control">PILIH FAIL</label>
-                                                                        <input type="file" id="icfront" name="gambar_ic_hadapan" accept="*" style="display: none" required title="Sila isikan butiran ini.">
+                                                                        <input type="file" id="icfront" name="gambar_ic_hadapan" accept="image/jpeg,image/jpg,image/png" style="display: none" required title="Sila isikan butiran ini.">
 
                                                                     {{-- <input type="file" class="form-control"
                                                                         name="gambar_ic_hadapan" id="icfront"> --}}
@@ -1271,9 +1277,12 @@
                                                                         class="required">Muat Naik Gambar
                                                                         Belakang <br> Kad
                                                                         Pengenalan</label>
+                                                                    <small class="form-text text-muted mb-2">
+                                                                        <i class="fas fa-camera"></i> Format: JPG, PNG sahaja. Maks: 8MB
+                                                                    </small>
 
                                                                         <label for="icback" class="form-control">PILIH FAIL</label>
-                                                                        <input type="file" id="icback" name="gambar_ic_belakang" accept="*" style="display: none" required title="Sila isikan butiran ini.">
+                                                                        <input type="file" id="icback" name="gambar_ic_belakang" accept="image/jpeg,image/jpg,image/png" style="display: none" required title="Sila isikan butiran ini.">
                                                                     {{-- <input type="file" class="form-control"
                                                                         name="gambar_ic_belakang" id="icback"> --}}
                                                                     @error('gambar_ic_belakang')
@@ -1288,9 +1297,12 @@
                                                                     <label for="gambar_passport"
                                                                         class="required">Muat Naik Gambar<br>
                                                                         Berukuran Passport</label>
+                                                                    <small class="form-text text-muted mb-2">
+                                                                        <i class="fas fa-camera"></i> Format: JPG, PNG sahaja. Maks: 8MB
+                                                                    </small>
 
                                                                         <label for="passport" class="form-control">PILIH FAIL</label>
-                                                                        <input type="file" id="passport" name="gambar_passport" accept="*" style="display: none" required title="Sila isikan butiran ini.">
+                                                                        <input type="file" id="passport" name="gambar_passport" accept="image/jpeg,image/jpg,image/png" style="display: none" required title="Sila isikan butiran ini.">
                                                                     {{-- <input type="file" class="form-control"
                                                                         name="gambar_passport" id="passport"> --}}
                                                                     @error('gambar_passport')
@@ -1359,9 +1371,12 @@
                                                                     <label for="wphoneNumber2"
                                                                         class="">Muat Naik Gambar Kad
                                                                         Pekerja</label>
+                                                                    <small class="form-text text-muted mb-2">
+                                                                        <i class="fas fa-camera"></i> Format: JPG, PNG sahaja. Maks: 8MB
+                                                                    </small>
 
                                                                         <label for="kad_pekerja" class="form-control">PILIH FAIL</label>
-                                                                        <input type="file" id="kad_pekerja" name="gambar_kad_pekerja" accept="*" style="display: none">
+                                                                        <input type="file" id="kad_pekerja" name="gambar_kad_pekerja" accept="image/jpeg,image/jpg,image/png" style="display: none">
 
                                                                     {{-- <input type="file" class="form-control"
                                                                         name="gambar_kad_pekerja" id="kad_pekerja"> --}}
