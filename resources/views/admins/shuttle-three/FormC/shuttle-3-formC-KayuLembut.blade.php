@@ -617,9 +617,9 @@
                     }
 
                     function checkValidationMasuk(key) {
-                        var kayu_masuk = document.getElementById("kayu_masuk." + key).value;
+                        var jumlah_stok_kayu_balak = document.getElementById("jumlah_stok_kayu_balak." + key).value;
                         var proses_masuk = document.getElementById("proses_masuk." + key).value;
-                        if(parseFloat(proses_masuk) > parseFloat(kayu_masuk)){
+                        if(parseFloat(proses_masuk) > parseFloat(jumlah_stok_kayu_balak)){
                             if ($('#proses_masuk_validation').length === 1) {
                                 $('#proses_masuk_validation').remove();
                             }
