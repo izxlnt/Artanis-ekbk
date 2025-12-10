@@ -269,7 +269,7 @@ class FormCController extends Controller
                     'jumlah_kayu_masuk' => $request->jumlah_kayu_masuk[$keySpecies] ?? 0,
                     'total_stok_kayu_balak' => $request->total_stok_kayu_balak[$keySpecies] ?? 0,
                     'total_kayu_masuk_jentera' => $request->total_kayu_masuk_jentera[$keySpecies] ?? 0,
-                    'total_kayu_dibawa_bulan_hadapan' => $request->total_kayu_dibawa_bulan_hadapan[0] ?? 0,
+                    'total_kayu_dibawa_bulan_hadapan' => $request->total_kayu_dibawa_bulan_hadapan[$keySpecies] ?? 0,
 
                     'jumlah_besar_baki_stok_bulan_lepas' => $request->jumlah_besar_baki_stok_bulan_lepas ?? 0,
                     'jumlah_besar_kemasukan_kayu_ke_kilang' => $request->jumlah_besar_kemasukan_kayu_ke_kilang ?? 0,
@@ -296,7 +296,7 @@ class FormCController extends Controller
                 $data->jumlah_kayu_masuk = $request->jumlah_kayu_masuk[$keySpecies] ?? 0;
                 $data->total_stok_kayu_balak = $request->total_stok_kayu_balak[$keySpecies] ?? 0;
                 $data->total_kayu_masuk_jentera = $request->total_kayu_masuk_jentera[$keySpecies] ?? 0;
-                $data->total_kayu_dibawa_bulan_hadapan = $request->total_kayu_dibawa_bulan_hadapan[0] ?? 0;
+                $data->total_kayu_dibawa_bulan_hadapan = $request->total_kayu_dibawa_bulan_hadapan[$keySpecies] ?? 0;
 
                 $data->jumlah_besar_baki_stok_bulan_lepas = $request->jumlah_besar_baki_stok_bulan_lepas ?? 0;
                 $data->jumlah_besar_kemasukan_kayu_ke_kilang = $request->jumlah_besar_kemasukan_kayu_ke_kilang ?? 0;
@@ -565,7 +565,7 @@ class FormCController extends Controller
                     'jumlah_kayu_masuk' => $request->jumlah_kayu_masuk[$keySpecies] ?? 0,
                     'total_stok_kayu_balak' => $request->total_stok_kayu_balak[$keySpecies] ?? 0,
                     'total_kayu_masuk_jentera' => $request->total_kayu_masuk_jentera[$keySpecies] ?? 0,
-                    'total_kayu_dibawa_bulan_hadapan' => $request->total_kayu_dibawa_bulan_hadapan[0] ?? 0,
+                    'total_kayu_dibawa_bulan_hadapan' => $request->total_kayu_dibawa_bulan_hadapan[$keySpecies] ?? 0,
 
                     'jumlah_besar_baki_stok_bulan_lepas' => $request->jumlah_besar_baki_stok_bulan_lepas ?? 0,
                     'jumlah_besar_kemasukan_kayu_ke_kilang' => $request->jumlah_besar_kemasukan_kayu_ke_kilang ?? 0,
@@ -592,7 +592,7 @@ class FormCController extends Controller
                 $data->jumlah_kayu_masuk = $request->jumlah_kayu_masuk[$keySpecies] ?? 0;
                 $data->total_stok_kayu_balak = $request->total_stok_kayu_balak[$keySpecies] ?? 0;
                 $data->total_kayu_masuk_jentera = $request->total_kayu_masuk_jentera[$keySpecies] ?? 0;
-                $data->total_kayu_dibawa_bulan_hadapan = $request->total_kayu_dibawa_bulan_hadapan[0] ?? 0;
+                $data->total_kayu_dibawa_bulan_hadapan = $request->total_kayu_dibawa_bulan_hadapan[$keySpecies] ?? 0;
 
                 $data->jumlah_besar_baki_stok_bulan_lepas = $request->jumlah_besar_baki_stok_bulan_lepas ?? 0;
                 $data->jumlah_besar_kemasukan_kayu_ke_kilang = $request->jumlah_besar_kemasukan_kayu_ke_kilang ?? 0;
@@ -852,7 +852,7 @@ class FormCController extends Controller
                     'jumlah_kayu_masuk' => $request->jumlah_kayu_masuk[$keySpecies] ?? 0,
                     'total_stok_kayu_balak' => $request->total_stok_kayu_balak[$keySpecies] ?? 0,
                     'total_kayu_masuk_jentera' => $request->total_kayu_masuk_jentera[$keySpecies] ?? 0,
-                    'total_kayu_dibawa_bulan_hadapan' => $request->total_kayu_dibawa_bulan_hadapan[0] ?? 0,
+                    'total_kayu_dibawa_bulan_hadapan' => $request->total_kayu_dibawa_bulan_hadapan[$keySpecies] ?? 0,
 
                     'jumlah_besar_baki_stok_bulan_lepas' => $request->jumlah_besar_baki_stok_bulan_lepas ?? 0,
                     'jumlah_besar_kemasukan_kayu_ke_kilang' => $request->jumlah_besar_kemasukan_kayu_ke_kilang ?? 0,
@@ -879,7 +879,7 @@ class FormCController extends Controller
                 $data->jumlah_kayu_masuk = $request->jumlah_kayu_masuk[$keySpecies] ?? 0;
                 $data->total_stok_kayu_balak = $request->total_stok_kayu_balak[$keySpecies] ?? 0;
                 $data->total_kayu_masuk_jentera = $request->total_kayu_masuk_jentera[$keySpecies] ?? 0;
-                $data->total_kayu_dibawa_bulan_hadapan = $request->total_kayu_dibawa_bulan_hadapan[0] ?? 0;
+                $data->total_kayu_dibawa_bulan_hadapan = $request->total_kayu_dibawa_bulan_hadapan[$keySpecies] ?? 0;
 
                 $data->jumlah_besar_baki_stok_bulan_lepas = $request->jumlah_besar_baki_stok_bulan_lepas ?? 0;
                 $data->jumlah_besar_kemasukan_kayu_ke_kilang = $request->jumlah_besar_kemasukan_kayu_ke_kilang ?? 0;
@@ -1139,7 +1139,7 @@ class FormCController extends Controller
                     'jumlah_kayu_masuk' => $request->jumlah_kayu_masuk[$keySpecies] ?? 0,
                     'total_stok_kayu_balak' => $request->total_stok_kayu_balak[$keySpecies] ?? 0,
                     'total_kayu_masuk_jentera' => $request->total_kayu_masuk_jentera[$keySpecies] ?? 0,
-                    'total_kayu_dibawa_bulan_hadapan' => $request->total_kayu_dibawa_bulan_hadapan[0] ?? 0,
+                    'total_kayu_dibawa_bulan_hadapan' => $request->total_kayu_dibawa_bulan_hadapan[$keySpecies] ?? 0,
 
                     'jumlah_besar_baki_stok_bulan_lepas' => $request->jumlah_besar_baki_stok_bulan_lepas ?? 0,
                     'jumlah_besar_kemasukan_kayu_ke_kilang' => $request->jumlah_besar_kemasukan_kayu_ke_kilang ?? 0,
@@ -1166,7 +1166,7 @@ class FormCController extends Controller
                 $data->jumlah_kayu_masuk = $request->jumlah_kayu_masuk[$keySpecies] ?? 0;
                 $data->total_stok_kayu_balak = $request->total_stok_kayu_balak[$keySpecies] ?? 0;
                 $data->total_kayu_masuk_jentera = $request->total_kayu_masuk_jentera[$keySpecies] ?? 0;
-                $data->total_kayu_dibawa_bulan_hadapan = $request->total_kayu_dibawa_bulan_hadapan[0] ?? 0;
+                $data->total_kayu_dibawa_bulan_hadapan = $request->total_kayu_dibawa_bulan_hadapan[$keySpecies] ?? 0;
 
                 $data->jumlah_besar_baki_stok_bulan_lepas = $request->jumlah_besar_baki_stok_bulan_lepas ?? 0;
                 $data->jumlah_besar_kemasukan_kayu_ke_kilang = $request->jumlah_besar_kemasukan_kayu_ke_kilang ?? 0;
@@ -1349,11 +1349,21 @@ class FormCController extends Controller
         }
 
         if (!$kemasukan_bahan_calc_lain_lain) { // first time masuk page lain-lain
-            $besar_jumlah_baki_stok += (float)$jumlah_baki_stok[0];
-            $besar_jumlah_kayu_masuk += (float)$jumlah_kayu_masuk[0];
-            $besar_total_stok_kayu_balak += (float)$total_stok_kayu_balak[0];
-            $besar_total_kayu_masuk_jentera += (float)$total_kayu_masuk_jentera[0];
-            $besar_total_kayu_dibawa_bulan_hadapan += (float)$total_kayu_dibawa_bulan_hadapan[0];
+            foreach ($jumlah_baki_stok as $value) {
+                $besar_jumlah_baki_stok += (float)$value;
+            }
+            foreach ($jumlah_kayu_masuk as $value) {
+                $besar_jumlah_kayu_masuk += (float)$value;
+            }
+            foreach ($total_stok_kayu_balak as $value) {
+                $besar_total_stok_kayu_balak += (float)$value;
+            }
+            foreach ($total_kayu_masuk_jentera as $value) {
+                $besar_total_kayu_masuk_jentera += (float)$value;
+            }
+            foreach ($total_kayu_dibawa_bulan_hadapan as $value) {
+                $besar_total_kayu_dibawa_bulan_hadapan += (float)$value;
+            }
         }
 
         if ($bulan_id ==  '1') {
@@ -1538,7 +1548,7 @@ class FormCController extends Controller
                     'total_stok_kayu_balak' => $request->total_stok_kayu_balak[$keySpecies] ?? 0,
                     'total_kayu_masuk_jentera' => $request->total_kayu_masuk_jentera[$keySpecies] ?? 0,
                     'total_kayu_keluar_jentera' => $request->total_kayu_keluar_jentera[$keySpecies] ?? 0,
-                    'total_kayu_dibawa_bulan_hadapan' => $request->total_kayu_dibawa_bulan_hadapan[0] ?? 0,
+                    'total_kayu_dibawa_bulan_hadapan' => $request->total_kayu_dibawa_bulan_hadapan[$keySpecies] ?? 0,
 
                     'jumlah_besar_baki_stok_bulan_lepas' => $request->jumlah_besar_baki_stok_bulan_lepas ?? 0,
                     'jumlah_besar_kemasukan_kayu_ke_kilang' => $request->jumlah_besar_kemasukan_kayu_ke_kilang ?? 0,
@@ -1568,7 +1578,7 @@ class FormCController extends Controller
                 $data->total_stok_kayu_balak = $request->total_stok_kayu_balak[$keySpecies] ?? 0;
                 $data->total_kayu_masuk_jentera = $request->total_kayu_masuk_jentera[$keySpecies] ?? 0;
                 $data->total_kayu_keluar_jentera = $request->total_kayu_keluar_jentera[$keySpecies] ?? 0;
-                $data->total_kayu_dibawa_bulan_hadapan = $request->total_kayu_dibawa_bulan_hadapan[0] ?? 0;
+                $data->total_kayu_dibawa_bulan_hadapan = $request->total_kayu_dibawa_bulan_hadapan[$keySpecies] ?? 0;
 
                 $data->jumlah_besar_baki_stok_bulan_lepas = $request->jumlah_besar_baki_stok_bulan_lepas ?? 0;
                 $data->jumlah_besar_kemasukan_kayu_ke_kilang = $request->jumlah_besar_kemasukan_kayu_ke_kilang ?? 0;

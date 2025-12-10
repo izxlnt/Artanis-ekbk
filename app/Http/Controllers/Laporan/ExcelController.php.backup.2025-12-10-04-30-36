@@ -99,7 +99,7 @@ class ExcelController extends Controller
         ")[0];
 
 
-                $query_result = DB::select("SELECT
+                $data_kemasukan_bahans[$data_shuttle->id] = DB::select("SELECT
             shuttles.id as shuttle_id,
 
             sum(kemasukan_bahans.total_kayu_masuk_jentera) as jumlah_penggunaan,
@@ -119,7 +119,7 @@ class ExcelController extends Controller
         ")[0];
 
 
-                $query_result = DB::select("SELECT
+                $data_form_d_s[$data_shuttle->id] = DB::select("SELECT
             shuttles.id,
             sum(form_d_s.total_export_laporan)  as export,
             sum(form_d_s.jumlah_pasaran_tempatan_laporan) as domestik
@@ -193,7 +193,7 @@ class ExcelController extends Controller
         ")[0];
 
 
-                $query_result = DB::select("SELECT
+                $data_kemasukan_bahans[$data_shuttle->id] = DB::select("SELECT
             shuttles.id as shuttle_id,
 
             sum(kemasukan_bahans.total_kayu_masuk_jentera) as jumlah_penggunaan,
@@ -213,7 +213,7 @@ class ExcelController extends Controller
         ")[0];
 
 
-                $query_result = DB::select("SELECT
+                $data_form_d_s[$data_shuttle->id] = DB::select("SELECT
             shuttles.id,
             sum(form_d_s.total_export_laporan)  as export,
             sum(form_d_s.jumlah_pasaran_tempatan_laporan) as domestik
@@ -287,7 +287,7 @@ class ExcelController extends Controller
         ")[0];
 
 
-                $query_result = DB::select("SELECT
+                $data_kemasukan_bahans[$data_shuttle->id] = DB::select("SELECT
             shuttles.id as shuttle_id,
 
             sum(kemasukan_bahans.total_kayu_masuk_jentera) as jumlah_penggunaan,
@@ -307,7 +307,7 @@ class ExcelController extends Controller
         ")[0];
 
 
-                $query_result = DB::select("SELECT
+                $data_form_d_s[$data_shuttle->id] = DB::select("SELECT
             shuttles.id,
             sum(form_d_s.total_export_laporan)  as export,
             sum(form_d_s.jumlah_pasaran_tempatan_laporan) as domestik
@@ -381,7 +381,7 @@ class ExcelController extends Controller
         ")[0];
 
 
-                $query_result = DB::select("SELECT
+                $data_kemasukan_bahans[$data_shuttle->id] = DB::select("SELECT
             shuttles.id as shuttle_id,
 
             sum(kemasukan_bahans.total_kayu_masuk_jentera) as jumlah_penggunaan,
@@ -401,7 +401,7 @@ class ExcelController extends Controller
         ")[0];
 
 
-                $query_result = DB::select("SELECT
+                $data_form_d_s[$data_shuttle->id] = DB::select("SELECT
             shuttles.id,
             sum(form_d_s.total_export_laporan)  as export,
             sum(form_d_s.jumlah_pasaran_tempatan_laporan) as domestik
@@ -3189,7 +3189,7 @@ class ExcelController extends Controller
 
 
                 //form 4 c
-                $query_result = DB::select("SELECT
+                $data_kemasukan_bahans[$data_shuttle->id] = DB::select("SELECT
             shuttles.id as shuttle_id,
 
             sum(kemasukan_bahans.baki_stok_kehadapan) as baki_stok_kehadapan,
@@ -3377,7 +3377,7 @@ class ExcelController extends Controller
 
 
                 //form 4 c
-                $query_result = DB::select("SELECT
+                $data_kemasukan_bahans[$data_shuttle->id] = DB::select("SELECT
             shuttles.id as shuttle_id,
 
             sum(kemasukan_bahans.baki_stok_kehadapan) as baki_stok_kehadapan,
@@ -3447,7 +3447,7 @@ class ExcelController extends Controller
 
 
                 //datas_formd
-                $query_result = DB::select("SELECT
+                $data_form_d_s[$data_shuttle->id] = DB::select("SELECT
             shuttles.id,
             sum(round(form4_e_s.total_export_laporan))  as export_papan_lapis,
             sum(round(form4_e_s.jumlah_venier_eksport_laporan))  as export_venier,
@@ -3528,7 +3528,7 @@ class ExcelController extends Controller
 
 
                 //form 4 c
-                $query_result = DB::select("SELECT
+                $data_kemasukan_bahans[$data_shuttle->id] = DB::select("SELECT
                 shuttles.id as shuttle_id,
 
                 sum(kemasukan_bahans.baki_stok_kehadapan) as baki_stok_kehadapan,
@@ -3598,7 +3598,7 @@ class ExcelController extends Controller
 
 
                 //datas_formd
-                $query_result = DB::select("SELECT
+                $data_form_d_s[$data_shuttle->id] = DB::select("SELECT
                 shuttles.id,
                 sum(round(form4_e_s.total_export_laporan))  as export_papan_lapis,
                 sum(round(form4_e_s.jumlah_venier_eksport_laporan))  as export_venier,
@@ -3679,7 +3679,7 @@ class ExcelController extends Controller
 
 
                 //form 4 c
-                $query_result = DB::select("SELECT
+                $data_kemasukan_bahans[$data_shuttle->id] = DB::select("SELECT
                 shuttles.id as shuttle_id,
 
                 sum(kemasukan_bahans.baki_stok_kehadapan) as baki_stok_kehadapan,
@@ -3749,7 +3749,7 @@ class ExcelController extends Controller
 
 
                 //datas_formd
-                $query_result = DB::select("SELECT
+                $data_form_d_s[$data_shuttle->id] = DB::select("SELECT
                 shuttles.id,
                 sum(round(form4_e_s.total_export_laporan))  as export_papan_lapis,
                 sum(round(form4_e_s.jumlah_venier_eksport_laporan))  as export_venier,
@@ -7579,7 +7579,7 @@ class ExcelController extends Controller
         ")[0];
 
 
-                $query_result = DB::select("SELECT
+                $data_kemasukan_bahans[$data_shuttle->id] = DB::select("SELECT
             shuttles.id as shuttle_id,
 
             sum(kemasukan_bahans.total_kayu_masuk_jentera) as jumlah_penggunaan,
@@ -7599,7 +7599,7 @@ class ExcelController extends Controller
         ")[0];
 
 
-                $query_result = DB::select("SELECT
+                $data_form_d_s[$data_shuttle->id] = DB::select("SELECT
             shuttles.id as shuttle_id,
             sum( form5_e_s.jumlah_jualan_eksport_laporan)  as export,
             sum( form5_e_s.jumlah_jualan_pasaran_tempatan_laporan) as domestik,
@@ -7676,7 +7676,7 @@ class ExcelController extends Controller
         ")[0];
 
 
-                $query_result = DB::select("SELECT
+                $data_kemasukan_bahans[$data_shuttle->id] = DB::select("SELECT
             shuttles.id as shuttle_id,
 
             sum(kemasukan_bahans.total_kayu_masuk_jentera) as jumlah_penggunaan,
@@ -7696,7 +7696,7 @@ class ExcelController extends Controller
         ")[0];
 
 
-                $query_result = DB::select("SELECT
+                $data_form_d_s[$data_shuttle->id] = DB::select("SELECT
             shuttles.id as shuttle_id,
             sum( form5_e_s.jumlah_jualan_eksport_laporan)  as export,
             sum( form5_e_s.jumlah_jualan_pasaran_tempatan_laporan) as domestik,
@@ -7773,7 +7773,7 @@ class ExcelController extends Controller
         ")[0];
 
 
-                $query_result = DB::select("SELECT
+                $data_kemasukan_bahans[$data_shuttle->id] = DB::select("SELECT
             shuttles.id as shuttle_id,
 
             sum(kemasukan_bahans.total_kayu_masuk_jentera) as jumlah_penggunaan,
@@ -7793,7 +7793,7 @@ class ExcelController extends Controller
         ")[0];
 
             }
-                $query_result = DB::select("SELECT
+                $data_form_d_s[$data_shuttle->id] = DB::select("SELECT
             shuttles.id as shuttle_id,
             sum( form5_e_s.jumlah_jualan_eksport_laporan)  as export,
             sum( form5_e_s.jumlah_jualan_pasaran_tempatan_laporan) as domestik,
