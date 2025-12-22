@@ -71,9 +71,9 @@
                                         onchange="return changePage();">
 
 
-                                        <option value="" selected hidden disabled>
-                                            TIADA BORANG DIREKODKAN
-                                        </option>
+                                        <option value="2024" {{ $year == 2024 ? 'selected' : '' }}>Tahun 2024</option>
+                                        <option value="2025" {{ $year == 2025 ? 'selected' : '' }}>Tahun 2025</option>
+                                        <option value="2026" {{ $year == 2026 ? 'selected' : '' }}>Tahun 2026</option>
 
                                         @foreach ($year_list as $data)
                                             <option value="{{ $data->tahun }}"
@@ -141,7 +141,12 @@
 
                                                 <td>{{ $data->tahun }}</td>
                                                 <td>
-                                                    @if ($data->status == 'Sedang Diproses')
+                                                    @if ($data->status == 'Tidak Diisi')
+                                                        <img src="{{ asset('circle_times.png') }}" height='30px' alt=""
+                                                            style="color: red; font-size: 20pt;"
+                                                            data-toggle="tooltip" data-placement="bottom"
+                                                            title="Borang belum diisi"></i>
+                                                    @elseif ($data->status == 'Sedang Diproses')
                                                         <a href="{{ route('phd.shuttle-3-view-formA', $data->id) }}">
                                                             <img src="{{ asset('eye.png') }}"
                                                                 height='30px' data-toggle="tooltip" data-placement="bottom"

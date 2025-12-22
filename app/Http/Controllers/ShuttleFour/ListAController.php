@@ -13,10 +13,12 @@ class ListAController extends Controller
     {
         $user = auth()->user();
 
-        $formA = FormA::where('status', 'Sedang Diproses')
-        ->whereHas('shuttle', function ($q) {
+        // Get FormA entries that are waiting for PHD validation
+        $formA = FormA::whereHas('shuttle', function ($q) {
             $q->where('daerah_id', auth()->user()->daerah)->where('shuttle_type', '4');
-        })->where('tahun', $year)->get();
+        })->where('tahun', $year)
+        ->whereIn('status', ['Dihantar ke IPJPSM', 'Sedang Diproses'])
+        ->get();
 
 
         $year_list = FormA::whereHas('shuttle', function ($q) {
@@ -65,7 +67,9 @@ class ListAController extends Controller
 
         $formA = FormA::whereHas('shuttle', function ($q) {
             $q->where('negeri_id', auth()->user()->negeri)->where('shuttle_type', '4');
-        })->where('tahun', $year)->get();
+        })->where('tahun', $year)
+        ->whereIn('status', ['Dihantar ke IPJPSM', 'Sedang Diproses'])
+        ->get();
 
         $year_list = FormA::whereHas('shuttle', function ($q) {
             $q->where('negeri_id', auth()->user()->negeri);

@@ -59,7 +59,7 @@
                                         onchange="return changePage();">
 
                                         <option value="" selected hidden disabled>
-                                            TIADA BORANG DIREKODKAN
+                                            2025
                                         </option>
                                         @foreach ($year_list as $data)
                                             <option value="{{ $data->tahun }}"
@@ -842,7 +842,7 @@
             ordering : false,
                 "language": {
                     "lengthMenu": "Memaparkan _MENU_ rekod per halaman",
-                    "zeroRecords": "Maaf, tiada rekod.",
+                    "zeroRecords": "Tahun: 2025",
                     "info": "Memaparkan halaman _PAGE_ dari _PAGES_",
                     "infoEmpty": "Tidak ada rekod yang tersedia",
                     "infoFiltered": "(Ditapis dari _MAX_ jumlah rekod)",

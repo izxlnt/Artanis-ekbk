@@ -1957,6 +1957,7 @@ class UserController extends Controller
         WHERE shuttles.shuttle_type = '3'
         AND shuttles.daerah_id = '$daerah'
         AND YEAR(date(form_a_s.created_at)) = YEAR(now())
+        AND form_a_s.status IN ('Dihantar ke IPJPSM', 'Sedang Diproses')
         GROUP BY shuttles.daerah_id");
 
         // dd($s3);
@@ -1968,6 +1969,7 @@ class UserController extends Controller
         WHERE shuttles.shuttle_type = '4'
         AND shuttles.daerah_id = '$daerah'
         AND YEAR(date(form_a_s.created_at)) = YEAR(now())
+        AND form_a_s.status IN ('Dihantar ke IPJPSM', 'Sedang Diproses')
         GROUP BY shuttles.daerah_id");
 
 // dd($s4);
@@ -1979,6 +1981,7 @@ class UserController extends Controller
                 WHERE shuttles.shuttle_type = '5'
                 AND shuttles.daerah_id = '$daerah'
                 AND YEAR(date(form_a_s.created_at)) = YEAR(now())
+                AND form_a_s.status IN ('Dihantar ke IPJPSM', 'Sedang Diproses')
                 GROUP BY shuttles.daerah_id");
 
 // dd($s5[0]);

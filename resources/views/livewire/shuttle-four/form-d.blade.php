@@ -108,7 +108,7 @@
 
                                                                         <input type="text" class="form-control"
                                                                             style="background-color: #7ee48c6b; border-color: #6df173"
-                                                                            value="{{ number_format($kemasukan_bahan_calc_lain_lain->jumlah_besar_kayu_ke_dalam_jentera,2) ?? 0 }}"
+                                                                            value="{{ number_format($kemasukan_bahan_calc_lain_lain->jumlah_besar_kayu_ke_dalam_jentera ?? 0, 2) ?? 0 }}"
                                                                             readonly />
                                                                     @endif
 

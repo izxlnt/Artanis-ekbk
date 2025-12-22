@@ -23,10 +23,9 @@ class ListDController extends Controller
         })->
         distinct()->where('tahun', $year)->get();
 
-        $formD = FormD::where('status', 'Sedang Diproses')
-            ->whereHas('shuttle', function($q){
-                $q->where('daerah_id',auth()->user()->daerah)->where('shuttle_type', '3');
-            })->where('tahun', $year)->get();
+        $formD = FormD::whereHas('shuttle', function($q){
+            $q->where('daerah_id',auth()->user()->daerah)->where('shuttle_type', '3');
+        })->where('tahun', $year)->get();
 
 
          $year_list = FormD::whereHas('shuttle', function($q){

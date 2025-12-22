@@ -26,11 +26,23 @@ class ListAController extends Controller
     {
         $user = auth()->user();
 
-        // $formB_kilang = FormB::select('shuttle_id')->distinct()->where('tahun', $year)->get();
-        $formA = FormA::where('status', 'Sedang Diproses')
-            ->whereHas('shuttle', function ($q) {
+        // Get FormA entries that are waiting for PHD validation
+        $formA = FormA::whereHas('shuttle', function ($q) {
+                $q->where('daerah_id', auth()->user()->daerah)->where('shuttle_type', '3');
+            })->where('tahun', $year)
+            ->whereIn('status', ['Dihantar ke IPJPSM', 'Sedang Diproses'])
+            ->get();
+
+        // Temporary debug: Let's see what statuses exist
+        $allFormA = FormA::whereHas('shuttle', function ($q) {
                 $q->where('daerah_id', auth()->user()->daerah)->where('shuttle_type', '3');
             })->where('tahun', $year)->get();
+        
+        \Log::info('All FormA statuses for PHD area: ' . $allFormA->pluck('status')->unique()->implode(', '));
+        \Log::info('Filtered FormA count: ' . $formA->count());
+        if($formA->count() > 0) {
+            \Log::info('Showing FormA with statuses: ' . $formA->pluck('status')->unique()->implode(', '));
+        }
 
 
         $year_list = FormA::whereHas('shuttle', function ($q) {
@@ -84,7 +96,9 @@ class ListAController extends Controller
 
         $formA = FormA::whereHas('shuttle', function ($q) {
             $q->where('negeri_id', auth()->user()->negeri)->where('shuttle_type', '3');
-        })->where('tahun', $year)->get();
+        })->where('tahun', $year)
+        ->whereNotIn('status', ['Lulus', 'Tidak Diisi'])
+        ->get();
 
         // dd($formA);
 

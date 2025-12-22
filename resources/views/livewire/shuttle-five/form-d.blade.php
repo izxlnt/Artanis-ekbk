@@ -117,7 +117,7 @@
                                                                                 <input type="text"
                                                                                     class="form-control"
                                                                                     style="background-color: #7ee48c6b; border-color: #6df173"
-                                                                                    value="{{ number_format($kemasukan_bahan_calc_lain_lain->jumlah_besar_pengeluaran_kayu_daripada_jentera,2) ?? 0 }}"
+                                                                                    value="{{ number_format($kemasukan_bahan_calc_lain_lain->jumlah_besar_pengeluaran_kayu_daripada_jentera ?? 0, 2) ?? 0 }}"
                                                                                     readonly />
                                                                             </div>
                                                                             <div class="col-md-2">
@@ -262,7 +262,7 @@
                                                                             <div class="col-md-6"
                                                                                 style="border:1px solid;text-align:center">
                                                                                 <b style="color:red">Jumlah Pengeluaran Kayu Kumai Mestilah Sama Dengan Jumlah Pengeluaran Di Borang 5C
-                                                                                    ({{ number_format($kemasukan_bahan_calc_lain_lain->jumlah_besar_pengeluaran_kayu_daripada_jentera,2) }})
+                                                                                    ({{ number_format($kemasukan_bahan_calc_lain_lain->jumlah_besar_pengeluaran_kayu_daripada_jentera ?? 0, 2) }})
                                                                                 </b>
                                                                             </div>
                                                                         </div>

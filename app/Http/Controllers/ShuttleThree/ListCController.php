@@ -23,11 +23,7 @@ class ListCController extends Controller
         })
         ->distinct()->where('tahun', $year)->get();
 
-        $formC = FormC::where(function ($query) {
-            $query
-                ->where('status', 'Sedang Diproses')
-                ->orwhere('status', 'Tiada Pengeluaran');
-        })->whereHas('shuttle', function($q){
+        $formC = FormC::whereHas('shuttle', function($q){
             $q->where('daerah_id',auth()->user()->daerah)->where('shuttle_type', '3');
          })->where('tahun', $year)->get();
 

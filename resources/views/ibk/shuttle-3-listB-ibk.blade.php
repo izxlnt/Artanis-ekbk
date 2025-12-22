@@ -67,7 +67,7 @@
                                     <select name="select_year" id="select_year" class="form-control"
                                         onchange="return changePage();">
                                         <option value="" selected hidden disabled>
-                                            TIADA BORANG DIREKODKAN
+                                            2025
                                         </option>
 
                                         @foreach ($year_list as $data)

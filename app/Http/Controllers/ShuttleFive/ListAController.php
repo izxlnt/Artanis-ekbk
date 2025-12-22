@@ -20,7 +20,9 @@ class ListAController extends Controller
 
         $formA = FormA::whereHas('shuttle', function ($q) {
             $q->where('negeri_id', auth()->user()->negeri)->where('shuttle_type', '5');
-        })->where('tahun', $year)->get();
+        })->where('tahun', $year)
+        ->whereIn('status', ['Dihantar ke IPJPSM', 'Sedang Diproses'])
+        ->get();
 
         $year_list = FormA::whereHas('shuttle', function ($q) {
             $q->where('negeri_id', auth()->user()->negeri);

@@ -1,5 +1,5 @@
 
-@extends('layouts.layout-phd-nicepage')
+@extends($returnArr['layout'])
 
 
 @section('content')

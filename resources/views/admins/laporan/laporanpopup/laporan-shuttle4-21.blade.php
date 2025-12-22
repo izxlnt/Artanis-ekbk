@@ -143,7 +143,7 @@
                 searching: false,
                 "language": {
                     "lengthMenu": "Memaparkan _MENU_ rekod per halaman",
-                    "zeroRecords": "Maaf, tiada rekod.",
+                    "zeroRecords": "Tahun: {{ $year ?? date('Y') }}",
                     "info": "",
                     "infoEmpty": "Tidak ada rekod yang tersedia",
                     "infoFiltered": "(Ditapis dari _MAX_ jumlah rekod)",

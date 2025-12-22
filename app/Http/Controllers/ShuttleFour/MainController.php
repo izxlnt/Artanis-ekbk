@@ -17,6 +17,7 @@ use App\Models\KategoriGunaTenaga;
 use App\Models\KemasukanBahan;
 use App\Models\KumpulanKayu;
 use App\Models\PenggunaKilang;
+use App\Models\ProdukPengeluaran;
 use App\Models\Shuttle;
 use App\Models\Spesis;
 use App\Models\UlasanPhd;
@@ -593,7 +594,7 @@ class MainController extends Controller
         ];
 
 
-        return view('admins.phd.senarai-tugasan-4A', compact('returnArr', 'formA', 'year_list', 'year', 'batch'));
+        return view('admins.PHD.senarai-tugasan-4A', compact('returnArr', 'formA', 'year_list', 'year', 'batch'));
     }
 
     public function senarai_tugasan_4B($year)
@@ -627,7 +628,7 @@ class MainController extends Controller
         ];
 
 
-        return view('admins.phd.senarai-tugasan-4B', compact('returnArr', 'formB', 'year_list', 'year', 'batch'));
+        return view('admins.PHD.senarai-tugasan-4B', compact('returnArr', 'formB', 'year_list', 'year', 'batch'));
     }
 
     public function senarai_tugasan_4C($year)
@@ -661,7 +662,7 @@ class MainController extends Controller
             'kembali'     => $kembali,
         ];
 
-        return view('admins.phd.senarai-tugasan-4C', compact('returnArr', 'formC', 'year_list', 'year', 'batch'));
+        return view('admins.PHD.senarai-tugasan-4C', compact('returnArr', 'formC', 'year_list', 'year', 'batch'));
     }
 
     public function senarai_tugasan_4D($year)
@@ -695,7 +696,7 @@ class MainController extends Controller
             'kembali'     => $kembali,
         ];
 
-        return view('admins.phd.senarai-tugasan-4D', compact('returnArr', 'form4D', 'year_list', 'year', 'batch'));
+        return view('admins.PHD.senarai-tugasan-4D', compact('returnArr', 'form4D', 'year_list', 'year', 'batch'));
     }
 
     public function senarai_tugasan_4E($year)
@@ -729,7 +730,7 @@ class MainController extends Controller
             'kembali'     => $kembali,
         ];
 
-        return view('admins.phd.senarai-tugasan-4E', compact('returnArr', 'form4E', 'year_list', 'year', 'batch'));
+        return view('admins.PHD.senarai-tugasan-4E', compact('returnArr', 'form4E', 'year_list', 'year', 'batch'));
     }
 
 
@@ -951,6 +952,15 @@ class MainController extends Controller
         $form4d = Form4D::findorfail($id);
         $kilang_info = Shuttle::findorfail($form4d->shuttle->id);
 
+        // Keep the original ID for use in the view
+        $formId = $id;
+
+        // Add missing variables that the view expects
+        $nipis = ProdukPengeluaran::where('form4ds_id', $form4d->id)->where('produk_ketebalan', '<=', '11.99')->get();
+        $tebal = ProdukPengeluaran::where('form4ds_id', $form4d->id)->where('produk_ketebalan', '>=', '12.00')->get();
+        $jumlah_kecil_nipis = ProdukPengeluaran::where('form4ds_id', $form4d->id)->where('produk_ketebalan', '<', '12')->first();
+        $jumlah_kecil_tebal = ProdukPengeluaran::where('form4ds_id', $form4d->id)->where('produk_ketebalan', '>=', '12')->first();
+
         $layout = auth()->user()->kategori_pengguna == 'BPE' ? 'layouts.layout-ipjpsm-nicepage' : 'layouts.layout-phd-nicepage';
 
         $breadcrumbs = [
@@ -970,7 +980,7 @@ class MainController extends Controller
             'layout' => $layout
         ];
 
-        return view('admins.shuttle-four.view-form4d-ipjpsm', compact('returnArr', 'form4d', 'kilang_info'));
+        return view('admins.shuttle-four.view-form4d', compact('returnArr', 'form4d', 'kilang_info', 'nipis', 'tebal', 'jumlah_kecil_nipis', 'jumlah_kecil_tebal', 'id'));
     }
 
     public function shuttle_4_form_view_form4E_ipjpsm($id)
@@ -997,7 +1007,7 @@ class MainController extends Controller
             'layout' => $layout
         ];
 
-        return view('admins.shuttle-four.view-form4e-ipjpsm', compact('returnArr', 'form4e', 'kilang_info'));
+        return view('admins.shuttle-four.view-form4e', compact('returnArr', 'form4e', 'kilang_info'));
     }
 
     public function update_status_ipjpsm4D(Request $request, $id)

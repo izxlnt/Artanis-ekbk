@@ -12,7 +12,7 @@
             $('#example{{ $data->id }}').DataTable({
             "language": {
                 "lengthMenu": "Memaparkan _MENU_ rekod per halaman",
-                "zeroRecords": "Maaf, tiada rekod.",
+                "zeroRecords": "Tiada data.",
                 "info": "Memaparkan halaman _PAGE_ dari _PAGES_",
                 "infoEmpty": "Tidak ada rekod yang tersedia",
                 "infoFiltered": "(Ditapis dari _MAX_ jumlah rekod)",

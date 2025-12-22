@@ -72,7 +72,7 @@
                                     onchange="return changePage();">
 
                                     <option value="" selected hidden disabled>
-                                        TIADA BORANG DIREKODKAN
+                                        2025
                                     </option>
                                     @foreach ($year_list as $data)
                                         <option value="{{ $data->tahun }}"
@@ -140,9 +140,12 @@
                                             <td>{{ $data->tahun }}</td>
                                             <td>
                                                 @foreach ($formA as $form)
-
-
-                                                    @if ($form->status == 'Sedang Diproses')
+                                                    @if ($form->status == 'Tidak Diisi')
+                                                        <img src="{{ asset('circle_times.png') }}" height='30px' alt=""
+                                                            style="color: red; font-size: 20pt;"
+                                                            data-toggle="tooltip" data-placement="bottom"
+                                                            title="Borang belum diisi"></i>
+                                                    @elseif ($form->status == 'Sedang Diproses')
                                                         <i class="fas fa-tasks" style="color: #dbd400; font-size: 20pt;"
                                                             data-toggle="tooltip" data-placement="bottom"
                                                             title="Borang telah disahkan PHD "></i>

@@ -127,7 +127,12 @@
 
                                                 <td>{{ $data->tahun }}</td>
                                                 <td>
-                                                    @if ($data->status == 'Sedang Diproses')
+                                                    @if ($data->status == 'Tidak Diisi')
+                                                        <img src="{{ asset('circle_times.png') }}" height='30px' alt=""
+                                                            style="color: red; font-size: 20pt;"
+                                                            data-toggle="tooltip" data-placement="bottom"
+                                                            title="Borang belum diisi"></i>
+                                                    @elseif ($data->status == 'Sedang Diproses')
                                                     <a href="{{ route('phd.shuttle-3-view-formA', $data->id) }}">
                                                         <img src="{{ asset('eye.png') }}"
                                                             height='30px' data-toggle="tooltip" data-placement="bottom"
@@ -195,7 +200,7 @@
             ordering : false,
                 "language": {
       "lengthMenu": "Memaparkan _MENU_ rekod per halaman",
-      "zeroRecords": "Maaf, tiada rekod.",
+      "zeroRecords": "Tahun: 2025",
       "info": "Memaparkan halaman _PAGE_ dari _PAGES_",
       "infoEmpty": "Tidak ada rekod yang tersedia",
       "infoFiltered": "(Ditapis dari _MAX_ jumlah rekod)",

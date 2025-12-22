@@ -59,7 +59,7 @@
                                         onchange="return changePage();">
 
                                         <option value="" selected hidden disabled>
-                                            TIADA BORANG DIREKODKAN
+                                            2025
                                         </option>
                                         @foreach ($year_list as $data)
                                             <option value="{{ $data->tahun }}"

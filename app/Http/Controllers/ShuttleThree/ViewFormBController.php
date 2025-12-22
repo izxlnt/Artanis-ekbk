@@ -657,6 +657,12 @@ class ViewFormBController extends Controller
         $kilang_info = Shuttle::where('id',$id)->first();
 
         $forma = FormA::where('shuttle_id',$id)->with('shuttle')->first();
+        
+        if (!$forma) {
+            // If FormA doesn't exist, redirect back with error message
+            return redirect()->back()->with('error', 'Borang A tidak dijumpai untuk kilang ini.');
+        }
+        
         $id =$forma->id;
 
 
