@@ -838,6 +838,7 @@ Route::middleware('auth')->group(
 
                 //Senarai Status Permohonan Pengguna
                 Route::get('/admin/status-permohonan-shuttle-3/{id}', [App\Http\Controllers\StatusPermohonanPengguna\PermohonanPenggunaController::class, 'status_permohonan_shuttle_3_ipjpsm'])->name('ipjpsm.status-permohonan-shuttle-3');
+                Route::get('/admin/status-permohonan-ibk', [App\Http\Controllers\StatusPermohonanPengguna\PermohonanPenggunaController::class, 'status_permohonan_ibk_all'])->name('ipjpsm.status-permohonan-ibk');
                 Route::get('/admin/status-permohonan-shuttle-3-kilang', [App\Http\Controllers\StatusPermohonanPengguna\PermohonanPenggunaController::class, 'status_permohonan_shuttle_3_ipjpsm_kilang'])->name('ipjpsm.status-permohonan-shuttle-3-kilang');
                 Route::get('/admin/status-permohonan-shuttle-4-kilang', [App\Http\Controllers\StatusPermohonanPengguna\PermohonanPenggunaController::class, 'status_permohonan_shuttle_4_ipjpsm_kilang'])->name('ipjpsm.status-permohonan-shuttle-4-kilang');
                 Route::get('/admin/status-permohonan-shuttle-5-kilang', [App\Http\Controllers\StatusPermohonanPengguna\PermohonanPenggunaController::class, 'status_permohonan_shuttle_5_ipjpsm_kilang'])->name('ipjpsm.status-permohonan-shuttle-5-kilang');

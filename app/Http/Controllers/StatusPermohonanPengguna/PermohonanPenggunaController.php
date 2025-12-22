@@ -1756,4 +1756,41 @@ $batch_checker = Batch::where('shuttle_id', $user->shuttle_id)->whereYear('creat
         return redirect()->route('bpm.pengesahan-permohonan')->with('success', 'Permohonan pengguna telah disahkan.');
 
     }
+
+    public function status_permohonan_ibk_all()
+    {
+        // Get all IBK users organized by shuttle type
+        $shuttle3_users = User::where('kategori_pengguna','IBK')->where('shuttle_type',3)->where('is_approved',0)->get();
+        $shuttle4_users = User::where('kategori_pengguna','IBK')->where('shuttle_type',4)->where('is_approved',0)->get();
+        $shuttle5_users = User::where('kategori_pengguna','IBK')->where('shuttle_type',5)->where('is_approved',0)->get();
+
+        // Separate kilang owners (pengguna_kilang_id = NULL) from kilang employees (pengguna_kilang_id != NULL)
+        $shuttle3_kilang = $shuttle3_users->whereNull('pengguna_kilang_id');
+        $shuttle3_employees = $shuttle3_users->whereNotNull('pengguna_kilang_id');
+
+        $shuttle4_kilang = $shuttle4_users->whereNull('pengguna_kilang_id');
+        $shuttle4_employees = $shuttle4_users->whereNotNull('pengguna_kilang_id');
+
+        $shuttle5_kilang = $shuttle5_users->whereNull('pengguna_kilang_id');
+        $shuttle5_employees = $shuttle5_users->whereNotNull('pengguna_kilang_id');
+
+        $breadcrumbs = [
+            ['link' => route('home'), 'name' => "Laman Utama"],
+            ['link' => route('ipjpsm.status-permohonan-ibk'), 'name' => "Status Permohonan Industri Berasas Kayu (IBK)"],
+        ];
+
+        $kembali = route('home');
+
+        $returnArr = [
+            'breadcrumbs' => $breadcrumbs,
+            'kembali'     => $kembali,
+        ];
+
+        return view('admins.PHD.status-permohonan-ibk-all', compact(
+            'shuttle3_kilang', 'shuttle3_employees',
+            'shuttle4_kilang', 'shuttle4_employees', 
+            'shuttle5_kilang', 'shuttle5_employees',
+            'returnArr'
+        ));
+    }
 }

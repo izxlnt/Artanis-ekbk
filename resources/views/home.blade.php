@@ -298,8 +298,11 @@
                 </div>
                 <br>
                 <div class="row" style="justify-content: space-around;">
-                    <a class="col-lg-4 col-md-6" href="{{ route('ipjpsm.status-permohonan-shuttle-3-kilang') }}"
-                        style="color:black;">
+                    <a class="col-lg-4 col-md-6" href="{{ route('ipjpsm.status-permohonan-ibk') }}"
+                        style="color:black;"
+                        data-toggle="tooltip" 
+                        data-placement="top" 
+                        title="Lihat semua permohonan IBK (Kilang Papan, Papan Lapis/Venir, Kayu Kumai)">
                         <div class="card bg-info card-hover" style="border-radius: 25px">
                             <div class="card-body"
                                 style="box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2); background-color: #ee8dcd ;border-radius: 25px;text-align:center;">
