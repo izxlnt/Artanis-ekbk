@@ -1806,17 +1806,36 @@ class FormCController extends Controller
             $bulan = "Disember";
         }
 
-        $user = auth()->user();
-        // dd($this->suku_id);
 
-        $formc = ModelsFormC::where('shuttle_id', $user->shuttle_id)->where('bulan', $bulan_id)->whereYear('created_at', date("Y"))->first();
+        $user = auth()->user();
+        $formc = ModelsFormC::where('shuttle_id', $user->shuttle_id)
+            ->where('bulan', $bulan_id)
+            ->whereYear('created_at', date("Y"))
+            ->first();
+
+        // Check if there is any pengeluaran value in any KemasukanBahan for this form
+        $pengeluaranExists = KemasukanBahan::where('shuttle_id', $user->shuttle_id)
+            ->where('formcs_id', $formc->id)
+            ->where(function($q) {
+                $q->where('proses_keluar', '>', 0)
+                  ->orWhere('jumlah_besar_pengeluaran_kayu_daripada_jentera', '>', 0);
+                  // Add other relevant fields if needed
+            })
+            ->exists();
+
+        if ($pengeluaranExists) {
+            return redirect()->back()->with('error', 'Tidak boleh set Tiada Pengeluaran kerana ada data pengeluaran pada spesies lain.');
+        }
+
         $status_terkini = $formc->status;
         $formc->status = 'Tiada Pengeluaran';
         $formc->tiada_pengeluaran = 1;
-        // $formc->status = 'Sedang Diisi';
         $formc->save();
 
-        $batch = Batch::where('tahun', $formc->tahun)->where('shuttle_id', $formc->shuttle->id)->where('bulan', $formc->bulan)->first();
+        $batch = Batch::where('tahun', $formc->tahun)
+            ->where('shuttle_id', $formc->shuttle->id)
+            ->where('bulan', $formc->bulan)
+            ->first();
 
         $batch->status = "Sedang Diproses";
         $batch->borang_c = 1;
@@ -1824,15 +1843,15 @@ class FormCController extends Controller
 
         if ($status_terkini == 'Sedang Diisi') {
             $kemasukan_bahans = KemasukanBahan::with('spesis_id')
-                ->where('shuttle_id', auth()->user()->shuttle_id)->where('formcs_id', $formc->id)->get();
-            // dd($kemasukan_bahans);
+                ->where('shuttle_id', auth()->user()->shuttle_id)
+                ->where('formcs_id', $formc->id)
+                ->get();
             $kemasukan_bahans->delete();
-            // foreach ($kemasukan_bahans as $key => $data) {
-            //     $data->destroy();
-            // }
         } else {
             $kemasukan_bahans = KemasukanBahan::with('spesis_id')
-                ->where('shuttle_id', auth()->user()->shuttle_id)->where('formcs_id', $formc->id)->get();
+                ->where('shuttle_id', auth()->user()->shuttle_id)
+                ->where('formcs_id', $formc->id)
+                ->get();
         }
 
         if ($bulan_id != 1) {
