@@ -2772,7 +2772,76 @@ $pengumumantest=PengumumanIpjpsm::where('negeri',$user_pengumuman->negeri)->firs
         $user = auth()->user();
 
         $shuttle = Shuttle::where('id', $user->shuttle_id)->first();
+        
+        // Auto-create FormB records for the requested year if they don't exist
+        $list_count = FormB::where('shuttle_id', $shuttle->id)->where('tahun', $year)->count();
+        
+        if ($list_count == 0) {
+            $status = 'Tidak Diisi';
+            for ($i = 1; $i < 5; $i++) {
+                if ($i == 1) {
+                    FormB::create([
+                        'shuttle_id' => $shuttle->id,
+                        'shuttle_type' => $user->shuttle_type,
+                        'status' => $status,
+                        'tahun' => $year,
+                        'suku_tahun' => $i,
+                        'tarikh_buka_borang' => $year . '-03-01',
+                        'tarikh_tutup_borang' => $year . '-04-01',
+                        'nama_kilang' => $shuttle->nama_kilang,
+                        'no_ssm' => $shuttle->no_ssm,
+                        'no_lesen' => $shuttle->no_lesen,
+                    ]);
+                } elseif ($i == 2) {
+                    FormB::create([
+                        'shuttle_id' => $shuttle->id,
+                        'shuttle_type' => $user->shuttle_type,
+                        'status' => $status,
+                        'tahun' => $year,
+                        'suku_tahun' => $i,
+                        'tarikh_buka_borang' => $year . '-06-01',
+                        'tarikh_tutup_borang' => $year . '-07-01',
+                        'nama_kilang' => $shuttle->nama_kilang,
+                        'no_ssm' => $shuttle->no_ssm,
+                        'no_lesen' => $shuttle->no_lesen,
+                    ]);
+                } elseif ($i == 3) {
+                    FormB::create([
+                        'shuttle_id' => $shuttle->id,
+                        'shuttle_type' => $user->shuttle_type,
+                        'status' => $status,
+                        'tahun' => $year,
+                        'suku_tahun' => $i,
+                        'tarikh_buka_borang' => $year . '-09-01',
+                        'tarikh_tutup_borang' => $year . '-10-01',
+                        'nama_kilang' => $shuttle->nama_kilang,
+                        'no_ssm' => $shuttle->no_ssm,
+                        'no_lesen' => $shuttle->no_lesen,
+                    ]);
+                } elseif ($i == 4) {
+                    FormB::create([
+                        'shuttle_id' => $shuttle->id,
+                        'shuttle_type' => $user->shuttle_type,
+                        'status' => $status,
+                        'tahun' => $year,
+                        'suku_tahun' => $i,
+                        'tarikh_buka_borang' => $year . '-12-01',
+                        'tarikh_tutup_borang' => $year . '-12-31',
+                        'nama_kilang' => $shuttle->nama_kilang,
+                        'no_ssm' => $shuttle->no_ssm,
+                        'no_lesen' => $shuttle->no_lesen,
+                    ]);
+                }
+            }
+        }
+        
         $list = FormB::where('shuttle_id', $shuttle->id)->where('tahun', $year)->get();
+        
+        // Debug: Check what records we're getting
+        // dd(['requested_year' => $year, 'formb_records' => $list->map(function($item) {
+        //     return ['suku' => $item->suku_tahun, 'tahun' => $item->tahun, 'status' => $item->status];
+        // })]);
+        
         $year_list = FormB::where('shuttle_id', $shuttle->id)->distinct()->orderBy('tahun')->get('tahun');
 
         $buffer = Buffer::where('shuttle', auth()->user()->shuttle->shuttle_type)->where('borang', 'b')->where('shuttle', '3')->first();

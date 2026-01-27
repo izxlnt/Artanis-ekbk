@@ -15,6 +15,7 @@ use Livewire\Component;
 class FormB extends Component
 {
     public $suku_id;
+    public $year; // Year for the form
 
     public $pekerja_wargabumi_lelaki, $pekerja_wargabumi_perempuan, $pekerja_bukan_wargabumi_lelaki, $pekerja_bukan_wargabumi_perempuan, $pekerja_asing_lelaki, $pekerja_asing_perempuan,
         $jumlah_lelaki, $jumlah_perempuan, $jumlah_pekerja, $gaji_lelaki, $gaji_perempuan, $total_gaji_lelaki, $total_gaji_perempuan, $total_gaji,
@@ -52,29 +53,29 @@ class FormB extends Component
         if($kilang_info->shuttle_type == '3'){
             $breadcrumbs    = [
                 ['link' => route('home-user'), 'name' => "Laman Utama"],
-                ['link' => route('user.shuttle-3-senaraiB', date('Y')), 'name' => "Kemasukan Maklumat"],
-                ['link' => route('user.shuttle-3-senaraiB', date('Y')), 'name' => "Borang 3B - JUMLAH GUNA TENAGA"],
+                ['link' => route('user.shuttle-3-senaraiB', $this->year), 'name' => "Kemasukan Maklumat"],
+                ['link' => route('user.shuttle-3-senaraiB', $this->year), 'name' => "Borang 3B - JUMLAH GUNA TENAGA"],
             ];
 
-            $kembali = route('user.shuttle-3-senaraiB', date('Y'));
+            $kembali = route('user.shuttle-3-senaraiB', $this->year);
         }
         elseif($kilang_info->shuttle_type == '4'){
             $breadcrumbs    = [
                 ['link' => route('home-user'), 'name' => "Laman Utama"],
-                ['link' => route('user.shuttle-4-senaraiB', date('Y')), 'name' => "Kemasukan Maklumat"],
-                ['link' => route('user.shuttle-3-senaraiB', date('Y')), 'name' => "Borang 4B - JUMLAH GUNA TENAGA"],
+                ['link' => route('user.shuttle-4-senaraiB', $this->year), 'name' => "Kemasukan Maklumat"],
+                ['link' => route('user.shuttle-3-senaraiB', $this->year), 'name' => "Borang 4B - JUMLAH GUNA TENAGA"],
             ];
 
-            $kembali = route('user.shuttle-4-senaraiB', date('Y'));
+            $kembali = route('user.shuttle-4-senaraiB', $this->year);
         }
         elseif($kilang_info->shuttle_type == '5'){
             $breadcrumbs    = [
                 ['link' => route('home-user'), 'name' => "Laman Utama"],
-                ['link' => route('user.shuttle-5-senaraiB', date('Y')), 'name' => "Kemasukan Maklumat"],
-                ['link' => route('user.shuttle-3-senaraiB', date('Y')), 'name' => "Borang 5B - JUMLAH GUNA TENAGA"],
+                ['link' => route('user.shuttle-5-senaraiB', $this->year), 'name' => "Kemasukan Maklumat"],
+                ['link' => route('user.shuttle-3-senaraiB', $this->year), 'name' => "Borang 5B - JUMLAH GUNA TENAGA"],
             ];
 
-            $kembali = route('user.shuttle-5-senaraiB', date('Y'));
+            $kembali = route('user.shuttle-5-senaraiB', $this->year);
         }
 
 
@@ -87,8 +88,15 @@ class FormB extends Component
         return view('livewire.shuttle-three.form-b', compact('kategori_pekerja', 'kilang_info','returnArr'));
     }
 
-    public function mount()
+    public function mount($year = null)
     {
+        // Set year from parameter, default to current year if not provided
+        if ($year) {
+            $this->year = $year;
+        } elseif (!$this->year) {
+            $this->year = date('Y');
+        }
+        
         $kategori_pekerja = KategoriGunaTenaga::get();
         foreach ($kategori_pekerja as $key => $value) {
             $this->jumlah_lelaki[$key] = 0;
@@ -464,7 +472,10 @@ class FormB extends Component
 
         $user = auth()->user();
 
-        $formb = FormBBaru::where('shuttle_id', $user->shuttle_id)->where('suku_tahun', $this->suku_id)->whereYear('created_at', date("Y"))->first();
+        $formb = FormBBaru::where('shuttle_id', $user->shuttle_id)
+            ->where('suku_tahun', $this->suku_id)
+            ->where('tahun', $this->year)
+            ->first();
 
         $formb->status = 'Sedang Diproses';
         $formb->save();
@@ -521,7 +532,7 @@ class FormB extends Component
                 'shuttle_id' => $shuttle_id->id,
                 'kategori_guna_tenaga_id' => $data->id,
                 'bulan' => now()->month,
-                'tahun' => now()->year,
+                'tahun' => $this->year,
                 'formbs_id' => $formb->id,
             ]);
         }

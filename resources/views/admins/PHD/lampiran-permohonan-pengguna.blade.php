@@ -305,7 +305,7 @@
                                                                 <input readonly type="text" class="form-control"
                                                                     name='no_ssm'
                                                                     placeholder="No. Pendaftaran Syarikat(SSM)"
-                                                                    value="{{ $kilang->no_ssm }}">
+                                                                    value="{{ $kilang->no_ssm ?? '' }}">
                                                                 @error('no_ssm')
                                                                     <div class="alert alert-danger">
                                                                         <strong>{{ $message }}</strong>
@@ -411,7 +411,7 @@
                                                             <div class="col-md-6">
                                                                 <input readonly type="text" class="form-control"
                                                                     name='no_lesen' placeholder="No.Lesen"
-                                                                    value="{{ $kilang->no_lesen }}">
+                                                                    value="{{ $kilang->no_lesen ?? '' }}">
                                                                 @error('no_lesen')
                                                                     <div class="alert alert-danger">
                                                                         <strong>{{ $message }}</strong>
@@ -668,7 +668,7 @@
                             Kilang</label>
                         <div class="col-md-6">
                             <input readonly type="text" class="form-control" name='name' placeholder="Nama Pengguna"
-                                value="{{ $nama_kilang->nama_kilang }}">
+                                value="{{ $kilang->nama_kilang ?? '' }}">
                             @error('name')
                                 <div class="alert alert-danger">
                                     <strong>{{ $message }}</strong>
@@ -682,7 +682,7 @@
                         <label for="fname" class="text-right col-sm-3 control-label col-form-label">No. SSM</label>
                         <div class="col-md-6">
                             <input readonly type="text" class="form-control" name='name' placeholder="Nama Pengguna"
-                                value="{{ $kilang->no_ssm }}">
+                                value="{{ $kilang->no_ssm ?? '' }}">
                             @error('name')
                                 <div class="alert alert-danger">
                                     <strong>{{ $message }}</strong>
@@ -696,7 +696,7 @@
                         <label for="fname" class="text-right col-sm-3 control-label col-form-label">No. Lesen</label>
                         <div class="col-md-6">
                             <input readonly type="text" class="form-control" name='name' placeholder="Nama Pengguna"
-                                value="{{ $kilang->no_lesen }}">
+                                value="{{ $kilang->no_lesen ?? '' }}">
                             @error('name')
                                 <div class="alert alert-danger">
                                     <strong>{{ $message }}</strong>

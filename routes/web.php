@@ -164,7 +164,7 @@ Route::middleware('auth')->group(
 
                 Route::post('/pengguna/shuttle-3-formA/update/{id}', [App\Http\Controllers\ShuttleThree\MainController::class, 'updateFormA'])->name('update.formA');
 
-                Route::get('/pengguna/shuttle-3-formB/{id}', [App\Http\Controllers\ShuttleThree\MainController::class, 'shuttle_3_formB'])->name('user.shuttle-3-formB');
+                Route::get('/pengguna/shuttle-3-formB/{id}/{year}', [App\Http\Controllers\ShuttleThree\MainController::class, 'shuttle_3_formB'])->name('user.shuttle-3-formB');
 
                 Route::get('/pengguna/shuttle-3-formC/{id}', [App\Http\Controllers\ShuttleThree\MainController::class, 'shuttle_3_formC'])->name('user.shuttle-3-formC');
 

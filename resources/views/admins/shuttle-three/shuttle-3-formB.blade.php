@@ -11,7 +11,7 @@ table, th, td {
 
 
 
-@livewire('shuttle-three.form-b',['suku_id' => $id])
+@livewire('shuttle-three.form-b',['suku_id' => $id, 'year' => $year])
 
 
 {{-- @livewire('user-table') --}}
