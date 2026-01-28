@@ -573,6 +573,9 @@ class ViewFormCController extends Controller
 
         $form_c = KemasukanBahan::where('formcs_id', $formc->id)->get();
         // dd($form_c);
+        
+        // Reindex collection by spesis_id for blade template access
+        $form_c = $form_c->keyBy('spesis_id');
 
         $kemasukan_bahan_calc_kkb = KemasukanBahan::with('spesis_id')->whereHas('spesis_id', function ($q) {
             $q->where('kumpulan_kayu_id', '1');

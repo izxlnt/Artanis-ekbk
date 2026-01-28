@@ -18,7 +18,7 @@ use Livewire\Component;
 
 class FormCKayuKayuLainLain extends Component
 {
-    public $bulan_id, $kayu_id, $max_rate, $min_rate, $sebelumnya = false;
+    public $bulan_id, $year, $kayu_id, $max_rate, $min_rate, $sebelumnya = false;
     public $kilang_info, $kumpulan_kayu, $species, $species_count, $kemasukan_bahan_calc_kkb, $kemasukan_bahan_calc_kks, $kemasukan_bahan_calc_kkr, $kemasukan_bahan_calc_kayu_lembut, $kemasukan_bahan_calc_lain_lain;
     public $baki_stok, $jumlah_baki_stok, $kayu_masuk, $proses_masuk, $proses_keluar, $jumlah_kayu_masuk, $jumlah_stok_kayu_balak, $baki_stok_kehadapan, $jumlah, $total_stok_kayu_balak,
         $total_kayu_masuk_jentera, $total_kayu_keluar_jentera, $total_kayu_dibawa_bulan_hadapan, $jumlah_besar_baki_stok_bulan_lepas, $jumlah_besar_kemasukan_kayu_ke_kilang,
@@ -123,11 +123,16 @@ class FormCKayuKayuLainLain extends Component
         // $this->kumpulan_kayu = KumpulanKayu::get();
 
         $this->kilang_info = Shuttle::where('id', auth()->user()->shuttle_id)->first();
-        $formc = ModelsFormC::where('shuttle_id', auth()->user()->shuttle_id)->where('bulan', $this->bulan_id)->whereYear('created_at', date("Y"))->first();
+        $formc = ModelsFormC::where('shuttle_id', auth()->user()->shuttle_id)->where('bulan', $this->bulan_id)->whereYear('created_at', $this->year ?? date("Y"))->first();
+        
+        // Auto-detect year from form if not set
+        if (!$this->year && $formc) {
+            $this->year = $formc->tahun;
+        }
 
         if ($this->bulan_id != 1) {
             $lastmonth = $this->bulan_id - 1;
-            $lastMonthformc = ModelsFormC::where('shuttle_id', auth()->user()->shuttle_id)->where('bulan', $lastmonth)->whereYear('created_at', date("Y"))->first();
+            $lastMonthformc = ModelsFormC::where('shuttle_id', auth()->user()->shuttle_id)->where('bulan', $lastmonth)->whereYear('created_at', $this->year ?? date("Y"))->first();
 
             $kemasukan_bahans_lastmonth = KemasukanBahan::with('spesis_id')->whereHas('spesis_id', function ($q) {
                 $q->where('kumpulan_kayu_id', $this->kayu_id);
@@ -345,7 +350,7 @@ class FormCKayuKayuLainLain extends Component
 
         if ($this->bulan_id != 1) {
             $lastmonth = $this->bulan_id - 1; //create
-            $lastMonthformc = ModelsFormC::where('shuttle_id', auth()->user()->shuttle_id)->where('bulan', $lastmonth)->whereYear('created_at', date("Y"))->first();
+            $lastMonthformc = ModelsFormC::where('shuttle_id', auth()->user()->shuttle_id)->where('bulan', $lastmonth)->whereYear('created_at', $this->year ?? date("Y"))->first();
 
             $kemasukan_bahans_lastmonth = KemasukanBahan::with('spesis_id')
                 ->whereHas('spesis_id', function ($q) {
@@ -401,7 +406,13 @@ class FormCKayuKayuLainLain extends Component
         $user = auth()->user();
         // dd($this->suku_id);
 
-        $formc = ModelsFormC::where('shuttle_id', $user->shuttle_id)->where('bulan', $this->bulan_id)->whereYear('created_at', date("Y"))->first();
+        $formc = ModelsFormC::where('shuttle_id', $user->shuttle_id)->where('bulan', $this->bulan_id)->whereYear('created_at', $this->year ?? date("Y"))->first();
+        
+        // Auto-detect year from form if not set
+        if (!$this->year && $formc) {
+            $this->year = $formc->tahun;
+        }
+        
         $status_terkini = $formc->status;
         $formc->status = 'Tiada Pengeluaran';
         $formc->tiada_pengeluaran = 1;
@@ -427,7 +438,7 @@ class FormCKayuKayuLainLain extends Component
 
         if ($this->bulan_id != 1) {
             $lastmonth = $this->bulan_id - 1; //create
-            $lastMonthformc = ModelsFormC::where('shuttle_id', auth()->user()->shuttle_id)->where('bulan', $lastmonth)->whereYear('created_at', date("Y"))->first();
+            $lastMonthformc = ModelsFormC::where('shuttle_id', auth()->user()->shuttle_id)->where('bulan', $lastmonth)->whereYear('created_at', $this->year ?? date("Y"))->first();
 
             $kemasukan_bahans_lastmonth = KemasukanBahan::with('spesis_id')
             ->where('shuttle_id', auth()->user()->shuttle_id)->where('formcs_id', $lastMonthformc->id)->get();
@@ -598,7 +609,12 @@ class FormCKayuKayuLainLain extends Component
         $user = auth()->user();
         // dd($this->suku_id);
 
-        $formc = ModelsFormC::where('shuttle_id', $user->shuttle_id)->where('bulan', $this->bulan_id)->whereYear('created_at', date("Y"))->first();
+        $formc = ModelsFormC::where('shuttle_id', $user->shuttle_id)->where('bulan', $this->bulan_id)->whereYear('created_at', $this->year ?? date("Y"))->first();
+        
+        // Auto-detect year from form if not set
+        if (!$this->year && $formc) {
+            $this->year = $formc->tahun;
+        }
 
         $formc->status = 'Sedang Diproses';
         // $formc->status = 'Sedang Diisi';
@@ -687,7 +703,7 @@ class FormCKayuKayuLainLain extends Component
         if ($this->sebelumnya) {
             return redirect()->route(
                 'user.shuttle-3-formC.KayuLembut',
-                $this->bulan_id
+                [$this->bulan_id, $this->year ?? date('Y')]
             );
         }
 
