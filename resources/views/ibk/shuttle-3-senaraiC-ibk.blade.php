@@ -143,7 +143,7 @@
                                                             <img src="{{ asset('circle_times.png') }}" height='30px' alt=""
                                                                 data-toggle="tooltip" data-placement="bottom"
                                                                 title="Sila isi bulan sebelumnya terlebih dahulu" style="opacity: 0.5;">
-                                                        @elseif (date('Y-m-d') >= $data->tarikh_buka_borang && date('Y-m-d') <= $tarikh_tutup_terkini)
+                                                        @elseif ($isPreviousYear || (date('Y-m-d') >= $data->tarikh_buka_borang && date('Y-m-d') <= $tarikh_tutup_terkini))
                                                             <a href="{{ route('user.shuttle-3-formC.KKB', [1, $year]) }}"
                                                                 data-toggle="tooltip" data-placement="bottom"
                                                                 title="Borang belum diisi">
@@ -223,7 +223,7 @@
                                                             <img src="{{ asset('circle_times.png') }}" height='30px' alt=""
                                                                 data-toggle="tooltip" data-placement="bottom"
                                                                 title="Sila isi bulan sebelumnya terlebih dahulu" style="opacity: 0.5;">
-                                                        @elseif (date('Y-m-d') >= $data->tarikh_buka_borang && date('Y-m-d') <= $tarikh_tutup_terkini)
+                                                        @elseif ($isPreviousYear || (date('Y-m-d') >= $data->tarikh_buka_borang && date('Y-m-d') <= $tarikh_tutup_terkini))
                                                             <a href="{{ route('user.shuttle-3-formC.KKB', [2, $year]) }}"
                                                                 data-toggle="tooltip" data-placement="bottom"
                                                                 title="Borang belum diisi">
@@ -301,7 +301,7 @@
                                                             <img src="{{ asset('circle_times.png') }}" height='30px' alt=""
                                                                 data-toggle="tooltip" data-placement="bottom"
                                                                 title="Sila isi bulan sebelumnya terlebih dahulu" style="opacity: 0.5;">
-                                                        @elseif (date('Y-m-d') >= $data->tarikh_buka_borang && date('Y-m-d') <= $tarikh_tutup_terkini)
+                                                        @elseif ($isPreviousYear || (date('Y-m-d') >= $data->tarikh_buka_borang && date('Y-m-d') <= $tarikh_tutup_terkini))
                                                             <a href="{{ route('user.shuttle-3-formC.KKB', [3, $year]) }}"
                                                                 data-toggle="tooltip" data-placement="bottom"
                                                                 title="Borang belum diisi">
@@ -375,7 +375,7 @@
                                                             <img src="{{ asset('circle_times.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Pendaftaran selepas bulan ini" style="opacity: 0.3;">
                                                         @elseif (!$previousMonthFilled[4])
                                                             <img src="{{ asset('circle_times.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Sila isi bulan sebelumnya terlebih dahulu" style="opacity: 0.5;">
-                                                        @elseif (date('Y-m-d') >= $data->tarikh_buka_borang && date('Y-m-d') <= $tarikh_tutup_terkini)
+                                                        @elseif ($isPreviousYear || (date('Y-m-d') >= $data->tarikh_buka_borang && date('Y-m-d') <= $tarikh_tutup_terkini))
                                                             <a href="{{ route('user.shuttle-3-formC.KKB', [4, $year]) }}" data-toggle="tooltip" data-placement="bottom" title="Borang belum diisi">
                                                                 <img src="{{ asset('circle_times.png') }}" height='30px' alt="" style="font-size: 15pt;"></i></a>
                                                         @else
@@ -443,7 +443,7 @@
                                                             <img src="{{ asset('circle_times.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Pendaftaran selepas bulan ini" style="opacity: 0.3;">
                                                         @elseif (!$previousMonthFilled[5])
                                                             <img src="{{ asset('circle_times.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Sila isi bulan sebelumnya terlebih dahulu" style="opacity: 0.5;">
-                                                        @elseif (date('Y-m-d') >= $data->tarikh_buka_borang && date('Y-m-d') <= $tarikh_tutup_terkini)
+                                                        @elseif ($isPreviousYear || (date('Y-m-d') >= $data->tarikh_buka_borang && date('Y-m-d') <= $tarikh_tutup_terkini))
                                                             <a href="{{ route('user.shuttle-3-formC.KKB', [5, $year]) }}" data-toggle="tooltip" data-placement="bottom" title="Borang belum diisi">
                                                                 <img src="{{ asset('circle_times.png') }}" height='30px' alt="" style="font-size: 15pt;"></i></a>
                                                         @else
@@ -511,7 +511,7 @@
                                                             <img src="{{ asset('circle_times.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Pendaftaran selepas bulan ini" style="opacity: 0.3;">
                                                         @elseif (!$previousMonthFilled[6])
                                                             <img src="{{ asset('circle_times.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Sila isi bulan sebelumnya terlebih dahulu" style="opacity: 0.5;">
-                                                        @elseif (date('Y-m-d') >= $data->tarikh_buka_borang && date('Y-m-d') <= $tarikh_tutup_terkini)
+                                                        @elseif ($isPreviousYear || (date('Y-m-d') >= $data->tarikh_buka_borang && date('Y-m-d') <= $tarikh_tutup_terkini))
                                                             <a href="{{ route('user.shuttle-3-formC.KKB', [6, $year]) }}" data-toggle="tooltip" data-placement="bottom" title="Borang belum diisi">
                                                                 <img src="{{ asset('circle_times.png') }}" height='30px' alt="" style="font-size: 15pt;"></i></a>
                                                         @else
@@ -579,7 +579,7 @@
                                                             <img src="{{ asset('circle_times.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Pendaftaran selepas bulan ini" style="opacity: 0.3;">
                                                         @elseif (!$previousMonthFilled[7])
                                                             <img src="{{ asset('circle_times.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Sila isi bulan sebelumnya terlebih dahulu" style="opacity: 0.5;">
-                                                        @elseif (date('Y-m-d') >= $data->tarikh_buka_borang && date('Y-m-d') <= $tarikh_tutup_terkini)
+                                                        @elseif ($isPreviousYear || (date('Y-m-d') >= $data->tarikh_buka_borang && date('Y-m-d') <= $tarikh_tutup_terkini))
                                                             <a href="{{ route('user.shuttle-3-formC.KKB', [7, $year]) }}" data-toggle="tooltip" data-placement="bottom" title="Borang belum diisi">
                                                                 <img src="{{ asset('circle_times.png') }}" height='30px' alt="" style="font-size: 15pt;"></i></a>
                                                         @else
@@ -649,7 +649,7 @@
                                                             <img src="{{ asset('circle_times.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Pendaftaran selepas bulan ini" style="opacity: 0.3;">
                                                         @elseif (!$previousMonthFilled[8])
                                                             <img src="{{ asset('circle_times.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Sila isi bulan sebelumnya terlebih dahulu" style="opacity: 0.5;">
-                                                        @elseif (date('Y-m-d') >= $data->tarikh_buka_borang && date('Y-m-d') <= $tarikh_tutup_terkini)
+                                                        @elseif ($isPreviousYear || (date('Y-m-d') >= $data->tarikh_buka_borang && date('Y-m-d') <= $tarikh_tutup_terkini))
                                                             <a href="{{ route('user.shuttle-3-formC.KKB', [8, $year]) }}" data-toggle="tooltip" data-placement="bottom" title="Borang belum diisi">
                                                                 <img src="{{ asset('circle_times.png') }}" height='30px' alt="" style="font-size: 15pt;"></i></a>
                                                         @else
@@ -717,7 +717,7 @@
                                                             <img src="{{ asset('circle_times.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Pendaftaran selepas bulan ini" style="opacity: 0.3;">
                                                         @elseif (!$previousMonthFilled[9])
                                                             <img src="{{ asset('circle_times.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Sila isi bulan sebelumnya terlebih dahulu" style="opacity: 0.5;">
-                                                        @elseif (date('Y-m-d') >= $data->tarikh_buka_borang && date('Y-m-d') <= $tarikh_tutup_terkini)
+                                                        @elseif ($isPreviousYear || (date('Y-m-d') >= $data->tarikh_buka_borang && date('Y-m-d') <= $tarikh_tutup_terkini))
                                                             <a href="{{ route('user.shuttle-3-formC.KKB', [9, $year]) }}" data-toggle="tooltip" data-placement="bottom" title="Borang belum diisi">
                                                                 <img src="{{ asset('circle_times.png') }}" height='30px' alt="" style="font-size: 15pt;"></i></a>
                                                         @else
@@ -785,7 +785,7 @@
                                                             <img src="{{ asset('circle_times.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Pendaftaran selepas bulan ini" style="opacity: 0.3;">
                                                         @elseif (!$previousMonthFilled[10])
                                                             <img src="{{ asset('circle_times.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Sila isi bulan sebelumnya terlebih dahulu" style="opacity: 0.5;">
-                                                        @elseif (date('Y-m-d') >= $data->tarikh_buka_borang && date('Y-m-d') <= $tarikh_tutup_terkini)
+                                                        @elseif ($isPreviousYear || (date('Y-m-d') >= $data->tarikh_buka_borang && date('Y-m-d') <= $tarikh_tutup_terkini))
                                                             <a href="{{ route('user.shuttle-3-formC.KKB', [10, $year]) }}" data-toggle="tooltip" data-placement="bottom" title="Borang belum diisi">
                                                                 <img src="{{ asset('circle_times.png') }}" height='30px' alt="" style="font-size: 15pt;"></i></a>
                                                         @else
@@ -853,7 +853,7 @@
                                                             <img src="{{ asset('circle_times.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Pendaftaran selepas bulan ini" style="opacity: 0.3;">
                                                         @elseif (!$previousMonthFilled[11])
                                                             <img src="{{ asset('circle_times.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Sila isi bulan sebelumnya terlebih dahulu" style="opacity: 0.5;">
-                                                        @elseif (date('Y-m-d') >= $data->tarikh_buka_borang && date('Y-m-d') <= $tarikh_tutup_terkini)
+                                                        @elseif ($isPreviousYear || (date('Y-m-d') >= $data->tarikh_buka_borang && date('Y-m-d') <= $tarikh_tutup_terkini))
                                                             <a href="{{ route('user.shuttle-3-formC.KKB', [11, $year]) }}" data-toggle="tooltip" data-placement="bottom" title="Borang belum diisi">
                                                                 <img src="{{ asset('circle_times.png') }}" height='30px' alt="" style="font-size: 15pt;"></i></a>
                                                         @else
@@ -921,7 +921,7 @@
                                                             <img src="{{ asset('circle_times.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Pendaftaran selepas bulan ini" style="opacity: 0.3;">
                                                         @elseif (!$previousMonthFilled[12])
                                                             <img src="{{ asset('circle_times.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Sila isi bulan sebelumnya terlebih dahulu" style="opacity: 0.5;">
-                                                        @elseif (date('Y-m-d') >= $data->tarikh_buka_borang && date('Y-m-d') <= $tarikh_tutup_terkini)
+                                                        @elseif ($isPreviousYear || (date('Y-m-d') >= $data->tarikh_buka_borang && date('Y-m-d') <= $tarikh_tutup_terkini))
                                                             <a href="{{ route('user.shuttle-3-formC.KKB', [12, $year]) }}" data-toggle="tooltip" data-placement="bottom" title="Borang belum diisi">
                                                                 <img src="{{ asset('circle_times.png') }}" height='30px' alt="" style="font-size: 15pt;"></i></a>
                                                         @else

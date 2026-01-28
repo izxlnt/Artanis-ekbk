@@ -190,7 +190,7 @@ Route::middleware('auth')->group(
                 Route::get('/pengguna/shuttle-3-formC/view/Lain-Lain/{bulan}/{year?}', [App\Http\Controllers\ShuttleThree\FormCController::class, 'shuttle_3_formCLainLain'])->name('user.view.shuttle-3-formC.LainLain');
                 Route::post('/pengguna/shuttle-3-formC/store/Lain-Lain/{bulan}/{year?}', [App\Http\Controllers\ShuttleThree\FormCController::class, 'store_kayulainlain'])->name('user.view.shuttle-3-formC.LainLain.store');
 
-                Route::get('/pengguna/shuttle-3-formC/store/tiada-pengeluaran/{bulan}', [App\Http\Controllers\ShuttleThree\FormCController::class, 'tiadaPengeluaran'])->name('user.shuttle-3-formC.tiadaPengeluaran');
+                Route::get('/pengguna/shuttle-3-formC/store/tiada-pengeluaran/{bulan}/{year?}', [App\Http\Controllers\ShuttleThree\FormCController::class, 'tiadaPengeluaran'])->name('user.shuttle-3-formC.tiadaPengeluaran');
 
                 // Route::get('/pengguna/shuttle-3-formC/KKS/{bulan}', [App\Http\Controllers\ShuttleThree\MainController::class, 'shuttle_3_formCKKS'])->name('user.shuttle-3-formC.KKS');
                 // Route::get('/pengguna/shuttle-3-formC/KKR/{bulan}', [App\Http\Controllers\ShuttleThree\MainController::class, 'shuttle_3_formCKKR'])->name('user.shuttle-3-formC.KKR');

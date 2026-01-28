@@ -75,9 +75,9 @@
     <div class="page-breadcrumb" style="padding: 0px">
         <div class="pb-2 row">
             <div class="col-4 align-self-center">
-                <button type="button" wire:loading.attr="disabled" class="btn btn-primary" alt="default"
-                    data-toggle="modal" data-target="#sebelumnya_borang_a" class="model_img img-fluid">
-                    Kembali</button>
+                <a href="{{ route('user.shuttle-3-senaraiC', $year ?? date('Y')) }}" class="btn btn-primary">
+                    <i class="fas fa-arrow-left"></i> Kembali Ke Senarai Borang C
+                </a>
             </div>
             <div class="col-7 align-self-center">
                 <div class="d-flex align-items-center justify-content-end">
@@ -140,9 +140,9 @@
                             <table class="table table-striped table-bordered ex3" id="">
                                 <div class="row">
                                     <div class="col-12">
-                                        <div class="card">
+                                    <div class="card">
 
-                                            <form class="form-horizontal" action='{{ route('user.view.shuttle-3-formC.LainLain.store', $bulan_id) }}' onsubmit="return checkValidationuSubmit()"
+                                            <form class="form-horizontal" action='{{ route('user.view.shuttle-3-formC.LainLain.store', [$bulan_id, $year ?? date('Y')]) }}' onsubmit="return checkValidationuSubmit(event)"
                                                 id="lain-lain-form" method="POST">
                                                 @csrf
                                                 <div class="card-body">
@@ -796,7 +796,12 @@
                     }
                 }
 
-                function checkValidationuSubmit() {
+                function checkValidationuSubmit(event) {
+                    // Skip validation when clicking 'Sebelumnya' button
+                    if (event && event.submitter && event.submitter.name === 'sebelumnya') {
+                        return true;
+                    }
+
                     var species_count = {{ $species_count }};
                     var min = {{ $min_recovery_rate }}, max = {{ $max_recovery_rate }};
 
@@ -824,6 +829,8 @@
                             return false;
                         }
                     }
+
+                    return true;
                 }
 
             </script>

@@ -16,7 +16,7 @@ use Livewire\Component;
 
 class FormCKayuKKR extends Component
 {
-    public $bulan_id, $kayu_id, $max_rate, $min_rate, $sebelumnya = false;
+    public $bulan_id, $year, $kayu_id, $max_rate, $min_rate, $sebelumnya = false;
     public $kilang_info, $kumpulan_kayu, $species, $species_count;
     public $baki_stok, $jumlah_baki_stok, $kayu_masuk, $proses_masuk, $proses_keluar, $jumlah_kayu_masuk, $jumlah_stok_kayu_balak, $baki_stok_kehadapan, $jumlah, $total_stok_kayu_balak,
         $total_kayu_masuk_jentera, $total_kayu_keluar_jentera, $total_kayu_dibawa_bulan_hadapan, $jumlah_besar_baki_stok_bulan_lepas, $jumlah_besar_kemasukan_kayu_ke_kilang,
@@ -70,7 +70,7 @@ class FormCKayuKKR extends Component
                 ['link' => route('user.shuttle-3-formC.KKR', $this->bulan_id), 'name' => "Borang 3C - KKR"],
             ];
 
-            $kembali = route('user.shuttle-3-formC.KKS', $this->bulan_id);
+            $kembali = route('user.shuttle-3-formC.KKS', [$this->bulan_id, $this->year ?? date('Y')]);
         }
         elseif($this->kilang_info->shuttle_type == '4'){
             $breadcrumbs    = [
@@ -81,7 +81,7 @@ class FormCKayuKKR extends Component
                 ['link' => route('user.shuttle-3-formC.KKR', $this->bulan_id), 'name' => "Borang 4C - KKR"],
             ];
 
-            $kembali = route('user.shuttle-3-formC.KKS', $this->bulan_id);
+            $kembali = route('user.shuttle-3-formC.KKS', [$this->bulan_id, $this->year ?? date('Y')]);
         }
         elseif($this->kilang_info->shuttle_type == '5'){
             $breadcrumbs    = [
@@ -92,7 +92,7 @@ class FormCKayuKKR extends Component
                 ['link' => route('user.shuttle-3-formC.KKR', $this->bulan_id), 'name' => "Borang 5C - KKR"],
             ];
 
-            $kembali = route('user.shuttle-3-formC.KKS', $this->bulan_id);
+            $kembali = route('user.shuttle-3-formC.KKS', [$this->bulan_id, $this->year ?? date('Y')]);
         }
 
 
@@ -118,11 +118,16 @@ class FormCKayuKKR extends Component
         // $this->kumpulan_kayu = KumpulanKayu::get();
 
         $this->kilang_info = Shuttle::where('id', auth()->user()->shuttle_id)->first();
-        $formc = ModelsFormC::where('shuttle_id', auth()->user()->shuttle_id)->where('bulan', $this->bulan_id)->whereYear('created_at', date("Y"))->first();
+        $formc = ModelsFormC::where('shuttle_id', auth()->user()->shuttle_id)->where('bulan', $this->bulan_id)->whereYear('created_at', $this->year ?? date("Y"))->first();
+        
+        // Auto-detect year from form if not set
+        if (!$this->year && $formc) {
+            $this->year = $formc->tahun;
+        }
 
         if ($this->bulan_id != 1) {
             $lastmonth = $this->bulan_id - 1;
-            $lastMonthformc = ModelsFormC::where('shuttle_id', auth()->user()->shuttle_id)->where('bulan', $lastmonth)->whereYear('created_at', date("Y"))->first();
+            $lastMonthformc = ModelsFormC::where('shuttle_id', auth()->user()->shuttle_id)->where('bulan', $lastmonth)->whereYear('created_at', $this->year ?? date("Y"))->first();
 
             $kemasukan_bahans_lastmonth = KemasukanBahan::with('spesis_id')
                 ->whereHas('spesis_id', function ($q) {
@@ -316,7 +321,12 @@ class FormCKayuKKR extends Component
         $user = auth()->user();
         // dd($this->suku_id);
 
-        $formc = ModelsFormC::where('shuttle_id', $user->shuttle_id)->where('bulan', $this->bulan_id)->whereYear('created_at', date("Y"))->first();
+        $formc = ModelsFormC::where('shuttle_id', $user->shuttle_id)->where('bulan', $this->bulan_id)->whereYear('created_at', $this->year ?? date("Y"))->first();
+        
+        // Auto-detect year from form if not set
+        if (!$this->year && $formc) {
+            $this->year = $formc->tahun;
+        }
 
         // $formc->status = 'Sedang Diproses';
         $formc->status = 'Sedang Diisi';
@@ -431,9 +441,9 @@ class FormCKayuKKR extends Component
         Session::flash('success', 'Maklumat berjaya dimasukkan');
 
         if ($this->sebelumnya) {
-            return redirect()->route('user.shuttle-3-formC.KKS', $this->bulan_id);
+            return redirect()->route('user.shuttle-3-formC.KKS', [$this->bulan_id, $this->year ?? date('Y')]);
         }
-        return redirect()->route('user.shuttle-3-formC.KayuLembut', $this->bulan_id);
+        return redirect()->route('user.shuttle-3-formC.KayuLembut', [$this->bulan_id, $this->year ?? date('Y')]);
     }
 
     //FORMULA C

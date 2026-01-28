@@ -2016,7 +2016,15 @@ $pengumumantest=PengumumanIpjpsm::where('negeri',$user_pengumuman->negeri)->firs
     {
         $user = auth()->user();
         $shuttle = Shuttle::where('id', $user->shuttle_id)->first();
-        $list = FormC::where('shuttle_id', $shuttle->id)->where('tahun', $year)->get();
+        
+        // Query Form C records - get one record per month (latest by ID)
+        $list = FormC::where('shuttle_id', $shuttle->id)
+            ->where('tahun', $year)
+            ->orderBy('bulan')
+            ->orderBy('id', 'desc')
+            ->get()
+            ->unique('bulan')
+            ->values(); // Reset array keys after unique
 
         // Get years where data exists, but filter by registration date
         $year_list = FormC::where('shuttle_id', $shuttle->id)->distinct()->orderBy('tahun')->get('tahun');
@@ -2024,8 +2032,11 @@ $pengumumantest=PengumumanIpjpsm::where('negeri',$user_pengumuman->negeri)->firs
         // Filter out years before registration if shuttle has registration date
         if ($shuttle && $shuttle->created_at) {
             $registrationYear = date('Y', strtotime($shuttle->created_at));
-            $year_list = $year_list->filter(function($item) use ($registrationYear) {
-                return $item->tahun >= $registrationYear;
+            $currentYear = date('Y');
+            
+            // Only show years from registration year up to previous year (block years more than 1 year old)
+            $year_list = $year_list->filter(function($item) use ($registrationYear, $currentYear) {
+                return $item->tahun >= $registrationYear && $item->tahun >= ($currentYear - 1);
             });
         }
 
@@ -2038,6 +2049,36 @@ $pengumumantest=PengumumanIpjpsm::where('negeri',$user_pengumuman->negeri)->firs
 
         $buffer = Buffer::where('shuttle', auth()->user()->shuttle->shuttle_type)->where('borang', 'C')->first();
 
+        // Ensure all 12 months have Form C records for this year
+        for ($month = 1; $month <= 12; $month++) {
+            $existingRecord = FormC::where('shuttle_id', $shuttle->id)
+                ->where('bulan', $month)
+                ->where('tahun', $year)
+                ->first();
+            
+            if (!$existingRecord) {
+                // Create missing month record
+                $newFormC = new FormC();
+                $newFormC->shuttle_id = $shuttle->id;
+                $newFormC->bulan = $month;
+                $newFormC->tahun = $year;
+                $newFormC->status = 'Tidak Diisi';
+                $newFormC->created_at = $year . '-' . str_pad($month, 2, '0', STR_PAD_LEFT) . '-01';
+                $newFormC->tarikh_buka_borang = $year . '-' . str_pad($month, 2, '0', STR_PAD_LEFT) . '-01';
+                $newFormC->tarikh_tutup_borang = $year . '-' . str_pad($month, 2, '0', STR_PAD_LEFT) . '-' . date('t', strtotime($year . '-' . $month . '-01'));
+                $newFormC->save();
+            }
+        }
+
+        // Re-query to get all months including newly created ones
+        $list = FormC::where('shuttle_id', $shuttle->id)
+            ->where('tahun', $year)
+            ->orderBy('bulan')
+            ->orderBy('id', 'desc')
+            ->get()
+            ->unique('bulan')
+            ->values();
+
         // Get registration date and calculate allowed months
         $registrationDate = $shuttle->created_at;
         $registrationMonth = date('n', strtotime($registrationDate)); // 1-12
@@ -2048,8 +2089,8 @@ $pengumumantest=PengumumanIpjpsm::where('negeri',$user_pengumuman->negeri)->firs
         $canFillMonth = [];
         for ($month = 1; $month <= 12; $month++) {
             if ($year > $registrationYear) {
-                // Future years: can fill all months
-                $canFillMonth[$month] = true;
+                // Years after registration: can fill all months if within allowed year range (current and previous year)
+                $canFillMonth[$month] = ($year >= ($currentYear - 1) && $year <= ($currentYear + 1));
             } elseif ($year == $registrationYear) {
                 // Registration year: can only fill from registration month onwards
                 $canFillMonth[$month] = ($month >= $registrationMonth);
@@ -2059,35 +2100,51 @@ $pengumumantest=PengumumanIpjpsm::where('negeri',$user_pengumuman->negeri)->firs
             }
         }
 
-        // For current year, check if previous month is filled (sequential validation)
+        // Sequential validation: previous month must be filled (with smart exceptions)
         $previousMonthFilled = [];
-        if ($year == $currentYear) {
-            for ($month = 1; $month <= 12; $month++) {
-                if ($month == 1) {
-                    // January of current year: check December of previous year
-                    $prevYearDec = FormC::where('shuttle_id', $shuttle->id)
-                        ->where('bulan', 12)
-                        ->where('tahun', $year - 1)
-                        ->whereIn('status', ['Sedang Diproses', 'Dihantar ke IPJPSM', 'Lulus'])
-                        ->exists();
-                    $previousMonthFilled[$month] = $prevYearDec;
+        for ($month = 1; $month <= 12; $month++) {
+            if ($month == 1) {
+                // January special logic
+                if ($year == $registrationYear) {
+                    // January of registration year: always allowed (no December requirement)
+                    $previousMonthFilled[$month] = true;
                 } else {
-                    // Other months: check previous month in same year
-                    $prevMonth = FormC::where('shuttle_id', $shuttle->id)
-                        ->where('bulan', $month - 1)
-                        ->where('tahun', $year)
-                        ->whereIn('status', ['Sedang Diproses', 'Dihantar ke IPJPSM', 'Lulus'])
-                        ->exists();
-                    $previousMonthFilled[$month] = $prevMonth;
+                    // January of other years: check if previous year is within fillable range
+                    $previousYear = $year - 1;
+                    
+                    // If previous year is before registration year OR too old (blocked), allow January without December
+                    if ($previousYear < $registrationYear || $previousYear < ($currentYear - 1)) {
+                        $previousMonthFilled[$month] = true; // No December requirement
+                    } else {
+                        // Previous year is accessible, check if December is filled
+                        $prevYearDec = FormC::where('shuttle_id', $shuttle->id)
+                            ->where('bulan', 12)
+                            ->where('tahun', $previousYear)
+                            ->whereIn('status', ['Sedang Diproses', 'Dihantar ke IPJPSM', 'Lulus', 'Tiada Pengeluaran'])
+                            ->exists();
+                        $previousMonthFilled[$month] = $prevYearDec;
+                    }
                 }
-            }
-        } else {
-            // Previous years: no sequential requirement
-            for ($month = 1; $month <= 12; $month++) {
-                $previousMonthFilled[$month] = true; // Always allow
+            } else {
+                // Feb-Dec: check previous month in same year
+                $prevMonth = FormC::where('shuttle_id', $shuttle->id)
+                    ->where('bulan', $month - 1)
+                    ->where('tahun', $year)
+                    ->whereIn('status', ['Sedang Diproses', 'Dihantar ke IPJPSM', 'Lulus', 'Tiada Pengeluaran'])
+                    ->exists();
+                
+                // Exception: If this is the registration month in registration year, allow it without previous month
+                if ($year == $registrationYear && $month == $registrationMonth) {
+                    $previousMonthFilled[$month] = true; // First month of registration
+                } else {
+                    $previousMonthFilled[$month] = $prevMonth; // All other months require previous month
+                }
             }
         }
 
+        // Determine if this is a previous year that should bypass date checks
+        $isPreviousYear = ($year < $currentYear);
+        
         $breadcrumbs    = [
             ['link' => route('home-user'), 'name' => "Laman Utama"],
             ['link' => route('user.shuttle-3-senaraiC', date('Y')), 'name' => "Kemasukan Maklumat"],
@@ -2100,7 +2157,7 @@ $pengumumantest=PengumumanIpjpsm::where('negeri',$user_pengumuman->negeri)->firs
             'kembali'     => $kembali,
         ];
 
-        return view('ibk.shuttle-3-senaraiC-ibk', compact('returnArr', 'list', 'shuttle', 'buffer', 'year', 'year_list', 'canFillMonth', 'previousMonthFilled'));
+        return view('ibk.shuttle-3-senaraiC-ibk', compact('returnArr', 'list', 'shuttle', 'buffer', 'year', 'year_list', 'canFillMonth', 'previousMonthFilled', 'isPreviousYear'));
     }
 
     public function shuttle_3_senaraiD_ibk($year)
@@ -2115,8 +2172,11 @@ $pengumumantest=PengumumanIpjpsm::where('negeri',$user_pengumuman->negeri)->firs
         // Filter out years before registration if shuttle has registration date
         if ($shuttle && $shuttle->created_at) {
             $registrationYear = date('Y', strtotime($shuttle->created_at));
-            $year_list = $year_list->filter(function($item) use ($registrationYear) {
-                return $item->tahun >= $registrationYear;
+            $currentYear = date('Y');
+            
+            // Only show years from registration year up to previous year (block years more than 1 year old)
+            $year_list = $year_list->filter(function($item) use ($registrationYear, $currentYear) {
+                return $item->tahun >= $registrationYear && $item->tahun >= ($currentYear - 1);
             });
         }
 

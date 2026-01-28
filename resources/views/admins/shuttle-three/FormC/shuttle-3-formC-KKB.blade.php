@@ -77,7 +77,9 @@
         <div class="page-breadcrumb" style="padding: 0px">
             <div class="pb-2 row">
                 <div class="col-5 align-self-center">
-                    <a href="{{ $kembali }}" class="btn btn-primary">Kembali</a>
+                    <a href="{{ $kembali }}" class="btn btn-primary">
+                        <i class="fas fa-arrow-left"></i> Kembali Ke Senarai Borang C
+                    </a>
                 </div>
                 <div class="col-7 align-self-center">
                     <div class="d-flex align-items-center justify-content-end">
@@ -142,7 +144,7 @@
                                     <div class="row">
                                         <div class="col-12">
                                             <div class="card">
-                                                <form class="form-horizontal" action='{{ route('user.view.shuttle-3-formC.KKB.store', $bulan_id) }}' onsubmit="return checkValidationuSubmit()" method="POST" id="kkb">
+                                                <form class="form-horizontal" action='{{ route('user.view.shuttle-3-formC.KKB.store', [$bulan_id, $year ?? date('Y')]) }}' onsubmit="return checkValidationuSubmit()" method="POST" id="kkb">
                                                     @csrf
                                                     <div class="card-body">
 

@@ -75,10 +75,9 @@
     <div class="page-breadcrumb" style="padding: 0px">
         <div class="pb-2 row">
             <div class="col-5 align-self-center">
-                <button type="button" wire:loading.attr="disabled" class="btn btn-primary" alt="default"
-                    data-toggle="modal" data-target="#sebelumnya_borang_a"
-                    class="model_img img-fluid">
-                Kembali</button>
+                <a href="{{ route('user.shuttle-3-senaraiC', $year ?? date('Y')) }}" class="btn btn-primary">
+                    <i class="fas fa-arrow-left"></i> Kembali Ke Senarai Borang C
+                </a>
             </div>
             <div class="col-7 align-self-center">
                 <div class="d-flex align-items-center justify-content-end">
@@ -145,8 +144,9 @@
                                     <div class="col-12">
                                         <div class="card">
 
-                                            <form class="form-horizontal" action='{{ route('user.view.shuttle-3-formC.KKR.store', $bulan_id) }}' onsubmit="return checkValidationuSubmit()" method="POST" id="kkb">
+                                            <form class="form-horizontal" action='{{ route('user.view.shuttle-3-formC.KKR.store', [$bulan_id, $year ?? date('Y')]) }}' onsubmit="return checkValidationuSubmit(event)" method="POST" id="kkb">
                                                 @csrf
+                                                <input type="hidden" name="sebelumnya" id="sebelumnya_input" value="0">
                                                 <div class="card-body">
 
                                                     <div class="row" style="justify-content: center;margin-bottom:-0%;">
@@ -525,8 +525,7 @@
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-danger"
                                                 wire:loading.attr="disabled" data-dismiss="modal">TIDAK</button>
-                                            <button type="submit" name="sebelumnya" value="1"
-                                                class="btn btn-success">
+                                            <button type="submit" class="btn btn-success" onclick="document.getElementById('sebelumnya_input').value='1';">
                                                 <div>YA</div>
                                             </button>
                                         </div>
@@ -678,7 +677,16 @@
                         }
                     }
 
-                    function checkValidationuSubmit() {
+                    function checkValidationuSubmit(event) {
+                        // Skip validation if going back (sebelumnya)
+                        var sebelumnyaValue = document.getElementById('sebelumnya_input').value;
+                        console.log('Sebelumnya value:', sebelumnyaValue);
+                        if (sebelumnyaValue === '1') {
+                            console.log('Sebelumnya button detected, skipping validation');
+                            return true;
+                        }
+                        console.log('Running validation');
+                        
                         var species_count = {{ $species_count }};
                         var min = {{ $min_recovery_rate }}, max = {{ $max_recovery_rate }};
 
@@ -706,6 +714,8 @@
                                 return false;
                             }
                         }
+                        
+                        return true;  // Add explicit return true if all validations pass
                     }
 
                 </script>
