@@ -160,7 +160,7 @@ Route::middleware('auth')->group(
                 //shuttle 3
                 Route::get('/pengguna/shuttle-3', [App\Http\Controllers\ShuttleThree\MainController::class, 'shuttle_3'])->name('shuttle-3');
 
-                Route::get('/pengguna/shuttle-3-formA/', [App\Http\Controllers\ShuttleThree\MainController::class, 'editFormA'])->name('user.shuttle-3-formA');
+                Route::get('/pengguna/shuttle-3-formA/{year?}', [App\Http\Controllers\ShuttleThree\MainController::class, 'editFormA'])->name('user.shuttle-3-formA');
 
                 Route::post('/pengguna/shuttle-3-formA/update/{id}', [App\Http\Controllers\ShuttleThree\MainController::class, 'updateFormA'])->name('update.formA');
 
@@ -177,18 +177,18 @@ Route::middleware('auth')->group(
                 Route::post('/pengguna/shuttle-3-formC/store/KKS/{bulan}/{year?}', [App\Http\Controllers\ShuttleThree\FormCController::class, 'store_kks'])->name('user.view.shuttle-3-formC.KKS.store');
 
 
-                Route::get('/pengguna/shuttle-3-formC/KKR/{bulan}', [App\Http\Controllers\ShuttleThree\MainController::class, 'shuttle_3_formCKKR'])->name('user.shuttle-3-formC.KKR');
-                Route::get('/pengguna/shuttle-3-formC/view/KKR/{bulan}', [App\Http\Controllers\ShuttleThree\FormCController::class, 'shuttle_3_formCKKR'])->name('user.view.shuttle-3-formC.KKR');
-                Route::post('/pengguna/shuttle-3-formC/store/KKR/{bulan}', [App\Http\Controllers\ShuttleThree\FormCController::class, 'store_kkr'])->name('user.view.shuttle-3-formC.KKR.store');
+                Route::get('/pengguna/shuttle-3-formC/KKR/{bulan}/{year?}', [App\Http\Controllers\ShuttleThree\MainController::class, 'shuttle_3_formCKKR'])->name('user.shuttle-3-formC.KKR');
+                Route::get('/pengguna/shuttle-3-formC/view/KKR/{bulan}/{year?}', [App\Http\Controllers\ShuttleThree\FormCController::class, 'shuttle_3_formCKKR'])->name('user.view.shuttle-3-formC.KKR');
+                Route::post('/pengguna/shuttle-3-formC/store/KKR/{bulan}/{year?}', [App\Http\Controllers\ShuttleThree\FormCController::class, 'store_kkr'])->name('user.view.shuttle-3-formC.KKR.store');
 
 
-                Route::get('/pengguna/shuttle-3-formC/Kayu-Lembut/{bulan}', [App\Http\Controllers\ShuttleThree\MainController::class, 'shuttle_3_formCKayuLembut'])->name('user.shuttle-3-formC.KayuLembut');
-                Route::get('/pengguna/shuttle-3-formC/view/Kayu-Lembut/{bulan}', [App\Http\Controllers\ShuttleThree\FormCController::class, 'shuttle_3_formCKayuLembut'])->name('user.view.shuttle-3-formC.KayuLembut');
-                Route::post('/pengguna/shuttle-3-formC/store/Kayu-Lembut/{bulan}', [App\Http\Controllers\ShuttleThree\FormCController::class, 'store_kayulembut'])->name('user.view.shuttle-3-formC.KayuLembut.store');
+                Route::get('/pengguna/shuttle-3-formC/Kayu-Lembut/{bulan}/{year?}', [App\Http\Controllers\ShuttleThree\MainController::class, 'shuttle_3_formCKayuLembut'])->name('user.shuttle-3-formC.KayuLembut');
+                Route::get('/pengguna/shuttle-3-formC/view/Kayu-Lembut/{bulan}/{year?}', [App\Http\Controllers\ShuttleThree\FormCController::class, 'shuttle_3_formCKayuLembut'])->name('user.view.shuttle-3-formC.KayuLembut');
+                Route::post('/pengguna/shuttle-3-formC/store/Kayu-Lembut/{bulan}/{year?}', [App\Http\Controllers\ShuttleThree\FormCController::class, 'store_kayulembut'])->name('user.view.shuttle-3-formC.KayuLembut.store');
 
-                Route::get('/pengguna/shuttle-3-formC/Lain-Lain/{bulan}', [App\Http\Controllers\ShuttleThree\MainController::class, 'shuttle_3_formCLainLain'])->name('user.shuttle-3-formC.LainLain');
-                Route::get('/pengguna/shuttle-3-formC/view/Lain-Lain/{bulan}', [App\Http\Controllers\ShuttleThree\FormCController::class, 'shuttle_3_formCLainLain'])->name('user.view.shuttle-3-formC.LainLain');
-                Route::post('/pengguna/shuttle-3-formC/store/Lain-Lain/{bulan}', [App\Http\Controllers\ShuttleThree\FormCController::class, 'store_kayulainlain'])->name('user.view.shuttle-3-formC.LainLain.store');
+                Route::get('/pengguna/shuttle-3-formC/Lain-Lain/{bulan}/{year?}', [App\Http\Controllers\ShuttleThree\MainController::class, 'shuttle_3_formCLainLain'])->name('user.shuttle-3-formC.LainLain');
+                Route::get('/pengguna/shuttle-3-formC/view/Lain-Lain/{bulan}/{year?}', [App\Http\Controllers\ShuttleThree\FormCController::class, 'shuttle_3_formCLainLain'])->name('user.view.shuttle-3-formC.LainLain');
+                Route::post('/pengguna/shuttle-3-formC/store/Lain-Lain/{bulan}/{year?}', [App\Http\Controllers\ShuttleThree\FormCController::class, 'store_kayulainlain'])->name('user.view.shuttle-3-formC.LainLain.store');
 
                 Route::get('/pengguna/shuttle-3-formC/store/tiada-pengeluaran/{bulan}', [App\Http\Controllers\ShuttleThree\FormCController::class, 'tiadaPengeluaran'])->name('user.shuttle-3-formC.tiadaPengeluaran');
 
@@ -270,7 +270,7 @@ Route::middleware('auth')->group(
 
                 //shuttle 4
                 Route::get('/pengguna/shuttle-4', [App\Http\Controllers\ShuttleFour\MainController::class, 'shuttle_4'])->name('shuttle-4');
-                Route::get('/pengguna/shuttle-4-formA', [App\Http\Controllers\ShuttleFour\MainController::class, 'shuttle_4_formA'])->name('user.shuttle-4-formA');
+                Route::get('/pengguna/shuttle-4-formA/{year?}', [App\Http\Controllers\ShuttleFour\MainController::class, 'shuttle_4_formA'])->name('user.shuttle-4-formA');
                 Route::post('/pengguna/shuttle-4-formA/update/{id}', [App\Http\Controllers\ShuttleFour\MainController::class, 'updateForm4A'])->name('update.form4A');
 
                 Route::get('/pengguna/shuttle-4-formB/{id}', [App\Http\Controllers\ShuttleFour\MainController::class, 'shuttle_4_formB'])->name('user.shuttle-4-formB');
@@ -313,7 +313,7 @@ Route::middleware('auth')->group(
 
 
                 //shuttle 5
-                Route::get('/pengguna/shuttle-5-formA', [App\Http\Controllers\ShuttleFive\MainController::class, 'shuttle_5_formA'])->name('user.shuttle-5-formA');
+                Route::get('/pengguna/shuttle-5-formA/{year?}', [App\Http\Controllers\ShuttleFive\MainController::class, 'shuttle_5_formA'])->name('user.shuttle-5-formA');
                 Route::post('/pengguna/shuttle-5-formA/update/{id}', [App\Http\Controllers\ShuttleFive\MainController::class, 'updateForm5A'])->name('update.form5A');
 
                 Route::get('/pengguna/shuttle-5-formB/{id}', [App\Http\Controllers\ShuttleFive\MainController::class, 'shuttle_5_formB'])->name('user.shuttle-5-formB');

@@ -148,12 +148,12 @@
                                                 <td>
 
                                                     @if ($data->status == 'Tidak Lengkap')
-                                                        <a href="{{ route('user.shuttle-3-formA') }}">
+                                                        <a href="{{ url('/pengguna/shuttle-3-formA/' . $year) }}">
                                                             <img src="{{ asset('pencil.png') }}" height='30px' alt="" style="font-size: 15pt;"
                                                             data-toggle="tooltip" data-placement="bottom"
                                                             title="Borang Tidak Lengkap"></i></a>
                                                     @elseif($data->status == 'Tidak Diisi')
-                                                        <a href="{{ route('user.shuttle-3-formA') }}"
+                                                        <a href="{{ url('/pengguna/shuttle-3-formA/' . $year) }}"
                                                             class="mr-1 btn btn-danger"><i
                                                                 class="fas fa-times-circle"></i></a>
 

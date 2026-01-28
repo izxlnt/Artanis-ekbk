@@ -131,8 +131,19 @@
                                                             $time = strtotime($data->tarikh_tutup_borang);
                                                             $delay = '+' . $buffer->delay . ' month';
                                                             $tarikh_tutup_terkini = date('Y-m-d', strtotime($delay, $time));
+                                                            $canAccess = $canFillMonth[1] && $previousMonthFilled[1];
                                                         @endphp
-                                                        @if (date('Y-m-d') >= $data->tarikh_buka_borang && date('Y-m-d') <= $tarikh_tutup_terkini)
+                                                        @if (!$canFillMonth[1])
+                                                            {{-- Registered after this month --}}
+                                                            <img src="{{ asset('circle_times.png') }}" height='30px' alt=""
+                                                                data-toggle="tooltip" data-placement="bottom"
+                                                                title="Pendaftaran selepas bulan ini" style="opacity: 0.3;">
+                                                        @elseif (!$previousMonthFilled[1])
+                                                            {{-- Previous month not filled --}}
+                                                            <img src="{{ asset('circle_times.png') }}" height='30px' alt=""
+                                                                data-toggle="tooltip" data-placement="bottom"
+                                                                title="Sila isi bulan sebelumnya terlebih dahulu" style="opacity: 0.5;">
+                                                        @elseif (date('Y-m-d') >= $data->tarikh_buka_borang && date('Y-m-d') <= $tarikh_tutup_terkini)
                                                             <a href="{{ route('user.shuttle-3-formC.KKB', [1, $year]) }}"
                                                                 data-toggle="tooltip" data-placement="bottom"
                                                                 title="Borang belum diisi">
@@ -200,9 +211,20 @@
                                                             $time = strtotime($data->tarikh_tutup_borang);
                                                             $delay = '+' . $buffer->delay . ' month';
                                                             $tarikh_tutup_terkini = date('Y-m-d', strtotime($delay, $time));
+                                                            $canAccess = $canFillMonth[2] && $previousMonthFilled[2];
                                                         @endphp
-                                                        @if (date('Y-m-d') >= $data->tarikh_buka_borang && date('Y-m-d') <= $tarikh_tutup_terkini)
-                                                            <a href="{{ route('user.shuttle-3-formC.KKB', $id = 2) }}"
+                                                        @if (!$canFillMonth[2])
+                                                            {{-- Registered after this month --}}
+                                                            <img src="{{ asset('circle_times.png') }}" height='30px' alt=""
+                                                                data-toggle="tooltip" data-placement="bottom"
+                                                                title="Pendaftaran selepas bulan ini" style="opacity: 0.3;">
+                                                        @elseif (!$previousMonthFilled[2])
+                                                            {{-- Previous month not filled --}}
+                                                            <img src="{{ asset('circle_times.png') }}" height='30px' alt=""
+                                                                data-toggle="tooltip" data-placement="bottom"
+                                                                title="Sila isi bulan sebelumnya terlebih dahulu" style="opacity: 0.5;">
+                                                        @elseif (date('Y-m-d') >= $data->tarikh_buka_borang && date('Y-m-d') <= $tarikh_tutup_terkini)
+                                                            <a href="{{ route('user.shuttle-3-formC.KKB', [2, $year]) }}"
                                                                 data-toggle="tooltip" data-placement="bottom"
                                                                 title="Borang belum diisi">
                                                                 <img src="{{ asset('circle_times.png') }}" height='30px'
@@ -269,9 +291,18 @@
                                                             $time = strtotime($data->tarikh_tutup_borang);
                                                             $delay = '+' . $buffer->delay . ' month';
                                                             $tarikh_tutup_terkini = date('Y-m-d', strtotime($delay, $time));
+                                                            $canAccess = $canFillMonth[3] && $previousMonthFilled[3];
                                                         @endphp
-                                                        @if (date('Y-m-d') >= $data->tarikh_buka_borang && date('Y-m-d') <= $tarikh_tutup_terkini)
-                                                            <a href="{{ route('user.shuttle-3-formC.KKB', $id = 3) }}"
+                                                        @if (!$canFillMonth[3])
+                                                            <img src="{{ asset('circle_times.png') }}" height='30px' alt=""
+                                                                data-toggle="tooltip" data-placement="bottom"
+                                                                title="Pendaftaran selepas bulan ini" style="opacity: 0.3;">
+                                                        @elseif (!$previousMonthFilled[3])
+                                                            <img src="{{ asset('circle_times.png') }}" height='30px' alt=""
+                                                                data-toggle="tooltip" data-placement="bottom"
+                                                                title="Sila isi bulan sebelumnya terlebih dahulu" style="opacity: 0.5;">
+                                                        @elseif (date('Y-m-d') >= $data->tarikh_buka_borang && date('Y-m-d') <= $tarikh_tutup_terkini)
+                                                            <a href="{{ route('user.shuttle-3-formC.KKB', [3, $year]) }}"
                                                                 data-toggle="tooltip" data-placement="bottom"
                                                                 title="Borang belum diisi">
                                                                 <img src="{{ asset('circle_times.png') }}" height='30px'
@@ -340,17 +371,15 @@
                                                             $delay = '+' . $buffer->delay . ' month';
                                                             $tarikh_tutup_terkini = date('Y-m-d', strtotime($delay, $time));
                                                         @endphp
-                                                        @if (date('Y-m-d') >= $data->tarikh_buka_borang && date('Y-m-d') <= $tarikh_tutup_terkini)
-                                                            <a href="{{ route('user.shuttle-3-formC.KKB', $id = 4) }}"
-                                                                data-toggle="tooltip" data-placement="bottom"
-                                                                title="Borang belum diisi">
-                                                                <img src="{{ asset('circle_times.png') }}" height='30px'
-                                                                    alt="" style="font-size: 15pt;"></i></a>
+                                                        @if (!$canFillMonth[4])
+                                                            <img src="{{ asset('circle_times.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Pendaftaran selepas bulan ini" style="opacity: 0.3;">
+                                                        @elseif (!$previousMonthFilled[4])
+                                                            <img src="{{ asset('circle_times.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Sila isi bulan sebelumnya terlebih dahulu" style="opacity: 0.5;">
+                                                        @elseif (date('Y-m-d') >= $data->tarikh_buka_borang && date('Y-m-d') <= $tarikh_tutup_terkini)
+                                                            <a href="{{ route('user.shuttle-3-formC.KKB', [4, $year]) }}" data-toggle="tooltip" data-placement="bottom" title="Borang belum diisi">
+                                                                <img src="{{ asset('circle_times.png') }}" height='30px' alt="" style="font-size: 15pt;"></i></a>
                                                         @else
-                                                            <img src="{{ asset('calendar.png') }}" height='30px' alt=""
-                                                                data-toggle="tooltip" data-placement="bottom"
-                                                                title="Borang ditutup" aria-hidden="false"
-                                                                style="color: black; font-size: 20pt;">
+                                                            <img src="{{ asset('calendar.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang ditutup" aria-hidden="false" style="color: black; font-size: 20pt;">
                                                         @endif
                                                     @elseif($data->status == 'Sedang Diproses' && $data->bulan == '4')
                                                         <a
@@ -410,17 +439,15 @@
                                                             $delay = '+' . $buffer->delay . ' month';
                                                             $tarikh_tutup_terkini = date('Y-m-d', strtotime($delay, $time));
                                                         @endphp
-                                                        @if (date('Y-m-d') >= $data->tarikh_buka_borang && date('Y-m-d') <= $tarikh_tutup_terkini)
-                                                            <a href="{{ route('user.shuttle-3-formC.KKB', $id = 5) }}"
-                                                                data-toggle="tooltip" data-placement="bottom"
-                                                                title="Borang belum diisi">
-                                                                <img src="{{ asset('circle_times.png') }}" height='30px'
-                                                                    alt="" style="font-size: 15pt;"></i></a>
+                                                        @if (!$canFillMonth[5])
+                                                            <img src="{{ asset('circle_times.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Pendaftaran selepas bulan ini" style="opacity: 0.3;">
+                                                        @elseif (!$previousMonthFilled[5])
+                                                            <img src="{{ asset('circle_times.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Sila isi bulan sebelumnya terlebih dahulu" style="opacity: 0.5;">
+                                                        @elseif (date('Y-m-d') >= $data->tarikh_buka_borang && date('Y-m-d') <= $tarikh_tutup_terkini)
+                                                            <a href="{{ route('user.shuttle-3-formC.KKB', [5, $year]) }}" data-toggle="tooltip" data-placement="bottom" title="Borang belum diisi">
+                                                                <img src="{{ asset('circle_times.png') }}" height='30px' alt="" style="font-size: 15pt;"></i></a>
                                                         @else
-                                                            <img src="{{ asset('calendar.png') }}" height='30px' alt=""
-                                                                data-toggle="tooltip" data-placement="bottom"
-                                                                title="Borang ditutup" aria-hidden="false"
-                                                                style="color: black; font-size: 20pt;">
+                                                            <img src="{{ asset('calendar.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang ditutup" aria-hidden="false" style="color: black; font-size: 20pt;">
                                                         @endif
                                                     @elseif($data->status == 'Sedang Diproses' && $data->bulan == '5')
                                                         <a
@@ -480,17 +507,15 @@
                                                             $delay = '+' . $buffer->delay . ' month';
                                                             $tarikh_tutup_terkini = date('Y-m-d', strtotime($delay, $time));
                                                         @endphp
-                                                        @if (date('Y-m-d') >= $data->tarikh_buka_borang && date('Y-m-d') <= $tarikh_tutup_terkini)
-                                                            <a href="{{ route('user.shuttle-3-formC.KKB', $id = 6) }}"
-                                                                data-toggle="tooltip" data-placement="bottom"
-                                                                title="Borang belum diisi">
-                                                                <img src="{{ asset('circle_times.png') }}" height='30px'
-                                                                    alt="" style="font-size: 15pt;"></i></a>
+                                                        @if (!$canFillMonth[6])
+                                                            <img src="{{ asset('circle_times.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Pendaftaran selepas bulan ini" style="opacity: 0.3;">
+                                                        @elseif (!$previousMonthFilled[6])
+                                                            <img src="{{ asset('circle_times.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Sila isi bulan sebelumnya terlebih dahulu" style="opacity: 0.5;">
+                                                        @elseif (date('Y-m-d') >= $data->tarikh_buka_borang && date('Y-m-d') <= $tarikh_tutup_terkini)
+                                                            <a href="{{ route('user.shuttle-3-formC.KKB', [6, $year]) }}" data-toggle="tooltip" data-placement="bottom" title="Borang belum diisi">
+                                                                <img src="{{ asset('circle_times.png') }}" height='30px' alt="" style="font-size: 15pt;"></i></a>
                                                         @else
-                                                            <img src="{{ asset('calendar.png') }}" height='30px' alt=""
-                                                                data-toggle="tooltip" data-placement="bottom"
-                                                                title="Borang ditutup" aria-hidden="false"
-                                                                style="color: black; font-size: 20pt;">
+                                                            <img src="{{ asset('calendar.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang ditutup" aria-hidden="false" style="color: black; font-size: 20pt;">
                                                         @endif
                                                     @elseif($data->status == 'Sedang Diproses' && $data->bulan == '6')
                                                         <a
@@ -550,17 +575,15 @@
                                                             $delay = '+' . $buffer->delay . ' month';
                                                             $tarikh_tutup_terkini = date('Y-m-d', strtotime($delay, $time));
                                                         @endphp
-                                                        @if (date('Y-m-d') >= $data->tarikh_buka_borang && date('Y-m-d') <= $tarikh_tutup_terkini)
-                                                            <a href="{{ route('user.shuttle-3-formC.KKB', $id = 7) }}"
-                                                                data-toggle="tooltip" data-placement="bottom"
-                                                                title="Borang belum diisi">
-                                                                <img src="{{ asset('circle_times.png') }}" height='30px'
-                                                                    alt="" style="font-size: 15pt;"></i></a>
+                                                        @if (!$canFillMonth[7])
+                                                            <img src="{{ asset('circle_times.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Pendaftaran selepas bulan ini" style="opacity: 0.3;">
+                                                        @elseif (!$previousMonthFilled[7])
+                                                            <img src="{{ asset('circle_times.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Sila isi bulan sebelumnya terlebih dahulu" style="opacity: 0.5;">
+                                                        @elseif (date('Y-m-d') >= $data->tarikh_buka_borang && date('Y-m-d') <= $tarikh_tutup_terkini)
+                                                            <a href="{{ route('user.shuttle-3-formC.KKB', [7, $year]) }}" data-toggle="tooltip" data-placement="bottom" title="Borang belum diisi">
+                                                                <img src="{{ asset('circle_times.png') }}" height='30px' alt="" style="font-size: 15pt;"></i></a>
                                                         @else
-                                                            <img src="{{ asset('calendar.png') }}" height='30px' alt=""
-                                                                data-toggle="tooltip" data-placement="bottom"
-                                                                title="Borang ditutup" aria-hidden="false"
-                                                                style="color: black; font-size: 20pt;">
+                                                            <img src="{{ asset('calendar.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang ditutup" aria-hidden="false" style="color: black; font-size: 20pt;">
                                                         @endif
                                                     @elseif($data->status == 'Sedang Diproses' && $data->bulan == '7')
                                                         <a
@@ -622,17 +645,15 @@
                                                             $delay = '+' . $buffer->delay . ' month';
                                                             $tarikh_tutup_terkini = date('Y-m-d', strtotime($delay, $time));
                                                         @endphp
-                                                        @if (date('Y-m-d') >= $data->tarikh_buka_borang && date('Y-m-d') <= $tarikh_tutup_terkini)
-                                                            <a href="{{ route('user.shuttle-3-formC.KKB', $id = 8) }}"
-                                                                data-toggle="tooltip" data-placement="bottom"
-                                                                title="Borang belum diisi">
-                                                                <img src="{{ asset('circle_times.png') }}" height='30px'
-                                                                    alt="" style="font-size: 15pt;"></i></a>
+                                                        @if (!$canFillMonth[8])
+                                                            <img src="{{ asset('circle_times.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Pendaftaran selepas bulan ini" style="opacity: 0.3;">
+                                                        @elseif (!$previousMonthFilled[8])
+                                                            <img src="{{ asset('circle_times.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Sila isi bulan sebelumnya terlebih dahulu" style="opacity: 0.5;">
+                                                        @elseif (date('Y-m-d') >= $data->tarikh_buka_borang && date('Y-m-d') <= $tarikh_tutup_terkini)
+                                                            <a href="{{ route('user.shuttle-3-formC.KKB', [8, $year]) }}" data-toggle="tooltip" data-placement="bottom" title="Borang belum diisi">
+                                                                <img src="{{ asset('circle_times.png') }}" height='30px' alt="" style="font-size: 15pt;"></i></a>
                                                         @else
-                                                            <img src="{{ asset('calendar.png') }}" height='30px' alt=""
-                                                                data-toggle="tooltip" data-placement="bottom"
-                                                                title="Borang ditutup" aria-hidden="false"
-                                                                style="color: black; font-size: 20pt;">
+                                                            <img src="{{ asset('calendar.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang ditutup" aria-hidden="false" style="color: black; font-size: 20pt;">
                                                         @endif
                                                     @elseif($data->status == 'Sedang Diproses' && $data->bulan == '8')
                                                         <a
@@ -692,17 +713,15 @@
                                                             $delay = '+' . $buffer->delay . ' month';
                                                             $tarikh_tutup_terkini = date('Y-m-d', strtotime($delay, $time));
                                                         @endphp
-                                                        @if (date('Y-m-d') >= $data->tarikh_buka_borang && date('Y-m-d') <= $tarikh_tutup_terkini)
-                                                            <a href="{{ route('user.shuttle-3-formC.KKB', $id = 9) }}"
-                                                                data-toggle="tooltip" data-placement="bottom"
-                                                                title="Borang belum diisi">
-                                                                <img src="{{ asset('circle_times.png') }}" height='30px'
-                                                                    alt="" style="font-size: 15pt;"></i></a>
+                                                        @if (!$canFillMonth[9])
+                                                            <img src="{{ asset('circle_times.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Pendaftaran selepas bulan ini" style="opacity: 0.3;">
+                                                        @elseif (!$previousMonthFilled[9])
+                                                            <img src="{{ asset('circle_times.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Sila isi bulan sebelumnya terlebih dahulu" style="opacity: 0.5;">
+                                                        @elseif (date('Y-m-d') >= $data->tarikh_buka_borang && date('Y-m-d') <= $tarikh_tutup_terkini)
+                                                            <a href="{{ route('user.shuttle-3-formC.KKB', [9, $year]) }}" data-toggle="tooltip" data-placement="bottom" title="Borang belum diisi">
+                                                                <img src="{{ asset('circle_times.png') }}" height='30px' alt="" style="font-size: 15pt;"></i></a>
                                                         @else
-                                                            <img src="{{ asset('calendar.png') }}" height='30px' alt=""
-                                                                data-toggle="tooltip" data-placement="bottom"
-                                                                title="Borang ditutup" aria-hidden="false"
-                                                                style="color: black; font-size: 20pt;">
+                                                            <img src="{{ asset('calendar.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang ditutup" aria-hidden="false" style="color: black; font-size: 20pt;">
                                                         @endif
                                                     @elseif($data->status == 'Sedang Diproses' && $data->bulan == '9')
                                                         <a
@@ -762,17 +781,15 @@
                                                             $delay = '+' . $buffer->delay . ' month';
                                                             $tarikh_tutup_terkini = date('Y-m-d', strtotime($delay, $time));
                                                         @endphp
-                                                        @if (date('Y-m-d') >= $data->tarikh_buka_borang && date('Y-m-d') <= $tarikh_tutup_terkini)
-                                                            <a href="{{ route('user.shuttle-3-formC.KKB', $id = 10) }}"
-                                                                data-toggle="tooltip" data-placement="bottom"
-                                                                title="Borang belum diisi">
-                                                                <img src="{{ asset('circle_times.png') }}" height='30px'
-                                                                    alt="" style="font-size: 15pt;"></i></a>
+                                                        @if (!$canFillMonth[10])
+                                                            <img src="{{ asset('circle_times.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Pendaftaran selepas bulan ini" style="opacity: 0.3;">
+                                                        @elseif (!$previousMonthFilled[10])
+                                                            <img src="{{ asset('circle_times.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Sila isi bulan sebelumnya terlebih dahulu" style="opacity: 0.5;">
+                                                        @elseif (date('Y-m-d') >= $data->tarikh_buka_borang && date('Y-m-d') <= $tarikh_tutup_terkini)
+                                                            <a href="{{ route('user.shuttle-3-formC.KKB', [10, $year]) }}" data-toggle="tooltip" data-placement="bottom" title="Borang belum diisi">
+                                                                <img src="{{ asset('circle_times.png') }}" height='30px' alt="" style="font-size: 15pt;"></i></a>
                                                         @else
-                                                            <img src="{{ asset('calendar.png') }}" height='30px' alt=""
-                                                                data-toggle="tooltip" data-placement="bottom"
-                                                                title="Borang ditutup" aria-hidden="false"
-                                                                style="color: black; font-size: 20pt;">
+                                                            <img src="{{ asset('calendar.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang ditutup" aria-hidden="false" style="color: black; font-size: 20pt;">
                                                         @endif
                                                     @elseif($data->status == 'Sedang Diproses' && $data->bulan == '10')
                                                         <a
@@ -832,17 +849,15 @@
                                                             $delay = '+' . $buffer->delay . ' month';
                                                             $tarikh_tutup_terkini = date('Y-m-d', strtotime($delay, $time));
                                                         @endphp
-                                                        @if (date('Y-m-d') >= $data->tarikh_buka_borang && date('Y-m-d') <= $tarikh_tutup_terkini)
-                                                            <a href="{{ route('user.shuttle-3-formC.KKB', $id = 11) }}"
-                                                                data-toggle="tooltip" data-placement="bottom"
-                                                                title="Borang belum diisi">
-                                                                <img src="{{ asset('circle_times.png') }}" height='30px'
-                                                                    alt="" style="font-size: 15pt;"></i></a>
+                                                        @if (!$canFillMonth[11])
+                                                            <img src="{{ asset('circle_times.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Pendaftaran selepas bulan ini" style="opacity: 0.3;">
+                                                        @elseif (!$previousMonthFilled[11])
+                                                            <img src="{{ asset('circle_times.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Sila isi bulan sebelumnya terlebih dahulu" style="opacity: 0.5;">
+                                                        @elseif (date('Y-m-d') >= $data->tarikh_buka_borang && date('Y-m-d') <= $tarikh_tutup_terkini)
+                                                            <a href="{{ route('user.shuttle-3-formC.KKB', [11, $year]) }}" data-toggle="tooltip" data-placement="bottom" title="Borang belum diisi">
+                                                                <img src="{{ asset('circle_times.png') }}" height='30px' alt="" style="font-size: 15pt;"></i></a>
                                                         @else
-                                                            <img src="{{ asset('calendar.png') }}" height='30px' alt=""
-                                                                data-toggle="tooltip" data-placement="bottom"
-                                                                title="Borang ditutup" aria-hidden="false"
-                                                                style="color: black; font-size: 20pt;">
+                                                            <img src="{{ asset('calendar.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang ditutup" aria-hidden="false" style="color: black; font-size: 20pt;">
                                                         @endif
                                                     @elseif($data->status == 'Sedang Diproses' && $data->bulan == '11')
                                                         <a
@@ -902,17 +917,15 @@
                                                             $delay = '+' . $buffer->delay . ' month';
                                                             $tarikh_tutup_terkini = date('Y-m-d', strtotime($delay, $time));
                                                         @endphp
-                                                        @if (date('Y-m-d') >= $data->tarikh_buka_borang && date('Y-m-d') <= $tarikh_tutup_terkini)
-                                                            <a href="{{ route('user.shuttle-3-formC.KKB', $id = 12) }}"
-                                                                data-toggle="tooltip" data-placement="bottom"
-                                                                title="Borang belum diisi">
-                                                                <img src="{{ asset('circle_times.png') }}" height='30px'
-                                                                    alt="" style="font-size: 15pt;"></i></a>
+                                                        @if (!$canFillMonth[12])
+                                                            <img src="{{ asset('circle_times.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Pendaftaran selepas bulan ini" style="opacity: 0.3;">
+                                                        @elseif (!$previousMonthFilled[12])
+                                                            <img src="{{ asset('circle_times.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Sila isi bulan sebelumnya terlebih dahulu" style="opacity: 0.5;">
+                                                        @elseif (date('Y-m-d') >= $data->tarikh_buka_borang && date('Y-m-d') <= $tarikh_tutup_terkini)
+                                                            <a href="{{ route('user.shuttle-3-formC.KKB', [12, $year]) }}" data-toggle="tooltip" data-placement="bottom" title="Borang belum diisi">
+                                                                <img src="{{ asset('circle_times.png') }}" height='30px' alt="" style="font-size: 15pt;"></i></a>
                                                         @else
-                                                            <img src="{{ asset('calendar.png') }}" height='30px' alt=""
-                                                                data-toggle="tooltip" data-placement="bottom"
-                                                                title="Borang ditutup" aria-hidden="false"
-                                                                style="color: black; font-size: 20pt;">
+                                                            <img src="{{ asset('calendar.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang ditutup" aria-hidden="false" style="color: black; font-size: 20pt;">
                                                         @endif
                                                     @elseif($data->status == 'Sedang Diproses' && $data->bulan == '12')
                                                         <a

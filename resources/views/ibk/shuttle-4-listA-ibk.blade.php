@@ -144,7 +144,7 @@
                                                         <a href="" class="mr-1 btn btn-dark disabled"><i
                                                                 class="fas fa-pencil-alt"></i></a>
                                                     @elseif($data->status =="Tidak Lengkap")
-                                                        <a href="{{ route('user.shuttle-4-formA') }}">
+                                                        <a href="{{ url('/pengguna/shuttle-4-formA/' . $year) }}">
                                                         <img src="{{ asset('pencil.png') }}" height='30px' alt="" style="font-size: 15pt;"
                                                         data-toggle="tooltip" data-placement="bottom"
                                                         title="Borang Tidak Lengkap"></i></a>

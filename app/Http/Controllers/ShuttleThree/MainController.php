@@ -1550,27 +1550,50 @@ class MainController extends Controller
         return redirect()->route('shuttle-4-listE', date('Y'))->with('success', 'Borang Berjaya Diperaku.');
     }
 
-    public function editFormA()
+    public function editFormA($year = null)
     {
+        // Use current year if no year provided
+        $year = $year ?? date("Y");
+        
+        // Debug: Check what year is being used
+        \Log::info('===== FormA Controller =====');
+        \Log::info('Year parameter received: ' . json_encode($year));
+        \Log::info('Request URL: ' . request()->fullUrl());
+        \Log::info('Route params: ' . json_encode(request()->route()->parameters()));
+        
         //form a back button checker
-        $form_a_checker = FormA::where('shuttle_id', auth()->user()->shuttle->id)->where('tahun', date("Y"))->first();
-        if ($form_a_checker->status == "Sedang Diproses") {
+        $form_a_checker = FormA::where('shuttle_id', auth()->user()->shuttle->id)->where('tahun', $year)->first();
+        if ($form_a_checker && $form_a_checker->status == "Sedang Diproses") {
             return redirect()->back()->with('success', 'Borang A telah dihantar semula');
         }
 
         $user = auth()->user();
         $shuttle = Shuttle::where('id', $user->shuttle_id)->first();
 
-        $forma_count = FormA::where('status', 'Tidak Lengkap')->where('tahun', date('Y'))->where('shuttle_id', $shuttle->id)->count();
-        $form_a = NULL;
-        if ($forma_count > 0) {
-            $form_a = FormA::where('status', 'Tidak Lengkap')->where('tahun', date('Y'))->first();
+        // First check if ANY Form A exists for this year and shuttle (regardless of status)
+        $form_a = FormA::where('shuttle_id', $shuttle->id)->where('tahun', $year)->first();
+        
+        // Debug logging
+        \Log::info('Shuttle-3 FormA Request - Year Parameter: ' . $year . ', Shuttle ID: ' . $shuttle->id);
+        
+        // If no form found for this year, create it automatically
+        if (!$form_a) {
+            $form_a = FormA::create([
+                'shuttle_id' => $shuttle->id,
+                'status' => 'Tidak Diisi',
+                'tahun' => $year,
+            ]);
+            \Log::info('Created new FormA - ID: ' . $form_a->id . ', Year: ' . $form_a->tahun . ', Status: ' . $form_a->status);
+        } else {
+            \Log::info('Found existing FormA - ID: ' . $form_a->id . ', Year: ' . $form_a->tahun . ', Status: ' . $form_a->status);
         }
-
-        else{
-            $form_a = FormA::where('status','Tidak Diisi')->where('tahun',date('Y'))->first();
+        
+        // Double check the year matches
+        if ($form_a->tahun != $year) {
+            \Log::error('YEAR MISMATCH! Expected: ' . $year . ', Got: ' . $form_a->tahun . ' (FormA ID: ' . $form_a->id . ')');
         }
-
+        
+        $forma_count = ($form_a->status == 'Tidak Lengkap') ? 1 : 0;
 
         // dd($form_a);
         $taraf_sah_syarikat = ModelsTarafSyarikat::get();
@@ -1587,11 +1610,11 @@ class MainController extends Controller
 
         $breadcrumbs    = [
             ['link' => route('home-user'), 'name' => "Laman Utama"],
-            ['link' => route('user.shuttle-3-senaraiA', date('Y')), 'name' => "Kemasukan Maklumat"],
-            ['link' => route('user.shuttle-3-formA'), 'name' => "Borang 3A"],
+            ['link' => route('user.shuttle-3-senaraiA', $year), 'name' => "Kemasukan Maklumat"],
+            ['link' => route('user.shuttle-3-formA', $year), 'name' => "Borang 3A"],
         ];
 
-        $kembali = route('user.shuttle-3-senaraiA', date('Y'));
+        $kembali = route('user.shuttle-3-senaraiA', $year);
 
 
         $returnArr = [
@@ -1609,15 +1632,19 @@ class MainController extends Controller
 
         $keterangan= HakMilik::where('id',$request->status_hak_milik)->first('keterangan');
 
-        $form_a_checker = FormA::where('shuttle_id', auth()->user()->shuttle->id)->where('tahun', date("Y"))->first();
-        if ($form_a_checker->status == "Sedang Diproses") {
+        // Use the tahun from the request instead of current year
+        $tahun = $request->input('tahun', date("Y"));
+        
+        $form_a_checker = FormA::where('shuttle_id', auth()->user()->shuttle->id)->where('tahun', $tahun)->first();
+        if ($form_a_checker && $form_a_checker->status == "Sedang Diproses") {
             return redirect('/pengguna/halaman-utama')->with('error', 'Borang A telah dihantar');
         }
 
         $this->validator($request->all())->validate();
         $shuttle = Shuttle::where('id', $id)->first();
 
-        $formA_update = FormA::where('shuttle_id', $shuttle->id)->whereYear('created_at', date("Y"))->first();
+        // Use tahun field instead of created_at year
+        $formA_update = FormA::where('shuttle_id', $shuttle->id)->where('tahun', $tahun)->first();
         // dd($formA_update);
 
         $formA_update->status = 'Sedang Diproses';

@@ -2038,6 +2038,56 @@ $pengumumantest=PengumumanIpjpsm::where('negeri',$user_pengumuman->negeri)->firs
 
         $buffer = Buffer::where('shuttle', auth()->user()->shuttle->shuttle_type)->where('borang', 'C')->first();
 
+        // Get registration date and calculate allowed months
+        $registrationDate = $shuttle->created_at;
+        $registrationMonth = date('n', strtotime($registrationDate)); // 1-12
+        $registrationYear = date('Y', strtotime($registrationDate));
+        $currentYear = date('Y');
+        
+        // Determine which months can be filled based on registration
+        $canFillMonth = [];
+        for ($month = 1; $month <= 12; $month++) {
+            if ($year > $registrationYear) {
+                // Future years: can fill all months
+                $canFillMonth[$month] = true;
+            } elseif ($year == $registrationYear) {
+                // Registration year: can only fill from registration month onwards
+                $canFillMonth[$month] = ($month >= $registrationMonth);
+            } else {
+                // Years before registration: cannot fill
+                $canFillMonth[$month] = false;
+            }
+        }
+
+        // For current year, check if previous month is filled (sequential validation)
+        $previousMonthFilled = [];
+        if ($year == $currentYear) {
+            for ($month = 1; $month <= 12; $month++) {
+                if ($month == 1) {
+                    // January of current year: check December of previous year
+                    $prevYearDec = FormC::where('shuttle_id', $shuttle->id)
+                        ->where('bulan', 12)
+                        ->where('tahun', $year - 1)
+                        ->whereIn('status', ['Sedang Diproses', 'Dihantar ke IPJPSM', 'Lulus'])
+                        ->exists();
+                    $previousMonthFilled[$month] = $prevYearDec;
+                } else {
+                    // Other months: check previous month in same year
+                    $prevMonth = FormC::where('shuttle_id', $shuttle->id)
+                        ->where('bulan', $month - 1)
+                        ->where('tahun', $year)
+                        ->whereIn('status', ['Sedang Diproses', 'Dihantar ke IPJPSM', 'Lulus'])
+                        ->exists();
+                    $previousMonthFilled[$month] = $prevMonth;
+                }
+            }
+        } else {
+            // Previous years: no sequential requirement
+            for ($month = 1; $month <= 12; $month++) {
+                $previousMonthFilled[$month] = true; // Always allow
+            }
+        }
+
         $breadcrumbs    = [
             ['link' => route('home-user'), 'name' => "Laman Utama"],
             ['link' => route('user.shuttle-3-senaraiC', date('Y')), 'name' => "Kemasukan Maklumat"],
@@ -2050,7 +2100,7 @@ $pengumumantest=PengumumanIpjpsm::where('negeri',$user_pengumuman->negeri)->firs
             'kembali'     => $kembali,
         ];
 
-        return view('ibk.shuttle-3-senaraiC-ibk', compact('returnArr', 'list', 'shuttle', 'buffer', 'year', 'year_list'));
+        return view('ibk.shuttle-3-senaraiC-ibk', compact('returnArr', 'list', 'shuttle', 'buffer', 'year', 'year_list', 'canFillMonth', 'previousMonthFilled'));
     }
 
     public function shuttle_3_senaraiD_ibk($year)

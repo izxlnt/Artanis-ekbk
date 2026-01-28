@@ -109,22 +109,28 @@ class MainController extends Controller
     }
 
 
-    public function shuttle_4_formA()
+    public function shuttle_4_formA($year = null)
     {
+        // Use current year if no year provided
+        $year = $year ?? date("Y");
+        
         $user = auth()->user();
         $shuttle = Shuttle::where('id', $user->shuttle_id)->first();
 
-        $forma_count = FormA::where('status', 'Tidak Lengkap')->where('shuttle_id', $user->shuttle_id)->where('tahun', date('Y'))->count();
-        // dd($forma_count);
-
-        $form_a = NULL;
-        if($forma_count > 0 ){
-            $form_a = FormA::where('status','Tidak Lengkap')->where('shuttle_id', $user->shuttle_id)->where('tahun',date('Y'))->first();
+        // First check if ANY Form A exists for this year and shuttle (regardless of status)
+        $form_a = FormA::where('shuttle_id', $user->shuttle_id)->where('tahun', $year)->first();
+        
+        // If no form found for this year, create it automatically
+        if (!$form_a) {
+            $form_a = FormA::create([
+                'shuttle_id' => $user->shuttle_id,
+                'status' => 'Tidak Diisi',
+                'tahun' => $year,
+            ]);
         }
-
-        else{
-            $form_a = FormA::where('status','Tidak Diisi')->where('tahun',date('Y'))->first();
-        }
+        
+        $forma_count = ($form_a->status == 'Tidak Lengkap') ? 1 : 0;
+        
         $taraf_sah_syarikat = TarafSyarikat::get();
         $hak_milik = HakMilik::get();
         $warganegara = Warganegara::get();
@@ -137,11 +143,11 @@ class MainController extends Controller
 
         $breadcrumbs    = [
             ['link' => route('home-user'), 'name' => "Laman Utama"],
-            ['link' => route('user.shuttle-4-senaraiA', date('Y')), 'name' => "Kemasukan Maklumat"],
-            ['link' => route('user.shuttle-4-formA'), 'name' => "Borang 4A"],
+            ['link' => route('user.shuttle-4-senaraiA', $year), 'name' => "Kemasukan Maklumat"],
+            ['link' => route('user.shuttle-4-formA', $year), 'name' => "Borang 4A"],
         ];
 
-        $kembali = route('user.shuttle-4-senaraiA', date('Y'));
+        $kembali = route('user.shuttle-4-senaraiA', $year);
 
 
         $returnArr = [

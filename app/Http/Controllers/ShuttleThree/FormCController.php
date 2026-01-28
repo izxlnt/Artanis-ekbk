@@ -28,6 +28,22 @@ class FormCController extends Controller
             $year = date('Y');
         }
 
+        // Check registration date - user cannot fill months before registration
+        $shuttle = Shuttle::where('id', auth()->user()->shuttle_id)->first();
+        $registrationDate = $shuttle->created_at;
+        $registrationMonth = date('n', strtotime($registrationDate)); // 1-12
+        $registrationYear = date('Y', strtotime($registrationDate));
+        
+        if ($year < $registrationYear) {
+            return redirect()->route('user.shuttle-3-senaraiC', $year)
+                ->with('error', 'Tidak boleh mengisi borang untuk tahun sebelum pendaftaran.');
+        }
+        
+        if ($year == $registrationYear && $bulan_id < $registrationMonth) {
+            return redirect()->route('user.shuttle-3-senaraiC', $year)
+                ->with('error', 'Tidak boleh mengisi borang untuk bulan sebelum pendaftaran.');
+        }
+
         $shuttle_type = auth()->user()->shuttle->shuttle_type;
         $recovery_rate = RecoveryRate::where('shuttle_type', $shuttle_type)->first();
         $min_recovery_rate = $recovery_rate->min_recovery_rate;
@@ -42,16 +58,82 @@ class FormCController extends Controller
         $kilang_info = Shuttle::where('id', auth()->user()->shuttle_id)->first();
         $formc = ModelsFormC::where('shuttle_id', auth()->user()->shuttle_id)->where('bulan', $bulan_id)->whereYear('created_at', $year)->first();
 
-        if ($bulan_id != 1) {
-            $lastmonth = $bulan_id - 1; //create
-            $lastMonthformc = ModelsFormC::where('shuttle_id', auth()->user()->shuttle_id)->where('bulan', $lastmonth)->whereYear('created_at', $year)->first();
-
-            $kemasukan_bahans_lastmonth = KemasukanBahan::with('spesis_id')
-                ->whereHas('spesis_id', function ($q) use ($kayu_id) {
-                    $q->where('kumpulan_kayu_id', $kayu_id);
-                })
-                ->where('shuttle_id', auth()->user()->shuttle_id)->where('formcs_id', $lastMonthformc->id)->get();
+        // Create Form C if it doesn't exist
+        if (!$formc) {
+            $formc = new ModelsFormC();
+            $formc->shuttle_id = auth()->user()->shuttle_id;
+            $formc->bulan = $bulan_id;
+            $formc->tahun = $year;
+            $formc->status = 'Tidak Diisi';
+            $formc->created_at = $year . '-' . str_pad($bulan_id, 2, '0', STR_PAD_LEFT) . '-01';
+            $formc->save();
         }
+
+        $currentYear = date('Y');
+        
+        // Check if previous month needs to be filled
+        if ($year == $currentYear) {
+            // Current year: Always require previous month (including Jan requiring Dec of prev year)
+            if ($bulan_id == 1) {
+                // January of current year requires December of previous year
+                $lastMonthformc = ModelsFormC::where('shuttle_id', auth()->user()->shuttle_id)
+                    ->where('bulan', 12)
+                    ->whereYear('created_at', $year - 1)
+                    ->where('status', '!=', 'Tidak Diisi')
+                    ->first();
+                
+                if (!$lastMonthformc) {
+                    return redirect()->back()->with('error', 'Sila isi Borang C Disember tahun lepas terlebih dahulu.');
+                }
+                
+                $kemasukan_bahans_lastmonth = KemasukanBahan::with('spesis_id')
+                    ->whereHas('spesis_id', function ($q) use ($kayu_id) {
+                        $q->where('kumpulan_kayu_id', $kayu_id);
+                    })
+                    ->where('shuttle_id', auth()->user()->shuttle_id)
+                    ->where('formcs_id', $lastMonthformc->id)
+                    ->get();
+            } else {
+                // Feb-Dec of current year require previous month
+                $lastmonth = $bulan_id - 1;
+                $lastMonthformc = ModelsFormC::where('shuttle_id', auth()->user()->shuttle_id)
+                    ->where('bulan', $lastmonth)
+                    ->whereYear('created_at', $year)
+                    ->where('status', '!=', 'Tidak Diisi')
+                    ->first();
+                
+                if (!$lastMonthformc) {
+                    return redirect()->back()->with('error', 'Sila isi Borang C bulan sebelum ini terlebih dahulu.');
+                }
+                
+                $kemasukan_bahans_lastmonth = KemasukanBahan::with('spesis_id')
+                    ->whereHas('spesis_id', function ($q) use ($kayu_id) {
+                        $q->where('kumpulan_kayu_id', $kayu_id);
+                    })
+                    ->where('shuttle_id', auth()->user()->shuttle_id)
+                    ->where('formcs_id', $lastMonthformc->id)
+                    ->get();
+            }
+        } elseif ($bulan_id != 1) {
+            // Previous year (not January): Try to get last month data if exists (optional)
+            $lastmonth = $bulan_id - 1;
+            $lastMonthformc = ModelsFormC::where('shuttle_id', auth()->user()->shuttle_id)
+                ->where('bulan', $lastmonth)
+                ->whereYear('created_at', $year)
+                ->first();
+            
+            if ($lastMonthformc) {
+                $kemasukan_bahans_lastmonth = KemasukanBahan::with('spesis_id')
+                    ->whereHas('spesis_id', function ($q) use ($kayu_id) {
+                        $q->where('kumpulan_kayu_id', $kayu_id);
+                    })
+                    ->where('shuttle_id', auth()->user()->shuttle_id)
+                    ->where('formcs_id', $lastMonthformc->id)
+                    ->get();
+            }
+        }
+        // else: January of previous year - no requirement for Dec of year before
+        
         $kemasukan_bahans = KemasukanBahan::with('spesis_id')->whereHas('spesis_id', function ($q) use ($kayu_id) {
             $q->where('kumpulan_kayu_id', $kayu_id);
         })->where('shuttle_id', auth()->user()->shuttle_id)->where('formcs_id', $formc->id)->get();
@@ -348,6 +430,22 @@ class FormCController extends Controller
             $year = date('Y');
         }
 
+        // Check registration date - user cannot fill months before registration
+        $shuttle = Shuttle::where('id', auth()->user()->shuttle_id)->first();
+        $registrationDate = $shuttle->created_at;
+        $registrationMonth = date('n', strtotime($registrationDate)); // 1-12
+        $registrationYear = date('Y', strtotime($registrationDate));
+        
+        if ($year < $registrationYear) {
+            return redirect()->route('user.shuttle-3-senaraiC', $year)
+                ->with('error', 'Tidak boleh mengisi borang untuk tahun sebelum pendaftaran.');
+        }
+        
+        if ($year == $registrationYear && $bulan_id < $registrationMonth) {
+            return redirect()->route('user.shuttle-3-senaraiC', $year)
+                ->with('error', 'Tidak boleh mengisi borang untuk bulan sebelum pendaftaran.');
+        }
+
         $shuttle_type = auth()->user()->shuttle->shuttle_type;
         $recovery_rate = RecoveryRate::where('shuttle_type', $shuttle_type)->first();
         $min_recovery_rate = $recovery_rate->min_recovery_rate;
@@ -362,16 +460,81 @@ class FormCController extends Controller
         $kilang_info = Shuttle::where('id', auth()->user()->shuttle_id)->first();
         $formc = ModelsFormC::where('shuttle_id', auth()->user()->shuttle_id)->where('bulan', $bulan_id)->whereYear('created_at', $year)->first();
 
-        if ($bulan_id != 1) {
-            $lastmonth = $bulan_id - 1; //create
-            $lastMonthformc = ModelsFormC::where('shuttle_id', auth()->user()->shuttle_id)->where('bulan', $lastmonth)->whereYear('created_at', $year)->first();
-
-            $kemasukan_bahans_lastmonth = KemasukanBahan::with('spesis_id')
-                ->whereHas('spesis_id', function ($q) use ($kayu_id) {
-                    $q->where('kumpulan_kayu_id', $kayu_id);
-                })
-                ->where('shuttle_id', auth()->user()->shuttle_id)->where('formcs_id', $lastMonthformc->id)->get();
+        // Create Form C if it doesn't exist
+        if (!$formc) {
+            $formc = new ModelsFormC();
+            $formc->shuttle_id = auth()->user()->shuttle_id;
+            $formc->bulan = $bulan_id;
+            $formc->tahun = $year;
+            $formc->status = 'Tidak Diisi';
+            $formc->created_at = $year . '-' . str_pad($bulan_id, 2, '0', STR_PAD_LEFT) . '-01';
+            $formc->save();
         }
+
+        $currentYear = date('Y');
+        
+        // Check if previous month needs to be filled
+        if ($year == $currentYear) {
+            // Current year: Always require previous month (including Jan requiring Dec of prev year)
+            if ($bulan_id == 1) {
+                // January of current year requires December of previous year
+                $lastMonthformc = ModelsFormC::where('shuttle_id', auth()->user()->shuttle_id)
+                    ->where('bulan', 12)
+                    ->whereYear('created_at', $year - 1)
+                    ->where('status', '!=', 'Tidak Diisi')
+                    ->first();
+                
+                if (!$lastMonthformc) {
+                    return redirect()->back()->with('error', 'Sila isi Borang C Disember tahun lepas terlebih dahulu.');
+                }
+                
+                $kemasukan_bahans_lastmonth = KemasukanBahan::with('spesis_id')
+                    ->whereHas('spesis_id', function ($q) use ($kayu_id) {
+                        $q->where('kumpulan_kayu_id', $kayu_id);
+                    })
+                    ->where('shuttle_id', auth()->user()->shuttle_id)
+                    ->where('formcs_id', $lastMonthformc->id)
+                    ->get();
+            } else {
+                // Feb-Dec of current year require previous month
+                $lastmonth = $bulan_id - 1;
+                $lastMonthformc = ModelsFormC::where('shuttle_id', auth()->user()->shuttle_id)
+                    ->where('bulan', $lastmonth)
+                    ->whereYear('created_at', $year)
+                    ->where('status', '!=', 'Tidak Diisi')
+                    ->first();
+                
+                if (!$lastMonthformc) {
+                    return redirect()->back()->with('error', 'Sila isi Borang C bulan sebelum ini terlebih dahulu.');
+                }
+                
+                $kemasukan_bahans_lastmonth = KemasukanBahan::with('spesis_id')
+                    ->whereHas('spesis_id', function ($q) use ($kayu_id) {
+                        $q->where('kumpulan_kayu_id', $kayu_id);
+                    })
+                    ->where('shuttle_id', auth()->user()->shuttle_id)
+                    ->where('formcs_id', $lastMonthformc->id)
+                    ->get();
+            }
+        } elseif ($bulan_id != 1) {
+            // Previous year (not January): Try to get last month data if exists (optional)
+            $lastmonth = $bulan_id - 1;
+            $lastMonthformc = ModelsFormC::where('shuttle_id', auth()->user()->shuttle_id)
+                ->where('bulan', $lastmonth)
+                ->whereYear('created_at', $year)
+                ->first();
+
+            if ($lastMonthformc) {
+                $kemasukan_bahans_lastmonth = KemasukanBahan::with('spesis_id')
+                    ->whereHas('spesis_id', function ($q) use ($kayu_id) {
+                        $q->where('kumpulan_kayu_id', $kayu_id);
+                    })
+                    ->where('shuttle_id', auth()->user()->shuttle_id)
+                    ->where('formcs_id', $lastMonthformc->id)
+                    ->get();
+            }
+        }
+
         $kemasukan_bahans = KemasukanBahan::with('spesis_id')->whereHas('spesis_id', function ($q) use ($kayu_id) {
             $q->where('kumpulan_kayu_id', $kayu_id);
         })->where('shuttle_id', auth()->user()->shuttle_id)->where('formcs_id', $formc->id)->get();
@@ -658,8 +821,29 @@ class FormCController extends Controller
 
 
     // KKR PAGE 3
-    public function shuttle_3_formCKKR($bulan_id)
+    public function shuttle_3_formCKKR($bulan_id, $year = null)
     {
+        // Default to current year if not provided
+        if (!$year) {
+            $year = date('Y');
+        }
+        
+        // Check registration date - user cannot fill months before registration
+        $shuttle = Shuttle::where('id', auth()->user()->shuttle_id)->first();
+        $registrationDate = $shuttle->created_at;
+        $registrationMonth = date('n', strtotime($registrationDate)); // 1-12
+        $registrationYear = date('Y', strtotime($registrationDate));
+        
+        if ($year < $registrationYear) {
+            return redirect()->route('user.shuttle-3-senaraiC', $year)
+                ->with('error', 'Tidak boleh mengisi borang untuk tahun sebelum pendaftaran.');
+        }
+        
+        if ($year == $registrationYear && $bulan_id < $registrationMonth) {
+            return redirect()->route('user.shuttle-3-senaraiC', $year)
+                ->with('error', 'Tidak boleh mengisi borang untuk bulan sebelum pendaftaran.');
+        }
+        
         $shuttle_type = auth()->user()->shuttle->shuttle_type;
         $recovery_rate = RecoveryRate::where('shuttle_type', $shuttle_type)->first();
         $min_recovery_rate = $recovery_rate->min_recovery_rate;
@@ -672,18 +856,83 @@ class FormCController extends Controller
         $kumpulan_kayu = KumpulanKayu::where('id', $kayu_id)->get();
 
         $kilang_info = Shuttle::where('id', auth()->user()->shuttle_id)->first();
-        $formc = ModelsFormC::where('shuttle_id', auth()->user()->shuttle_id)->where('bulan', $bulan_id)->whereYear('created_at', date("Y"))->first();
+        $formc = ModelsFormC::where('shuttle_id', auth()->user()->shuttle_id)->where('bulan', $bulan_id)->whereYear('created_at', $year)->first();
 
-        if ($bulan_id != 1) {
-            $lastmonth = $bulan_id - 1; //create
-            $lastMonthformc = ModelsFormC::where('shuttle_id', auth()->user()->shuttle_id)->where('bulan', $lastmonth)->whereYear('created_at', date("Y"))->first();
-
-            $kemasukan_bahans_lastmonth = KemasukanBahan::with('spesis_id')
-                ->whereHas('spesis_id', function ($q) use ($kayu_id) {
-                    $q->where('kumpulan_kayu_id', $kayu_id);
-                })
-                ->where('shuttle_id', auth()->user()->shuttle_id)->where('formcs_id', $lastMonthformc->id)->get();
+        // Create Form C if it doesn't exist
+        if (!$formc) {
+            $formc = new ModelsFormC();
+            $formc->shuttle_id = auth()->user()->shuttle_id;
+            $formc->bulan = $bulan_id;
+            $formc->tahun = $year;
+            $formc->status = 'Tidak Diisi';
+            $formc->created_at = $year . '-' . str_pad($bulan_id, 2, '0', STR_PAD_LEFT) . '-01';
+            $formc->save();
         }
+
+        $currentYear = date('Y');
+        
+        // Check if previous month needs to be filled
+        if ($year == $currentYear) {
+            // Current year: Always require previous month
+            if ($bulan_id == 1) {
+                // January requires December of previous year
+                $lastMonthformc = ModelsFormC::where('shuttle_id', auth()->user()->shuttle_id)
+                    ->where('bulan', 12)
+                    ->whereYear('created_at', $year - 1)
+                    ->where('status', '!=', 'Tidak Diisi')
+                    ->first();
+                
+                if (!$lastMonthformc) {
+                    return redirect()->back()->with('error', 'Sila isi Borang C Disember tahun lepas terlebih dahulu.');
+                }
+                
+                $kemasukan_bahans_lastmonth = KemasukanBahan::with('spesis_id')
+                    ->whereHas('spesis_id', function ($q) use ($kayu_id) {
+                        $q->where('kumpulan_kayu_id', $kayu_id);
+                    })
+                    ->where('shuttle_id', auth()->user()->shuttle_id)
+                    ->where('formcs_id', $lastMonthformc->id)
+                    ->get();
+            } else {
+                // Feb-Dec require previous month
+                $lastmonth = $bulan_id - 1;
+                $lastMonthformc = ModelsFormC::where('shuttle_id', auth()->user()->shuttle_id)
+                    ->where('bulan', $lastmonth)
+                    ->whereYear('created_at', $year)
+                    ->where('status', '!=', 'Tidak Diisi')
+                    ->first();
+                
+                if (!$lastMonthformc) {
+                    return redirect()->back()->with('error', 'Sila isi Borang C bulan sebelum ini terlebih dahulu.');
+                }
+                
+                $kemasukan_bahans_lastmonth = KemasukanBahan::with('spesis_id')
+                    ->whereHas('spesis_id', function ($q) use ($kayu_id) {
+                        $q->where('kumpulan_kayu_id', $kayu_id);
+                    })
+                    ->where('shuttle_id', auth()->user()->shuttle_id)
+                    ->where('formcs_id', $lastMonthformc->id)
+                    ->get();
+            }
+        } elseif ($bulan_id != 1) {
+            // Previous year (not January): Optional last month data
+            $lastmonth = $bulan_id - 1;
+            $lastMonthformc = ModelsFormC::where('shuttle_id', auth()->user()->shuttle_id)
+                ->where('bulan', $lastmonth)
+                ->whereYear('created_at', $year)
+                ->first();
+
+            if ($lastMonthformc) {
+                $kemasukan_bahans_lastmonth = KemasukanBahan::with('spesis_id')
+                    ->whereHas('spesis_id', function ($q) use ($kayu_id) {
+                        $q->where('kumpulan_kayu_id', $kayu_id);
+                    })
+                    ->where('shuttle_id', auth()->user()->shuttle_id)
+                    ->where('formcs_id', $lastMonthformc->id)
+                    ->get();
+            }
+        }
+
         $kemasukan_bahans = KemasukanBahan::with('spesis_id')->whereHas('spesis_id', function ($q) use ($kayu_id) {
             $q->where('kumpulan_kayu_id', $kayu_id);
         })->where('shuttle_id', auth()->user()->shuttle_id)->where('formcs_id', $formc->id)->get();
@@ -970,8 +1219,29 @@ class FormCController extends Controller
     }
 
     // KAYU LEMBUT PAGE 4
-    public function shuttle_3_formCKayuLembut($bulan_id)
+    public function shuttle_3_formCKayuLembut($bulan_id, $year = null)
     {
+        // Default to current year if not provided
+        if (!$year) {
+            $year = date('Y');
+        }
+        
+        // Check registration date - user cannot fill months before registration
+        $shuttle = Shuttle::where('id', auth()->user()->shuttle_id)->first();
+        $registrationDate = $shuttle->created_at;
+        $registrationMonth = date('n', strtotime($registrationDate)); // 1-12
+        $registrationYear = date('Y', strtotime($registrationDate));
+        
+        if ($year < $registrationYear) {
+            return redirect()->route('user.shuttle-3-senaraiC', $year)
+                ->with('error', 'Tidak boleh mengisi borang untuk tahun sebelum pendaftaran.');
+        }
+        
+        if ($year == $registrationYear && $bulan_id < $registrationMonth) {
+            return redirect()->route('user.shuttle-3-senaraiC', $year)
+                ->with('error', 'Tidak boleh mengisi borang untuk bulan sebelum pendaftaran.');
+        }
+        
         $shuttle_type = auth()->user()->shuttle->shuttle_type;
         $recovery_rate = RecoveryRate::where('shuttle_type', $shuttle_type)->first();
         $min_recovery_rate = $recovery_rate->min_recovery_rate;
@@ -984,18 +1254,83 @@ class FormCController extends Controller
         $kumpulan_kayu = KumpulanKayu::where('id', $kayu_id)->get();
 
         $kilang_info = Shuttle::where('id', auth()->user()->shuttle_id)->first();
-        $formc = ModelsFormC::where('shuttle_id', auth()->user()->shuttle_id)->where('bulan', $bulan_id)->whereYear('created_at', date("Y"))->first();
+        $formc = ModelsFormC::where('shuttle_id', auth()->user()->shuttle_id)->where('bulan', $bulan_id)->whereYear('created_at', $year)->first();
 
-        if ($bulan_id != 1) {
-            $lastmonth = $bulan_id - 1; //create
-            $lastMonthformc = ModelsFormC::where('shuttle_id', auth()->user()->shuttle_id)->where('bulan', $lastmonth)->whereYear('created_at', date("Y"))->first();
-
-            $kemasukan_bahans_lastmonth = KemasukanBahan::with('spesis_id')
-                ->whereHas('spesis_id', function ($q) use ($kayu_id) {
-                    $q->where('kumpulan_kayu_id', $kayu_id);
-                })
-                ->where('shuttle_id', auth()->user()->shuttle_id)->where('formcs_id', $lastMonthformc->id)->get();
+        // Create Form C if it doesn't exist
+        if (!$formc) {
+            $formc = new ModelsFormC();
+            $formc->shuttle_id = auth()->user()->shuttle_id;
+            $formc->bulan = $bulan_id;
+            $formc->tahun = $year;
+            $formc->status = 'Tidak Diisi';
+            $formc->created_at = $year . '-' . str_pad($bulan_id, 2, '0', STR_PAD_LEFT) . '-01';
+            $formc->save();
         }
+
+        $currentYear = date('Y');
+        
+        // Check if previous month needs to be filled
+        if ($year == $currentYear) {
+            // Current year: Always require previous month
+            if ($bulan_id == 1) {
+                // January requires December of previous year
+                $lastMonthformc = ModelsFormC::where('shuttle_id', auth()->user()->shuttle_id)
+                    ->where('bulan', 12)
+                    ->whereYear('created_at', $year - 1)
+                    ->where('status', '!=', 'Tidak Diisi')
+                    ->first();
+                
+                if (!$lastMonthformc) {
+                    return redirect()->back()->with('error', 'Sila isi Borang C Disember tahun lepas terlebih dahulu.');
+                }
+                
+                $kemasukan_bahans_lastmonth = KemasukanBahan::with('spesis_id')
+                    ->whereHas('spesis_id', function ($q) use ($kayu_id) {
+                        $q->where('kumpulan_kayu_id', $kayu_id);
+                    })
+                    ->where('shuttle_id', auth()->user()->shuttle_id)
+                    ->where('formcs_id', $lastMonthformc->id)
+                    ->get();
+            } else {
+                // Feb-Dec require previous month
+                $lastmonth = $bulan_id - 1;
+                $lastMonthformc = ModelsFormC::where('shuttle_id', auth()->user()->shuttle_id)
+                    ->where('bulan', $lastmonth)
+                    ->whereYear('created_at', $year)
+                    ->where('status', '!=', 'Tidak Diisi')
+                    ->first();
+                
+                if (!$lastMonthformc) {
+                    return redirect()->back()->with('error', 'Sila isi Borang C bulan sebelum ini terlebih dahulu.');
+                }
+                
+                $kemasukan_bahans_lastmonth = KemasukanBahan::with('spesis_id')
+                    ->whereHas('spesis_id', function ($q) use ($kayu_id) {
+                        $q->where('kumpulan_kayu_id', $kayu_id);
+                    })
+                    ->where('shuttle_id', auth()->user()->shuttle_id)
+                    ->where('formcs_id', $lastMonthformc->id)
+                    ->get();
+            }
+        } elseif ($bulan_id != 1) {
+            // Previous year (not January): Optional last month data
+            $lastmonth = $bulan_id - 1;
+            $lastMonthformc = ModelsFormC::where('shuttle_id', auth()->user()->shuttle_id)
+                ->where('bulan', $lastmonth)
+                ->whereYear('created_at', $year)
+                ->first();
+
+            if ($lastMonthformc) {
+                $kemasukan_bahans_lastmonth = KemasukanBahan::with('spesis_id')
+                    ->whereHas('spesis_id', function ($q) use ($kayu_id) {
+                        $q->where('kumpulan_kayu_id', $kayu_id);
+                    })
+                    ->where('shuttle_id', auth()->user()->shuttle_id)
+                    ->where('formcs_id', $lastMonthformc->id)
+                    ->get();
+            }
+        }
+
         $kemasukan_bahans = KemasukanBahan::with('spesis_id')->whereHas('spesis_id', function ($q) use ($kayu_id) {
             $q->where('kumpulan_kayu_id', $kayu_id);
         })->where('shuttle_id', auth()->user()->shuttle_id)->where('formcs_id', $formc->id)->get();
@@ -1280,8 +1615,29 @@ class FormCController extends Controller
     }
 
     // LAIN-LAIN PAGE 5
-    public function shuttle_3_formCLainLain($bulan_id)
+    public function shuttle_3_formCLainLain($bulan_id, $year = null)
     {
+        // Default to current year if not provided
+        if (!$year) {
+            $year = date('Y');
+        }
+        
+        // Check registration date - user cannot fill months before registration
+        $shuttle = Shuttle::where('id', auth()->user()->shuttle_id)->first();
+        $registrationDate = $shuttle->created_at;
+        $registrationMonth = date('n', strtotime($registrationDate)); // 1-12
+        $registrationYear = date('Y', strtotime($registrationDate));
+        
+        if ($year < $registrationYear) {
+            return redirect()->route('user.shuttle-3-senaraiC', $year)
+                ->with('error', 'Tidak boleh mengisi borang untuk tahun sebelum pendaftaran.');
+        }
+        
+        if ($year == $registrationYear && $bulan_id < $registrationMonth) {
+            return redirect()->route('user.shuttle-3-senaraiC', $year)
+                ->with('error', 'Tidak boleh mengisi borang untuk bulan sebelum pendaftaran.');
+        }
+        
         $shuttle_type = auth()->user()->shuttle->shuttle_type;
         $recovery_rate = RecoveryRate::where('shuttle_type', $shuttle_type)->first();
         $min_recovery_rate = $recovery_rate->min_recovery_rate;
@@ -1294,17 +1650,81 @@ class FormCController extends Controller
         $kumpulan_kayu = KumpulanKayu::where('id', $kayu_id)->get();
 
         $kilang_info = Shuttle::where('id', auth()->user()->shuttle_id)->first();
-        $formc = ModelsFormC::where('shuttle_id', auth()->user()->shuttle_id)->where('bulan', $bulan_id)->whereYear('created_at', date("Y"))->first();
+        $formc = ModelsFormC::where('shuttle_id', auth()->user()->shuttle_id)->where('bulan', $bulan_id)->whereYear('created_at', $year)->first();
 
-        if ($bulan_id != 1) {
-            $lastmonth = $bulan_id - 1; //create
-            $lastMonthformc = ModelsFormC::where('shuttle_id', auth()->user()->shuttle_id)->where('bulan', $lastmonth)->whereYear('created_at', date("Y"))->first();
+        // Create Form C if it doesn't exist
+        if (!$formc) {
+            $formc = new ModelsFormC();
+            $formc->shuttle_id = auth()->user()->shuttle_id;
+            $formc->bulan = $bulan_id;
+            $formc->tahun = $year;
+            $formc->status = 'Tidak Diisi';
+            $formc->created_at = $year . '-' . str_pad($bulan_id, 2, '0', STR_PAD_LEFT) . '-01';
+            $formc->save();
+        }
 
-            $kemasukan_bahans_lastmonth = KemasukanBahan::with('spesis_id')
-                ->whereHas('spesis_id', function ($q) use ($kayu_id) {
-                    $q->where('kumpulan_kayu_id', $kayu_id);
-                })
-                ->where('shuttle_id', auth()->user()->shuttle_id)->where('formcs_id', $lastMonthformc->id)->get();
+        $currentYear = date('Y');
+        
+        // Check if previous month needs to be filled
+        if ($year == $currentYear) {
+            // Current year: Always require previous month
+            if ($bulan_id == 1) {
+                // January requires December of previous year
+                $lastMonthformc = ModelsFormC::where('shuttle_id', auth()->user()->shuttle_id)
+                    ->where('bulan', 12)
+                    ->whereYear('created_at', $year - 1)
+                    ->where('status', '!=', 'Tidak Diisi')
+                    ->first();
+                
+                if (!$lastMonthformc) {
+                    return redirect()->back()->with('error', 'Sila isi Borang C Disember tahun lepas terlebih dahulu.');
+                }
+                
+                $kemasukan_bahans_lastmonth = KemasukanBahan::with('spesis_id')
+                    ->whereHas('spesis_id', function ($q) use ($kayu_id) {
+                        $q->where('kumpulan_kayu_id', $kayu_id);
+                    })
+                    ->where('shuttle_id', auth()->user()->shuttle_id)
+                    ->where('formcs_id', $lastMonthformc->id)
+                    ->get();
+            } else {
+                // Feb-Dec require previous month
+                $lastmonth = $bulan_id - 1;
+                $lastMonthformc = ModelsFormC::where('shuttle_id', auth()->user()->shuttle_id)
+                    ->where('bulan', $lastmonth)
+                    ->whereYear('created_at', $year)
+                    ->where('status', '!=', 'Tidak Diisi')
+                    ->first();
+                
+                if (!$lastMonthformc) {
+                    return redirect()->back()->with('error', 'Sila isi Borang C bulan sebelum ini terlebih dahulu.');
+                }
+                
+                $kemasukan_bahans_lastmonth = KemasukanBahan::with('spesis_id')
+                    ->whereHas('spesis_id', function ($q) use ($kayu_id) {
+                        $q->where('kumpulan_kayu_id', $kayu_id);
+                    })
+                    ->where('shuttle_id', auth()->user()->shuttle_id)
+                    ->where('formcs_id', $lastMonthformc->id)
+                    ->get();
+            }
+        } elseif ($bulan_id != 1) {
+            // Previous year (not January): Optional last month data
+            $lastmonth = $bulan_id - 1;
+            $lastMonthformc = ModelsFormC::where('shuttle_id', auth()->user()->shuttle_id)
+                ->where('bulan', $lastmonth)
+                ->whereYear('created_at', $year)
+                ->first();
+
+            if ($lastMonthformc) {
+                $kemasukan_bahans_lastmonth = KemasukanBahan::with('spesis_id')
+                    ->whereHas('spesis_id', function ($q) use ($kayu_id) {
+                        $q->where('kumpulan_kayu_id', $kayu_id);
+                    })
+                    ->where('shuttle_id', auth()->user()->shuttle_id)
+                    ->where('formcs_id', $lastMonthformc->id)
+                    ->get();
+            }
         }
 
         $kemasukan_bahans = KemasukanBahan::with('spesis_id')->whereHas('spesis_id', function ($q) use ($kayu_id) {
@@ -1757,11 +2177,13 @@ class FormCController extends Controller
             $lastmonth = $bulan_id - 1; //create
             $lastMonthformc = ModelsFormC::where('shuttle_id', auth()->user()->shuttle_id)->where('bulan', $lastmonth)->whereYear('created_at', date("Y"))->first();
 
-            $kemasukan_bahans_lastmonth = KemasukanBahan::with('spesis_id')
-                ->whereHas('spesis_id', function ($q) {
-                    $q->where('kumpulan_kayu_id', '5');
-                })
-                ->where('shuttle_id', auth()->user()->shuttle_id)->where('formcs_id', $lastMonthformc->id)->first();
+            if ($lastMonthformc) {
+                $kemasukan_bahans_lastmonth = KemasukanBahan::with('spesis_id')
+                    ->whereHas('spesis_id', function ($q) {
+                        $q->where('kumpulan_kayu_id', '5');
+                    })
+                    ->where('shuttle_id', auth()->user()->shuttle_id)->where('formcs_id', $lastMonthformc->id)->first();
+            }
         }
 
         if (isset($kemasukan_bahans_lastmonth)) {
@@ -1858,8 +2280,10 @@ class FormCController extends Controller
             $lastmonth = $bulan_id - 1; //create
             $lastMonthformc = ModelsFormC::where('shuttle_id', auth()->user()->shuttle_id)->where('bulan', $lastmonth)->whereYear('created_at', date("Y"))->first();
 
-            $kemasukan_bahans_lastmonth = KemasukanBahan::with('spesis_id')
-                ->where('shuttle_id', auth()->user()->shuttle_id)->where('formcs_id', $lastMonthformc->id)->get();
+            if ($lastMonthformc) {
+                $kemasukan_bahans_lastmonth = KemasukanBahan::with('spesis_id')
+                    ->where('shuttle_id', auth()->user()->shuttle_id)->where('formcs_id', $lastMonthformc->id)->get();
+            }
         }
 
         // dd($kemasukan_bahans_lastmonth);

@@ -148,8 +148,11 @@
                                                             data-placement="bottom"
                                                             title="Borang telah disahkan PHD"></i></a>
                                                 @elseif($list->status == 'Tidak Diisi')
-                                                    @if (date('Y-m-d') >= date('Y-m-d', strtotime($year . '-01-01')) && date('Y-m-d') <= date('Y-m-d', strtotime($year . '-12-31')))
-                                                        <a href="{{ route('user.shuttle-4-formA') }}"><img
+                                                    @php
+                                                        $isRequired = \App\Services\FormRequirementService::isFormARequired(auth()->user()->created_at, $year);
+                                                    @endphp
+                                                    @if ($isRequired)
+                                                        <a href="{{ url('/pengguna/shuttle-4-formA/' . $year) }}"><img
                                                                 src="{{ asset('circle_times.png') }}" height='30px'
                                                                 alt="" style=" font-size: 15pt;" data-toggle="tooltip"
                                                                 data-placement="bottom" title="Borang belum diisi"></i></a>
@@ -160,7 +163,7 @@
                                                             style="color: black; font-size: 20pt;"></i>
                                                     @endif
                                                 @elseif($list->status == 'Tidak Lengkap')
-                                                    <a href="{{ route('user.shuttle-4-formA') }}">
+                                                    <a href="{{ url('/pengguna/shuttle-4-formA/' . $year) }}">
                                                        <img src="{{ asset('pencil.png') }}" height='30px' alt="" style="font-size: 15pt;"
                                                             data-toggle="tooltip" data-placement="bottom"
                                                             title="Borang Tidak Lengkap"></i></a>

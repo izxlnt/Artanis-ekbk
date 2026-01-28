@@ -196,11 +196,12 @@ class FormRequirementService
         // Process all years that have requirements (2025 and 2026)
         foreach ($requirements['years_to_fill'] as $year) {
             
-            // FormA tasks - Check if exists and completed for each year
-            // Only show if year has passed OR it's current year
+            // FormA tasks - Yearly form, always show if required (no month/quarter restriction)
+            // Form A can be filled anytime during or after the year
             if (in_array($year, $requirements['forma_required'])) {
                 // Show FormA for past years OR if we're in current year
-                if ($year < $currentYear || $year == $currentYear) {
+                // Form A is available throughout the entire year
+                if ($year <= $currentYear) {
                     $formA = \App\Models\FormA::where('shuttle_id', $user->shuttle_id)
                         ->where('tahun', $year)
                         ->first();

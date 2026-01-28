@@ -84,7 +84,14 @@
                                                             </div>
                                                             <hr>
 
-
+                                                            {{-- Debug Info - Remove this later --}}
+                                                            @if(config('app.debug'))
+                                                            <div class="alert alert-warning">
+                                                                <strong>DEBUG:</strong> Form A ID: {{ $form_a->id ?? 'NULL' }}, 
+                                                                Year in DB: {{ $form_a->tahun ?? 'NULL' }}, 
+                                                                Status: {{ $form_a->status ?? 'NULL' }}
+                                                            </div>
+                                                            @endif
 
 
                                                             <div class="form-group row">
@@ -93,7 +100,7 @@
                                                                 <div class="col-sm-8">
                                                                     <input readonly type="text" class="form-control"
                                                                         name='tahun' onkeypress="return isNumberKey(event)"
-                                                                        value="{{ $kilang_info->tahun }}"
+                                                                        value="{{ $form_a->tahun }}"
                                                                         placeholder="Tahun"> </input>
                                                                     @error('tahun')
                                                                         <div class="alert alert-danger">
