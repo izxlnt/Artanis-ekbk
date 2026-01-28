@@ -221,7 +221,7 @@
                                                                             <label>Nama Kilang:</label>
                                                                             <input type="text" class="form-control"
                                                                                 style="background-color: #e0ec3754; border-color:#f0e10dbd;"
-                                                                                value="{{ $formc->nama_kilang }}"
+                                                                                value="{{ $kilang_info->nama_kilang }}"
                                                                                 readonly />
 
                                                                         </div>
@@ -230,7 +230,7 @@
                                                                             <label>No. Pendaftaran Syarikat (SSM): </label>
                                                                             <input type="text" class="form-control"
                                                                                 style="background-color: #e0ec3754; border-color:#f0e10dbd;"
-                                                                                value="{{ $formc->no_ssm }}" readonly />
+                                                                                value="{{ $kilang_info->no_ssm }}" readonly />
 
                                                                         </div>
 
@@ -239,7 +239,7 @@
                                                                             <label>No. Lesen:</label>
                                                                             <input type="text" class="form-control"
                                                                                 style="background-color: #e0ec3754; border-color:#f0e10dbd;"
-                                                                                value="{{ $formc->no_lesen }}" readonly />
+                                                                                value="{{ $kilang_info->no_lesen }}" readonly />
 
 
                                                                         </div>

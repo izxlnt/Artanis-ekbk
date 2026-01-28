@@ -2204,17 +2204,17 @@ class FormCController extends Controller
                     'spesis_id' => $data->id,
                     'baki_stok' => $baki_stok ?? 0,
                     'kayu_masuk' => 0,
-                    'jumlah_stok_kayu_balak' => 0,
+                    'jumlah_stok_kayu_balak' => $baki_stok ?? 0, // baki_stok + kayu_masuk (0)
                     'proses_masuk' => 0,
                     'proses_keluar' => 0,
                     'baki_stok_kehadapan' => $baki_stok ?? 0,
 
                     'jumlah_baki_stok' => $jumlah_baki_stok ?? 0,
                     'jumlah_kayu_masuk' => 0,
-                    'total_stok_kayu_balak' => 0,
+                    'total_stok_kayu_balak' => $jumlah_baki_stok ?? 0, // jumlah_baki_stok + jumlah_kayu_masuk (0)
                     'total_kayu_masuk_jentera' =>  0,
                     'total_kayu_keluar_jentera' => 0,
-                    'total_kayu_dibawa_bulan_hadapan' =>  0,
+                    'total_kayu_dibawa_bulan_hadapan' =>  $jumlah_baki_stok ?? 0, // Should equal jumlah_baki_stok when no processing
 
                     'jumlah_besar_baki_stok_bulan_lepas' => $jumlah_besar_baki_stok_bulan_lepas ?? 0,
                     'jumlah_besar_kemasukan_kayu_ke_kilang' => $jumlah_besar_kemasukan_kayu_ke_kilang ?? 0,
