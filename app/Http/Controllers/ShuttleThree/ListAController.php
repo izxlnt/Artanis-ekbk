@@ -47,7 +47,7 @@ class ListAController extends Controller
 
         $year_list = FormA::whereHas('shuttle', function ($q) {
             $q->where('daerah_id', auth()->user()->daerah);
-        })->distinct()->orderBy('tahun')->get('tahun');
+        })->distinct()->pluck('tahun')->unique()->sort()->values();
         $buffer = Buffer::where('borang', 'b')->where('shuttle', '3')->first();
 
         $breadcrumbs    = [

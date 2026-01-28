@@ -111,7 +111,7 @@
                                         <td>{{ $loop->iteration }}</td>
                                         <td style="text-align:left">{{ $data->name }}</td>
                                         <td>{{ $data->login_id }}</td>
-                                        <td>{{ $data->shuttle->no_lesen }}</td>
+                                        <td>{{ $data->shuttle->no_lesen ?? 'N/A' }}</td>
 
                                         @if( $data->shuttle_type == '3')
                                         <td class="txt-oflo">Kilang Papan</td>

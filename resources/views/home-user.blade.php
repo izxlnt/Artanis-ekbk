@@ -191,55 +191,76 @@
             </div>
             <div class="border card-body">
                 <div class="list-group" style="overflow:auto;height:300px;width:100%;border:1px solid #ccc">
-                        <!-- <a href="#" class="list-group-item list-group-item-action flex-column align-items-start"> -->
-                    @if($pengumuman)
+                    @if(!empty($tugasan))
+                        @foreach($tugasan as $task)
+                        <div class="list-group-item list-group-item-action flex-column align-items-start {{ $task['completed'] ? 'list-group-item-success' : 'list-group-item-warning' }}">
+                            <div class="d-flex w-100 justify-content-between align-items-center">
+                                <div>
+                                    <h6 class="mb-1" style="font-size: 16px; font-weight: bold;">
+                                        @if($task['completed'])
+                                            <i class="fas fa-check-circle text-success"></i>
+                                        @else
+                                            <i class="fas fa-exclamation-circle text-warning"></i>
+                                        @endif
+                                        {{ $task['form_name'] }}
+                                    </h6>
+                                    <p class="mb-1" style="font-size: 14px;">
+                                        {{ $task['description'] }}
+                                    </p>
+                                    @if(!$task['completed'])
+                                    <small class="text-muted">Sila lengkapkan borang ini.</small>
+                                    @endif
+                                </div>
+                                <div class="d-flex align-items-center">
+                                    <span class="badge {{ $task['completed'] ? 'badge-success' : 'badge-warning' }} mr-2">
+                                        {{ $task['completed'] ? 'SELESAI' : 'BELUM SELESAI' }}
+                                    </span>
+                                    @php
+                                        $shuttleType = $task['shuttle_type'] ?? 3;
+                                    @endphp
+                                    @if(isset($task['quarter']))
+                                        {{-- FormB - Quarterly --}}
+                                        <a href="{{ route('user.shuttle-' . $shuttleType . '-senaraiB', $task['year']) }}" class="btn btn-sm {{ $task['completed'] ? 'btn-info' : 'btn-primary' }}">
+                                            <i class="fas fa-edit"></i> {{ $task['completed'] ? 'Lihat' : 'Isi Borang' }}
+                                        </a>
+                                    @elseif(isset($task['month']))
+                                        {{-- FormC - Monthly --}}
+                                        <a href="{{ route('user.shuttle-' . $shuttleType . '-senaraiC', $task['year']) }}" class="btn btn-sm {{ $task['completed'] ? 'btn-info' : 'btn-primary' }}">
+                                            <i class="fas fa-edit"></i> {{ $task['completed'] ? 'Lihat' : 'Isi Borang' }}
+                                        </a>
+                                    @else
+                                        {{-- FormA - Yearly --}}
+                                        <a href="{{ route('user.shuttle-' . $shuttleType . '-senaraiA', $task['year']) }}" class="btn btn-sm {{ $task['completed'] ? 'btn-info' : 'btn-primary' }}">
+                                            <i class="fas fa-edit"></i> {{ $task['completed'] ? 'Lihat' : 'Isi Borang' }}
+                                        </a>
+                                    @endif
+                                </div>
+                            </div>
+                        </div>
+                        @endforeach
+                    @else
+                        <div class="list-group-item list-group-item-action flex-column align-items-start">
+                            <div class="d-flex w-100 justify-content-between">
+                                <p class="text-center w-100">Tiada tugasan pada masa ini.</p>
+                            </div>
+                        </div>
+                    @endif
+                    
+                    @if($pengumuman && count($pengumuman) > 0)
+                        <div class="list-group-item list-group-item-action flex-column align-items-start bg-light">
+                            <h6 class="mb-2" style="font-size: 16px; font-weight: bold;"><i class="fas fa-bullhorn"></i> PENGUMUMAN</h6>
+                        </div>
                         @foreach($pengumuman as $data)
                         <div class="list-group-item list-group-item-action flex-column align-items-start">
                             <div class="d-flex w-100 justify-content-between">
-                            <h6 class="mb-1 card-title" style="font-size: 20px; font-weight: bold;">{{ $data->tajuk }}</h6>
-                            <small class="text-muted" style="font-size: 110%;">{{ date('d-m-Y', strtotime($data->created_at)) }}</small>
+                                <h6 class="mb-1 card-title" style="font-size: 20px; font-weight: bold;">{{ $data->tajuk }}</h6>
+                                <small class="text-muted" style="font-size: 110%;">{{ date('d-m-Y', strtotime($data->created_at)) }}</small>
                             </div>
                             <p class="my-1" style="font-size: 15px; text-align:left;">{{ $data->keterangan }}</p>
-                          </div>
+                        </div>
                         @endforeach
-                        @else
-                        <div class="list-group-item list-group-item-action flex-column align-items-start">
-                            <div class="d-flex w-100 justify-content-between">
-                            {{-- <h6 class="mb-1 card-title" style="font-size: 20px; font-weight: bold;">{{ $data->tajuk }}</h6> --}}
-                            {{-- <small class="text-muted" style="font-size: 110%;">{{ $data->created_at->toDateString() }}</small> --}}
-                            </div>
-                            <p class="my-1" style="font-size: 30px; text-align:center;">Tiada Pengumuman</p>
-                          </div>
-                        @endif
-
-
-                        {{-- <div class="list-group-item list-group-item-action flex-column align-items-start">
-                          <div class="d-flex w-100 justify-content-between">
-                          <h6 class="mb-1 card-title" style="font-size: 20px; font-weight: bold;">Pengumuman</h6>
-                          <small class="text-muted" style="font-size: 110%;">26-01-2021</small>
-                          </div>
-                          <p class="my-1" style="font-size: 15px; text-align:justify;">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
-                        </div>
-
-                        <div class="list-group-item list-group-item-action flex-column align-items-start">
-                          <div class="d-flex w-100 justify-content-between">
-                          <h6 class="mb-1 card-title" style="font-size: 20px; font-weight: bold;">Pengumuman</h6>
-                          <small class="text-muted" style="font-size: 110%;">05-01-2021</small>
-                          </div>
-                          <p class="my-1" style="font-size: 15px; text-align:justify;">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
-                        </div>
-
-                        <div class="list-group-item list-group-item-action flex-column align-items-start">
-                          <div class="d-flex w-100 justify-content-between">
-                          <h6 class="mb-1 card-title" style="font-size: 20px; font-weight: bold;">Pengumuman</h6>
-                          <small class="text-muted" style="font-size: 110%;">01-01-2021</small>
-                          </div>
-                          <p class="my-1" style="font-size: 15px; text-align:justify;">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
-                        </div> --}}
-
-                        <!-- </a> -->
-
-                    </div>
+                    @endif
+                </div>
             </div>
           </div>
         </div>

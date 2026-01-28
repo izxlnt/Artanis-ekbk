@@ -50,7 +50,9 @@ class ViewFormBController extends Controller
             'layout' => $layout
         ];
 
-        $form_a_checker = FormA::where('tahun', date("Y"))
+        $formb_year = $formb->created_at->format('Y');
+
+        $form_a_checker = FormA::where('tahun', $formb_year)
                 ->where('shuttle_id',$kilang_info->id)
                 ->where('status', 'Dihantar ke IPJPSM')->orwhere('status', 'Lulus')
                 ->count();
@@ -62,7 +64,7 @@ class ViewFormBController extends Controller
 
             $form_b_checker = FormB::where('shuttle_id', $kilang_info->id)
             ->where('suku_tahun', $lastmonth)
-            ->whereYear('created_at', date("Y"))
+            ->whereYear('created_at', $formb_year)
             ->where('status', '==' ,'Dihantar ke IPJPSM')->orwhere('status', 'Lulus')
             ->count();
         } else {
@@ -70,7 +72,7 @@ class ViewFormBController extends Controller
 
             $form_b_checker = FormB::where('shuttle_id', $kilang_info->id)
             ->where('suku_tahun', $lastmonth)
-            ->whereYear('created_at', date("Y"))
+            ->whereYear('created_at', $formb_year)
             ->where('status', '!=' ,'Dihantar ke IPJPSM')->orwhere('status', 'Lulus')
             ->count();
         }
@@ -79,38 +81,38 @@ class ViewFormBController extends Controller
         if($formb->shuttle_type == '3'){
             $breadcrumbs    = [
                 ['link' => route('home-phd'), 'name' => "Laman Utama"],
-                ['link' => route('phd.shuttle-3-listB', date('Y')), 'name' => "Pengesahan Maklumat"],
-                ['link' => route('phd.shuttle-3-listB', date('Y')), 'name' => "Pengesahan Borang"],
-                ['link' => route('phd.shuttle-3-listB', date('Y')), 'name' => "Shuttle 3 - Kilang Papan"],
-                ['link' => route('phd.shuttle-3-listB', date('Y')), 'name' => "Senarai Borang 3B"],
-                ['link' => route('phd.shuttle-3-view-formB', date('Y')), 'name' => "Borang 3B"],
+                ['link' => route('phd.shuttle-3-listB', $formb_year), 'name' => "Pengesahan Maklumat"],
+                ['link' => route('phd.shuttle-3-listB', $formb_year), 'name' => "Pengesahan Borang"],
+                ['link' => route('phd.shuttle-3-listB', $formb_year), 'name' => "Shuttle 3 - Kilang Papan"],
+                ['link' => route('phd.shuttle-3-listB', $formb_year), 'name' => "Senarai Borang 3B"],
+                ['link' => route('phd.shuttle-3-view-formB', $formb_year), 'name' => "Borang 3B"],
             ];
 
-            $kembali = route('phd.shuttle-3-listB', date('Y'));
+            $kembali = route('phd.shuttle-3-listB', $formb_year);
         }
         elseif($formb->shuttle_type == '4'){
             $breadcrumbs    = [
                 ['link' => route('home-phd'), 'name' => "Laman Utama"],
-                ['link' => route('phd.shuttle-4-listB', date('Y')), 'name' => "Pengesahan Maklumat"],
-                ['link' => route('phd.shuttle-4-listB', date('Y')), 'name' => "Pengesahan Borang"],
-                ['link' => route('phd.shuttle-4-listB', date('Y')), 'name' => "Shuttle 4 - Kilang Papan Lapis/Venir"],
-                ['link' => route('phd.shuttle-4-listB', date('Y')), 'name' => "Senarai Borang 4B"],
-                ['link' => route('phd.shuttle-3-view-formB', date('Y')), 'name' => "Borang 4B"],
+                ['link' => route('phd.shuttle-4-listB', $formb_year), 'name' => "Pengesahan Maklumat"],
+                ['link' => route('phd.shuttle-4-listB', $formb_year), 'name' => "Pengesahan Borang"],
+                ['link' => route('phd.shuttle-4-listB', $formb_year), 'name' => "Shuttle 4 - Kilang Papan Lapis/Venir"],
+                ['link' => route('phd.shuttle-4-listB', $formb_year), 'name' => "Senarai Borang 4B"],
+                ['link' => route('phd.shuttle-3-view-formB', $formb_year), 'name' => "Borang 4B"],
             ];
 
-            $kembali = route('phd.shuttle-4-listB', date('Y'));
+            $kembali = route('phd.shuttle-4-listB', $formb_year);
         }
         elseif($formb->shuttle_type == '5'){
             $breadcrumbs    = [
                 ['link' => route('home-phd'), 'name' => "Laman Utama"],
-                ['link' => route('phd.shuttle-5-listB', date('Y')), 'name' => "Pengesahan Maklumat"],
-                ['link' => route('phd.shuttle-5-listB', date('Y')), 'name' => "Pengesahan Borang"],
-                ['link' => route('phd.shuttle-5-listB', date('Y')), 'name' => "Shuttle 5 - Kilang Kayu Kumai"],
-                ['link' => route('phd.shuttle-5-listB', date('Y')), 'name' => "Senarai Borang 5B"],
-                ['link' => route('phd.shuttle-3-view-formB', date('Y')), 'name' => "Borang 5B"],
+                ['link' => route('phd.shuttle-5-listB', $formb_year), 'name' => "Pengesahan Maklumat"],
+                ['link' => route('phd.shuttle-5-listB', $formb_year), 'name' => "Pengesahan Borang"],
+                ['link' => route('phd.shuttle-5-listB', $formb_year), 'name' => "Shuttle 5 - Kilang Kayu Kumai"],
+                ['link' => route('phd.shuttle-5-listB', $formb_year), 'name' => "Senarai Borang 5B"],
+                ['link' => route('phd.shuttle-3-view-formB', $formb_year), 'name' => "Borang 5B"],
             ];
 
-            $kembali = route('phd.shuttle-5-listB', date('Y'));
+            $kembali = route('phd.shuttle-5-listB', $formb_year);
         }
 
 
@@ -160,7 +162,9 @@ class ViewFormBController extends Controller
             'layout' => $layout
         ];
 
-        $form_a_checker = FormA::where('tahun', date("Y"))
+        $formb_year = $formb->created_at->format('Y');
+
+        $form_a_checker = FormA::where('tahun', $formb_year)
                 ->where('shuttle_id',$kilang_info->id)
                 ->where('status', 'Dihantar ke IPJPSM')->orwhere('status', 'Lulus')
                 ->count();
@@ -173,7 +177,7 @@ class ViewFormBController extends Controller
 
             $form_b_checker = FormB::where('shuttle_id', $kilang_info->id)
             ->where('suku_tahun', $lastmonth)
-            ->whereYear('created_at', date("Y"))
+            ->whereYear('created_at', $formb_year)
             ->where('status', '==' ,'Dihantar ke IPJPSM')->orwhere('status', 'Lulus')
             ->count();
         } else {
@@ -181,7 +185,7 @@ class ViewFormBController extends Controller
 
             $form_b_checker = FormB::where('shuttle_id', $kilang_info->id)
             ->where('suku_tahun', $lastmonth)
-            ->whereYear('created_at', date("Y"))
+            ->whereYear('created_at', $formb_year)
             ->where('status', '!=' ,'Dihantar ke IPJPSM')->orwhere('status', 'Lulus')
             ->count();
         }
@@ -190,38 +194,38 @@ class ViewFormBController extends Controller
         if($formb->shuttle_type == '3'){
             $breadcrumbs    = [
                 ['link' => route('home-phd'), 'name' => "Laman Utama"],
-                ['link' => route('phd.shuttle-3-listB', date('Y')), 'name' => "Pengesahan Maklumat"],
-                ['link' => route('phd.shuttle-3-listB', date('Y')), 'name' => "Pengesahan Borang"],
-                ['link' => route('phd.shuttle-3-listB', date('Y')), 'name' => "Shuttle 3 - Kilang Papan"],
-                ['link' => route('phd.shuttle-3-listB', date('Y')), 'name' => "Senarai Borang 3B"],
-                ['link' => route('phd.shuttle-3-view-formB', date('Y')), 'name' => "Borang 3B"],
+                ['link' => route('phd.shuttle-3-listB', $formb_year), 'name' => "Pengesahan Maklumat"],
+                ['link' => route('phd.shuttle-3-listB', $formb_year), 'name' => "Pengesahan Borang"],
+                ['link' => route('phd.shuttle-3-listB', $formb_year), 'name' => "Shuttle 3 - Kilang Papan"],
+                ['link' => route('phd.shuttle-3-listB', $formb_year), 'name' => "Senarai Borang 3B"],
+                ['link' => route('phd.shuttle-3-view-formB', $formb_year), 'name' => "Borang 3B"],
             ];
 
-            $kembali = route('phd.shuttle-3-listB', date('Y'));
+            $kembali = route('phd.shuttle-3-listB', $formb_year);
         }
         elseif($formb->shuttle_type == '4'){
             $breadcrumbs    = [
                 ['link' => route('home-phd'), 'name' => "Laman Utama"],
-                ['link' => route('phd.shuttle-4-listB', date('Y')), 'name' => "Pengesahan Maklumat"],
-                ['link' => route('phd.shuttle-4-listB', date('Y')), 'name' => "Pengesahan Borang"],
-                ['link' => route('phd.shuttle-4-listB', date('Y')), 'name' => "Shuttle 4 - Kilang Papan Lapis/Venir"],
-                ['link' => route('phd.shuttle-4-listB', date('Y')), 'name' => "Senarai Borang 4B"],
-                ['link' => route('phd.shuttle-3-view-formB', date('Y')), 'name' => "Borang 4B"],
+                ['link' => route('phd.shuttle-4-listB', $formb_year), 'name' => "Pengesahan Maklumat"],
+                ['link' => route('phd.shuttle-4-listB', $formb_year), 'name' => "Pengesahan Borang"],
+                ['link' => route('phd.shuttle-4-listB', $formb_year), 'name' => "Shuttle 4 - Kilang Papan Lapis/Venir"],
+                ['link' => route('phd.shuttle-4-listB', $formb_year), 'name' => "Senarai Borang 4B"],
+                ['link' => route('phd.shuttle-3-view-formB', $formb_year), 'name' => "Borang 4B"],
             ];
 
-            $kembali = route('phd.shuttle-4-listB', date('Y'));
+            $kembali = route('phd.shuttle-4-listB', $formb_year);
         }
         elseif($formb->shuttle_type == '5'){
             $breadcrumbs    = [
                 ['link' => route('home-phd'), 'name' => "Laman Utama"],
-                ['link' => route('phd.shuttle-5-listB', date('Y')), 'name' => "Pengesahan Maklumat"],
-                ['link' => route('phd.shuttle-5-listB', date('Y')), 'name' => "Pengesahan Borang"],
-                ['link' => route('phd.shuttle-5-listB', date('Y')), 'name' => "Shuttle 5 - Kilang Kayu Kumai"],
-                ['link' => route('phd.shuttle-5-listB', date('Y')), 'name' => "Senarai Borang 5B"],
-                ['link' => route('phd.shuttle-3-view-formB', date('Y')), 'name' => "Borang 5B"],
+                ['link' => route('phd.shuttle-5-listB', $formb_year), 'name' => "Pengesahan Maklumat"],
+                ['link' => route('phd.shuttle-5-listB', $formb_year), 'name' => "Pengesahan Borang"],
+                ['link' => route('phd.shuttle-5-listB', $formb_year), 'name' => "Shuttle 5 - Kilang Kayu Kumai"],
+                ['link' => route('phd.shuttle-5-listB', $formb_year), 'name' => "Senarai Borang 5B"],
+                ['link' => route('phd.shuttle-3-view-formB', $formb_year), 'name' => "Borang 5B"],
             ];
 
-            $kembali = route('phd.shuttle-5-listB', date('Y'));
+            $kembali = route('phd.shuttle-5-listB', $formb_year);
         }
 
 
@@ -271,38 +275,38 @@ class ViewFormBController extends Controller
         if($kilang_info->shuttle_type == '3'){
             $breadcrumbs    = [
                 ['link' => route('home-phd'), 'name' => "Laman Utama"],
-                ['link' => route('phd.shuttle-3-listA', date('Y')), 'name' => "Pengesahan Maklumat"],
-                ['link' => route('phd.shuttle-3-listA', date('Y')), 'name' => "Pengesahan Borang"],
-                ['link' => route('phd.shuttle-3-listA', date('Y')), 'name' => "Shuttle 3 - Kilang Papan"],
-                ['link' => route('phd.shuttle-3-listA', date('Y')), 'name' => "Senarai Borang 3A"],
-                ['link' => route('phd.shuttle-3-view-formB', date('Y')), 'name' => "Borang 3A"],
+                ['link' => route('phd.shuttle-3-listA', $forma->tahun), 'name' => "Pengesahan Maklumat"],
+                ['link' => route('phd.shuttle-3-listA', $forma->tahun), 'name' => "Pengesahan Borang"],
+                ['link' => route('phd.shuttle-3-listA', $forma->tahun), 'name' => "Shuttle 3 - Kilang Papan"],
+                ['link' => route('phd.shuttle-3-listA', $forma->tahun), 'name' => "Senarai Borang 3A"],
+                ['link' => route('phd.shuttle-3-view-formB', $forma->tahun), 'name' => "Borang 3A"],
             ];
 
-            $kembali = route('phd.shuttle-3-listA', date('Y'));
+            $kembali = route('phd.shuttle-3-listA', $forma->tahun);
         }
         elseif($kilang_info->shuttle_type == '4'){
             $breadcrumbs    = [
                 ['link' => route('home-phd'), 'name' => "Laman Utama"],
-                ['link' => route('phd.shuttle-4-listA', date('Y')), 'name' => "Pengesahan Maklumat"],
-                ['link' => route('phd.shuttle-4-listA', date('Y')), 'name' => "Pengesahan Borang"],
-                ['link' => route('phd.shuttle-4-listA', date('Y')), 'name' => "Shuttle 4 - Kilang Papan Lapis/Venir"],
-                ['link' => route('phd.shuttle-4-listA', date('Y')), 'name' => "Senarai Borang 4A"],
-                ['link' => route('phd.shuttle-3-view-formB', date('Y')), 'name' => "Borang 4A"],
+                ['link' => route('phd.shuttle-4-listA', $forma->tahun), 'name' => "Pengesahan Maklumat"],
+                ['link' => route('phd.shuttle-4-listA', $forma->tahun), 'name' => "Pengesahan Borang"],
+                ['link' => route('phd.shuttle-4-listA', $forma->tahun), 'name' => "Shuttle 4 - Kilang Papan Lapis/Venir"],
+                ['link' => route('phd.shuttle-4-listA', $forma->tahun), 'name' => "Senarai Borang 4A"],
+                ['link' => route('phd.shuttle-3-view-formB', $forma->tahun), 'name' => "Borang 4A"],
             ];
 
-            $kembali = route('phd.shuttle-4-listA', date('Y'));
+            $kembali = route('phd.shuttle-4-listA', $forma->tahun);
         }
         elseif($kilang_info->shuttle_type == '5'){
             $breadcrumbs    = [
                 ['link' => route('home-phd'), 'name' => "Laman Utama"],
-                ['link' => route('phd.shuttle-5-listA', date('Y')), 'name' => "Pengesahan Maklumat"],
-                ['link' => route('phd.shuttle-5-listA', date('Y')), 'name' => "Pengesahan Borang"],
-                ['link' => route('phd.shuttle-5-listA', date('Y')), 'name' => "Shuttle 5 - Kilang Kayu Kumai"],
-                ['link' => route('phd.shuttle-5-listA', date('Y')), 'name' => "Senarai Borang 5A"],
-                ['link' => route('phd.shuttle-3-view-formB', date('Y')), 'name' => "Borang 5A"],
+                ['link' => route('phd.shuttle-5-listA', $forma->tahun), 'name' => "Pengesahan Maklumat"],
+                ['link' => route('phd.shuttle-5-listA', $forma->tahun), 'name' => "Pengesahan Borang"],
+                ['link' => route('phd.shuttle-5-listA', $forma->tahun), 'name' => "Shuttle 5 - Kilang Kayu Kumai"],
+                ['link' => route('phd.shuttle-5-listA', $forma->tahun), 'name' => "Senarai Borang 5A"],
+                ['link' => route('phd.shuttle-3-view-formB', $forma->tahun), 'name' => "Borang 5A"],
             ];
 
-            $kembali = route('phd.shuttle-5-listA', date('Y'));
+            $kembali = route('phd.shuttle-5-listA', $forma->tahun);
         }
 
 
@@ -342,38 +346,38 @@ class ViewFormBController extends Controller
         if($kilang_info->shuttle_type == '3'){
             $breadcrumbs    = [
                 ['link' => route('home-phd'), 'name' => "Laman Utama"],
-                ['link' => route('phd.shuttle-3-listA', date('Y')), 'name' => "Pengesahan Maklumat"],
-                ['link' => route('phd.shuttle-3-listA', date('Y')), 'name' => "Pengesahan Borang"],
-                ['link' => route('phd.shuttle-3-listA', date('Y')), 'name' => "Shuttle 3 - Kilang Papan"],
-                ['link' => route('phd.shuttle-3-listA', date('Y')), 'name' => "Senarai Borang 3A"],
-                ['link' => route('phd.shuttle-3-view-formB', date('Y')), 'name' => "Borang 3A"],
+                ['link' => route('phd.shuttle-3-listA', $forma->tahun), 'name' => "Pengesahan Maklumat"],
+                ['link' => route('phd.shuttle-3-listA', $forma->tahun), 'name' => "Pengesahan Borang"],
+                ['link' => route('phd.shuttle-3-listA', $forma->tahun), 'name' => "Shuttle 3 - Kilang Papan"],
+                ['link' => route('phd.shuttle-3-listA', $forma->tahun), 'name' => "Senarai Borang 3A"],
+                ['link' => route('phd.shuttle-3-view-formB', $forma->tahun), 'name' => "Borang 3A"],
             ];
 
-            $kembali = route('phd.shuttle-3-listA', date('Y'));
+            $kembali = route('phd.shuttle-3-listA', $forma->tahun);
         }
         elseif($kilang_info->shuttle_type == '4'){
             $breadcrumbs    = [
                 ['link' => route('home-phd'), 'name' => "Laman Utama"],
-                ['link' => route('phd.shuttle-4-listA', date('Y')), 'name' => "Pengesahan Maklumat"],
-                ['link' => route('phd.shuttle-4-listA', date('Y')), 'name' => "Pengesahan Borang"],
-                ['link' => route('phd.shuttle-4-listA', date('Y')), 'name' => "Shuttle 4 - Kilang Papan Lapis/Venir"],
-                ['link' => route('phd.shuttle-4-listA', date('Y')), 'name' => "Senarai Borang 4A"],
-                ['link' => route('phd.shuttle-3-view-formB', date('Y')), 'name' => "Borang 4A"],
+                ['link' => route('phd.shuttle-4-listA', $forma->tahun), 'name' => "Pengesahan Maklumat"],
+                ['link' => route('phd.shuttle-4-listA', $forma->tahun), 'name' => "Pengesahan Borang"],
+                ['link' => route('phd.shuttle-4-listA', $forma->tahun), 'name' => "Shuttle 4 - Kilang Papan Lapis/Venir"],
+                ['link' => route('phd.shuttle-4-listA', $forma->tahun), 'name' => "Senarai Borang 4A"],
+                ['link' => route('phd.shuttle-3-view-formB', $forma->tahun), 'name' => "Borang 4A"],
             ];
 
-            $kembali = route('phd.shuttle-4-listA', date('Y'));
+            $kembali = route('phd.shuttle-4-listA', $forma->tahun);
         }
         elseif($kilang_info->shuttle_type == '5'){
             $breadcrumbs    = [
                 ['link' => route('home-phd'), 'name' => "Laman Utama"],
-                ['link' => route('phd.shuttle-5-listA', date('Y')), 'name' => "Pengesahan Maklumat"],
-                ['link' => route('phd.shuttle-5-listA', date('Y')), 'name' => "Pengesahan Borang"],
-                ['link' => route('phd.shuttle-5-listA', date('Y')), 'name' => "Shuttle 5 - Kilang Kayu Kumai"],
-                ['link' => route('phd.shuttle-5-listA', date('Y')), 'name' => "Senarai Borang 5A"],
-                ['link' => route('phd.shuttle-3-view-formB', date('Y')), 'name' => "Borang 5A"],
+                ['link' => route('phd.shuttle-5-listA', $forma->tahun), 'name' => "Pengesahan Maklumat"],
+                ['link' => route('phd.shuttle-5-listA', $forma->tahun), 'name' => "Pengesahan Borang"],
+                ['link' => route('phd.shuttle-5-listA', $forma->tahun), 'name' => "Shuttle 5 - Kilang Kayu Kumai"],
+                ['link' => route('phd.shuttle-5-listA', $forma->tahun), 'name' => "Senarai Borang 5A"],
+                ['link' => route('phd.shuttle-3-view-formB', $forma->tahun), 'name' => "Borang 5A"],
             ];
 
-            $kembali = route('phd.shuttle-5-listA', date('Y'));
+            $kembali = route('phd.shuttle-5-listA', $forma->tahun);
         }
 
 
@@ -435,26 +439,26 @@ class ViewFormBController extends Controller
         if($kilang_info->shuttle_type == '3'){
             $breadcrumbs    = [
                 ['link' => route('home-user'), 'name' => "Laman Utama"],
-                ['link' => route('user.shuttle-3-senaraiA', date('Y')), 'name' => "Kemasukan Maklumat"],
-                ['link' => route('user.shuttle-3-listA', date('Y')), 'name' => "BORANG 3A"],
+                ['link' => route('user.shuttle-3-senaraiA', $forma->tahun), 'name' => "Kemasukan Maklumat"],
+                ['link' => route('user.shuttle-3-listA', $forma->tahun), 'name' => "BORANG 3A"],
             ];
-            $kembali = route('user.shuttle-4-senaraiA', date('Y'));
+            $kembali = route('user.shuttle-3-senaraiA', $forma->tahun);
         }
         elseif($kilang_info->shuttle_type == '4'){
             $breadcrumbs    = [
                 ['link' => route('home-user'), 'name' => "Laman Utama"],
-                ['link' => route('user.shuttle-4-senaraiA', date('Y')), 'name' => "Kemasukan Maklumat"],
-                ['link' => route('user.shuttle-3-listA', date('Y')), 'name' => "BORANG 4A"],
+                ['link' => route('user.shuttle-4-senaraiA', $forma->tahun), 'name' => "Kemasukan Maklumat"],
+                ['link' => route('user.shuttle-4-listA', $forma->tahun), 'name' => "BORANG 4A"],
             ];
-            $kembali = route('user.shuttle-4-senaraiA', date('Y'));
+            $kembali = route('user.shuttle-4-senaraiA', $forma->tahun);
         }
         elseif($kilang_info->shuttle_type == '5'){
             $breadcrumbs    = [
                 ['link' => route('home-user'), 'name' => "Laman Utama"],
-                ['link' => route('user.shuttle-5-senaraiA', date('Y')), 'name' => "Kemasukan Maklumat"],
-                ['link' => route('user.shuttle-5-senaraiA', date('Y')), 'name' => "BORANG 5A"],
+                ['link' => route('user.shuttle-5-senaraiA', $forma->tahun), 'name' => "Kemasukan Maklumat"],
+                ['link' => route('user.shuttle-5-senaraiA', $forma->tahun), 'name' => "BORANG 5A"],
             ];
-            $kembali = route('user.shuttle-5-senaraiA', date('Y'));
+            $kembali = route('user.shuttle-5-senaraiA', $forma->tahun);
         }
 
 
@@ -485,35 +489,35 @@ class ViewFormBController extends Controller
         if($kilang_info->shuttle_type == '3'){
             $breadcrumbs    = [
                 ['link' => route('home-user'), 'name' => "Laman Utama"],
-                ['link' => route('jpn.shuttle-3-listA-jpn', date('Y')), 'name' => "Pemantauan Maklumat"],
-                ['link' => route('jpn.shuttle-3-listA-jpn', date('Y')), 'name' => "Status Borang"],
-                ['link' => route('jpn.shuttle-3-listA-jpn', date('Y')), 'name' => "Shuttle 3 - Kilang Papan"],
-                ['link' => route('jpn.shuttle-3-listA-jpn', date('Y')), 'name' => "Senarai Borang 3A"],
-                ['link' => route('jpn.shuttle-3-listA-jpn', date('Y')), 'name' => "Borang 3A"],
+                ['link' => route('jpn.shuttle-3-listA-jpn', $forma->tahun), 'name' => "Pemantauan Maklumat"],
+                ['link' => route('jpn.shuttle-3-listA-jpn', $forma->tahun), 'name' => "Status Borang"],
+                ['link' => route('jpn.shuttle-3-listA-jpn', $forma->tahun), 'name' => "Shuttle 3 - Kilang Papan"],
+                ['link' => route('jpn.shuttle-3-listA-jpn', $forma->tahun), 'name' => "Senarai Borang 3A"],
+                ['link' => route('jpn.shuttle-3-listA-jpn', $forma->tahun), 'name' => "Borang 3A"],
             ];
-            $kembali = route('jpn.shuttle-3-listA-jpn', date('Y'));
+            $kembali = route('jpn.shuttle-3-listA-jpn', $forma->tahun);
         }
         elseif($kilang_info->shuttle_type == '4'){
             $breadcrumbs    = [
                 ['link' => route('home-user'), 'name' => "Laman Utama"],
-                ['link' => route('jpn.shuttle-4-listA-jpn', date('Y')), 'name' => "Pemantauan Maklumat"],
-                ['link' => route('jpn.shuttle-4-listA-jpn', date('Y')), 'name' => "Status Borang"],
-                ['link' => route('jpn.shuttle-4-listA-jpn', date('Y')), 'name' => "Shuttle 4 - Kilang Papan Lapis/Venir"],
-                ['link' => route('jpn.shuttle-4-listA-jpn', date('Y')), 'name' => "Senarai Borang 4A"],
-                ['link' => route('jpn.shuttle-4-listA-jpn', date('Y')), 'name' => "Borang 4A"],
+                ['link' => route('jpn.shuttle-4-listA-jpn', $forma->tahun), 'name' => "Pemantauan Maklumat"],
+                ['link' => route('jpn.shuttle-4-listA-jpn', $forma->tahun), 'name' => "Status Borang"],
+                ['link' => route('jpn.shuttle-4-listA-jpn', $forma->tahun), 'name' => "Shuttle 4 - Kilang Papan Lapis/Venir"],
+                ['link' => route('jpn.shuttle-4-listA-jpn', $forma->tahun), 'name' => "Senarai Borang 4A"],
+                ['link' => route('jpn.shuttle-4-listA-jpn', $forma->tahun), 'name' => "Borang 4A"],
             ];
-            $kembali = route('jpn.shuttle-4-listA-jpn', date('Y'));
+            $kembali = route('jpn.shuttle-4-listA-jpn', $forma->tahun);
         }
         elseif($kilang_info->shuttle_type == '5'){
             $breadcrumbs    = [
                 ['link' => route('home-user'), 'name' => "Laman Utama"],
-                ['link' => route('jpn.shuttle-5-listA-jpn', date('Y')), 'name' => "Pemantauan Maklumat"],
-                ['link' => route('jpn.shuttle-5-listA-jpn', date('Y')), 'name' => "Status Borang"],
-                ['link' => route('jpn.shuttle-5-listA-jpn', date('Y')), 'name' => "Shuttle 5 - Kilang Kayu Kumai"],
-                ['link' => route('jpn.shuttle-5-listA-jpn', date('Y')), 'name' => "Senarai Borang 5A"],
-                ['link' => route('jpn.shuttle-5-listA-jpn', date('Y')), 'name' => "Borang 5A"],
+                ['link' => route('jpn.shuttle-5-listA-jpn', $forma->tahun), 'name' => "Pemantauan Maklumat"],
+                ['link' => route('jpn.shuttle-5-listA-jpn', $forma->tahun), 'name' => "Status Borang"],
+                ['link' => route('jpn.shuttle-5-listA-jpn', $forma->tahun), 'name' => "Shuttle 5 - Kilang Kayu Kumai"],
+                ['link' => route('jpn.shuttle-5-listA-jpn', $forma->tahun), 'name' => "Senarai Borang 5A"],
+                ['link' => route('jpn.shuttle-5-listA-jpn', $forma->tahun), 'name' => "Borang 5A"],
             ];
-            $kembali = route('jpn.shuttle-5-listA-jpn', date('Y'));
+            $kembali = route('jpn.shuttle-5-listA-jpn', $forma->tahun);
         }
 
 
@@ -540,6 +544,8 @@ class ViewFormBController extends Controller
         $ulasan_phd=UlasanPhd::where('formbs_id',$id)->get();
         // dd($ulasan_phd);
 
+        $formb_year = $formb->created_at->format('Y');
+
         $array = [
             'kilang_info' => $kilang_info,
             'kategori_pekerja' => $kategori_pekerja,
@@ -553,26 +559,26 @@ class ViewFormBController extends Controller
         if($kilang_info->shuttle_type == '3'){
             $breadcrumbs    = [
                 ['link' => route('home-user'), 'name' => "Laman Utama"],
-                ['link' => route('user.shuttle-3-senaraiB', date('Y')), 'name' => "Kemasukan Maklumat"],
-                ['link' => route('user.shuttle-3-listA', date('Y')), 'name' => "BORANG 3B"],
+                ['link' => route('user.shuttle-3-senaraiB', $formb_year), 'name' => "Kemasukan Maklumat"],
+                ['link' => route('user.shuttle-3-listA', $formb_year), 'name' => "BORANG 3B"],
             ];
-            $kembali = route('user.shuttle-3-senaraiB', date('Y'));
+            $kembali = route('user.shuttle-3-senaraiB', $formb_year);
         }
         elseif($kilang_info->shuttle_type == '4'){
             $breadcrumbs    = [
                 ['link' => route('home-user'), 'name' => "Laman Utama"],
-                ['link' => route('user.shuttle-4-senaraiB', date('Y')), 'name' => "Kemasukan Maklumat"],
-                ['link' => route('user.shuttle-3-listA', date('Y')), 'name' => "BORANG 4B"],
+                ['link' => route('user.shuttle-4-senaraiB', $formb_year), 'name' => "Kemasukan Maklumat"],
+                ['link' => route('user.shuttle-3-listA', $formb_year), 'name' => "BORANG 4B"],
             ];
-            $kembali = route('user.shuttle-4-senaraiB', date('Y'));
+            $kembali = route('user.shuttle-4-senaraiB', $formb_year);
         }
         elseif($kilang_info->shuttle_type == '5'){
             $breadcrumbs    = [
                 ['link' => route('home-user'), 'name' => "Laman Utama"],
-                ['link' => route('user.shuttle-5-senaraiB', date('Y')), 'name' => "Kemasukan Maklumat"],
-                ['link' => route('user.shuttle-5-senaraiA', date('Y')), 'name' => "BORANG 5B"],
+                ['link' => route('user.shuttle-5-senaraiB', $formb_year), 'name' => "Kemasukan Maklumat"],
+                ['link' => route('user.shuttle-5-senaraiA', $formb_year), 'name' => "BORANG 5B"],
             ];
-            $kembali = route('user.shuttle-5-senaraiB', date('Y'));
+            $kembali = route('user.shuttle-5-senaraiB', $formb_year);
         }
 
         $returnArr = [
@@ -598,6 +604,8 @@ class ViewFormBController extends Controller
         $ulasan_phd=UlasanPhd::where('formbs_id',$id)->get();
         // dd($ulasan_phd);
 
+        $formb_year = $formb->created_at->format('Y');
+
         $array = [
             'kilang_info' => $kilang_info,
             'kategori_pekerja' => $kategori_pekerja,
@@ -611,35 +619,35 @@ class ViewFormBController extends Controller
         if($kilang_info->shuttle_type == '3'){
             $breadcrumbs    = [
                 ['link' => route('home-user'), 'name' => "Laman Utama"],
-                ['link' => route('jpn.shuttle-3-listB-jpn', date('Y')), 'name' => "Pemantauan Maklumat"],
-                ['link' => route('jpn.shuttle-3-listB-jpn', date('Y')), 'name' => "Status Borang"],
-                ['link' => route('jpn.shuttle-3-listB-jpn', date('Y')), 'name' => "Shuttle 3 - Kilang Papan"],
-                ['link' => route('jpn.shuttle-3-listB-jpn', date('Y')), 'name' => "Senarai Borang 3B"],
-                ['link' => route('jpn.shuttle-3-listB-jpn', date('Y')), 'name' => "Borang 3B"],
+                ['link' => route('jpn.shuttle-3-listB-jpn', $formb_year), 'name' => "Pemantauan Maklumat"],
+                ['link' => route('jpn.shuttle-3-listB-jpn', $formb_year), 'name' => "Status Borang"],
+                ['link' => route('jpn.shuttle-3-listB-jpn', $formb_year), 'name' => "Shuttle 3 - Kilang Papan"],
+                ['link' => route('jpn.shuttle-3-listB-jpn', $formb_year), 'name' => "Senarai Borang 3B"],
+                ['link' => route('jpn.shuttle-3-listB-jpn', $formb_year), 'name' => "Borang 3B"],
             ];
-            $kembali = route('jpn.shuttle-3-listB-jpn', date('Y'));
+            $kembali = route('jpn.shuttle-3-listB-jpn', $formb_year);
         }
         elseif($kilang_info->shuttle_type == '4'){
             $breadcrumbs    = [
                 ['link' => route('home-user'), 'name' => "Laman Utama"],
-                ['link' => route('jpn.shuttle-4-listB-jpn', date('Y')), 'name' => "Pemantauan Maklumat"],
-                ['link' => route('jpn.shuttle-4-listB-jpn', date('Y')), 'name' => "Status Borang"],
-                ['link' => route('jpn.shuttle-4-listB-jpn', date('Y')), 'name' => "Shuttle 4 - Kilang Papan Lapis/Venir"],
-                ['link' => route('jpn.shuttle-4-listB-jpn', date('Y')), 'name' => "Senarai Borang 4B"],
-                ['link' => route('jpn.shuttle-4-listB-jpn', date('Y')), 'name' => "Borang 4B"],
+                ['link' => route('jpn.shuttle-4-listB-jpn', $formb_year), 'name' => "Pemantauan Maklumat"],
+                ['link' => route('jpn.shuttle-4-listB-jpn', $formb_year), 'name' => "Status Borang"],
+                ['link' => route('jpn.shuttle-4-listB-jpn', $formb_year), 'name' => "Shuttle 4 - Kilang Papan Lapis/Venir"],
+                ['link' => route('jpn.shuttle-4-listB-jpn', $formb_year), 'name' => "Senarai Borang 4B"],
+                ['link' => route('jpn.shuttle-4-listB-jpn', $formb_year), 'name' => "Borang 4B"],
             ];
-            $kembali = route('jpn.shuttle-4-listB-jpn', date('Y'));
+            $kembali = route('jpn.shuttle-4-listB-jpn', $formb_year);
         }
         elseif($kilang_info->shuttle_type == '5'){
             $breadcrumbs    = [
                 ['link' => route('home-user'), 'name' => "Laman Utama"],
-                ['link' => route('jpn.shuttle-5-listB-jpn', date('Y')), 'name' => "Pemantauan Maklumat"],
-                ['link' => route('jpn.shuttle-5-listB-jpn', date('Y')), 'name' => "Status Borang"],
-                ['link' => route('jpn.shuttle-5-listB-jpn', date('Y')), 'name' => "Shuttle 5 - Kilang Kayu Kumai"],
-                ['link' => route('jpn.shuttle-5-listB-jpn', date('Y')), 'name' => "Senarai Borang 5B"],
-                ['link' => route('jpn.shuttle-5-listB-jpn', date('Y')), 'name' => "Borang 5B"],
+                ['link' => route('jpn.shuttle-5-listB-jpn', $formb_year), 'name' => "Pemantauan Maklumat"],
+                ['link' => route('jpn.shuttle-5-listB-jpn', $formb_year), 'name' => "Status Borang"],
+                ['link' => route('jpn.shuttle-5-listB-jpn', $formb_year), 'name' => "Shuttle 5 - Kilang Kayu Kumai"],
+                ['link' => route('jpn.shuttle-5-listB-jpn', $formb_year), 'name' => "Senarai Borang 5B"],
+                ['link' => route('jpn.shuttle-5-listB-jpn', $formb_year), 'name' => "Borang 5B"],
             ];
-            $kembali = route('jpn.shuttle-5-listB-jpn', date('Y'));
+            $kembali = route('jpn.shuttle-5-listB-jpn', $formb_year);
         }
 
         $returnArr = [
@@ -668,29 +676,29 @@ class ViewFormBController extends Controller
 
         // $breadcrumbs    = [
         //     ['link' => route('home'), 'name' => "Laman Utama"],
-        //     ['link' => route('shuttle-3-listA', date('Y')), 'name' => "Perakuan Maklumat"],
-        //     ['link' => route('ipjpsm.shuttle-3-view-formA', date('Y')), 'name' => "Borang 3A - Maklumat Kilang Papan"],
+        //     ['link' => route('shuttle-3-listA', $forma->tahun), 'name' => "Perakuan Maklumat"],
+        //     ['link' => route('ipjpsm.shuttle-3-view-formA', $forma->tahun), 'name' => "Borang 3A - Maklumat Kilang Papan"],
         // ];
 
-        // $kembali = route('shuttle-3-listA', date('Y'));
+        // $kembali = route('shuttle-3-listA', $forma->tahun);
 
 
         if($kilang_info->shuttle_type == '3'){
             $breadcrumbs    = [
                 ['link' => route('home'), 'name' => "Laman Utama"],
-                ['link' => route('shuttle-3-listA', date('Y')), 'name' => "Menu Utama Modul"],
-                ['link' => route('shuttle-3-listA', date('Y')), 'name' => "Perakuan Maklumat"],
-                ['link' => route('shuttle-3-listA', date('Y')), 'name' => "Shuttle 3 - Kilang Papan"],
-                ['link' => route('shuttle-3-listA', date('Y')), 'name' => "Senarai Borang 3A"],
-                ['link' => route('ipjpsm.shuttle-3-view-formA', date('Y')), 'name' => "Borang 3A"],
+                ['link' => route('shuttle-3-listA', $forma->tahun), 'name' => "Menu Utama Modul"],
+                ['link' => route('shuttle-3-listA', $forma->tahun), 'name' => "Perakuan Maklumat"],
+                ['link' => route('shuttle-3-listA', $forma->tahun), 'name' => "Shuttle 3 - Kilang Papan"],
+                ['link' => route('shuttle-3-listA', $forma->tahun), 'name' => "Senarai Borang 3A"],
+                ['link' => route('ipjpsm.shuttle-3-view-formA', $forma->tahun), 'name' => "Borang 3A"],
             ];
 
             if($forma->status == 'Lulus'){
-                $kembali = route('ipjpsm.borang-keseluruhan.shuttle3.borangA', date('Y'));
+                $kembali = route('ipjpsm.borang-keseluruhan.shuttle3.borangA', $forma->tahun);
 
             }
             else{
-                $kembali = route('shuttle-3-listA', date('Y'));
+                $kembali = route('shuttle-3-listA', $forma->tahun);
 
             }
         }
@@ -698,38 +706,38 @@ class ViewFormBController extends Controller
         elseif($kilang_info->shuttle_type == '4'){
             $breadcrumbs    = [
                 ['link' => route('home'), 'name' => "Laman Utama"],
-                ['link' => route('shuttle-4-listA', date('Y')), 'name' => "Menu Utama Modul"],
-                ['link' => route('shuttle-4-listA', date('Y')), 'name' => "Perakuan Maklumat"],
-                ['link' => route('shuttle-4-listA', date('Y')), 'name' => "Shuttle 4 - Kilang Papan Lapis/Venir"],
-                ['link' => route('shuttle-4-listA', date('Y')), 'name' => "Senarai Borang 4A"],
-                ['link' => route('ipjpsm.shuttle-3-view-formA', date('Y')), 'name' => "Borang 4A"],
+                ['link' => route('shuttle-4-listA', $forma->tahun), 'name' => "Menu Utama Modul"],
+                ['link' => route('shuttle-4-listA', $forma->tahun), 'name' => "Perakuan Maklumat"],
+                ['link' => route('shuttle-4-listA', $forma->tahun), 'name' => "Shuttle 4 - Kilang Papan Lapis/Venir"],
+                ['link' => route('shuttle-4-listA', $forma->tahun), 'name' => "Senarai Borang 4A"],
+                ['link' => route('ipjpsm.shuttle-3-view-formA', $forma->tahun), 'name' => "Borang 4A"],
             ];
 
             if($forma->status == 'Lulus'){
-                $kembali = route('ipjpsm.borang-keseluruhan.shuttle4.borangA', date('Y'));
+                $kembali = route('ipjpsm.borang-keseluruhan.shuttle4.borangA', $forma->tahun);
 
             }
             else{
-                $kembali = route('shuttle-4-listA', date('Y'));
+                $kembali = route('shuttle-4-listA', $forma->tahun);
 
             }
         }
         elseif($kilang_info->shuttle_type == '5'){
             $breadcrumbs    = [
                 ['link' => route('home'), 'name' => "Laman Utama"],
-                ['link' => route('shuttle-5-listA', date('Y')), 'name' => "Menu Utama Modul"],
-                ['link' => route('shuttle-5-listA', date('Y')), 'name' => "Perakuan Maklumat"],
-                ['link' => route('shuttle-5-listA', date('Y')), 'name' => "Shuttle 5 - Kilang Kayu Kumai"],
-                ['link' => route('shuttle-5-listA', date('Y')), 'name' => "Senarai Borang 5A"],
-                ['link' => route('ipjpsm.shuttle-3-view-formA', date('Y')), 'name' => "Borang 5A"],
+                ['link' => route('shuttle-5-listA', $forma->tahun), 'name' => "Menu Utama Modul"],
+                ['link' => route('shuttle-5-listA', $forma->tahun), 'name' => "Perakuan Maklumat"],
+                ['link' => route('shuttle-5-listA', $forma->tahun), 'name' => "Shuttle 5 - Kilang Kayu Kumai"],
+                ['link' => route('shuttle-5-listA', $forma->tahun), 'name' => "Senarai Borang 5A"],
+                ['link' => route('ipjpsm.shuttle-3-view-formA', $forma->tahun), 'name' => "Borang 5A"],
             ];
 
             if($forma->status == 'Lulus'){
-                $kembali = route('ipjpsm.borang-keseluruhan.shuttle5.borangA', date('Y'));
+                $kembali = route('ipjpsm.borang-keseluruhan.shuttle5.borangA', $forma->tahun);
 
             }
             else{
-                $kembali = route('shuttle-5-listA', date('Y'));
+                $kembali = route('shuttle-5-listA', $forma->tahun);
 
             }
         }
@@ -764,50 +772,52 @@ class ViewFormBController extends Controller
         // dd($form_b);
         // return view('livewire.view-form3b-Ipjpsm',compact('kilang_info','kategori_pekerja','form_b','id','ulasan_phd'));
 
+        $formb_year = $kilang_info->created_at->format('Y');
+
         // $breadcrumbs    = [
         //     ['link' => route('home'), 'name' => "Laman Utama"],
-        //     ['link' => route('shuttle-3-listB', date('Y')), 'name' => "Perakuan Maklumat"],
-        //     ['link' => route('ipjpsm.shuttle-3-view-formB', date('Y')), 'name' => "Borang 3B - Jumlah Guna Tenaga"],
+        //     ['link' => route('shuttle-3-listB', $formb_year), 'name' => "Perakuan Maklumat"],
+        //     ['link' => route('ipjpsm.shuttle-3-view-formB', $formb_year), 'name' => "Borang 3B - Jumlah Guna Tenaga"],
         // ];
 
-        // $kembali = route('shuttle-3-listB', date('Y'));
+        // $kembali = route('shuttle-3-listB', $formb_year);
 
 
         if($kilang_info->shuttle_type == '3'){
             $breadcrumbs    = [
                 ['link' => route('home'), 'name' => "Laman Utama"],
-                ['link' => route('shuttle-3-listB', date('Y')), 'name' => "Menu Utama Modul"],
-                ['link' => route('shuttle-3-listB', date('Y')), 'name' => "Perakuan Maklumat"],
-                ['link' => route('shuttle-3-listB', date('Y')), 'name' => "Shuttle 3 - Kilang Papan"],
-                ['link' => route('shuttle-3-listB', date('Y')), 'name' => "Senarai Borang 3B"],
-                ['link' => route('ipjpsm.shuttle-3-view-formB', date('Y')), 'name' => "Borang 3B"],
+                ['link' => route('shuttle-3-listB', $formb_year), 'name' => "Menu Utama Modul"],
+                ['link' => route('shuttle-3-listB', $formb_year), 'name' => "Perakuan Maklumat"],
+                ['link' => route('shuttle-3-listB', $formb_year), 'name' => "Shuttle 3 - Kilang Papan"],
+                ['link' => route('shuttle-3-listB', $formb_year), 'name' => "Senarai Borang 3B"],
+                ['link' => route('ipjpsm.shuttle-3-view-formB', $formb_year), 'name' => "Borang 3B"],
             ];
 
-            $kembali = route('shuttle-3-listB', date('Y'));
+            $kembali = route('shuttle-3-listB', $formb_year);
         }
         elseif($kilang_info->shuttle_type == '4'){
             $breadcrumbs    = [
                 ['link' => route('home'), 'name' => "Laman Utama"],
-                ['link' => route('shuttle-4-listB', date('Y')), 'name' => "Menu Utama Modul"],
-                ['link' => route('shuttle-4-listB', date('Y')), 'name' => "Perakuan Maklumat"],
-                ['link' => route('shuttle-4-listB', date('Y')), 'name' => "Shuttle 4 - Kilang Papan Lapis/Venir"],
-                ['link' => route('shuttle-4-listB', date('Y')), 'name' => "Senarai Borang 4B"],
-                ['link' => route('ipjpsm.shuttle-3-view-formB', date('Y')), 'name' => "Borang 4B"],
+                ['link' => route('shuttle-4-listB', $formb_year), 'name' => "Menu Utama Modul"],
+                ['link' => route('shuttle-4-listB', $formb_year), 'name' => "Perakuan Maklumat"],
+                ['link' => route('shuttle-4-listB', $formb_year), 'name' => "Shuttle 4 - Kilang Papan Lapis/Venir"],
+                ['link' => route('shuttle-4-listB', $formb_year), 'name' => "Senarai Borang 4B"],
+                ['link' => route('ipjpsm.shuttle-3-view-formB', $formb_year), 'name' => "Borang 4B"],
             ];
 
-            $kembali = route('shuttle-4-listB', date('Y'));
+            $kembali = route('shuttle-4-listB', $formb_year);
         }
         elseif($kilang_info->shuttle_type == '5'){
             $breadcrumbs    = [
                 ['link' => route('home'), 'name' => "Laman Utama"],
-                ['link' => route('shuttle-5-listB', date('Y')), 'name' => "Menu Utama Modul"],
-                ['link' => route('shuttle-5-listB', date('Y')), 'name' => "Perakuan Maklumat"],
-                ['link' => route('shuttle-5-listB', date('Y')), 'name' => "Shuttle 5 - Kilang Kayu Kumai"],
-                ['link' => route('shuttle-5-listB', date('Y')), 'name' => "Senarai Borang 5B"],
-                ['link' => route('ipjpsm.shuttle-3-view-formB', date('Y')), 'name' => "Borang 5B"],
+                ['link' => route('shuttle-5-listB', $formb_year), 'name' => "Menu Utama Modul"],
+                ['link' => route('shuttle-5-listB', $formb_year), 'name' => "Perakuan Maklumat"],
+                ['link' => route('shuttle-5-listB', $formb_year), 'name' => "Shuttle 5 - Kilang Kayu Kumai"],
+                ['link' => route('shuttle-5-listB', $formb_year), 'name' => "Senarai Borang 5B"],
+                ['link' => route('ipjpsm.shuttle-3-view-formB', $formb_year), 'name' => "Borang 5B"],
             ];
 
-            $kembali = route('shuttle-5-listB', date('Y'));
+            $kembali = route('shuttle-5-listB', $formb_year);
         }
 
         $returnArr = [
@@ -838,42 +848,44 @@ class ViewFormBController extends Controller
 
         $form_b = GunaTenaga::where('formbs_id',$formb->id)->get();
 
+        $formb_year = $formb->created_at->format('Y');
+
         if($kilang_info->shuttle_type == '3' && $formb->status == 'Lulus'){
             $breadcrumbs    = [
                 ['link' => route('home'), 'name' => "Laman Utama"],
-                ['link' => route('shuttle-3-listB', date('Y')), 'name' => "Menu Utama Modul"],
-                ['link' => route('ipjpsm.borang-keseluruhan.shuttle3.borangB', date('Y')), 'name' => "Senarai Penuh Maklumat Borang"],
-                ['link' => route('shuttle-3-listB', date('Y')), 'name' => "Shuttle 3 - Kilang Papan"],
-                ['link' => route('shuttle-3-listB', date('Y')), 'name' => "Senarai Borang 3B"],
-                ['link' => route('ipjpsm.shuttle-3-view-formB', date('Y')), 'name' => "Borang 3B"],
+                ['link' => route('shuttle-3-listB', $formb_year), 'name' => "Menu Utama Modul"],
+                ['link' => route('ipjpsm.borang-keseluruhan.shuttle3.borangB', $formb_year), 'name' => "Senarai Penuh Maklumat Borang"],
+                ['link' => route('shuttle-3-listB', $formb_year), 'name' => "Shuttle 3 - Kilang Papan"],
+                ['link' => route('shuttle-3-listB', $formb_year), 'name' => "Senarai Borang 3B"],
+                ['link' => route('ipjpsm.shuttle-3-view-formB', $formb_year), 'name' => "Borang 3B"],
             ];
 
-            $kembali = route('ipjpsm.borang-keseluruhan.shuttle3.borangB', date('Y'));
+            $kembali = route('ipjpsm.borang-keseluruhan.shuttle3.borangB', $formb_year);
         }
 
         elseif($kilang_info->shuttle_type == '4' && $formb->status == 'Lulus'){
             $breadcrumbs    = [
                 ['link' => route('home'), 'name' => "Laman Utama"],
-                ['link' => route('shuttle-4-listB', date('Y')), 'name' => "Menu Utama Modul"],
-                ['link' => route('shuttle-4-listB', date('Y')), 'name' => "Senarai Penuh Maklumat Borang"],
-                ['link' => route('shuttle-4-listB', date('Y')), 'name' => "Shuttle 4 - Kilang Papan Lapis/Venir"],
-                ['link' => route('shuttle-4-listB', date('Y')), 'name' => "Senarai Borang 4B"],
-                ['link' => route('ipjpsm.shuttle-3-view-formB', date('Y')), 'name' => "Borang 4B"],
+                ['link' => route('shuttle-4-listB', $formb_year), 'name' => "Menu Utama Modul"],
+                ['link' => route('shuttle-4-listB', $formb_year), 'name' => "Senarai Penuh Maklumat Borang"],
+                ['link' => route('shuttle-4-listB', $formb_year), 'name' => "Shuttle 4 - Kilang Papan Lapis/Venir"],
+                ['link' => route('shuttle-4-listB', $formb_year), 'name' => "Senarai Borang 4B"],
+                ['link' => route('ipjpsm.shuttle-3-view-formB', $formb_year), 'name' => "Borang 4B"],
             ];
 
-            $kembali = route('ipjpsm.borang-keseluruhan.shuttle4.borangB', date('Y'));
+            $kembali = route('ipjpsm.borang-keseluruhan.shuttle4.borangB', $formb_year);
         }
         elseif($kilang_info->shuttle_type == '5' && $formb->status == 'Lulus'){
             $breadcrumbs    = [
                 ['link' => route('home'), 'name' => "Laman Utama"],
-                ['link' => route('shuttle-5-listB', date('Y')), 'name' => "Menu Utama Modul"],
-                ['link' => route('shuttle-5-listB', date('Y')), 'name' => "Senarai Penuh Maklumat Borang"],
-                ['link' => route('shuttle-5-listB', date('Y')), 'name' => "Shuttle 5 - Kilang Kayu Kumai"],
-                ['link' => route('shuttle-5-listB', date('Y')), 'name' => "Senarai Borang 5B"],
-                ['link' => route('ipjpsm.shuttle-3-view-formB', date('Y')), 'name' => "Borang 5B"],
+                ['link' => route('shuttle-5-listB', $formb_year), 'name' => "Menu Utama Modul"],
+                ['link' => route('shuttle-5-listB', $formb_year), 'name' => "Senarai Penuh Maklumat Borang"],
+                ['link' => route('shuttle-5-listB', $formb_year), 'name' => "Shuttle 5 - Kilang Kayu Kumai"],
+                ['link' => route('shuttle-5-listB', $formb_year), 'name' => "Senarai Borang 5B"],
+                ['link' => route('ipjpsm.shuttle-3-view-formB', $formb_year), 'name' => "Borang 5B"],
             ];
 
-            $kembali = route('ipjpsm.borang-keseluruhan.shuttle5.borangB', date('Y'));
+            $kembali = route('ipjpsm.borang-keseluruhan.shuttle5.borangB', $formb_year);
         }
 
         $returnArr = [

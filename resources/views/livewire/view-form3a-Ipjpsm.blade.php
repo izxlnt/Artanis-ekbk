@@ -96,7 +96,7 @@
                                                             <div class="col-sm-8">
                                                                 <input readonly type="text" class="form-control"
                                                                     name='tahun' onkeypress="return isNumberKey(event)"
-                                                                    value="{{ $kilang_info->tahun }}" placeholder="Tahun">
+                                                                    value="{{ $forma->tahun }}" placeholder="Tahun">
                                                                 </input>
                                                                 @error('tahun')
                                                                     <div class="alert alert-danger">

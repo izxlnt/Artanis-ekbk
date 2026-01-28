@@ -115,7 +115,7 @@ class PermohonanPenggunaController extends Controller
     public function status_permohonan_shuttle_3_ipjpsm($id)
     {
         // dd($id);
-        $users = User::where('kategori_pengguna','IBK')->where('shuttle_type',3)->where('is_approved',0)->where('pengguna_kilang_id','!=',NULL)->
+        $users = User::with('shuttle')->where('kategori_pengguna','IBK')->where('shuttle_type',3)->where('is_approved',0)->where('pengguna_kilang_id','!=',NULL)->
         where('shuttle_id',$id)->get();
 
         // dd($users);
@@ -143,7 +143,7 @@ class PermohonanPenggunaController extends Controller
         // $users = User::where('kategori_pengguna','IBK')->where('shuttle_type',3)->where('is_approved',0)->where('pengguna_kilang_id',NULL)->get(); //tarik kilang
         $user_check=[];
 
-        $users = User::where('kategori_pengguna','IBK')->where('shuttle_type',3)->where('pengguna_kilang_id',NULL)->get(); //tarik kilang
+        $users = User::with('shuttle')->where('kategori_pengguna','IBK')->where('shuttle_type',3)->where('pengguna_kilang_id',NULL)->get(); //tarik kilang
 
         foreach ($users as $key => $value) {
             $user_check[] = User::where('kategori_pengguna','IBK')->where('shuttle_type',3)->where('is_approved',0)
@@ -174,7 +174,7 @@ class PermohonanPenggunaController extends Controller
     {
 
 
-        $users = User::where('kategori_pengguna','IBK')->where('shuttle_type',4)->where('pengguna_kilang_id',NULL)->get();
+        $users = User::with('shuttle')->where('kategori_pengguna','IBK')->where('shuttle_type',4)->where('pengguna_kilang_id',NULL)->get();
         $user_check=[];
 
         foreach ($users as $key => $value) {
@@ -204,7 +204,7 @@ class PermohonanPenggunaController extends Controller
     public function status_permohonan_shuttle_5_ipjpsm_kilang()
     {
 
-        $users = User::where('kategori_pengguna','IBK')->where('shuttle_type',5)->where('pengguna_kilang_id',NULL)->get();
+        $users = User::with('shuttle')->where('kategori_pengguna','IBK')->where('shuttle_type',5)->where('pengguna_kilang_id',NULL)->get();
         $user_check=[];
         foreach ($users as $key => $value) {
             $user_check[] = User::where('kategori_pengguna','IBK')->where('shuttle_type',5)->where('is_approved',0)
@@ -231,7 +231,7 @@ class PermohonanPenggunaController extends Controller
     public function status_permohonan_shuttle_4_ipjpsm($id)
     {
 
-        $users = User::where('kategori_pengguna','IBK')->where('shuttle_type',4)->where('is_approved',0)->where('pengguna_kilang_id','!=',NULL)->where('shuttle_id',$id)->get();
+        $users = User::with('shuttle')->where('kategori_pengguna','IBK')->where('shuttle_type',4)->where('is_approved',0)->where('pengguna_kilang_id','!=',NULL)->where('shuttle_id',$id)->get();
 
         $breadcrumbs    = [
             ['link' => route('home'), 'name' => "Laman Utama"],
@@ -253,7 +253,7 @@ class PermohonanPenggunaController extends Controller
     public function status_permohonan_shuttle_5_ipjpsm($id)
     {
 
-        $users = User::where('kategori_pengguna','IBK')->where('shuttle_type',5)->where('is_approved',0)->where('pengguna_kilang_id','!=',NULL)->where('shuttle_id',$id)->get();
+        $users = User::with('shuttle')->where('kategori_pengguna','IBK')->where('shuttle_type',5)->where('is_approved',0)->where('pengguna_kilang_id','!=',NULL)->where('shuttle_id',$id)->get();
 
         $breadcrumbs    = [
             ['link' => route('home'), 'name' => "Laman Utama"],
@@ -365,8 +365,19 @@ class PermohonanPenggunaController extends Controller
     {
 
         $id = User::find($id);
-        // dd($id);
+        
+        // Check if user exists
+        if (!$id) {
+            return redirect()->back()->with('error', 'Pengguna tidak dijumpai.');
+        }
+        
+        // Get kilang with error handling
         $kilang = Shuttle::where('id', $id->shuttle_id)->first();
+        
+        // Check if kilang exists
+        if (!$kilang) {
+            return redirect()->back()->with('error', 'Maklumat kilang tidak dijumpai untuk pengguna ini.');
+        }
 
         $users = PenggunaKilang::where('id', $id->pengguna_kilang_id)->first();
 
