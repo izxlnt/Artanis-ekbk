@@ -1643,23 +1643,11 @@ $pengumumantest=PengumumanIpjpsm::where('negeri',$user_pengumuman->negeri)->firs
             $pengguna->gambar_passport  = $gambar_passport;
         }
 
-        // Update email in all related tables only if email was provided and changed
+        // Update email in user and pengguna_kilang only if email was provided and changed
         if ($request->has('email') && $request->email !== $oldEmail) {
             $pengguna->email = $request->email;
-
-            // Update the user's email
             $user->email = $request->email;
             $user->updated_at = now();
-
-            // Update related Shuttle email if it exists
-            if ($user->shuttle_id) {
-                $shuttle = \App\Models\Shuttle::find($user->shuttle_id);
-                if ($shuttle) {
-                    $shuttle->email = $request->email;
-                    $shuttle->updated_at = now();
-                    $shuttle->save();
-                }
-            }
         }
 
         // Update other editable fields

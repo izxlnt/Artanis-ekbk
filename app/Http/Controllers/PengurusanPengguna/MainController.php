@@ -475,35 +475,24 @@ class MainController extends Controller
     public function updateEmailKilang(Request $request, $id)
     {
         $user = User::where('id', $id)->first();
-
-        $user->email = $request->email;
-
-        $user->save();
-
         $shuttle = Shuttle::where('id', $user->shuttle_id)->first();
-
-        $shuttle->email = $request->email;
-
-        $shuttle->save();
-
-        return redirect()->back()->with('success', 'Emel Pengguna Berjaya Dikemaskini');
+        if ($shuttle) {
+            $shuttle->email = $request->email;
+            $shuttle->save();
+        }
+        return redirect()->back()->with('success', 'Emel Kilang Berjaya Dikemaskini');
     }
 
     public function updateEmailPengguna(Request $request, $id)
     {
         $user = User::where('id', $id)->first();
-
         $user->email = $request->email;
-
         $user->save();
-
-        $pengguna = PenggunaKilang::where('id', $user->shuttle_id)->first();
-        // dd($pengguna);
-
-        $pengguna->email = $request->email;
-
-        $pengguna->save();
-
+        $pengguna = PenggunaKilang::where('id', $user->pengguna_kilang_id)->first();
+        if ($pengguna) {
+            $pengguna->email = $request->email;
+            $pengguna->save();
+        }
         return redirect()->back()->with('success', 'Emel Pengguna Berjaya Dikemaskini');
     }
 
