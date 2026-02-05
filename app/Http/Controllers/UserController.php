@@ -2177,6 +2177,25 @@ $pengumumantest=PengumumanIpjpsm::where('negeri',$user_pengumuman->negeri)->firs
 
         $buffer = Buffer::where('shuttle', auth()->user()->shuttle->shuttle_type)->where('borang', 'D')->first();
 
+        // Check which months have Form C filled (required before Form D can be filled)
+        // A Form C is considered "filled" if it exists and has any data entered
+        $formCFilled = [];
+        for ($month = 1; $month <= 12; $month++) {
+            $formC = FormC::where('shuttle_id', $shuttle->id)
+                ->where('bulan', $month)
+                ->where('tahun', $year)
+                ->first();
+            
+            // Form C is available for Form D if:
+            // 1. It exists AND
+            // 2. Status is NOT 'Tidak Diisi' (has been worked on/submitted)
+            $formCFilled[$month] = $formC && ($formC->status !== 'Tidak Diisi');
+        }
+
+        // Allow filling previous year forms if they were started
+        $currentYear = date('Y');
+        $isPreviousYear = ($year < $currentYear);
+
         $breadcrumbs    = [
             ['link' => route('home-user'), 'name' => "Laman Utama"],
             ['link' => route('user.shuttle-3-senaraiD', date('Y')), 'name' => "Kemasukan Maklumat"],
@@ -2190,7 +2209,7 @@ $pengumumantest=PengumumanIpjpsm::where('negeri',$user_pengumuman->negeri)->firs
         ];
 
         // dd($list);
-        return view('ibk.shuttle-3-senaraiD-ibk', compact('returnArr', 'list', 'shuttle', 'buffer', 'year', 'year_list'));
+        return view('ibk.shuttle-3-senaraiD-ibk', compact('returnArr', 'list', 'shuttle', 'buffer', 'year', 'year_list', 'formCFilled', 'isPreviousYear'));
     }
 
     public function editform3B($id)

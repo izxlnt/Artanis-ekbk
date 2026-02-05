@@ -16,7 +16,19 @@ use Livewire\Component;
 class FormD extends Component
 {
     public $bulan_id;
+    public $year;
     public $total_export, $jumlah_jualan, $total_jumlah_jualan,$catatan,$jumlah_pasaran_tempatan,$bulan;
+    
+    public function mount($year = null)
+    {
+        // Default to current year if not provided
+        if (!$year) {
+            $this->year = date('Y');
+        } else {
+            $this->year = $year;
+        }
+    }
+    
     public function render()
     {
         if($this->bulan_id ==  '1'){
@@ -59,11 +71,11 @@ class FormD extends Component
 
         $breadcrumbs    = [
             ['link' => route('home-user'), 'name' => "Laman Utama"],
-            ['link' => route('user.shuttle-3-senaraiD', date('Y')), 'name' => "Kemasukan Maklumat"],
-            ['link' => route('user.shuttle-3-senaraiA', date('Y')), 'name' => "Borang 3D - PENYATA PENJUALAN"],
+            ['link' => route('user.shuttle-3-senaraiD', $this->year), 'name' => "Kemasukan Maklumat"],
+            ['link' => route('user.shuttle-3-senaraiA', $this->year), 'name' => "Borang 3D - PENYATA PENJUALAN"],
         ];
 
-        $kembali = route('user.shuttle-3-senaraiD', date('Y'));
+        $kembali = route('user.shuttle-3-senaraiD', $this->year);
 
         $returnArr = [
             'breadcrumbs' => $breadcrumbs,
@@ -174,7 +186,7 @@ class FormD extends Component
         $user = auth()->user();
         // dd($this->suku_id);
 
-        $formd = ModelsFormD::where('shuttle_id',$user->shuttle_id)->where('bulan',$this->bulan_id)->whereYear('created_at', date("Y"))->first();
+        $formd = ModelsFormD::where('shuttle_id',$user->shuttle_id)->where('bulan',$this->bulan_id)->where('tahun', $this->year)->first();
 
         $formd->total_export = $this->total_export ?? 0;
         $formd->jumlah_pasaran_tempatan = $this->jumlah_pasaran_tempatan ?? 0;

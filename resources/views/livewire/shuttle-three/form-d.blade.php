@@ -64,7 +64,7 @@
                                                                                     <label><b>Tahun:</b></label>
                                                                                    <input type="text" class="form-control"
                                                                                         style="background-color: #7ee48c6b; border-color: #6df173"
-                                                                                        value="{{ date('Y') }}" readonly />
+                                                                                        value="{{ $year }}" readonly />
                                                                                 </div>
                                                                                 <div class="col-md-2">
                                                                                     <label><b>Bulan:</b></label>
@@ -206,7 +206,7 @@
                                                                 <div class="text-right form-group m-b-0">
                                                                     {{-- <button type="submit" class="btn btn-primary">Tiada Pengeluaran</button> --}}
 
-                                                                    <a href="{{ route('user.shuttle-3-senaraiD', date('Y')) }}"
+                                                                    <a href="{{ route('user.shuttle-3-senaraiD', $year) }}"
                                                                         class="btn btn-primary">Kembali</a>
 
                                                                     <button type="button" class="btn btn-primary"

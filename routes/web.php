@@ -197,7 +197,7 @@ Route::middleware('auth')->group(
                 // Route::get('/pengguna/shuttle-3-formC/Kayu-Lembut/{bulan}', [App\Http\Controllers\ShuttleThree\MainController::class, 'shuttle_3_formCKayuLembut'])->name('user.shuttle-3-formC.KayuLembut');
                 // Route::get('/pengguna/shuttle-3-formC/Lain-Lain/{bulan}', [App\Http\Controllers\ShuttleThree\MainController::class, 'shuttle_3_formCLainLain'])->name('user.shuttle-3-formC.LainLain');
 
-                Route::get('/pengguna/shuttle-3-formD/{id}', [App\Http\Controllers\ShuttleThree\MainController::class, 'shuttle_3_formD'])->name('user.shuttle-3-formD');
+                Route::get('/pengguna/shuttle-3-formD/{year}/{id}', [App\Http\Controllers\ShuttleThree\MainController::class, 'shuttle_3_formD'])->name('user.shuttle-3-formD');
                 Route::get('/pengguna/edit-shuttle-3B/{id}', [App\Http\Controllers\UserController::class, 'editform3B'])->name('edit-form3b');
                 Route::get('/pengguna/edit-shuttle-3C/{id}', [App\Http\Controllers\UserController::class, 'editform3C'])->name('edit-form3c');
                 Route::get('/pengguna/edit-shuttle-3D/{id}', [App\Http\Controllers\UserController::class, 'editform3D'])->name('edit-form3d');
