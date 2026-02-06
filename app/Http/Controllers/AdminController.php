@@ -154,15 +154,8 @@ class AdminController extends Controller{
 
         $user->save();
 
-        // Update related PenggunaKilang email if it exists
-        if ($user->pengguna_kilang_id) {
-            $penggunaKilang = \App\Models\PenggunaKilang::find($user->pengguna_kilang_id);
-            if ($penggunaKilang) {
-                $penggunaKilang->email = $request->email;
-                $penggunaKilang->updated_at = now();
-                $penggunaKilang->save();
-            }
-        }
+        // Do NOT update PenggunaKilang email for factory email updates
+        // This prevents individual user IC from having the same email as factory SSM
 
         // Update related Shuttle email if it exists
         if ($user->shuttle_id) {
@@ -174,7 +167,7 @@ class AdminController extends Controller{
             }
         }
 
-        return redirect()->back()->with("success", "Emel pengguna dan maklumat berkaitan berjaya dikemaskini.");
+        return redirect()->back()->with("success", "Emel kilang dan maklumat berkaitan berjaya dikemaskini.");
     }
 
     public function update_emel_phd(Request $request, $id)
@@ -204,27 +197,11 @@ class AdminController extends Controller{
 
         $user->save();
 
-        // Update related PenggunaKilang email if it exists
-        if ($user->pengguna_kilang_id) {
-            $penggunaKilang = \App\Models\PenggunaKilang::find($user->pengguna_kilang_id);
-            if ($penggunaKilang) {
-                $penggunaKilang->email = $request->email;
-                $penggunaKilang->updated_at = now();
-                $penggunaKilang->save();
-            }
-        }
+        // PHD users are government users, not factory users
+        // They should not have pengguna_kilang_id or shuttle_id
+        // So we don't update those tables
 
-        // Update related Shuttle email if it exists
-        if ($user->shuttle_id) {
-            $shuttle = \App\Models\Shuttle::find($user->shuttle_id);
-            if ($shuttle) {
-                $shuttle->email = $request->email;
-                $shuttle->updated_at = now();
-                $shuttle->save();
-            }
-        }
-
-        return redirect()->back()->with("success", "Maklumat pengguna dan emel berkaitan berjaya dikemaskini.");
+        return redirect()->back()->with("success", "Maklumat pengguna PHD berjaya dikemaskini.");
     }
 
 
@@ -253,27 +230,11 @@ class AdminController extends Controller{
 
         $user->save();
 
-        // Update related PenggunaKilang email if it exists
-        if ($user->pengguna_kilang_id) {
-            $penggunaKilang = \App\Models\PenggunaKilang::find($user->pengguna_kilang_id);
-            if ($penggunaKilang) {
-                $penggunaKilang->email = $request->email;
-                $penggunaKilang->updated_at = now();
-                $penggunaKilang->save();
-            }
-        }
+        // JPN users are government users, not factory users
+        // They should not have pengguna_kilang_id or shuttle_id
+        // So we don't update those tables
 
-        // Update related Shuttle email if it exists
-        if ($user->shuttle_id) {
-            $shuttle = \App\Models\Shuttle::find($user->shuttle_id);
-            if ($shuttle) {
-                $shuttle->email = $request->email;
-                $shuttle->updated_at = now();
-                $shuttle->save();
-            }
-        }
-
-        return redirect()->back()->with("success", "Maklumat pengguna dan emel berkaitan berjaya dikemaskini.");
+        return redirect()->back()->with("success", "Maklumat pengguna JPN berjaya dikemaskini.");
     }
 
     public function update_emel_pengguna(Request $request, $id)
@@ -308,17 +269,10 @@ class AdminController extends Controller{
             }
         }
 
-        // Update related Shuttle email if it exists
-        if ($user->shuttle_id) {
-            $shuttle = \App\Models\Shuttle::find($user->shuttle_id);
-            if ($shuttle) {
-                $shuttle->email = $request->email;
-                $shuttle->updated_at = now();
-                $shuttle->save();
-            }
-        }
+        // Do NOT update Shuttle email for individual user email updates
+        // This prevents factory SSM from having the same email as individual user IC
 
-        return redirect()->back()->with("success", "Maklumat pengguna dan emel berkaitan berjaya dikemaskini.");
+        return redirect()->back()->with("success", "Emel pengguna dan maklumat berkaitan berjaya dikemaskini.");
     }
 
     public function update_emel_ipjpsm(Request $request, $id)
@@ -343,27 +297,11 @@ class AdminController extends Controller{
 
         $user->save();
 
-        // Update related PenggunaKilang email if it exists
-        if ($user->pengguna_kilang_id) {
-            $penggunaKilang = \App\Models\PenggunaKilang::find($user->pengguna_kilang_id);
-            if ($penggunaKilang) {
-                $penggunaKilang->email = $request->email;
-                $penggunaKilang->updated_at = now();
-                $penggunaKilang->save();
-            }
-        }
+        // IPJPSM users are government users, not factory users
+        // They should not have pengguna_kilang_id or shuttle_id
+        // So we don't update those tables
 
-        // Update related Shuttle email if it exists
-        if ($user->shuttle_id) {
-            $shuttle = \App\Models\Shuttle::find($user->shuttle_id);
-            if ($shuttle) {
-                $shuttle->email = $request->email;
-                $shuttle->updated_at = now();
-                $shuttle->save();
-            }
-        }
-
-        return redirect()->back()->with("success", "Maklumat pengguna dan emel berkaitan berjaya dikemaskini.");
+        return redirect()->back()->with("success", "Maklumat pengguna IPJPSM berjaya dikemaskini.");
     }
 
     public function update_profile_phd(Request $request)

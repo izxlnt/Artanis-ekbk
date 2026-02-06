@@ -138,10 +138,10 @@
                                                             <hr>
                                                             <div class="row">
                                                                 <label for="fname"
-                                                                    class="text-right col-sm-3 control-label col-form-label">Nama
+                                                                    class="text-right col-sm-3 control-label col-form-label required">Nama
                                                                     Kilang</label>
                                                                 <div class="col-md-8">
-                                                                    <input readonly type="text" class="form-control"
+                                                                    <input type="text" class="form-control"
                                                                         name='nama_kilang' placeholder="Nama Kilang"
                                                                         value="{{ $kilang_info->nama_kilang }}">
                                                                     @error('nama_kilang')
@@ -388,10 +388,10 @@
                                                             {{-- <hr> --}}
                                                             <div class="row">
                                                                 <label for="fname"
-                                                                    class="text-right col-sm-3 control-label col-form-label">No.
+                                                                    class="text-right col-sm-3 control-label col-form-label required">No.
                                                                     Pendaftaran Syarikat (SSM)</label>
                                                                 <div class="col-md-8">
-                                                                    <input readonly type="text" class="form-control"
+                                                                    <input type="text" class="form-control"
                                                                         name='no_ssm'
                                                                         placeholder="No. Pendaftaran Syarikat(SSM)"
                                                                         value="{{ $kilang_info->no_ssm }}">

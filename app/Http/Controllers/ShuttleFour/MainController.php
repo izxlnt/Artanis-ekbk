@@ -206,11 +206,13 @@ class MainController extends Controller
         }
 
         if (isset($request->alamat_sama)) {
+            $shuttle->nama_kilang  = request()->nama_kilang;
             $shuttle->alamat_surat_menyurat_1  = request()->alamat_kilang_1;
             $shuttle->alamat_surat_menyurat_2  = request()->alamat_kilang_2;
             $shuttle->alamat_surat_menyurat_poskod  = request()->alamat_kilang_poskod;
             $shuttle->alamat_surat_menyurat_daerah  = request()->alamat_kilang_daerah;
             $shuttle->no_ssm  = request()->no_ssm;
+            $shuttle->no_lesen  = request()->no_lesen;
             $shuttle->no_telefon  = request()->no_telefon;
             $shuttle->no_faks  = request()->no_faks;
             $shuttle->email  = request()->email_kilang;
@@ -223,11 +225,13 @@ class MainController extends Controller
             $shuttle->nilai_harta  = request()->nilai_harta;
             $shuttle->save();
         } else {
+            $shuttle->nama_kilang  = request()->nama_kilang;
             $shuttle->alamat_surat_menyurat_1  = request()->alamat_surat_menyurat_1;
             $shuttle->alamat_surat_menyurat_2  = request()->alamat_surat_menyurat_2;
             $shuttle->alamat_surat_menyurat_poskod  = request()->alamat_surat_menyurat_poskod;
             $shuttle->alamat_surat_menyurat_daerah  = request()->alamat_surat_menyurat_daerah;
             $shuttle->no_ssm  = request()->no_ssm;
+            $shuttle->no_lesen  = request()->no_lesen;
             $shuttle->no_telefon  = request()->no_telefon;
             $shuttle->no_faks  = request()->no_faks;
             $shuttle->email  = request()->email_kilang;
