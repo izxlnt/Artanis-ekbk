@@ -120,7 +120,7 @@ class FormCKayuKayuLembut extends Component
         $this->kumpulan_kayu = KumpulanKayu::where('id', $this->kayu_id)->get();
 
         // $this->species_count = Spesis::orderBy('kumpulan_kayu_id')->count();
-        // $this->species = Spesis::orderBy('kumpulan_kayu_id')->get();
+        // $this->species = Spesis::orderBy('kumpulan_kayu_id')->orderBy('id')->get();
         // $this->kumpulan_kayu = KumpulanKayu::get();
 
         $this->kilang_info = Shuttle::where('id', auth()->user()->shuttle_id)->first();
@@ -246,7 +246,7 @@ class FormCKayuKayuLembut extends Component
         // $jenis_pembeli = Pembeli::where('shuttle', 3)->get();
         // $shuttle_id = Shuttle::first();
 
-        // $species = Spesis::orderBy('kumpulan_kayu_id')->get();
+        // $species = Spesis::orderBy('kumpulan_kayu_id')->orderBy('id')->get();
 
         // VALIDATION
 
@@ -528,7 +528,7 @@ class FormCKayuKayuLembut extends Component
     //jumlah  baki stok dibawa ke bulan hadapan (04)-(05)
     public function calcBakiStok($keySpecies)
     {
-        // $species = Spesis::orderBy('kumpulan_kayu_id')->get();
+        // $species = Spesis::orderBy('kumpulan_kayu_id')->orderBy('id')->get();
         $jumlah_stok_kayu_balak =  $this->jumlah_stok_kayu_balak[$keySpecies];
         $proses_masuk = $this->proses_masuk[$keySpecies];
         // $total_kayu = $jumlah_stok_kayu_balak - $proses_masuk;
@@ -538,7 +538,7 @@ class FormCKayuKayuLembut extends Component
     //jumlah total stok Kayu Balak (05)
     public function calcTotalKemasukanKayuBalakJentera($keySpecies, $keyKumpulanKayu, $singkatan)
     {
-        //   $species = Spesis::orderBy('kumpulan_kayu_id')->get();
+        //   $species = Spesis::orderBy('kumpulan_kayu_id')->orderBy('id')->get();
 
         $jumlah = 0;
 
@@ -559,7 +559,7 @@ class FormCKayuKayuLembut extends Component
     //jumlah total stok Kayu Balak (06)
     public function calcTotalPengeluaranKayuDaripadaJentera($keySpecies, $keyKumpulanKayu, $singkatan)
     {
-        //    $species = Spesis::orderBy('kumpulan_kayu_id')->get();
+        //    $species = Spesis::orderBy('kumpulan_kayu_id')->orderBy('id')->get();
 
         $jumlah = 0;
 
@@ -601,7 +601,7 @@ class FormCKayuKayuLembut extends Component
     public function calcJumlahBesarStokBulanLepas($keySpecies, $keyKumpulanKayu, $singkatan)
     {
 
-        // $species = Spesis::orderBy('kumpulan_kayu_id')->get();
+        // $species = Spesis::orderBy('kumpulan_kayu_id')->orderBy('id')->get();
         $jumlah =   0;
 
         foreach ($this->species as $keyKumpulanKayu => $data) {
@@ -623,7 +623,7 @@ class FormCKayuKayuLembut extends Component
     public function calcJumlahBesarKemasukanKayuKeKilang($keySpecies, $keyKumpulanKayu, $singkatan)
     {
 
-        // $species = Spesis::orderBy('kumpulan_kayu_id')->get();
+        // $species = Spesis::orderBy('kumpulan_kayu_id')->orderBy('id')->get();
         $jumlah =   0;
 
         foreach ($this->species as $keyKumpulanKayu => $data) {
@@ -645,7 +645,7 @@ class FormCKayuKayuLembut extends Component
     public function calcJumlahBesarStokKayuBalak($keySpecies, $keyKumpulanKayu, $singkatan)
     {
 
-        // $species = Spesis::orderBy('kumpulan_kayu_id')->get();
+        // $species = Spesis::orderBy('kumpulan_kayu_id')->orderBy('id')->get();
         $jumlah =   0;
 
         foreach ($this->species as $keyKumpulanKayu => $data) {
@@ -667,7 +667,7 @@ class FormCKayuKayuLembut extends Component
     public function calcJumlahBesarKayuKeDalamJentera($keySpecies, $keyKumpulanKayu, $singkatan)
     {
 
-        //  $species = Spesis::orderBy('kumpulan_kayu_id')->get();
+        //  $species = Spesis::orderBy('kumpulan_kayu_id')->orderBy('id')->get();
         $jumlah =   0;
 
         foreach ($this->species as $keyKumpulanKayu => $data) {
@@ -689,7 +689,7 @@ class FormCKayuKayuLembut extends Component
     public function calcJumlahBesarPengeluaranKayuDaripadaJentera($keySpecies, $keyKumpulanKayu, $singkatan)
     {
 
-        //  $species = Spesis::orderBy('kumpulan_kayu_id')->get();
+        //  $species = Spesis::orderBy('kumpulan_kayu_id')->orderBy('id')->get();
         $jumlah =   0;
 
         foreach ($this->species as $keyKumpulanKayu => $data) {
@@ -711,7 +711,7 @@ class FormCKayuKayuLembut extends Component
     public function calcJumlahBesarBakiStokBulanHadapan($keySpecies, $keyKumpulanKayu, $singkatan)
     {
 
-        //   $species = Spesis::orderBy('kumpulan_kayu_id')->get();
+        //   $species = Spesis::orderBy('kumpulan_kayu_id')->orderBy('id')->get();
         $jumlah =   0;
 
         foreach ($this->species as $keyKumpulanKayu => $data) {

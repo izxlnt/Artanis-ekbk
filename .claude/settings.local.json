@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(grep -n -A 10 'status == '\\\\''Tidak Diisi'\\\\'' && $data->bulan == '\\\\''1'\\\\''' /d/Development/Artanis-ekbk/resources/views/ibk/shuttle-3-senaraiC-ibk.blade.php)",
+      "Bash(cat)",
+      "Read(//tmp/**)"
+    ]
+  }
+}

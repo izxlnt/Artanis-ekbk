@@ -23,7 +23,7 @@ class EditForm3C extends Component
 
     public function render()
     {
-        $species = Spesis::orderBy('kumpulan_kayu_id')->get();
+        $species = Spesis::orderBy('kumpulan_kayu_id')->orderBy('id')->get();
         $kumpulan_kayu = KumpulanKayu::get();
         $formc_id = FormC::findorfail($this->shuttle_id);
         // dd($formc_id);
@@ -37,9 +37,13 @@ class EditForm3C extends Component
     }
 
     public function loadData(){
-        $formC = KemasukanBahan::where('formcs_id',$this->shuttle_id)->get();
-        // dd($formC);
-        foreach ($formC as $key => $value) {
+        $formC = KemasukanBahan::where('formcs_id',$this->shuttle_id)->get()->keyBy('spesis_id');
+        $species = Spesis::orderBy('kumpulan_kayu_id')->orderBy('id')->get();
+
+        foreach ($species as $key => $spesis) {
+            $value = $formC[$spesis->id] ?? null;
+            if (!$value) continue;
+
             $this->baki_stok[$key] = $value->baki_stok;
             $this->jumlah_baki_stok[$key] = $value->jumlah_baki_stok;
             $this->kayu_masuk[$key] = $value->kayu_masuk;
@@ -60,8 +64,6 @@ class EditForm3C extends Component
             $this->jumlah_besar_kayu_ke_dalam_jentera = $value->jumlah_besar_kayu_ke_dalam_jentera;
             $this->jumlah_besar_pengeluaran_kayu_daripada_jentera = $value->jumlah_besar_pengeluaran_kayu_daripada_jentera;
             $this->jumlah_besar_baki_stok_bulan_depan = $value->jumlah_besar_baki_stok_bulan_depan;
-
-
         }
     }
 
@@ -71,7 +73,7 @@ class EditForm3C extends Component
         // $jenis_pembeli = Pembeli::where('shuttle', 3)->get();
         $shuttle_id = Shuttle::first();
 
-        $species = Spesis::orderBy('kumpulan_kayu_id')->get();
+        $species = Spesis::orderBy('kumpulan_kayu_id')->orderBy('id')->get();
 
         $id=auth()->user();
         $kilang_info = Shuttle::where('id',$id->shuttle_id)->first();
@@ -94,19 +96,19 @@ class EditForm3C extends Component
         $batch->borang_c = "1";
         $batch->save();
 
-        $formC = KemasukanBahan::where('formcs_id',$this->shuttle_id)->get();
+        $formC = KemasukanBahan::where('formcs_id',$this->shuttle_id)->get()->keyBy('spesis_id');
 
-        foreach ($formC as $keySpecies => $data) {
-            // dd( $this->jumlah_baki_stok);
-            $data->update([
-                // 'spesis_id' => $data->id,
+        foreach ($species as $keySpecies => $data) {
+            $record = $formC[$data->id] ?? null;
+            if (!$record) continue;
+
+            $record->update([
                 'baki_stok' => $this->baki_stok[$keySpecies],
                 'kayu_masuk' => $this->kayu_masuk[$keySpecies],
                 'jumlah_stok_kayu_balak' => $this->jumlah_stok_kayu_balak[$keySpecies],
                 'proses_masuk' => $this->proses_masuk[$keySpecies],
                 'proses_keluar' => $this->proses_keluar[$keySpecies],
                 'baki_stok_kehadapan' => $this->baki_stok_kehadapan[$keySpecies],
-
 
                 'jumlah_baki_stok' => $this->jumlah_baki_stok[$keySpecies] ?? 0,
                 'jumlah_kayu_masuk' => $this->jumlah_kayu_masuk[$keySpecies] ?? 0,
@@ -115,14 +117,12 @@ class EditForm3C extends Component
                 'total_kayu_keluar_jentera' => $this->total_kayu_keluar_jentera[$keySpecies] ?? 0,
                 'total_kayu_dibawa_bulan_hadapan' => $this->total_kayu_dibawa_bulan_hadapan[$keySpecies] ?? 0,
 
-
                 'jumlah_besar_baki_stok_bulan_lepas' => $this->jumlah_besar_baki_stok_bulan_lepas,
                 'jumlah_besar_kemasukan_kayu_ke_kilang' => $this->jumlah_besar_kemasukan_kayu_ke_kilang,
                 'jumlah_besar_stok_kayu_balak' => $this->jumlah_besar_stok_kayu_balak,
                 'jumlah_besar_kayu_ke_dalam_jentera' => $this->jumlah_besar_kayu_ke_dalam_jentera,
                 'jumlah_besar_pengeluaran_kayu_daripada_jentera' => $this->jumlah_besar_pengeluaran_kayu_daripada_jentera,
                 'jumlah_besar_baki_stok_bulan_depan' => $this->jumlah_besar_baki_stok_bulan_depan,
-
             ]);
         }
         Session::flash('success', 'Maklumat berjaya dimasukkan. Sila tunggu untuk pengesahan PHD.');
@@ -134,7 +134,7 @@ class EditForm3C extends Component
      public function calcJumlahBakiStok($keySpecies, $keyKumpulanKayu, $singkatan)
 
      {
-         $species = Spesis::orderBy('kumpulan_kayu_id')->get();
+         $species = Spesis::orderBy('kumpulan_kayu_id')->orderBy('id')->get();
 
          $jumlah = 0;
 
@@ -162,7 +162,7 @@ class EditForm3C extends Component
      //jumlah total kemasukan Kayu Balak (03)
      public function calcJumlahKayuMasuk($keySpecies, $keyKumpulanKayu, $singkatan)
      {
-         $species = Spesis::orderBy('kumpulan_kayu_id')->get();
+         $species = Spesis::orderBy('kumpulan_kayu_id')->orderBy('id')->get();
 
          $jumlah = 0;
 
@@ -191,7 +191,7 @@ class EditForm3C extends Component
       //jumlah total stok Kayu Balak (04)
       public function calcTotalStokKayuBalak($keySpecies, $keyKumpulanKayu, $singkatan)
       {
-          $species = Spesis::orderBy('kumpulan_kayu_id')->get();
+          $species = Spesis::orderBy('kumpulan_kayu_id')->orderBy('id')->get();
 
           $jumlah = 0;
 
@@ -216,7 +216,7 @@ class EditForm3C extends Component
        //jumlah total stok Kayu Balak (05)
        public function calcTotalKemasukanKayuBalakJentera($keySpecies, $keyKumpulanKayu, $singkatan)
        {
-           $species = Spesis::orderBy('kumpulan_kayu_id')->get();
+           $species = Spesis::orderBy('kumpulan_kayu_id')->orderBy('id')->get();
 
            $jumlah = 0;
 
@@ -242,7 +242,7 @@ class EditForm3C extends Component
         //jumlah total stok Kayu Balak (06)
         public function calcTotalPengeluaranKayuDaripadaJentera($keySpecies, $keyKumpulanKayu, $singkatan)
         {
-            $species = Spesis::orderBy('kumpulan_kayu_id')->get();
+            $species = Spesis::orderBy('kumpulan_kayu_id')->orderBy('id')->get();
 
             $jumlah = 0;
 
@@ -266,7 +266,7 @@ class EditForm3C extends Component
          //jumlah total stok Kayu Balak (07)
          public function calcTotalStokKayuDibawaBulanHadapan($keySpecies, $keyKumpulanKayu, $singkatan)
          {
-             $species = Spesis::orderBy('kumpulan_kayu_id')->get();
+             $species = Spesis::orderBy('kumpulan_kayu_id')->orderBy('id')->get();
 
              $jumlah = 0;
 
@@ -288,7 +288,7 @@ class EditForm3C extends Component
      //jumlah Stok Kayu balak = (04)=(02)+(03)
      public function calcJumlahStokKayuBalak($keySpecies)
      {
-         $species = Spesis::orderBy('kumpulan_kayu_id')->get();
+         $species = Spesis::orderBy('kumpulan_kayu_id')->orderBy('id')->get();
 
          if (empty($this->baki_stok[$keySpecies])) {
              $this->baki_stok[$keySpecies] = 0;
@@ -317,7 +317,7 @@ class EditForm3C extends Component
      //jumlah  baki stok dibawa ke bulan hadapan (04)-(05)
      public function calcBakiStok($keySpecies, $keyKumpulanKayu, $singkatan)
      {
-         $species = Spesis::orderBy('kumpulan_kayu_id')->get();
+         $species = Spesis::orderBy('kumpulan_kayu_id')->orderBy('id')->get();
 
          if (empty($this->jumlah_stok_kayu_balak[$keySpecies])) {
              $this->jumlah_stok_kayu_balak[$keySpecies] = 0;
@@ -343,7 +343,7 @@ class EditForm3C extends Component
      public function calcJumlahBesarStokBulanLepas($keySpecies, $keyKumpulanKayu, $singkatan)
      {
 
-         $species = Spesis::orderBy('kumpulan_kayu_id')->get();
+         $species = Spesis::orderBy('kumpulan_kayu_id')->orderBy('id')->get();
          $jumlah =   0;
 
          foreach($species as $keyKumpulanKayu => $data){
@@ -366,7 +366,7 @@ class EditForm3C extends Component
      public function calcJumlahBesarKemasukanKayuKeKilang($keySpecies, $keyKumpulanKayu, $singkatan)
      {
 
-         $species = Spesis::orderBy('kumpulan_kayu_id')->get();
+         $species = Spesis::orderBy('kumpulan_kayu_id')->orderBy('id')->get();
          $jumlah =   0;
 
          foreach($species as $keyKumpulanKayu => $data){
@@ -389,7 +389,7 @@ class EditForm3C extends Component
      public function calcJumlahBesarStokKayuBalak($keySpecies, $keyKumpulanKayu, $singkatan)
      {
 
-         $species = Spesis::orderBy('kumpulan_kayu_id')->get();
+         $species = Spesis::orderBy('kumpulan_kayu_id')->orderBy('id')->get();
          $jumlah =   0;
 
          foreach($species as $keyKumpulanKayu => $data){
@@ -412,7 +412,7 @@ class EditForm3C extends Component
       public function calcJumlahBesarKayuKeDalamJentera($keySpecies, $keyKumpulanKayu, $singkatan)
       {
 
-          $species = Spesis::orderBy('kumpulan_kayu_id')->get();
+          $species = Spesis::orderBy('kumpulan_kayu_id')->orderBy('id')->get();
           $jumlah =   0;
 
           foreach($species as $keyKumpulanKayu => $data){
@@ -435,7 +435,7 @@ class EditForm3C extends Component
       public function calcJumlahBesarPengeluaranKayuDaripadaJentera($keySpecies, $keyKumpulanKayu, $singkatan)
       {
 
-          $species = Spesis::orderBy('kumpulan_kayu_id')->get();
+          $species = Spesis::orderBy('kumpulan_kayu_id')->orderBy('id')->get();
           $jumlah =   0;
 
           foreach($species as $keyKumpulanKayu => $data){
@@ -458,7 +458,7 @@ class EditForm3C extends Component
        public function calcJumlahBesarBakiStokBulanHadapan($keySpecies, $keyKumpulanKayu, $singkatan)
        {
 
-           $species = Spesis::orderBy('kumpulan_kayu_id')->get();
+           $species = Spesis::orderBy('kumpulan_kayu_id')->orderBy('id')->get();
            $jumlah =   0;
 
            foreach($species as $keyKumpulanKayu => $data){

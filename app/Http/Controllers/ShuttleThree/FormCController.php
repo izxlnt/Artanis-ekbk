@@ -2179,7 +2179,7 @@ class FormCController extends Controller
 
         // dd($kemasukan_bahans_lastmonth);
 
-        $species = Spesis::orderBy('kumpulan_kayu_id')->get();
+        $species = Spesis::orderBy('kumpulan_kayu_id')->orderBy('id')->get();
 
         if ($kemasukan_bahans->isEmpty()) {
             foreach ($species as $keySpecies => $data) {

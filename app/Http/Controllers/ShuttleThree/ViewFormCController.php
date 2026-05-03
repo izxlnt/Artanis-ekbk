@@ -159,7 +159,7 @@ class ViewFormCController extends Controller
         $formc = FormC::where('id', $id)->first();
         // $id =$formc->id;
         // dd($id);
-        $species = Spesis::orderBy('kumpulan_kayu_id')->get();
+        $species = Spesis::orderBy('kumpulan_kayu_id')->orderBy('id')->get();
         // dd($species);
         $kumpulan_kayu = KumpulanKayu::get();
 
@@ -433,7 +433,7 @@ class ViewFormCController extends Controller
         $formc = FormC::where('id', $id)->first();
         // $id =$formc->id;
         // dd($id);
-        $species = Spesis::orderBy('kumpulan_kayu_id')->get();
+        $species = Spesis::orderBy('kumpulan_kayu_id')->orderBy('id')->get();
         // dd($species);
         $kumpulan_kayu = KumpulanKayu::get();
 

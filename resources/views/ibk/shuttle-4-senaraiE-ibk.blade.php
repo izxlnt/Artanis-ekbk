@@ -134,7 +134,9 @@
                                                             $delay = '+' . $buffer->delay . ' month';
                                                             $tarikh_tutup_terkini = date('Y-m-d', strtotime($delay, $time));
                                                         @endphp
-                                                        @if (date('Y-m-d') >= $data->tarikh_buka_borang && date('Y-m-d') <= $tarikh_tutup_terkini)
+                                                        @if (!$formDFilled[1])
+                                                            <img src="{{ asset('calendar.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Sila isi Borang D terlebih dahulu" style="color: black; font-size: 20pt;">
+                                                        @elseif ($isPreviousYear || (date('Y-m-d') >= $data->tarikh_buka_borang && date('Y-m-d') <= $tarikh_tutup_terkini))
                                                             <a href="{{ route('user.shuttle-4-formE', $id ='1') }}"
                                                                 data-toggle="tooltip" data-placement="bottom"
                                                                 title="Borang belum diisi">
@@ -184,7 +186,9 @@
                                                             $delay = '+' . $buffer->delay . ' month';
                                                             $tarikh_tutup_terkini = date('Y-m-d', strtotime($delay, $time));
                                                         @endphp
-                                                        @if (date('Y-m-d') >= $data->tarikh_buka_borang && date('Y-m-d') <= $tarikh_tutup_terkini)
+                                                        @if (!$formDFilled[2])
+                                                            <img src="{{ asset('calendar.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Sila isi Borang D terlebih dahulu" style="color: black; font-size: 20pt;">
+                                                        @elseif ($isPreviousYear || (date('Y-m-d') >= $data->tarikh_buka_borang && date('Y-m-d') <= $tarikh_tutup_terkini))
                                                             <a href="{{ route('user.shuttle-4-formE', $id ='2') }}"
                                                                 data-toggle="tooltip" data-placement="bottom"
                                                                 title="Borang belum diisi">
@@ -234,7 +238,9 @@
                                                             $delay = '+' . $buffer->delay . ' month';
                                                             $tarikh_tutup_terkini = date('Y-m-d', strtotime($delay, $time));
                                                         @endphp
-                                                        @if (date('Y-m-d') >= $data->tarikh_buka_borang && date('Y-m-d') <= $tarikh_tutup_terkini)
+                                                        @if (!$formDFilled[3])
+                                                            <img src="{{ asset('calendar.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Sila isi Borang D terlebih dahulu" style="color: black; font-size: 20pt;">
+                                                        @elseif ($isPreviousYear || (date('Y-m-d') >= $data->tarikh_buka_borang && date('Y-m-d') <= $tarikh_tutup_terkini))
                                                             <a href="{{ route('user.shuttle-4-formE', $id ='3') }}"
                                                                 data-toggle="tooltip" data-placement="bottom"
                                                                 title="Borang belum diisi">
@@ -284,7 +290,9 @@
                                                             $delay = '+' . $buffer->delay . ' month';
                                                             $tarikh_tutup_terkini = date('Y-m-d', strtotime($delay, $time));
                                                         @endphp
-                                                        @if (date('Y-m-d') >= $data->tarikh_buka_borang && date('Y-m-d') <= $tarikh_tutup_terkini)
+                                                        @if (!$formDFilled[4])
+                                                            <img src="{{ asset('calendar.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Sila isi Borang D terlebih dahulu" style="color: black; font-size: 20pt;">
+                                                        @elseif ($isPreviousYear || (date('Y-m-d') >= $data->tarikh_buka_borang && date('Y-m-d') <= $tarikh_tutup_terkini))
                                                             <a href="{{ route('user.shuttle-4-formE', $id ='4') }}"
                                                                 data-toggle="tooltip" data-placement="bottom"
                                                                 title="Borang belum diisi">
@@ -334,7 +342,9 @@
                                                             $delay = '+' . $buffer->delay . ' month';
                                                             $tarikh_tutup_terkini = date('Y-m-d', strtotime($delay, $time));
                                                         @endphp
-                                                        @if (date('Y-m-d') >= $data->tarikh_buka_borang && date('Y-m-d') <= $tarikh_tutup_terkini)
+                                                        @if (!$formDFilled[5])
+                                                            <img src="{{ asset('calendar.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Sila isi Borang D terlebih dahulu" style="color: black; font-size: 20pt;">
+                                                        @elseif ($isPreviousYear || (date('Y-m-d') >= $data->tarikh_buka_borang && date('Y-m-d') <= $tarikh_tutup_terkini))
                                                             <a href="{{ route('user.shuttle-4-formE', $id ='5') }}"
                                                                 data-toggle="tooltip" data-placement="bottom"
                                                                 title="Borang belum diisi">
@@ -384,7 +394,9 @@
                                                             $delay = '+' . $buffer->delay . ' month';
                                                             $tarikh_tutup_terkini = date('Y-m-d', strtotime($delay, $time));
                                                         @endphp
-                                                        @if (date('Y-m-d') >= $data->tarikh_buka_borang && date('Y-m-d') <= $tarikh_tutup_terkini)
+                                                        @if (!$formDFilled[6])
+                                                            <img src="{{ asset('calendar.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Sila isi Borang D terlebih dahulu" style="color: black; font-size: 20pt;">
+                                                        @elseif ($isPreviousYear || (date('Y-m-d') >= $data->tarikh_buka_borang && date('Y-m-d') <= $tarikh_tutup_terkini))
                                                             <a href="{{ route('user.shuttle-4-formE', $id ='6') }}"
                                                                 data-toggle="tooltip" data-placement="bottom"
                                                                 title="Borang belum diisi">
@@ -434,7 +446,9 @@
                                                             $delay = '+' . $buffer->delay . ' month';
                                                             $tarikh_tutup_terkini = date('Y-m-d', strtotime($delay, $time));
                                                         @endphp
-                                                        @if (date('Y-m-d') >= $data->tarikh_buka_borang && date('Y-m-d') <= $tarikh_tutup_terkini)
+                                                        @if (!$formDFilled[7])
+                                                            <img src="{{ asset('calendar.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Sila isi Borang D terlebih dahulu" style="color: black; font-size: 20pt;">
+                                                        @elseif ($isPreviousYear || (date('Y-m-d') >= $data->tarikh_buka_borang && date('Y-m-d') <= $tarikh_tutup_terkini))
                                                             <a href="{{ route('user.shuttle-4-formE', $id ='7') }}"
                                                                 data-toggle="tooltip" data-placement="bottom"
                                                                 title="Borang belum diisi">
@@ -484,7 +498,9 @@
                                                             $delay = '+' . $buffer->delay . ' month';
                                                             $tarikh_tutup_terkini = date('Y-m-d', strtotime($delay, $time));
                                                         @endphp
-                                                        @if (date('Y-m-d') >= $data->tarikh_buka_borang && date('Y-m-d') <= $tarikh_tutup_terkini)
+                                                        @if (!$formDFilled[8])
+                                                            <img src="{{ asset('calendar.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Sila isi Borang D terlebih dahulu" style="color: black; font-size: 20pt;">
+                                                        @elseif ($isPreviousYear || (date('Y-m-d') >= $data->tarikh_buka_borang && date('Y-m-d') <= $tarikh_tutup_terkini))
                                                             <a href="{{ route('user.shuttle-4-formE', $id ='8') }}"
                                                                 data-toggle="tooltip" data-placement="bottom"
                                                                 title="Borang belum diisi">
@@ -534,7 +550,9 @@
                                                             $delay = '+' . $buffer->delay . ' month';
                                                             $tarikh_tutup_terkini = date('Y-m-d', strtotime($delay, $time));
                                                         @endphp
-                                                        @if (date('Y-m-d') >= $data->tarikh_buka_borang && date('Y-m-d') <= $tarikh_tutup_terkini)
+                                                        @if (!$formDFilled[9])
+                                                            <img src="{{ asset('calendar.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Sila isi Borang D terlebih dahulu" style="color: black; font-size: 20pt;">
+                                                        @elseif ($isPreviousYear || (date('Y-m-d') >= $data->tarikh_buka_borang && date('Y-m-d') <= $tarikh_tutup_terkini))
                                                             <a href="{{ route('user.shuttle-4-formE', $id ='9') }}"
                                                                 data-toggle="tooltip" data-placement="bottom"
                                                                 title="Borang belum diisi">
@@ -584,7 +602,9 @@
                                                             $delay = '+' . $buffer->delay . ' month';
                                                             $tarikh_tutup_terkini = date('Y-m-d', strtotime($delay, $time));
                                                         @endphp
-                                                        @if (date('Y-m-d') >= $data->tarikh_buka_borang && date('Y-m-d') <= $tarikh_tutup_terkini)
+                                                        @if (!$formDFilled[10])
+                                                            <img src="{{ asset('calendar.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Sila isi Borang D terlebih dahulu" style="color: black; font-size: 20pt;">
+                                                        @elseif ($isPreviousYear || (date('Y-m-d') >= $data->tarikh_buka_borang && date('Y-m-d') <= $tarikh_tutup_terkini))
                                                             <a href="{{ route('user.shuttle-4-formE', $id ='10') }}"
                                                                 data-toggle="tooltip" data-placement="bottom"
                                                                 title="Borang belum diisi">
@@ -634,7 +654,9 @@
                                                             $delay = '+' . $buffer->delay . ' month';
                                                             $tarikh_tutup_terkini = date('Y-m-d', strtotime($delay, $time));
                                                         @endphp
-                                                        @if (date('Y-m-d') >= $data->tarikh_buka_borang && date('Y-m-d') <= $tarikh_tutup_terkini)
+                                                        @if (!$formDFilled[11])
+                                                            <img src="{{ asset('calendar.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Sila isi Borang D terlebih dahulu" style="color: black; font-size: 20pt;">
+                                                        @elseif ($isPreviousYear || (date('Y-m-d') >= $data->tarikh_buka_borang && date('Y-m-d') <= $tarikh_tutup_terkini))
                                                             <a href="{{ route('user.shuttle-4-formE', $id ='11') }}"
                                                                 data-toggle="tooltip" data-placement="bottom"
                                                                 title="Borang belum diisi">
@@ -684,7 +706,9 @@
                                                             $delay = '+' . $buffer->delay . ' month';
                                                             $tarikh_tutup_terkini = date('Y-m-d', strtotime($delay, $time));
                                                         @endphp
-                                                        @if (date('Y-m-d') >= $data->tarikh_buka_borang && date('Y-m-d') <= $tarikh_tutup_terkini)
+                                                        @if (!$formDFilled[12])
+                                                            <img src="{{ asset('calendar.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Sila isi Borang D terlebih dahulu" style="color: black; font-size: 20pt;">
+                                                        @elseif ($isPreviousYear || (date('Y-m-d') >= $data->tarikh_buka_borang && date('Y-m-d') <= $tarikh_tutup_terkini))
                                                             <a href="{{ route('user.shuttle-4-formE', $id ='12') }}"
                                                                 data-toggle="tooltip" data-placement="bottom"
                                                                 title="Borang belum diisi">
