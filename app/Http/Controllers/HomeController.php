@@ -848,144 +848,30 @@ class HomeController extends Controller
 
     public function graph_dashboard_default()
     {
-        // dd($request->all());
         $shuttle_type = '3';
 
-
-        $johor = DB::select("SELECT COUNT(shuttles.negeri_id) as total_kilang
+        $rows = DB::select("SELECT shuttles.negeri_id, COUNT(DISTINCT form_a_s.shuttle_id) as total_kilang
         FROM form_a_s
-        INNER JOIN shuttles
-        ON form_a_s.shuttle_id = shuttles.id
+        INNER JOIN shuttles ON form_a_s.shuttle_id = shuttles.id
         WHERE shuttles.shuttle_type = $shuttle_type
-        AND shuttles.negeri_id = 'Johor'
         AND YEAR(date(form_a_s.created_at)) = YEAR(now())
         GROUP BY shuttles.negeri_id");
 
-        $kedah = DB::select("SELECT COUNT(shuttles.negeri_id) as total_kilang
-        FROM form_a_s
-        INNER JOIN shuttles
-        ON form_a_s.shuttle_id = shuttles.id
-        WHERE shuttles.shuttle_type = $shuttle_type
-        AND shuttles.negeri_id = 'Kedah'
-        AND YEAR(date(form_a_s.created_at)) = YEAR(now())
-        GROUP BY shuttles.negeri_id");
-
-        $kelantan = DB::select("SELECT COUNT(shuttles.negeri_id) as total_kilang
-        FROM form_a_s
-        INNER JOIN shuttles
-        ON form_a_s.shuttle_id = shuttles.id
-        WHERE shuttles.shuttle_type = $shuttle_type
-        AND shuttles.negeri_id = 'Kelantan'
-        AND YEAR(date(form_a_s.created_at)) = YEAR(now())
-        GROUP BY shuttles.negeri_id");
-
-        $melaka = DB::select("SELECT COUNT(shuttles.negeri_id) as total_kilang
-        FROM form_a_s
-        INNER JOIN shuttles
-        ON form_a_s.shuttle_id = shuttles.id
-        WHERE shuttles.shuttle_type = $shuttle_type
-        AND shuttles.negeri_id = 'Melaka'
-        AND YEAR(date(form_a_s.created_at)) = YEAR(now())
-        GROUP BY shuttles.negeri_id");
-
-        $n9 = DB::select("SELECT COUNT(shuttles.negeri_id) as total_kilang
-        FROM form_a_s
-        INNER JOIN shuttles
-        ON form_a_s.shuttle_id = shuttles.id
-        WHERE shuttles.shuttle_type = $shuttle_type
-        AND shuttles.negeri_id = 'Negeri Sembilan'
-        AND YEAR(date(form_a_s.created_at)) = YEAR(now())
-        GROUP BY shuttles.negeri_id");
-
-        $pahang = DB::select("SELECT COUNT(shuttles.negeri_id) as total_kilang
-        FROM form_a_s
-        INNER JOIN shuttles
-        ON form_a_s.shuttle_id = shuttles.id
-        WHERE shuttles.shuttle_type = $shuttle_type
-        AND shuttles.negeri_id = 'Pahang'
-        AND YEAR(date(form_a_s.created_at)) = YEAR(now())
-        GROUP BY shuttles.negeri_id");
-
-        $perak = DB::select("SELECT COUNT(shuttles.negeri_id) as total_kilang
-        FROM form_a_s
-        INNER JOIN shuttles
-        ON form_a_s.shuttle_id = shuttles.id
-        WHERE shuttles.shuttle_type = $shuttle_type
-        AND shuttles.negeri_id = 'Perak'
-        AND YEAR(date(form_a_s.created_at)) = YEAR(now())
-        GROUP BY shuttles.negeri_id");
-
-        $perlis = DB::select("SELECT COUNT(shuttles.negeri_id) as total_kilang
-        FROM form_a_s
-        INNER JOIN shuttles
-        ON form_a_s.shuttle_id = shuttles.id
-        WHERE shuttles.shuttle_type = $shuttle_type
-        AND shuttles.negeri_id = 'Perlis'
-        AND YEAR(date(form_a_s.created_at)) = YEAR(now())
-        GROUP BY shuttles.negeri_id");
-
-        $pinang = DB::select("SELECT COUNT(shuttles.negeri_id) as total_kilang
-        FROM form_a_s
-        INNER JOIN shuttles
-        ON form_a_s.shuttle_id = shuttles.id
-        WHERE shuttles.shuttle_type = $shuttle_type
-        AND shuttles.negeri_id = 'Pulau Pinang'
-        AND YEAR(date(form_a_s.created_at)) = YEAR(now())
-        GROUP BY shuttles.negeri_id");
-
-        $selangor = DB::select("SELECT COUNT(shuttles.negeri_id) as total_kilang
-        FROM form_a_s
-        INNER JOIN shuttles
-        ON form_a_s.shuttle_id = shuttles.id
-        WHERE shuttles.shuttle_type = $shuttle_type
-        AND shuttles.negeri_id = 'Selangor'
-        AND YEAR(date(form_a_s.created_at)) = YEAR(now())
-        GROUP BY shuttles.negeri_id");
-
-        $terengganu = DB::select("SELECT COUNT(shuttles.negeri_id) as total_kilang
-        FROM form_a_s
-        INNER JOIN shuttles
-        ON form_a_s.shuttle_id = shuttles.id
-        WHERE shuttles.shuttle_type = $shuttle_type
-        AND shuttles.negeri_id = 'Terengganu'
-        AND YEAR(date(form_a_s.created_at)) = YEAR(now())
-        GROUP BY shuttles.negeri_id");
-
-        $wp = DB::select("SELECT COUNT(shuttles.negeri_id) as total_kilang
-        FROM form_a_s
-        INNER JOIN shuttles
-        ON form_a_s.shuttle_id = shuttles.id
-        WHERE shuttles.shuttle_type = $shuttle_type
-        AND shuttles.negeri_id = 'W.P Kuala Lumpur'
-        AND YEAR(date(form_a_s.created_at)) = YEAR(now())
-        GROUP BY shuttles.negeri_id");
-
-        // dd($johor);
-
-        // $query_past = DB::select("SELECT shuttles.negeri_id, COUNT(shuttles.negeri_id) as total_kilang
-        // FROM form_a_s
-        // INNER JOIN shuttles
-        // ON form_a_s.shuttle_id = shuttles.id
-        // WHERE shuttles.shuttle_type = $shuttle_type
-        // AND YEAR(date(form_a_s.created_at)) = YEAR(now())-1
-        // GROUP BY shuttles.negeri_id");
+        $byNegeri = collect($rows)->keyBy('negeri_id');
 
         $returnArr = [
-            'johor' => $johor[0]->total_kilang?? 0,
-            'kedah' => $kedah[0]->total_kilang ?? 0,
-            'kelantan' => $kelantan[0]->total_kilang?? 0,
-            'melaka' => $melaka[0]->total_kilang?? 0,
-            'n9' => $n9[0]->total_kilang?? 0,
-            'pahang' => $pahang[0]->total_kilang?? 0,
-            'perak' => $perak[0]->total_kilang?? 0,
-            'perlis' => $perlis[0]->total_kilang?? 0,
-            'pinang' => $pinang[0]->total_kilang?? 0,
-            'selangor' => $selangor[0]->total_kilang?? 0,
-            'terengganu' => $terengganu[0]->total_kilang?? 0,
-            'wp' => $wp[0]->total_kilang?? 0,
-
-
-            // 'query_past' => $query_past
+            'johor'      => $byNegeri->get('Johor')?->total_kilang ?? 0,
+            'kedah'      => $byNegeri->get('Kedah')?->total_kilang ?? 0,
+            'kelantan'   => $byNegeri->get('Kelantan')?->total_kilang ?? 0,
+            'melaka'     => $byNegeri->get('Melaka')?->total_kilang ?? 0,
+            'n9'         => $byNegeri->get('Negeri Sembilan')?->total_kilang ?? 0,
+            'pahang'     => $byNegeri->get('Pahang')?->total_kilang ?? 0,
+            'perak'      => $byNegeri->get('Perak')?->total_kilang ?? 0,
+            'perlis'     => $byNegeri->get('Perlis')?->total_kilang ?? 0,
+            'pinang'     => $byNegeri->get('Pulau Pinang')?->total_kilang ?? 0,
+            'selangor'   => $byNegeri->get('Selangor')?->total_kilang ?? 0,
+            'terengganu' => $byNegeri->get('Terengganu')?->total_kilang ?? 0,
+            'wp'         => $byNegeri->get('W.P Kuala Lumpur')?->total_kilang ?? 0,
         ];
 
         return response($returnArr, 200);
@@ -993,154 +879,31 @@ class HomeController extends Controller
 
     public function graph_dashboard(Request $request)
     {
-        // dd($request->all());
-        $shuttle_type = $request->shuttle_type ?? 3;
+        $shuttle_type = (int) ($request->shuttle_type ?? 3);
 
-        $johor = DB::select("SELECT COUNT(shuttles.negeri_id) as total_kilang
+        $rows = DB::select("SELECT shuttles.negeri_id, COUNT(DISTINCT form_a_s.shuttle_id) as total_kilang
         FROM form_a_s
-        INNER JOIN shuttles
-        ON form_a_s.shuttle_id = shuttles.id
+        INNER JOIN shuttles ON form_a_s.shuttle_id = shuttles.id
         WHERE shuttles.shuttle_type = $shuttle_type
-        AND shuttles.negeri_id = 'Johor'
         AND YEAR(date(form_a_s.created_at)) = YEAR(now())
         GROUP BY shuttles.negeri_id");
 
-        $kedah = DB::select("SELECT COUNT(shuttles.negeri_id) as total_kilang
-        FROM form_a_s
-        INNER JOIN shuttles
-        ON form_a_s.shuttle_id = shuttles.id
-        WHERE shuttles.shuttle_type = $shuttle_type
-        AND shuttles.negeri_id = 'Kedah'
-        AND YEAR(date(form_a_s.created_at)) = YEAR(now())
-        GROUP BY shuttles.negeri_id");
-
-        $kelantan = DB::select("SELECT COUNT(shuttles.negeri_id) as total_kilang
-        FROM form_a_s
-        INNER JOIN shuttles
-        ON form_a_s.shuttle_id = shuttles.id
-        WHERE shuttles.shuttle_type = $shuttle_type
-        AND shuttles.negeri_id = 'Kelantan'
-        AND YEAR(date(form_a_s.created_at)) = YEAR(now())
-        GROUP BY shuttles.negeri_id");
-
-        $melaka = DB::select("SELECT COUNT(shuttles.negeri_id) as total_kilang
-        FROM form_a_s
-        INNER JOIN shuttles
-        ON form_a_s.shuttle_id = shuttles.id
-        WHERE shuttles.shuttle_type = $shuttle_type
-        AND shuttles.negeri_id = 'Melaka'
-        AND YEAR(date(form_a_s.created_at)) = YEAR(now())
-        GROUP BY shuttles.negeri_id");
-
-        $n9 = DB::select("SELECT COUNT(shuttles.negeri_id) as total_kilang
-        FROM form_a_s
-        INNER JOIN shuttles
-        ON form_a_s.shuttle_id = shuttles.id
-        WHERE shuttles.shuttle_type = $shuttle_type
-        AND shuttles.negeri_id = 'Negeri Sembilan'
-        AND YEAR(date(form_a_s.created_at)) = YEAR(now())
-        GROUP BY shuttles.negeri_id");
-
-        $pahang = DB::select("SELECT COUNT(shuttles.negeri_id) as total_kilang
-        FROM form_a_s
-        INNER JOIN shuttles
-        ON form_a_s.shuttle_id = shuttles.id
-        WHERE shuttles.shuttle_type = $shuttle_type
-        AND shuttles.negeri_id = 'Pahang'
-        AND YEAR(date(form_a_s.created_at)) = YEAR(now())
-        GROUP BY shuttles.negeri_id");
-
-        $perak = DB::select("SELECT COUNT(shuttles.negeri_id) as total_kilang
-        FROM form_a_s
-        INNER JOIN shuttles
-        ON form_a_s.shuttle_id = shuttles.id
-        WHERE shuttles.shuttle_type = $shuttle_type
-        AND shuttles.negeri_id = 'Perak'
-        AND YEAR(date(form_a_s.created_at)) = YEAR(now())
-        GROUP BY shuttles.negeri_id");
-
-        $perlis = DB::select("SELECT COUNT(shuttles.negeri_id) as total_kilang
-        FROM form_a_s
-        INNER JOIN shuttles
-        ON form_a_s.shuttle_id = shuttles.id
-        WHERE shuttles.shuttle_type = $shuttle_type
-        AND shuttles.negeri_id = 'Perlis'
-        AND YEAR(date(form_a_s.created_at)) = YEAR(now())
-        GROUP BY shuttles.negeri_id");
-
-        $pinang = DB::select("SELECT COUNT(shuttles.negeri_id) as total_kilang
-        FROM form_a_s
-        INNER JOIN shuttles
-        ON form_a_s.shuttle_id = shuttles.id
-        WHERE shuttles.shuttle_type = $shuttle_type
-        AND shuttles.negeri_id = 'Pulau Pinang'
-        AND YEAR(date(form_a_s.created_at)) = YEAR(now())
-        GROUP BY shuttles.negeri_id");
-
-        $selangor = DB::select("SELECT COUNT(shuttles.negeri_id) as total_kilang
-        FROM form_a_s
-        INNER JOIN shuttles
-        ON form_a_s.shuttle_id = shuttles.id
-        WHERE shuttles.shuttle_type = $shuttle_type
-        AND shuttles.negeri_id = 'Selangor'
-        AND YEAR(date(form_a_s.created_at)) = YEAR(now())
-        GROUP BY shuttles.negeri_id");
-
-        $terengganu = DB::select("SELECT COUNT(shuttles.negeri_id) as total_kilang
-        FROM form_a_s
-        INNER JOIN shuttles
-        ON form_a_s.shuttle_id = shuttles.id
-        WHERE shuttles.shuttle_type = $shuttle_type
-        AND shuttles.negeri_id = 'Terengganu'
-        AND YEAR(date(form_a_s.created_at)) = YEAR(now())
-        GROUP BY shuttles.negeri_id");
-
-        $wp = DB::select("SELECT COUNT(shuttles.negeri_id) as total_kilang
-        FROM form_a_s
-        INNER JOIN shuttles
-        ON form_a_s.shuttle_id = shuttles.id
-        WHERE shuttles.shuttle_type = $shuttle_type
-        AND shuttles.negeri_id = 'W.P Kuala Lumpur'
-        AND YEAR(date(form_a_s.created_at)) = YEAR(now())
-        GROUP BY shuttles.negeri_id");
-
-        // dd($johor);
-
-        // $query_past = DB::select("SELECT shuttles.negeri_id, COUNT(shuttles.negeri_id) as total_kilang
-        // FROM form_a_s
-        // INNER JOIN shuttles
-        // ON form_a_s.shuttle_id = shuttles.id
-        // WHERE shuttles.shuttle_type = $shuttle_type
-        // AND YEAR(date(form_a_s.created_at)) = YEAR(now())-1
-        // GROUP BY shuttles.negeri_id");
+        $byNegeri = collect($rows)->keyBy('negeri_id');
 
         $returnArr = [
-            'johor' => $johor[0]->total_kilang?? 0,
-            'kedah' => $kedah[0]->total_kilang ?? 0,
-            'kelantan' => $kelantan[0]->total_kilang?? 0,
-            'melaka' => $melaka[0]->total_kilang?? 0,
-            'n9' => $n9[0]->total_kilang?? 0,
-            'pahang' => $pahang[0]->total_kilang?? 0,
-            'perak' => $perak[0]->total_kilang?? 0,
-            'perlis' => $perlis[0]->total_kilang?? 0,
-            'pinang' => $pinang[0]->total_kilang?? 0,
-            'selangor' => $selangor[0]->total_kilang?? 0,
-            'terengganu' => $terengganu[0]->total_kilang?? 0,
-            'wp' => $wp[0]->total_kilang?? 0,
-
-
-            // 'query_past' => $query_past
+            'johor'      => $byNegeri->get('Johor')?->total_kilang ?? 0,
+            'kedah'      => $byNegeri->get('Kedah')?->total_kilang ?? 0,
+            'kelantan'   => $byNegeri->get('Kelantan')?->total_kilang ?? 0,
+            'melaka'     => $byNegeri->get('Melaka')?->total_kilang ?? 0,
+            'n9'         => $byNegeri->get('Negeri Sembilan')?->total_kilang ?? 0,
+            'pahang'     => $byNegeri->get('Pahang')?->total_kilang ?? 0,
+            'perak'      => $byNegeri->get('Perak')?->total_kilang ?? 0,
+            'perlis'     => $byNegeri->get('Perlis')?->total_kilang ?? 0,
+            'pinang'     => $byNegeri->get('Pulau Pinang')?->total_kilang ?? 0,
+            'selangor'   => $byNegeri->get('Selangor')?->total_kilang ?? 0,
+            'terengganu' => $byNegeri->get('Terengganu')?->total_kilang ?? 0,
+            'wp'         => $byNegeri->get('W.P Kuala Lumpur')?->total_kilang ?? 0,
         ];
-
-        // $query_past = DB::select("SELECT shuttles.negeri_id, COUNT(shuttles.negeri_id) as total_kilang
-        // FROM form_a_s
-        // INNER JOIN shuttles
-        // ON form_a_s.shuttle_id = shuttles.id
-        // WHERE shuttles.shuttle_type = $shuttle_type
-        // AND YEAR(date(form_a_s.created_at)) = YEAR(now())-1
-        // GROUP BY shuttles.negeri_id");
-
-
 
         return response($returnArr, 200);
     }
