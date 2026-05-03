@@ -15,6 +15,7 @@ use Livewire\Component;
 class FormB extends Component
 {
     public $suku_id;
+    public $year;
 
     public $pekerja_wargabumi_lelaki, $pekerja_wargabumi_perempuan, $pekerja_bukan_wargabumi_lelaki, $pekerja_bukan_wargabumi_perempuan, $pekerja_asing_lelaki, $pekerja_asing_perempuan,
         $jumlah_lelaki, $jumlah_perempuan, $jumlah_pekerja, $gaji_lelaki, $gaji_perempuan, $total_gaji_lelaki, $total_gaji_perempuan, $total_gaji,
@@ -62,8 +63,14 @@ class FormB extends Component
         return view('livewire.shuttle-five.form-b', compact('kategori_pekerja', 'kilang_info','returnArr'));
     }
 
-    public function mount()
+    public function mount($year = null)
     {
+        if ($year) {
+            $this->year = $year;
+        } elseif (!$this->year) {
+            $this->year = date('Y');
+        }
+
         $kategori_pekerja = KategoriGunaTenaga::get();
         foreach ($kategori_pekerja as $key => $value) {
             # code...
@@ -467,7 +474,7 @@ class FormB extends Component
         $user = auth()->user();
         // dd($this->suku_id);
 
-        $formb = FormBBaru::where('shuttle_id', $user->shuttle_id)->where('suku_tahun', $this->suku_id)->whereYear('created_at', date("Y"))->first();
+        $formb = FormBBaru::where('shuttle_id', $user->shuttle_id)->where('suku_tahun', $this->suku_id)->where('tahun', $this->year)->first();
 
         $formb->status = 'Sedang Diproses';
         $formb->save();
@@ -525,7 +532,7 @@ class FormB extends Component
                 'shuttle_id' => $shuttle_id->id,
                 'kategori_guna_tenaga_id' => $data->id,
                 'bulan' => now()->month,
-                'tahun' => now()->year,
+                'tahun' => $this->year,
                 'formbs_id' => $formb->id,
 
 

@@ -9,6 +9,6 @@ table, th, td {
 }
 </style>
 
-@livewire('shuttle-five.form-b',['suku_id' => $id])
+@livewire('shuttle-five.form-b',['suku_id' => $id, 'year' => $year])
 
 @endsection

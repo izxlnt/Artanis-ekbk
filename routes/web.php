@@ -273,7 +273,7 @@ Route::middleware('auth')->group(
                 Route::get('/pengguna/shuttle-4-formA/{year?}', [App\Http\Controllers\ShuttleFour\MainController::class, 'shuttle_4_formA'])->name('user.shuttle-4-formA');
                 Route::post('/pengguna/shuttle-4-formA/update/{id}', [App\Http\Controllers\ShuttleFour\MainController::class, 'updateForm4A'])->name('update.form4A');
 
-                Route::get('/pengguna/shuttle-4-formB/{id}', [App\Http\Controllers\ShuttleFour\MainController::class, 'shuttle_4_formB'])->name('user.shuttle-4-formB');
+                Route::get('/pengguna/shuttle-4-formB/{id}/{year?}', [App\Http\Controllers\ShuttleFour\MainController::class, 'shuttle_4_formB'])->name('user.shuttle-4-formB');
                 Route::get('/pengguna/shuttle-4-formC/{id}', [App\Http\Controllers\ShuttleFour\MainController::class, 'shuttle_4_formC'])->name('user.shuttle-4-formC');
                 Route::get('/pengguna/shuttle-4-formD/{id}', [App\Http\Controllers\ShuttleFour\MainController::class, 'shuttle_4_formD'])->name('user.shuttle-4-formD');
                 Route::get('/pengguna/shuttle-4-formE/{id}', [App\Http\Controllers\ShuttleFour\MainController::class, 'shuttle_4_formE'])->name('user.shuttle-4-formE');
@@ -316,7 +316,7 @@ Route::middleware('auth')->group(
                 Route::get('/pengguna/shuttle-5-formA/{year?}', [App\Http\Controllers\ShuttleFive\MainController::class, 'shuttle_5_formA'])->name('user.shuttle-5-formA');
                 Route::post('/pengguna/shuttle-5-formA/update/{id}', [App\Http\Controllers\ShuttleFive\MainController::class, 'updateForm5A'])->name('update.form5A');
 
-                Route::get('/pengguna/shuttle-5-formB/{id}', [App\Http\Controllers\ShuttleFive\MainController::class, 'shuttle_5_formB'])->name('user.shuttle-5-formB');
+                Route::get('/pengguna/shuttle-5-formB/{id}/{year?}', [App\Http\Controllers\ShuttleFive\MainController::class, 'shuttle_5_formB'])->name('user.shuttle-5-formB');
                 Route::get('/pengguna/shuttle-5-formC/{id}/{year?}', [App\Http\Controllers\ShuttleFive\MainController::class, 'shuttle_5_formC'])->name('user.shuttle-5-formC');
                 Route::get('/pengguna/shuttle-5-formD/{id}', [App\Http\Controllers\ShuttleFive\MainController::class, 'shuttle_5_formD'])->name('user.shuttle-5-formD');
                 Route::get('/pengguna/shuttle-5-formE/{id}', [App\Http\Controllers\ShuttleFive\MainController::class, 'shuttle_5_formE'])->name('user.shuttle-5-formE');

@@ -9,7 +9,7 @@ table, th, td {
 }
 </style>
 
-@livewire('shuttle-four.form-b',['suku_id' => $id])
+@livewire('shuttle-four.form-b',['suku_id' => $id, 'year' => $year])
 {{-- @livewire('shuttle-four.form-b') --}}
 
 {{-- @livewire('user-table') --}}

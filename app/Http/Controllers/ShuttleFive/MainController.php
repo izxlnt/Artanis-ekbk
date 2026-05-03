@@ -303,9 +303,10 @@ class MainController extends Controller
         }
     }
 
-    public function shuttle_5_formB($id)
+    public function shuttle_5_formB($id, $year = null)
     {
-        // dd($id);
+        $year = $year ?? date("Y");
+
         if ($id != 1) {
             $lastmonth = $id - 1;
         } else {
@@ -321,25 +322,25 @@ class MainController extends Controller
         }
 
         $early_buffer_date = (int)date('m') - (int)$buffer->delay;
-        $form_a_checker = FormA::where('tahun', date("Y"))
+        $form_a_checker = FormA::where('tahun', $year)
             ->where('shuttle_id', auth()->user()->shuttle->id)
             ->where('status', '!=', 'Tidak Diisi')
             ->count();
 
         $form_b_checker = FormB::where('shuttle_id', auth()->user()->shuttle_id)
             ->where('suku_tahun', $lastmonth)
-            ->whereYear('created_at', date("Y"))
+            ->where('tahun', $year)
             ->where('status', '!=', 'Tidak Diisi')
             ->count();
 
             // dd($form_b_checker);
 
         if ($form_a_checker == 0) {
-            return redirect()->back()->with('error', 'Sila isi Borang A terlebih dahulu.');
+            return redirect()->back()->with('error', 'Sila isi Borang A tahun ' . $year . ' terlebih dahulu.');
         }
 
         if ($id == 1) {
-            return view('admins.shuttle-five.shuttle-5-formB', compact('id'));
+            return view('admins.shuttle-five.shuttle-5-formB', compact('id', 'year'));
         }
 
         // if ($id != $early_buffer_date) {
@@ -347,7 +348,7 @@ class MainController extends Controller
         //         return redirect()->back()->with('error', 'Sila isi Borang B suku tahun sebelum ini terlebih dahulu.');
         //     }
         // }
-        return view('admins.shuttle-five.shuttle-5-formB',compact('id'));
+        return view('admins.shuttle-five.shuttle-5-formB', compact('id', 'year'));
     }
     public function shuttle_5_formC($id, $year = null)
     {

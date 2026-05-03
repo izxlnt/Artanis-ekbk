@@ -140,7 +140,7 @@
                                                             $tarikh_tutup_terkini = date('Y-m-d', strtotime($delay, $time));
                                                         @endphp
                                                         @if (date('Y-m-d') >= $data->tarikh_buka_borang && date('Y-m-d') <= $tarikh_tutup_terkini)
-                                                            <a href="{{ route('user.shuttle-5-formB', $id = 1) }}"
+                                                            <a href="{{ route('user.shuttle-5-formB', [1, $data->tahun]) }}"
                                                                 data-toggle="tooltip" data-placement="bottom"
                                                                 title="Borang belum diisi">
                                                                 <img src="{{ asset('circle_times.png') }}" height='30px'
@@ -189,7 +189,7 @@
                                                             $tarikh_tutup_terkini = date('Y-m-d', strtotime($delay, $time));
                                                         @endphp
                                                         @if (date('Y-m-d') >= $data->tarikh_buka_borang && date('Y-m-d') <= $tarikh_tutup_terkini)
-                                                            <a href="{{ route('user.shuttle-5-formB', $id = 2) }}"
+                                                            <a href="{{ route('user.shuttle-5-formB', [2, $data->tahun]) }}"
                                                                 data-toggle="tooltip" data-placement="bottom"
                                                                 title="Borang belum diisi">
                                                                 <img src="{{ asset('circle_times.png') }}" height='30px'
@@ -238,7 +238,7 @@
                                                             $tarikh_tutup_terkini = date('Y-m-d', strtotime($delay, $time));
                                                         @endphp
                                                         @if (date('Y-m-d') >= $data->tarikh_buka_borang && date('Y-m-d') <= $tarikh_tutup_terkini)
-                                                            <a href="{{ route('user.shuttle-5-formB', $id = 3) }}"
+                                                            <a href="{{ route('user.shuttle-5-formB', [3, $data->tahun]) }}"
                                                                 data-toggle="tooltip" data-placement="bottom"
                                                                 title="Borang belum diisi">
                                                                 <img src="{{ asset('circle_times.png') }}" height='30px'
@@ -287,7 +287,7 @@
                                                             $tarikh_tutup_terkini = date('Y-m-d', strtotime($delay, $time));
                                                         @endphp
                                                         @if (date('Y-m-d') >= $data->tarikh_buka_borang && date('Y-m-d') <= $tarikh_tutup_terkini)
-                                                            <a href="{{ route('user.shuttle-5-formB', $id = 4) }}"
+                                                            <a href="{{ route('user.shuttle-5-formB', [4, $data->tahun]) }}"
                                                                 data-toggle="tooltip" data-placement="bottom"
                                                                 title="Borang belum diisi">
                                                                 <img src="{{ asset('circle_times.png') }}" height='30px'
