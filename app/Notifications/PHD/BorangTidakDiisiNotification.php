@@ -32,8 +32,7 @@ class BorangTidakDiisiNotification extends Notification
      */
     public function via($notifiable)
     {
-        // return ['mail', 'database'];
-        return ['database'];
+        return ['mail', 'database'];
     }
 
     /**

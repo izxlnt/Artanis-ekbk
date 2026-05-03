@@ -201,7 +201,7 @@
                                 aria-haspopup="true" aria-expanded="false">
                                 <i class="mdi mdi-bell-outline font-22"></i>
                                 <span
-                                    class="badge badge-pill badge-info noti">{{ auth()->user()->unreadNotifications->count() }}</span>
+                                    class="badge badge-pill badge-info noti">{{ optional(auth()->user())->unreadNotifications?->count() ?? 0 }}</span>
                             </a>
                             <div class="dropdown-menu dropdown-menu-right mailbox animated bounceInDown">
                                 <span class="with-arrow">
@@ -211,14 +211,14 @@
                                     <li>
                                         <div class="drop-title bg-primary text-white">
                                             <h4 class="m-b-0 m-t-5" style="color: #000">
-                                                {{ auth()->user()->unreadNotifications->count() }} Notifikasi</h4>
+                                                {{ optional(auth()->user())->unreadNotifications?->count() ?? 0 }} Notifikasi</h4>
                                             <span class="font-light" style="color: #000">Baharu</span>
                                         </div>
                                     </li>
                                     <li>
                                         <div class="message-center notifications">
                                             <!-- Message -->
-                                            @foreach (auth()->user()->unreadNotifications as $notification)
+                                            @foreach (optional(auth()->user())->unreadNotifications ?? [] as $notification)
                                                 <a href="{{ route('notification.show', $notification->id) }}"
                                                     class="message-item">
                                                     <span class="btn btn-danger btn-circle">
@@ -252,7 +252,7 @@
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 {{-- <img src="{{asset('nice-admin/assets/images/users/2.jpg')}}" alt="user"
                                 class="rounded-circle" width="40"> --}}
-                                <span class="font-medium m-l-5 d-none d-sm-inline-block">{{ Auth::user()->name }} <i
+                                <span class="font-medium m-l-5 d-none d-sm-inline-block">{{ Auth::user()?->name }} <i
                                         class="mdi mdi-chevron-down"></i></span>
                             </a>
                             <div class="dropdown-menu dropdown-menu-right user-dd animated flipInY">
@@ -266,9 +266,9 @@
                                     class="rounded-circle" width="60">
                                 </div> --}}
                                     <div class="m-l-10">
-                                        <h4 class="m-b-0">{{ Auth::user()->name }}</h4>
-                                        <p class=" m-b-0">{{ Auth::user()->email }}</p>
-                                        <p class=" m-b-0">{{ Auth::user()->bahagian }}</p>
+                                        <h4 class="m-b-0">{{ Auth::user()?->name }}</h4>
+                                        <p class=" m-b-0">{{ Auth::user()?->email }}</p>
+                                        <p class=" m-b-0">{{ Auth::user()?->bahagian }}</p>
 
 
                                     </div>
