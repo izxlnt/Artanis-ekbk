@@ -364,6 +364,102 @@ class HomeController extends Controller
         return response()->json($shuttle5_count, 200);
     }
 
+    public function ajax_count_tugasan_ipjpsm_detail(Request $request)
+    {
+        $currentYear = date('Y');
+        $shuttle_type = (int) ($request->shuttle_type ?? 3);
+
+        $formA = DB::select(DB::raw("SELECT form_a_s.* FROM batches, form_a_s
+        INNER JOIN shuttles ON form_a_s.shuttle_id = shuttles.id
+        AND (form_a_s.status = 'Dihantar ke IPJPSM' OR form_a_s.status = 'Lulus')
+        WHERE batches.tahun = form_a_s.tahun
+        AND batches.shuttle_id = form_a_s.shuttle_id
+        AND batches.borang_a = '2'
+        AND batches.status = 'Dihantar ke IPJPSM'
+        AND shuttles.shuttle_type = $shuttle_type
+        AND form_a_s.tahun = '$currentYear'"));
+
+        $formB = DB::select(DB::raw("SELECT DISTINCT formbs.* FROM formbs
+        INNER JOIN shuttles ON formbs.shuttle_id = shuttles.id
+        INNER JOIN batches ON shuttles.id = batches.shuttle_id
+        AND (formbs.status = 'Dihantar ke IPJPSM' OR formbs.status = 'Lulus')
+        AND batches.shuttle_id = formbs.shuttle_id
+        AND batches.status = 'Dihantar ke IPJPSM'
+        AND batches.borang_b = '2'
+        AND shuttles.shuttle_type = '$shuttle_type'
+        AND formbs.tahun = '$currentYear'"));
+
+        $formC = DB::select(DB::raw("SELECT DISTINCT form_c_s.* FROM form_c_s
+        INNER JOIN shuttles ON form_c_s.shuttle_id = shuttles.id
+        INNER JOIN batches ON shuttles.id = batches.shuttle_id
+        WHERE batches.bulan = form_c_s.bulan
+        AND batches.status = 'Dihantar ke IPJPSM'
+        AND (form_c_s.status = 'Dihantar ke IPJPSM' OR form_c_s.status = 'Lulus')
+        AND batches.shuttle_id = form_c_s.shuttle_id
+        AND batches.borang_c = '2'
+        AND shuttles.shuttle_type = '$shuttle_type'
+        AND form_c_s.tahun = '$currentYear'"));
+
+        if ($shuttle_type === 3) {
+            $formD = DB::select(DB::raw("SELECT DISTINCT form_d_s.* FROM form_d_s
+            INNER JOIN shuttles ON form_d_s.shuttle_id = shuttles.id
+            INNER JOIN batches ON shuttles.id = batches.shuttle_id
+            WHERE batches.bulan = form_d_s.bulan
+            AND (form_d_s.status = 'Dihantar ke IPJPSM' OR form_d_s.status = 'Lulus')
+            AND batches.shuttle_id = form_d_s.shuttle_id
+            AND batches.status = 'Dihantar ke IPJPSM'
+            AND batches.borang_d = '2'
+            AND shuttles.shuttle_type = '$shuttle_type'
+            AND form_d_s.tahun = '$currentYear'"));
+        } elseif ($shuttle_type === 4) {
+            $formD = DB::select(DB::raw("SELECT DISTINCT form4_d_s.* FROM form4_d_s
+            INNER JOIN shuttles ON form4_d_s.shuttle_id = shuttles.id
+            INNER JOIN batches ON shuttles.id = batches.shuttle_id
+            WHERE batches.bulan = form4_d_s.bulan
+            AND (form4_d_s.status = 'Dihantar ke IPJPSM' OR form4_d_s.status = 'Lulus')
+            AND batches.shuttle_id = form4_d_s.shuttle_id
+            AND batches.status = 'Dihantar ke IPJPSM'
+            AND batches.borang_d = '2'
+            AND shuttles.shuttle_type = '$shuttle_type'
+            AND form4_d_s.tahun = '$currentYear'"));
+        } else {
+            $formD = DB::select(DB::raw("SELECT DISTINCT form5_d_s.* FROM form5_d_s
+            INNER JOIN shuttles ON form5_d_s.shuttle_id = shuttles.id
+            INNER JOIN batches ON shuttles.id = batches.shuttle_id
+            WHERE batches.bulan = form5_d_s.bulan
+            AND (form5_d_s.status = 'Dihantar ke IPJPSM' OR form5_d_s.status = 'Lulus')
+            AND batches.shuttle_id = form5_d_s.shuttle_id
+            AND batches.status = 'Dihantar ke IPJPSM'
+            AND batches.borang_d = '2'
+            AND shuttles.shuttle_type = '$shuttle_type'
+            AND form5_d_s.tahun = '$currentYear'"));
+        }
+
+        $result = [
+            'formA' => count($formA),
+            'formB' => count($formB),
+            'formC' => count($formC),
+            'formD' => count($formD),
+        ];
+
+        if ($shuttle_type >= 4) {
+            $tableE = $shuttle_type === 4 ? 'form4_e_s' : 'form5_e_s';
+            $formE = DB::select(DB::raw("SELECT DISTINCT $tableE.* FROM $tableE
+            INNER JOIN shuttles ON $tableE.shuttle_id = shuttles.id
+            INNER JOIN batches ON shuttles.id = batches.shuttle_id
+            WHERE batches.bulan = $tableE.bulan
+            AND ($tableE.status = 'Dihantar ke IPJPSM' OR $tableE.status = 'Lulus')
+            AND batches.shuttle_id = $tableE.shuttle_id
+            AND batches.status = 'Dihantar ke IPJPSM'
+            AND batches.borang_e = '2'
+            AND shuttles.shuttle_type = '$shuttle_type'
+            AND $tableE.tahun = '$currentYear'"));
+            $result['formE'] = count($formE);
+        }
+
+        return response()->json($result, 200);
+    }
+
     public function index_bpm()
     {
         $spesis_aktif= Spesis::get();

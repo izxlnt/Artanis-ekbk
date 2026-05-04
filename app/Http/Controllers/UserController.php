@@ -1083,6 +1083,109 @@ class UserController extends Controller
         return response()->json($shuttle5_count, 200);
     }
 
+    public function ajax_count_tugasan_phd_detail(Request $request)
+    {
+        $currentYear = date('Y');
+        $shuttle_type = (int) ($request->shuttle_type ?? 3);
+
+        $formA = FormA::where('status', 'Sedang Diproses')
+            ->where('tahun', $currentYear)
+            ->whereHas('shuttle', function ($q) use ($shuttle_type) {
+                $q->where('shuttle_type', $shuttle_type)->where('daerah_id', auth()->user()->daerah);
+            })->count();
+
+        $formB = FormB::where('status', 'Sedang Diproses')
+            ->where('shuttle_type', (string) $shuttle_type)
+            ->where('tahun', $currentYear)
+            ->whereHas('shuttle', function ($q) {
+                $q->where('daerah_id', auth()->user()->daerah);
+            })->count();
+
+        $formC = FormC::where(function ($q) {
+            $q->where('status', 'Sedang Diproses')->orWhere('status', 'Tiada Pengeluaran');
+        })->where('shuttle_type', (string) $shuttle_type)
+            ->where('tahun', $currentYear)
+            ->whereHas('shuttle', function ($q) {
+                $q->where('daerah_id', auth()->user()->daerah);
+            })->count();
+
+        $result = ['formA' => $formA, 'formB' => $formB, 'formC' => $formC];
+
+        if ($shuttle_type === 3) {
+            $result['formD'] = FormD::where('status', 'Sedang Diproses')
+                ->where('shuttle_type', '3')->where('tahun', $currentYear)
+                ->whereHas('shuttle', function ($q) { $q->where('daerah_id', auth()->user()->daerah); })->count();
+        } elseif ($shuttle_type === 4) {
+            $result['formD'] = Form4D::where(function ($q) {
+                $q->where('status', 'Sedang Diproses')->orWhere('status', 'Tiada Pengeluaran');
+            })->where('shuttle_type', '4')->where('tahun', $currentYear)
+                ->whereHas('shuttle', function ($q) { $q->where('daerah_id', auth()->user()->daerah); })->count();
+            $result['formE'] = Form4E::where('status', 'Sedang Diproses')
+                ->where('shuttle_type', '4')->where('tahun', $currentYear)
+                ->whereHas('shuttle', function ($q) { $q->where('daerah_id', auth()->user()->daerah); })->count();
+        } elseif ($shuttle_type === 5) {
+            $result['formD'] = Form5D::where(function ($q) {
+                $q->where('status', 'Sedang Diproses')->orWhere('status', 'Tiada Pengeluaran');
+            })->where('shuttle_type', '5')->where('tahun', $currentYear)
+                ->whereHas('shuttle', function ($q) { $q->where('daerah_id', auth()->user()->daerah); })->count();
+            $result['formE'] = Form5E::where(function ($q) {
+                $q->where('status', 'Sedang Diproses')->orWhere('status', 'Tiada Pengeluaran');
+            })->where('shuttle_type', '5')->where('tahun', $currentYear)
+                ->whereHas('shuttle', function ($q) { $q->where('daerah_id', auth()->user()->daerah); })->count();
+        }
+
+        return response()->json($result, 200);
+    }
+
+    public function ajax_count_tugasan_jpn_detail(Request $request)
+    {
+        $shuttle_type = (int) ($request->shuttle_type ?? 3);
+
+        $formA = FormA::where('status', 'Sedang Diproses')
+            ->where('shuttle_type', (string) $shuttle_type)
+            ->whereHas('shuttle', function ($q) {
+                $q->where('negeri_id', auth()->user()->negeri);
+            })->count();
+
+        $formB = FormB::where('status', 'Sedang Diproses')
+            ->where('shuttle_type', (string) $shuttle_type)
+            ->whereHas('shuttle', function ($q) {
+                $q->where('negeri_id', auth()->user()->negeri);
+            })->count();
+
+        $formC = FormC::where(function ($q) {
+            $q->where('status', 'Sedang Diproses')->orWhere('status', 'Tiada Pengeluaran');
+        })->where('shuttle_type', (string) $shuttle_type)
+            ->whereHas('shuttle', function ($q) {
+                $q->where('negeri_id', auth()->user()->negeri);
+            })->count();
+
+        $result = ['formA' => $formA, 'formB' => $formB, 'formC' => $formC];
+
+        if ($shuttle_type === 3) {
+            $result['formD'] = FormD::where('status', 'Sedang Diproses')
+                ->where('shuttle_type', '3')
+                ->whereHas('shuttle', function ($q) { $q->where('negeri_id', auth()->user()->negeri); })->count();
+        } elseif ($shuttle_type === 4) {
+            $result['formD'] = Form4D::where('status', 'Sedang Diproses')
+                ->where('shuttle_type', '4')
+                ->whereHas('shuttle', function ($q) { $q->where('negeri_id', auth()->user()->negeri); })->count();
+            $result['formE'] = Form4E::where('status', 'Sedang Diproses')
+                ->where('shuttle_type', '4')
+                ->whereHas('shuttle', function ($q) { $q->where('negeri_id', auth()->user()->negeri); })->count();
+        } elseif ($shuttle_type === 5) {
+            $result['formD'] = Form5D::where(function ($q) {
+                $q->where('status', 'Sedang Diproses')->orWhere('status', 'Tiada Pengeluaran');
+            })->where('shuttle_type', '5')
+                ->whereHas('shuttle', function ($q) { $q->where('negeri_id', auth()->user()->negeri); })->count();
+            $result['formE'] = Form5E::where('status', 'Sedang Diproses')
+                ->where('shuttle_type', '5')
+                ->whereHas('shuttle', function ($q) { $q->where('negeri_id', auth()->user()->negeri); })->count();
+        }
+
+        return response()->json($result, 200);
+    }
+
     public function index_phd()
     {
 

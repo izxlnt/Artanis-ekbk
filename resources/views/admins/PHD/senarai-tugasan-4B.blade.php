@@ -1,4 +1,4 @@
-@extends('layouts.layout-phd-nicepage')
+﻿@extends('layouts.layout-phd-nicepage')
 
 @section('content')
 
@@ -85,27 +85,7 @@
                                         @endforeach
                                     </select>
                                 </div>
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <a type="button " href="{{ route('phd.senarai-tugasan-4A', date('Y')) }}"
-                                            class="btn"
-                                            style="background-color:white;color:black;border-color:black">Borang 4A</a>
-                                        <a type="button" href="{{ route('phd.senarai-tugasan-4B', date('Y')) }}"
-                                            class="btn"
-                                            style="background-color:#ee8dcd;color:black;border-color:#ee8dcd">Borang 4B</a>
-                                        <a type="button" href="{{ route('phd.senarai-tugasan-4C', date('Y')) }}"
-                                            class="btn"
-                                            style="background-color:white;color:black;border-color:#bbb235f3">Borang 4C</a>
-                                        <a type="button" href="{{ route('phd.senarai-tugasan-4D', date('Y')) }}"
-                                            class="btn"
-                                            style="background-color:white;color:black;border-color:#1b9e21f3">Borang 4D</a>
-                                        <a type="button" href="{{ route('phd.senarai-tugasan-4E', date('Y')) }}"
-                                            class="btn btn-primary"
-                                            style="background-color:white;color:black;border-color:rgb(54, 140, 238">Borang
-                                            4E</a>
-
-                                    </div>
-                                </div>
+                                                                @include('partials.borang-nav', ['shuttle_type' => 4, 'current_form' => 'B', 'role' => 'phd'])
                             </div>
                             <br><br>
                             <div>

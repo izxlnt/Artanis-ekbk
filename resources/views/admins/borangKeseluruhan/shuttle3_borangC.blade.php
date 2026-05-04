@@ -1,4 +1,4 @@
-@extends('layouts.layout-ipjpsm-nicepage')
+﻿@extends('layouts.layout-ipjpsm-nicepage')
 
 @section('content')
 
@@ -80,28 +80,7 @@
                                         @endforeach
                                     </select>
                                 </div>
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <a type="button "
-                                            href="{{ route('ipjpsm.borang-keseluruhan.shuttle3.borangA', date('Y')) }}"
-                                            class="btn"
-                                            style="background-color:white;color:black;border-color:black">Borang 3A</a>
-                                        <a type="button"
-                                            href="{{ route('ipjpsm.borang-keseluruhan.shuttle3.borangB', date('Y')) }}"
-                                            class="btn"
-                                            style="background-color:white;color:black;border-color:#ee8dcd">Borang 3B</a>
-                                        <a type="button"
-                                            href="{{ route('ipjpsm.borang-keseluruhan.shuttle3.borangC', date('Y')) }}"
-                                            class="btn"
-                                            style="background-color:#f3e741f3;color:black;border-color:#bbb235f3">Borang
-                                            3C</a>
-                                        <a type="button"
-                                            href="{{ route('ipjpsm.borang-keseluruhan.shuttle3.borangD', date('Y')) }}"
-                                            class="btn"
-                                            style="background-color:white;color:black;border-color:#1b9e21f3">Borang 3D</a>
-
-                                    </div>
-                                </div>
+                                                                @include('partials.borang-nav', ['shuttle_type' => 3, 'current_form' => 'C', 'role' => 'ipjpsm'])
                             </div>
                             <div class="pt-5 row">
                                 <div class="col-md-12">

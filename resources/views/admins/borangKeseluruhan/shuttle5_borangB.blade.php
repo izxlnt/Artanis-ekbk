@@ -1,4 +1,4 @@
-@extends('layouts.layout-ipjpsm-nicepage')
+﻿@extends('layouts.layout-ipjpsm-nicepage')
 
 @section('content')
 
@@ -79,32 +79,7 @@
                                         @endforeach
                                     </select>
                                 </div>
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <a type="button "
-                                            href="{{ route('ipjpsm.borang-keseluruhan.shuttle5.borangA', date('Y')) }}"
-                                            class="btn"
-                                            style="background-color:white;color:black;border-color:black">Borang
-                                            5A</a>
-                                        <a type="button"
-                                            href="{{ route('ipjpsm.borang-keseluruhan.shuttle5.borangB', date('Y')) }}"
-                                            class="btn"
-                                            style="background-color:#ee8dcd;color:black;border-color:#ee8dcd">Borang 5B</a>
-                                        <a type="button"
-                                            href="{{ route('ipjpsm.borang-keseluruhan.shuttle5.borangC', date('Y')) }}"
-                                            class="btn"
-                                            style="background-color:white;color:black;border-color:#bbb235f3">Borang 5C</a>
-                                        <a type="button"
-                                            href="{{ route('ipjpsm.borang-keseluruhan.shuttle5.borangD', date('Y')) }}"
-                                            class="btn"
-                                            style="background-color:white;color:black;border-color:#1b9e21f3">Borang 5D</a>
-                                        <a type="button"
-                                            href="{{ route('ipjpsm.borang-keseluruhan.shuttle5.borangE', date('Y')) }}"
-                                            class="btn"
-                                            style="background-color:white;color:black;border-color:#2692ebf3">Borang 5E</a>
-
-                                    </div>
-                                </div>
+                                                                @include('partials.borang-nav', ['shuttle_type' => 5, 'current_form' => 'B', 'role' => 'ipjpsm'])
                             </div>
                             <br><br>
                             <div>

@@ -348,6 +348,7 @@ Route::middleware('auth')->group(
                 Route::get('/jpn/tugasan-shuttle3', [App\Http\Controllers\UserController::class, 'ajax_count_tugasan_jpn_shuttle3'])->name('ajax_count_tugasan_jpn_shuttle3');
                 Route::get('/jpn/tugasan-shuttle4', [App\Http\Controllers\UserController::class, 'ajax_count_tugasan_jpn_shuttle4'])->name('ajax_count_tugasan_jpn_shuttle4');
                 Route::get('/jpn/tugasan-shuttle5', [App\Http\Controllers\UserController::class, 'ajax_count_tugasan_jpn_shuttle5'])->name('ajax_count_tugasan_jpn_shuttle5');
+                Route::get('/jpn/tugasan-detail', [App\Http\Controllers\UserController::class, 'ajax_count_tugasan_jpn_detail'])->name('ajax.count.jpn.detail');
 
                 //shuttle 3
                 Route::get('/jpn/shuttle-3-listA/{year}', [App\Http\Controllers\ShuttleThree\ListAController::class, 'shuttle_3_listA_jpn'])->name('jpn.shuttle-3-listA-jpn');
@@ -420,6 +421,7 @@ Route::middleware('auth')->group(
                 Route::get('/phd/tugasan-shuttle3', [App\Http\Controllers\UserController::class, 'ajax_count_tugasan_phd_shuttle3'])->name('ajax_count_tugasan_phd_shuttle3');
                 Route::get('/phd/tugasan-shuttle4', [App\Http\Controllers\UserController::class, 'ajax_count_tugasan_phd_shuttle4'])->name('ajax_count_tugasan_phd_shuttle4');
                 Route::get('/phd/tugasan-shuttle5', [App\Http\Controllers\UserController::class, 'ajax_count_tugasan_phd_shuttle5'])->name('ajax_count_tugasan_phd_shuttle5');
+                Route::get('/phd/tugasan-detail', [App\Http\Controllers\UserController::class, 'ajax_count_tugasan_phd_detail'])->name('ajax.count.phd.detail');
 
                 Route::get('/phd/undeclare-shuttle3', [App\Http\Controllers\UserController::class, 'ajax_count_undeclare_shuttle3'])->name('ajax_count_undeclare_shuttle3');
                 Route::get('/phd/undeclare-shuttle4', [App\Http\Controllers\UserController::class, 'ajax_count_undeclare_shuttle4'])->name('ajax_count_undeclare_shuttle4');
@@ -866,6 +868,7 @@ Route::middleware('auth')->group(
                 Route::get('/admin/tugasan-shuttle3', [App\Http\Controllers\HomeController::class, 'ajax_count_tugasan_ipjpsm_shuttle3'])->name('ajax_count_tugasan_ipjpsm_shuttle3');
                 Route::get('/admin/tugasan-shuttle4', [App\Http\Controllers\HomeController::class, 'ajax_count_tugasan_ipjpsm_shuttle4'])->name('ajax_count_tugasan_ipjpsm_shuttle4');
                 Route::get('/admin/tugasan-shuttle5', [App\Http\Controllers\HomeController::class, 'ajax_count_tugasan_ipjpsm_shuttle5'])->name('ajax_count_tugasan_ipjpsm_shuttle5');
+                Route::get('/admin/tugasan-detail', [App\Http\Controllers\HomeController::class, 'ajax_count_tugasan_ipjpsm_detail'])->name('ajax.count.ipjpsm.detail');
 
                 //shuttle 3 IPJPSM
                 Route::get('/admin/shuttle-3-listA/{year}', [App\Http\Controllers\ShuttleThree\MainController::class, 'shuttle_3_listA_ipjpsm'])->name('shuttle-3-listA');

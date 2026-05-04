@@ -181,55 +181,92 @@
                 </div>
                 <br>
                 <div class="row" style="justify-content: space-around;">
-                    <a class="col-lg-4 col-md-6" href="{{ route('shuttle-3-listA', date('Y')) }}" style="color:black;">
-                        <div class="card bg-info card-hover" style="border-radius: 25px">
-                            <div class="card-body"
-                                style="box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2); background-color: #ee8dcd ;border-radius: 25px;text-align:center;">
-                                <div class="d-flex no-block align-items-center">
-                                    <div class="text-white">
-                                        <b><span style="font-size:40px;" id="count_tugasan_shuttle3">0</span></b>
-                                        <h5>Kilang Papan</h5>
-                                    </div>
-                                    <div class="ml-auto">
-                                        <span class="text-white display-6"><i class="fas fa-copy"></i></span>
-                                    </div>
-                                </div>
+                    {{-- Shuttle 3 --}}
+                    <div class="col-lg-4 col-md-6 mb-3">
+                        <div class="card bg-info card-hover" style="border-radius:25px">
+                            <div class="card-body" style="box-shadow:0 4px 8px 0 rgba(0,0,0,0.2);background-color:#ee8dcd;border-radius:25px;text-align:center;">
+                                <b><span style="font-size:40px;" id="count_tugasan_shuttle3">0</span></b>
+                                <h5 class="text-white">Kilang Papan</h5>
+                                <div class="mt-2" id="detail_s3" style="display:flex;flex-wrap:wrap;justify-content:center;gap:6px"></div>
                             </div>
                         </div>
-                    </a>
-                    <a class="col-lg-4 col-md-6" href="{{ route('shuttle-4-listA', date('Y')) }}" style="color:black;">
-                        <div class="card bg-info card-hover" style="border-radius: 25px">
-                            <div class="card-body"
-                                style="box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2); background-color: #f0e10dbd ;border-radius: 25px;text-align:center;">
-                                <div class="d-flex no-block align-items-center">
-                                    <div class="text-white">
-                                        <b><span style="font-size:40px;" id="count_tugasan_shuttle4">0</span></b>
-                                        <h5>Kilang Papan Lapis/Venir</h5>
-                                    </div>
-                                    <div class="ml-auto">
-                                        <span class="text-white display-6"><i class="fas fa-copy"></i></span>
-                                    </div>
-                                </div>
+                    </div>
+                    {{-- Shuttle 4 --}}
+                    <div class="col-lg-4 col-md-6 mb-3">
+                        <div class="card bg-info card-hover" style="border-radius:25px">
+                            <div class="card-body" style="box-shadow:0 4px 8px 0 rgba(0,0,0,0.2);background-color:#f0e10dbd;border-radius:25px;text-align:center;">
+                                <b><span style="font-size:40px;" id="count_tugasan_shuttle4">0</span></b>
+                                <h5 class="text-white">Kilang Papan Lapis/Venir</h5>
+                                <div class="mt-2" id="detail_s4" style="display:flex;flex-wrap:wrap;justify-content:center;gap:6px"></div>
                             </div>
                         </div>
-                    </a>
-                    <a class="col-lg-4 col-md-6" href="{{ route('shuttle-5-listA', date('Y')) }}" style="color:black;">
-                        <div class="card bg-info card-hover" style="border-radius: 25px">
-                            <div class="card-body"
-                                style="box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2); background-color: #6df173 ;border-radius: 25px;text-align:center;">
-                                <div class="d-flex no-block align-items-center">
-                                    <div class="text-white">
-                                        <b><span style="font-size:40px;" id="count_tugasan_shuttle5">0</span></b>
-                                        <h5>Kilang Kayu Kumai</h5>
-                                    </div>
-                                    <div class="ml-auto">
-                                        <span class="text-white display-6"><i class="fas fa-copy"></i></span>
-                                    </div>
-                                </div>
+                    </div>
+                    {{-- Shuttle 5 --}}
+                    <div class="col-lg-4 col-md-6 mb-3">
+                        <div class="card bg-info card-hover" style="border-radius:25px">
+                            <div class="card-body" style="box-shadow:0 4px 8px 0 rgba(0,0,0,0.2);background-color:#6df173;border-radius:25px;text-align:center;">
+                                <b><span style="font-size:40px;" id="count_tugasan_shuttle5">0</span></b>
+                                <h5 class="text-white">Kilang Kayu Kumai</h5>
+                                <div class="mt-2" id="detail_s5" style="display:flex;flex-wrap:wrap;justify-content:center;gap:6px"></div>
                             </div>
                         </div>
-                    </a>
+                    </div>
                 </div>
+                <script>
+                (function(){
+                    var detailUrl = "{{ route('ajax.count.ipjpsm.detail') }}";
+                    var formLinks = {
+                        3: {
+                            A: "{{ route('ipjpsm.borang-keseluruhan.shuttle3.borangA', date('Y')) }}",
+                            B: "{{ route('ipjpsm.borang-keseluruhan.shuttle3.borangB', date('Y')) }}",
+                            C: "{{ route('ipjpsm.borang-keseluruhan.shuttle3.borangC', date('Y')) }}",
+                            D: "{{ route('ipjpsm.borang-keseluruhan.shuttle3.borangD', date('Y')) }}"
+                        },
+                        4: {
+                            A: "{{ route('ipjpsm.borang-keseluruhan.shuttle4.borangA', date('Y')) }}",
+                            B: "{{ route('ipjpsm.borang-keseluruhan.shuttle4.borangB', date('Y')) }}",
+                            C: "{{ route('ipjpsm.borang-keseluruhan.shuttle4.borangC', date('Y')) }}",
+                            D: "{{ route('ipjpsm.borang-keseluruhan.shuttle4.borangD', date('Y')) }}",
+                            E: "{{ route('ipjpsm.borang-keseluruhan.shuttle4.borangE', date('Y')) }}"
+                        },
+                        5: {
+                            A: "{{ route('ipjpsm.borang-keseluruhan.shuttle5.borangA', date('Y')) }}",
+                            B: "{{ route('ipjpsm.borang-keseluruhan.shuttle5.borangB', date('Y')) }}",
+                            C: "{{ route('ipjpsm.borang-keseluruhan.shuttle5.borangC', date('Y')) }}",
+                            D: "{{ route('ipjpsm.borang-keseluruhan.shuttle5.borangD', date('Y')) }}",
+                            E: "{{ route('ipjpsm.borang-keseluruhan.shuttle5.borangE', date('Y')) }}"
+                        }
+                    };
+                    var colors = {A:'#555',B:'#c9559e',C:'#8a7e00',D:'#0e7012',E:'#0a5da8'};
+                    [3,4,5].forEach(function(s){
+                        $.get(detailUrl, {shuttle_type: s}, function(data){
+                            var container = $('#detail_s'+s);
+                            container.empty();
+                            Object.keys(data).forEach(function(key){
+                                var form = key.replace('form','');
+                                var count = data[key];
+                                var link = formLinks[s][form];
+                                var btn = $('<a>')
+                                    .attr('href', link)
+                                    .css({
+                                        display:'inline-flex', alignItems:'center', gap:'4px',
+                                        background:'rgba(255,255,255,0.85)', color:'#222',
+                                        borderRadius:'20px', padding:'3px 10px', fontSize:'13px',
+                                        fontWeight:'600', textDecoration:'none', border:'2px solid '+colors[form]
+                                    })
+                                    .text('Borang '+s+form+' ');
+                                if(count > 0){
+                                    btn.append($('<span>').css({
+                                        background:'#e53935', color:'#fff',
+                                        borderRadius:'50%', padding:'1px 6px', fontSize:'11px'
+                                    }).text(count));
+                                }
+                                container.append(btn);
+                            });
+                        });
+                    });
+                })();
+                </script>
                 {{-- <hr>
             <div class="row" style="justify-content: space-around;">
                 <h4>Jumlah borang yang belum lengkap dihantar oleh IBK pada bulan {{ date('m') }}</h4>
