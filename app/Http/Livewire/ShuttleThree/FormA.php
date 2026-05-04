@@ -57,6 +57,13 @@ class FormA extends Component
         $this->status_warganegara = "";
         $this->catatan_1 = "";
 
+        $kilang_info = Shuttle::where('id', auth()->user()->shuttle_id)->first();
+        if ($kilang_info) {
+            $this->alamat_kilang_1 = $kilang_info->alamat_kilang_1;
+            $this->alamat_kilang_2 = $kilang_info->alamat_kilang_2;
+            $this->alamat_kilang_poskod = $kilang_info->alamat_kilang_poskod;
+            $this->alamat_kilang_daerah = $kilang_info->alamat_kilang_daerah;
+        }
     }
 
     protected $rules = [

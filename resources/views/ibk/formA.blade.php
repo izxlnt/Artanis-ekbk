@@ -158,7 +158,7 @@
                                                                     class="text-right col-sm-3 control-label col-form-label">Alamat
                                                                     Kilang</label>
                                                                 <div class="col-md-8">
-                                                                    <input readonly type="text" class="form-control"
+                                                                    <input type="text" class="form-control"
                                                                         id="alamat_kilang_1" name='alamat_kilang_1'
                                                                         placeholder="Alamat Kilang"
                                                                         value="{{ $kilang_info->alamat_kilang_1 }}">
@@ -174,7 +174,7 @@
                                                                 <label for="fname"
                                                                     class="text-right col-sm-3 control-label col-form-label"></label>
                                                                 <div class="col-md-8">
-                                                                    <input readonly type="text" class="form-control"
+                                                                    <input type="text" class="form-control"
                                                                         id="alamat_kilang_2" name='alamat_kilang_2'
                                                                         placeholder="Alamat Kilang"
                                                                         value="{{ $kilang_info->alamat_kilang_2 }}">
@@ -191,7 +191,7 @@
                                                                     class="text-right col-sm-4 control-label col-form-label">Poskod</label>
                                                                 <div class="col-md-3">
                                                                     <div class="form-group">
-                                                                        <input readonly type="text" class="form-control"
+                                                                        <input type="text" class="form-control"
                                                                             name="alamat_kilang_poskod"
                                                                             id="alamat_kilang_poskod"
                                                                             value="{{ $kilang_info->alamat_kilang_poskod }}">
@@ -207,7 +207,7 @@
                                                                     Sivil</label>
                                                                 <div class="col-md-3">
                                                                     <div class="form-group">
-                                                                        <input readonly type="text" class="form-control"
+                                                                        <input type="text" class="form-control"
                                                                             name="alamat_kilang_daerah"
                                                                             id="alamat_kilang_daerah"
                                                                             value="{{ $kilang_info->alamat_kilang_daerah }}">

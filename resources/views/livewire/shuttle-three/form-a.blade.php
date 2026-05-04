@@ -86,9 +86,8 @@
                                                                 class="text-right col-sm-3 control-label col-form-label">Alamat
                                                                 Kilang</label>
                                                             <div class="col-md-8">
-                                                                <input readonly type="text" class="form-control"
-                                                                    name='alamat_kilang_1' placeholder="Alamat Kilang"
-                                                                    value="{{ $kilang_info->alamat_kilang_1 }}">
+                                                                <input type="text" class="form-control"
+                                                                    wire:model='alamat_kilang_1' placeholder="Alamat Kilang">
                                                                 @error('alamat_kilang_1')
                                                                     <div class="alert alert-danger">
                                                                         <strong>{{ $message }}</strong>
@@ -101,9 +100,8 @@
                                                             <label for="fname"
                                                                 class="text-right col-sm-3 control-label col-form-label"></label>
                                                             <div class="col-md-8">
-                                                                <input readonly type="text" class="form-control"
-                                                                    name='alamat_kilang_2' placeholder="Alamat Kilang"
-                                                                    value="{{ $kilang_info->alamat_kilang_2 }}">
+                                                                <input type="text" class="form-control"
+                                                                    wire:model='alamat_kilang_2' placeholder="Alamat Kilang">
                                                                 @error('alamat_kilang_2')
                                                                     <div class="alert alert-danger">
                                                                         <strong>{{ $message }}</strong>
@@ -117,9 +115,9 @@
                                                                 class="text-right col-sm-4 control-label col-form-label">Poskod</label>
                                                                 <div class="col-md-3">
                                                                     <div class="form-group">
-                                                                        <input readonly type="text" class="form-control"
-                                                                            name="alamat_kilang_poskod"
-                                                                            value="{{ $kilang_info->alamat_kilang_poskod }}">
+                                                                        <input type="text" class="form-control"
+                                                                            wire:model='alamat_kilang_poskod'
+                                                                            placeholder="Poskod">
                                                                         @error('nama_kilang')
                                                                             <div class="alert alert-danger">
                                                                                 <strong>{{ $message }}</strong>
@@ -131,9 +129,9 @@
                                                                 class="text-right col-sm-1 control-label col-form-label">Daerah</label>
                                                                 <div class="col-md-3">
                                                                     <div class="form-group">
-                                                                        <input readonly type="text" class="form-control"
-                                                                            name="alamat_kilang_poskod"
-                                                                            value="{{ $kilang_info->alamat_kilang_daerah }}">
+                                                                        <input type="text" class="form-control"
+                                                                            wire:model='alamat_kilang_daerah'
+                                                                            placeholder="Daerah">
                                                                         @error('nama_kilang')
                                                                             <div class="alert alert-danger">
                                                                                 <strong>{{ $message }}</strong>
