@@ -513,7 +513,7 @@
 
 
     <footer class="text-center footer" style="bottom:0;text-align:center;left:0; color: rgb(0, 0, 0) !important;background-image: url(/bghutan.png); background-position: bottom; opacity: 0.75;">
-        <span style=" color: rgb(255, 255, 255)">Hakcipta Terpelihara © 2021. SISTEM eSHUTTLE. <br>
+        <span style=" color: rgb(255, 255, 255)">Hakcipta Terpelihara © {{ date('Y') }}. SISTEM eSHUTTLE. <br>
         Paparan terbaik untuk sistem ini adalah 1920x1080 resolusi piksel.</span>
     </footer>
 

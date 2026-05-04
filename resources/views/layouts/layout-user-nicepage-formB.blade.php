@@ -540,7 +540,7 @@
             <!-- footer -->
             <!-- ============================================================== -->
             <footer class="text-center footer" style="bottom:0;text-align:center;width:100%;left:0; color: white !important;">
-                Hakcipta Terpelihara © 2021. Sistem e-KBK (Kilang Berasas Kayu) .
+                Hakcipta Terpelihara © {{ date('Y') }}. Sistem e-KBK (Kilang Berasas Kayu) .
             </footer>
             <!-- ============================================================== -->
             <!-- End footer -->
