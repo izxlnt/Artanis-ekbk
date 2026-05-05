@@ -108,7 +108,7 @@
                                                             <div class="col-md-8">
                                                                 <input readonly type="text" class="form-control"
                                                                 name='daerah' placeholder="Daerah"
-                                                                value="{{ $kilang_info->daerah_id }}">
+                                                                value="{{ $kilang_info->daerah->daerah_hutan ?? $kilang_info->daerah_id }}">
 
                                                                 @error('daerah_id')
                                                                     <div class="alert alert-danger">
@@ -511,6 +511,21 @@
                                                                     </div>
                                                                 </div>
                                                         </div>
+
+                                                    <div class="form-group row">
+                                                        <label for="daerah_id" class="text-right col-sm-4 control-label col-form-label">Daerah Hutan</label>
+                                                        <div class="col-md-4">
+                                                            <select class="form-control" name="daerah_id" id="daerah_id">
+                                                                <option value="">-- Sila Pilih Daerah Hutan --</option>
+                                                                @forelse($daerah_list as $daerah)
+                                                                    <option value="{{ $daerah->id }}" {{ $kilang_info->daerah_id == $daerah->id ? 'selected' : '' }}>
+                                                                        {{ $daerah->daerah_hutan }}
+                                                                    </option>
+                                                                @empty
+                                                                @endforelse
+                                                            </select>
+                                                        </div>
+                                                    </div>
 
                                                     <div class="row">
                                                         <div class="col-md-3"></div>

@@ -55,7 +55,7 @@ class ListBController extends Controller
             AND formbs.tahun = $year"));
 
         $buffer = Buffer::where('borang', 'b')->where('shuttle', '5')->first();
-        $batch = Batch::get();
+        $batch = Batch::where('tahun', $year)->get();
 
 
         $breadcrumbs    = [

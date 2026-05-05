@@ -133,7 +133,7 @@ class MainController extends Controller
         ];
 
         $kembali = route('home-user');
-        $batch = Batch::get();
+        $batch = Batch::where('tahun', $year)->get();
 
 
         $returnArr = [
@@ -167,7 +167,7 @@ class MainController extends Controller
         ];
 
         $kembali = route('home-user');
-        $batch = Batch::get();
+        $batch = Batch::where('tahun', $year)->get();
 
 
         $returnArr = [
@@ -200,7 +200,7 @@ class MainController extends Controller
         ];
 
         $kembali = route('home-user');
-        $batch = Batch::get();
+        $batch = Batch::where('tahun', $year)->get();
 
 
         $returnArr = [
@@ -234,7 +234,7 @@ class MainController extends Controller
         ];
 
         $kembali = route('home-user');
-        $batch = Batch::get();
+        $batch = Batch::where('tahun', $year)->get();
 
 
         $returnArr = [
@@ -877,6 +877,9 @@ class MainController extends Controller
         $shuttle = Shuttle::where('id', $formA->shuttle_id)->first();
         $shuttle->longtitude_x = $request->longtitude_x;
         $shuttle->langtitude_y = $request->langtitude_y;
+        if ($request->daerah_id) {
+            $shuttle->daerah_id = $request->daerah_id;
+        }
         $shuttle->save();
 
         $formA->status = $status;
@@ -1373,12 +1376,6 @@ class MainController extends Controller
         \Log::info('Request URL: ' . request()->fullUrl());
         \Log::info('Route params: ' . json_encode(request()->route()->parameters()));
         
-        //form a back button checker
-        $form_a_checker = FormA::where('shuttle_id', auth()->user()->shuttle->id)->where('tahun', $year)->first();
-        if ($form_a_checker && $form_a_checker->status == "Sedang Diproses") {
-            return redirect()->back()->with('success', 'Borang A telah dihantar semula');
-        }
-
         $user = auth()->user();
         $shuttle = Shuttle::where('id', $user->shuttle_id)->first();
 
@@ -1447,11 +1444,6 @@ class MainController extends Controller
         // Use the tahun from the request instead of current year
         $tahun = $request->input('tahun', date("Y"));
         
-        $form_a_checker = FormA::where('shuttle_id', auth()->user()->shuttle->id)->where('tahun', $tahun)->first();
-        if ($form_a_checker && $form_a_checker->status == "Sedang Diproses") {
-            return redirect('/pengguna/halaman-utama')->with('error', 'Borang A telah dihantar');
-        }
-
         $this->validator($request->all())->validate();
         $shuttle = Shuttle::where('id', $id)->first();
 

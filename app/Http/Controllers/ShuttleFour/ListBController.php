@@ -93,7 +93,7 @@ class ListBController extends Controller
 
 
         $buffer = Buffer::where('borang', 'b')->where('shuttle', '4')->first();
-        $batch = Batch::get();
+        $batch = Batch::where('tahun', $year)->get();
 
 
         $breadcrumbs    = [

@@ -12,7 +12,6 @@ use App\Models\FormB;
 use App\Models\FormC;
 use App\Models\FormD;
 use App\Models\Shuttle;
-use App\Models\Spesis;
 use App\Models\User;
 use App\Models\Buffer;
 use Illuminate\Http\Request;
@@ -38,131 +37,84 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $users = User::get();
-        $user3 = User::where('shuttle_type', 3)->where('is_approved', 1)->where('pengguna_kilang_id', null)->get();
-        $count_shuttle3 = $user3->count();
-
-        $user4 = User::where('shuttle_type', 4)->where('is_approved', 1)->where('pengguna_kilang_id', null)->get();
-        $count_shuttle4 = $user4->count();
-
-        $user5 = User::where('shuttle_type', 5)->where('is_approved', 1)->where('pengguna_kilang_id', null)->get();
-
-        $count_shuttle5 = $user5->count();
+        $count_shuttle3 = User::where('shuttle_type', 3)->where('is_approved', 1)->whereNull('pengguna_kilang_id')->count();
+        $count_shuttle4 = User::where('shuttle_type', 4)->where('is_approved', 1)->whereNull('pengguna_kilang_id')->count();
+        $count_shuttle5 = User::where('shuttle_type', 5)->where('is_approved', 1)->whereNull('pengguna_kilang_id')->count();
 
 
 
 
 
-        return view('home',compact('users',
-        'count_shuttle3',
-        'count_shuttle4',
-        'count_shuttle5'));
+        return view('home', compact('count_shuttle3', 'count_shuttle4', 'count_shuttle5'));
     }
 
     public function ajax_count_user_ibk(){
-        $user = User::where('kategori_pengguna','IBK')->where('is_approved', 0)->get();
-        $count_ibk = $user->count();
-
+        $count_ibk = User::where('kategori_pengguna', 'IBK')->where('is_approved', 0)->count();
         return response()->json($count_ibk, 200);
     }
 
     public function ajax_count_user_phd(){
-        $user = User::where('kategori_pengguna','PHD')->where('is_approved_ipjpsm', 0)->get();
-        $count_phd = $user->count();
-
+        $count_phd = User::where('kategori_pengguna', 'PHD')->where('is_approved_ipjpsm', 0)->count();
         return response()->json($count_phd, 200);
     }
 
     public function ajax_count_user_jpn(){
-        $user = User::where('kategori_pengguna','JPN')->where('is_approved_ipjpsm', 0)->get();
-        $count_ipjpsm = $user->count();
-
+        $count_ipjpsm = User::where('kategori_pengguna', 'JPN')->where('is_approved_ipjpsm', 0)->count();
         return response()->json($count_ipjpsm, 200);
     }
 
     public function ajax_count_user_bpe(){
-        $user = User::where('kategori_pengguna','BPE')->where('is_approved_ipjpsm', 0)->get();
-        $count_ipjpsm = $user->count();
-
+        $count_ipjpsm = User::where('kategori_pengguna', 'BPE')->where('is_approved_ipjpsm', 0)->count();
         return response()->json($count_ipjpsm, 200);
     }
 
     public function ajax_count_tugasan_ipjpsm_shuttle3()
     {
         $currentYear = date('Y');
-        
-        $form3A = DB::select(DB::raw('SELECT form_a_s.* FROM batches, form_a_s
-        INNER JOIN shuttles ON form_a_s.shuttle_id = shuttles.id
-        AND (form_a_s.status = "Dihantar ke IPJPSM" OR form_a_s.status = "Lulus")
-        WHERE batches.tahun = form_a_s.tahun
-        AND batches.shuttle_id = form_a_s.shuttle_id
-        AND batches.borang_a = "2"
-        AND batches.status = "Dihantar ke IPJPSM"
-        AND shuttles.shuttle_type = 3
-        AND form_a_s.tahun = "'.$currentYear.'"'));
 
-// dd($form3A);
+        $form3A_count = DB::selectOne('SELECT COUNT(*) as cnt FROM batches, form_a_s
+            INNER JOIN shuttles ON form_a_s.shuttle_id = shuttles.id
+            AND (form_a_s.status = "Dihantar ke IPJPSM" OR form_a_s.status = "Lulus")
+            WHERE batches.tahun = form_a_s.tahun
+            AND batches.shuttle_id = form_a_s.shuttle_id
+            AND batches.borang_a = "2"
+            AND batches.status = "Dihantar ke IPJPSM"
+            AND shuttles.shuttle_type = 3
+            AND form_a_s.tahun = ?', [$currentYear])->cnt;
 
-        if(empty($form3A)){
-            $form3A_count = 0;
-        }else{
-            $form3A_count = count($form3A);
-        }
-        // dd($form3A_count);
+        $form3B_count = DB::selectOne("SELECT COUNT(DISTINCT formbs.id) as cnt FROM formbs
+            INNER JOIN shuttles ON formbs.shuttle_id = shuttles.id
+            INNER JOIN batches ON shuttles.id = batches.shuttle_id
+            AND (formbs.status = 'Dihantar ke IPJPSM' OR formbs.status = 'Lulus')
+            AND batches.shuttle_id = formbs.shuttle_id
+            AND batches.status = 'Dihantar ke IPJPSM'
+            AND batches.borang_b = '2'
+            AND shuttles.shuttle_type = '3'
+            AND formbs.tahun = ?", [$currentYear])->cnt;
 
+        $form3C_count = DB::selectOne("SELECT COUNT(DISTINCT form_c_s.id) as cnt FROM form_c_s
+            INNER JOIN shuttles ON form_c_s.shuttle_id = shuttles.id
+            INNER JOIN batches ON shuttles.id = batches.shuttle_id
+            WHERE batches.bulan = form_c_s.bulan
+            AND batches.status = 'Dihantar ke IPJPSM'
+            AND (form_c_s.status = 'Dihantar ke IPJPSM' OR form_c_s.status = 'Lulus')
+            AND batches.shuttle_id = form_c_s.shuttle_id
+            AND batches.borang_c = '2'
+            AND shuttles.shuttle_type = '3'
+            AND form_c_s.tahun = ?", [$currentYear])->cnt;
 
-        $form3B = DB::select(DB::raw("SELECT DISTINCT formbs.* FROM formbs
-        INNER JOIN shuttles ON formbs.shuttle_id = shuttles.id
-        INNER JOIN batches ON shuttles.id = batches.shuttle_id
-        AND (formbs.status = 'Dihantar ke IPJPSM' OR formbs.status = 'Lulus')
-        AND batches.shuttle_id = formbs.shuttle_id
-        AND batches.status = 'Dihantar ke IPJPSM'
-        AND batches.borang_b = '2'
-        AND shuttles.shuttle_type = '3'
-        AND formbs.tahun = '".$currentYear."'"));
+        $form3D_count = DB::selectOne("SELECT COUNT(DISTINCT form_d_s.id) as cnt FROM form_d_s
+            INNER JOIN shuttles ON form_d_s.shuttle_id = shuttles.id
+            INNER JOIN batches ON shuttles.id = batches.shuttle_id
+            WHERE batches.bulan = form_d_s.bulan
+            AND (form_d_s.status = 'Dihantar ke IPJPSM' OR form_d_s.status = 'Lulus')
+            AND batches.shuttle_id = form_d_s.shuttle_id
+            AND batches.status = 'Dihantar ke IPJPSM'
+            AND batches.borang_d = '2'
+            AND shuttles.shuttle_type = '3'
+            AND form_d_s.tahun = ?", [$currentYear])->cnt;
 
-        if(empty($form3B)){
-            $form3B_count = 0;
-        }else{
-            $form3B_count = count($form3B);
-        }
-
-        // dd($form3B);
-        $form3C = DB::select(DB::raw("SELECT DISTINCT  form_c_s.* FROM form_c_s
-        INNER JOIN shuttles ON form_c_s.shuttle_id = shuttles.id
-        INNER JOIN batches ON shuttles.id = batches.shuttle_id
-        WHERE batches.bulan = form_c_s.bulan
-        AND batches.status = 'Dihantar ke IPJPSM'
-        AND (form_c_s.status = 'Dihantar ke IPJPSM' OR form_c_s.status = 'Lulus')
-        AND batches.shuttle_id = form_c_s.shuttle_id
-        AND batches.borang_c = '2'
-        AND shuttles.shuttle_type = '3'
-        AND form_c_s.tahun = '".$currentYear."'"));
-
-        if(empty($form3C)){
-            $form3C_count = 0;
-        }else{
-            $form3C_count = count($form3C);
-        }
-
-        $form3D = DB::select(DB::raw("SELECT DISTINCT  form_d_s.* FROM form_d_s
-        INNER JOIN shuttles ON form_d_s.shuttle_id = shuttles.id
-        INNER JOIN batches ON shuttles.id = batches.shuttle_id
-        WHERE batches.bulan = form_d_s.bulan
-        AND (form_d_s.status = 'Dihantar ke IPJPSM' OR form_d_s.status = 'Lulus')
-        AND batches.shuttle_id = form_d_s.shuttle_id
-        AND batches.status = 'Dihantar ke IPJPSM'
-        AND batches.borang_d = '2'
-        AND shuttles.shuttle_type = '3'
-        AND form_d_s.tahun = '".$currentYear."'"));
-
-        if(empty($form3D)){
-            $form3D_count = 0;
-        }else{
-            $form3D_count = count($form3D);
-        }
-
-        $shuttle3_count = ($form3B_count + $form3C_count + $form3D_count + $form3A_count);
+        $shuttle3_count = $form3A_count + $form3B_count + $form3C_count + $form3D_count;
 
         return response()->json($shuttle3_count, 200);
     }
@@ -173,92 +125,61 @@ class HomeController extends Controller
     {
         $currentYear = date('Y');
 
-        $formA = DB::select(DB::raw('SELECT form_a_s.* FROM batches, form_a_s
-        INNER JOIN shuttles ON form_a_s.shuttle_id = shuttles.id
-        WHERE batches.tahun = form_a_s.tahun
-        AND batches.shuttle_id = form_a_s.shuttle_id
-        AND batches.borang_a = "2"
-        AND batches.status = "Dihantar ke IPJPSM"
-        AND (form_a_s.status = "Dihantar ke IPJPSM" OR form_a_s.status = "Lulus")
-        AND shuttles.shuttle_type = 4
-        AND form_a_s.tahun = "'.$currentYear.'"'));
+        $form4A_count = DB::selectOne('SELECT COUNT(*) as cnt FROM batches, form_a_s
+            INNER JOIN shuttles ON form_a_s.shuttle_id = shuttles.id
+            WHERE batches.tahun = form_a_s.tahun
+            AND batches.shuttle_id = form_a_s.shuttle_id
+            AND batches.borang_a = "2"
+            AND batches.status = "Dihantar ke IPJPSM"
+            AND (form_a_s.status = "Dihantar ke IPJPSM" OR form_a_s.status = "Lulus")
+            AND shuttles.shuttle_type = 4
+            AND form_a_s.tahun = ?', [$currentYear])->cnt;
 
+        $form4B_count = DB::selectOne("SELECT COUNT(DISTINCT formbs.id) as cnt FROM formbs
+            INNER JOIN shuttles ON formbs.shuttle_id = shuttles.id
+            INNER JOIN batches ON shuttles.id = batches.shuttle_id
+            WHERE batches.tahun = formbs.tahun
+            AND (formbs.status = 'Dihantar ke IPJPSM' OR formbs.status = 'Lulus')
+            AND batches.shuttle_id = formbs.shuttle_id
+            AND batches.status = 'Dihantar ke IPJPSM'
+            AND batches.borang_b = '2'
+            AND shuttles.shuttle_type = '4'
+            AND formbs.tahun = ?", [$currentYear])->cnt;
 
-        if(empty($formA)){
-            $form4A_count = 0;
-        }else{
-            $form4A_count = count($formA);
-        }
+        $form4C_count = DB::selectOne("SELECT COUNT(DISTINCT form_c_s.id) as cnt FROM form_c_s
+            INNER JOIN shuttles ON form_c_s.shuttle_id = shuttles.id
+            INNER JOIN batches ON shuttles.id = batches.shuttle_id
+            WHERE batches.bulan = form_c_s.bulan
+            AND (form_c_s.status = 'Dihantar ke IPJPSM' OR form_c_s.status = 'Lulus')
+            AND batches.shuttle_id = form_c_s.shuttle_id
+            AND batches.status = 'Dihantar ke IPJPSM'
+            AND batches.borang_c = '2'
+            AND shuttles.shuttle_type = '4'
+            AND form_c_s.tahun = ?", [$currentYear])->cnt;
 
-        $formB = DB::select(DB::raw("SELECT DISTINCT formbs.* FROM formbs
-        INNER JOIN shuttles ON formbs.shuttle_id = shuttles.id
-        INNER JOIN batches ON shuttles.id = batches.shuttle_id
-        WHERE batches.tahun = formbs.tahun
-        AND (formbs.status = 'Dihantar ke IPJPSM' OR formbs.status = 'Lulus')
-        AND batches.shuttle_id = formbs.shuttle_id
-        AND batches.status = 'Dihantar ke IPJPSM'
-        AND batches.borang_b = '2'
-        AND shuttles.shuttle_type = '4'
-        AND formbs.tahun = '".$currentYear."'"));
+        $form4D_count = DB::selectOne("SELECT COUNT(DISTINCT form4_d_s.id) as cnt FROM form4_d_s
+            INNER JOIN shuttles ON form4_d_s.shuttle_id = shuttles.id
+            INNER JOIN batches ON shuttles.id = batches.shuttle_id
+            WHERE batches.bulan = form4_d_s.bulan
+            AND (form4_d_s.status = 'Dihantar ke IPJPSM' OR form4_d_s.status = 'Lulus')
+            AND batches.shuttle_id = form4_d_s.shuttle_id
+            AND batches.status = 'Dihantar ke IPJPSM'
+            AND batches.borang_d = '2'
+            AND shuttles.shuttle_type = '4'
+            AND form4_d_s.tahun = ?", [$currentYear])->cnt;
 
-        if(empty($formB)){
-            $form4B_count = 0;
-        }else{
-            $form4B_count = count($formB);
-        }
+        $form4E_count = DB::selectOne("SELECT COUNT(DISTINCT form4_e_s.id) as cnt FROM form4_e_s
+            INNER JOIN shuttles ON form4_e_s.shuttle_id = shuttles.id
+            INNER JOIN batches ON shuttles.id = batches.shuttle_id
+            WHERE batches.bulan = form4_e_s.bulan
+            AND (form4_e_s.status = 'Dihantar ke IPJPSM' OR form4_e_s.status = 'Lulus')
+            AND batches.shuttle_id = form4_e_s.shuttle_id
+            AND batches.status = 'Dihantar ke IPJPSM'
+            AND batches.borang_e = '2'
+            AND shuttles.shuttle_type = '4'
+            AND form4_e_s.tahun = ?", [$currentYear])->cnt;
 
-        $formC = DB::select(DB::raw("SELECT DISTINCT form_c_s.* FROM form_c_s
-        INNER JOIN shuttles ON form_c_s.shuttle_id = shuttles.id
-        INNER JOIN batches ON shuttles.id = batches.shuttle_id
-        WHERE batches.bulan = form_c_s.bulan
-        AND (form_c_s.status = 'Dihantar ke IPJPSM' OR form_c_s.status = 'Lulus')
-        AND batches.shuttle_id = form_c_s.shuttle_id
-        AND batches.status = 'Dihantar ke IPJPSM'
-        AND batches.borang_c = '2'
-        AND shuttles.shuttle_type = '4'
-        AND form_c_s.tahun = '".$currentYear."'"));
-
-        if(empty($formC)){
-            $form4C_count = 0;
-        }else{
-            $form4C_count = count($formC);
-        }
-
-        $formD = DB::select(DB::raw("SELECT DISTINCT form4_d_s.* FROM form4_d_s
-        INNER JOIN shuttles ON form4_d_s.shuttle_id = shuttles.id
-        INNER JOIN batches ON shuttles.id = batches.shuttle_id
-        WHERE batches.bulan = form4_d_s.bulan
-        AND (form4_d_s.status = 'Dihantar ke IPJPSM' OR form4_d_s.status = 'Lulus')
-        AND batches.shuttle_id = form4_d_s.shuttle_id
-        AND batches.status = 'Dihantar ke IPJPSM'
-        AND batches.borang_d = '2'
-        AND shuttles.shuttle_type = '4'
-        AND form4_d_s.tahun = '".$currentYear."'"));
-
-        if(empty($formD)){
-            $form4D_count = 0;
-        }else{
-            $form4D_count = count($formD);
-        }
-
-        $formE = DB::select(DB::raw("SELECT DISTINCT form4_e_s.* FROM form4_e_s
-        INNER JOIN shuttles ON form4_e_s.shuttle_id = shuttles.id
-        INNER JOIN batches ON shuttles.id = batches.shuttle_id
-        WHERE batches.bulan = form4_e_s.bulan
-        AND (form4_e_s.status = 'Dihantar ke IPJPSM' OR form4_e_s.status = 'Lulus')
-        AND batches.shuttle_id = form4_e_s.shuttle_id
-        AND batches.status = 'Dihantar ke IPJPSM'
-        AND batches.borang_e = '2'
-        AND shuttles.shuttle_type = '4'
-        AND form4_e_s.tahun = '".$currentYear."'"));
-
-        if(empty($formE)){
-            $form4E_count = 0;
-        }else{
-            $form4E_count = count($formE);
-        }
-
-        $shuttle4_count = $form4B_count + $form4C_count + $form4D_count + $form4A_count + $form4E_count;
+        $shuttle4_count = $form4A_count + $form4B_count + $form4C_count + $form4D_count + $form4E_count;
 
         return response()->json($shuttle4_count, 200);
     }
@@ -266,100 +187,62 @@ class HomeController extends Controller
     public function ajax_count_tugasan_ipjpsm_shuttle5()
     {
         $currentYear = date('Y');
-        
-        $formA = DB::select(DB::raw('SELECT form_a_s.* FROM batches, form_a_s
-        INNER JOIN shuttles ON form_a_s.shuttle_id = shuttles.id
-        WHERE batches.tahun = form_a_s.tahun
-        AND batches.shuttle_id = form_a_s.shuttle_id
-        AND batches.borang_a = "2"
-        AND batches.status = "Dihantar ke IPJPSM"
-        AND (form_a_s.status = "Dihantar ke IPJPSM" OR form_a_s.status = "Lulus")
-        AND shuttles.shuttle_type = 5
-        AND form_a_s.tahun = "'.$currentYear.'"'));
 
-        if(empty($formA)){
-            $form5A_count = 0;
-        }else{
-            $form5A_count = count($formA);
-        }
+        $form5A_count = DB::selectOne('SELECT COUNT(*) as cnt FROM batches, form_a_s
+            INNER JOIN shuttles ON form_a_s.shuttle_id = shuttles.id
+            WHERE batches.tahun = form_a_s.tahun
+            AND batches.shuttle_id = form_a_s.shuttle_id
+            AND batches.borang_a = "2"
+            AND batches.status = "Dihantar ke IPJPSM"
+            AND (form_a_s.status = "Dihantar ke IPJPSM" OR form_a_s.status = "Lulus")
+            AND shuttles.shuttle_type = 5
+            AND form_a_s.tahun = ?', [$currentYear])->cnt;
 
+        $form5B_count = DB::selectOne("SELECT COUNT(DISTINCT formbs.id) as cnt FROM formbs
+            INNER JOIN shuttles ON formbs.shuttle_id = shuttles.id
+            INNER JOIN batches ON shuttles.id = batches.shuttle_id
+            WHERE batches.tahun = formbs.tahun
+            AND (formbs.status = 'Dihantar ke IPJPSM' OR formbs.status = 'Lulus')
+            AND batches.shuttle_id = formbs.shuttle_id
+            AND batches.status = 'Dihantar ke IPJPSM'
+            AND batches.borang_b = '2'
+            AND shuttles.shuttle_type = '5'
+            AND formbs.tahun = ?", [$currentYear])->cnt;
 
-        $formB = DB::select(DB::raw("SELECT DISTINCT formbs.* FROM formbs
-        INNER JOIN shuttles ON formbs.shuttle_id = shuttles.id
-        INNER JOIN batches ON shuttles.id = batches.shuttle_id
-        WHERE batches.tahun = formbs.tahun
-        AND (formbs.status = 'Dihantar ke IPJPSM' OR formbs.status = 'Lulus')
-        AND batches.shuttle_id = formbs.shuttle_id
-        AND batches.status = 'Dihantar ke IPJPSM'
-        AND batches.borang_b = '2'
-        AND shuttles.shuttle_type = '5'
-        AND formbs.tahun = '".$currentYear."'"));
+        $form5C_count = DB::selectOne("SELECT COUNT(DISTINCT form_c_s.id) as cnt FROM form_c_s
+            INNER JOIN shuttles ON form_c_s.shuttle_id = shuttles.id
+            INNER JOIN batches ON shuttles.id = batches.shuttle_id
+            WHERE batches.bulan = form_c_s.bulan
+            AND (form_c_s.status = 'Dihantar ke IPJPSM' OR form_c_s.status = 'Lulus')
+            AND batches.shuttle_id = form_c_s.shuttle_id
+            AND batches.status = 'Dihantar ke IPJPSM'
+            AND batches.borang_c = '2'
+            AND shuttles.shuttle_type = '5'
+            AND form_c_s.tahun = ?", [$currentYear])->cnt;
 
-        if(empty($formB)){
-            $form5B_count = 0;
-        }else{
-            $form5B_count = count($formB);
-        }
+        $form5D_count = DB::selectOne("SELECT COUNT(DISTINCT form5_d_s.id) as cnt FROM form5_d_s
+            INNER JOIN shuttles ON form5_d_s.shuttle_id = shuttles.id
+            INNER JOIN batches ON shuttles.id = batches.shuttle_id
+            WHERE batches.bulan = form5_d_s.bulan
+            AND (form5_d_s.status = 'Dihantar ke IPJPSM' OR form5_d_s.status = 'Lulus')
+            AND batches.shuttle_id = form5_d_s.shuttle_id
+            AND batches.status = 'Dihantar ke IPJPSM'
+            AND batches.borang_d = '2'
+            AND shuttles.shuttle_type = '5'
+            AND form5_d_s.tahun = ?", [$currentYear])->cnt;
 
-        // dd($form5B_count);
+        $form5E_count = DB::selectOne("SELECT COUNT(DISTINCT form5_e_s.id) as cnt FROM form5_e_s
+            INNER JOIN shuttles ON form5_e_s.shuttle_id = shuttles.id
+            INNER JOIN batches ON shuttles.id = batches.shuttle_id
+            WHERE batches.bulan = form5_e_s.bulan
+            AND (form5_e_s.status = 'Dihantar ke IPJPSM' OR form5_e_s.status = 'Lulus')
+            AND batches.shuttle_id = form5_e_s.shuttle_id
+            AND batches.status = 'Dihantar ke IPJPSM'
+            AND batches.borang_e = '2'
+            AND shuttles.shuttle_type = '5'
+            AND form5_e_s.tahun = ?", [$currentYear])->cnt;
 
-        $formC = DB::select(DB::raw("SELECT DISTINCT form_c_s.* FROM form_c_s
-        INNER JOIN shuttles ON form_c_s.shuttle_id = shuttles.id
-        INNER JOIN batches ON shuttles.id = batches.shuttle_id
-        WHERE batches.bulan = form_c_s.bulan
-        AND (form_c_s.status = 'Dihantar ke IPJPSM' OR form_c_s.status = 'Lulus')
-        AND batches.shuttle_id = form_c_s.shuttle_id
-        AND batches.status = 'Dihantar ke IPJPSM'
-        AND batches.borang_c = '2'
-        AND shuttles.shuttle_type = '5'
-        AND form_c_s.tahun = '".$currentYear."'"));
-
-        if(empty($formC)){
-            $form5C_count = 0;
-        }else{
-            $form5C_count = count($formC);
-        }
-        // dd($form5C_count);
-
-
-        $formD = DB::select(DB::raw("SELECT DISTINCT form5_d_s.* FROM form5_d_s
-        INNER JOIN shuttles ON form5_d_s.shuttle_id = shuttles.id
-        INNER JOIN batches ON shuttles.id = batches.shuttle_id
-        WHERE batches.bulan = form5_d_s.bulan
-        AND (form5_d_s.status = 'Dihantar ke IPJPSM' OR form5_d_s.status = 'Lulus')
-        AND batches.shuttle_id = form5_d_s.shuttle_id
-        AND batches.status = 'Dihantar ke IPJPSM'
-        AND batches.borang_d = '2'
-        AND shuttles.shuttle_type = '5'
-        AND form5_d_s.tahun = '".$currentYear."'"));
-
-        if(empty($formD)){
-            $form5D_count = 0;
-        }else{
-            $form5D_count = count($formD);
-        }
-
-
-        $formE = DB::select(DB::raw("SELECT DISTINCT form5_e_s.* FROM form5_e_s
-        INNER JOIN shuttles ON form5_e_s.shuttle_id = shuttles.id
-        INNER JOIN batches ON shuttles.id = batches.shuttle_id
-        WHERE batches.bulan = form5_e_s.bulan
-        AND (form5_e_s.status = 'Dihantar ke IPJPSM' OR form5_e_s.status = 'Lulus')
-        AND batches.shuttle_id = form5_e_s.shuttle_id
-        AND batches.status = 'Dihantar ke IPJPSM'
-        AND batches.borang_e = '2'
-        AND shuttles.shuttle_type = '5'
-        AND form5_e_s.tahun = '".$currentYear."'"));
-
-        if(empty($formE)){
-            $form5e_count = 0;
-        }else{
-            $form5e_count = count($formE);
-        }
-
-        // dd($form5e_count);
-
-        $shuttle5_count = $form5B_count + $form5C_count + $form5D_count + $form5A_count + $form5e_count;
+        $shuttle5_count = $form5A_count + $form5B_count + $form5C_count + $form5D_count + $form5E_count;
 
         return response()->json($shuttle5_count, 200);
     }
@@ -369,92 +252,68 @@ class HomeController extends Controller
         $currentYear = date('Y');
         $shuttle_type = (int) ($request->shuttle_type ?? 3);
 
-        $formA = DB::select(DB::raw("SELECT form_a_s.* FROM batches, form_a_s
-        INNER JOIN shuttles ON form_a_s.shuttle_id = shuttles.id
-        AND (form_a_s.status = 'Dihantar ke IPJPSM' OR form_a_s.status = 'Lulus')
-        WHERE batches.tahun = form_a_s.tahun
-        AND batches.shuttle_id = form_a_s.shuttle_id
-        AND batches.borang_a = '2'
-        AND batches.status = 'Dihantar ke IPJPSM'
-        AND shuttles.shuttle_type = $shuttle_type
-        AND form_a_s.tahun = '$currentYear'"));
+        $formA_count = DB::selectOne("SELECT COUNT(*) as cnt FROM batches, form_a_s
+            INNER JOIN shuttles ON form_a_s.shuttle_id = shuttles.id
+            AND (form_a_s.status = 'Dihantar ke IPJPSM' OR form_a_s.status = 'Lulus')
+            WHERE batches.tahun = form_a_s.tahun
+            AND batches.shuttle_id = form_a_s.shuttle_id
+            AND batches.borang_a = '2'
+            AND batches.status = 'Dihantar ke IPJPSM'
+            AND shuttles.shuttle_type = ?
+            AND form_a_s.tahun = ?", [$shuttle_type, $currentYear])->cnt;
 
-        $formB = DB::select(DB::raw("SELECT DISTINCT formbs.* FROM formbs
-        INNER JOIN shuttles ON formbs.shuttle_id = shuttles.id
-        INNER JOIN batches ON shuttles.id = batches.shuttle_id
-        AND (formbs.status = 'Dihantar ke IPJPSM' OR formbs.status = 'Lulus')
-        AND batches.shuttle_id = formbs.shuttle_id
-        AND batches.status = 'Dihantar ke IPJPSM'
-        AND batches.borang_b = '2'
-        AND shuttles.shuttle_type = '$shuttle_type'
-        AND formbs.tahun = '$currentYear'"));
-
-        $formC = DB::select(DB::raw("SELECT DISTINCT form_c_s.* FROM form_c_s
-        INNER JOIN shuttles ON form_c_s.shuttle_id = shuttles.id
-        INNER JOIN batches ON shuttles.id = batches.shuttle_id
-        WHERE batches.bulan = form_c_s.bulan
-        AND batches.status = 'Dihantar ke IPJPSM'
-        AND (form_c_s.status = 'Dihantar ke IPJPSM' OR form_c_s.status = 'Lulus')
-        AND batches.shuttle_id = form_c_s.shuttle_id
-        AND batches.borang_c = '2'
-        AND shuttles.shuttle_type = '$shuttle_type'
-        AND form_c_s.tahun = '$currentYear'"));
-
-        if ($shuttle_type === 3) {
-            $formD = DB::select(DB::raw("SELECT DISTINCT form_d_s.* FROM form_d_s
-            INNER JOIN shuttles ON form_d_s.shuttle_id = shuttles.id
+        $formB_count = DB::selectOne("SELECT COUNT(DISTINCT formbs.id) as cnt FROM formbs
+            INNER JOIN shuttles ON formbs.shuttle_id = shuttles.id
             INNER JOIN batches ON shuttles.id = batches.shuttle_id
-            WHERE batches.bulan = form_d_s.bulan
-            AND (form_d_s.status = 'Dihantar ke IPJPSM' OR form_d_s.status = 'Lulus')
-            AND batches.shuttle_id = form_d_s.shuttle_id
+            AND (formbs.status = 'Dihantar ke IPJPSM' OR formbs.status = 'Lulus')
+            AND batches.shuttle_id = formbs.shuttle_id
+            AND batches.status = 'Dihantar ke IPJPSM'
+            AND batches.borang_b = '2'
+            AND shuttles.shuttle_type = ?
+            AND formbs.tahun = ?", [$shuttle_type, $currentYear])->cnt;
+
+        $formC_count = DB::selectOne("SELECT COUNT(DISTINCT form_c_s.id) as cnt FROM form_c_s
+            INNER JOIN shuttles ON form_c_s.shuttle_id = shuttles.id
+            INNER JOIN batches ON shuttles.id = batches.shuttle_id
+            WHERE batches.bulan = form_c_s.bulan
+            AND batches.status = 'Dihantar ke IPJPSM'
+            AND (form_c_s.status = 'Dihantar ke IPJPSM' OR form_c_s.status = 'Lulus')
+            AND batches.shuttle_id = form_c_s.shuttle_id
+            AND batches.borang_c = '2'
+            AND shuttles.shuttle_type = ?
+            AND form_c_s.tahun = ?", [$shuttle_type, $currentYear])->cnt;
+
+        $tableD = match($shuttle_type) { 4 => 'form4_d_s', 5 => 'form5_d_s', default => 'form_d_s' };
+        $formD_count = DB::selectOne("SELECT COUNT(DISTINCT {$tableD}.id) as cnt FROM {$tableD}
+            INNER JOIN shuttles ON {$tableD}.shuttle_id = shuttles.id
+            INNER JOIN batches ON shuttles.id = batches.shuttle_id
+            WHERE batches.bulan = {$tableD}.bulan
+            AND ({$tableD}.status = 'Dihantar ke IPJPSM' OR {$tableD}.status = 'Lulus')
+            AND batches.shuttle_id = {$tableD}.shuttle_id
             AND batches.status = 'Dihantar ke IPJPSM'
             AND batches.borang_d = '2'
-            AND shuttles.shuttle_type = '$shuttle_type'
-            AND form_d_s.tahun = '$currentYear'"));
-        } elseif ($shuttle_type === 4) {
-            $formD = DB::select(DB::raw("SELECT DISTINCT form4_d_s.* FROM form4_d_s
-            INNER JOIN shuttles ON form4_d_s.shuttle_id = shuttles.id
-            INNER JOIN batches ON shuttles.id = batches.shuttle_id
-            WHERE batches.bulan = form4_d_s.bulan
-            AND (form4_d_s.status = 'Dihantar ke IPJPSM' OR form4_d_s.status = 'Lulus')
-            AND batches.shuttle_id = form4_d_s.shuttle_id
-            AND batches.status = 'Dihantar ke IPJPSM'
-            AND batches.borang_d = '2'
-            AND shuttles.shuttle_type = '$shuttle_type'
-            AND form4_d_s.tahun = '$currentYear'"));
-        } else {
-            $formD = DB::select(DB::raw("SELECT DISTINCT form5_d_s.* FROM form5_d_s
-            INNER JOIN shuttles ON form5_d_s.shuttle_id = shuttles.id
-            INNER JOIN batches ON shuttles.id = batches.shuttle_id
-            WHERE batches.bulan = form5_d_s.bulan
-            AND (form5_d_s.status = 'Dihantar ke IPJPSM' OR form5_d_s.status = 'Lulus')
-            AND batches.shuttle_id = form5_d_s.shuttle_id
-            AND batches.status = 'Dihantar ke IPJPSM'
-            AND batches.borang_d = '2'
-            AND shuttles.shuttle_type = '$shuttle_type'
-            AND form5_d_s.tahun = '$currentYear'"));
-        }
+            AND shuttles.shuttle_type = ?
+            AND {$tableD}.tahun = ?", [$shuttle_type, $currentYear])->cnt;
 
         $result = [
-            'formA' => count($formA),
-            'formB' => count($formB),
-            'formC' => count($formC),
-            'formD' => count($formD),
+            'formA' => $formA_count,
+            'formB' => $formB_count,
+            'formC' => $formC_count,
+            'formD' => $formD_count,
         ];
 
         if ($shuttle_type >= 4) {
             $tableE = $shuttle_type === 4 ? 'form4_e_s' : 'form5_e_s';
-            $formE = DB::select(DB::raw("SELECT DISTINCT $tableE.* FROM $tableE
-            INNER JOIN shuttles ON $tableE.shuttle_id = shuttles.id
-            INNER JOIN batches ON shuttles.id = batches.shuttle_id
-            WHERE batches.bulan = $tableE.bulan
-            AND ($tableE.status = 'Dihantar ke IPJPSM' OR $tableE.status = 'Lulus')
-            AND batches.shuttle_id = $tableE.shuttle_id
-            AND batches.status = 'Dihantar ke IPJPSM'
-            AND batches.borang_e = '2'
-            AND shuttles.shuttle_type = '$shuttle_type'
-            AND $tableE.tahun = '$currentYear'"));
-            $result['formE'] = count($formE);
+            $result['formE'] = DB::selectOne("SELECT COUNT(DISTINCT {$tableE}.id) as cnt FROM {$tableE}
+                INNER JOIN shuttles ON {$tableE}.shuttle_id = shuttles.id
+                INNER JOIN batches ON shuttles.id = batches.shuttle_id
+                WHERE batches.bulan = {$tableE}.bulan
+                AND ({$tableE}.status = 'Dihantar ke IPJPSM' OR {$tableE}.status = 'Lulus')
+                AND batches.shuttle_id = {$tableE}.shuttle_id
+                AND batches.status = 'Dihantar ke IPJPSM'
+                AND batches.borang_e = '2'
+                AND shuttles.shuttle_type = ?
+                AND {$tableE}.tahun = ?", [$shuttle_type, $currentYear])->cnt;
         }
 
         return response()->json($result, 200);
@@ -462,31 +321,11 @@ class HomeController extends Controller
 
     public function index_bpm()
     {
-        $spesis_aktif= Spesis::get();
-        $shuttle = FormB::where('status','Dihantar ke IPJPSM')->get();
+        $count_shuttle3 = User::where('shuttle_type', 3)->where('is_approved', 1)->count();
+        $count_shuttle4 = User::where('shuttle_type', 4)->where('is_approved', 1)->count();
+        $count_shuttle5 = User::where('shuttle_type', 5)->where('is_approved', 1)->count();
 
-        $tidak_lengkap = FormB::where('status','Tidak Lengkap')->get();
-
-
-
-        $users= User::get();
-
-        foreach($users as $data){
-            $shuttles[] = Shuttle::where('no_ssm',$data->login_id)->get();
-        }
-
-        $user3 = User::where('shuttle_type',3)->where('is_approved',1)->get();
-        $count_shuttle3 = $user3->count();
-
-        $user4 = User::where('shuttle_type',4)->where('is_approved',1)->get();
-        $count_shuttle4 = $user4->count();
-
-        $user5 = User::where('shuttle_type',5)->where('is_approved',1)->get();
-        $count_shuttle5 = $user5->count();
-        // dd($count);
-
-
-        return view('home-bpm',compact('spesis_aktif','shuttle','users','count_shuttle3','count_shuttle4','count_shuttle5','tidak_lengkap'));
+        return view('home-bpm', compact('count_shuttle3', 'count_shuttle4', 'count_shuttle5'));
     }
 
 
@@ -510,7 +349,7 @@ class HomeController extends Controller
 
         $year_list = FormA::where('tahun', $year)->distinct()->orderby('tahun')->get('tahun');
 
-        $batch = Batch::get();
+        $batch = Batch::where('tahun', $year)->get();
 
         $breadcrumbs    = [
             ['link' => route('home'), 'name' => "Laman Utama"],
@@ -541,7 +380,12 @@ class HomeController extends Controller
         $buffer = Buffer::where('borang', 'b')->where('shuttle', '3')->first();
 
 
-        $batch = Batch::get();
+        $batch = Batch::where('tahun', $year)->get();
+
+        $formBIndex = [];
+        foreach ($formB as $item) { $formBIndex[$item->shuttle_id][$item->suku_tahun] = $item; }
+        $batchIndex = [];
+        foreach ($batch as $b) { $batchIndex[$b->shuttle_id][$b->bulan] = $b; }
 
         $breadcrumbs    = [
             ['link' => route('home'), 'name' => "Laman Utama"],
@@ -559,7 +403,7 @@ class HomeController extends Controller
             'kembali'     => $kembali,
         ];
 
-        return view('admins.borangKeseluruhan.shuttle3_borangB', compact('returnArr', 'year','list_kilang', 'formB', 'buffer', 'year_list','batch'));
+        return view('admins.borangKeseluruhan.shuttle3_borangB', compact('returnArr', 'year', 'list_kilang', 'buffer', 'year_list', 'formBIndex', 'batchIndex'));
     }
 
     public function shuttle_3_keseluruhan_borang_C($year){
@@ -580,14 +424,19 @@ class HomeController extends Controller
         ];
 
         $kembali = route('home');
-        $batch = Batch::get();
+        $batch = Batch::where('tahun', $year)->get();
+
+        $formCIndex = [];
+        foreach ($formC as $item) { $formCIndex[$item->shuttle_id][$item->bulan] = $item; }
+        $batchIndex = [];
+        foreach ($batch as $b) { $batchIndex[$b->shuttle_id][$b->bulan] = $b; }
 
         $returnArr = [
             'breadcrumbs' => $breadcrumbs,
             'kembali'     => $kembali,
         ];
 
-        return view('admins.borangKeseluruhan.shuttle3_borangC', compact('returnArr','year','list_kilang', 'formC', 'buffer', 'year_list','batch'));
+        return view('admins.borangKeseluruhan.shuttle3_borangC', compact('returnArr', 'year', 'list_kilang', 'buffer', 'year_list', 'formCIndex', 'batchIndex'));
     }
 
     public function shuttle_3_keseluruhan_borang_D($year){
@@ -609,14 +458,19 @@ class HomeController extends Controller
         ];
 
         $kembali = route('home');
-        $batch=Batch::get();
+        $batch = Batch::where('tahun', $year)->get();
+
+        $formDIndex = [];
+        foreach ($formD as $item) { $formDIndex[$item->shuttle_id][$item->bulan] = $item; }
+        $batchIndex = [];
+        foreach ($batch as $b) { $batchIndex[$b->shuttle_id][$b->bulan] = $b; }
 
         $returnArr = [
             'breadcrumbs' => $breadcrumbs,
             'kembali'     => $kembali,
         ];
 
-        return view('admins.borangKeseluruhan.shuttle3_borangD', compact('returnArr','year','list_kilang', 'formD', 'buffer', 'year_list','batch'));
+        return view('admins.borangKeseluruhan.shuttle3_borangD', compact('returnArr', 'year', 'list_kilang', 'buffer', 'year_list', 'formDIndex', 'batchIndex'));
     }
 
        //borang keseluruhan SHUTTLE 4
@@ -663,7 +517,7 @@ class HomeController extends Controller
         $year_list = FormB::where('tahun', $year)->distinct()->orderby('tahun')->get('tahun');
 
         $buffer = Buffer::where('borang', 'b')->where('shuttle', '4')->first();
-        $batch = Batch::get();
+        $batch = Batch::where('tahun', $year)->get();
 
 
         $breadcrumbs    = [
@@ -682,7 +536,12 @@ class HomeController extends Controller
             'kembali'     => $kembali,
         ];
 
-        return view('admins.borangKeseluruhan.shuttle4_borangB', compact('returnArr', 'year','list_kilang', 'formB', 'buffer', 'year_list','batch'));
+        $formBIndex = [];
+        foreach ($formB as $item) { $formBIndex[$item->shuttle_id][$item->suku_tahun] = $item; }
+        $batchIndex = [];
+        foreach ($batch as $b) { $batchIndex[$b->shuttle_id][$b->bulan] = $b; }
+
+        return view('admins.borangKeseluruhan.shuttle4_borangB', compact('returnArr', 'year', 'list_kilang', 'buffer', 'year_list', 'formBIndex', 'batchIndex'));
     }
 
     public function shuttle_4_keseluruhan_borang_C($year){
@@ -694,7 +553,7 @@ class HomeController extends Controller
 
         $buffer = Buffer::where('borang', 'c')->where('shuttle', '4')->first();
 
-        $batch=Batch::get();
+        $batch = Batch::where('tahun', $year)->get();
 
 
         $breadcrumbs    = [
@@ -712,7 +571,12 @@ class HomeController extends Controller
             'kembali'     => $kembali,
         ];
 
-        return view('admins.borangKeseluruhan.shuttle4_borangC', compact('returnArr','year','list_kilang', 'formC', 'buffer', 'year_list','batch'));
+        $formCIndex = [];
+        foreach ($formC as $item) { $formCIndex[$item->shuttle_id][$item->bulan] = $item; }
+        $batchIndex = [];
+        foreach ($batch as $b) { $batchIndex[$b->shuttle_id][$b->bulan] = $b; }
+
+        return view('admins.borangKeseluruhan.shuttle4_borangC', compact('returnArr', 'year', 'list_kilang', 'buffer', 'year_list', 'formCIndex', 'batchIndex'));
     }
 
     public function shuttle_4_keseluruhan_borang_D($year){
@@ -724,7 +588,7 @@ class HomeController extends Controller
 
         $buffer = Buffer::where('borang', 'd')->where('shuttle', '4')->first();
 
-        $batch = Batch::get();
+        $batch = Batch::where('tahun', $year)->get();
 
 
         $breadcrumbs    = [
@@ -742,7 +606,12 @@ class HomeController extends Controller
             'kembali'     => $kembali,
         ];
 
-        return view('admins.borangKeseluruhan.shuttle4_borangD', compact('returnArr','year','list_kilang', 'form4D', 'buffer', 'year_list','batch'));
+        $form4DIndex = [];
+        foreach ($form4D as $item) { $form4DIndex[$item->shuttle_id][$item->bulan] = $item; }
+        $batchIndex = [];
+        foreach ($batch as $b) { $batchIndex[$b->shuttle_id][$b->bulan] = $b; }
+
+        return view('admins.borangKeseluruhan.shuttle4_borangD', compact('returnArr', 'year', 'list_kilang', 'buffer', 'year_list', 'form4DIndex', 'batchIndex'));
     }
 
     public function shuttle_4_keseluruhan_borang_E($year){
@@ -754,7 +623,7 @@ class HomeController extends Controller
 
         $buffer = Buffer::where('borang', 'e')->where('shuttle', '4')->first();
 
-        $batch = Batch::get();
+        $batch = Batch::where('tahun', $year)->get();
 
 
         $breadcrumbs    = [
@@ -772,7 +641,12 @@ class HomeController extends Controller
             'kembali'     => $kembali,
         ];
 
-        return view('admins.borangKeseluruhan.shuttle4_borangE', compact('returnArr','year','list_kilang', 'form4E', 'buffer', 'year_list','batch'));
+        $form4EIndex = [];
+        foreach ($form4E as $item) { $form4EIndex[$item->shuttle_id][$item->bulan] = $item; }
+        $batchIndex = [];
+        foreach ($batch as $b) { $batchIndex[$b->shuttle_id][$b->bulan] = $b; }
+
+        return view('admins.borangKeseluruhan.shuttle4_borangE', compact('returnArr', 'year', 'list_kilang', 'buffer', 'year_list', 'form4EIndex', 'batchIndex'));
     }
 
     //borang keseluruhan SHUTTLE 5
@@ -833,7 +707,7 @@ class HomeController extends Controller
 
         $buffer = Buffer::where('borang', 'b')->where('shuttle', '5')->first();
 
-        $batch = Batch::get();
+        $batch = Batch::where('tahun', $year)->get();
 
 
         $breadcrumbs    = [
@@ -852,7 +726,12 @@ class HomeController extends Controller
             'kembali'     => $kembali,
         ];
 
-        return view('admins.borangKeseluruhan.shuttle5_borangB', compact('returnArr', 'year','list_kilang', 'formB', 'buffer', 'year_list','batch'));
+        $formBIndex = [];
+        foreach ($formB as $item) { $formBIndex[$item->shuttle_id][$item->suku_tahun] = $item; }
+        $batchIndex = [];
+        foreach ($batch as $b) { $batchIndex[$b->shuttle_id][$b->bulan] = $b; }
+
+        return view('admins.borangKeseluruhan.shuttle5_borangB', compact('returnArr', 'year', 'list_kilang', 'buffer', 'year_list', 'formBIndex', 'batchIndex'));
     }
 
     public function shuttle_5_keseluruhan_borang_C($year){
@@ -863,7 +742,7 @@ class HomeController extends Controller
         $year_list = FormC::where('tahun', $year)->distinct()->orderby('tahun')->get('tahun');
 
         $buffer = Buffer::where('borang', 'c')->where('shuttle', '5')->first();
-        $batch = Batch::get();
+        $batch = Batch::where('tahun', $year)->get();
 
 
         $breadcrumbs    = [
@@ -881,7 +760,12 @@ class HomeController extends Controller
             'kembali'     => $kembali,
         ];
 
-        return view('admins.borangKeseluruhan.shuttle5_borangC', compact('returnArr','year','list_kilang', 'formC', 'buffer', 'year_list','batch'));
+        $formCIndex = [];
+        foreach ($formC as $item) { $formCIndex[$item->shuttle_id][$item->bulan] = $item; }
+        $batchIndex = [];
+        foreach ($batch as $b) { $batchIndex[$b->shuttle_id][$b->bulan] = $b; }
+
+        return view('admins.borangKeseluruhan.shuttle5_borangC', compact('returnArr', 'year', 'list_kilang', 'buffer', 'year_list', 'formCIndex', 'batchIndex'));
     }
 
     public function shuttle_5_keseluruhan_borang_D($year){
@@ -892,7 +776,7 @@ class HomeController extends Controller
         $year_list = Form5D::where('tahun', $year)->distinct()->orderby('tahun')->get('tahun');
 
         $buffer = Buffer::where('borang', 'd')->where('shuttle', '5')->first();
-        $batch = Batch::get();
+        $batch = Batch::where('tahun', $year)->get();
 
 
         $breadcrumbs    = [
@@ -910,7 +794,12 @@ class HomeController extends Controller
             'kembali'     => $kembali,
         ];
 
-        return view('admins.borangKeseluruhan.shuttle5_borangD', compact('returnArr','year','list_kilang', 'form5D', 'buffer', 'year_list','batch'));
+        $form5DIndex = [];
+        foreach ($form5D as $item) { $form5DIndex[$item->shuttle_id][$item->bulan] = $item; }
+        $batchIndex = [];
+        foreach ($batch as $b) { $batchIndex[$b->shuttle_id][$b->bulan] = $b; }
+
+        return view('admins.borangKeseluruhan.shuttle5_borangD', compact('returnArr', 'year', 'list_kilang', 'buffer', 'year_list', 'form5DIndex', 'batchIndex'));
     }
 
     public function shuttle_5_keseluruhan_borang_E($year){
@@ -922,7 +811,7 @@ class HomeController extends Controller
 
         $buffer = Buffer::where('borang', 'e')->where('shuttle', '5')->first();
 
-        $batch = Batch::get();
+        $batch = Batch::where('tahun', $year)->get();
 
         $breadcrumbs    = [
             ['link' => route('home'), 'name' => "Laman Utama"],
@@ -939,23 +828,29 @@ class HomeController extends Controller
             'kembali'     => $kembali,
         ];
 
-        return view('admins.borangKeseluruhan.shuttle5_borangE', compact('returnArr','year','list_kilang', 'form5E', 'buffer', 'year_list','batch'));
+        $form5EIndex = [];
+        foreach ($form5E as $item) { $form5EIndex[$item->shuttle_id][$item->bulan] = $item; }
+        $batchIndex = [];
+        foreach ($batch as $b) { $batchIndex[$b->shuttle_id][$b->bulan] = $b; }
+
+        return view('admins.borangKeseluruhan.shuttle5_borangE', compact('returnArr', 'year', 'list_kilang', 'buffer', 'year_list', 'form5EIndex', 'batchIndex'));
     }
 
-    public function graph_dashboard_default()
+    private function buildGraphData(int $shuttle_type): array
     {
-        $shuttle_type = '3';
+        $yearStart = date('Y') . '-01-01';
+        $yearEnd   = (date('Y') + 1) . '-01-01';
 
         $rows = DB::select("SELECT shuttles.negeri_id, COUNT(DISTINCT form_a_s.shuttle_id) as total_kilang
-        FROM form_a_s
-        INNER JOIN shuttles ON form_a_s.shuttle_id = shuttles.id
-        WHERE shuttles.shuttle_type = $shuttle_type
-        AND YEAR(date(form_a_s.created_at)) = YEAR(now())
-        GROUP BY shuttles.negeri_id");
+            FROM form_a_s
+            INNER JOIN shuttles ON form_a_s.shuttle_id = shuttles.id
+            WHERE shuttles.shuttle_type = ?
+            AND form_a_s.created_at >= ? AND form_a_s.created_at < ?
+            GROUP BY shuttles.negeri_id", [$shuttle_type, $yearStart, $yearEnd]);
 
         $byNegeri = collect($rows)->keyBy('negeri_id');
 
-        $returnArr = [
+        return [
             'johor'      => $byNegeri->get('Johor')?->total_kilang ?? 0,
             'kedah'      => $byNegeri->get('Kedah')?->total_kilang ?? 0,
             'kelantan'   => $byNegeri->get('Kelantan')?->total_kilang ?? 0,
@@ -969,38 +864,16 @@ class HomeController extends Controller
             'terengganu' => $byNegeri->get('Terengganu')?->total_kilang ?? 0,
             'wp'         => $byNegeri->get('W.P Kuala Lumpur')?->total_kilang ?? 0,
         ];
+    }
 
-        return response($returnArr, 200);
+    public function graph_dashboard_default()
+    {
+        return response($this->buildGraphData(3), 200);
     }
 
     public function graph_dashboard(Request $request)
     {
         $shuttle_type = (int) ($request->shuttle_type ?? 3);
-
-        $rows = DB::select("SELECT shuttles.negeri_id, COUNT(DISTINCT form_a_s.shuttle_id) as total_kilang
-        FROM form_a_s
-        INNER JOIN shuttles ON form_a_s.shuttle_id = shuttles.id
-        WHERE shuttles.shuttle_type = $shuttle_type
-        AND YEAR(date(form_a_s.created_at)) = YEAR(now())
-        GROUP BY shuttles.negeri_id");
-
-        $byNegeri = collect($rows)->keyBy('negeri_id');
-
-        $returnArr = [
-            'johor'      => $byNegeri->get('Johor')?->total_kilang ?? 0,
-            'kedah'      => $byNegeri->get('Kedah')?->total_kilang ?? 0,
-            'kelantan'   => $byNegeri->get('Kelantan')?->total_kilang ?? 0,
-            'melaka'     => $byNegeri->get('Melaka')?->total_kilang ?? 0,
-            'n9'         => $byNegeri->get('Negeri Sembilan')?->total_kilang ?? 0,
-            'pahang'     => $byNegeri->get('Pahang')?->total_kilang ?? 0,
-            'perak'      => $byNegeri->get('Perak')?->total_kilang ?? 0,
-            'perlis'     => $byNegeri->get('Perlis')?->total_kilang ?? 0,
-            'pinang'     => $byNegeri->get('Pulau Pinang')?->total_kilang ?? 0,
-            'selangor'   => $byNegeri->get('Selangor')?->total_kilang ?? 0,
-            'terengganu' => $byNegeri->get('Terengganu')?->total_kilang ?? 0,
-            'wp'         => $byNegeri->get('W.P Kuala Lumpur')?->total_kilang ?? 0,
-        ];
-
-        return response($returnArr, 200);
+        return response($this->buildGraphData($shuttle_type), 200);
     }
 }

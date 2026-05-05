@@ -96,7 +96,7 @@ class ListCController extends Controller
         AND shuttles.shuttle_type = '4'"));
 
         $buffer = Buffer::where('borang', 'c')->where('shuttle', '4')->first();
-        $batch = Batch::get();
+        $batch = Batch::where('tahun', $year)->get();
 
 
 

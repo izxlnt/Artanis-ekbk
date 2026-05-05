@@ -164,11 +164,6 @@ class MainController extends Controller
         // dd($request->all());
         // dd($id);
 
-        $form_a_checker = FormA::where('shuttle_id', auth()->user()->shuttle->id)->where('tahun', date("Y"))->first();
-        if ($form_a_checker->status == "Sedang Diproses") {
-            return redirect('/pengguna/halaman-utama')->with('error', 'Borang A telah dihantar');
-        }
-
         $this->validator($request->all())->validate();
         $shuttle = Shuttle::where('id', $id)->first();
 
@@ -767,7 +762,7 @@ class MainController extends Controller
         ];
 
         $kembali = route('home');
-        $batch = Batch::get();
+        $batch = Batch::where('tahun', $year)->get();
 
 
         $returnArr = [
@@ -802,7 +797,7 @@ class MainController extends Controller
         ];
 
         $kembali = route('home');
-        $batch = Batch::get();
+        $batch = Batch::where('tahun', $year)->get();
 
         $returnArr = [
             'breadcrumbs' => $breadcrumbs,
@@ -835,7 +830,7 @@ class MainController extends Controller
 
         ];
 
-        $batch = Batch::get();
+        $batch = Batch::where('tahun', $year)->get();
         // dd($batch);
         $kembali = route('home');
 
@@ -870,7 +865,7 @@ class MainController extends Controller
 
         ];
 
-        $batch = Batch::get();
+        $batch = Batch::where('tahun', $year)->get();
         $kembali = route('home');
 
         $returnArr = [
@@ -904,7 +899,7 @@ class MainController extends Controller
 
         ];
 
-        $batch = Batch::get();
+        $batch = Batch::where('tahun', $year)->get();
         $kembali = route('home');
 
         $returnArr = [

@@ -168,7 +168,7 @@ class ListBController extends Controller
 
         $buffer = Buffer::where('borang', 'b')->where('shuttle', '3')->first();
 
-        $batch = Batch::get();
+        $batch = Batch::where('tahun', $year)->get();
 
         //  $formB = DB::select(DB::raw('SELECT formbs.* FROM batches, formbs WHERE batches.tahun = formbs.tahun AND batches.bulan = formbs.bulan AND batches.shuttle_id = formbs.shuttle_id AND batches.status = "Dihantar ke IPJPSM"'));
 

@@ -697,7 +697,7 @@ class MainController extends Controller
         ];
 
         $kembali = route('home');
-        $batch = Batch::get();
+        $batch = Batch::where('tahun', $year)->get();
 
 
         $returnArr = [
@@ -730,7 +730,7 @@ class MainController extends Controller
         ];
 
         $kembali = route('home');
-        $batch = Batch::get();
+        $batch = Batch::where('tahun', $year)->get();
 
 
         $returnArr = [
@@ -763,7 +763,7 @@ class MainController extends Controller
         ];
 
         $kembali = route('home-phd');
-        $batch = Batch::get();
+        $batch = Batch::where('tahun', $year)->get();
 
 
         $returnArr = [
@@ -796,7 +796,7 @@ class MainController extends Controller
         ];
 
         $kembali = route('home-phd');
-        $batch = Batch::get();
+        $batch = Batch::where('tahun', $year)->get();
 
 
         $returnArr = [
@@ -829,7 +829,7 @@ class MainController extends Controller
         ];
 
         $kembali = route('home-phd');
-        $batch = Batch::get();
+        $batch = Batch::where('tahun', $year)->get();
 
 
         $returnArr = [

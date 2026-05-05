@@ -143,7 +143,7 @@ class ListCController extends Controller
 
          $buffer = Buffer::where('borang', 'c')->where('shuttle', '3')->first();
 
-         $batch = Batch::get();
+         $batch = Batch::where('tahun', $year)->get();
 
         $breadcrumbs    = [
             ['link' => route('home'), 'name' => "Laman Utama"],

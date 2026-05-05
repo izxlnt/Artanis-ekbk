@@ -56,7 +56,7 @@ class ListEController extends Controller
         //  })->distinct()->orderBy('tahun')->get('tahun');
 
          $buffer = Buffer::where('borang', 'd')->where('shuttle', '5')->first();
-         $batch = Batch::get();
+         $batch = Batch::where('tahun', $year)->get();
 
 
          $breadcrumbs    = [

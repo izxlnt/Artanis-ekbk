@@ -174,7 +174,7 @@ class ListDController extends Controller
         //  })->distinct()->orderBy('tahun')->get('tahun');
 
         $buffer = Buffer::where('borang', 'd')->where('shuttle', '4')->first();
-        $batch = Batch::get();
+        $batch = Batch::where('tahun', $year)->get();
 
         $breadcrumbs    = [
             ['link' => route('home'), 'name' => "Laman Utama"],

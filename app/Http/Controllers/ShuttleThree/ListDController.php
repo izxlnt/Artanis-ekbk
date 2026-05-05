@@ -135,7 +135,7 @@ class ListDController extends Controller
 
         $buffer = Buffer::where('borang', 'd')->where('shuttle', '3')->first();
 
-        $batch = Batch::get();
+        $batch = Batch::where('tahun', $year)->get();
 
 
         $breadcrumbs    = [

@@ -57,7 +57,7 @@ class ListCController extends Controller
         AND form_c_s.tahun = $year"));
 
 $buffer = Buffer::where('borang', 'c')->where('shuttle', '5')->first();
-$batch = Batch::get();
+$batch = Batch::where('tahun', $year)->get();
 
 
 

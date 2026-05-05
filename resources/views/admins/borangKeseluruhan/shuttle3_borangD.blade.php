@@ -1,4 +1,4 @@
-﻿@extends('layouts.layout-ipjpsm-nicepage')
+@extends('layouts.layout-ipjpsm-nicepage')
 
 @section('content')
     {{-- @livewire('shuttle-three.shuttle3') --}}
@@ -122,870 +122,88 @@
                                                 <td>{{ $shuttle->no_ssm }}</td>
                                                 <td>{{ $shuttle->no_lesen ?? 'Tiada' }}</td>
 
+                                                <td>
+                                                    @php $data = $formDIndex[$shuttle->id][1] ?? null; $cb = $data ? ($batchIndex[$shuttle->id][1] ?? null) : null; @endphp
+                                                    @include('partials.cell-borang-monthly', ['data' => $data, 'current_batch' => $cb, 'buffer' => $buffer, 'viewRoute' => 'ipjpsm.shuttle-3-view-formD', 'batchField' => 'borang_d'])
+                                                </td>
 
                                                 <td>
-                                                    @foreach ($formD as $data)
-                                                        @if ($shuttle->id == $data->shuttle_id && $data->bulan == '1')
+                                                    @php $data = $formDIndex[$shuttle->id][2] ?? null; $cb = $data ? ($batchIndex[$shuttle->id][2] ?? null) : null; @endphp
+                                                    @include('partials.cell-borang-monthly', ['data' => $data, 'current_batch' => $cb, 'buffer' => $buffer, 'viewRoute' => 'ipjpsm.shuttle-3-view-formD', 'batchField' => 'borang_d'])
+                                                </td>
 
-                                                            @if ($data->status == 'Tidak Diisi')
-                                                                @php
-                                                                    $time = strtotime($data->tarikh_tutup_borang);
-                                                                    $delay = '+' . $buffer->delay . ' month';
-                                                                    $tarikh_tutup_terkini = date('Y-m-d', strtotime($delay, $time));
-                                                                @endphp
+                                                <td>
+                                                    @php $data = $formDIndex[$shuttle->id][3] ?? null; $cb = $data ? ($batchIndex[$shuttle->id][3] ?? null) : null; @endphp
+                                                    @include('partials.cell-borang-monthly', ['data' => $data, 'current_batch' => $cb, 'buffer' => $buffer, 'viewRoute' => 'ipjpsm.shuttle-3-view-formD', 'batchField' => 'borang_d'])
+                                                </td>
 
-                                                                @if (date('Y-m-d') >= $data->tarikh_buka_borang && date('Y-m-d') <= $tarikh_tutup_terkini)
-                                                                    <img src="{{ asset('circle_times.png') }}"
-                                                                            height='30px' alt=""
-                                                                        style="color: red; font-size: 25pt;"
-                                                                        data-toggle="tooltip" data-placement="bottom"
-                                                                        title="Borang belum diisi"></i>
-                                                                @else
-                                                                    <img src="{{ asset('calendar.png') }}" height='30px'
-                                                                        alt="" style="color: grey; font-size: 20pt;"
-                                                                        data-toggle="tooltip" data-placement="bottom"
-                                                                        title="Borang ditutup"></i>
-                                                                @endif
-                                                            @elseif($data->status == 'Tidak Lengkap')
-                                                               <img src="{{ asset('history.png') }}" height='30px' alt=""
-                                                                    style="color: #dbd400; font-size: 20pt;"
-                                                                    data-toggle="tooltip" data-placement="bottom"
-                                                                    title="Borang tidak lengkap "></i>
-                                                            @elseif($data->status == 'Sedang Diproses')
-                                                                <img src="{{ asset('circle_times_yellow.png') }}"
-                                                                    height='30px' alt=""
-                                                                    style="color: #dbd400;font-size: 25pt;"
-                                                                    data-toggle="tooltip" data-placement="bottom"
-                                                                    title="Borang perlu disahkan PHD"></i>
-                                                            @elseif($data->status == 'Dihantar ke IPJPSM')
-                                                                @php
-                                                                    foreach ($batch as $checker) {
-                                                                        if ($checker->tahun == $year && $checker->bulan == $data->bulan && $checker->shuttle_id == $shuttle->id) {
-                                                                            $current_batch = $checker;
-                                                                        }
-                                                                    }
-                                                                @endphp
+                                                <td>
+                                                    @php $data = $formDIndex[$shuttle->id][4] ?? null; $cb = $data ? ($batchIndex[$shuttle->id][4] ?? null) : null; @endphp
+                                                    @include('partials.cell-borang-monthly', ['data' => $data, 'current_batch' => $cb, 'buffer' => $buffer, 'viewRoute' => 'ipjpsm.shuttle-3-view-formD', 'batchField' => 'borang_d'])
+                                                </td>
 
-                                                                @if ($current_batch->status == 'Dihantar ke IPJPSM' && $current_batch->borang_d == 2)
-                                                                    <a
-                                                                        href="{{ route('ipjpsm.shuttle-3-view-formD', $data->id) }}">
-                                                                        <img src="{{ asset('circle_check_yellow.png') }}"
-                                                                            height='30px' alt=""
-                                                                            style="color: white; font-size: 18pt;"
-                                                                            data-toggle="tooltip" data-placement="bottom"
-                                                                            title="Borang perlu diperaku"></i></a>
-                                                                @else
-                                                                    <img src="{{ asset('package.png') }}" height='40px'
-                                                                        alt="" data-toggle="tooltip" data-placement="bottom"
-                                                                        title="Pakej belum dihantar">
-                                                                @endif
-                                                            @elseif($data->status == 'Lulus')
-                                                                <a href="{{ route('ipjpsm.view-formD', $data->id) }}">
-                                                                    <img src="{{ asset('double_check.png') }}"
-                                                                        height='30px' alt=""
-                                                                        style="color: green; font-size: 20pt;"
-                                                                        data-toggle="tooltip" data-placement="bottom"
-                                                                        title="Borang telah diperaku"></i>
-                                                                </a>
-                                                            @break
-                                                        @endif
-                                                    @endif
-                                                @endforeach
-                                            </td>
+                                                <td>
+                                                    @php $data = $formDIndex[$shuttle->id][5] ?? null; $cb = $data ? ($batchIndex[$shuttle->id][5] ?? null) : null; @endphp
+                                                    @include('partials.cell-borang-monthly', ['data' => $data, 'current_batch' => $cb, 'buffer' => $buffer, 'viewRoute' => 'ipjpsm.shuttle-3-view-formD', 'batchField' => 'borang_d'])
+                                                </td>
 
+                                                <td>
+                                                    @php $data = $formDIndex[$shuttle->id][6] ?? null; $cb = $data ? ($batchIndex[$shuttle->id][6] ?? null) : null; @endphp
+                                                    @include('partials.cell-borang-monthly', ['data' => $data, 'current_batch' => $cb, 'buffer' => $buffer, 'viewRoute' => 'ipjpsm.shuttle-3-view-formD', 'batchField' => 'borang_d'])
+                                                </td>
 
-                                            <td>
-                                                @foreach ($formD as $data)
-                                                    @if ($shuttle->id == $data->shuttle_id && $data->bulan == '2')
+                                                <td>
+                                                    @php $data = $formDIndex[$shuttle->id][7] ?? null; $cb = $data ? ($batchIndex[$shuttle->id][7] ?? null) : null; @endphp
+                                                    @include('partials.cell-borang-monthly', ['data' => $data, 'current_batch' => $cb, 'buffer' => $buffer, 'viewRoute' => 'ipjpsm.shuttle-3-view-formD', 'batchField' => 'borang_d'])
+                                                </td>
 
-                                                        @if ($data->status == 'Tidak Diisi')
-                                                            @php
-                                                                $time = strtotime($data->tarikh_tutup_borang);
-                                                                $delay = '+' . $buffer->delay . ' month';
-                                                                $tarikh_tutup_terkini = date('Y-m-d', strtotime($delay, $time));
-                                                            @endphp
+                                                <td>
+                                                    @php $data = $formDIndex[$shuttle->id][8] ?? null; $cb = $data ? ($batchIndex[$shuttle->id][8] ?? null) : null; @endphp
+                                                    @include('partials.cell-borang-monthly', ['data' => $data, 'current_batch' => $cb, 'buffer' => $buffer, 'viewRoute' => 'ipjpsm.shuttle-3-view-formD', 'batchField' => 'borang_d'])
+                                                </td>
 
-                                                            @if (date('Y-m-d') >= $data->tarikh_buka_borang && date('Y-m-d') <= $tarikh_tutup_terkini)
-                                                                <img src="{{ asset('circle_times.png') }}"
-                                                                            height='30px' alt=""
-                                                                    style="color: red; font-size: 25pt;"
-                                                                    data-toggle="tooltip" data-placement="bottom"
-                                                                    title="Borang belum diisi"></i>
-                                                            @else
-                                                                <img src="{{ asset('calendar.png') }}" height='30px'
-                                                                    alt="" style="color: grey; font-size: 20pt;"
-                                                                    data-toggle="tooltip" data-placement="bottom"
-                                                                    title="Borang ditutup"></i>
-                                                            @endif
-                                                        @elseif($data->status == 'Tidak Lengkap')
-                                                           <img src="{{ asset('history.png') }}" height='30px' alt=""
-                                                                style="color: #dbd400; font-size: 20pt;"
-                                                                data-toggle="tooltip" data-placement="bottom"
-                                                                title="Borang tidak lengkap "></i>
-                                                        @elseif($data->status == 'Sedang Diproses')
-                                                            <img src="{{ asset('circle_times_yellow.png') }}"
-                                                                height='30px' alt=""
-                                                                style="color: #dbd400;font-size: 25pt;"
-                                                                data-toggle="tooltip" data-placement="bottom"
-                                                                title="Borang perlu disahkan PHD"></i>
-                                                        @elseif($data->status == 'Dihantar ke IPJPSM')
-                                                            @php
-                                                                foreach ($batch as $checker) {
-                                                                    if ($checker->tahun == $year && $checker->bulan == $data->bulan && $checker->shuttle_id == $shuttle->id) {
-                                                                        $current_batch = $checker;
-                                                                    }
-                                                                }
-                                                            @endphp
+                                                <td>
+                                                    @php $data = $formDIndex[$shuttle->id][9] ?? null; $cb = $data ? ($batchIndex[$shuttle->id][9] ?? null) : null; @endphp
+                                                    @include('partials.cell-borang-monthly', ['data' => $data, 'current_batch' => $cb, 'buffer' => $buffer, 'viewRoute' => 'ipjpsm.shuttle-3-view-formD', 'batchField' => 'borang_d'])
+                                                </td>
 
-                                                            @if ($current_batch->status == 'Dihantar ke IPJPSM' && $current_batch->borang_d == 2)
-                                                                <a
-                                                                    href="{{ route('ipjpsm.shuttle-3-view-formD', $data->id) }}">
-                                                                    <img src="{{ asset('circle_check_yellow.png') }}"
-                                                                        height='30px' alt=""
-                                                                        style="color: white; font-size: 18pt;"
-                                                                        data-toggle="tooltip" data-placement="bottom"
-                                                                        title="Borang perlu diperaku"></i></a>
-                                                            @else
-                                                                <img src="{{ asset('package.png') }}" height='40px'
-                                                                    alt="" data-toggle="tooltip" data-placement="bottom"
-                                                                    title="Pakej belum dihantar">
-                                                            @endif
-                                                        @elseif($data->status == 'Lulus')
-                                                            <a href="{{ route('ipjpsm.view-formD', $data->id) }}">
-                                                                <img src="{{ asset('double_check.png') }}"
-                                                                    height='30px' alt=""
-                                                                    style="color: green; font-size: 20pt;"
-                                                                    data-toggle="tooltip" data-placement="bottom"
-                                                                    title="Borang telah diperaku"></i>
-                                                            </a>
-                                                        @break
-                                                    @endif
-                                                @endif
-                                            @endforeach
-                                        </td>
+                                                <td>
+                                                    @php $data = $formDIndex[$shuttle->id][10] ?? null; $cb = $data ? ($batchIndex[$shuttle->id][10] ?? null) : null; @endphp
+                                                    @include('partials.cell-borang-monthly', ['data' => $data, 'current_batch' => $cb, 'buffer' => $buffer, 'viewRoute' => 'ipjpsm.shuttle-3-view-formD', 'batchField' => 'borang_d'])
+                                                </td>
 
-                                        <td>
-                                            @foreach ($formD as $data)
-                                                @if ($shuttle->id == $data->shuttle_id && $data->bulan == '3')
+                                                <td>
+                                                    @php $data = $formDIndex[$shuttle->id][11] ?? null; $cb = $data ? ($batchIndex[$shuttle->id][11] ?? null) : null; @endphp
+                                                    @include('partials.cell-borang-monthly', ['data' => $data, 'current_batch' => $cb, 'buffer' => $buffer, 'viewRoute' => 'ipjpsm.shuttle-3-view-formD', 'batchField' => 'borang_d'])
+                                                </td>
 
-                                                    @if ($data->status == 'Tidak Diisi')
-                                                        @php
-                                                            $time = strtotime($data->tarikh_tutup_borang);
-                                                            $delay = '+' . $buffer->delay . ' month';
-                                                            $tarikh_tutup_terkini = date('Y-m-d', strtotime($delay, $time));
-                                                        @endphp
+                                                <td>
+                                                    @php $data = $formDIndex[$shuttle->id][12] ?? null; $cb = $data ? ($batchIndex[$shuttle->id][12] ?? null) : null; @endphp
+                                                    @include('partials.cell-borang-monthly', ['data' => $data, 'current_batch' => $cb, 'buffer' => $buffer, 'viewRoute' => 'ipjpsm.shuttle-3-view-formD', 'batchField' => 'borang_d'])
+                                                </td>
 
-                                                        @if (date('Y-m-d') >= $data->tarikh_buka_borang && date('Y-m-d') <= $tarikh_tutup_terkini)
-                                                            <img src="{{ asset('circle_times.png') }}"
-                                                                            height='30px' alt=""
-                                                                style="color: red; font-size: 25pt;"
-                                                                data-toggle="tooltip" data-placement="bottom"
-                                                                title="Borang belum diisi"></i>
-                                                        @else
-                                                            <img src="{{ asset('calendar.png') }}" height='30px'
-                                                                alt="" style="color: grey; font-size: 20pt;"
-                                                                data-toggle="tooltip" data-placement="bottom"
-                                                                title="Borang ditutup"></i>
-                                                        @endif
-                                                    @elseif($data->status == 'Tidak Lengkap')
-                                                       <img src="{{ asset('history.png') }}" height='30px' alt=""
-                                                            style="color: #dbd400; font-size: 20pt;"
-                                                            data-toggle="tooltip" data-placement="bottom"
-                                                            title="Borang tidak lengkap "></i>
-                                                    @elseif($data->status == 'Sedang Diproses')
-                                                        <img src="{{ asset('circle_times_yellow.png') }}"
-                                                            height='30px' alt=""
-                                                            style="color: #dbd400;font-size: 25pt;"
-                                                            data-toggle="tooltip" data-placement="bottom"
-                                                            title="Borang perlu disahkan PHD"></i>
-                                                    @elseif($data->status == 'Dihantar ke IPJPSM')
-                                                        @php
-                                                            foreach ($batch as $checker) {
-                                                                if ($checker->tahun == $year && $checker->bulan == $data->bulan && $checker->shuttle_id == $shuttle->id) {
-                                                                    $current_batch = $checker;
-                                                                }
-                                                            }
-                                                        @endphp
-
-                                                        @if ($current_batch->status == 'Dihantar ke IPJPSM' && $current_batch->borang_d == 2)
-                                                            <a
-                                                                href="{{ route('ipjpsm.shuttle-3-view-formD', $data->id) }}">
-                                                                <img src="{{ asset('circle_check_yellow.png') }}"
-                                                                    height='30px' alt=""
-                                                                    style="color: white; font-size: 18pt;"
-                                                                    data-toggle="tooltip" data-placement="bottom"
-                                                                    title="Borang perlu diperaku"></i></a>
-                                                        @else
-                                                            <img src="{{ asset('package.png') }}" height='40px'
-                                                                alt="" data-toggle="tooltip" data-placement="bottom"
-                                                                title="Pakej belum dihantar">
-                                                        @endif
-                                                    @elseif($data->status == 'Lulus')
-                                                        <a href="{{ route('ipjpsm.view-formD', $data->id) }}">
-                                                            <img src="{{ asset('double_check.png') }}"
-                                                                height='30px' alt=""
-                                                                style="color: green; font-size: 20pt;"
-                                                                data-toggle="tooltip" data-placement="bottom"
-                                                                title="Borang telah diperaku"></i>
-                                                        </a>
-                                                    @break
-                                                @endif
-                                            @endif
+                                            </tr>
                                         @endforeach
-                                    </td>
-
-                                    <td>
-                                        @foreach ($formD as $data)
-                                            @if ($shuttle->id == $data->shuttle_id && $data->bulan == '4')
-
-                                                @if ($data->status == 'Tidak Diisi')
-                                                    @php
-                                                        $time = strtotime($data->tarikh_tutup_borang);
-                                                        $delay = '+' . $buffer->delay . ' month';
-                                                        $tarikh_tutup_terkini = date('Y-m-d', strtotime($delay, $time));
-                                                    @endphp
-
-                                                    @if (date('Y-m-d') >= $data->tarikh_buka_borang && date('Y-m-d') <= $tarikh_tutup_terkini)
-                                                        <img src="{{ asset('circle_times.png') }}"
-                                                                            height='30px' alt=""
-                                                            style="color: red; font-size: 25pt;"
-                                                            data-toggle="tooltip" data-placement="bottom"
-                                                            title="Borang belum diisi"></i>
-                                                    @else
-                                                        <img src="{{ asset('calendar.png') }}" height='30px'
-                                                            alt="" style="color: grey; font-size: 20pt;"
-                                                            data-toggle="tooltip" data-placement="bottom"
-                                                            title="Borang ditutup"></i>
-                                                    @endif
-                                                @elseif($data->status == 'Tidak Lengkap')
-                                                   <img src="{{ asset('history.png') }}" height='30px' alt=""
-                                                        style="color: #dbd400; font-size: 20pt;"
-                                                        data-toggle="tooltip" data-placement="bottom"
-                                                        title="Borang tidak lengkap "></i>
-                                                @elseif($data->status == 'Sedang Diproses')
-                                                    <img src="{{ asset('circle_times_yellow.png') }}"
-                                                        height='30px' alt=""
-                                                        style="color: #dbd400;font-size: 25pt;"
-                                                        data-toggle="tooltip" data-placement="bottom"
-                                                        title="Borang perlu disahkan PHD"></i>
-                                                @elseif($data->status == 'Dihantar ke IPJPSM')
-                                                    @php
-                                                        foreach ($batch as $checker) {
-                                                            if ($checker->tahun == $year && $checker->bulan == $data->bulan && $checker->shuttle_id == $shuttle->id) {
-                                                                $current_batch = $checker;
-                                                            }
-                                                        }
-                                                    @endphp
-
-                                                    @if ($current_batch->status == 'Dihantar ke IPJPSM' && $current_batch->borang_d == 2)
-                                                        <a
-                                                            href="{{ route('ipjpsm.shuttle-3-view-formD', $data->id) }}">
-                                                            <img src="{{ asset('circle_check_yellow.png') }}"
-                                                                height='30px' alt=""
-                                                                style="color: white; font-size: 18pt;"
-                                                                data-toggle="tooltip" data-placement="bottom"
-                                                                title="Borang perlu diperaku"></i></a>
-                                                    @else
-                                                        <img src="{{ asset('package.png') }}" height='40px'
-                                                            alt="" data-toggle="tooltip" data-placement="bottom"
-                                                            title="Pakej belum dihantar">
-                                                    @endif
-                                                @elseif($data->status == 'Lulus')
-                                                    <a href="{{ route('ipjpsm.view-formD', $data->id) }}">
-                                                        <img src="{{ asset('double_check.png') }}"
-                                                            height='30px' alt=""
-                                                            style="color: green; font-size: 20pt;"
-                                                            data-toggle="tooltip" data-placement="bottom"
-                                                            title="Borang telah diperaku"></i>
-                                                    </a>
-                                                @break
-                                            @endif
-                                        @endif
-                                    @endforeach
-                                </td>
-
-                                <td>
-                                    @foreach ($formD as $data)
-                                        @if ($shuttle->id == $data->shuttle_id && $data->bulan == '5')
-
-                                            @if ($data->status == 'Tidak Diisi')
-                                                @php
-                                                    $time = strtotime($data->tarikh_tutup_borang);
-                                                    $delay = '+' . $buffer->delay . ' month';
-                                                    $tarikh_tutup_terkini = date('Y-m-d', strtotime($delay, $time));
-                                                @endphp
-
-                                                @if (date('Y-m-d') >= $data->tarikh_buka_borang && date('Y-m-d') <= $tarikh_tutup_terkini)
-                                                    <img src="{{ asset('circle_times.png') }}"
-                                                                            height='30px' alt=""
-                                                        style="color: red; font-size: 25pt;"
-                                                        data-toggle="tooltip" data-placement="bottom"
-                                                        title="Borang belum diisi"></i>
-                                                @else
-                                                    <img src="{{ asset('calendar.png') }}" height='30px'
-                                                        alt="" style="color: grey; font-size: 20pt;"
-                                                        data-toggle="tooltip" data-placement="bottom"
-                                                        title="Borang ditutup"></i>
-                                                @endif
-                                            @elseif($data->status == 'Tidak Lengkap')
-                                               <img src="{{ asset('history.png') }}" height='30px' alt=""
-                                                    style="color: #dbd400; font-size: 20pt;"
-                                                    data-toggle="tooltip" data-placement="bottom"
-                                                    title="Borang tidak lengkap "></i>
-                                            @elseif($data->status == 'Sedang Diproses')
-                                                <img src="{{ asset('circle_times_yellow.png') }}"
-                                                    height='30px' alt=""
-                                                    style="color: #dbd400;font-size: 25pt;"
-                                                    data-toggle="tooltip" data-placement="bottom"
-                                                    title="Borang perlu disahkan PHD"></i>
-                                            @elseif($data->status == 'Dihantar ke IPJPSM')
-                                                @php
-                                                    foreach ($batch as $checker) {
-                                                        if ($checker->tahun == $year && $checker->bulan == $data->bulan && $checker->shuttle_id == $shuttle->id) {
-                                                            $current_batch = $checker;
-                                                        }
-                                                    }
-                                                @endphp
-
-                                                @if ($current_batch->status == 'Dihantar ke IPJPSM' && $current_batch->borang_d == 2)
-                                                    <a
-                                                        href="{{ route('ipjpsm.shuttle-3-view-formD', $data->id) }}">
-                                                        <img src="{{ asset('circle_check_yellow.png') }}"
-                                                            height='30px' alt=""
-                                                            style="color: white; font-size: 18pt;"
-                                                            data-toggle="tooltip" data-placement="bottom"
-                                                            title="Borang perlu diperaku"></i></a>
-                                                @else
-                                                    <img src="{{ asset('package.png') }}" height='40px'
-                                                        alt="" data-toggle="tooltip" data-placement="bottom"
-                                                        title="Pakej belum dihantar">
-                                                @endif
-                                            @elseif($data->status == 'Lulus')
-                                                <a href="{{ route('ipjpsm.view-formD', $data->id) }}">
-                                                    <img src="{{ asset('double_check.png') }}"
-                                                        height='30px' alt=""
-                                                        style="color: green; font-size: 20pt;"
-                                                        data-toggle="tooltip" data-placement="bottom"
-                                                        title="Borang telah diperaku"></i>
-                                                </a>
-                                            @break
-                                        @endif
-                                    @endif
-                                @endforeach
-                            </td>
-
-                            <td>
-                                @foreach ($formD as $data)
-                                    @if ($shuttle->id == $data->shuttle_id && $data->bulan == '6')
-
-                                        @if ($data->status == 'Tidak Diisi')
-                                            @php
-                                                $time = strtotime($data->tarikh_tutup_borang);
-                                                $delay = '+' . $buffer->delay . ' month';
-                                                $tarikh_tutup_terkini = date('Y-m-d', strtotime($delay, $time));
-                                            @endphp
-
-                                            @if (date('Y-m-d') >= $data->tarikh_buka_borang && date('Y-m-d') <= $tarikh_tutup_terkini)
-                                                <img src="{{ asset('circle_times.png') }}"
-                                                                            height='30px' alt=""
-                                                    style="color: red; font-size: 25pt;"
-                                                    data-toggle="tooltip" data-placement="bottom"
-                                                    title="Borang belum diisi"></i>
-                                            @else
-                                                <img src="{{ asset('calendar.png') }}" height='30px'
-                                                    alt="" style="color: grey; font-size: 20pt;"
-                                                    data-toggle="tooltip" data-placement="bottom"
-                                                    title="Borang ditutup"></i>
-                                            @endif
-                                        @elseif($data->status == 'Tidak Lengkap')
-                                           <img src="{{ asset('history.png') }}" height='30px' alt=""
-                                                style="color: #dbd400; font-size: 20pt;"
-                                                data-toggle="tooltip" data-placement="bottom"
-                                                title="Borang tidak lengkap "></i>
-                                        @elseif($data->status == 'Sedang Diproses')
-                                            <img src="{{ asset('circle_times_yellow.png') }}"
-                                                height='30px' alt=""
-                                                style="color: #dbd400;font-size: 25pt;"
-                                                data-toggle="tooltip" data-placement="bottom"
-                                                title="Borang perlu disahkan PHD"></i>
-                                        @elseif($data->status == 'Dihantar ke IPJPSM')
-                                            @php
-                                                foreach ($batch as $checker) {
-                                                    if ($checker->tahun == $year && $checker->bulan == $data->bulan && $checker->shuttle_id == $shuttle->id) {
-                                                        $current_batch = $checker;
-                                                    }
-                                                }
-                                            @endphp
-
-                                            @if ($current_batch->status == 'Dihantar ke IPJPSM' && $current_batch->borang_d == 2)
-                                                <a
-                                                    href="{{ route('ipjpsm.shuttle-3-view-formD', $data->id) }}">
-                                                    <img src="{{ asset('circle_check_yellow.png') }}"
-                                                        height='30px' alt=""
-                                                        style="color: white; font-size: 18pt;"
-                                                        data-toggle="tooltip" data-placement="bottom"
-                                                        title="Borang perlu diperaku"></i></a>
-                                            @else
-                                                <img src="{{ asset('package.png') }}" height='40px'
-                                                    alt="" data-toggle="tooltip" data-placement="bottom"
-                                                    title="Pakej belum dihantar">
-                                            @endif
-                                        @elseif($data->status == 'Lulus')
-                                            <a href="{{ route('ipjpsm.view-formD', $data->id) }}">
-                                                <img src="{{ asset('double_check.png') }}"
-                                                    height='30px' alt=""
-                                                    style="color: green; font-size: 20pt;"
-                                                    data-toggle="tooltip" data-placement="bottom"
-                                                    title="Borang telah diperaku"></i>
-                                            </a>
-                                        @break
-                                    @endif
-                                @endif
-                            @endforeach
-                        </td>
-
-                        <td>
-                            @foreach ($formD as $data)
-                                @if ($shuttle->id == $data->shuttle_id && $data->bulan == '7')
-
-                                    @if ($data->status == 'Tidak Diisi')
-                                        @php
-                                            $time = strtotime($data->tarikh_tutup_borang);
-                                            $delay = '+' . $buffer->delay . ' month';
-                                            $tarikh_tutup_terkini = date('Y-m-d', strtotime($delay, $time));
-                                        @endphp
-
-                                        @if (date('Y-m-d') >= $data->tarikh_buka_borang && date('Y-m-d') <= $tarikh_tutup_terkini)
-                                            <img src="{{ asset('circle_times.png') }}"
-                                                                            height='30px' alt=""
-                                                style="color: red; font-size: 25pt;"
-                                                data-toggle="tooltip" data-placement="bottom"
-                                                title="Borang belum diisi"></i>
-                                        @else
-                                            <img src="{{ asset('calendar.png') }}" height='30px'
-                                                alt="" style="color: grey; font-size: 20pt;"
-                                                data-toggle="tooltip" data-placement="bottom"
-                                                title="Borang ditutup"></i>
-                                        @endif
-                                    @elseif($data->status == 'Tidak Lengkap')
-                                       <img src="{{ asset('history.png') }}" height='30px' alt=""
-                                            style="color: #dbd400; font-size: 20pt;"
-                                            data-toggle="tooltip" data-placement="bottom"
-                                            title="Borang tidak lengkap "></i>
-                                    @elseif($data->status == 'Sedang Diproses')
-                                        <img src="{{ asset('circle_times_yellow.png') }}"
-                                            height='30px' alt=""
-                                            style="color: #dbd400;font-size: 25pt;"
-                                            data-toggle="tooltip" data-placement="bottom"
-                                            title="Borang perlu disahkan PHD"></i>
-                                    @elseif($data->status == 'Dihantar ke IPJPSM')
-                                        @php
-                                            foreach ($batch as $checker) {
-                                                if ($checker->tahun == $year && $checker->bulan == $data->bulan && $checker->shuttle_id == $shuttle->id) {
-                                                    $current_batch = $checker;
-                                                }
-                                            }
-                                        @endphp
-
-                                        @if ($current_batch->status == 'Dihantar ke IPJPSM' && $current_batch->borang_d == 2)
-                                            <a
-                                                href="{{ route('ipjpsm.shuttle-3-view-formD', $data->id) }}">
-                                                <img src="{{ asset('circle_check_yellow.png') }}"
-                                                    height='30px' alt=""
-                                                    style="color: white; font-size: 18pt;"
-                                                    data-toggle="tooltip" data-placement="bottom"
-                                                    title="Borang perlu diperaku"></i></a>
-                                        @else
-                                            <img src="{{ asset('package.png') }}" height='40px'
-                                                alt="" data-toggle="tooltip" data-placement="bottom"
-                                                title="Pakej belum dihantar">
-                                        @endif
-                                    @elseif($data->status == 'Lulus')
-                                        <a href="{{ route('ipjpsm.view-formD', $data->id) }}">
-                                            <img src="{{ asset('double_check.png') }}"
-                                                height='30px' alt=""
-                                                style="color: green; font-size: 20pt;"
-                                                data-toggle="tooltip" data-placement="bottom"
-                                                title="Borang telah diperaku"></i>
-                                        </a>
-                                    @break
-                                @endif
-                            @endif
-                        @endforeach
-                    </td>
-
-                    <td>
-                        @foreach ($formD as $data)
-                            @if ($shuttle->id == $data->shuttle_id && $data->bulan == '8')
-
-                                @if ($data->status == 'Tidak Diisi')
-                                    @php
-                                        $time = strtotime($data->tarikh_tutup_borang);
-                                        $delay = '+' . $buffer->delay . ' month';
-                                        $tarikh_tutup_terkini = date('Y-m-d', strtotime($delay, $time));
-                                    @endphp
-
-                                    @if (date('Y-m-d') >= $data->tarikh_buka_borang && date('Y-m-d') <= $tarikh_tutup_terkini)
-                                        <img src="{{ asset('circle_times.png') }}"
-                                                                            height='30px' alt=""
-                                            style="color: red; font-size: 25pt;"
-                                            data-toggle="tooltip" data-placement="bottom"
-                                            title="Borang belum diisi"></i>
-                                    @else
-                                        <img src="{{ asset('calendar.png') }}" height='30px'
-                                            alt="" style="color: grey; font-size: 20pt;"
-                                            data-toggle="tooltip" data-placement="bottom"
-                                            title="Borang ditutup"></i>
-                                    @endif
-                                @elseif($data->status == 'Tidak Lengkap')
-                                   <img src="{{ asset('history.png') }}" height='30px' alt=""
-                                        style="color: #dbd400; font-size: 20pt;"
-                                        data-toggle="tooltip" data-placement="bottom"
-                                        title="Borang tidak lengkap "></i>
-                                @elseif($data->status == 'Sedang Diproses')
-                                    <img src="{{ asset('circle_times_yellow.png') }}"
-                                        height='30px' alt=""
-                                        style="color: #dbd400;font-size: 25pt;"
-                                        data-toggle="tooltip" data-placement="bottom"
-                                        title="Borang perlu disahkan PHD"></i>
-                                @elseif($data->status == 'Dihantar ke IPJPSM')
-                                    @php
-                                        foreach ($batch as $checker) {
-                                            if ($checker->tahun == $year && $checker->bulan == $data->bulan && $checker->shuttle_id == $shuttle->id) {
-                                                $current_batch = $checker;
-                                            }
-                                        }
-                                    @endphp
-
-                                    @if ($current_batch->status == 'Dihantar ke IPJPSM' && $current_batch->borang_d == 2)
-                                        <a
-                                            href="{{ route('ipjpsm.shuttle-3-view-formD', $data->id) }}">
-                                            <img src="{{ asset('circle_check_yellow.png') }}"
-                                                height='30px' alt=""
-                                                style="color: white; font-size: 18pt;"
-                                                data-toggle="tooltip" data-placement="bottom"
-                                                title="Borang perlu diperaku"></i></a>
-                                    @else
-                                        <img src="{{ asset('package.png') }}" height='40px'
-                                            alt="" data-toggle="tooltip" data-placement="bottom"
-                                            title="Pakej belum dihantar">
-                                    @endif
-                                @elseif($data->status == 'Lulus')
-                                    <a href="{{ route('ipjpsm.view-formD', $data->id) }}">
-                                        <img src="{{ asset('double_check.png') }}"
-                                            height='30px' alt=""
-                                            style="color: green; font-size: 20pt;"
-                                            data-toggle="tooltip" data-placement="bottom"
-                                            title="Borang telah diperaku"></i>
-                                    </a>
-                                @break
-                            @endif
-                        @endif
-                    @endforeach
-                </td>
-
-                <td>
-                    @foreach ($formD as $data)
-                        @if ($shuttle->id == $data->shuttle_id && $data->bulan == '9')
-
-                            @if ($data->status == 'Tidak Diisi')
-                                @php
-                                    $time = strtotime($data->tarikh_tutup_borang);
-                                    $delay = '+' . $buffer->delay . ' month';
-                                    $tarikh_tutup_terkini = date('Y-m-d', strtotime($delay, $time));
-                                @endphp
-
-                                @if (date('Y-m-d') >= $data->tarikh_buka_borang && date('Y-m-d') <= $tarikh_tutup_terkini)
-                                    <img src="{{ asset('circle_times.png') }}"
-                                                                            height='30px' alt=""
-                                        style="color: red; font-size: 25pt;"
-                                        data-toggle="tooltip" data-placement="bottom"
-                                        title="Borang belum diisi"></i>
-                                @else
-                                    <img src="{{ asset('calendar.png') }}" height='30px'
-                                        alt="" style="color: grey; font-size: 20pt;"
-                                        data-toggle="tooltip" data-placement="bottom"
-                                        title="Borang ditutup"></i>
-                                @endif
-                            @elseif($data->status == 'Tidak Lengkap')
-                               <img src="{{ asset('history.png') }}" height='30px' alt=""
-                                    style="color: #dbd400; font-size: 20pt;"
-                                    data-toggle="tooltip" data-placement="bottom"
-                                    title="Borang tidak lengkap "></i>
-                            @elseif($data->status == 'Sedang Diproses')
-                                <img src="{{ asset('circle_times_yellow.png') }}"
-                                    height='30px' alt=""
-                                    style="color: #dbd400;font-size: 25pt;"
-                                    data-toggle="tooltip" data-placement="bottom"
-                                    title="Borang perlu disahkan PHD"></i>
-                            @elseif($data->status == 'Dihantar ke IPJPSM')
-                                @php
-                                    foreach ($batch as $checker) {
-                                        if ($checker->tahun == $year && $checker->bulan == $data->bulan && $checker->shuttle_id == $shuttle->id) {
-                                            $current_batch = $checker;
-                                        }
-                                    }
-                                @endphp
-
-                                @if ($current_batch->status == 'Dihantar ke IPJPSM' && $current_batch->borang_d == 2)
-                                    <a
-                                        href="{{ route('ipjpsm.shuttle-3-view-formD', $data->id) }}">
-                                        <img src="{{ asset('circle_check_yellow.png') }}"
-                                            height='30px' alt=""
-                                            style="color: white; font-size: 18pt;"
-                                            data-toggle="tooltip" data-placement="bottom"
-                                            title="Borang perlu diperaku"></i></a>
-                                @else
-                                    <img src="{{ asset('package.png') }}" height='40px'
-                                        alt="" data-toggle="tooltip" data-placement="bottom"
-                                        title="Pakej belum dihantar">
-                                @endif
-                            @elseif($data->status == 'Lulus')
-                                <a href="{{ route('ipjpsm.view-formD', $data->id) }}">
-                                    <img src="{{ asset('double_check.png') }}"
-                                        height='30px' alt=""
-                                        style="color: green; font-size: 20pt;"
-                                        data-toggle="tooltip" data-placement="bottom"
-                                        title="Borang telah diperaku"></i>
-                                </a>
-                            @break
-                        @endif
-                    @endif
-                @endforeach
-            </td>
-
-            <td>
-                @foreach ($formD as $data)
-                    @if ($shuttle->id == $data->shuttle_id && $data->bulan == '10')
-
-                        @if ($data->status == 'Tidak Diisi')
-                            @php
-                                $time = strtotime($data->tarikh_tutup_borang);
-                                $delay = '+' . $buffer->delay . ' month';
-                                $tarikh_tutup_terkini = date('Y-m-d', strtotime($delay, $time));
-                            @endphp
-
-                            @if (date('Y-m-d') >= $data->tarikh_buka_borang && date('Y-m-d') <= $tarikh_tutup_terkini)
-                                <img src="{{ asset('circle_times.png') }}"
-                                                                            height='30px' alt=""
-                                    style="color: red; font-size: 25pt;"
-                                    data-toggle="tooltip" data-placement="bottom"
-                                    title="Borang belum diisi"></i>
-                            @else
-                                <img src="{{ asset('calendar.png') }}" height='30px'
-                                    alt="" style="color: grey; font-size: 20pt;"
-                                    data-toggle="tooltip" data-placement="bottom"
-                                    title="Borang ditutup"></i>
-                            @endif
-                        @elseif($data->status == 'Tidak Lengkap')
-                           <img src="{{ asset('history.png') }}" height='30px' alt=""
-                                style="color: #dbd400; font-size: 20pt;"
-                                data-toggle="tooltip" data-placement="bottom"
-                                title="Borang tidak lengkap "></i>
-                        @elseif($data->status == 'Sedang Diproses')
-                            <img src="{{ asset('circle_times_yellow.png') }}"
-                                height='30px' alt=""
-                                style="color: #dbd400;font-size: 25pt;"
-                                data-toggle="tooltip" data-placement="bottom"
-                                title="Borang perlu disahkan PHD"></i>
-                        @elseif($data->status == 'Dihantar ke IPJPSM')
-                            @php
-                                foreach ($batch as $checker) {
-                                    if ($checker->tahun == $year && $checker->bulan == $data->bulan && $checker->shuttle_id == $shuttle->id) {
-                                        $current_batch = $checker;
-                                    }
-                                }
-                            @endphp
-
-                            @if ($current_batch->status == 'Dihantar ke IPJPSM' && $current_batch->borang_d == 2)
-                                <a
-                                    href="{{ route('ipjpsm.shuttle-3-view-formD', $data->id) }}">
-                                    <img src="{{ asset('circle_check_yellow.png') }}"
-                                        height='30px' alt=""
-                                        style="color: white; font-size: 18pt;"
-                                        data-toggle="tooltip" data-placement="bottom"
-                                        title="Borang perlu diperaku"></i></a>
-                            @else
-                                <img src="{{ asset('package.png') }}" height='40px'
-                                    alt="" data-toggle="tooltip" data-placement="bottom"
-                                    title="Pakej belum dihantar">
-                            @endif
-                        @elseif($data->status == 'Lulus')
-                            <a href="{{ route('ipjpsm.view-formD', $data->id) }}">
-                                <img src="{{ asset('double_check.png') }}"
-                                    height='30px' alt=""
-                                    style="color: green; font-size: 20pt;"
-                                    data-toggle="tooltip" data-placement="bottom"
-                                    title="Borang telah diperaku"></i>
-                            </a>
-                        @break
-                    @endif
-                @endif
-            @endforeach
-        </td>
-
-        <td>
-            @foreach ($formD as $data)
-                @if ($shuttle->id == $data->shuttle_id && $data->bulan == '11')
-
-                    @if ($data->status == 'Tidak Diisi')
-                        @php
-                            $time = strtotime($data->tarikh_tutup_borang);
-                            $delay = '+' . $buffer->delay . ' month';
-                            $tarikh_tutup_terkini = date('Y-m-d', strtotime($delay, $time));
-                        @endphp
-
-                        @if (date('Y-m-d') >= $data->tarikh_buka_borang && date('Y-m-d') <= $tarikh_tutup_terkini)
-                            <img src="{{ asset('circle_times.png') }}"
-                                                                            height='30px' alt=""
-                                style="color: red; font-size: 25pt;"
-                                data-toggle="tooltip" data-placement="bottom"
-                                title="Borang belum diisi"></i>
-                        @else
-                            <img src="{{ asset('calendar.png') }}" height='30px'
-                                alt="" style="color: grey; font-size: 20pt;"
-                                data-toggle="tooltip" data-placement="bottom"
-                                title="Borang ditutup"></i>
-                        @endif
-                    @elseif($data->status == 'Tidak Lengkap')
-                       <img src="{{ asset('history.png') }}" height='30px' alt=""
-                            style="color: #dbd400; font-size: 20pt;"
-                            data-toggle="tooltip" data-placement="bottom"
-                            title="Borang tidak lengkap "></i>
-                    @elseif($data->status == 'Sedang Diproses')
-                        <img src="{{ asset('circle_times_yellow.png') }}"
-                            height='30px' alt=""
-                            style="color: #dbd400;font-size: 25pt;"
-                            data-toggle="tooltip" data-placement="bottom"
-                            title="Borang perlu disahkan PHD"></i>
-                    @elseif($data->status == 'Dihantar ke IPJPSM')
-                        @php
-                            foreach ($batch as $checker) {
-                                if ($checker->tahun == $year && $checker->bulan == $data->bulan && $checker->shuttle_id == $shuttle->id) {
-                                    $current_batch = $checker;
-                                }
-                            }
-                        @endphp
-
-                        @if ($current_batch->status == 'Dihantar ke IPJPSM' && $current_batch->borang_d == 2)
-                            <a
-                                href="{{ route('ipjpsm.shuttle-3-view-formD', $data->id) }}">
-                                <img src="{{ asset('circle_check_yellow.png') }}"
-                                    height='30px' alt=""
-                                    style="color: white; font-size: 18pt;"
-                                    data-toggle="tooltip" data-placement="bottom"
-                                    title="Borang perlu diperaku"></i></a>
-                        @else
-                            <img src="{{ asset('package.png') }}" height='40px'
-                                alt="" data-toggle="tooltip" data-placement="bottom"
-                                title="Pakej belum dihantar">
-                        @endif
-                    @elseif($data->status == 'Lulus')
-                        <a href="{{ route('ipjpsm.view-formD', $data->id) }}">
-                            <img src="{{ asset('double_check.png') }}"
-                                height='30px' alt=""
-                                style="color: green; font-size: 20pt;"
-                                data-toggle="tooltip" data-placement="bottom"
-                                title="Borang telah diperaku"></i>
-                        </a>
-                    @break
-                @endif
-            @endif
-        @endforeach
-    </td>
+                                    </tbody>
+                                </table>
+                                <br>
+                            </div>
+                            <div class="row">
+                                <a class="btn btn-primary" href="{{ route('home') }}" style="color:white">Kembali</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
 
-    <td>
-        @foreach ($formD as $data)
-            @if ($shuttle->id == $data->shuttle_id && $data->bulan == '12')
-
-                @if ($data->status == 'Tidak Diisi')
-                    @php
-                        $time = strtotime($data->tarikh_tutup_borang);
-                        $delay = '+' . $buffer->delay . ' month';
-                        $tarikh_tutup_terkini = date('Y-m-d', strtotime($delay, $time));
-                    @endphp
-
-                    @if (date('Y-m-d') >= $data->tarikh_buka_borang && date('Y-m-d') <= $tarikh_tutup_terkini)
-                        <img src="{{ asset('circle_times.png') }}"
-                                                                            height='30px' alt=""
-                            style="color: red; font-size: 25pt;"
-                            data-toggle="tooltip" data-placement="bottom"
-                            title="Borang belum diisi"></i>
-                    @else
-                        <img src="{{ asset('calendar.png') }}" height='30px'
-                            alt="" style="color: grey; font-size: 20pt;"
-                            data-toggle="tooltip" data-placement="bottom"
-                            title="Borang ditutup"></i>
-                    @endif
-                @elseif($data->status == 'Tidak Lengkap')
-                   <img src="{{ asset('history.png') }}" height='30px' alt=""
-                        style="color: #dbd400; font-size: 20pt;"
-                        data-toggle="tooltip" data-placement="bottom"
-                        title="Borang tidak lengkap "></i>
-                @elseif($data->status == 'Sedang Diproses')
-                    <img src="{{ asset('circle_times_yellow.png') }}"
-                        height='30px' alt=""
-                        style="color: #dbd400;font-size: 25pt;"
-                        data-toggle="tooltip" data-placement="bottom"
-                        title="Borang perlu disahkan PHD"></i>
-                @elseif($data->status == 'Dihantar ke IPJPSM')
-                    @php
-                        foreach ($batch as $checker) {
-                            if ($checker->tahun == $year && $checker->bulan == $data->bulan && $checker->shuttle_id == $shuttle->id) {
-                                $current_batch = $checker;
-                            }
-                        }
-                    @endphp
-
-                    @if ($current_batch->status == 'Dihantar ke IPJPSM' && $current_batch->borang_d == 2)
-                        <a
-                            href="{{ route('ipjpsm.shuttle-3-view-formD', $data->id) }}">
-                            <img src="{{ asset('circle_check_yellow.png') }}"
-                                height='30px' alt=""
-                                style="color: white; font-size: 18pt;"
-                                data-toggle="tooltip" data-placement="bottom"
-                                title="Borang perlu diperaku"></i></a>
-                    @else
-                        <img src="{{ asset('package.png') }}" height='40px'
-                            alt="" data-toggle="tooltip" data-placement="bottom"
-                            title="Pakej belum dihantar">
-                    @endif
-                @elseif($data->status == 'Lulus')
-                    <a href="{{ route('ipjpsm.view-formD', $data->id) }}">
-                        <img src="{{ asset('double_check.png') }}"
-                            height='30px' alt=""
-                            style="color: green; font-size: 20pt;"
-                            data-toggle="tooltip" data-placement="bottom"
-                            title="Borang telah diperaku"></i>
-                    </a>
-                @break
-            @endif
-        @endif
-    @endforeach
-</td>
-</tr>
-@endforeach
-</tbody>
-</table>
-<br>
-</div>
-<div class="row">
-<a class="btn btn-primary" href="{{ route('home') }}" style="color:white">Kembali</a>
-</div>
-</div>
-</div>
-</div>
-</div>
+        </div>
+        <!-- ============================================================== -->
+        <!-- End Container fluid  -->
+        <!-- ============================================================== -->
 
 
-</div>
-<!-- ============================================================== -->
-<!-- End Container fluid  -->
-<!-- ============================================================== -->
-
-
-</div>
+    </div>
 
 <script>
     function changePage() {
@@ -1011,7 +229,7 @@
 <script>
     $(document).ready(function() {
         var table = $('#example').DataTable({
-            ordering : false,
+        ordering : false,
             "language": {
                 "lengthMenu": "Memaparkan _MENU_ rekod per halaman",
                 "zeroRecords": "Tahun: {{ $year ?? date('Y') }}",

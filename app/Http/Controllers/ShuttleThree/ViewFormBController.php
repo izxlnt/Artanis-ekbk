@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\ShuttleThree;
 
 use App\Http\Controllers\Controller;
+use App\Models\Daerah;
 use App\Models\Form4D;
 use App\Models\Form4E;
 use App\Models\FormA;
@@ -265,11 +266,14 @@ class ViewFormBController extends Controller
 
         $layout = auth()->user()->kategori_pengguna == 'PHD' ? 'layouts.layout-phd-nicepage' : (auth()->user()->kategori_pengguna == 'BPM' ? 'layouts.layout-bpm-nicepage' : (auth()->user()->kategori_pengguna == 'BPE' ? 'layouts.layout-ipjpsm-nicepage' : ''));
 
+        $daerah_list = Daerah::where('negeri', $kilang_info->negeri_id)->get();
+
         $array = [
             'kilang_info' => $kilang_info,
             'forma' => $forma,
             'id' => $id,
-            'layout' => $layout
+            'layout' => $layout,
+            'daerah_list' => $daerah_list,
         ];
 
         if($kilang_info->shuttle_type == '3'){

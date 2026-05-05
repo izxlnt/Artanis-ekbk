@@ -322,135 +322,62 @@ class UserController extends Controller
         // Count Display home page
         //count shuttle 3 home page ibk
 
-        $count_formA = FormA::where(function ($query) {
-            $query
-                ->where('status', '!=', 'Tidak Diisi')
-                ->where('status', '!=', 'Tidak Lengkap');
-        })
-            ->where('tahun', date("Y"))->where('shuttle_id', auth()->user()->shuttle_id)->get();
-        $formA_count = $count_formA->count();
+        $shuttleId = auth()->user()->shuttle_id;
+        $year = date('Y');
 
-        $count_formB = FormB::where(function ($query) {
-            $query
-                ->where('status', '!=', 'Tidak Diisi')
-                ->where('status', '!=', 'Tidak Lengkap');
-        })
-            ->where('tahun', date("Y"))->where('shuttle_id', auth()->user()->shuttle_id)->get();
-        $formB_count = $count_formB->count();
+        $formA_count = FormA::where('status', '!=', 'Tidak Diisi')->where('status', '!=', 'Tidak Lengkap')
+            ->where('tahun', $year)->where('shuttle_id', $shuttleId)->count();
 
-        $count_formC = FormC::where(function ($query) {
-            $query
-                ->where('status', '!=', 'Tidak Diisi')
-                ->where('status', '!=', 'Tidak Lengkap')
-                ->where('status', '!=', 'Sedang Diisi');
-        })
-            ->where('tahun', date("Y"))->where('shuttle_id', auth()->user()->shuttle_id)->get();
-        $formC_count = $count_formC->count();
+        $formB_count = FormB::where('status', '!=', 'Tidak Diisi')->where('status', '!=', 'Tidak Lengkap')
+            ->where('tahun', $year)->where('shuttle_id', $shuttleId)->count();
 
-        $count_formD = FormD::where(function ($query) {
-            $query
-                ->where('status', '!=', 'Tidak Diisi')
-                ->where('status', '!=', 'Tidak Lengkap');
-        })
-            ->where('tahun', date("Y"))->where('shuttle_id', auth()->user()->shuttle_id)->get();
-        $formD_count = $count_formD->count();
+        $formC_count = FormC::where('status', '!=', 'Tidak Diisi')->where('status', '!=', 'Tidak Lengkap')
+            ->where('status', '!=', 'Sedang Diisi')
+            ->where('tahun', $year)->where('shuttle_id', $shuttleId)->count();
 
+        $formD_count = FormD::where('status', '!=', 'Tidak Diisi')->where('status', '!=', 'Tidak Lengkap')
+            ->where('tahun', $year)->where('shuttle_id', $shuttleId)->count();
 
-        //count shuttle 4 home page ibk
+        // shuttle 4 counts
+        $form4A_count = FormA::where('status', '!=', 'Tidak Diisi')->where('status', '!=', 'Tidak Lengkap')
+            ->where('tahun', $year)->where('shuttle_id', $shuttleId)->count();
 
-        $count_form4A = FormA::where(function ($query) {
-            $query
-                ->where('status', '!=', 'Tidak Diisi')
-                ->where('status', '!=', 'Tidak Lengkap');
-        })
-            ->where('tahun', date("Y"))->where('shuttle_id', auth()->user()->shuttle_id)->get();
-        $form4A_count = $count_form4A->count();
+        $form4B_count = FormB::where('status', '!=', 'Tidak Diisi')->where('status', '!=', 'Tidak Lengkap')
+            ->where('tahun', $year)->where('shuttle_id', $shuttleId)->count();
 
-        $count_form4B = FormB::where(function ($query) {
-            $query
-                ->where('status', '!=', 'Tidak Diisi')
-                ->where('status', '!=', 'Tidak Lengkap');
-        })
-            ->where('tahun', date("Y"))->where('shuttle_id', auth()->user()->shuttle_id)->get();
-        $form4B_count = $count_form4B->count();
+        $form4C_count = FormC::where('status', '!=', 'Tidak Diisi')->where('status', '!=', 'Tidak Lengkap')
+            ->where('status', '!=', 'Sedang Diisi')
+            ->where('tahun', $year)->where('shuttle_id', $shuttleId)->count();
 
-        $count_form4C = FormC::where(function ($query) {
-            $query
-                ->where('status', '!=', 'Tidak Diisi')
-                ->where('status', '!=', 'Tidak Lengkap')
-                ->where('status', '!=', 'Sedang Diisi');
-        })
-            ->where('tahun', date("Y"))->where('shuttle_id', auth()->user()->shuttle_id)->get();
-        $form4C_count = $count_form4C->count();
+        $form4D_count = Form4D::where('status', '!=', 'Tidak Diisi')->where('status', '!=', 'Tidak Lengkap')
+            ->where('tahun', $year)->where('shuttle_id', $shuttleId)->count();
 
-        $count_form4D = Form4D::where(function ($query) {
-            $query
-                ->where('status', '!=', 'Tidak Diisi')
-                ->where('status', '!=', 'Tidak Lengkap');
-        })
-            ->where('tahun', date("Y"))->where('shuttle_id', auth()->user()->shuttle_id)->get();
-        $form4D_count = $count_form4D->count();
+        $form4E_count = Form4E::where('status', '!=', 'Tidak Diisi')->where('status', '!=', 'Tidak Lengkap')
+            ->where('tahun', $year)->where('shuttle_id', $shuttleId)->count();
 
-        $count_form4E = Form4E::where(function ($query) {
-            $query
-                ->where('status', '!=', 'Tidak Diisi')
-                ->where('status', '!=', 'Tidak Lengkap');
-        })
-            ->where('tahun', date("Y"))->where('shuttle_id', auth()->user()->shuttle_id)->get();
-        $form4E_count = $count_form4E->count();
+        // shuttle 5 counts
+        $form5A_count = FormA::where('status', '!=', 'Tidak Diisi')->where('status', '!=', 'Tidak Lengkap')
+            ->where('tahun', $year)->where('shuttle_id', $shuttleId)->count();
 
-        //count shuttle 5 home page ibk
+        $form5B_count = FormB::where('status', '!=', 'Tidak Diisi')->where('status', '!=', 'Tidak Lengkap')
+            ->where('tahun', $year)->where('shuttle_id', $shuttleId)->count();
 
-        $count_form5A = FormA::where(function ($query) {
-            $query
-                ->where('status', '!=', 'Tidak Diisi')
-                ->where('status', '!=', 'Tidak Lengkap');
-        })
-            ->where('tahun', date("Y"))->where('shuttle_id', auth()->user()->shuttle_id)->get();
-        $form5A_count = $count_form5A->count();
+        $form5C_count = FormC::where('status', '!=', 'Tidak Diisi')->where('status', '!=', 'Tidak Lengkap')
+            ->where('status', '!=', 'Sedang Diisi')
+            ->where('tahun', $year)->where('shuttle_id', $shuttleId)->count();
 
-        $count_form5B = FormB::where(function ($query) {
-            $query
-                ->where('status', '!=', 'Tidak Diisi')
-                ->where('status', '!=', 'Tidak Lengkap');
-        })
-            ->where('tahun', date("Y"))->where('shuttle_id', auth()->user()->shuttle_id)->get();
-        $form5B_count = $count_form5B->count();
+        $form5D_count = Form5D::where('status', '!=', 'Tidak Diisi')->where('status', '!=', 'Tidak Lengkap')
+            ->where('tahun', $year)->where('shuttle_id', $shuttleId)->count();
 
-        $count_form5C = FormC::where(function ($query) {
-            $query
-                ->where('status', '!=', 'Tidak Diisi')
-                ->where('status', '!=', 'Tidak Lengkap')
-                ->where('status', '!=', 'Sedang Diisi');
-        })
-            ->where('tahun', date("Y"))->where('shuttle_id', auth()->user()->shuttle_id)->get();
-        $form5C_count = $count_form5C->count();
+        $form5E_count = Form5E::where('status', '!=', 'Tidak Diisi')->where('status', '!=', 'Tidak Lengkap')
+            ->where('tahun', $year)->where('shuttle_id', $shuttleId)->count();
 
-        $count_form5D = Form5D::where(function ($query) {
-            $query
-                ->where('status', '!=', 'Tidak Diisi')
-                ->where('status', '!=', 'Tidak Lengkap');
-        })
-            ->where('tahun', date("Y"))->where('shuttle_id', auth()->user()->shuttle_id)->get();
-        $form5D_count = $count_form5D->count();
+        $user_daerah = Auth::user()->shuttle->daerah_id;
 
-        $count_form5E = Form5E::where(function ($query) {
-            $query
-                ->where('status', '!=', 'Tidak Diisi')
-                ->where('status', '!=', 'Tidak Lengkap');
-        })
-            ->where('tahun', date("Y"))->where('shuttle_id', auth()->user()->shuttle_id)->get();
-        $form5E_count = $count_form5E->count();
-
-        $user_daerah= Auth::user()->shuttle->daerah_id;
-        // dd($user);
-
-        $pengumumantest=Pengumuman::where('daerah_hutan',$user_daerah)->first();
-
-        if(empty($pengumumantest))
-        $pengumuman = null;
-        else
-        $pengumuman=Pengumuman::where('daerah_hutan',$user_daerah)->orderBy('created_at', 'DESC')->get();
+        $pengumuman = Pengumuman::where('daerah_hutan', $user_daerah)->orderBy('created_at', 'DESC')->get();
+        if ($pengumuman->isEmpty()) {
+            $pengumuman = null;
+        }
 
         // dd($pengumumantest);
 
@@ -1188,81 +1115,51 @@ class UserController extends Controller
 
     public function index_phd()
     {
+        $daerah = auth()->user()->daerah;
 
+        $count_shuttle3 = User::where('shuttle_type', 3)->where('is_approved', 1)->whereNull('pengguna_kilang_id')
+            ->whereHas('shuttle', fn($q) => $q->where('daerah_id', $daerah))->count();
 
+        $count_shuttle4 = User::where('shuttle_type', 4)->where('is_approved', 1)->whereNull('pengguna_kilang_id')
+            ->whereHas('shuttle', fn($q) => $q->where('daerah_id', $daerah))->count();
 
-        $users = User::get();
-
-
-
-        $user3 = User::where('shuttle_type', 3)->where('is_approved', 1)->where('pengguna_kilang_id', null)->whereHas('shuttle', function ($q) {
-            $q->where('daerah_id', auth()->user()->daerah);
-        })->get();
-        $count_shuttle3 = $user3->count();
-
-        $user4 = User::where('shuttle_type', 4)->where('is_approved', 1)->where('pengguna_kilang_id', null)->whereHas('shuttle', function ($q) {
-            $q->where('daerah_id', auth()->user()->daerah);
-        })->get();
-        $count_shuttle4 = $user4->count();
-
-        $user5 = User::where('shuttle_type', 5)->where('is_approved', 1)->where('pengguna_kilang_id', null)->whereHas('shuttle', function ($q) {
-            $q->where('daerah_id', auth()->user()->daerah);
-        })->get();
-
-        $count_shuttle5 = $user5->count();
-        // dd($count_shuttle5);
-
-
-        $daerah= auth()->user()->daerah;
+        $count_shuttle5 = User::where('shuttle_type', 5)->where('is_approved', 1)->whereNull('pengguna_kilang_id')
+            ->whereHas('shuttle', fn($q) => $q->where('daerah_id', $daerah))->count();
 
         $s3 = DB::select("SELECT COUNT(shuttles.daerah_id) as total_kilang
-        FROM form_a_s
-        INNER JOIN shuttles
-        ON form_a_s.shuttle_id = shuttles.id
-        WHERE shuttles.shuttle_type = '3'
-        AND shuttles.daerah_id = '$daerah'
-        AND YEAR(date(form_a_s.created_at)) = YEAR(now())
-        AND form_a_s.status IN ('Dihantar ke IPJPSM', 'Sedang Diproses')
-        GROUP BY shuttles.daerah_id");
-
-        // dd($s3);
+            FROM form_a_s
+            INNER JOIN shuttles ON form_a_s.shuttle_id = shuttles.id
+            WHERE shuttles.shuttle_type = '3'
+            AND shuttles.daerah_id = ?
+            AND YEAR(date(form_a_s.created_at)) = YEAR(now())
+            AND form_a_s.status IN ('Dihantar ke IPJPSM', 'Sedang Diproses')
+            GROUP BY shuttles.daerah_id", [$daerah]);
 
         $s4 = DB::select("SELECT COUNT(shuttles.daerah_id) as total_kilang
-        FROM form_a_s
-        INNER JOIN shuttles
-        ON form_a_s.shuttle_id = shuttles.id
-        WHERE shuttles.shuttle_type = '4'
-        AND shuttles.daerah_id = '$daerah'
-        AND YEAR(date(form_a_s.created_at)) = YEAR(now())
-        AND form_a_s.status IN ('Dihantar ke IPJPSM', 'Sedang Diproses')
-        GROUP BY shuttles.daerah_id");
-
-// dd($s4);
+            FROM form_a_s
+            INNER JOIN shuttles ON form_a_s.shuttle_id = shuttles.id
+            WHERE shuttles.shuttle_type = '4'
+            AND shuttles.daerah_id = ?
+            AND YEAR(date(form_a_s.created_at)) = YEAR(now())
+            AND form_a_s.status IN ('Dihantar ke IPJPSM', 'Sedang Diproses')
+            GROUP BY shuttles.daerah_id", [$daerah]);
 
         $s5 = DB::select("SELECT COUNT(shuttles.daerah_id) as total_kilang
-                FROM form_a_s
-                INNER JOIN shuttles
-                ON form_a_s.shuttle_id = shuttles.id
-                WHERE shuttles.shuttle_type = '5'
-                AND shuttles.daerah_id = '$daerah'
-                AND YEAR(date(form_a_s.created_at)) = YEAR(now())
-                AND form_a_s.status IN ('Dihantar ke IPJPSM', 'Sedang Diproses')
-                GROUP BY shuttles.daerah_id");
+            FROM form_a_s
+            INNER JOIN shuttles ON form_a_s.shuttle_id = shuttles.id
+            WHERE shuttles.shuttle_type = '5'
+            AND shuttles.daerah_id = ?
+            AND YEAR(date(form_a_s.created_at)) = YEAR(now())
+            AND form_a_s.status IN ('Dihantar ke IPJPSM', 'Sedang Diproses')
+            GROUP BY shuttles.daerah_id", [$daerah]);
 
-// dd($s5[0]);
-
-$user_pengumuman = auth()->user();
-// dd($user);
-$pengumumantest=PengumumanJpn::where('negeri',$user_pengumuman->negeri)->first();
-
-        if(empty($pengumumantest))
-        $pengumuman_jpn = null;
-        else
-        $pengumuman_jpn=PengumumanJpn::where('negeri',$user_pengumuman->negeri)->orderBy('created_at', 'DESC')->get();
+        $pengumuman_jpn = PengumumanJpn::where('negeri', auth()->user()->negeri)
+            ->orderBy('created_at', 'DESC')->get();
+        if ($pengumuman_jpn->isEmpty()) {
+            $pengumuman_jpn = null;
+        }
 
         return view('home-phd', compact(
-
-            'users',
             'count_shuttle3',
             'count_shuttle4',
             'count_shuttle5',
@@ -1270,7 +1167,6 @@ $pengumumantest=PengumumanJpn::where('negeri',$user_pengumuman->negeri)->first()
             's4',
             's5',
             'pengumuman_jpn'
-
         ));
     }
 
@@ -1573,60 +1469,24 @@ $pengumumantest=PengumumanJpn::where('negeri',$user_pengumuman->negeri)->first()
 
     public function index_jpn()
     {
-        $spesis_aktif = Spesis::get();
-        // dd(auth()->user()->daerah);
-        // $shuttle = FormB::where('status','Sedang Diproses')->where('daerah',auth()->user()->daerah)->get();
+        $negeri = auth()->user()->negeri;
 
-        $formB = FormB::where('status', 'Sedang Diproses')->whereHas('shuttle', function ($q) {
-            $q->where('daerah_id', auth()->user()->daerah);
-        })->get();
+        $count_shuttle3 = User::where('shuttle_type', 3)->where('is_approved', 1)->whereNull('pengguna_kilang_id')
+            ->whereHas('shuttle', fn($q) => $q->where('negeri_id', $negeri))->count();
 
-        // dd($formB);
+        $count_shuttle4 = User::where('shuttle_type', 4)->where('is_approved', 1)->whereNull('pengguna_kilang_id')
+            ->whereHas('shuttle', fn($q) => $q->where('negeri_id', $negeri))->count();
 
-        $formc = FormC::where('status', 'Sedang Diproses')->get();
-        $formd = FormD::where('status', 'Sedang Diproses')->get();
-        $form4d = Form4D::where('status', 'Sedang Diproses')->get();
-        $form4e = Form4E::where('status', 'Sedang Diproses')->get();
-        $form5d = Form5D::where('status', 'Sedang Diproses')->get();
-        $form5e = Form5E::where('status', 'Sedang Diproses')->get();
+        $count_shuttle5 = User::where('shuttle_type', 5)->where('is_approved', 1)->whereNull('pengguna_kilang_id')
+            ->whereHas('shuttle', fn($q) => $q->where('negeri_id', $negeri))->count();
 
-        $users = User::get();
-
-
-
-        $user3 = User::where('shuttle_type', 3)->where('is_approved', 1)->where('pengguna_kilang_id', null)->whereHas('shuttle', function ($q) {
-            $q->where('negeri_id', auth()->user()->negeri);
-        })->get();
-        $count_shuttle3 = $user3->count();
-
-        $user4 = User::where('shuttle_type', 4)->where('is_approved', 1)->where('pengguna_kilang_id', null)->whereHas('shuttle', function ($q) {
-            $q->where('negeri_id', auth()->user()->negeri);
-        })->get();
-        $count_shuttle4 = $user4->count();
-
-        $user5 = User::where('shuttle_type', 5)->where('is_approved', 1)->where('pengguna_kilang_id', null)->whereHas('shuttle', function ($q) {
-            $q->where('negeri_id', auth()->user()->negeri);
-        })->get();
-
-        $count_shuttle5 = $user5->count();
-
-        foreach ($formB as $data) {
-            $shuttles[] = Shuttle::where('no_ssm', $data->login_id)->get();
+        $pengumuman_ipjpsm = PengumumanIpjpsm::where('negeri', $negeri)
+            ->orderBy('created_at', 'DESC')->get();
+        if ($pengumuman_ipjpsm->isEmpty()) {
+            $pengumuman_ipjpsm = null;
         }
 
-        $user_pengumuman = auth()->user();
-// dd($user_pengumuman);
-$pengumumantest=PengumumanIpjpsm::where('negeri',$user_pengumuman->negeri)->first();
-// dd($pengumumantest);
-
-        if(empty($pengumumantest))
-        $pengumuman_ipjpsm = null;
-        else
-        $pengumuman_ipjpsm=PengumumanIpjpsm::where('negeri',$user_pengumuman->negeri)->orderBy('created_at', 'DESC')->get();
-
-
-
-        return view('home-jpn', compact('spesis_aktif', 'users', 'count_shuttle3', 'count_shuttle4', 'count_shuttle5', 'formc', 'formd', 'form4d', 'form4e', 'form5d', 'form5e', 'formB','pengumuman_ipjpsm'));
+        return view('home-jpn', compact('count_shuttle3', 'count_shuttle4', 'count_shuttle5', 'pengumuman_ipjpsm'));
     }
 
     public function change_password()
