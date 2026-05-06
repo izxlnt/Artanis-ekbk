@@ -90,6 +90,7 @@
                                 <table id="example" class="display" style="width:100%">
                                     <thead style="background-color:#2692ebf3;">
                                         <tr>
+                                            <th class="d-none"></th>
                                             <th>Bil</th>
                                             <th>Nama Kilang</th>
                                             <th>Negeri</th>
@@ -114,7 +115,14 @@
                                     </thead>
                                     <tbody>
                                         @foreach ($list_kilang as $shuttle)
-                                            <tr>
+                                            @php $isPending = false;
+for ($m = 1; $m <= 12; $m++) {
+    $d = $form5EIndex[$shuttle->id][$m] ?? null;
+    $b = $d ? ($batchIndex[$shuttle->id][$m] ?? null) : null;
+    if ($d && $d->status === 'Dihantar ke IPJPSM' && $b && $b->status === 'Dihantar ke IPJPSM' && $b->borang_e == 2) { $isPending = true; break; }
+} @endphp
+                                            <tr class="{{ $isPending ? 'table-warning' : '' }}">
+                                                <td class="d-none">{{ $isPending ? 1 : 0 }}</td>
                                                 <td>{{ $loop->iteration }}</td>
                                                 <td style="text-align:left">{{ $shuttle->nama_kilang }}</td>
                                                 <td>{{ $shuttle->negeri_id }}</td>
@@ -229,7 +237,9 @@
 <script>
     $(document).ready(function() {
         var table = $('#example').DataTable({
-            ordering : false,
+            ordering: true,
+            order: [[0, 'desc']],
+            columnDefs: [{ targets: 0, visible: false, searchable: false }],
             "language": {
                 "lengthMenu": "Memaparkan _MENU_ rekod per halaman",
                 "zeroRecords": "Tahun: {{ $year ?? date('Y') }}",
