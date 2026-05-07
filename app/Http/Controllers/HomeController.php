@@ -283,7 +283,7 @@ class HomeController extends Controller
             AND shuttles.shuttle_type = ?
             AND form_c_s.tahun = ?", [$shuttle_type, $currentYear])->cnt;
 
-        $tableD = match($shuttle_type) { 4 => 'form4_d_s', 5 => 'form5_d_s', default => 'form_d_s' };
+        if ($shuttle_type == 4) { $tableD = 'form4_d_s'; } elseif ($shuttle_type == 5) { $tableD = 'form5_d_s'; } else { $tableD = 'form_d_s'; }
         $formD_count = DB::selectOne("SELECT COUNT(DISTINCT {$tableD}.id) as cnt FROM {$tableD}
             INNER JOIN shuttles ON {$tableD}.shuttle_id = shuttles.id
             INNER JOIN batches ON shuttles.id = batches.shuttle_id
@@ -851,18 +851,18 @@ class HomeController extends Controller
         $byNegeri = collect($rows)->keyBy('negeri_id');
 
         return [
-            'johor'      => $byNegeri->get('Johor')?->total_kilang ?? 0,
-            'kedah'      => $byNegeri->get('Kedah')?->total_kilang ?? 0,
-            'kelantan'   => $byNegeri->get('Kelantan')?->total_kilang ?? 0,
-            'melaka'     => $byNegeri->get('Melaka')?->total_kilang ?? 0,
-            'n9'         => $byNegeri->get('Negeri Sembilan')?->total_kilang ?? 0,
-            'pahang'     => $byNegeri->get('Pahang')?->total_kilang ?? 0,
-            'perak'      => $byNegeri->get('Perak')?->total_kilang ?? 0,
-            'perlis'     => $byNegeri->get('Perlis')?->total_kilang ?? 0,
-            'pinang'     => $byNegeri->get('Pulau Pinang')?->total_kilang ?? 0,
-            'selangor'   => $byNegeri->get('Selangor')?->total_kilang ?? 0,
-            'terengganu' => $byNegeri->get('Terengganu')?->total_kilang ?? 0,
-            'wp'         => $byNegeri->get('W.P Kuala Lumpur')?->total_kilang ?? 0,
+            'johor'      => optional($byNegeri->get('Johor'))->total_kilang ?? 0,
+            'kedah'      => optional($byNegeri->get('Kedah'))->total_kilang ?? 0,
+            'kelantan'   => optional($byNegeri->get('Kelantan'))->total_kilang ?? 0,
+            'melaka'     => optional($byNegeri->get('Melaka'))->total_kilang ?? 0,
+            'n9'         => optional($byNegeri->get('Negeri Sembilan'))->total_kilang ?? 0,
+            'pahang'     => optional($byNegeri->get('Pahang'))->total_kilang ?? 0,
+            'perak'      => optional($byNegeri->get('Perak'))->total_kilang ?? 0,
+            'perlis'     => optional($byNegeri->get('Perlis'))->total_kilang ?? 0,
+            'pinang'     => optional($byNegeri->get('Pulau Pinang'))->total_kilang ?? 0,
+            'selangor'   => optional($byNegeri->get('Selangor'))->total_kilang ?? 0,
+            'terengganu' => optional($byNegeri->get('Terengganu'))->total_kilang ?? 0,
+            'wp'         => optional($byNegeri->get('W.P Kuala Lumpur'))->total_kilang ?? 0,
         ];
     }
 

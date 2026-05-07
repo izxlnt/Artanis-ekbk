@@ -149,8 +149,8 @@ class RegisterController extends Controller
                 'gambar_ic_hadapan'=> ['required','max:10000'],
                 'gambar_ic_belakang'=> ['required','max:10000'],
                 'gambar_passport'=> ['required','max:10000'],
-                'no_pekerja'=> ['required', 'string', 'max:255'],
-                'gambar_kad_pekerja'=> ['required','max:10000'],
+                'no_pekerja'=> ['nullable', 'string', 'max:255'],
+                'gambar_kad_pekerja'=> ['nullable','max:10000'],
                 'shuttle_type'=> ['required', 'string', 'max:255'],
 
                 'tahun'=> ['required', 'string', 'max:255'],

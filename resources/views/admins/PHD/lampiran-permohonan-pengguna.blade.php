@@ -887,29 +887,34 @@
                         <div class="col-md-3"></div>
                         <div class="col-md-6">
                             <label for="wphoneNumber2">Gambar Kad Pekerja</label>
+                            @if($users->gambar_kad_pekerja)
                             <div class="row el-element-overlay" style="justify-content: center">
                                 <div class="col-lg-3 col-md-6">
                                     <div class="card">
                                         <div class="el-card-item">
                                             <div class="el-card-avatar el-overlay-1"> <img
-                                                    src="{{ asset($image_path = str_replace('public', 'storage', $users->gambar_kad_pekerja)) }}"
+                                                    src="{{ asset(str_replace('public', 'storage', $users->gambar_kad_pekerja)) }}"
                                                     alt="kad pekerja" />
                                                 <div class="el-overlay">
                                                     <ul class="list-style-none el-info">
                                                         <li class="el-item"><a
                                                                 class="btn default btn-outline image-popup-vertical-fit el-link"
-                                                                href="{{ asset($image_path = str_replace('public', 'storage', $users->gambar_kad_pekerja)) }}"><i
+                                                                href="{{ asset(str_replace('public', 'storage', $users->gambar_kad_pekerja)) }}"><i
                                                                     class="icon-magnifier"></i></a>
                                                         </li>
-
                                                     </ul>
                                                 </div>
                                             </div>
                                         </div>
-                                        <a download="Gambar Kad Pekerja"" rel="noopener noreferrer" href="{{ asset($image_path = str_replace('public', 'storage', $users->gambar_kad_pekerja)) }}"> Muat Turun Fail</a>
+                                        <a download="Gambar Kad Pekerja" rel="noopener noreferrer" href="{{ asset(str_replace('public', 'storage', $users->gambar_kad_pekerja)) }}"> Muat Turun Fail</a>
                                     </div>
                                 </div>
                             </div>
+                            @else
+                            <div class="text-muted mt-1">
+                                <i class="fas fa-times-circle text-secondary"></i> Tiada fail dimuat naik
+                            </div>
+                            @endif
                         </div> <br>
 
                     </div>
