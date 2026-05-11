@@ -184,13 +184,22 @@ class AdminController extends Controller{
             ]
         ]);
 
-        $negeri_name= Daerah::where('id',$request->negeri_id)->first('negeri');
-        $daerah_name= Daerah::where('id',$request->daerah_id)->first('daerah_hutan');
-
         // Update user fields
         $user->email = $request->email;
-        $user->daerah = $daerah_name->daerah_hutan;
-        $user->negeri = $negeri_name->negeri;
+
+        if ($request->filled('negeri_id')) {
+            $negeri_name = Daerah::where('id', $request->negeri_id)->first('negeri');
+            if ($negeri_name) {
+                $user->negeri = $negeri_name->negeri;
+            }
+        }
+
+        if ($request->filled('daerah_id')) {
+            $daerah_name = Daerah::where('id', $request->daerah_id)->first('daerah_hutan');
+            if ($daerah_name) {
+                $user->daerah = $daerah_name->daerah_hutan;
+            }
+        }
 
         // Update updated_at timestamp
         $user->updated_at = now();

@@ -252,46 +252,54 @@ class HomeController extends Controller
         $currentYear = date('Y');
         $shuttle_type = (int) ($request->shuttle_type ?? 3);
 
-        $formA_count = DB::selectOne("SELECT COUNT(*) as cnt FROM batches, form_a_s
+        // Counts distinct factories (shuttle_id) matching exactly what each blade highlights:
+        //   - formA: page checks only form_a_s.status (no batch condition in the view)
+        //   - formB/C/D/E: page checks form.status + batch.status + batch.borang_x=2, same year
+
+        // formA: annual — no batch condition needed; view highlights purely on form status
+        $formA_count = DB::selectOne("SELECT COUNT(DISTINCT form_a_s.shuttle_id) as cnt
+            FROM form_a_s
             INNER JOIN shuttles ON form_a_s.shuttle_id = shuttles.id
-            AND (form_a_s.status = 'Dihantar ke IPJPSM' OR form_a_s.status = 'Lulus')
-            WHERE batches.tahun = form_a_s.tahun
-            AND batches.shuttle_id = form_a_s.shuttle_id
-            AND batches.borang_a = '2'
-            AND batches.status = 'Dihantar ke IPJPSM'
+            WHERE form_a_s.status = 'Dihantar ke IPJPSM'
             AND shuttles.shuttle_type = ?
             AND form_a_s.tahun = ?", [$shuttle_type, $currentYear])->cnt;
 
-        $formB_count = DB::selectOne("SELECT COUNT(DISTINCT formbs.id) as cnt FROM formbs
+        // formB: quarterly — suku_tahun 1/2/3/4 maps to batch bulan 3/6/9/12, same year
+        $formB_count = DB::selectOne("SELECT COUNT(DISTINCT formbs.shuttle_id) as cnt
+            FROM formbs
             INNER JOIN shuttles ON formbs.shuttle_id = shuttles.id
-            INNER JOIN batches ON shuttles.id = batches.shuttle_id
-            AND (formbs.status = 'Dihantar ke IPJPSM' OR formbs.status = 'Lulus')
-            AND batches.shuttle_id = formbs.shuttle_id
-            AND batches.status = 'Dihantar ke IPJPSM'
-            AND batches.borang_b = '2'
+            INNER JOIN batches ON batches.shuttle_id = formbs.shuttle_id
+                AND batches.tahun = formbs.tahun
+                AND batches.bulan = (formbs.suku_tahun * 3)
+                AND batches.borang_b = '2'
+                AND batches.status = 'Dihantar ke IPJPSM'
+            WHERE formbs.status = 'Dihantar ke IPJPSM'
             AND shuttles.shuttle_type = ?
             AND formbs.tahun = ?", [$shuttle_type, $currentYear])->cnt;
 
-        $formC_count = DB::selectOne("SELECT COUNT(DISTINCT form_c_s.id) as cnt FROM form_c_s
+        // formC: monthly — batch joined on same year + bulan
+        $formC_count = DB::selectOne("SELECT COUNT(DISTINCT form_c_s.shuttle_id) as cnt
+            FROM form_c_s
             INNER JOIN shuttles ON form_c_s.shuttle_id = shuttles.id
-            INNER JOIN batches ON shuttles.id = batches.shuttle_id
-            WHERE batches.bulan = form_c_s.bulan
-            AND batches.status = 'Dihantar ke IPJPSM'
-            AND (form_c_s.status = 'Dihantar ke IPJPSM' OR form_c_s.status = 'Lulus')
-            AND batches.shuttle_id = form_c_s.shuttle_id
-            AND batches.borang_c = '2'
+            INNER JOIN batches ON batches.shuttle_id = form_c_s.shuttle_id
+                AND batches.tahun = form_c_s.tahun
+                AND batches.bulan = form_c_s.bulan
+                AND batches.borang_c = '2'
+                AND batches.status = 'Dihantar ke IPJPSM'
+            WHERE form_c_s.status = 'Dihantar ke IPJPSM'
             AND shuttles.shuttle_type = ?
             AND form_c_s.tahun = ?", [$shuttle_type, $currentYear])->cnt;
 
         if ($shuttle_type == 4) { $tableD = 'form4_d_s'; } elseif ($shuttle_type == 5) { $tableD = 'form5_d_s'; } else { $tableD = 'form_d_s'; }
-        $formD_count = DB::selectOne("SELECT COUNT(DISTINCT {$tableD}.id) as cnt FROM {$tableD}
+        $formD_count = DB::selectOne("SELECT COUNT(DISTINCT {$tableD}.shuttle_id) as cnt
+            FROM {$tableD}
             INNER JOIN shuttles ON {$tableD}.shuttle_id = shuttles.id
-            INNER JOIN batches ON shuttles.id = batches.shuttle_id
-            WHERE batches.bulan = {$tableD}.bulan
-            AND ({$tableD}.status = 'Dihantar ke IPJPSM' OR {$tableD}.status = 'Lulus')
-            AND batches.shuttle_id = {$tableD}.shuttle_id
-            AND batches.status = 'Dihantar ke IPJPSM'
-            AND batches.borang_d = '2'
+            INNER JOIN batches ON batches.shuttle_id = {$tableD}.shuttle_id
+                AND batches.tahun = {$tableD}.tahun
+                AND batches.bulan = {$tableD}.bulan
+                AND batches.borang_d = '2'
+                AND batches.status = 'Dihantar ke IPJPSM'
+            WHERE {$tableD}.status = 'Dihantar ke IPJPSM'
             AND shuttles.shuttle_type = ?
             AND {$tableD}.tahun = ?", [$shuttle_type, $currentYear])->cnt;
 
@@ -304,14 +312,15 @@ class HomeController extends Controller
 
         if ($shuttle_type >= 4) {
             $tableE = $shuttle_type === 4 ? 'form4_e_s' : 'form5_e_s';
-            $result['formE'] = DB::selectOne("SELECT COUNT(DISTINCT {$tableE}.id) as cnt FROM {$tableE}
+            $result['formE'] = DB::selectOne("SELECT COUNT(DISTINCT {$tableE}.shuttle_id) as cnt
+                FROM {$tableE}
                 INNER JOIN shuttles ON {$tableE}.shuttle_id = shuttles.id
-                INNER JOIN batches ON shuttles.id = batches.shuttle_id
-                WHERE batches.bulan = {$tableE}.bulan
-                AND ({$tableE}.status = 'Dihantar ke IPJPSM' OR {$tableE}.status = 'Lulus')
-                AND batches.shuttle_id = {$tableE}.shuttle_id
-                AND batches.status = 'Dihantar ke IPJPSM'
-                AND batches.borang_e = '2'
+                INNER JOIN batches ON batches.shuttle_id = {$tableE}.shuttle_id
+                    AND batches.tahun = {$tableE}.tahun
+                    AND batches.bulan = {$tableE}.bulan
+                    AND batches.borang_e = '2'
+                    AND batches.status = 'Dihantar ke IPJPSM'
+                WHERE {$tableE}.status = 'Dihantar ke IPJPSM'
                 AND shuttles.shuttle_type = ?
                 AND {$tableE}.tahun = ?", [$shuttle_type, $currentYear])->cnt;
         }
