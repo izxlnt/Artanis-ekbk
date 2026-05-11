@@ -142,7 +142,7 @@
                                     <div class="col-12">
                                         <div class="card">
 
-                                            <form class="form-horizontal" action='{{ route('user.view.shuttle-4-formC.LainLain.store', $bulan_id) }}' onsubmit="return checkValidationuSubmit()"
+                                            <form class="form-horizontal" action='{{ route('user.view.shuttle-4-formC.LainLain.store', ['bulan' => $bulan_id, 'year' => $year]) }}' onsubmit="return checkValidationuSubmit()"
                                                 id="lain-lain-form" method="POST">
                                                 @csrf
                                                 <div class="card-body">

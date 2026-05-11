@@ -32,11 +32,11 @@
                                                                     <div class="row">
                                                                         <div class="col-md-6">
                                                                             <label>Tahun:</label>
-                                                                            <input type="text" class="form-control" style="background-color: #e0ec3754;" value="{{ date('Y') }}" readonly />
+                                                                            <input type="text" class="form-control" style="background-color: #e0ec3754;" value="{{ $year }}" readonly />
                                                                         </div>
                                                                         <div class="col-md-6">
                                                                             <label>Bulan:</label>
-                                                                            <input type="text" class="form-control" style="background-color: #e0ec3754;" value="{{ $kilang_info->bulan }}" readonly />
+                                                                            <input type="text" class="form-control" style="background-color: #e0ec3754;" value="{{ $month }}" readonly />
                                                                         </div>
                                                                     </div>
                                                                     <br>

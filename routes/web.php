@@ -293,18 +293,18 @@ Route::middleware('auth')->group(
                 Route::post('/pengguna/shuttle-4-formC/store/KKS/{bulan}/{year?}', [App\Http\Controllers\ShuttleFour\FormCController::class, 'store_kks'])->name('user.view.shuttle-4-formC.KKS.store');
 
 
-                Route::get('/pengguna/shuttle-4-formC/KKR/{bulan}', [App\Http\Controllers\ShuttleFour\MainController::class, 'shuttle_4_formCKKR'])->name('user.shuttle-4-formC.KKR');
-                Route::get('/pengguna/shuttle-4-formC/view/KKR/{bulan}', [App\Http\Controllers\ShuttleFour\FormCController::class, 'shuttle_4_formCKKR'])->name('user.view.shuttle-4-formC.KKR');
-                Route::post('/pengguna/shuttle-4-formC/store/KKR/{bulan}', [App\Http\Controllers\ShuttleFour\FormCController::class, 'store_kkr'])->name('user.view.shuttle-4-formC.KKR.store');
+                Route::get('/pengguna/shuttle-4-formC/KKR/{bulan}/{year?}', [App\Http\Controllers\ShuttleFour\MainController::class, 'shuttle_4_formCKKR'])->name('user.shuttle-4-formC.KKR');
+                Route::get('/pengguna/shuttle-4-formC/view/KKR/{bulan}/{year?}', [App\Http\Controllers\ShuttleFour\FormCController::class, 'shuttle_4_formCKKR'])->name('user.view.shuttle-4-formC.KKR');
+                Route::post('/pengguna/shuttle-4-formC/store/KKR/{bulan}/{year?}', [App\Http\Controllers\ShuttleFour\FormCController::class, 'store_kkr'])->name('user.view.shuttle-4-formC.KKR.store');
 
 
-                Route::get('/pengguna/shuttle-4-formC/Kayu-Lembut/{bulan}', [App\Http\Controllers\ShuttleFour\MainController::class, 'shuttle_4_formCKayuLembut'])->name('user.shuttle-4-formC.KayuLembut');
-                Route::get('/pengguna/shuttle-4-formC/view/Kayu-Lembut/{bulan}', [App\Http\Controllers\ShuttleFour\FormCController::class, 'shuttle_4_formCKayuLembut'])->name('user.view.shuttle-4-formC.KayuLembut');
-                Route::post('/pengguna/shuttle-4-formC/store/Kayu-Lembut/{bulan}', [App\Http\Controllers\ShuttleFour\FormCController::class, 'store_kayulembut'])->name('user.view.shuttle-4-formC.KayuLembut.store');
+                Route::get('/pengguna/shuttle-4-formC/Kayu-Lembut/{bulan}/{year?}', [App\Http\Controllers\ShuttleFour\MainController::class, 'shuttle_4_formCKayuLembut'])->name('user.shuttle-4-formC.KayuLembut');
+                Route::get('/pengguna/shuttle-4-formC/view/Kayu-Lembut/{bulan}/{year?}', [App\Http\Controllers\ShuttleFour\FormCController::class, 'shuttle_4_formCKayuLembut'])->name('user.view.shuttle-4-formC.KayuLembut');
+                Route::post('/pengguna/shuttle-4-formC/store/Kayu-Lembut/{bulan}/{year?}', [App\Http\Controllers\ShuttleFour\FormCController::class, 'store_kayulembut'])->name('user.view.shuttle-4-formC.KayuLembut.store');
 
-                Route::get('/pengguna/shuttle-4-formC/Lain-Lain/{bulan}', [App\Http\Controllers\ShuttleFour\MainController::class, 'shuttle_4_formCLainLain'])->name('user.shuttle-4-formC.LainLain');
-                Route::get('/pengguna/shuttle-4-formC/view/Lain-Lain/{bulan}', [App\Http\Controllers\ShuttleFour\FormCController::class, 'shuttle_4_formCLainLain'])->name('user.view.shuttle-4-formC.LainLain');
-                Route::post('/pengguna/shuttle-4-formC/store/Lain-Lain/{bulan}', [App\Http\Controllers\ShuttleFour\FormCController::class, 'store_kayulainlain'])->name('user.view.shuttle-4-formC.LainLain.store');
+                Route::get('/pengguna/shuttle-4-formC/Lain-Lain/{bulan}/{year?}', [App\Http\Controllers\ShuttleFour\MainController::class, 'shuttle_4_formCLainLain'])->name('user.shuttle-4-formC.LainLain');
+                Route::get('/pengguna/shuttle-4-formC/view/Lain-Lain/{bulan}/{year?}', [App\Http\Controllers\ShuttleFour\FormCController::class, 'shuttle_4_formCLainLain'])->name('user.view.shuttle-4-formC.LainLain');
+                Route::post('/pengguna/shuttle-4-formC/store/Lain-Lain/{bulan}/{year?}', [App\Http\Controllers\ShuttleFour\FormCController::class, 'store_kayulainlain'])->name('user.view.shuttle-4-formC.LainLain.store');
 
                 Route::get('/pengguna/shuttle-4-formC/store/tiada-pengeluaran/{bulan}', [App\Http\Controllers\ShuttleFour\FormCController::class, 'tiadaPengeluaran'])->name('user.shuttle-4-formC.tiadaPengeluaran');
 
@@ -878,6 +878,9 @@ Route::middleware('auth')->group(
                 Route::get('/admin/shuttle-3-view-formA/{id}', [App\Http\Controllers\ShuttleThree\ViewFormBController::class, 'shuttle_3_form_view_form3A_ipjpsm'])->name('ipjpsm.shuttle-3-view-formA');
                 Route::get('/admin/shuttle-3-view-formB/{id}', [App\Http\Controllers\ShuttleThree\ViewFormBController::class, 'shuttle_3_form_view_form3B_ipjpsm'])->name('ipjpsm.shuttle-3-view-formB');
                 Route::get('/admin/shuttle-3-view-formC/{id}', [App\Http\Controllers\ShuttleThree\ViewFormBController::class, 'shuttle_3_form_view_form3C_ipjpsm'])->name('ipjpsm.shuttle-3-view-formC');
+                Route::get('/admin/shuttle-4-view-formB/{id}', [App\Http\Controllers\ShuttleThree\ViewFormBController::class, 'shuttle_3_form_view_form3B_ipjpsm'])->name('ipjpsm.shuttle-4-view-formB');
+                Route::get('/admin/shuttle-5-view-formB/{id}', [App\Http\Controllers\ShuttleThree\ViewFormBController::class, 'shuttle_3_form_view_form3B_ipjpsm'])->name('ipjpsm.shuttle-5-view-formB');
+                Route::get('/admin/shuttle-5-view-formC/{id}', [App\Http\Controllers\ShuttleThree\ViewFormBController::class, 'shuttle_3_form_view_form3C_ipjpsm'])->name('ipjpsm.shuttle-5-view-formC');
                 Route::get('/admin/shuttle-3-view-formD/{id}', [App\Http\Controllers\ShuttleThree\ViewFormBController::class, 'shuttle_3_form_view_form3D_ipjpsm'])->name('ipjpsm.shuttle-3-view-formD');
                 Route::post('/admin/shuttle-3-update-status-formA/{id}', [App\Http\Controllers\ShuttleThree\MainController::class, 'update_status_ipjpsm3A'])->name('update_status_form3A_ipjpsm');
                 Route::post('/admin/shuttle-3-update-status-formB/{id}', [App\Http\Controllers\ShuttleThree\MainController::class, 'update_status_ipjpsm3B'])->name('update_status_form3B_ipjpsm');

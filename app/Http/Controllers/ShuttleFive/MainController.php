@@ -156,7 +156,7 @@ class MainController extends Controller
 
         $shuttle=Shuttle::where('id',$id)->first();
 
-        $formA_update = FormA::where('shuttle_id', $shuttle->id)->whereYear('created_at', date("Y"))->first();
+        $formA_update = FormA::where('shuttle_id', $shuttle->id)->where('tahun', $request->tahun)->first();
 
         // dd($formA_update);
         $formA_update->status = 'Sedang Diproses';
@@ -164,13 +164,12 @@ class MainController extends Controller
         $formA_update->save();
 
         $batch = Batch::where('tahun', $formA_update->tahun)->where('bulan', date("n"))->where('borang_a', '0')->where('shuttle_id',$shuttle->id)->first();
-        // dd($batch);
 
-        $batch->status = "Sedang Diproses";
-
-        $batch->borang_a = "1";
-
-        $batch->save();
+        if ($batch) {
+            $batch->status = "Sedang Diproses";
+            $batch->borang_a = "1";
+            $batch->save();
+        }
 
         // dd($formA_checker);
 
@@ -240,17 +239,21 @@ class MainController extends Controller
         // Session::flash('message', 'Maklumat berjaya dimasukkan. Sila tunggu untuk pengesahan PHD.');
 
         //notification hantar borang IBK to PHD
-        $pengguna_kilang = auth()->user();
-        $daerah_id = $pengguna_kilang->shuttle()->first('daerah_id');
+        try {
+            $pengguna_kilang = auth()->user();
+            $daerah_id = $pengguna_kilang->shuttle()->first('daerah_id');
 
-        $pegawais = User::where('daerah',
-            $daerah_id->daerah_id
-        )->where('kategori_pengguna', 'PHD')->get();
+            $pegawais = User::where('daerah',
+                $daerah_id->daerah_id
+            )->where('kategori_pengguna', 'PHD')->get();
 
-        $delay = now()->addMinutes(1);
+            $delay = now()->addMinutes(1);
 
-        foreach ($pegawais as $pegawai) {
-            $pegawai->notify((new BorangDiHantar($pengguna_kilang, $pegawai, $formA_update))->delay($delay));
+            foreach ($pegawais as $pegawai) {
+                $pegawai->notify((new BorangDiHantar($pengguna_kilang, $pegawai, $formA_update))->delay($delay));
+            }
+        } catch (\Exception $e) {
+            \Log::warning('Form 5A notification failed: ' . $e->getMessage());
         }
 
         return redirect()->route('home-user')->with('success', 'Maklumat berjaya dimasukkan. Sila tunggu untuk pengesahan PHD.');

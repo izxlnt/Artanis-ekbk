@@ -393,7 +393,7 @@
                                 </li>
                             @elseif(auth()->user()->shuttle_type == '5')
                                 <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark"
-                                        href="{{ route('user.shuttle-5-listB') }}" aria-expanded="false"><i
+                                        href="{{ route('user.shuttle-5-listB', date('Y')) }}" aria-expanded="false"><i
                                             class="mdi mdi-home-variant"></i><span class="hide-menu"
                                             style="padding-left: 10px;font-size: large;">Kemasukan Maklumat</span></a>
 
@@ -414,7 +414,7 @@
 
                                 @elseif(auth()->user()->shuttle_type == '5')
                                 <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark"
-                                        href="{{ route('user.shuttle-5-listB') }}"" aria-expanded=" false"><i
+                                        href="{{ route('user.shuttle-5-listB', date('Y')) }}" aria-expanded="false"><i
                                             class="mdi mdi-mdi-autorenew"></i><span class="hide-menu"
                                             style="padding-left: 10px;font-size: large;">Status Borang</span></a>
                             @endif

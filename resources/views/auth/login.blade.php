@@ -71,7 +71,7 @@
                                 <li style="margin-bottom:1em;">Kerjasama tuan/puan dalam menjayakan penyata shuttle ini
                                     amatlah dihargai.</li>
                                 <li style="margin-bottom:1em;">Pengguna yang lupa kata laluan boleh terus email kepada
-                                    Pengurus Sistem di <a href="mailto:bpm@forestry.gov.my">bpm@forestry.gov.my</a> dengan memberikan ID dan email yang berdaftar.</li>
+                                    Pengurus Sistem di <a href="mailto:helpdeskeshuttle@forestry.gov.my">helpdeskeshuttle@forestry.gov.my</a> dengan memberikan ID dan email yang berdaftar.</li>
                             </ol>
                             <div class="mt-4" style="text-align:right;">
                                 <span style="display:block; font-weight:600;">Terima kasih.</span>
@@ -243,18 +243,18 @@
     </script>
 
     <script>
-    $('#togglePassword').on('click', function() {
-        const passwordInput = $('#password');
-        const icon = $(this).find('i');
-        if (passwordInput.attr('type') === 'password') {
-            passwordInput.attr('type', 'text');
-            icon.removeClass('fa-eye').addClass('fa-eye-slash');
-        } else {
-            passwordInput.attr('type', 'password');
-            icon.removeClass('fa-eye-slash').addClass('fa-eye');
-        }
-    });
-</script>
+        $('#togglePassword').on('click', function() {
+            const passwordInput = $('#password');
+            const icon = $(this).find('i');
+            if (passwordInput.attr('type') === 'password') {
+                passwordInput.attr('type', 'text');
+                icon.removeClass('fa-eye').addClass('fa-eye-slash');
+            } else {
+                passwordInput.attr('type', 'password');
+                icon.removeClass('fa-eye-slash').addClass('fa-eye');
+            }
+        });
+    </script>
 </body>
 
 </html>

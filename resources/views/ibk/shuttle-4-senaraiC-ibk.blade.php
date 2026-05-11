@@ -26,6 +26,26 @@
                     </div>
                 </div>
             @endif
+            @if (session()->has('error'))
+                <div class="row">
+                    <div class="col-md-12" style="padding-top: 1% ; text-align:center">
+                        <div class="alert alert-danger">
+                            {{ session('error') }}
+                        </div>
+                    </div>
+                </div>
+            @endif
+
+            @if (!$formAFilled)
+                <div class="row">
+                    <div class="col-md-12" style="padding-top: 1%">
+                        <div class="alert alert-warning">
+                            <strong>Borang 4A untuk tahun {{ $year }} belum diisi.</strong>
+                            Sila isi <a href="{{ route('user.shuttle-4-senaraiA', $year) }}" class="alert-link">Borang 4A &rarr;</a> terlebih dahulu sebelum mengisi Borang 4C.
+                        </div>
+                    </div>
+                </div>
+            @endif
 
             <div class="page-breadcrumb" style="padding: 0px">
                 <div class="pb-2 row">
@@ -143,7 +163,7 @@
                                                         @elseif (!$previousMonthFilled[1])
                                                             <img src="{{ asset('circle_times.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Sila isi bulan sebelumnya terlebih dahulu" style="opacity: 0.5;">
                                                         @elseif ($isPreviousYear || (date('Y-m-d') >= $data->tarikh_buka_borang && date('Y-m-d') <= $tarikh_tutup_terkini))
-                                                            <a href="{{ route('user.shuttle-4-formC.KKB', $id = 1) }}"
+                                                            <a href="{{ route('user.shuttle-4-formC.KKB', ['bulan' => 1, 'year' => $year]) }}"
                                                                 data-toggle="tooltip" data-placement="bottom"
                                                                 title="Borang belum diisi">
                                                                 <img src="{{ asset('circle_times.png') }}" height='30px'
@@ -176,7 +196,7 @@
                                                                 title="Borang telah dihantar"
                                                                 style="color: green; font-size: 20pt;"></i></a>
                                                     @elseif($data->status == 'Tidak Lengkap' && $data->bulan == '1')
-                                                        <a href="{{ route('user.shuttle-4-formC.KKB', $id = 1) }}"
+                                                        <a href="{{ route('user.shuttle-4-formC.KKB', ['bulan' => 1, 'year' => $year]) }}"
                                                             data-toggle="tooltip" data-placement="bottom"
                                                             title="Borang tidak lengkap" class="mr-1 btn btn-warning"><i
                                                                 class="fas fa-pencil-alt"></i></a>
@@ -188,7 +208,7 @@
                                                                 title="Borang telah diluluskan oleh IPJPSM"
                                                                 style="color: green; font-size: 20pt;"></i></a>
                                                     @elseif($data->status == 'Sedang Diisi' && $data->bulan == '1')
-                                                        <a href="{{ route('user.shuttle-4-formC.KKB', $id = 1) }}"
+                                                        <a href="{{ route('user.shuttle-4-formC.KKB', ['bulan' => 1, 'year' => $year]) }}"
                                                             class="" data-toggle="tooltip"
                                                             data-placement="bottom" title="Borang sedang diisi">
                                                             <img src="{{ asset('sync.png') }}" height='30px'
@@ -209,7 +229,7 @@
                                                         @elseif (!$previousMonthFilled[2])
                                                             <img src="{{ asset('circle_times.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Sila isi bulan sebelumnya terlebih dahulu" style="opacity: 0.5;">
                                                         @elseif ($isPreviousYear || (date('Y-m-d') >= $data->tarikh_buka_borang && date('Y-m-d') <= $tarikh_tutup_terkini))
-                                                            <a href="{{ route('user.shuttle-4-formC.KKB', $id = 2) }}"
+                                                            <a href="{{ route('user.shuttle-4-formC.KKB', ['bulan' => 2, 'year' => $year]) }}"
                                                                 data-toggle="tooltip" data-placement="bottom"
                                                                 title="Borang belum diisi">
                                                                 <img src="{{ asset('circle_times.png') }}" height='30px'
@@ -242,7 +262,7 @@
                                                                 title="Borang telah dihantar"
                                                                 style="color: green; font-size: 20pt;"></i></a>
                                                     @elseif($data->status == 'Tidak Lengkap' && $data->bulan == '2')
-                                                        <a href="{{ route('user.shuttle-4-formC.KKB', $id = 2) }}"
+                                                        <a href="{{ route('user.shuttle-4-formC.KKB', ['bulan' => 2, 'year' => $year]) }}"
                                                             data-toggle="tooltip" data-placement="bottom"
                                                             title="Borang tidak lengkap" class="mr-1 btn btn-warning"><i
                                                                 class="fas fa-pencil-alt"></i></a>
@@ -254,7 +274,7 @@
                                                                 title="Borang telah diluluskan oleh IPJPSM"
                                                                 style="color: green; font-size: 20pt;"></i></a>
                                                     @elseif($data->status == 'Sedang Diisi' && $data->bulan == '2')
-                                                        <a href="{{ route('user.shuttle-4-formC.KKB', $id = 2) }}"
+                                                        <a href="{{ route('user.shuttle-4-formC.KKB', ['bulan' => 2, 'year' => $year]) }}"
                                                             class="" data-toggle="tooltip"
                                                             data-placement="bottom" title="Borang sedang diisi">
                                                             <img src="{{ asset('sync.png') }}" height='30px'
@@ -275,7 +295,7 @@
                                                         @elseif (!$previousMonthFilled[3])
                                                             <img src="{{ asset('circle_times.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Sila isi bulan sebelumnya terlebih dahulu" style="opacity: 0.5;">
                                                         @elseif ($isPreviousYear || (date('Y-m-d') >= $data->tarikh_buka_borang && date('Y-m-d') <= $tarikh_tutup_terkini))
-                                                            <a href="{{ route('user.shuttle-4-formC.KKB', $id = 3) }}"
+                                                            <a href="{{ route('user.shuttle-4-formC.KKB', ['bulan' => 3, 'year' => $year]) }}"
                                                                 data-toggle="tooltip" data-placement="bottom"
                                                                 title="Borang belum diisi">
                                                                 <img src="{{ asset('circle_times.png') }}" height='30px'
@@ -308,7 +328,7 @@
                                                                 title="Borang telah dihantar"
                                                                 style="color: green; font-size: 20pt;"></i></a>
                                                     @elseif($data->status == 'Tidak Lengkap' && $data->bulan == '3')
-                                                        <a href="{{ route('user.shuttle-4-formC.KKB', $id = 3) }}"
+                                                        <a href="{{ route('user.shuttle-4-formC.KKB', ['bulan' => 3, 'year' => $year]) }}"
                                                             data-toggle="tooltip" data-placement="bottom"
                                                             title="Borang tidak lengkap" class="mr-1 btn btn-warning"><i
                                                                 class="fas fa-pencil-alt"></i></a>
@@ -320,7 +340,7 @@
                                                                 title="Borang telah diluluskan oleh IPJPSM"
                                                                 style="color: green; font-size: 20pt;"></i></a>
                                                     @elseif($data->status == 'Sedang Diisi' && $data->bulan == '3')
-                                                        <a href="{{ route('user.shuttle-4-formC.KKB', $id = 3) }}"
+                                                        <a href="{{ route('user.shuttle-4-formC.KKB', ['bulan' => 3, 'year' => $year]) }}"
                                                             class="" data-toggle="tooltip"
                                                             data-placement="bottom" title="Borang sedang diisi">
                                                             <img src="{{ asset('sync.png') }}" height='30px'
@@ -341,7 +361,7 @@
                                                         @elseif (!$previousMonthFilled[4])
                                                             <img src="{{ asset('circle_times.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Sila isi bulan sebelumnya terlebih dahulu" style="opacity: 0.5;">
                                                         @elseif ($isPreviousYear || (date('Y-m-d') >= $data->tarikh_buka_borang && date('Y-m-d') <= $tarikh_tutup_terkini))
-                                                            <a href="{{ route('user.shuttle-4-formC.KKB', $id = 4) }}"
+                                                            <a href="{{ route('user.shuttle-4-formC.KKB', ['bulan' => 4, 'year' => $year]) }}"
                                                                 data-toggle="tooltip" data-placement="bottom"
                                                                 title="Borang belum diisi">
                                                                 <img src="{{ asset('circle_times.png') }}" height='30px'
@@ -374,7 +394,7 @@
                                                                 title="Borang telah dihantar"
                                                                 style="color: green; font-size: 20pt;"></i></a>
                                                     @elseif($data->status == 'Tidak Lengkap' && $data->bulan == '4')
-                                                        <a href="{{ route('user.shuttle-4-formC.KKB', $id = 4) }}"
+                                                        <a href="{{ route('user.shuttle-4-formC.KKB', ['bulan' => 4, 'year' => $year]) }}"
                                                             data-toggle="tooltip" data-placement="bottom"
                                                             title="Borang tidak lengkap" class="mr-1 btn btn-warning"><i
                                                                 class="fas fa-pencil-alt"></i></a>
@@ -386,7 +406,7 @@
                                                                 title="Borang telah diluluskan oleh IPJPSM"
                                                                 style="color: green; font-size: 20pt;"></i></a>
                                                     @elseif($data->status == 'Sedang Diisi' && $data->bulan == '4')
-                                                        <a href="{{ route('user.shuttle-4-formC.KKB', $id = 4) }}"
+                                                        <a href="{{ route('user.shuttle-4-formC.KKB', ['bulan' => 4, 'year' => $year]) }}"
                                                             class="" data-toggle="tooltip"
                                                             data-placement="bottom" title="Borang sedang diisi">
                                                             <img src="{{ asset('sync.png') }}" height='30px'
@@ -407,7 +427,7 @@
                                                         @elseif (!$previousMonthFilled[5])
                                                             <img src="{{ asset('circle_times.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Sila isi bulan sebelumnya terlebih dahulu" style="opacity: 0.5;">
                                                         @elseif ($isPreviousYear || (date('Y-m-d') >= $data->tarikh_buka_borang && date('Y-m-d') <= $tarikh_tutup_terkini))
-                                                            <a href="{{ route('user.shuttle-4-formC.KKB', $id = 5) }}"
+                                                            <a href="{{ route('user.shuttle-4-formC.KKB', ['bulan' => 5, 'year' => $year]) }}"
                                                                 data-toggle="tooltip" data-placement="bottom"
                                                                 title="Borang belum diisi">
                                                                 <img src="{{ asset('circle_times.png') }}" height='30px'
@@ -440,7 +460,7 @@
                                                                 title="Borang telah dihantar"
                                                                 style="color: green; font-size: 20pt;"></i></a>
                                                     @elseif($data->status == 'Tidak Lengkap' && $data->bulan == '5')
-                                                        <a href="{{ route('user.shuttle-4-formC.KKB', $id = 5) }}"
+                                                        <a href="{{ route('user.shuttle-4-formC.KKB', ['bulan' => 5, 'year' => $year]) }}"
                                                             data-toggle="tooltip" data-placement="bottom"
                                                             title="Borang tidak lengkap" class="mr-1 btn btn-warning"><i
                                                                 class="fas fa-pencil-alt"></i></a>
@@ -452,7 +472,7 @@
                                                                 title="Borang telah diluluskan oleh IPJPSM"
                                                                 style="color: green; font-size: 20pt;"></i></a>
                                                     @elseif($data->status == 'Sedang Diisi' && $data->bulan == '5')
-                                                        <a href="{{ route('user.shuttle-4-formC.KKB', $id = 5) }}"
+                                                        <a href="{{ route('user.shuttle-4-formC.KKB', ['bulan' => 5, 'year' => $year]) }}"
                                                             class="" data-toggle="tooltip"
                                                             data-placement="bottom" title="Borang sedang diisi">
                                                             <img src="{{ asset('sync.png') }}" height='30px'
@@ -473,7 +493,7 @@
                                                         @elseif (!$previousMonthFilled[6])
                                                             <img src="{{ asset('circle_times.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Sila isi bulan sebelumnya terlebih dahulu" style="opacity: 0.5;">
                                                         @elseif ($isPreviousYear || (date('Y-m-d') >= $data->tarikh_buka_borang && date('Y-m-d') <= $tarikh_tutup_terkini))
-                                                            <a href="{{ route('user.shuttle-4-formC.KKB', $id = 6) }}"
+                                                            <a href="{{ route('user.shuttle-4-formC.KKB', ['bulan' => 6, 'year' => $year]) }}"
                                                                 data-toggle="tooltip" data-placement="bottom"
                                                                 title="Borang belum diisi">
                                                                 <img src="{{ asset('circle_times.png') }}" height='30px'
@@ -506,7 +526,7 @@
                                                                 title="Borang telah dihantar"
                                                                 style="color: green; font-size: 20pt;"></i></a>
                                                     @elseif($data->status == 'Tidak Lengkap' && $data->bulan == '6')
-                                                        <a href="{{ route('user.shuttle-4-formC.KKB', $id = 6) }}"
+                                                        <a href="{{ route('user.shuttle-4-formC.KKB', ['bulan' => 6, 'year' => $year]) }}"
                                                             data-toggle="tooltip" data-placement="bottom"
                                                             title="Borang tidak lengkap" class="mr-1 btn btn-warning"><i
                                                                 class="fas fa-pencil-alt"></i></a>
@@ -518,7 +538,7 @@
                                                                 title="Borang telah diluluskan oleh IPJPSM"
                                                                 style="color: green; font-size: 20pt;"></i></a>
                                                     @elseif($data->status == 'Sedang Diisi' && $data->bulan == '6')
-                                                        <a href="{{ route('user.shuttle-4-formC.KKB', $id = 6) }}"
+                                                        <a href="{{ route('user.shuttle-4-formC.KKB', ['bulan' => 6, 'year' => $year]) }}"
                                                             class="" data-toggle="tooltip"
                                                             data-placement="bottom" title="Borang sedang diisi">
                                                             <img src="{{ asset('sync.png') }}" height='30px'
@@ -539,7 +559,7 @@
                                                         @elseif (!$previousMonthFilled[7])
                                                             <img src="{{ asset('circle_times.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Sila isi bulan sebelumnya terlebih dahulu" style="opacity: 0.5;">
                                                         @elseif ($isPreviousYear || (date('Y-m-d') >= $data->tarikh_buka_borang && date('Y-m-d') <= $tarikh_tutup_terkini))
-                                                            <a href="{{ route('user.shuttle-4-formC.KKB', $id = 7) }}"
+                                                            <a href="{{ route('user.shuttle-4-formC.KKB', ['bulan' => 7, 'year' => $year]) }}"
                                                                 data-toggle="tooltip" data-placement="bottom"
                                                                 title="Borang belum diisi">
                                                                 <img src="{{ asset('circle_times.png') }}" height='30px'
@@ -572,7 +592,7 @@
                                                                 title="Borang telah dihantar"
                                                                 style="color: green; font-size: 20pt;"></i></a>
                                                     @elseif($data->status == 'Tidak Lengkap' && $data->bulan == '7')
-                                                        <a href="{{ route('user.shuttle-4-formC.KKB', $id = 7) }}"
+                                                        <a href="{{ route('user.shuttle-4-formC.KKB', ['bulan' => 7, 'year' => $year]) }}"
                                                             data-toggle="tooltip" data-placement="bottom"
                                                             title="Borang tidak lengkap" class="mr-1 btn btn-warning"><i
                                                                 class="fas fa-pencil-alt"></i></a>
@@ -584,7 +604,7 @@
                                                                 title="Borang telah diluluskan oleh IPJPSM"
                                                                 style="color: green; font-size: 20pt;"></i></a>
                                                     @elseif($data->status == 'Sedang Diisi' && $data->bulan == '7')
-                                                        <a href="{{ route('user.shuttle-4-formC.KKB', $id = 7) }}"
+                                                        <a href="{{ route('user.shuttle-4-formC.KKB', ['bulan' => 7, 'year' => $year]) }}"
                                                             class="" data-toggle="tooltip"
                                                             data-placement="bottom" title="Borang sedang diisi">
                                                             <img src="{{ asset('sync.png') }}" height='30px'
@@ -605,7 +625,7 @@
                                                         @elseif (!$previousMonthFilled[8])
                                                             <img src="{{ asset('circle_times.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Sila isi bulan sebelumnya terlebih dahulu" style="opacity: 0.5;">
                                                         @elseif ($isPreviousYear || (date('Y-m-d') >= $data->tarikh_buka_borang && date('Y-m-d') <= $tarikh_tutup_terkini))
-                                                            <a href="{{ route('user.shuttle-4-formC.KKB', $id = 8) }}"
+                                                            <a href="{{ route('user.shuttle-4-formC.KKB', ['bulan' => 8, 'year' => $year]) }}"
                                                                 data-toggle="tooltip" data-placement="bottom"
                                                                 title="Borang belum diisi">
                                                                 <img src="{{ asset('circle_times.png') }}" height='30px'
@@ -638,7 +658,7 @@
                                                                 title="Borang telah dihantar"
                                                                 style="color: green; font-size: 20pt;"></i></a>
                                                     @elseif($data->status == 'Tidak Lengkap' && $data->bulan == '8')
-                                                        <a href="{{ route('user.shuttle-4-formC.KKB', $id = 8) }}"
+                                                        <a href="{{ route('user.shuttle-4-formC.KKB', ['bulan' => 8, 'year' => $year]) }}"
                                                             data-toggle="tooltip" data-placement="bottom"
                                                             title="Borang tidak lengkap" class="mr-1 btn btn-warning"><i
                                                                 class="fas fa-pencil-alt"></i></a>
@@ -650,7 +670,7 @@
                                                                 title="Borang telah diluluskan oleh IPJPSM"
                                                                 style="color: green; font-size: 20pt;"></i></a>
                                                     @elseif($data->status == 'Sedang Diisi' && $data->bulan == '8')
-                                                        <a href="{{ route('user.shuttle-4-formC.KKB', $id = 8) }}"
+                                                        <a href="{{ route('user.shuttle-4-formC.KKB', ['bulan' => 8, 'year' => $year]) }}"
                                                             class="" data-toggle="tooltip"
                                                             data-placement="bottom" title="Borang sedang diisi">
                                                             <img src="{{ asset('sync.png') }}" height='30px'
@@ -671,7 +691,7 @@
                                                         @elseif (!$previousMonthFilled[9])
                                                             <img src="{{ asset('circle_times.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Sila isi bulan sebelumnya terlebih dahulu" style="opacity: 0.5;">
                                                         @elseif ($isPreviousYear || (date('Y-m-d') >= $data->tarikh_buka_borang && date('Y-m-d') <= $tarikh_tutup_terkini))
-                                                            <a href="{{ route('user.shuttle-4-formC.KKB', $id = 9) }}"
+                                                            <a href="{{ route('user.shuttle-4-formC.KKB', ['bulan' => 9, 'year' => $year]) }}"
                                                                 data-toggle="tooltip" data-placement="bottom"
                                                                 title="Borang belum diisi">
                                                                 <img src="{{ asset('circle_times.png') }}" height='30px'
@@ -704,7 +724,7 @@
                                                                 title="Borang telah dihantar"
                                                                 style="color: green; font-size: 20pt;"></i></a>
                                                     @elseif($data->status == 'Tidak Lengkap' && $data->bulan == '9')
-                                                        <a href="{{ route('user.shuttle-4-formC.KKB', $id = 9) }}"
+                                                        <a href="{{ route('user.shuttle-4-formC.KKB', ['bulan' => 9, 'year' => $year]) }}"
                                                             data-toggle="tooltip" data-placement="bottom"
                                                             title="Borang tidak lengkap" class="mr-1 btn btn-warning"><i
                                                                 class="fas fa-pencil-alt"></i></a>
@@ -716,7 +736,7 @@
                                                                 title="Borang telah diluluskan oleh IPJPSM"
                                                                 style="color: green; font-size: 20pt;"></i></a>
                                                     @elseif($data->status == 'Sedang Diisi' && $data->bulan == '9')
-                                                        <a href="{{ route('user.shuttle-4-formC.KKB', $id = 9) }}"
+                                                        <a href="{{ route('user.shuttle-4-formC.KKB', ['bulan' => 9, 'year' => $year]) }}"
                                                             class="" data-toggle="tooltip"
                                                             data-placement="bottom" title="Borang sedang diisi">
                                                             <img src="{{ asset('sync.png') }}" height='30px'
@@ -737,7 +757,7 @@
                                                         @elseif (!$previousMonthFilled[10])
                                                             <img src="{{ asset('circle_times.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Sila isi bulan sebelumnya terlebih dahulu" style="opacity: 0.5;">
                                                         @elseif ($isPreviousYear || (date('Y-m-d') >= $data->tarikh_buka_borang && date('Y-m-d') <= $tarikh_tutup_terkini))
-                                                            <a href="{{ route('user.shuttle-4-formC.KKB', $id = 10) }}"
+                                                            <a href="{{ route('user.shuttle-4-formC.KKB', ['bulan' => 10, 'year' => $year]) }}"
                                                                 data-toggle="tooltip" data-placement="bottom"
                                                                 title="Borang belum diisi">
                                                                 <img src="{{ asset('circle_times.png') }}" height='30px'
@@ -770,7 +790,7 @@
                                                                 title="Borang telah dihantar"
                                                                 style="color: green; font-size: 20pt;"></i></a>
                                                     @elseif($data->status == 'Tidak Lengkap' && $data->bulan == '10')
-                                                        <a href="{{ route('user.shuttle-4-formC.KKB', $id = 10) }}"
+                                                        <a href="{{ route('user.shuttle-4-formC.KKB', ['bulan' => 10, 'year' => $year]) }}"
                                                             data-toggle="tooltip" data-placement="bottom"
                                                             title="Borang tidak lengkap" class="mr-1 btn btn-warning"><i
                                                                 class="fas fa-pencil-alt"></i></a>
@@ -782,7 +802,7 @@
                                                                 title="Borang telah diluluskan oleh IPJPSM"
                                                                 style="color: green; font-size: 20pt;"></i></a>
                                                     @elseif($data->status == 'Sedang Diisi' && $data->bulan == '10')
-                                                        <a href="{{ route('user.shuttle-4-formC.KKB', $id = 10) }}"
+                                                        <a href="{{ route('user.shuttle-4-formC.KKB', ['bulan' => 10, 'year' => $year]) }}"
                                                             class="" data-toggle="tooltip"
                                                             data-placement="bottom" title="Borang sedang diisi">
                                                             <img src="{{ asset('sync.png') }}" height='30px'
@@ -803,7 +823,7 @@
                                                         @elseif (!$previousMonthFilled[11])
                                                             <img src="{{ asset('circle_times.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Sila isi bulan sebelumnya terlebih dahulu" style="opacity: 0.5;">
                                                         @elseif ($isPreviousYear || (date('Y-m-d') >= $data->tarikh_buka_borang && date('Y-m-d') <= $tarikh_tutup_terkini))
-                                                            <a href="{{ route('user.shuttle-4-formC.KKB', $id = 11) }}"
+                                                            <a href="{{ route('user.shuttle-4-formC.KKB', ['bulan' => 11, 'year' => $year]) }}"
                                                                 data-toggle="tooltip" data-placement="bottom"
                                                                 title="Borang belum diisi">
                                                                 <img src="{{ asset('circle_times.png') }}" height='30px'
@@ -836,7 +856,7 @@
                                                                 title="Borang telah dihantar"
                                                                 style="color: green; font-size: 20pt;"></i></a>
                                                     @elseif($data->status == 'Tidak Lengkap' && $data->bulan == '11')
-                                                        <a href="{{ route('user.shuttle-4-formC.KKB', $id = 11) }}"
+                                                        <a href="{{ route('user.shuttle-4-formC.KKB', ['bulan' => 11, 'year' => $year]) }}"
                                                             data-toggle="tooltip" data-placement="bottom"
                                                             title="Borang tidak lengkap" class="mr-1 btn btn-warning"><i
                                                                 class="fas fa-pencil-alt"></i></a>
@@ -848,7 +868,7 @@
                                                                 title="Borang telah diluluskan oleh IPJPSM"
                                                                 style="color: green; font-size: 20pt;"></i></a>
                                                     @elseif($data->status == 'Sedang Diisi' && $data->bulan == '11')
-                                                        <a href="{{ route('user.shuttle-4-formC.KKB', $id = 11) }}"
+                                                        <a href="{{ route('user.shuttle-4-formC.KKB', ['bulan' => 11, 'year' => $year]) }}"
                                                             class="" data-toggle="tooltip"
                                                             data-placement="bottom" title="Borang sedang diisi">
                                                             <img src="{{ asset('sync.png') }}" height='30px'
@@ -869,7 +889,7 @@
                                                         @elseif (!$previousMonthFilled[12])
                                                             <img src="{{ asset('circle_times.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Sila isi bulan sebelumnya terlebih dahulu" style="opacity: 0.5;">
                                                         @elseif ($isPreviousYear || (date('Y-m-d') >= $data->tarikh_buka_borang && date('Y-m-d') <= $tarikh_tutup_terkini))
-                                                            <a href="{{ route('user.shuttle-4-formC.KKB', $id = 12) }}"
+                                                            <a href="{{ route('user.shuttle-4-formC.KKB', ['bulan' => 12, 'year' => $year]) }}"
                                                                 data-toggle="tooltip" data-placement="bottom"
                                                                 title="Borang belum diisi">
                                                                 <img src="{{ asset('circle_times.png') }}" height='30px'
@@ -902,7 +922,7 @@
                                                                 title="Borang telah dihantar"
                                                                 style="color: green; font-size: 20pt;"></i></a>
                                                     @elseif($data->status == 'Tidak Lengkap' && $data->bulan == '12')
-                                                        <a href="{{ route('user.shuttle-4-formC.KKB', $id = 12) }}"
+                                                        <a href="{{ route('user.shuttle-4-formC.KKB', ['bulan' => 12, 'year' => $year]) }}"
                                                             data-toggle="tooltip" data-placement="bottom"
                                                             title="Borang tidak lengkap" class="mr-1 btn btn-warning"><i
                                                                 class="fas fa-pencil-alt"></i></a>
@@ -914,7 +934,7 @@
                                                                 title="Borang telah diluluskan oleh IPJPSM"
                                                                 style="color: green; font-size: 20pt;"></i></a>
                                                     @elseif($data->status == 'Sedang Diisi' && $data->bulan == '12')
-                                                        <a href="{{ route('user.shuttle-4-formC.KKB', $id = 12) }}"
+                                                        <a href="{{ route('user.shuttle-4-formC.KKB', ['bulan' => 12, 'year' => $year]) }}"
                                                             class="" data-toggle="tooltip"
                                                             data-placement="bottom" title="Borang sedang diisi">
                                                             <img src="{{ asset('sync.png') }}" height='30px'

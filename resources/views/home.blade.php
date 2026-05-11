@@ -240,6 +240,10 @@
                     var colors = {A:'#555',B:'#c9559e',C:'#8a7e00',D:'#0e7012',E:'#0a5da8'};
                     [3,4,5].forEach(function(s){
                         $.get(detailUrl, {shuttle_type: s}, function(data){
+                            // Derive total from detail data so the number always matches the badges
+                            var total = Object.values(data).reduce(function(sum, v){ return sum + (parseInt(v) || 0); }, 0);
+                            $('#count_tugasan_shuttle'+s).text(total);
+
                             var container = $('#detail_s'+s);
                             container.empty();
                             Object.keys(data).forEach(function(key){
@@ -611,43 +615,6 @@
     <!-- ============================================================== -->
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js">
-    </script>
-
-    <script type=text/javascript>
-        $(document).ready(function() {
-            $.ajax({ //create an ajax request to display.php
-                type: "GET",
-                url: "{{ route('ajax_count_tugasan_ipjpsm_shuttle3') }}",
-                success: function(data) {
-                    $("#count_tugasan_shuttle3").html(data);
-                }
-            });
-        });
-    </script>
-
-    <script type=text/javascript>
-        $(document).ready(function() {
-            $.ajax({ //create an ajax request to display.php
-                type: "GET",
-                url: "{{ route('ajax_count_tugasan_ipjpsm_shuttle4') }}",
-                success: function(data) {
-                    console.log(data);
-                    $("#count_tugasan_shuttle4").html(data);
-                }
-            });
-        });
-    </script>
-
-    <script type=text/javascript>
-        $(document).ready(function() {
-            $.ajax({ //create an ajax request to display.php
-                type: "GET",
-                url: "{{ route('ajax_count_tugasan_ipjpsm_shuttle5') }}",
-                success: function(data) {
-                    $("#count_tugasan_shuttle5").html(data);
-                }
-            });
-        });
     </script>
 
     <script type=text/javascript>

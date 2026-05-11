@@ -149,11 +149,11 @@ class FormCController extends Controller
 
         $breadcrumbs    = [
             ['link' => route('home-user'), 'name' => "Laman Utama"],
-            ['link' => route('user.shuttle-4-senaraiC', date('Y')), 'name' => "Kemasukan Maklumat"],
+            ['link' => route('user.shuttle-4-senaraiC', $year), 'name' => "Kemasukan Maklumat"],
             ['link' => '#', 'name' => "Borang 4C - KKB"],
         ];
 
-        $kembali = route('user.shuttle-4-senaraiC', date('Y'));
+        $kembali = route('user.shuttle-4-senaraiC', $year);
 
 
         $returnArr = [
@@ -243,7 +243,7 @@ class FormCController extends Controller
 
         $user = auth()->user();
 
-        $formc = ModelsFormC::where('shuttle_id', $user->shuttle_id)->where('bulan', $bulan_id)->whereYear('created_at', date("Y"))->first();
+        $formc = ModelsFormC::where('shuttle_id', $user->shuttle_id)->where('bulan', $bulan_id)->whereYear('created_at', $year)->first();
         // dd($formc);
         $formc->status = 'Sedang Diisi';
         $formc->tiada_pengeluaran = 0;
@@ -279,8 +279,8 @@ class FormCController extends Controller
 
                     'shuttle_id' => $shuttle_id->id,
                     'kategori_guna_tenaga_id' => $data->id,
-                    'bulan' => date('n'),
-                    'tahun' => date('Y'),
+                    'bulan' => $bulan_id,
+                    'tahun' => $year,
                     'formcs_id' => $formc->id,
                 ]);
             }
@@ -309,10 +309,10 @@ class FormCController extends Controller
         }
 
         if ($request->sebelumnya == 1) {
-            return redirect()->route('user.shuttle-4-senaraiC', date('Y'));
+            return redirect()->route('user.shuttle-4-senaraiC', $year);
         }
 
-        return redirect()->route('user.shuttle-4-formC.KKS', $bulan_id)->with('success', 'Maklumat berjaya dimasukkan');
+        return redirect()->route('user.shuttle-4-formC.KKS', ['bulan' => $bulan_id, 'year' => $year])->with('success', 'Maklumat berjaya dimasukkan');
     }
 
     public function shuttle_4_formCKKS($bulan_id, $year = null)
@@ -445,11 +445,11 @@ class FormCController extends Controller
 
         $breadcrumbs    = [
             ['link' => route('home-user'), 'name' => "Laman Utama"],
-            ['link' => route('user.shuttle-4-senaraiC', date('Y')), 'name' => "Kemasukan Maklumat"],
+            ['link' => route('user.shuttle-4-senaraiC', $year), 'name' => "Kemasukan Maklumat"],
             ['link' => '#', 'name' => "Borang 4C - KKS"],
         ];
 
-        $kembali = route('user.shuttle-4-senaraiC', date('Y'));
+        $kembali = route('user.shuttle-4-senaraiC', $year);
 
 
         $returnArr = [
@@ -539,7 +539,7 @@ class FormCController extends Controller
 
         $user = auth()->user();
 
-        $formc = ModelsFormC::where('shuttle_id', $user->shuttle_id)->where('bulan', $bulan_id)->whereYear('created_at', date("Y"))->first();
+        $formc = ModelsFormC::where('shuttle_id', $user->shuttle_id)->where('bulan', $bulan_id)->whereYear('created_at', $year)->first();
         // dd($formc);
         $formc->status = 'Sedang Diisi';
         $formc->tiada_pengeluaran = 0;
@@ -575,8 +575,8 @@ class FormCController extends Controller
 
                     'shuttle_id' => $shuttle_id->id,
                     'kategori_guna_tenaga_id' => $data->id,
-                    'bulan' => date('n'),
-                    'tahun' => date('Y'),
+                    'bulan' => $bulan_id,
+                    'tahun' => $year,
                     'formcs_id' => $formc->id,
                 ]);
             }
@@ -605,14 +605,16 @@ class FormCController extends Controller
         }
 
         if ($request->sebelumnya == 1) {
-            return redirect()->route('user.shuttle-4-formC.KKB', $bulan_id);
+            return redirect()->route('user.shuttle-4-formC.KKB', ['bulan' => $bulan_id, 'year' => $year]);
         }
 
-        return redirect()->route('user.shuttle-4-formC.KKR', $bulan_id)->with('success', 'Maklumat berjaya dimasukkan');
+        return redirect()->route('user.shuttle-4-formC.KKR', ['bulan' => $bulan_id, 'year' => $year])->with('success', 'Maklumat berjaya dimasukkan');
     }
 
-    public function shuttle_4_formCKKR($bulan_id)
+    public function shuttle_4_formCKKR($bulan_id, $year = null)
     {
+        $year = $year ?? date("Y");
+
         $shuttle_type = auth()->user()->shuttle->shuttle_type;
         $recovery_rate = RecoveryRate::where('shuttle_type', $shuttle_type)->first();
         $min_recovery_rate = $recovery_rate->min_recovery_rate;
@@ -625,11 +627,11 @@ class FormCController extends Controller
         $kumpulan_kayu = KumpulanKayu::where('id', $kayu_id)->get();
 
         $kilang_info = Shuttle::where('id', auth()->user()->shuttle_id)->first();
-        $formc = ModelsFormC::where('shuttle_id', auth()->user()->shuttle_id)->where('bulan', $bulan_id)->whereYear('created_at', date("Y"))->first();
+        $formc = ModelsFormC::where('shuttle_id', auth()->user()->shuttle_id)->where('bulan', $bulan_id)->whereYear('created_at', $year)->first();
 
         if ($bulan_id != 1) {
             $lastmonth = $bulan_id - 1; //create
-            $lastMonthformc = ModelsFormC::where('shuttle_id', auth()->user()->shuttle_id)->where('bulan', $lastmonth)->whereYear('created_at', date("Y"))->first();
+            $lastMonthformc = ModelsFormC::where('shuttle_id', auth()->user()->shuttle_id)->where('bulan', $lastmonth)->whereYear('created_at', $year)->first();
 
             $kemasukan_bahans_lastmonth = KemasukanBahan::with('spesis_id')
             ->whereHas('spesis_id', function ($q) use ($kayu_id) {
@@ -739,11 +741,11 @@ class FormCController extends Controller
 
         $breadcrumbs    = [
             ['link' => route('home-user'), 'name' => "Laman Utama"],
-            ['link' => route('user.shuttle-4-senaraiC', date('Y')), 'name' => "Kemasukan Maklumat"],
+            ['link' => route('user.shuttle-4-senaraiC', $year), 'name' => "Kemasukan Maklumat"],
             ['link' => '#', 'name' => "Borang 4C - KKR"],
         ];
 
-        $kembali = route('user.shuttle-4-senaraiC', date('Y'));
+        $kembali = route('user.shuttle-4-senaraiC', $year);
 
 
         $returnArr = [
@@ -779,11 +781,12 @@ class FormCController extends Controller
         ];
 
         // dd($returnArr);
-        return view('admins.shuttle-four.FormC.shuttle-4-formC-KKR', $returnArr);
+        return view('admins.shuttle-four.FormC.shuttle-4-formC-KKR', $returnArr, compact('year'));
     }
 
-    public function store_kkr(Request $request, $bulan_id)
+    public function store_kkr(Request $request, $bulan_id, $year = null)
     {
+        $year = $year ?? date("Y");
         $kayu_id = '3';
 
         $shuttle_type = auth()->user()->shuttle->shuttle_type;
@@ -826,7 +829,7 @@ class FormCController extends Controller
 
         $user = auth()->user();
 
-        $formc = ModelsFormC::where('shuttle_id', $user->shuttle_id)->where('bulan', $bulan_id)->whereYear('created_at', date("Y"))->first();
+        $formc = ModelsFormC::where('shuttle_id', $user->shuttle_id)->where('bulan', $bulan_id)->whereYear('created_at', $year)->first();
         // dd($formc);
         $formc->status = 'Sedang Diisi';
         $formc->tiada_pengeluaran = 0;
@@ -862,8 +865,8 @@ class FormCController extends Controller
 
                     'shuttle_id' => $shuttle_id->id,
                     'kategori_guna_tenaga_id' => $data->id,
-                    'bulan' => date('n'),
-                    'tahun' => date('Y'),
+                    'bulan' => $bulan_id,
+                    'tahun' => $year,
                     'formcs_id' => $formc->id,
                 ]);
             }
@@ -892,14 +895,15 @@ class FormCController extends Controller
         }
 
         if ($request->sebelumnya == 1) {
-            return redirect()->route('user.shuttle-4-formC.KKS', $bulan_id);
+            return redirect()->route('user.shuttle-4-formC.KKS', ['bulan' => $bulan_id, 'year' => $year]);
         }
 
-        return redirect()->route('user.shuttle-4-formC.KayuLembut', $bulan_id)->with('success', 'Maklumat berjaya dimasukkan');
+        return redirect()->route('user.shuttle-4-formC.KayuLembut', ['bulan' => $bulan_id, 'year' => $year])->with('success', 'Maklumat berjaya dimasukkan');
     }
 
-    public function shuttle_4_formCKayuLembut($bulan_id)
+    public function shuttle_4_formCKayuLembut($bulan_id, $year = null)
     {
+        $year = $year ?? date("Y");
         $shuttle_type = auth()->user()->shuttle->shuttle_type;
         $recovery_rate = RecoveryRate::where('shuttle_type', $shuttle_type)->first();
         $min_recovery_rate = $recovery_rate->min_recovery_rate;
@@ -912,11 +916,11 @@ class FormCController extends Controller
         $kumpulan_kayu = KumpulanKayu::where('id', $kayu_id)->get();
 
         $kilang_info = Shuttle::where('id', auth()->user()->shuttle_id)->first();
-        $formc = ModelsFormC::where('shuttle_id', auth()->user()->shuttle_id)->where('bulan', $bulan_id)->whereYear('created_at', date("Y"))->first();
+        $formc = ModelsFormC::where('shuttle_id', auth()->user()->shuttle_id)->where('bulan', $bulan_id)->whereYear('created_at', $year)->first();
 
         if ($bulan_id != 1) {
             $lastmonth = $bulan_id - 1; //create
-            $lastMonthformc = ModelsFormC::where('shuttle_id', auth()->user()->shuttle_id)->where('bulan', $lastmonth)->whereYear('created_at', date("Y"))->first();
+            $lastMonthformc = ModelsFormC::where('shuttle_id', auth()->user()->shuttle_id)->where('bulan', $lastmonth)->whereYear('created_at', $year)->first();
 
             $kemasukan_bahans_lastmonth = KemasukanBahan::with('spesis_id')
             ->whereHas('spesis_id', function ($q) use ($kayu_id) {
@@ -1026,11 +1030,11 @@ class FormCController extends Controller
 
         $breadcrumbs    = [
             ['link' => route('home-user'), 'name' => "Laman Utama"],
-            ['link' => route('user.shuttle-4-senaraiC', date('Y')), 'name' => "Kemasukan Maklumat"],
+            ['link' => route('user.shuttle-4-senaraiC', $year), 'name' => "Kemasukan Maklumat"],
             ['link' => '#', 'name' => "Borang 4C - Kayu Lembut"],
         ];
 
-        $kembali = route('user.shuttle-4-senaraiC', date('Y'));
+        $kembali = route('user.shuttle-4-senaraiC', $year);
 
 
         $returnArr = [
@@ -1066,11 +1070,12 @@ class FormCController extends Controller
         ];
 
         // dd($returnArr);
-        return view('admins.shuttle-four.FormC.shuttle-4-formC-KayuLembut', $returnArr);
+        return view('admins.shuttle-four.FormC.shuttle-4-formC-KayuLembut', $returnArr, compact('year'));
     }
 
-    public function store_kayulembut(Request $request, $bulan_id)
+    public function store_kayulembut(Request $request, $bulan_id, $year = null)
     {
+        $year = $year ?? date("Y");
         $kayu_id = '4';
 
         $shuttle_type = auth()->user()->shuttle->shuttle_type;
@@ -1113,7 +1118,7 @@ class FormCController extends Controller
 
         $user = auth()->user();
 
-        $formc = ModelsFormC::where('shuttle_id', $user->shuttle_id)->where('bulan', $bulan_id)->whereYear('created_at', date("Y"))->first();
+        $formc = ModelsFormC::where('shuttle_id', $user->shuttle_id)->where('bulan', $bulan_id)->whereYear('created_at', $year)->first();
         // dd($formc);
         $formc->status = 'Sedang Diisi';
         $formc->tiada_pengeluaran = 0;
@@ -1149,8 +1154,8 @@ class FormCController extends Controller
 
                     'shuttle_id' => $shuttle_id->id,
                     'kategori_guna_tenaga_id' => $data->id,
-                    'bulan' => date('n'),
-                    'tahun' => date('Y'),
+                    'bulan' => $bulan_id,
+                    'tahun' => $year,
                     'formcs_id' => $formc->id,
                 ]);
             }
@@ -1179,14 +1184,15 @@ class FormCController extends Controller
         }
 
         if ($request->sebelumnya == 1) {
-            return redirect()->route('user.shuttle-4-formC.KKR', $bulan_id);
+            return redirect()->route('user.shuttle-4-formC.KKR', ['bulan' => $bulan_id, 'year' => $year]);
         }
 
-        return redirect()->route('user.shuttle-4-formC.LainLain', $bulan_id)->with('success', 'Maklumat berjaya dimasukkan');
+        return redirect()->route('user.shuttle-4-formC.LainLain', ['bulan' => $bulan_id, 'year' => $year])->with('success', 'Maklumat berjaya dimasukkan');
     }
 
-    public function shuttle_4_formCLainLain($bulan_id)
+    public function shuttle_4_formCLainLain($bulan_id, $year = null)
     {
+        $year = $year ?? date("Y");
         $shuttle_type = auth()->user()->shuttle->shuttle_type;
         $recovery_rate = RecoveryRate::where('shuttle_type', $shuttle_type)->first();
         $min_recovery_rate = $recovery_rate->min_recovery_rate;
@@ -1199,11 +1205,11 @@ class FormCController extends Controller
         $kumpulan_kayu = KumpulanKayu::where('id', $kayu_id)->get();
 
         $kilang_info = Shuttle::where('id', auth()->user()->shuttle_id)->first();
-        $formc = ModelsFormC::where('shuttle_id', auth()->user()->shuttle_id)->where('bulan', $bulan_id)->whereYear('created_at', date("Y"))->first();
+        $formc = ModelsFormC::where('shuttle_id', auth()->user()->shuttle_id)->where('bulan', $bulan_id)->whereYear('created_at', $year)->first();
 
         if ($bulan_id != 1) {
             $lastmonth = $bulan_id - 1; //create
-            $lastMonthformc = ModelsFormC::where('shuttle_id', auth()->user()->shuttle_id)->where('bulan', $lastmonth)->whereYear('created_at', date("Y"))->first();
+            $lastMonthformc = ModelsFormC::where('shuttle_id', auth()->user()->shuttle_id)->where('bulan', $lastmonth)->whereYear('created_at', $year)->first();
 
             $kemasukan_bahans_lastmonth = KemasukanBahan::with('spesis_id')
             ->whereHas('spesis_id', function ($q) use ($kayu_id) {
@@ -1396,11 +1402,11 @@ class FormCController extends Controller
 
         $breadcrumbs    = [
             ['link' => route('home-user'), 'name' => "Laman Utama"],
-            ['link' => route('user.shuttle-4-senaraiC', date('Y')), 'name' => "Kemasukan Maklumat"],
+            ['link' => route('user.shuttle-4-senaraiC', $year), 'name' => "Kemasukan Maklumat"],
             ['link' => '#', 'name' => "Borang 4C - Lain-Lain"],
         ];
 
-        $kembali = route('user.shuttle-4-senaraiC', date('Y'));
+        $kembali = route('user.shuttle-4-senaraiC', $year);
 
 
         $returnArr = [
@@ -1446,11 +1452,12 @@ class FormCController extends Controller
             'besar_total_kayu_dibawa_bulan_hadapan_tanpa_lain'     => $besar_total_kayu_dibawa_bulan_hadapan_tanpa_lain ?? 0,
         ];
         //  dd($besar_total_kayu_dibawa_bulan_hadapan_tanpa_lain);
-        return view('admins.shuttle-four.FormC.shuttle-4-formC-LainLain', $returnArr);
+        return view('admins.shuttle-four.FormC.shuttle-4-formC-LainLain', $returnArr, compact('year'));
     }
 
-    public function store_kayulainlain(Request $request, $bulan_id)
+    public function store_kayulainlain(Request $request, $bulan_id, $year = null)
     {
+        $year = $year ?? date("Y");
         // if ($request->tiadaPengeluaran) {
         //     return redirect()->route('user.shuttle-3-formC.tiadaPengeluaran', $bulan_id);
         // }
@@ -1501,13 +1508,13 @@ class FormCController extends Controller
 
         if ($request->sebelumnya != 1) {
             if ($request->tiadaPengeluaran) {
-                $formc = ModelsFormC::where('shuttle_id', $user->shuttle_id)->where('bulan', $bulan_id)->whereYear('created_at', date("Y"))->first();
+                $formc = ModelsFormC::where('shuttle_id', $user->shuttle_id)->where('bulan', $bulan_id)->whereYear('created_at', $year)->first();
                 $formc->status = 'Tiada Pengeluaran';
                 $formc->tiada_pengeluaran = 1;
                 // $formc->status = 'Sedang Diisi';
                 $formc->save();
             } else {
-                $formc = ModelsFormC::where('shuttle_id', $user->shuttle_id)->where('bulan', $bulan_id)->whereYear('created_at', date("Y"))->first();
+                $formc = ModelsFormC::where('shuttle_id', $user->shuttle_id)->where('bulan', $bulan_id)->whereYear('created_at', $year)->first();
                 $formc->status = 'Sedang Diproses';
                 $formc->tiada_pengeluaran = 0;
                 $formc->save();
@@ -1519,7 +1526,7 @@ class FormCController extends Controller
             $batch->borang_c = 1;
             $batch->save();
         } else {
-            $formc = ModelsFormC::where('shuttle_id', $user->shuttle_id)->where('bulan', $bulan_id)->whereYear('created_at', date("Y"))->first();
+            $formc = ModelsFormC::where('shuttle_id', $user->shuttle_id)->where('bulan', $bulan_id)->whereYear('created_at', $year)->first();
             $formc->status = 'Sedang Diisi';
             $formc->tiada_pengeluaran = 0;
             $formc->save();
@@ -1559,8 +1566,8 @@ class FormCController extends Controller
 
                     'shuttle_id' => $shuttle_id->id,
                     'kategori_guna_tenaga_id' => $data->id,
-                    'bulan' => date('n'),
-                    'tahun' => date('Y'),
+                    'bulan' => $bulan_id,
+                    'tahun' => $year,
                     'formcs_id' => $formc->id,
                 ]);
             }
@@ -1592,7 +1599,7 @@ class FormCController extends Controller
         }
 
         if ($request->sebelumnya == 1) {
-            return redirect()->route('user.shuttle-4-formC.KayuLembut', $bulan_id);
+            return redirect()->route('user.shuttle-4-formC.KayuLembut', ['bulan' => $bulan_id, 'year' => $year]);
         }
 
         //notification hantar borang IBK to PHD

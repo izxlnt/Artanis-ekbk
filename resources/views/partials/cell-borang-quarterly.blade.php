@@ -5,7 +5,7 @@
 @if ($data)
     @if ($data->status == 'Dihantar ke IPJPSM')
         @if ($current_batch && $current_batch->status == 'Dihantar ke IPJPSM' && $current_batch->$batchField == 2)
-            <a href="{{ route($viewRoute, $data->id) }}">
+            <a href="{{ route($viewRoute, $data->id) . (isset($from) && $from ? '?from=' . $from : '') }}">
                 <img src="{{ asset('circle_check_yellow.png') }}" height='30px' alt=""
                     data-toggle="tooltip" data-placement="bottom" title="Borang perlu diperaku">
             </a>
@@ -14,7 +14,7 @@
                 data-toggle="tooltip" data-placement="bottom" title="Pakej belum dihantar">
         @endif
     @elseif ($data->status == 'Lulus')
-        <a href="{{ route($viewRoute, $data->id) }}">
+        <a href="{{ route($viewRoute, $data->id) . (isset($from) && $from ? '?from=' . $from : '') }}">
             <img src="{{ asset('double_check.png') }}" height='30px' alt=""
                 style="color:green;font-size:20pt"
                 data-toggle="tooltip" data-placement="bottom" title="Borang telah diperaku">

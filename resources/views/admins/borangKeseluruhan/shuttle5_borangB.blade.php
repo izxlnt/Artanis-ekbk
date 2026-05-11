@@ -123,22 +123,22 @@ foreach ([1 => 3, 2 => 6, 3 => 9, 4 => 12] as $q => $bulan) {
 
                                                 <td>
                                                     @php $data = $formBIndex[$shuttle->id][1] ?? null; $cb = $data ? ($batchIndex[$shuttle->id][3] ?? null) : null; @endphp
-                                                    @include('partials.cell-borang-quarterly', ['data' => $data, 'current_batch' => $cb, 'buffer' => $buffer, 'viewRoute' => 'ipjpsm.shuttle-3-view-formB', 'batchField' => 'borang_b'])
+                                                    @include('partials.cell-borang-quarterly', ['data' => $data, 'current_batch' => $cb, 'buffer' => $buffer, 'viewRoute' => 'ipjpsm.shuttle-5-view-formB', 'batchField' => 'borang_b', 'from' => 'keseluruhan'])
                                                 </td>
 
                                                 <td>
                                                     @php $data = $formBIndex[$shuttle->id][2] ?? null; $cb = $data ? ($batchIndex[$shuttle->id][6] ?? null) : null; @endphp
-                                                    @include('partials.cell-borang-quarterly', ['data' => $data, 'current_batch' => $cb, 'buffer' => $buffer, 'viewRoute' => 'ipjpsm.shuttle-3-view-formB', 'batchField' => 'borang_b'])
+                                                    @include('partials.cell-borang-quarterly', ['data' => $data, 'current_batch' => $cb, 'buffer' => $buffer, 'viewRoute' => 'ipjpsm.shuttle-5-view-formB', 'batchField' => 'borang_b', 'from' => 'keseluruhan'])
                                                 </td>
 
                                                 <td>
                                                     @php $data = $formBIndex[$shuttle->id][3] ?? null; $cb = $data ? ($batchIndex[$shuttle->id][9] ?? null) : null; @endphp
-                                                    @include('partials.cell-borang-quarterly', ['data' => $data, 'current_batch' => $cb, 'buffer' => $buffer, 'viewRoute' => 'ipjpsm.shuttle-3-view-formB', 'batchField' => 'borang_b'])
+                                                    @include('partials.cell-borang-quarterly', ['data' => $data, 'current_batch' => $cb, 'buffer' => $buffer, 'viewRoute' => 'ipjpsm.shuttle-5-view-formB', 'batchField' => 'borang_b', 'from' => 'keseluruhan'])
                                                 </td>
 
                                                 <td>
                                                     @php $data = $formBIndex[$shuttle->id][4] ?? null; $cb = $data ? ($batchIndex[$shuttle->id][12] ?? null) : null; @endphp
-                                                    @include('partials.cell-borang-quarterly', ['data' => $data, 'current_batch' => $cb, 'buffer' => $buffer, 'viewRoute' => 'ipjpsm.shuttle-3-view-formB', 'batchField' => 'borang_b'])
+                                                    @include('partials.cell-borang-quarterly', ['data' => $data, 'current_batch' => $cb, 'buffer' => $buffer, 'viewRoute' => 'ipjpsm.shuttle-5-view-formB', 'batchField' => 'borang_b', 'from' => 'keseluruhan'])
                                                 </td>
                                             </tr>
                                         @endforeach

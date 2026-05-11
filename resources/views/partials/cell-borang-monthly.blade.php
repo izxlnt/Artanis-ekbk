@@ -36,13 +36,13 @@
     @elseif ($data->status == 'Dihantar ke IPJPSM')
         @if ($current_batch && $current_batch->status == 'Dihantar ke IPJPSM' && $current_batch->$batchField == 2)
             @if (isset($data->tiada_pengeluaran) && $data->tiada_pengeluaran == 1)
-                <a href="{{ route($viewRoute, $data->id) }}">
+                <a href="{{ route($viewRoute, $data->id) . (isset($from) && $from ? '?from=' . $from : '') }}">
                     <img src="{{ asset('tpbiru.png') }}" height='30px' alt=""
                         data-toggle="tooltip" data-placement="bottom"
                         title="Borang perlu diperaku - Tiada Pengeluaran">
                 </a>
             @else
-                <a href="{{ route($viewRoute, $data->id) }}">
+                <a href="{{ route($viewRoute, $data->id) . (isset($from) && $from ? '?from=' . $from : '') }}">
                     <img src="{{ asset('circle_check_yellow.png') }}" height='30px' alt=""
                         style="color:white;font-size:18pt"
                         data-toggle="tooltip" data-placement="bottom" title="Borang perlu diperaku">
@@ -54,12 +54,12 @@
         @endif
     @elseif ($data->status == 'Lulus')
         @if (isset($data->tiada_pengeluaran) && $data->tiada_pengeluaran == 1)
-            <a href="{{ route($viewRoute, $data->id) }}">
+            <a href="{{ route($viewRoute, $data->id) . (isset($from) && $from ? '?from=' . $from : '') }}">
                 <img src="{{ asset('tpcoklat.png') }}" height='30px' alt=""
                     data-toggle="tooltip" data-placement="bottom" title="Borang telah diperaku">
             </a>
         @else
-            <a href="{{ route($viewRoute, $data->id) }}">
+            <a href="{{ route($viewRoute, $data->id) . (isset($from) && $from ? '?from=' . $from : '') }}">
                 <img src="{{ asset('double_check.png') }}" height='30px' alt=""
                     style="color:green;font-size:20pt"
                     data-toggle="tooltip" data-placement="bottom" title="Borang telah diperaku">

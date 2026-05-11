@@ -26,6 +26,25 @@
                     </div>
                 </div>
             @endif
+            @if (session()->has('error'))
+                <div class="row">
+                    <div class="col-md-12" style="padding-top: 1% ; text-align:center">
+                        <div class="alert alert-danger">
+                            {{ session('error') }}
+                        </div>
+                    </div>
+                </div>
+            @endif
+            @if (!$formAFilled)
+                <div class="row">
+                    <div class="col-md-12" style="padding-top: 1%">
+                        <div class="alert alert-warning">
+                            <strong>Borang 5A untuk tahun {{ $year }} belum diisi.</strong>
+                            Sila isi <a href="{{ route('user.shuttle-5-senaraiA', $year) }}" class="alert-link">Borang 5A &rarr;</a> terlebih dahulu sebelum mengisi Borang 5B.
+                        </div>
+                    </div>
+                </div>
+            @endif
 
             <div class="page-breadcrumb" style="padding: 0px">
                 <div class="pb-2 row">
@@ -139,7 +158,7 @@
                                                             $delay = '+' . $buffer->delay . ' month';
                                                             $tarikh_tutup_terkini = date('Y-m-d', strtotime($delay, $time));
                                                         @endphp
-                                                        @if (date('Y-m-d') >= $data->tarikh_buka_borang && date('Y-m-d') <= $tarikh_tutup_terkini)
+                                                        @if ($isPreviousYear || (date('Y-m-d') >= $data->tarikh_buka_borang && date('Y-m-d') <= $tarikh_tutup_terkini))
                                                             <a href="{{ route('user.shuttle-5-formB', [1, $data->tahun]) }}"
                                                                 data-toggle="tooltip" data-placement="bottom"
                                                                 title="Borang belum diisi">
@@ -188,7 +207,7 @@
                                                             $delay = '+' . $buffer->delay . ' month';
                                                             $tarikh_tutup_terkini = date('Y-m-d', strtotime($delay, $time));
                                                         @endphp
-                                                        @if (date('Y-m-d') >= $data->tarikh_buka_borang && date('Y-m-d') <= $tarikh_tutup_terkini)
+                                                        @if ($isPreviousYear || (date('Y-m-d') >= $data->tarikh_buka_borang && date('Y-m-d') <= $tarikh_tutup_terkini))
                                                             <a href="{{ route('user.shuttle-5-formB', [2, $data->tahun]) }}"
                                                                 data-toggle="tooltip" data-placement="bottom"
                                                                 title="Borang belum diisi">
@@ -237,7 +256,7 @@
                                                             $delay = '+' . $buffer->delay . ' month';
                                                             $tarikh_tutup_terkini = date('Y-m-d', strtotime($delay, $time));
                                                         @endphp
-                                                        @if (date('Y-m-d') >= $data->tarikh_buka_borang && date('Y-m-d') <= $tarikh_tutup_terkini)
+                                                        @if ($isPreviousYear || (date('Y-m-d') >= $data->tarikh_buka_borang && date('Y-m-d') <= $tarikh_tutup_terkini))
                                                             <a href="{{ route('user.shuttle-5-formB', [3, $data->tahun]) }}"
                                                                 data-toggle="tooltip" data-placement="bottom"
                                                                 title="Borang belum diisi">
@@ -286,7 +305,7 @@
                                                             $delay = '+' . $buffer->delay . ' month';
                                                             $tarikh_tutup_terkini = date('Y-m-d', strtotime($delay, $time));
                                                         @endphp
-                                                        @if (date('Y-m-d') >= $data->tarikh_buka_borang && date('Y-m-d') <= $tarikh_tutup_terkini)
+                                                        @if ($isPreviousYear || (date('Y-m-d') >= $data->tarikh_buka_borang && date('Y-m-d') <= $tarikh_tutup_terkini))
                                                             <a href="{{ route('user.shuttle-5-formB', [4, $data->tahun]) }}"
                                                                 data-toggle="tooltip" data-placement="bottom"
                                                                 title="Borang belum diisi">

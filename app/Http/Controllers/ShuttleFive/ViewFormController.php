@@ -44,12 +44,9 @@ class ViewFormController extends Controller
             ['link' => route('ipjpsm.shuttle-5-view-formD', date('Y')), 'name' => "Borang 5D"],
         ];
 
-        if($form5d->status == 'Lulus'){
-            $kembali = route('ipjpsm.borang-keseluruhan.shuttle5.borangD', date('Y'));
-
-        }
-        else
-        $kembali = route('shuttle-5-listD', date('Y'));
+        $kembali = request()->get('from') == 'keseluruhan'
+            ? route('ipjpsm.borang-keseluruhan.shuttle5.borangD', date('Y'))
+            : route('shuttle-5-listD', date('Y'));
 
         $returnArr = [
             'breadcrumbs' => $breadcrumbs,
@@ -82,7 +79,9 @@ class ViewFormController extends Controller
             ['link' => route('ipjpsm.shuttle-5-view-formE', date('Y')), 'name' => "Borang 5E"],
         ];
 
-        $kembali = route('shuttle-5-listE', date('Y'));
+        $kembali = request()->get('from') == 'keseluruhan'
+            ? route('ipjpsm.borang-keseluruhan.shuttle5.borangE', date('Y'))
+            : route('shuttle-5-listE', date('Y'));
 
         $returnArr = [
             'breadcrumbs' => $breadcrumbs,

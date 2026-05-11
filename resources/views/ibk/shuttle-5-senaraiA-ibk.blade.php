@@ -121,38 +121,29 @@
                                         <tr class="text-center">
                                             <td>Tindakan</td>
                                             <td>
-                                                @if ($list->status == 'Sedang Diproses')
+                                                @if ($list && $list->status == 'Sedang Diproses')
                                                 <a href="{{ route('pengguna.shuttle-3-view-formA',$list->id) }}"><img src="{{ asset('circle_check_yellow.png') }}" height='30px' alt=""
                                                         style="color: green; font-size: 20pt;"  data-toggle="tooltip" data-placement="bottom"
                                                         title="Borang telah dihantar"></i></a>
 
-                                                        @elseif ($list->status == 'Lulus')
+                                                        @elseif ($list && $list->status == 'Lulus')
                                                 <a href="{{ route('pengguna.shuttle-3-view-formA',$list->id) }}"><img src="{{ asset('circle_check.png') }}" height='30px' alt=""
                                                         style="color: green; font-size: 20pt;"  data-toggle="tooltip" data-placement="bottom"
                                                         title="Borang telah diperaku"></i></a>
-                                                        @elseif ($list->status == 'Dihantar ke IPJPSM')
+                                                        @elseif ($list && $list->status == 'Dihantar ke IPJPSM')
                                                 <a href="{{ route('pengguna.shuttle-3-view-formA',$list->id) }}"><img src="{{ asset('circle_check.png') }}" height='30px' alt=""
                                                         style="color: green; font-size: 20pt;"  data-toggle="tooltip" data-placement="bottom"
                                                         title="Borang telah disahkan PHD"></i></a>
-                                                @elseif($list->status == 'Tidak Diisi')
-                                                    @php
-                                                        $isRequired = \App\Services\FormRequirementService::isFormARequired(auth()->user()->created_at, $year);
-                                                    @endphp
-                                                    @if ($isRequired)
-                                                        <a href="{{ url('/pengguna/shuttle-5-formA/' . $year) }}"><img
-                                                        src="{{ asset('circle_times.png') }}" height='30px'
-                                                        alt="" style="font-size: 15pt;" data-toggle="tooltip" data-placement="bottom"
-                                                            title="Borang belum diisi"></i></a>
-                                                    @else
-                                                        <img src="{{ asset('calendar.png') }}" height='30px' alt="" data-toggle="tooltip"
-                                                            data-placement="bottom" title="Borang ditutup"
-                                                            style="color: black; font-size: 20pt;"></i>
-                                                    @endif
-                                                @elseif($list->status == 'Tidak Lengkap')
+                                                @elseif ($list && $list->status == 'Tidak Lengkap')
                                                     <a href="{{ url('/pengguna/shuttle-5-formA/' . $year) }}">
                                                        <img src="{{ asset('pencil.png') }}" height='30px' alt="" style="font-size: 15pt;"
                                                             data-toggle="tooltip" data-placement="bottom"
                                                             title="Borang Tidak Lengkap"></i></a>
+                                                @else
+                                                    <a href="{{ url('/pengguna/shuttle-5-formA/' . $year) }}"><img
+                                                        src="{{ asset('circle_times.png') }}" height='30px'
+                                                        alt="" style="font-size: 15pt;" data-toggle="tooltip" data-placement="bottom"
+                                                            title="Borang belum diisi"></i></a>
                                                 @endif
                                             </td>
 

@@ -9,7 +9,7 @@ table, th, td {
 }
 </style>
 
-@livewire('shuttle-five.form-c')
+@livewire('shuttle-five.form-c', ['month' => $id, 'year' => $year])
 
 {{-- @livewire('user-table') --}}
 

@@ -787,6 +787,8 @@ class ViewFormBController extends Controller
         // $kembali = route('shuttle-3-listB', $formb_year);
 
 
+        $fromKeseluruhan = request()->get('from') == 'keseluruhan';
+
         if($kilang_info->shuttle_type == '3'){
             $breadcrumbs    = [
                 ['link' => route('home'), 'name' => "Laman Utama"],
@@ -797,7 +799,7 @@ class ViewFormBController extends Controller
                 ['link' => route('ipjpsm.shuttle-3-view-formB', $formb_year), 'name' => "Borang 3B"],
             ];
 
-            $kembali = route('shuttle-3-listB', $formb_year);
+            $kembali = $fromKeseluruhan ? route('ipjpsm.borang-keseluruhan.shuttle3.borangB', $formb_year) : route('shuttle-3-listB', $formb_year);
         }
         elseif($kilang_info->shuttle_type == '4'){
             $breadcrumbs    = [
@@ -809,7 +811,7 @@ class ViewFormBController extends Controller
                 ['link' => route('ipjpsm.shuttle-3-view-formB', $formb_year), 'name' => "Borang 4B"],
             ];
 
-            $kembali = route('shuttle-4-listB', $formb_year);
+            $kembali = $fromKeseluruhan ? route('ipjpsm.borang-keseluruhan.shuttle4.borangB', $formb_year) : route('shuttle-4-listB', $formb_year);
         }
         elseif($kilang_info->shuttle_type == '5'){
             $breadcrumbs    = [
@@ -821,7 +823,7 @@ class ViewFormBController extends Controller
                 ['link' => route('ipjpsm.shuttle-3-view-formB', $formb_year), 'name' => "Borang 5B"],
             ];
 
-            $kembali = route('shuttle-5-listB', $formb_year);
+            $kembali = $fromKeseluruhan ? route('ipjpsm.borang-keseluruhan.shuttle5.borangB', $formb_year) : route('shuttle-5-listB', $formb_year);
         }
 
         $returnArr = [
@@ -976,24 +978,10 @@ class ViewFormBController extends Controller
             ['link' => route('ipjpsm.shuttle-3-view-formC', date('Y')), 'name' => "Borang 5C"],
         ];
 
-        $kembali4c = route('shuttle-4-listC', date('Y'));
-
-        if($formc->status == 'Lulus'){
-            $kembali3c = route('ipjpsm.borang-keseluruhan.shuttle3.borangC', date('Y'));
-
-        }
-        else
-        $kembali3c = route('shuttle-3-listC', date('Y'));
-
-
-
-
-        if($formc->status == 'Lulus'){
-            $kembali5c = route('ipjpsm.borang-keseluruhan.shuttle5.borangC', date('Y'));
-
-        }
-        else
-        $kembali5c = route('shuttle-5-listC', date('Y'));
+        $fromKeseluruhan = request()->get('from') == 'keseluruhan';
+        $kembali3c = $fromKeseluruhan ? route('ipjpsm.borang-keseluruhan.shuttle3.borangC', date('Y')) : route('shuttle-3-listC', date('Y'));
+        $kembali4c = $fromKeseluruhan ? route('ipjpsm.borang-keseluruhan.shuttle4.borangC', date('Y')) : route('shuttle-4-listC', date('Y'));
+        $kembali5c = $fromKeseluruhan ? route('ipjpsm.borang-keseluruhan.shuttle5.borangC', date('Y')) : route('shuttle-5-listC', date('Y'));
 
         if($formc->shuttle_type == 3){
             $returnArr = [

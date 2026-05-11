@@ -27,6 +27,15 @@
                     </div>
                 </div>
             @endif
+            @if (session()->has('error'))
+                <div class="row">
+                    <div class="col-md-12" style="padding-top: 1% ; text-align:center">
+                        <div class="alert alert-danger">
+                            {{ session('error') }}
+                        </div>
+                    </div>
+                </div>
+            @endif
 
             {{-- breadcrumb --}}
             <div class="page-breadcrumb" style="padding: 0px">

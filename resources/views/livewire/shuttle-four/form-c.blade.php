@@ -175,7 +175,7 @@
                                                                                         <tr style="height:50px;">
                                                                                             <td
                                                                                                 style="text-align:center;">
-                                                                                                {{ $data1->nama_tempatan }} {{ $keySpecies }}
+                                                                                                {{ $data1->nama_tempatan }}
                                                                                             </td>
                                                                                             <td
                                                                                                 style="text-align:center;">

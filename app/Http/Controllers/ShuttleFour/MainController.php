@@ -167,7 +167,7 @@ class MainController extends Controller
         $this->validator($request->all())->validate();
         $shuttle = Shuttle::where('id', $id)->first();
 
-        $formA_update = FormA::where('shuttle_id', $shuttle->id)->whereYear('created_at', date("Y"))->first();
+        $formA_update = FormA::where('shuttle_id', $shuttle->id)->where('tahun', $request->tahun)->first();
         // dd($formA_update);
 
         $formA_update->status = 'Sedang Diproses';
@@ -175,11 +175,12 @@ class MainController extends Controller
         $formA_update->save();
 
         $batch = Batch::where('tahun', $formA_update->tahun)->where('bulan', date("n"))->where('borang_a', '0')->where('shuttle_id',$shuttle->id)->first();
-        $batch->status = "Sedang Diproses";
-        $batch->borang_a = "1";
 
-        // dd($batch);
-        $batch->save();
+        if ($batch) {
+            $batch->status = "Sedang Diproses";
+            $batch->borang_a = "1";
+            $batch->save();
+        }
 
         if ($request->has('sijil_ssm')) {
             // dd('masuk');
@@ -246,15 +247,19 @@ class MainController extends Controller
         $pengguna_kilang = auth()->user();
         $daerah_id = $pengguna_kilang->shuttle()->first('daerah_id');
 
-        $pegawais = User::where(
-            'daerah',
-            $daerah_id->daerah_id
-        )->where('kategori_pengguna', 'PHD')->get();
+        try {
+            $pegawais = User::where(
+                'daerah',
+                $daerah_id->daerah_id
+            )->where('kategori_pengguna', 'PHD')->get();
 
-        $delay = now()->addMinutes(1);
+            $delay = now()->addMinutes(1);
 
-        foreach ($pegawais as $pegawai) {
-            $pegawai->notify((new BorangDiHantar($pengguna_kilang, $pegawai, $formA_update))->delay($delay));
+            foreach ($pegawais as $pegawai) {
+                $pegawai->notify((new BorangDiHantar($pengguna_kilang, $pegawai, $formA_update))->delay($delay));
+            }
+        } catch (\Exception $e) {
+            \Log::warning('Form 4A notification failed: ' . $e->getMessage());
         }
 
         return redirect()->route('home-user')->with('success','Maklumat berjaya dimasukkan. Sila tunggu untuk pengesahan PHD.');
@@ -504,19 +509,22 @@ class MainController extends Controller
         return redirect()->route('user.view.shuttle-4-formC.KKS', ['bulan' => $id, 'year' => $year]);
     }
 
-    public function shuttle_4_formCKKR($id)
+    public function shuttle_4_formCKKR($id, $year = null)
     {
-        return redirect()->route('user.view.shuttle-4-formC.KKR', $id);
+        $year = $year ?? date("Y");
+        return redirect()->route('user.view.shuttle-4-formC.KKR', ['bulan' => $id, 'year' => $year]);
     }
 
-    public function shuttle_4_formCKayuLembut($id)
+    public function shuttle_4_formCKayuLembut($id, $year = null)
     {
-        return redirect()->route('user.view.shuttle-4-formC.KayuLembut', $id);
+        $year = $year ?? date("Y");
+        return redirect()->route('user.view.shuttle-4-formC.KayuLembut', ['bulan' => $id, 'year' => $year]);
     }
 
-    public function shuttle_4_formCLainLain($id)
+    public function shuttle_4_formCLainLain($id, $year = null)
     {
-        return redirect()->route('user.view.shuttle-4-formC.LainLain', $id);
+        $year = $year ?? date("Y");
+        return redirect()->route('user.view.shuttle-4-formC.LainLain', ['bulan' => $id, 'year' => $year]);
     }
 
     // END OF SHUTTLE 3 FORM C
@@ -1078,15 +1086,10 @@ class MainController extends Controller
             ['link' => route('ipjpsm.shuttle-3-view-formC', date('Y')), 'name' => "Borang 5C "],
         ];
 
-        $kembali3c = route('shuttle-3-listC', date('Y'));
-
-        if($formc->status=='Lulus'){
-            $kembali4c = route('ipjpsm.borang-keseluruhan.shuttle4.borangC', date('Y'));
-
-        }
-        else
-        $kembali4c = route('shuttle-4-listC', date('Y'));
-        $kembali5c = route('shuttle-5-listC', date('Y'));
+        $fromKeseluruhan = request()->get('from') == 'keseluruhan';
+        $kembali3c = $fromKeseluruhan ? route('ipjpsm.borang-keseluruhan.shuttle3.borangC', date('Y')) : route('shuttle-3-listC', date('Y'));
+        $kembali4c = $fromKeseluruhan ? route('ipjpsm.borang-keseluruhan.shuttle4.borangC', date('Y')) : route('shuttle-4-listC', date('Y'));
+        $kembali5c = $fromKeseluruhan ? route('ipjpsm.borang-keseluruhan.shuttle5.borangC', date('Y')) : route('shuttle-5-listC', date('Y'));
 
         if ($formc->shuttle_type == 3) {
             $returnArr = [
@@ -1149,7 +1152,9 @@ class MainController extends Controller
             ['link' => route('ipjpsm.shuttle-4-view-formD', $id), 'name' => "Borang 4D "],
         ];
 
-        $kembali = route('shuttle-4-listD', date('Y'));
+        $kembali = request()->get('from') == 'keseluruhan'
+            ? route('ipjpsm.borang-keseluruhan.shuttle4.borangD', date('Y'))
+            : route('shuttle-4-listD', date('Y'));
 
         $returnArr = [
             'breadcrumbs' => $breadcrumbs,
@@ -1176,7 +1181,9 @@ class MainController extends Controller
             ['link' => route('ipjpsm.shuttle-4-view-formE', $id), 'name' => "Borang 4E "],
         ];
 
-        $kembali = route('shuttle-4-listE', date('Y'));
+        $kembali = request()->get('from') == 'keseluruhan'
+            ? route('ipjpsm.borang-keseluruhan.shuttle4.borangE', date('Y'))
+            : route('shuttle-4-listE', date('Y'));
 
         $returnArr = [
             'breadcrumbs' => $breadcrumbs,

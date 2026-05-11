@@ -2259,7 +2259,15 @@ class UserController extends Controller
 
         $shuttle = Shuttle::where('id', $user->shuttle_id)->first();
         $list = FormA::where('shuttle_id', $shuttle->id)->where('tahun', $year)->first();
-        $year_list = FormA::where('shuttle_id', $shuttle->id)->distinct()->orderBy('tahun')->get('tahun');
+
+        $currentYear = date('Y');
+        $registrationYear = $shuttle->created_at ? date('Y', strtotime($shuttle->created_at)) : $currentYear;
+        $prevRegYear = $registrationYear - 1;
+        $startYear = max($prevRegYear, $currentYear - 1);
+        $year_list = collect();
+        for ($i = $startYear; $i <= $currentYear; $i++) {
+            $year_list->push((object)['tahun' => $i]);
+        }
 
         $breadcrumbs    = [
             ['link' => route('home'), 'name' => "Laman Utama"],
@@ -2281,10 +2289,46 @@ class UserController extends Controller
         $user = auth()->user();
 
         $shuttle = Shuttle::where('id', $user->shuttle_id)->first();
-        $list = FormB::where('shuttle_id', $shuttle->id)->where('tahun', $year)->get();
-        $year_list = FormB::where('shuttle_id', $shuttle->id)->distinct()->orderBy('tahun')->get('tahun');
+
+        $currentYear = date('Y');
+        $registrationYear = $shuttle->created_at ? date('Y', strtotime($shuttle->created_at)) : $currentYear;
+        $prevRegYear = $registrationYear - 1;
+        $startYear = max($prevRegYear, $currentYear - 1);
+        $year_list = collect();
+        for ($i = $startYear; $i <= $currentYear; $i++) {
+            $year_list->push((object)['tahun' => $i]);
+        }
 
         $buffer = Buffer::where('shuttle', auth()->user()->shuttle->shuttle_type)->where('borang', 'b')->where('shuttle', '4')->first();
+
+        $quarterDates = [
+            1 => [$year . '-01-01', $year . '-03-31'],
+            2 => [$year . '-04-01', $year . '-06-30'],
+            3 => [$year . '-07-01', $year . '-09-30'],
+            4 => [$year . '-10-01', $year . '-12-31'],
+        ];
+        foreach ($quarterDates as $quarter => $dates) {
+            $exists = FormB::where('shuttle_id', $shuttle->id)->where('suku_tahun', $quarter)->where('tahun', $year)->exists();
+            if (!$exists) {
+                $newFormB = new FormB();
+                $newFormB->shuttle_id = $shuttle->id;
+                $newFormB->suku_tahun = $quarter;
+                $newFormB->tahun = $year;
+                $newFormB->status = 'Tidak Diisi';
+                $newFormB->shuttle_type = $shuttle->shuttle_type;
+                $newFormB->tarikh_buka_borang = $dates[0];
+                $newFormB->tarikh_tutup_borang = $dates[1];
+                $newFormB->save();
+            }
+        }
+
+        $list = FormB::where('shuttle_id', $shuttle->id)->where('tahun', $year)->orderBy('suku_tahun')->get();
+        $isPreviousYear = ($year < $currentYear);
+
+        $formAFilled = FormA::where('shuttle_id', $shuttle->id)
+            ->where('tahun', $year)
+            ->where('status', '!=', 'Tidak Diisi')
+            ->exists();
 
         $breadcrumbs    = [
             ['link' => route('home'), 'name' => "Laman Utama"],
@@ -2298,7 +2342,7 @@ class UserController extends Controller
             'kembali'     => $kembali,
         ];
 
-        return view('ibk.shuttle-4-senaraiB-ibk', compact('returnArr', 'list', 'shuttle', 'year', 'year_list', 'buffer'));
+        return view('ibk.shuttle-4-senaraiB-ibk', compact('returnArr', 'list', 'shuttle', 'year', 'year_list', 'buffer', 'isPreviousYear', 'formAFilled'));
     }
 
     public function shuttle_4_senaraiC_ibk($year)
@@ -2414,6 +2458,11 @@ class UserController extends Controller
 
         $isPreviousYear = ($year < $currentYear);
 
+        $formAFilled = FormA::where('shuttle_id', $shuttle->id)
+            ->where('tahun', $year)
+            ->where('status', '!=', 'Tidak Diisi')
+            ->exists();
+
         $breadcrumbs    = [
             ['link' => route('home'), 'name' => "Laman Utama"],
             ['link' => route('user.shuttle-4-senaraiC', date('Y')), 'name' => "Kemasukan Maklumat"],
@@ -2426,7 +2475,7 @@ class UserController extends Controller
             'kembali'     => $kembali,
         ];
 
-        return view('ibk.shuttle-4-senaraiC-ibk', compact('returnArr', 'list', 'shuttle', 'year', 'year_list', 'buffer', 'canFillMonth', 'previousMonthFilled', 'isPreviousYear'));
+        return view('ibk.shuttle-4-senaraiC-ibk', compact('returnArr', 'list', 'shuttle', 'year', 'year_list', 'buffer', 'canFillMonth', 'previousMonthFilled', 'isPreviousYear', 'formAFilled'));
     }
 
     public function shuttle_4_senaraiD_ibk($year)
@@ -2649,7 +2698,15 @@ class UserController extends Controller
 
         $shuttle = Shuttle::where('id', $user->shuttle_id)->first();
         $list = FormA::where('shuttle_id', $shuttle->id)->where('tahun', $year)->first();
-        $year_list = FormA::where('shuttle_id', $shuttle->id)->distinct()->orderBy('tahun')->get('tahun');
+
+        $currentYear = date('Y');
+        $registrationYear = $shuttle->created_at ? date('Y', strtotime($shuttle->created_at)) : $currentYear;
+        $prevRegYear = $registrationYear - 1;
+        $startYear = max($prevRegYear, $currentYear - 1);
+        $year_list = collect();
+        for ($i = $startYear; $i <= $currentYear; $i++) {
+            $year_list->push((object)['tahun' => $i]);
+        }
 
 
         $breadcrumbs    = [
@@ -2672,11 +2729,46 @@ class UserController extends Controller
         $user = auth()->user();
 
         $shuttle = Shuttle::where('id', $user->shuttle_id)->first();
-        $list = FormB::where('shuttle_id', $shuttle->id)->where('tahun', $year)->get();
-        $year_list = FormB::where('shuttle_id', $shuttle->id)->distinct()->orderBy('tahun')->get('tahun');
+
+        $currentYear = date('Y');
+        $registrationYear = $shuttle->created_at ? date('Y', strtotime($shuttle->created_at)) : $currentYear;
+        $prevRegYear = $registrationYear - 1;
+        $startYear = max($prevRegYear, $currentYear - 1);
+        $year_list = collect();
+        for ($i = $startYear; $i <= $currentYear; $i++) {
+            $year_list->push((object)['tahun' => $i]);
+        }
 
         $buffer = Buffer::where('shuttle', auth()->user()->shuttle->shuttle_type)->where('borang', 'b')->where('shuttle', '5')->first();
 
+        $quarterDates = [
+            1 => [$year . '-01-01', $year . '-03-31'],
+            2 => [$year . '-04-01', $year . '-06-30'],
+            3 => [$year . '-07-01', $year . '-09-30'],
+            4 => [$year . '-10-01', $year . '-12-31'],
+        ];
+        foreach ($quarterDates as $quarter => $dates) {
+            $exists = FormB::where('shuttle_id', $shuttle->id)->where('suku_tahun', $quarter)->where('tahun', $year)->exists();
+            if (!$exists) {
+                $newFormB = new FormB();
+                $newFormB->shuttle_id = $shuttle->id;
+                $newFormB->suku_tahun = $quarter;
+                $newFormB->tahun = $year;
+                $newFormB->status = 'Tidak Diisi';
+                $newFormB->shuttle_type = $shuttle->shuttle_type;
+                $newFormB->tarikh_buka_borang = $dates[0];
+                $newFormB->tarikh_tutup_borang = $dates[1];
+                $newFormB->save();
+            }
+        }
+
+        $list = FormB::where('shuttle_id', $shuttle->id)->where('tahun', $year)->orderBy('suku_tahun')->get();
+        $isPreviousYear = ($year < $currentYear);
+
+        $formAFilled = FormA::where('shuttle_id', $shuttle->id)
+            ->where('tahun', $year)
+            ->where('status', '!=', 'Tidak Diisi')
+            ->exists();
 
         $breadcrumbs    = [
             ['link' => route('home'), 'name' => "Laman Utama"],
@@ -2690,7 +2782,7 @@ class UserController extends Controller
             'kembali'     => $kembali,
         ];
 
-        return view('ibk.shuttle-5-senaraiB-ibk', compact('returnArr', 'list', 'shuttle', 'year', 'year_list', 'buffer'));
+        return view('ibk.shuttle-5-senaraiB-ibk', compact('returnArr', 'list', 'shuttle', 'year', 'year_list', 'buffer', 'isPreviousYear', 'formAFilled'));
     }
 
     public function shuttle_5_senaraiC_ibk($year)
@@ -2789,6 +2881,11 @@ class UserController extends Controller
 
         $isPreviousYear = ($year < $currentYear);
 
+        $formAFilled = FormA::where('shuttle_id', $shuttle->id)
+            ->where('tahun', $year)
+            ->where('status', '!=', 'Tidak Diisi')
+            ->exists();
+
         $breadcrumbs    = [
             ['link' => route('home'), 'name' => "Laman Utama"],
             ['link' => route('user.shuttle-5-senaraiC', date('Y')), 'name' => "Kemasukan Maklumat"],
@@ -2801,7 +2898,7 @@ class UserController extends Controller
             'kembali'     => $kembali,
         ];
 
-        return view('ibk.shuttle-5-senaraiC-ibk', compact('returnArr', 'list', 'shuttle', 'year', 'year_list', 'buffer', 'canFillMonth', 'previousMonthFilled', 'isPreviousYear'));
+        return view('ibk.shuttle-5-senaraiC-ibk', compact('returnArr', 'list', 'shuttle', 'year', 'year_list', 'buffer', 'canFillMonth', 'previousMonthFilled', 'isPreviousYear', 'formAFilled'));
     }
 
     public function shuttle_5_senaraiD_ibk($year)

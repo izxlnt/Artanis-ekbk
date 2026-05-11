@@ -27,7 +27,19 @@
                         </div>
                 </div>
             </div>
-            @endif
+        </div>
+    @endif
+    @if (session()->has('error'))
+        <div class="container-fluid" style="width:100%">
+            <div class="row">
+                <div class="col-md-12" style="padding-top: 1% ; text-align:center">
+                    <div class="alert alert-danger">
+                        {{ session('error') }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    @endif
 
         {{-- <div class="page-breadcrumb" style="padding: 0px">
             <div class="pb-2 row">

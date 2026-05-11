@@ -57,6 +57,7 @@
                             <form action="{{ route('update.form4A', $kilang_info->id) }}" method="post"
                                 enctype="multipart/form-data">
                                 @csrf
+                                <input type="hidden" name="tahun" value="{{ $form_a->tahun }}"
                                 <div class="">
                                     <table class="table table-striped table-bordered" id="" style="width: 100%;">
                                         <div class="row">

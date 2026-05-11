@@ -17,6 +17,14 @@ class FormC extends Component
     public $baki_stok,$jumlah_baki_stok,$kayu_masuk,$proses_masuk,$proses_keluar,$jumlah_kayu_masuk,$jumlah_stok_kayu_balak,$baki_stok_kehadapan,$jumlah,$total_stok_kayu_balak,
     $total_kayu_masuk_jentera,$total_kayu_keluar_jentera,$total_kayu_dibawa_bulan_hadapan,$jumlah_besar_baki_stok_bulan_lepas,$jumlah_besar_kemasukan_kayu_ke_kilang,
     $jumlah_besar_stok_kayu_balak,$jumlah_besar_kayu_ke_dalam_jentera,$jumlah_besar_pengeluaran_kayu_daripada_jentera,$jumlah_besar_baki_stok_bulan_depan;
+    public $month, $year;
+
+    public function mount($month, $year)
+    {
+        $this->month = $month;
+        $this->year = $year;
+    }
+
     public function render()
     {
         $id=auth()->user();
@@ -47,8 +55,8 @@ class FormC extends Component
             'shuttle_id'=>$shuttle_id->id,
             'shuttle_type'=>$shuttle_id->shuttle_type,
             'status' => $status,
-            'tahun' => $kilang_info->tahun,
-            'bulan' => now()->month,
+            'tahun' => $this->year,
+            'bulan' => $this->month,
             'nama_kilang' => $kilang_info->nama_kilang,
             'no_ssm' => $kilang_info->no_ssm,
             'no_lesen' => $kilang_info->no_lesen,
@@ -86,8 +94,8 @@ class FormC extends Component
 
                 'shuttle_id'=> $shuttle_id->id,
                 'kategori_guna_tenaga_id'=>$data->id,
-                'bulan'=>now('M'),
-                'tahun'=>now('Y'),
+                'bulan'=>$this->month,
+                'tahun'=>$this->year,
                 'formcs_id'=>$formcs->id,
 
 
