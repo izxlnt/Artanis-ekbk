@@ -539,7 +539,7 @@ class PermohonanPenggunaController extends Controller
 
 
 
-$batch_checker = Batch::where('shuttle_id', $user->shuttle_id)->whereYear('created_at', date("Y"))->count();
+$batch_checker = Batch::where('shuttle_id', $user->shuttle_id)->where('tahun', date("Y"))->count();
         if ($batch_checker == '0') {
             //check firstime or not
             // $is_firstime_checker = Batch::where('shuttle_id', $user->shuttle_id)->count();
@@ -578,7 +578,7 @@ $batch_checker = Batch::where('shuttle_id', $user->shuttle_id)->whereYear('creat
 
 
         //=========================== checker A (Shuttle 3,4,5) ===============================================
-        $formA_checker = FormA::where('shuttle_id', $user->shuttle_id)->whereYear('created_at', date("Y"))->count();
+        $formA_checker = FormA::where('shuttle_id', $user->shuttle_id)->where('tahun', date("Y"))->count();
         if ($formA_checker == '0') {
             $formas = FormA::create([
                 'shuttle_id' => $user->shuttle_id,
@@ -590,7 +590,7 @@ $batch_checker = Batch::where('shuttle_id', $user->shuttle_id)->whereYear('creat
 
 
         //=========================== checker B (Shuttle 3,4,5) ===============================================
-        $list = FormB::where('shuttle_id', $user->shuttle_id)->whereYear('created_at', date("Y"))->count();
+        $list = FormB::where('shuttle_id', $user->shuttle_id)->where('tahun', date("Y"))->count();
 
         $status = 'Tidak Diisi';
 
@@ -656,7 +656,7 @@ $batch_checker = Batch::where('shuttle_id', $user->shuttle_id)->whereYear('creat
 
 
         //=========================== checker C (Shuttle 3,4,5) ===============================================
-        $formC_checker = FormC::where('shuttle_id', $user->shuttle_id)->whereYear('created_at', date("Y"))->count();
+        $formC_checker = FormC::where('shuttle_id', $user->shuttle_id)->where('tahun', date("Y"))->count();
         // dd($formC_checker);
         $status = 'Tidak Diisi';
 
@@ -831,7 +831,7 @@ $batch_checker = Batch::where('shuttle_id', $user->shuttle_id)->whereYear('creat
 
         if ($shuttle_type == 3) {  //=========================== checker D (Shuttle 3) ===============================================
 
-            $formD_checker = FormD::where('shuttle_id', $user->shuttle_id)->whereYear('created_at', date("Y"))->count();
+            $formD_checker = FormD::where('shuttle_id', $user->shuttle_id)->where('tahun', date("Y"))->count();
 
             if ($formD_checker == '0') {
                 for ($i = 1; $i < 13; $i++) {
@@ -998,7 +998,7 @@ $batch_checker = Batch::where('shuttle_id', $user->shuttle_id)->whereYear('creat
             }
         } elseif ($shuttle_type == 4) { //=========================== checker D (Shuttle 4) ===============================================
 
-            $formD_checker = Form4D::where('shuttle_id', $user->shuttle_id)->whereYear('created_at', date("Y"))->count();
+            $formD_checker = Form4D::where('shuttle_id', $user->shuttle_id)->where('tahun', date("Y"))->count();
 
             if ($formD_checker == '0') {
                 for ($i = 1; $i < 13; $i++) {
@@ -1165,7 +1165,7 @@ $batch_checker = Batch::where('shuttle_id', $user->shuttle_id)->whereYear('creat
             }
         } elseif ($shuttle_type == 5) {
 
-            $formD_checker = Form5D::where('shuttle_id', $user->shuttle_id)->whereYear('created_at', date("Y"))->count();
+            $formD_checker = Form5D::where('shuttle_id', $user->shuttle_id)->where('tahun', date("Y"))->count();
 
             if ($formD_checker == '0') {
                 for ($i = 1; $i < 13; $i++) {
@@ -1333,7 +1333,7 @@ $batch_checker = Batch::where('shuttle_id', $user->shuttle_id)->whereYear('creat
         }
 
         if ($shuttle_type == 4) { //=========================== checker E (Shuttle 4 )==============================================
-            $formE_checker = Form4E::where('shuttle_id', $user->shuttle_id)->whereYear('created_at', date("Y"))->count();
+            $formE_checker = Form4E::where('shuttle_id', $user->shuttle_id)->where('tahun', date("Y"))->count();
 
             if ($formE_checker == '0') {
                 for ($i = 1; $i < 13; $i++) {
@@ -1499,7 +1499,7 @@ $batch_checker = Batch::where('shuttle_id', $user->shuttle_id)->whereYear('creat
                 }
             }
         } elseif ($shuttle_type == 5) { //=========================== checker E (Shuttle 5 )==============================================
-            $formE_checker = Form5E::where('shuttle_id', $user->shuttle_id)->whereYear('created_at', date("Y"))->count();
+            $formE_checker = Form5E::where('shuttle_id', $user->shuttle_id)->where('tahun', date("Y"))->count();
 
             if ($formE_checker == '0') {
                 for ($i = 1; $i < 13; $i++) {

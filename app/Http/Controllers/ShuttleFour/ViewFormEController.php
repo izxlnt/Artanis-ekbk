@@ -28,7 +28,7 @@ class ViewFormEController extends Controller
             $lastmonth = $form4e->bulan - 1;
             $form_e_checker = Form4E::where('shuttle_id', $kilang_info->id)
             ->where('bulan', $lastmonth)
-            ->whereYear('created_at', date("Y"))
+            ->where('tahun', $form4e->tahun)
             ->where(function ($query) {
                 $query->where('status', 'Dihantar ke IPJPSM')
                       ->orWhere('status', 'Tidak Diisi')->orWhere('status', 'Lulus');
@@ -38,12 +38,12 @@ class ViewFormEController extends Controller
             $lastmonth = $form4e->bulan;
             $form_e_checker = Form4E::where('shuttle_id', $kilang_info->id)
             ->where('bulan', $lastmonth)
-            ->whereYear('created_at', date("Y"))
+            ->where('tahun', $form4e->tahun)
             ->where('status', '!=','Dihantar ke IPJPSM')
             ->count();
         }
 
-        $form_a_checker = FormA::where('tahun', date("Y"))
+        $form_a_checker = FormA::where('tahun', $form4e->tahun)
                 ->where('shuttle_id',$kilang_info->id)
                 ->where('status', 'Dihantar ke IPJPSM')->orWhere('status', 'Lulus')
                 ->count();
@@ -91,7 +91,7 @@ class ViewFormEController extends Controller
             $lastmonth = $form4e->bulan - 1;
             $form_e_checker = Form4E::where('shuttle_id', $kilang_info->id)
             ->where('bulan', $lastmonth)
-            ->whereYear('created_at', date("Y"))
+            ->where('tahun', $form4e->tahun)
             ->where(function ($query) {
                 $query->where('status', 'Dihantar ke IPJPSM')
                       ->orWhere('status', 'Tidak Diisi')->orWhere('status', 'Lulus');
@@ -101,12 +101,12 @@ class ViewFormEController extends Controller
             $lastmonth = $form4e->bulan;
             $form_e_checker = Form4E::where('shuttle_id', $kilang_info->id)
             ->where('bulan', $lastmonth)
-            ->whereYear('created_at', date("Y"))
+            ->where('tahun', $form4e->tahun)
             ->where('status', '!=','Dihantar ke IPJPSM')
             ->count();
         }
 
-        $form_a_checker = FormA::where('tahun', date("Y"))
+        $form_a_checker = FormA::where('tahun', $form4e->tahun)
                 ->where('shuttle_id',$kilang_info->id)
                 ->where('status', 'Dihantar ke IPJPSM')->orWhere('status', 'Lulus')
                 ->count();
@@ -152,7 +152,7 @@ class ViewFormEController extends Controller
             $lastmonth = $form5e->bulan - 1;
             $form_e_checker = Form5E::where('shuttle_id', $kilang_info->id)
             ->where('bulan', $lastmonth)
-            ->whereYear('created_at', date("Y"))
+            ->where('tahun', $form5e->tahun)
             ->where(function ($query) {
                 $query->where('status', 'Dihantar ke IPJPSM')
                       ->orWhere('status', 'Tidak Diisi')->orWhere('status', 'Lulus');
@@ -162,12 +162,12 @@ class ViewFormEController extends Controller
             $lastmonth = $form5e->bulan;
             $form_e_checker = Form5E::where('shuttle_id', $kilang_info->id)
             ->where('bulan', $lastmonth)
-            ->whereYear('created_at', date("Y"))
+            ->where('tahun', $form5e->tahun)
             ->where('status', '!=','Dihantar ke IPJPSM')
             ->count();
         }
 
-        $form_a_checker = FormA::where('tahun', date("Y"))
+        $form_a_checker = FormA::where('tahun', $form5e->tahun)
                 ->where('shuttle_id',$kilang_info->id)
                 ->where('status', 'Dihantar ke IPJPSM')->orWhere('status', 'Lulus')
                 ->count();
@@ -212,7 +212,7 @@ class ViewFormEController extends Controller
             $lastmonth = $form5e->bulan - 1;
             $form_e_checker = Form5E::where('shuttle_id', $kilang_info->id)
             ->where('bulan', $lastmonth)
-            ->whereYear('created_at', date("Y"))
+            ->where('tahun', $form5e->tahun)
             ->where(function ($query) {
                 $query->where('status', 'Dihantar ke IPJPSM')
                       ->orWhere('status', 'Tidak Diisi')->orWhere('status', 'Lulus');
@@ -222,12 +222,12 @@ class ViewFormEController extends Controller
             $lastmonth = $form5e->bulan;
             $form_e_checker = Form5E::where('shuttle_id', $kilang_info->id)
             ->where('bulan', $lastmonth)
-            ->whereYear('created_at', date("Y"))
+            ->where('tahun', $form5e->tahun)
             ->where('status', '!=','Dihantar ke IPJPSM')
             ->count();
         }
 
-        $form_a_checker = FormA::where('tahun', date("Y"))
+        $form_a_checker = FormA::where('tahun', $form5e->tahun)
                 ->where('shuttle_id',$kilang_info->id)
                 ->where('status', 'Dihantar ke IPJPSM')->orWhere('status', 'Lulus')
                 ->count();

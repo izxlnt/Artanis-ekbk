@@ -331,6 +331,7 @@ class HomeController extends Controller
 
         //borang keseluruhan SHUTTLE 3
     public function shuttle_3_keseluruhan_borang_A($year){
+        if ($year < 2025) return redirect()->route('ipjpsm.borang-keseluruhan.shuttle3.borangA', 2025);
 
         // $form_a = FormA::where('tahun', $year)
         // ->whereHas('shuttle', function ($q) {
@@ -338,13 +339,11 @@ class HomeController extends Controller
         // })
         // ->get();
 
-        $form_a = FormA::where('form_a_s.tahun', $year)
+        $form_a = FormA::where('tahun', $year)
         ->whereHas('shuttle', function ($q) {
             $q->where('shuttle_type', '3');
-        })->leftJoin('batches', function($join) {
-            $join->on('form_a_s.shuttle_id', '=', 'batches.shuttle_id');
-        })->where('batches.borang_a', '2')
-        ->select('batches.status as batches_status', 'form_a_s.*')
+        })
+        ->with('shuttle')
         ->get();
 
         $year_list = FormA::where('tahun', $year)->distinct()->orderby('tahun')->get('tahun');
@@ -370,7 +369,7 @@ class HomeController extends Controller
     }
 
     public function shuttle_3_keseluruhan_borang_B($year){
-
+        if ($year < 2025) return redirect()->route('ipjpsm.borang-keseluruhan.shuttle3.borangB', 2025);
         $list_kilang = Shuttle::where('shuttle_type', '3')->get();
 
         $formB = FormB::where('tahun', $year)->get();
@@ -407,6 +406,7 @@ class HomeController extends Controller
     }
 
     public function shuttle_3_keseluruhan_borang_C($year){
+        if ($year < 2025) return redirect()->route('ipjpsm.borang-keseluruhan.shuttle3.borangC', 2025);
         $list_kilang = Shuttle::where('shuttle_type', '3')->get();
 
         $formC = FormC::where('tahun', $year)->get();
@@ -440,6 +440,7 @@ class HomeController extends Controller
     }
 
     public function shuttle_3_keseluruhan_borang_D($year){
+        if ($year < 2025) return redirect()->route('ipjpsm.borang-keseluruhan.shuttle3.borangD', 2025);
         $list_kilang = Shuttle::where('shuttle_type', '3')->get();
 
         $formD = FormD::where('tahun', $year)->get();
@@ -475,14 +476,13 @@ class HomeController extends Controller
 
        //borang keseluruhan SHUTTLE 4
        public function shuttle_4_keseluruhan_borang_A($year){
+        if ($year < 2025) return redirect()->route('ipjpsm.borang-keseluruhan.shuttle4.borangA', 2025);
 
-        $form_a = FormA::where('form_a_s.tahun', $year)
+        $form_a = FormA::where('tahun', $year)
         ->whereHas('shuttle', function ($q) {
             $q->where('shuttle_type', '4');
-        })->leftJoin('batches', function($join) {
-            $join->on('form_a_s.shuttle_id', '=', 'batches.shuttle_id');
-        })->where('batches.borang_a', '2')
-        ->select('batches.status as batches_status', 'form_a_s.*')
+        })
+        ->with('shuttle')
         ->get();
 
         // dd($form_a);
@@ -509,7 +509,7 @@ class HomeController extends Controller
     }
 
     public function shuttle_4_keseluruhan_borang_B($year){
-
+        if ($year < 2025) return redirect()->route('ipjpsm.borang-keseluruhan.shuttle4.borangB', 2025);
         $list_kilang = Shuttle::where('shuttle_type', '4')->get();
 
         $formB = FormB::where('tahun', $year)->get();
@@ -545,6 +545,7 @@ class HomeController extends Controller
     }
 
     public function shuttle_4_keseluruhan_borang_C($year){
+        if ($year < 2025) return redirect()->route('ipjpsm.borang-keseluruhan.shuttle4.borangC', 2025);
         $list_kilang = Shuttle::where('shuttle_type', '4')->get();
 
         $formC = FormC::where('tahun', $year)->get();
@@ -580,6 +581,7 @@ class HomeController extends Controller
     }
 
     public function shuttle_4_keseluruhan_borang_D($year){
+        if ($year < 2025) return redirect()->route('ipjpsm.borang-keseluruhan.shuttle4.borangD', 2025);
         $list_kilang = Shuttle::where('shuttle_type', '4')->get();
 
         $form4D = Form4D::where('tahun', $year)->get();
@@ -615,6 +617,7 @@ class HomeController extends Controller
     }
 
     public function shuttle_4_keseluruhan_borang_E($year){
+        if ($year < 2025) return redirect()->route('ipjpsm.borang-keseluruhan.shuttle4.borangE', 2025);
         $list_kilang = Shuttle::where('shuttle_type', '4')->get();
 
         $form4E = Form4E::where('tahun', $year)->get();
@@ -651,14 +654,13 @@ class HomeController extends Controller
 
     //borang keseluruhan SHUTTLE 5
     public function shuttle_5_keseluruhan_borang_A($year){
+        if ($year < 2025) return redirect()->route('ipjpsm.borang-keseluruhan.shuttle5.borangA', 2025);
 
-        $form_a = FormA::where('form_a_s.tahun', $year)
+        $form_a = FormA::where('tahun', $year)
         ->whereHas('shuttle', function ($q) {
             $q->where('shuttle_type', '5');
-        })->leftJoin('batches', function($join) {
-            $join->on('form_a_s.shuttle_id', '=', 'batches.shuttle_id');
-        })->where('batches.borang_a', '2')
-        ->select('batches.status as batches_status', 'form_a_s.*')
+        })
+        ->with('shuttle')
         ->get();
         //   dd($form_a);
 
@@ -698,7 +700,7 @@ class HomeController extends Controller
     }
 
     public function shuttle_5_keseluruhan_borang_B($year){
-
+        if ($year < 2025) return redirect()->route('ipjpsm.borang-keseluruhan.shuttle5.borangB', 2025);
         $list_kilang = Shuttle::where('shuttle_type', '5')->get();
 
         $formB = FormB::where('tahun', $year)->get();
@@ -735,6 +737,7 @@ class HomeController extends Controller
     }
 
     public function shuttle_5_keseluruhan_borang_C($year){
+        if ($year < 2025) return redirect()->route('ipjpsm.borang-keseluruhan.shuttle5.borangC', 2025);
         $list_kilang = Shuttle::where('shuttle_type', '5')->get();
 
         $formC = FormC::where('tahun', $year)->get();
@@ -769,6 +772,7 @@ class HomeController extends Controller
     }
 
     public function shuttle_5_keseluruhan_borang_D($year){
+        if ($year < 2025) return redirect()->route('ipjpsm.borang-keseluruhan.shuttle5.borangD', 2025);
         $list_kilang = Shuttle::where('shuttle_type', '5')->get();
 
         $form5D = Form5D::where('tahun', $year)->get();
@@ -803,6 +807,7 @@ class HomeController extends Controller
     }
 
     public function shuttle_5_keseluruhan_borang_E($year){
+        if ($year < 2025) return redirect()->route('ipjpsm.borang-keseluruhan.shuttle5.borangE', 2025);
         $list_kilang = Shuttle::where('shuttle_type', '5')->get();
 
         $form5E = Form5E::where('tahun', $year)->get();

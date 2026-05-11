@@ -70,15 +70,9 @@
                                     <select name="select_year" id="select_year" class="form-control"
                                         onchange="return changePage();">
 
-                                        <option value="" selected hidden disabled>
-                                            2025
-                                        </option>
-                                        @foreach ($year_list as $data)
-                                            <option value="{{ $data->tahun }}"
-                                                {{ $data->tahun == $year ? 'selected' : '' }}>
-                                                Tahun {{ $data->tahun }}
-                                            </option>
-                                        @endforeach
+                                        @for ($y = 2025; $y <= date('Y'); $y++)
+                                            <option value="{{ $y }}" {{ $year == $y ? 'selected' : '' }}>Tahun {{ $y }}</option>
+                                        @endfor
                                     </select>
                                 </div>
 
@@ -133,26 +127,22 @@
                                                        <img src="{{ asset('history.png') }}" height='30px' alt="" style="color: #dbd400; font-size: 20pt;"
                                                             data-toggle="tooltip" data-placement="bottom"
                                                             title="Borang tidak lengkap "></i>
-                                                    @elseif($data->batches_status == 'Dihantar ke IPJPSM' && $data->status == 'Dihantar ke IPJPSM')
-                                                        <a href="{{ route('ipjpsm.shuttle-3-view-formA', $data->id) }}">
+                                                    @elseif($data->status == 'Dihantar ke IPJPSM')
+                                                        <a href="{{ route('ipjpsm.shuttle-3-view-formA', $data->shuttle_id) }}?year={{ $year }}">
                                                             <img src="{{ asset('circle_check_yellow.png') }}"
                                                                 height='30px' alt="" style="color: white; font-size: 18pt;"
                                                                 data-toggle="tooltip" data-placement="bottom"
                                                                 title="Borang perlu diperaku"></i></a>
                                                     @elseif($data->status == 'Lulus')
-                                                        <a href="{{ route('ipjpsm.shuttle-3-view-formA', $data->shuttle_id) }}">
+                                                        <a href="{{ route('ipjpsm.shuttle-3-view-formA', $data->shuttle_id) }}?year={{ $year }}">
                                                             <img src="{{ asset('double_check.png') }}" height='30px'
                                                                 alt="" style="color: green; font-size: 20pt;"
                                                                 data-toggle="tooltip" data-placement="bottom"
                                                                 title="Borang telah diperaku "></i></a>
-                                                    @elseif($data->batches_status == 'Sedang Diproses')
-                                                        <img src="{{ asset('package.png') }}" height='40px' alt=""
-                                                            data-toggle="tooltip" data-placement="bottom"
-                                                            title="Pakej belum dihantar">
                                                     @endif
                                                 </td>
+                                            </tr>
                                         @endforeach
-                                        </tr>
                                     </tbody>
                                 </table>
 

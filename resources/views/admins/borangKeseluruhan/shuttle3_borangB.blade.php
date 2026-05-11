@@ -68,15 +68,9 @@
                                 <div class="col-md-2">
                                     <select name="select_year" id="select_year" class="form-control"
                                         onchange="return changePage();">
-                                        <option value="" selected hidden disabled>
-                                            2025
-                                        </option>
-                                        @foreach ($year_list as $data)
-                                            <option value="{{ $data->tahun }}"
-                                                {{ $data->tahun == $year ? 'selected' : '' }}>
-                                                Tahun {{ $data->tahun }}
-                                            </option>
-                                        @endforeach
+                                        @for ($y = 2025; $y <= date('Y'); $y++)
+                                            <option value="{{ $y }}" {{ $year == $y ? 'selected' : '' }}>Tahun {{ $y }}</option>
+                                        @endfor
                                     </select>
                                 </div>
                                                                 @include('partials.borang-nav', ['shuttle_type' => 3, 'current_form' => 'B', 'role' => 'ipjpsm'])

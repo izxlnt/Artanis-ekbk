@@ -619,7 +619,7 @@ class UserController extends Controller
     {
 
 
-        $count_form4A = FormA::where('status', 'Tidak Diisi')->whereYear('created_at', date("Y"))
+        $count_form4A = FormA::where('status', 'Tidak Diisi')->where('tahun', date("Y"))
             ->whereHas('shuttle', function ($q) {
                 $q->where('shuttle_type', 4)->where('daerah_id', auth()->user()->daerah);
             })

@@ -319,7 +319,11 @@
                                                                     {{-- <button type="submit" class="btn btn-primary" >Simpan</button> --}}
                                                                 {{-- @endif --}}
                                                             </div>
+                                                                @if(auth()->user()->kategori_pengguna == 'BPE')
+                                                                <form action="{{ route('update_status_form4D_ipjpsm',$id) }}" method="post">
+                                                                @else
                                                                 <form action="{{ route('update_status_form4D',$id) }}" method="post">
+                                                                @endif
                                                                     @csrf
                                                                 <div class="modal fade" id="confirmation_borang_a"
                                                                 tabindex="-1" role="dialog"
@@ -344,7 +348,11 @@
                                                                         <div class="modal-footer">
                                                                             <button type="button" class="btn btn-danger"
                                                                                 data-dismiss="modal">Batal</button>
+                                                                        @if(auth()->user()->kategori_pengguna == 'BPE')
+                                                                        <input type="hidden" value="Lulus" name="status">
+                                                                        @else
                                                                         <input type="hidden" value="Dihantar ke IPJPSM" name="status">
+                                                                        @endif
 
                                                                             <button type="submit"
                                                                                 class="btn btn-success">SIMPAN</button>

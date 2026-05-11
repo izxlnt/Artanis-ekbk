@@ -666,13 +666,13 @@ class ViewFormBController extends Controller
     public function shuttle_3_form_view_form3A_ipjpsm($id)
     {
         // dd($id);
+        $year = request()->get('year', date('Y'));
         $kilang_info = Shuttle::where('id',$id)->first();
 
-        $forma = FormA::where('shuttle_id',$id)->with('shuttle')->first();
-        
+        $forma = FormA::where('shuttle_id',$id)->where('tahun', $year)->with('shuttle')->first();
+
         if (!$forma) {
-            // If FormA doesn't exist, redirect back with error message
-            return redirect()->back()->with('error', 'Borang A tidak dijumpai untuk kilang ini.');
+            return redirect()->back()->with('error', 'Borang A tidak dijumpai untuk kilang ini bagi tahun ' . $year . '.');
         }
         
         $id =$forma->id;
@@ -923,7 +923,7 @@ class ViewFormBController extends Controller
         $ulasan_phd=UlasanPhd::where('formcs_id',$formc->id)->get();
 
 
-        $species = Spesis::orderBy('kumpulan_kayu_id')->orderBy('nama_tempatan')->get();
+        $species = Spesis::with('kumpulan_kayu')->orderBy('kumpulan_kayu_id')->orderBy('nama_tempatan')->get();
         $kumpulan_kayu = KumpulanKayu::get();
 
         $form_c = KemasukanBahan::where('formcs_id',$formc->id)->get();

@@ -306,7 +306,7 @@ Route::middleware('auth')->group(
                 Route::get('/pengguna/shuttle-4-formC/view/Lain-Lain/{bulan}/{year?}', [App\Http\Controllers\ShuttleFour\FormCController::class, 'shuttle_4_formCLainLain'])->name('user.view.shuttle-4-formC.LainLain');
                 Route::post('/pengguna/shuttle-4-formC/store/Lain-Lain/{bulan}/{year?}', [App\Http\Controllers\ShuttleFour\FormCController::class, 'store_kayulainlain'])->name('user.view.shuttle-4-formC.LainLain.store');
 
-                Route::get('/pengguna/shuttle-4-formC/store/tiada-pengeluaran/{bulan}', [App\Http\Controllers\ShuttleFour\FormCController::class, 'tiadaPengeluaran'])->name('user.shuttle-4-formC.tiadaPengeluaran');
+                Route::get('/pengguna/shuttle-4-formC/store/tiada-pengeluaran/{bulan}/{year?}', [App\Http\Controllers\ShuttleFour\FormCController::class, 'tiadaPengeluaran'])->name('user.shuttle-4-formC.tiadaPengeluaran');
 
                 Route::get('/pengguna/edit-shuttle-4D/{id}', [App\Http\Controllers\UserController::class, 'editform4D'])->name('edit-form4D');
                 Route::get('/pengguna/edit-shuttle-4E/{id}', [App\Http\Controllers\UserController::class, 'editform4E'])->name('edit-form4E');

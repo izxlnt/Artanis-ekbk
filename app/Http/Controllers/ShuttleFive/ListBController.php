@@ -15,6 +15,7 @@ class ListBController extends Controller
     public $shuttle_listB;
     public function shuttle_5_listB_ipjpsm($year)
     {
+        if ($year < 2025) return redirect()->route('shuttle-5-listB', 2025);
 
 
 

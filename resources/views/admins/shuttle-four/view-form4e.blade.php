@@ -277,10 +277,12 @@
                                                                 {{-- <button type="submit" class="btn btn-primary" >Simpan</button> --}}
                                                                 {{-- <button type="button" class="btn btn-primary">Kembali</button> --}}
 
+                                                                @if(auth()->user()->kategori_pengguna != 'BPE')
                                                                 <button type="button" class="btn btn-primary" alt="default"
                                                                     data-toggle="modal" data-target="#responsive-modal-tidaklengkap"
                                                                     class="model_img img-fluid">
                                                                     TIDAK LENGKAP</button>
+                                                                @endif
 
                                                                 {{-- @if ($errors->isEmpty()) --}}
                                                                     <button type="button" class="btn btn-primary" alt="default"
@@ -293,7 +295,11 @@
                                                                     {{-- <button type="submit" class="btn btn-primary" >Simpan</button> --}}
                                                                 {{-- @endif --}}
                                                             </div>
+                                                            @if(auth()->user()->kategori_pengguna == 'BPE')
+                                                            <form action="{{ route('update_status_form4E_ipjpsm',$id) }}" method="post">
+                                                            @else
                                                             <form action="{{ route('update_status_form4E',$id) }}" method="post">
+                                                            @endif
                                                                 @csrf
                                                             <div class="modal fade" id="confirmation_borang_a"
                                                             tabindex="-1" role="dialog"
@@ -318,7 +324,11 @@
                                                                     <div class="modal-footer">
                                                                         <button type="button" class="btn btn-danger"
                                                                             data-dismiss="modal">Batal</button>
+                                                                    @if(auth()->user()->kategori_pengguna == 'BPE')
+                                                                    <input type="hidden" value="Lulus" name="status">
+                                                                    @else
                                                                     <input type="hidden" value="Dihantar ke IPJPSM" name="status">
+                                                                    @endif
 
                                                                         <button type="submit"
                                                                             class="btn btn-success">SIMPAN</button>

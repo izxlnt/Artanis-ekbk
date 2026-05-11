@@ -69,15 +69,9 @@
                                     <select name="select_year" id="select_year" class="form-control"
                                         onchange="return changePage();">
 
-                                        <option value="2024" {{ $year == 2024 ? 'selected' : '' }}>Tahun 2024</option>
-                                        <option value="2025" {{ $year == 2025 ? 'selected' : '' }}>Tahun 2025</option>
-                                        <option value="2026" {{ $year == 2026 ? 'selected' : '' }}>Tahun 2026</option>
-                                    @foreach ($year_list as $data)
-                                        <option value="{{ $data->tahun }}"
-                                            {{ $data->tahun == $year ? 'selected' : '' }}>
-                                            Tahun {{ $data->tahun }}
-                                        </option>
-                                    @endforeach
+                                        @for ($y = 2025; $y <= date('Y'); $y++)
+                                            <option value="{{ $y }}" {{ $year == $y ? 'selected' : '' }}>Tahun {{ $y }}</option>
+                                        @endfor
                                 </select>
                             </div>
 
@@ -143,7 +137,7 @@
                                                                     title="Borang tidak lengkap "></i>
                                                             @elseif($form->status == 'Dihantar ke IPJPSM')
                                                                 <a
-                                                                    href="{{ route('ipjpsm.shuttle-3-view-formA', $data->id) }}">
+                                                                    href="{{ route('ipjpsm.shuttle-3-view-formA', $data->id) }}?year={{ $year }}">
                                                                     <img src="{{ asset('circle_check_yellow.png') }}"
                                                                         height='30px' alt=""
                                                                         style="color: white; font-size: 18pt;"

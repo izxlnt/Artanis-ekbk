@@ -94,6 +94,7 @@ class ListCController extends Controller
 
     public function shuttle_3_listC_ipjpsm($year)
     {
+        if ($year < 2025) return redirect()->route('shuttle-3-listC', 2025);
         $user = auth()->user();
         // dd($user );
 
@@ -123,6 +124,8 @@ class ListCController extends Controller
             // dd($formC);
 
         $formC = FormC::where('tahun', $year)->where('shuttle_type', '3')->get();
+        $formCIndex = [];
+        foreach ($formC as $fc) { $formCIndex[$fc->shuttle_id][$fc->bulan] = $fc; }
 
         $year_list = DB::select(DB::raw("SELECT DISTINCT form_c_s.tahun FROM form_c_s
         INNER JOIN shuttles ON form_c_s.shuttle_id = shuttles.id
@@ -144,6 +147,8 @@ class ListCController extends Controller
          $buffer = Buffer::where('borang', 'c')->where('shuttle', '3')->first();
 
          $batch = Batch::where('tahun', $year)->get();
+         $batchIndex = [];
+         foreach ($batch as $b) { $batchIndex[$b->shuttle_id][$b->bulan] = $b; }
 
         $breadcrumbs    = [
             ['link' => route('home'), 'name' => "Laman Utama"],
@@ -163,7 +168,7 @@ class ListCController extends Controller
 
 
         // dd($formC);
-        return view('admins.shuttle-three.shuttle-3-listC-ipjpsm',compact('returnArr','user','formC', 'formC_kilang', 'year_list','year','buffer','batch'));
+        return view('admins.shuttle-three.shuttle-3-listC-ipjpsm',compact('returnArr','user','formC', 'formC_kilang', 'year_list','year','buffer','batch','formCIndex','batchIndex'));
     }
 
     public function shuttle_3_listC_bpm()

@@ -134,6 +134,7 @@ class ListDController extends Controller
 
     public function shuttle_4_listD_ipjpsm($year)
     {
+        if ($year < 2025) return redirect()->route('shuttle-4-listD', 2025);
         $user = auth()->user();
         // dd($user );
 

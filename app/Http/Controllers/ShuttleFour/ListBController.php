@@ -58,7 +58,7 @@ class ListBController extends Controller
 
     public function shuttle_4_listB_ipjpsm($year)
     {
-
+        if ($year < 2025) return redirect()->route('shuttle-4-listB', 2025);
         $user = auth()->user();
         // dd($user );
         $formB_kilang = DB::select(DB::raw("SELECT DISTINCT shuttles.* FROM formbs

@@ -123,6 +123,7 @@ class ListEController extends Controller
 
     public function shuttle_4_listE_ipjpsm($year)
     {
+        if ($year < 2025) return redirect()->route('shuttle-4-listE', 2025);
         $user = auth()->user();
         // dd($user );
 

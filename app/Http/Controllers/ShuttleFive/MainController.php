@@ -13,6 +13,7 @@ use App\Models\FormB;
 use App\Models\FormC;
 use App\Models\Shuttle;
 use App\Models\TarafSyarikat;
+use App\Models\UlasanIpjpsm;
 use App\Models\UlasanPhd;
 use App\Models\User;
 use App\Models\Warganegara;
@@ -28,6 +29,7 @@ class MainController extends Controller
     public $shuttle_listA,$shuttle_listB;
     public function shuttle_5_listA_ipjpsm($year)
     {
+        if ($year < 2025) return redirect()->route('shuttle-5-listA', 2025);
         $user = auth()->user();
 
         // $formB_kilang = FormB::select('shuttle_id')->distinct()->where('tahun', $year)->get();
@@ -36,40 +38,22 @@ class MainController extends Controller
         //     $q->where('shuttle_type', '3');
         // })->where('tahun', $year)->get();
 
-        $formA_kilang = DB::select(DB::raw("SELECT shuttles.* FROM form_a_s
+        $formA_kilang = DB::select(DB::raw("SELECT DISTINCT shuttles.* FROM form_a_s
         INNER JOIN shuttles ON form_a_s.shuttle_id = shuttles.id
-        INNER JOIN batches ON shuttles.id = batches.shuttle_id
-        WHERE batches.tahun = form_a_s.tahun
-        AND batches.status = 'Dihantar ke IPJPSM'
-        AND (form_a_s.status = 'Dihantar ke IPJPSM' OR form_a_s.status = 'Lulus')
-        AND batches.borang_a = '2'
-        AND batches.shuttle_id = form_a_s.shuttle_id
+        WHERE (form_a_s.status = 'Dihantar ke IPJPSM' OR form_a_s.status = 'Lulus')
         AND shuttles.shuttle_type = '5'
         AND form_a_s.tahun = $year"));
 
-
-        $formA = DB::select(DB::raw('SELECT form_a_s.* FROM batches, form_a_s
-        WHERE batches.tahun = form_a_s.tahun
-        AND batches.shuttle_id = form_a_s.shuttle_id
-        AND batches.borang_a = "2"
-        AND batches.status = "Dihantar ke IPJPSM"'));
+        $formA = DB::select(DB::raw("SELECT form_a_s.* FROM form_a_s
+        INNER JOIN shuttles ON form_a_s.shuttle_id = shuttles.id
+        WHERE form_a_s.tahun = $year
+        AND shuttles.shuttle_type = '5'"));
 
         $year_list = DB::select(DB::raw("SELECT DISTINCT form_a_s.tahun FROM form_a_s
         INNER JOIN shuttles ON form_a_s.shuttle_id = shuttles.id
-        INNER JOIN batches ON shuttles.id = batches.shuttle_id
-        WHERE batches.tahun = form_a_s.tahun
-        AND batches.status = 'Dihantar ke IPJPSM'
+        WHERE shuttles.shuttle_type = '5'
         AND (form_a_s.status = 'Dihantar ke IPJPSM' OR form_a_s.status = 'Lulus')
-        AND batches.borang_a = '2'
-        AND batches.shuttle_id = form_a_s.shuttle_id
-        AND shuttles.shuttle_type = '5'
-        AND form_a_s.tahun = $year"));
-
-        $year_list = DB::select(DB::raw('SELECT distinct form_a_s.tahun FROM batches, form_a_s
-        WHERE batches.tahun = form_a_s.tahun
-        AND batches.shuttle_id = form_a_s.shuttle_id
-        AND batches.borang_a = "2"
-        AND batches.status = "Dihantar ke IPJPSM"'));
+        ORDER BY form_a_s.tahun DESC"));
 
         $breadcrumbs    = [
             ['link' => route('home-user'), 'name' => "Laman Utama"],
@@ -614,26 +598,22 @@ class MainController extends Controller
 
         $batch = Batch::where('tahun', $form5D->tahun)->where('bulan', $form5D->bulan)->where('shuttle_id', $form5D->shuttle_id)->first();
 
-        if ($request->status == "Tidak Lengkap") {
-
-            $batch->borang_d = "0";
-            $batch->save();
-
-            //hantar email n inapps noti to ibk
-
-        } elseif ($request->status == "Dihantar ke IPJPSM") {
-
-            $batch->borang_d = "2";
-            $batch->save();
+        if ($batch) {
+            if ($request->status == "Tidak Lengkap") {
+                $batch->borang_d = "0";
+                $batch->save();
+            } elseif ($request->status == "Dihantar ke IPJPSM") {
+                $batch->borang_d = "2";
+                $batch->save();
+            }
         }
 
         if ($request->status == "Tidak Lengkap") {
-            // Session::flash('message', 'Borang Berjaya Dihantar Semula ke IBK.');
             return redirect()->route('phd.shuttle-5-listD', date("Y"))->with('success', 'Borang Berjaya Dihantar Semula ke IBK.');
         } elseif ($request->status == "Dihantar ke IPJPSM") {
-            // Session::flash('message', 'Borang Berjaya Disahkan.');
             return redirect()->route('phd.shuttle-5-listD', date("Y"))->with('success', 'Borang Berjaya Disahkan.');
         }
+        return redirect()->route('phd.shuttle-5-listD', date("Y"))->with('success', 'Borang Berjaya Dikemaskini.');
     }
 
     public function update_status_phd_form5E(Request $request,$id){
@@ -655,26 +635,22 @@ class MainController extends Controller
 
         $batch = Batch::where('tahun', $form5E->tahun)->where('bulan', $form5E->bulan)->where('shuttle_id', $form5E->shuttle_id)->first();
 
-        if ($request->status == "Tidak Lengkap") {
-
-            $batch->borang_e = "0";
-            $batch->save();
-
-            //hantar email n inapps noti to ibk
-
-        } elseif ($request->status == "Dihantar ke IPJPSM") {
-
-            $batch->borang_e = "2";
-            $batch->save();
+        if ($batch) {
+            if ($request->status == "Tidak Lengkap") {
+                $batch->borang_e = "0";
+                $batch->save();
+            } elseif ($request->status == "Dihantar ke IPJPSM") {
+                $batch->borang_e = "2";
+                $batch->save();
+            }
         }
 
         if ($request->status == "Tidak Lengkap") {
-            // Session::flash('message', 'Borang Berjaya Dihantar Semula ke IBK.');
             return redirect()->route('phd.shuttle-5-listE', date("Y"))->with('success', 'Borang Berjaya Dihantar Semula ke IBK.');
         } elseif ($request->status == "Dihantar ke IPJPSM") {
-            // Session::flash('message', 'Borang Berjaya Disahkan.');
             return redirect()->route('phd.shuttle-5-listE', date("Y"))->with('success', 'Borang Berjaya Disahkan.');
         }
+        return redirect()->route('phd.shuttle-5-listE', date("Y"))->with('success', 'Borang Berjaya Dikemaskini.');
     }
 
     //Status Borang PHD shuttle 5
@@ -845,72 +821,44 @@ class MainController extends Controller
 
     public function update_status_ipjpsm5D(Request $request, $id)
     {
-        // Get the form based on ID
+        $user = auth()->user();
         $form5D = Form5D::find($id);
 
         if (!$form5D) {
             return redirect()->back()->with('error', 'Form not found');
         }
 
-        // Determine status based on request
-        if ($request->has('tak_lengkap')) {
-            $status = "Tidak Lengkap";
-        } else {
-            $status = "Dihantar ke IPJPSM";
-        }
-
-        // Update the form status
-        $form5D->status = $status;
+        $form5D->status = $request->status;
         $form5D->save();
 
-        // Add ulasan if provided
-        if ($request->has('ulasan') && !empty($request->ulasan)) {
-            UlasanPhd::create([
-                'form_id' => $id,
-                'form_type' => 'Form5D',
-                'ulasan' => $request->ulasan,
-                'user_id' => auth()->user()->id,
-                'created_at' => now(),
-                'updated_at' => now()
-            ]);
-        }
+        UlasanIpjpsm::create([
+            'ulasan' => $request->ulasan_ipjpsm,
+            'user_id' => $user->id,
+            'form5ds_id' => $id,
+        ]);
 
-        return redirect()->back()->with('success', 'Status updated successfully');
+        return redirect()->route('shuttle-5-listD', date('Y'))->with('success', 'Borang Berjaya Diperaku.');
     }
 
     public function update_status_ipjpsm5E(Request $request, $id)
     {
-        // Get the form based on ID
+        $user = auth()->user();
         $form5E = Form5E::find($id);
 
         if (!$form5E) {
             return redirect()->back()->with('error', 'Form not found');
         }
 
-        // Determine status based on request
-        if ($request->has('tak_lengkap')) {
-            $status = "Tidak Lengkap";
-        } else {
-            $status = "Dihantar ke IPJPSM";
-        }
-
-        // Update the form status
-        $form5E->status = $status;
+        $form5E->status = $request->status;
         $form5E->save();
 
-        // Add ulasan if provided
-        if ($request->has('ulasan') && !empty($request->ulasan)) {
-            UlasanPhd::create([
-                'form_id' => $id,
-                'form_type' => 'Form5E',
-                'ulasan' => $request->ulasan,
-                'user_id' => auth()->user()->id,
-                'created_at' => now(),
-                'updated_at' => now()
-            ]);
-        }
+        UlasanIpjpsm::create([
+            'ulasan' => $request->ulasan_ipjpsm,
+            'user_id' => $user->id,
+            'form5es_id' => $id,
+        ]);
 
-        return redirect()->back()->with('success', 'Status updated successfully');
+        return redirect()->route('shuttle-5-listE', date('Y'))->with('success', 'Borang Berjaya Diperaku.');
     }
 
 

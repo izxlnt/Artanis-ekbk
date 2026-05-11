@@ -32,7 +32,12 @@ class BorangDiHantar extends Notification
      */
     public function via($notifiable)
     {
-        return ['mail', 'database'];
+        $channels = ['database'];
+        $from = config('mail.from.address');
+        if ($from && $from !== 'null') {
+            $channels[] = 'mail';
+        }
+        return $channels;
     }
 
     /**

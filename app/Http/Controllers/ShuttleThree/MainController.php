@@ -39,6 +39,7 @@ class MainController extends Controller
     public $shuttle_listA, $shuttle_listB;
     public function shuttle_3_listA_ipjpsm($year)
     {
+        if ($year < 2025) return redirect()->route('shuttle-3-listA', 2025);
         $user = auth()->user();
 
         // $formB_kilang = FormB::select('shuttle_id')->distinct()->where('tahun', $year)->get();
@@ -48,30 +49,22 @@ class MainController extends Controller
         // })->where('tahun', $year)->get();
 
         //list kilang
-        $formA_kilang = DB::select(DB::raw("SELECT shuttles.*, batches.id as 'batch' FROM form_a_s
+        $formA_kilang = DB::select(DB::raw("SELECT DISTINCT shuttles.* FROM form_a_s
         INNER JOIN shuttles ON form_a_s.shuttle_id = shuttles.id
-        INNER JOIN batches ON shuttles.id = batches.shuttle_id
-        WHERE batches.tahun = form_a_s.tahun
-        AND batches.status = 'Dihantar ke IPJPSM'
-        AND (form_a_s.status = 'Dihantar ke IPJPSM' OR form_a_s.status = 'Lulus')
-        AND batches.borang_a = '2'
-        AND batches.shuttle_id = form_a_s.shuttle_id
+        WHERE (form_a_s.status = 'Dihantar ke IPJPSM' OR form_a_s.status = 'Lulus')
         AND shuttles.shuttle_type = '3'
         AND form_a_s.tahun = $year"));
 
-        $formA = DB::select(DB::raw("SELECT form_a_s.* FROM batches, form_a_s
-        WHERE batches.tahun = form_a_s.tahun
-        AND batches.shuttle_id = form_a_s.shuttle_id
-        AND batches.borang_a = '2'
-        AND batches.status = 'Dihantar ke IPJPSM'
-        AND form_a_s.tahun = $year "));
+        $formA = DB::select(DB::raw("SELECT form_a_s.* FROM form_a_s
+        INNER JOIN shuttles ON form_a_s.shuttle_id = shuttles.id
+        WHERE form_a_s.tahun = $year
+        AND shuttles.shuttle_type = '3'"));
 
-        $year_list = DB::select(DB::raw('SELECT DISTINCT form_a_s.tahun FROM batches, form_a_s ,shuttles
-        WHERE batches.tahun = form_a_s.tahun
-        AND batches.shuttle_id = form_a_s.shuttle_id
-        AND batches.borang_a = "2"
-        AND shuttles.shuttle_type = 3
-        AND batches.status = "Dihantar ke IPJPSM"'));
+        $year_list = DB::select(DB::raw("SELECT DISTINCT form_a_s.tahun FROM form_a_s
+        INNER JOIN shuttles ON form_a_s.shuttle_id = shuttles.id
+        WHERE shuttles.shuttle_type = '3'
+        AND (form_a_s.status = 'Dihantar ke IPJPSM' OR form_a_s.status = 'Lulus')
+        ORDER BY form_a_s.tahun DESC"));
 
         $breadcrumbs    = [
             ['link' => route('home-user'), 'name' => "Laman Utama"],
@@ -1136,7 +1129,10 @@ class MainController extends Controller
     {
 
         $user = auth()->user();
-        $formB = FormA::where('shuttle_id',$id)->first();
+        $formB = FormA::where('shuttle_id',$id)->where('tahun', $request->tahun)->first();
+        if (!$formB) {
+            return redirect()->route('shuttle-3-listA', date('Y'))->with('error', 'Borang A tidak dijumpai.');
+        }
         $formB->status = $request->status;
         $formB->save();
 
