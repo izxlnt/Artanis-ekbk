@@ -1860,9 +1860,27 @@ class UserController extends Controller
         $user = auth()->user();
 
         $shuttle = Shuttle::where('id', $user->shuttle_id)->first();
-        $list = FormA::where('shuttle_id', $shuttle->id)->where('tahun', $year)->first();
 
-        $year_list = FormA::where('shuttle_id', $shuttle->id)->distinct()->orderBy('tahun')->get('tahun');
+        // Auto-create FormA record if it doesn't exist for this year
+        $list = FormA::where('shuttle_id', $shuttle->id)->where('tahun', $year)->first();
+        if (!$list) {
+            $list = FormA::create([
+                'shuttle_id' => $shuttle->id,
+                'tahun' => $year,
+                'status' => 'Tidak Diisi',
+            ]);
+        }
+
+        $currentYear = date('Y');
+        $registrationYear = $shuttle->created_at ? date('Y', strtotime($shuttle->created_at)) : $currentYear;
+        $startYear = max($registrationYear - 1, $currentYear - 1);
+
+        $year_list = collect();
+        for ($i = $startYear; $i <= $currentYear; $i++) {
+            $year_list->push((object)['tahun' => $i]);
+        }
+
+        $isPreviousYear = ($year < $currentYear);
 
         $breadcrumbs    = [
             ['link' => route('home-user'), 'name' => "Laman Utama"],
@@ -1876,7 +1894,7 @@ class UserController extends Controller
             'kembali'     => $kembali,
         ];
 
-        return view('ibk.shuttle-3-senaraiA-ibk', compact('returnArr', 'list', 'shuttle', 'year', 'year_list'));
+        return view('ibk.shuttle-3-senaraiA-ibk', compact('returnArr', 'list', 'shuttle', 'year', 'year_list', 'isPreviousYear'));
     }
 
     public function shuttle_3_senaraiB_ibk($year)
@@ -1885,77 +1903,45 @@ class UserController extends Controller
         $user = auth()->user();
 
         $shuttle = Shuttle::where('id', $user->shuttle_id)->first();
-        
+
+        $currentYear = date('Y');
+        $registrationYear = $shuttle->created_at ? date('Y', strtotime($shuttle->created_at)) : $currentYear;
+        $prevRegYear = $registrationYear - 1;
+        $startYear = max($prevRegYear, $currentYear - 1);
+
         // Auto-create FormB records for the requested year if they don't exist
-        $list_count = FormB::where('shuttle_id', $shuttle->id)->where('tahun', $year)->count();
-        
-        if ($list_count == 0) {
-            $status = 'Tidak Diisi';
-            for ($i = 1; $i < 5; $i++) {
-                if ($i == 1) {
-                    FormB::create([
-                        'shuttle_id' => $shuttle->id,
-                        'shuttle_type' => $user->shuttle_type,
-                        'status' => $status,
-                        'tahun' => $year,
-                        'suku_tahun' => $i,
-                        'tarikh_buka_borang' => $year . '-03-01',
-                        'tarikh_tutup_borang' => $year . '-04-01',
-                        'nama_kilang' => $shuttle->nama_kilang,
-                        'no_ssm' => $shuttle->no_ssm,
-                        'no_lesen' => $shuttle->no_lesen,
-                    ]);
-                } elseif ($i == 2) {
-                    FormB::create([
-                        'shuttle_id' => $shuttle->id,
-                        'shuttle_type' => $user->shuttle_type,
-                        'status' => $status,
-                        'tahun' => $year,
-                        'suku_tahun' => $i,
-                        'tarikh_buka_borang' => $year . '-06-01',
-                        'tarikh_tutup_borang' => $year . '-07-01',
-                        'nama_kilang' => $shuttle->nama_kilang,
-                        'no_ssm' => $shuttle->no_ssm,
-                        'no_lesen' => $shuttle->no_lesen,
-                    ]);
-                } elseif ($i == 3) {
-                    FormB::create([
-                        'shuttle_id' => $shuttle->id,
-                        'shuttle_type' => $user->shuttle_type,
-                        'status' => $status,
-                        'tahun' => $year,
-                        'suku_tahun' => $i,
-                        'tarikh_buka_borang' => $year . '-09-01',
-                        'tarikh_tutup_borang' => $year . '-10-01',
-                        'nama_kilang' => $shuttle->nama_kilang,
-                        'no_ssm' => $shuttle->no_ssm,
-                        'no_lesen' => $shuttle->no_lesen,
-                    ]);
-                } elseif ($i == 4) {
-                    FormB::create([
-                        'shuttle_id' => $shuttle->id,
-                        'shuttle_type' => $user->shuttle_type,
-                        'status' => $status,
-                        'tahun' => $year,
-                        'suku_tahun' => $i,
-                        'tarikh_buka_borang' => $year . '-12-01',
-                        'tarikh_tutup_borang' => $year . '-12-31',
-                        'nama_kilang' => $shuttle->nama_kilang,
-                        'no_ssm' => $shuttle->no_ssm,
-                        'no_lesen' => $shuttle->no_lesen,
-                    ]);
-                }
+        $quarterDates = [
+            1 => [$year . '-01-01', $year . '-03-31'],
+            2 => [$year . '-04-01', $year . '-06-30'],
+            3 => [$year . '-07-01', $year . '-09-30'],
+            4 => [$year . '-10-01', $year . '-12-31'],
+        ];
+        foreach ($quarterDates as $quarter => $dates) {
+            $exists = FormB::where('shuttle_id', $shuttle->id)->where('suku_tahun', $quarter)->where('tahun', $year)->exists();
+            if (!$exists) {
+                FormB::create([
+                    'shuttle_id' => $shuttle->id,
+                    'shuttle_type' => $shuttle->shuttle_type,
+                    'status' => 'Tidak Diisi',
+                    'tahun' => $year,
+                    'suku_tahun' => $quarter,
+                    'tarikh_buka_borang' => $dates[0],
+                    'tarikh_tutup_borang' => $dates[1],
+                    'nama_kilang' => $shuttle->nama_kilang,
+                    'no_ssm' => $shuttle->no_ssm,
+                    'no_lesen' => $shuttle->no_lesen,
+                ]);
             }
         }
-        
-        $list = FormB::where('shuttle_id', $shuttle->id)->where('tahun', $year)->get();
-        
-        // Debug: Check what records we're getting
-        // dd(['requested_year' => $year, 'formb_records' => $list->map(function($item) {
-        //     return ['suku' => $item->suku_tahun, 'tahun' => $item->tahun, 'status' => $item->status];
-        // })]);
-        
-        $year_list = FormB::where('shuttle_id', $shuttle->id)->distinct()->orderBy('tahun')->get('tahun');
+
+        $list = FormB::where('shuttle_id', $shuttle->id)->where('tahun', $year)->orderBy('suku_tahun')->get();
+
+        $isPreviousYear = ($year < $currentYear);
+
+        $year_list = collect();
+        for ($i = $startYear; $i <= $currentYear; $i++) {
+            $year_list->push((object)['tahun' => $i]);
+        }
 
         $buffer = Buffer::where('shuttle', auth()->user()->shuttle->shuttle_type)->where('borang', 'b')->where('shuttle', '3')->first();
 
@@ -1971,7 +1957,7 @@ class UserController extends Controller
             'kembali'     => $kembali,
         ];
 
-        return view('ibk.shuttle-3-senaraiB-ibk', compact('returnArr', 'list', 'shuttle', 'buffer', 'year', 'year_list'));
+        return view('ibk.shuttle-3-senaraiB-ibk', compact('returnArr', 'list', 'shuttle', 'buffer', 'year', 'year_list', 'isPreviousYear'));
     }
 
     public function shuttle_3_senaraiC_ibk($year)
@@ -2092,6 +2078,10 @@ class UserController extends Controller
             if ($year == $prevRegYear) {
                 // Previous registration year: December is the entry point — no prerequisite
                 $previousMonthFilled[$month] = ($month == 12);
+            } elseif ($registrationYear == $currentYear && $year == $currentYear && $month <= $registrationMonth) {
+                // User registered in current year: their registration month is the first required month.
+                // Months before and including registration month don't need a prior month filled.
+                $previousMonthFilled[$month] = true;
             } elseif ($month == 1) {
                 // January: check if December of the previous year is filled
                 $previousYear = $year - 1;
@@ -2119,7 +2109,7 @@ class UserController extends Controller
 
         // Determine if this is a previous year that should bypass date checks
         $isPreviousYear = ($year < $currentYear);
-        
+
         $breadcrumbs    = [
             ['link' => route('home-user'), 'name' => "Laman Utama"],
             ['link' => route('user.shuttle-3-senaraiC', date('Y')), 'name' => "Kemasukan Maklumat"],
@@ -2432,6 +2422,10 @@ class UserController extends Controller
             if ($year == $prevRegYear) {
                 // Previous registration year: December is the entry point — no prerequisite
                 $previousMonthFilled[$month] = ($month == 12);
+            } elseif ($registrationYear == $currentYear && $year == $currentYear && $month <= $registrationMonth) {
+                // User registered in current year: registration month is their first required month.
+                // Months before and including registration month don't need a prior month filled.
+                $previousMonthFilled[$month] = true;
             } elseif ($month == 1) {
                 // January: check if December of the previous year is filled
                 $previousYear = $year - 1;
@@ -2861,6 +2855,10 @@ class UserController extends Controller
             if ($year == $prevRegYear) {
                 // Previous registration year: December is the entry point — no prerequisite
                 $previousMonthFilled[$month] = ($month == 12);
+            } elseif ($registrationYear == $currentYear && $year == $currentYear && $month <= $registrationMonth) {
+                // User registered in current year: registration month is their first required month.
+                // Months before and including registration month don't need a prior month filled.
+                $previousMonthFilled[$month] = true;
             } elseif ($month == 1) {
                 // January: check if December of the previous year is filled
                 $previousYear = $year - 1;

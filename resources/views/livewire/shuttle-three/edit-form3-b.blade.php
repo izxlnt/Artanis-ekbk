@@ -58,11 +58,10 @@
                     <!-- Tab panes -->
                     <div class="tab-content">
                         <form wire:submit.prevent='update' id="formB">
-                            <table class="table table-striped table-bordered" id="" style="width: 100%;">
+                            <div>
                                 <div class="row">
                                     <div class="col-12">
-                                        <div class="card">
-                                            <div class="form-horizontal">
+                                        <div class="form-horizontal">
                                                 <div class="card-body" style="padding-top: 0%;">
                                                     <div class="row"
                                                         style="justify-content: center;margin-bottom:-3%;">
@@ -416,20 +415,15 @@
                                                     </table>
                                                     <br>
                                                 </div>
+                                                @if ($ulasan->ulasan != null)
                                                 <div class="row" style="text-align:center">
                                                     <div class="col-md-12">
                                                         <label>Ulasan PHD</label><br>
-
-                                                        @if ($ulasan->ulasan == null)
-                                                            <textarea name="ulasan_phd" cols="100%" rows="5" readonly
-                                                                disabled>Tiada Ulasan</textarea>
-                                                        @else
-                                                            <textarea name="ulasan_phd" cols="100%" rows="5" readonly
-                                                                disabled>{{ $ulasan->ulasan }}</textarea>
-                                                        @endif
+                                                        <textarea name="ulasan_phd" cols="100%" rows="5" readonly
+                                                            disabled>{{ $ulasan->ulasan }}</textarea>
                                                     </div>
                                                 </div>
-                                            </div>
+                                                @endif
                                         </div>
                                     </div>
 
@@ -497,7 +491,7 @@
                                         </div>
                                     </div>
                                 </div>
-                            </table>
+                            </div>
                         </form>
                     </div>
                 </div>
@@ -568,3 +562,7 @@
                 <!-- ============================================================== -->
                 <!-- End Container fluid  -->
                 <!-- ============================================================== -->
+            </div>
+        </div>
+    </div>
+</div>

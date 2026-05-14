@@ -143,7 +143,7 @@
                                                         title="Borang telah disahkan PHD"></i></a>
                                                 @elseif($list->status == 'Tidak Diisi')
                                                     @php
-                                                        $isRequired = \App\Services\FormRequirementService::isFormARequired(auth()->user()->created_at, $year);
+                                                        $isRequired = $isPreviousYear || \App\Services\FormRequirementService::isFormARequired(auth()->user()->created_at, $year);
                                                     @endphp
                                                     @if ($isRequired)
                                                         <a href="{{ url('/pengguna/shuttle-3-formA/' . $year) }}"><img

@@ -759,14 +759,6 @@ class MainController extends Controller
             ->where('status', '!=', 'Tidak Diisi')
             ->count();
 
-        // Check registration date logic (same as 3C)
-        if ($registration_year && $year < $registration_year) {
-            return redirect()->back()->with('error', 'Tidak boleh mengisi borang untuk tahun sebelum pendaftaran.');
-        }
-        if ($registration_year && $year == $registration_year && $id < $registration_month) {
-            return redirect()->back()->with('error', 'Tidak boleh mengisi borang untuk bulan sebelum pendaftaran.');
-        }
-
         $breadcrumbs    = [
             ['link' => route('home-phd'), 'name' => "Laman Utama"],
             ['link' => route('user.shuttle-3-senaraiC', $year), 'name' => "Kemasukan Maklumat"],

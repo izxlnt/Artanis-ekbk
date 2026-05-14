@@ -340,7 +340,7 @@ class ViewFormCController extends Controller
         // Create species ID-based mapping for consistent data access
         $form_c_by_species = [];
         foreach ($form_c as $data) {
-            $form_c_by_species[$data->spesis] = $data;
+            $form_c_by_species[$data->spesis_id] = $data;
         }
 
         $kemasukan_bahan_calc_kkb = KemasukanBahan::with('spesis_id')->whereHas('spesis_id', function ($q) {
@@ -471,7 +471,7 @@ class ViewFormCController extends Controller
         // Create species ID-based mapping for consistent data access
         $form_c_by_species = [];
         foreach ($form_c as $data) {
-            $form_c_by_species[$data->spesis] = $data;
+            $form_c_by_species[$data->spesis_id] = $data;
         }
 
         $kemasukan_bahan_calc_kkb = KemasukanBahan::with('spesis_id')->whereHas('spesis_id', function ($q) {
@@ -660,7 +660,7 @@ class ViewFormCController extends Controller
 
         $layout = 'layouts.layout-jpn-nicepage';
 
-        $form_c = KemasukanBahan::where('formcs_id', $formc->id)->get();
+        $form_c = KemasukanBahan::where('formcs_id', $formc->id)->get()->keyBy('spesis_id');
 
         $kemasukan_bahan_calc_kkb = KemasukanBahan::with('spesis_id')->whereHas('spesis_id', function ($q) {
             $q->where('kumpulan_kayu_id', '1');
@@ -755,6 +755,10 @@ class ViewFormCController extends Controller
         $layout = 'layouts.layout-ibk-nicepage';
 
         $form_c = KemasukanBahan::where('formcs_id', $formc->id)->get();
+        $form_c_by_species = [];
+        foreach ($form_c as $data) {
+            $form_c_by_species[$data->spesis_id] = $data;
+        }
 
         $kemasukan_bahan_calc_kkb = KemasukanBahan::with('spesis_id')->whereHas('spesis_id', function ($q) {
             $q->where('kumpulan_kayu_id', '1');
@@ -811,6 +815,7 @@ class ViewFormCController extends Controller
                 'returnArr',
                 'kilang_info',
                 'form_c',
+                'form_c_by_species',
                 'id',
                 'species',
                 'kumpulan_kayu',
@@ -839,6 +844,10 @@ class ViewFormCController extends Controller
         $layout = 'layouts.layout-jpn-nicepage';
 
         $form_c = KemasukanBahan::where('formcs_id', $formc->id)->get();
+        $form_c_by_species = [];
+        foreach ($form_c as $data) {
+            $form_c_by_species[$data->spesis_id] = $data;
+        }
 
         $kemasukan_bahan_calc_kkb = KemasukanBahan::with('spesis_id')->whereHas('spesis_id', function ($q) {
             $q->where('kumpulan_kayu_id', '1');
@@ -907,6 +916,7 @@ class ViewFormCController extends Controller
                 'returnArr',
                 'kilang_info',
                 'form_c',
+                'form_c_by_species',
                 'id',
                 'species',
                 'kumpulan_kayu',
