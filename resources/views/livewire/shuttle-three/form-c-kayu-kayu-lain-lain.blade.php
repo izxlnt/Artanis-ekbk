@@ -248,33 +248,36 @@
                                                                                         <td style="text-align:center;"
                                                                                             colspan="2"><input readonly
                                                                                                 type="text" size="10"
+                                                                                                id="fc_baki_{{ $keySpecies }}"
                                                                                                 wire:model.defer='baki_stok.{{ $keySpecies }}' oninput="validate(this)"
                                                                                                 style="background-color: #e0ec3754; text-align:right"
-                                                                                                wire:change="calcJumlahBakiStok({{ $keySpecies }}, {{ $keyKumpulanKayu }}, '{{ $data->singkatan }}');"
+
                                                                                                 onkeypress="return isNumberKey(event)">
                                                                                         </td>
                                                                                         <td style="text-align:center;"
                                                                                             colspan="2"><input
                                                                                                 type="text"
                                                                                                 style="background-color: #ffffff; text-align:left"
-                                                                                                size="10" oninput="validate(this)"
+                                                                                                size="10" oninput="validate(this);fcCalcRow({{ $keySpecies }})"
+                                                                                                id="fc_masuk_{{ $keySpecies }}"
                                                                                                 wire:model.defer='kayu_masuk.{{ $keySpecies }}'
-                                                                                                wire:change="calcJumlahKayuMasuk({{ $keySpecies }}, {{ $keyKumpulanKayu }}, '{{ $data->singkatan }}');"
+
                                                                                                 onkeypress="return isNumberKey(event)">
                                                                                         </td>
                                                                                         <td style="text-align:center;"
                                                                                             colspan="2"><input readonly
                                                                                                 style="background-color: #e0ec3754; text-align:right"
-                                                                                                type="text" size="10" oninput="validate(this)"
-                                                                                                wire:model.defer='jumlah_stok_kayu_balak.{{ $keySpecies }}'
-                                                                                                wire:change="calcTotalStokKayuDibawaBulanHadapan({{ $keySpecies }}, {{ $keyKumpulanKayu }}, '{{ $data->singkatan }}');">
+                                                                                                type="text" size="10" oninput="validate(this);fcCalcRow({{ $keySpecies }})"
+                                                                                                id="fc_jumlah_{{ $keySpecies }}"
+
                                                                                         </td>
                                                                                         <td style="text-align:center;"
                                                                                             colspan="2">
                                                                                             <input type="text" size="10"
                                                                                                 style="background-color: #ffffff; text-align:left"
-                                                                                                wire:model.defer='proses_masuk.{{ $keySpecies }}' oninput="validate(this)"
-                                                                                                wire:change="calcJumlahKayuMasuk({{ $keySpecies }}, {{ $keyKumpulanKayu }}, '{{ $data->singkatan }}');"
+                                                                                                id="fc_pmasuk_{{ $keySpecies }}"
+                                                                                                wire:model.defer='proses_masuk.{{ $keySpecies }}' oninput="validate(this);fcCalcRow({{ $keySpecies }})"
+
                                                                                                 onkeypress="return isNumberKey(event)"
                                                                                                 style="@error('proses_masuk.' . $keySpecies) color:red; outline: 2px solid red @else color:black @endif">
                                                                                             @error('proses_masuk.' .
@@ -288,8 +291,9 @@
                                                                                             colspan="2">
                                                                                             <input type="text" size="10"
                                                                                                 style="background-color: #ffffff; text-align:left"
-                                                                                                wire:model.defer='proses_keluar.{{ $keySpecies }}' oninput="validate(this)"
-                                                                                                wire:change="calcTotalPengeluaranKayuDaripadaJentera({{ $keySpecies }}, {{ $keyKumpulanKayu }}, '{{ $data->singkatan }}');"
+                                                                                                id="fc_pkeluar_{{ $keySpecies }}"
+                                                                                                wire:model.defer='proses_keluar.{{ $keySpecies }}' oninput="validate(this);fcCalcRow({{ $keySpecies }})"
+
                                                                                                 onkeypress="return isNumberKey(event)"
                                                                                                 style="@error('proses_keluar.' . $keySpecies) color:red; outline: 2px solid red @else color:black @endif">
                                                                                             @error('proses_keluar.' .
@@ -304,9 +308,8 @@
                                                                                                     readonly
                                                                                                     style="background-color: #e0ec3754; text-align:right"
                                                                                                     type="text"
-                                                                                                    oninput="validate(this)"
                                                                                                     size="10"
-                                                                                                    wire:model.defer='baki_stok_kehadapan.{{ $keySpecies }}'>
+                                                                                                    id="fc_kehadapan_{{ $keySpecies }}">
                                                                                             </td>
                                                                                     </tr>
                                                                                 @endif
@@ -320,37 +323,37 @@
                                                                                     colspan="2"><input readonly
                                                                                         style="background-color: #e0ec3754; text-align:right"
                                                                                         type="text" size="10" oninput="validate(this)"
-                                                                                        wire:model.defer='jumlah_baki_stok.{{ $keyKumpulanKayu }}'>
+                                                                                        id="fc_tot_baki_{{ $keyKumpulanKayu }}">
                                                                                 </td>
                                                                                 <td style="text-align:center;"
                                                                                     colspan="2"><input readonly
                                                                                         style="background-color: #e0ec3754; text-align:right"
                                                                                         type="text" size="10" oninput="validate(this)"
-                                                                                        wire:model.defer='jumlah_kayu_masuk.{{ $keyKumpulanKayu }}'>
+                                                                                        id="fc_tot_masuk_{{ $keyKumpulanKayu }}">
                                                                                 </td>
                                                                                 <td style="text-align:center;"
                                                                                     colspan="2"><input readonly
                                                                                         style="background-color: #e0ec3754; text-align:right"
                                                                                         type="text" size="10" oninput="validate(this)"
-                                                                                        wire:model.defer='total_stok_kayu_balak.{{ $keyKumpulanKayu }}'>
+                                                                                        id="fc_tot_jumlah_{{ $keyKumpulanKayu }}">
                                                                                 </td>
                                                                                 <td style="text-align:center;"
                                                                                     colspan="2"><input readonly
                                                                                         style="background-color: #e0ec3754; text-align:right"
                                                                                         type="text" size="10" oninput="validate(this)"
-                                                                                        wire:model.defer='total_kayu_masuk_jentera.{{ $keyKumpulanKayu }}'>
+                                                                                        id="fc_tot_pmasuk_{{ $keyKumpulanKayu }}">
                                                                                 </td>
                                                                                 <td style="text-align:center;"
                                                                                     colspan="2"><input readonly
                                                                                         style="background-color: #e0ec3754; text-align:right"
                                                                                         type="text" size="10" oninput="validate(this)"
-                                                                                        wire:model.defer='total_kayu_keluar_jentera.{{ $keyKumpulanKayu }}'>
+                                                                                        id="fc_tot_pkeluar_{{ $keyKumpulanKayu }}">
                                                                                 </td>
                                                                                 <td style="text-align:center;"
                                                                                     colspan="2"><input readonly
                                                                                         style="background-color: #e0ec3754; text-align:right"
                                                                                         type="text" size="10" oninput="validate(this)"
-                                                                                        wire:model.defer='total_kayu_dibawa_bulan_hadapan.{{ $keyKumpulanKayu }}'>
+                                                                                        id="fc_tot_kehadapan_{{ $keyKumpulanKayu }}">
                                                                                 </td>
                                                                             </tr>
 
@@ -637,6 +640,41 @@
     var validate = function(e) {
         var t = e.value;
         e.value = (t.indexOf(".") >= 0) ? (t.substr(0, t.indexOf(".")) + t.substr(t.indexOf("."), 3)) : t;
+    }
+</script>
+
+<script>
+    var fcGroups = {
+        @foreach ($kumpulan_kayu as $keyKumpulanKayu => $data)
+        {{ $keyKumpulanKayu }}: [
+            @foreach ($species as $keySpecies => $data1)
+                @if($data1->kumpulan_kayu->singkatan == $data->singkatan)
+                    {{ $keySpecies }},
+                @endif
+            @endforeach
+        ],
+        @endforeach
+    };
+    function fcN(id) { var el = document.getElementById(id); return el ? (parseFloat(el.value) || 0) : 0; }
+    function fcS(id, v) { var el = document.getElementById(id); if (el) el.value = Math.round(v * 10000) / 10000 || 0; }
+    function fcCalcRow(ks) {
+        var jumlah = fcN('fc_baki_' + ks) + fcN('fc_masuk_' + ks);
+        fcS('fc_jumlah_' + ks, jumlah);
+        fcS('fc_kehadapan_' + ks, jumlah - fcN('fc_pmasuk_' + ks));
+        fcCalcAll();
+    }
+    function fcCalcAll() {
+        Object.keys(fcGroups).forEach(function(kg) {
+            var tb=0,tm=0,tj=0,tpm=0,tpk=0,tk=0;
+            fcGroups[kg].forEach(function(ks) {
+                tb+=fcN('fc_baki_'+ks); tm+=fcN('fc_masuk_'+ks);
+                tj+=fcN('fc_jumlah_'+ks); tpm+=fcN('fc_pmasuk_'+ks);
+                tpk+=fcN('fc_pkeluar_'+ks); tk+=fcN('fc_kehadapan_'+ks);
+            });
+            fcS('fc_tot_baki_'+kg,tb); fcS('fc_tot_masuk_'+kg,tm);
+            fcS('fc_tot_jumlah_'+kg,tj); fcS('fc_tot_pmasuk_'+kg,tpm);
+            fcS('fc_tot_pkeluar_'+kg,tpk); fcS('fc_tot_kehadapan_'+kg,tk);
+        });
     }
 </script>
 

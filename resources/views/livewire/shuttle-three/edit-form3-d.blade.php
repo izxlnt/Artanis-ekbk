@@ -227,8 +227,7 @@
                                                                                             <input style="text-align:right" type="text"
                                                                                                 size="5"
                                                                                                 oninput="validate(this)"
-                                                                                                wire:model='jumlah_jualan.{{ $key }}'
-                                                                                                wire:change='calcTotalJumlahJualan()' onkeypress="return isNumberKey(event)">
+                                                                                                class="fsum_jualan" wire:model.defer='jumlah_jualan.{{ $key }}' oninput="fsumCalc()" onkeypress="return isNumberKey(event)">
                                                                                         </td>
                                                                                     </tr>
                                                                                 @endforeach
@@ -242,7 +241,7 @@
                                                                                         <input
                                                                                             style="background-color: #7ee48c6b;text-align:right"
                                                                                             type="text" size="5"
-                                                                                            wire:model='total_jumlah_jualan'>
+                                                                                            id="fsum_tot_jualan">
                                                                                     </td>
                                                                                 </tr>
                                                                             </table>
@@ -383,6 +382,13 @@
     var validate = function(e) {
     var t = e.value;
     e.value = (t.indexOf(".") >= 0) ? (t.substr(0, t.indexOf(".")) + t.substr(t.indexOf("."), 3)) : t;
+    }
+</script>
+
+<script>
+    function fsumCalc() {
+        var t=0; document.querySelectorAll('.fsum_jualan').forEach(function(e){t+=parseFloat(e.value)||0;});
+        var el=document.getElementById('fsum_tot_jualan'); if(el) el.value=Math.round(t*10000)/10000||0;
     }
 </script>
 

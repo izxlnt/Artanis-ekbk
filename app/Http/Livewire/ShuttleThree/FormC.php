@@ -523,6 +523,7 @@ class FormC extends Component
             $total_kayu = (float)$baki_stok + (float)$kayu_masuk;
 
             $this->jumlah_stok_kayu_balak[$keySpecies] = $total_kayu;
+            $this->baki_stok_kehadapan[$keySpecies] = $total_kayu - (float)($this->proses_masuk[$keySpecies] ?? 0);
         }
 
         // $this->calcBakiStok($key);

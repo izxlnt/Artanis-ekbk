@@ -212,45 +212,45 @@
                                                                     {{ $i = $loop->iteration }}</td>
                                                                 <td style="text-align:center;padding:5px"><input
                                                                         style="text-align:right" type="text" size="3"
-                                                                        wire:model='pekerja_wargabumi_lelaki.{{ $key }}'
-                                                                        wire:change="calcJumlahPekerjaLelaki({{ $key }});"
+                                                                        id="fb_wl_{{ $key }}" wire:model.defer='pekerja_wargabumi_lelaki.{{ $key }}' oninput="fbCalcRow({{ $key }})"
+
                                                                         onkeypress="return onlyNumberKey(event)">
                                                                 </td>
                                                                 <td style="text-align:center;padding:5px"><input
                                                                         style="text-align:right" type="text" size="3"
-                                                                        wire:model='pekerja_wargabumi_perempuan.{{ $key }}'
-                                                                        wire:change="calcJumlahPekerjaPerempuan({{ $key }})"
+                                                                        id="fb_wp_{{ $key }}" wire:model.defer='pekerja_wargabumi_perempuan.{{ $key }}' oninput="fbCalcRow({{ $key }})"
+
                                                                         onkeypress="return onlyNumberKey(event)">
                                                                 </td>
                                                                 <td style="text-align:center;padding:5px"><input
                                                                         style="text-align:right" type="text" size="3"
-                                                                        wire:model='pekerja_bukan_wargabumi_lelaki.{{ $key }}'
-                                                                        wire:change="calcJumlahPekerjaLelaki({{ $key }})"
+                                                                        id="fb_bl_{{ $key }}" wire:model.defer='pekerja_bukan_wargabumi_lelaki.{{ $key }}' oninput="fbCalcRow({{ $key }})"
+
                                                                         onkeypress="return onlyNumberKey(event)">
                                                                 </td>
                                                                 <td style="text-align:center;padding:5px"><input
                                                                         style="text-align:right" type="text" size="3"
-                                                                        wire:model='pekerja_bukan_wargabumi_perempuan.{{ $key }}'
-                                                                        wire:change="calcJumlahPekerjaPerempuan({{ $key }})"
+                                                                        id="fb_bp_{{ $key }}" wire:model.defer='pekerja_bukan_wargabumi_perempuan.{{ $key }}' oninput="fbCalcRow({{ $key }})"
+
                                                                         onkeypress="return onlyNumberKey(event)">
                                                                 </td>
                                                                 <td style="text-align:center;"><input type="text"
                                                                         style="text-align:right" size="3"
-                                                                        wire:model='pekerja_asing_lelaki.{{ $key }}'
-                                                                        wire:change="calcJumlahPekerjaLelaki({{ $key }})"
+                                                                        id="fb_al_{{ $key }}" wire:model.defer='pekerja_asing_lelaki.{{ $key }}' oninput="fbCalcRow({{ $key }})"
+
                                                                         onkeypress="return onlyNumberKey(event)">
                                                                 </td>
                                                                 <td style="text-align:center;"><input type="text"
                                                                         style="text-align:right" size="3"
-                                                                        wire:model='pekerja_asing_perempuan.{{ $key }}'
-                                                                        wire:change="calcJumlahPekerjaPerempuan({{ $key }})"
+                                                                        id="fb_ap_{{ $key }}" wire:model.defer='pekerja_asing_perempuan.{{ $key }}' oninput="fbCalcRow({{ $key }})"
+
                                                                         onkeypress="return onlyNumberKey(event)">
                                                                 </td>
                                                                 <td
                                                                     style="text-align:center; background-color:#f8dbee;">
                                                                     <input readonly style="text-align:right" type="text"
                                                                         style="background-color: #f8dbee;" size="6"
-                                                                        wire:model='jumlah_lelaki.{{ $key }}'
+                                                                        id="fb_jl_{{ $key }}"
                                                                         onkeypress="return onlyNumberKey(event)">
                                                                 </td>
                                                                 <td
@@ -258,14 +258,14 @@
                                                                     <input readonly type style="text-align:right"
                                                                         type="text" style="background-color: #f8dbee;"
                                                                         size="6"
-                                                                        wire:model='jumlah_perempuan.{{ $key }}'
+                                                                        id="fb_jp_{{ $key }}"
                                                                         onkeypress="return onlyNumberKey(event)">
                                                                 </td>
                                                                 <td style="text-align:center;background-color:#f8dbee;">
                                                                     <input readonly type style="text-align:right"
                                                                         type="text" style="background-color: #f8dbee;"
                                                                         size="6"
-                                                                        wire:model='jumlah_pekerja.{{ $key }}'
+                                                                        id="fb_j_{{ $key }}"
                                                                         onkeypress="return onlyNumberKey(event)">
                                                                 </td>
 
@@ -273,11 +273,11 @@
                                                                 <td style="text-align:center; ">
 
                                                                     <input type="text" size="6" style="text-align:right"
-                                                                        id="gaji_lelaki.{{ $key }}"
-                                                                        wire:model.lazy='gaji_lelaki.{{ $key }}'
-                                                                        wire:change="calcJumlahPekerjaLelaki({{ $key }})"
+                                                                        id="fb_gl_{{ $key }}"
+                                                                        wire:model.defer='gaji_lelaki.{{ $key }}'
+
                                                                         onkeypress="return isNumberKey(event)"
-                                                                        oninput="validate(this)"
+                                                                        oninput="validate(this);fbCalcRow({{ $key }})"
                                                                         style="@error('gaji_lelaki.' . $key) color:red; outline: 2px solid red; @else color:black @endif">
                                                                     @error('gaji_lelaki.' . $key)
                                                                         <i class="fas fa-exclamation-circle"
@@ -292,10 +292,10 @@
                                                                 </td>
                                                                 <td style="text-align:center;">
                                                                     <input type="text" size="6" style="text-align:right"
-                                                                        id="gaji_perempuan.{{ $key }}"
-                                                                        wire:model='gaji_perempuan.{{ $key }}'
-                                                                        wire:change="calcJumlahPekerjaPerempuan({{ $key }})"
-                                                                        oninput="validate(this)"
+                                                                        id="fb_gp_{{ $key }}"
+                                                                        wire:model.defer='gaji_perempuan.{{ $key }}'
+
+                                                                        oninput="validate(this);fbCalcRow({{ $key }})"
                                                                         onkeypress="return isNumberKey(event)"
                                                                         style="@error('gaji_perempuan.' . $key) color:red; outline: 2px solid red @else color:black @endif">
                                                                     @error('gaji_perempuan.' . $key)
@@ -310,27 +310,27 @@
                                                                 <td style="text-align:center;background-color:#f8dbee;">
                                                                     <input readonly type="text" style="text-align:right"
                                                                         size="7" style="background-color: #f8dbee;"
-                                                                        wire:model='gaji_lelaki_perempuan.{{ $key }}'
+                                                                        id="fb_glp_{{ $key }}"
                                                                         onkeypress="return isNumberKey(event)">
                                                                 </td>
                                                                 <td style="text-align:center;background-color:#f8dbee;">
                                                                     <input readonly style="text-align:right" type="text"
                                                                         style="background-color: #f8dbee;" size="7"
-                                                                        wire:model='total_gaji_lelaki.{{ $key }}'
-                                                                        wire:change="calcJumlahGaji({{ $key }})"
+                                                                        id="fb_tgl_{{ $key }}"
+
                                                                         onkeypress="return isNumberKey(event)">
                                                                 </td>
                                                                 <td style="text-align:center;background-color:#f8dbee;">
                                                                     <input readonly style="text-align:right" type="text"
                                                                         style="background-color: #f8dbee;" size="7"
-                                                                        wire:model='total_gaji_perempuan.{{ $key }}'
-                                                                        wire:change="calcJumlahGaji({{ $key }})"
+                                                                        id="fb_tgp_{{ $key }}"
+
                                                                         onkeypress="return isNumberKey(event)">
                                                                 </td>
                                                                 <td style="text-align:center;background-color:#f8dbee;">
                                                                     <input readonly style="text-align:right" type="text"
                                                                         style="background-color: #f8dbee;" size="7"
-                                                                        wire:model='total_gaji.{{ $key }}'>
+                                                                        id="fb_tg_{{ $key }}">
                                                                 </td>
 
                                                             </tr>
@@ -345,71 +345,71 @@
                                                             <td style="text-align:center;"><input readonly type="text"
                                                                     style="text-align:right;font-weight:bold"
                                                                     style="background-color: #f8dbee;" size="3"
-                                                                    wire:model='total_bumi_lelaki'></td>
+                                                                    id="fb_tot_wl"></td>
                                                             <td style="text-align:center;"><input readonly type="text"
                                                                     style="text-align:right;font-weight:bold"
                                                                     style="background-color: #f8dbee;" size="3"
-                                                                    wire:model='total_bumi_perempuan'></td>
+                                                                    id="fb_tot_wp"></td>
                                                             <td style="text-align:center;"><input readonly type="text"
                                                                     style="text-align:right;font-weight:bold"
                                                                     style="background-color: #f8dbee;" size="3"
-                                                                    wire:model='total_bukanbumi_lelaki'></td>
+                                                                    id="fb_tot_bl"></td>
                                                             <td style="text-align:center;"><input readonly type="text"
                                                                     style="text-align:right;font-weight:bold"
                                                                     style="background-color: #f8dbee;" size="3"
-                                                                    wire:model='total_bukanbumi_perempuan'></td>
+                                                                    id="fb_tot_bp"></td>
                                                             <td style="text-align:center;"><input readonly type="text"
                                                                     style="text-align:right;font-weight:bold"
                                                                     style="background-color: #f8dbee;" size="3"
-                                                                    wire:model='total_asing_lelaki'></td>
+                                                                    id="fb_tot_al"></td>
                                                             <td style="text-align:center;"><input readonly type="text"
                                                                     style="text-align:right;font-weight:bold"
                                                                     style="background-color: #f8dbee;" size="3"
-                                                                    wire:model='total_asing_perempuan'></td>
+                                                                    id="fb_tot_ap"></td>
                                                             <td style="text-align:center ;background-color:#f8dbee;">
                                                                 <input readonly type="text" style="text-align:right;font-weight:bold"
                                                                     style="background-color: #f8dbee;" size="6"
-                                                                    wire:model='total_pekerja_lelaki'>
+                                                                    id="fb_tot_jl">
                                                             </td>
                                                             <td style="text-align:center;background-color:#f8dbee;">
                                                                 <input readonly type="text" style="text-align:right;font-weight:bold"
                                                                     style="background-color: #f8dbee;" size="6"
-                                                                    wire:model='total_pekerja_perempuan'>
+                                                                    id="fb_tot_jp">
                                                             </td>
                                                             <td style="text-align:center;background-color:#f8dbee;">
                                                                 <input readonly type="text" style="text-align:right;font-weight:bold"
                                                                     style="background-color: #f8dbee;" size="6"
-                                                                    wire:model='total_pekerja'>
+                                                                    id="fb_tot_j">
                                                             </td>
                                                             <td style="text-align:center;"><input readonly type="text"
                                                                     style="text-align:right;font-weight:bold"
                                                                     style="background-color: #f8dbee;" size="6"
-                                                                    wire:model='jumlah_gaji_lelaki'></td>
+                                                                    id="fb_tot_gl"></td>
                                                             <td style="text-align:center;"><input readonly type="text"
                                                                     style="text-align:right;font-weight:bold"
                                                                     style="background-color: #f8dbee;" size="6"
-                                                                    wire:model='jumlah_gaji_perempuan'></td>
+                                                                    id="fb_tot_gp"></td>
 
                                                             <td style="text-align:center;background-color:#f8dbee;">
                                                                 <input readonly type="text" style="text-align:right;font-weight:bold"
                                                                     style="background-color: #f8dbee;" size="7"
-                                                                    wire:model='jumlah_lelaki_perempuan'>
+                                                                    id="fb_tot_glp">
                                                             </td>
 
                                                             <td style="text-align:center;background-color:#f8dbee;">
                                                                 <input readonly type="text" style="text-align:right;font-weight:bold"
                                                                     style="background-color: #f8dbee;" size="7"
-                                                                    wire:model='jumlah_total_lelaki'>
+                                                                    id="fb_tot_tgl">
                                                             </td>
                                                             <td style="text-align:center;background-color:#f8dbee;">
                                                                 <input readonly type="text" style="text-align:right;font-weight:bold"
                                                                     style="background-color: #f8dbee;" size="7"
-                                                                    wire:model='jumlah_total_perempuan'>
+                                                                    id="fb_tot_tgp">
                                                             </td>
                                                             <td style="text-align:center;background-color:#f8dbee;">
                                                                 <input readonlytype="text" style="text-align:right;font-weight:bold"
                                                                     style="background-color: #f8dbee;" size="7"
-                                                                    wire:model='jumlah_total_gaji'>
+                                                                    id="fb_tot_tg">
                                                             </td>
                                                         </tr>
                                                     </table>
@@ -547,6 +547,52 @@
     var validate = function(e) {
     var t = e.value;
     e.value = (t.indexOf(".") >= 0) ? (t.substr(0, t.indexOf(".")) + t.substr(t.indexOf("."), 3)) : t;
+    }
+</script>
+
+<script>
+    function fbN(id) { var el = document.getElementById(id); return el ? (parseFloat(el.value) || 0) : 0; }
+    function fbS(id, v) { var el = document.getElementById(id); if (el) el.value = v === 0 ? '' : (Math.round(v * 100) / 100); }
+
+    function fbCalcRow(k) {
+        var wl=fbN('fb_wl_'+k), wp=fbN('fb_wp_'+k);
+        var bl=fbN('fb_bl_'+k), bp=fbN('fb_bp_'+k);
+        var al=fbN('fb_al_'+k), ap=fbN('fb_ap_'+k);
+        var gl=fbN('fb_gl_'+k), gp=fbN('fb_gp_'+k);
+
+        var jl=wl+bl+al, jp=wp+bp+ap, j=jl+jp;
+        var glp=gl+gp, tgl=jl*gl, tgp=jp*gp, tg=tgl+tgp;
+
+        fbS('fb_jl_'+k,jl); fbS('fb_jp_'+k,jp); fbS('fb_j_'+k,j);
+        fbS('fb_glp_'+k,glp); fbS('fb_tgl_'+k,tgl); fbS('fb_tgp_'+k,tgp); fbS('fb_tg_'+k,tg);
+
+        var glEl = document.getElementById('fb_gl_'+k);
+        if (glEl) { glEl.readOnly = (jl === 0); if (jl === 0) glEl.value = ''; }
+        var gpEl = document.getElementById('fb_gp_'+k);
+        if (gpEl) { gpEl.readOnly = (jp === 0); if (jp === 0) gpEl.value = ''; }
+
+        fbCalcAll();
+    }
+
+    function fbCalcAll() {
+        var keys = []; document.querySelectorAll('[id^="fb_wl_"]').forEach(function(el) { keys.push(el.id.replace('fb_wl_','')); });
+        var twl=0,twp=0,tbl=0,tbp=0,tal=0,tap=0,tjl=0,tjp=0,tj=0,tgl=0,tgp=0,tglp=0,ttgl=0,ttgp=0,ttg=0;
+        keys.forEach(function(k) {
+            twl+=fbN('fb_wl_'+k); twp+=fbN('fb_wp_'+k);
+            tbl+=fbN('fb_bl_'+k); tbp+=fbN('fb_bp_'+k);
+            tal+=fbN('fb_al_'+k); tap+=fbN('fb_ap_'+k);
+            tjl+=fbN('fb_jl_'+k); tjp+=fbN('fb_jp_'+k); tj+=fbN('fb_j_'+k);
+            tgl+=fbN('fb_gl_'+k); tgp+=fbN('fb_gp_'+k);
+            tglp+=fbN('fb_glp_'+k); ttgl+=fbN('fb_tgl_'+k);
+            ttgp+=fbN('fb_tgp_'+k); ttg+=fbN('fb_tg_'+k);
+        });
+        fbS('fb_tot_wl',twl); fbS('fb_tot_wp',twp);
+        fbS('fb_tot_bl',tbl); fbS('fb_tot_bp',tbp);
+        fbS('fb_tot_al',tal); fbS('fb_tot_ap',tap);
+        fbS('fb_tot_jl',tjl); fbS('fb_tot_jp',tjp); fbS('fb_tot_j',tj);
+        fbS('fb_tot_gl',tgl); fbS('fb_tot_gp',tgp);
+        fbS('fb_tot_glp',tglp); fbS('fb_tot_tgl',ttgl);
+        fbS('fb_tot_tgp',ttgp); fbS('fb_tot_tg',ttg);
     }
 </script>
 

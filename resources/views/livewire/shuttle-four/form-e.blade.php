@@ -239,8 +239,7 @@
                                                                                             <input style="" type="text"
                                                                                                 class="text-right"
                                                                                                 size="20"
-                                                                                                wire:model='jumlah_jualan.{{ $key }}'
-                                                                                                wire:change='calcTotalJumlahJualan()'
+                                                                                                class="fsum_jualan" wire:model.defer='jumlah_jualan.{{ $key }}' oninput="fsumCalc()"
                                                                                                 oninput="validate(this)"
                                                                                                 onkeypress="return isNumberKey(event)">
                                                                                             @error('jumlah_jualan.{{ $key }}')
@@ -263,7 +262,7 @@
                                                                                             class="text-right"
                                                                                             style="background-color: #9ac4f7;"
                                                                                             type="text" size="20"
-                                                                                            wire:model='total_jumlah_jualan'
+                                                                                            id="fsum_tot_jualan"
                                                                                             oninput="validate(this)"
                                                                                             onkeypress="return isNumberKey(event)">
                                                                                     </td>
@@ -406,6 +405,13 @@
                         return false;
                     });
                 </script>
+
+<script>
+    function fsumCalc() {
+        var t=0; document.querySelectorAll('.fsum_jualan').forEach(function(e){t+=parseFloat(e.value)||0;});
+        var el=document.getElementById('fsum_tot_jualan'); if(el) el.value=Math.round(t*10000)/10000||0;
+    }
+</script>
 
             </div>
 

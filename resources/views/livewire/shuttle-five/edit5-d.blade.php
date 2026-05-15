@@ -143,8 +143,7 @@
                                                                                         <input style="" type="text"
                                                                                             class="text-right"
                                                                                             size="50"
-                                                                                            wire:model='pengeluaran_kayu.{{ $key }}'
-                                                                                            wire:change='calcTotalJumlahPengeluaranKayu()'
+                                                                                            class="fsum_keluar" wire:model.defer='pengeluaran_kayu.{{ $key }}' oninput="fsumKeluar()"
                                                                                             oninput="validate(this)"
                                                                                             onkeypress="return isNumberKey(event)">
                                                                                     </td>
@@ -159,7 +158,7 @@
                                                                                         style="background-color: #7ee48c6b;"
                                                                                         class="text-right"
                                                                                         type="text" size="50"
-                                                                                        wire:model='total_jumlah_pengeluaran'>
+                                                                                        id="fsum_tot_keluar">
                                                                                 </td>
                                                                             </tr>
                                                                         </table>
@@ -253,6 +252,13 @@
                         e.value = (t.indexOf(".") >= 0) ? (t.substr(0, t.indexOf(".")) + t.substr(t.indexOf("."), 3)) : t;
                     }
                 </script>
+
+<script>
+    function fsumKeluar() {
+        var t=0; document.querySelectorAll('.fsum_keluar').forEach(function(e){t+=parseFloat(e.value)||0;});
+        var el=document.getElementById('fsum_tot_keluar'); if(el) el.value=Math.round(t*10000)/10000||0;
+    }
+</script>
 
             </div>
 

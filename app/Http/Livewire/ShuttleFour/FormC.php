@@ -25,6 +25,20 @@ class FormC extends Component
         'jumlah_stok_kayu_balak.0' => 'required',
     ];
 
+    public function mount($bulan_id)
+    {
+        $this->bulan_id = $bulan_id;
+        $this->species_count = Spesis::orderBy('kumpulan_kayu_id')->count();
+        for ($i = 0; $i < $this->species_count; $i++) {
+            $this->baki_stok[$i] = 0;
+            $this->kayu_masuk[$i] = 0;
+            $this->jumlah_stok_kayu_balak[$i] = 0;
+            $this->proses_masuk[$i] = 0;
+            $this->proses_keluar[$i] = 0;
+            $this->baki_stok_kehadapan[$i] = 0;
+        }
+    }
+
     public function updated()
     {
         for ($i = 0; $i < $this->species_count; $i++) {
@@ -452,6 +466,7 @@ class FormC extends Component
             $total_kayu = $baki_stok + $kayu_masuk;
 
             $this->jumlah_stok_kayu_balak[$keySpecies] = $total_kayu;
+            $this->baki_stok_kehadapan[$keySpecies] = $total_kayu - ($this->proses_masuk[$keySpecies] ?? 0);
         }
 
         // $this->calcBakiStok($key);

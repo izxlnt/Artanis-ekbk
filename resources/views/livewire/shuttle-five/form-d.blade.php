@@ -225,8 +225,7 @@
                                                                                                 class="text-right"
                                                                                                 type="text"
                                                                                                 size="50"
-                                                                                                wire:model='pengeluaran_kayu.{{ $key }}'
-                                                                                                wire:change='calcTotalJumlahPengeluaranKayu()'
+                                                                                                class="fsum_keluar" wire:model.defer='pengeluaran_kayu.{{ $key }}' oninput="fsumKeluar()"
                                                                                                 onkeypress="return isNumberKey(event)">
                                                                                         </td>
                                                                                     @else
@@ -235,8 +234,7 @@
                                                                                                 class="text-right"
                                                                                                 type="text"
                                                                                                 size="50"
-                                                                                                wire:model='pengeluaran_kayu.{{ $key }}'
-                                                                                                wire:change='calcTotalJumlahPengeluaranKayu()'
+                                                                                                class="fsum_keluar" wire:model.defer='pengeluaran_kayu.{{ $key }}' oninput="fsumKeluar()"
                                                                                                 onkeypress="return isNumberKey(event)">
                                                                                         </td>
                                                                                     @endif
@@ -251,7 +249,7 @@
                                                                                         style="background-color: #7ee48c6b;"
                                                                                         class="text-right"
                                                                                         type="text" size="50"
-                                                                                        wire:model='total_jumlah_pengeluaran'>
+                                                                                        id="fsum_tot_keluar">
                                                                                 </td>
                                                                             </tr>
                                                                         </table>
@@ -525,4 +523,11 @@
         $('.modal-backdrop').remove();
         return false;
     });
+</script>
+
+<script>
+    function fsumKeluar() {
+        var t=0; document.querySelectorAll('.fsum_keluar').forEach(function(e){t+=parseFloat(e.value)||0;});
+        var el=document.getElementById('fsum_tot_keluar'); if(el) el.value=Math.round(t*10000)/10000||0;
+    }
 </script>

@@ -176,16 +176,14 @@
                                                                             5px">
                                                                         <input type="text" size="20"
                                                                             class="text-right"
-                                                                            wire:model='produk_isipadumr_a.0'
-                                                                            wire:change="CalcJumlah_kecil_1_mr"
+                                                                            class="fd_mr_a" wire:model.defer='produk_isipadumr_a.{{ $value }}' oninput="fdCalcAll()"
                                                                             style="@error('produk_isipadumr_a.0') color:red @else color:black @endif;"
                                                                             oninput="validate(this)"
                                                                             onkeypress="return isNumberKey(event)">
                                                                     </td>
                                                                     <td style="text-align:center;padding: 5px">
                                                                         <input type="text" size="20" class="text-right"
-                                                                            wire:model='produk_isipaduwbp_a.0'
-                                                                            wire:change="CalcJumlah_kecil_1_wbp"
+                                                                            class="fd_wbp_a" wire:model.defer='produk_isipaduwbp_a.{{ $value }}' oninput="fdCalcAll()"
                                                                             style="@error('produk_isipaduwbp_a.0') color:red @else color:black @endif"
                                                                             oninput="validate(this)"
                                                                             onkeypress="return isNumberKey(event)">
@@ -218,15 +216,13 @@
                                                                             5px">
                                                                         <input type="text" size="20"
                                                                             onkeypress="return isNumberKey(event)"
-                                                                            wire:model='produk_isipadumr_a.{{ $value }}'
-                                                                            wire:change="CalcJumlah_kecil_1_mr"
+                                                                            class="fd_mr_a" wire:model.defer='produk_isipadumr_a.{{ $value }}' oninput="fdCalcAll()"
                                                                             style="@error('produk_isipadumr_a.' . $value) color:red @else color:black @endif">
                                                                     </td>
                                                                     <td
                                                                         style="text-align:center;padding: 5px;padding-left: 35px">
                                                                         <input type="text" size="20" onkeypress="return isNumberKey(event)"
-                                                                            wire:model='produk_isipaduwbp_a.{{ $value }}'
-                                                                            wire:change="CalcJumlah_kecil_1_wbp"
+                                                                            class="fd_wbp_a" wire:model.defer='produk_isipaduwbp_a.{{ $value }}' oninput="fdCalcAll()"
                                                                             style="@error('produk_isipaduwbp_a.' . $value) color:red @else color:black @endif">
                                                                         @if ($loop->last)
                                                                             <button class="btn btn-danger btn-sm"
@@ -259,12 +255,12 @@
                                                             <td style="text-align:center;padding: 5px">
                                                                 <input readonly style="background-color: #7ee48c6b;" class="text-right"
                                                                     type="text" size="20"
-                                                                    wire:model='jumlah_kecil_1_mr'>
+                                                                    id="fd_jk1_mr">
                                                             </td>
                                                             <td style="text-align:center;padding: 5px">
                                                                 <input readonly style="background-color: #7ee48c6b;" class="text-right"
                                                                     type="text" size="20"
-                                                                    wire:model='jumlah_kecil_1_wbp'>
+                                                                    id="fd_jk1_wbp">
                                                             </td>
                                                         </tr>
 
@@ -290,16 +286,14 @@
                                                                             5px">
                                                                         <input type="text" size="20"
                                                                             class="text-right"
-                                                                            wire:model='produk_isipadumr_b.0'
-                                                                            wire:change="CalcJumlah_kecil_2_mr"
+                                                                            class="fd_mr_b" wire:model.defer='produk_isipadumr_b.{{ $value }}' oninput="fdCalcAll()"
                                                                             style="@error('produk_isipadumr_b.0') color:red @else color:black @endif"
                                                                     oninput="validate(this)"
                                                                     onkeypress="return isNumberKey(event)">
                                                             </td>
                                                             <td style="text-align:center;padding: 5px">
                                                                 <input type="text" size="20" class="text-right"
-                                                                    wire:model='produk_isipaduwbp_b.0'
-                                                                    wire:change="CalcJumlah_kecil_2_wbp"
+                                                                    class="fd_wbp_b" wire:model.defer='produk_isipaduwbp_b.{{ $value }}' oninput="fdCalcAll()"
                                                                     style="@error('produk_isipaduwbp_b.0') color:red @else color:black @endif"
                                                                     oninput="validate(this)"
                                                                     onkeypress="return isNumberKey(event)">
@@ -328,15 +322,13 @@
                                                                     <td style="text-align:center;padding:
                                                                             5px">
                                                                         <input type="text" size="20"
-                                                                            wire:model='produk_isipadumr_b.{{ $value }}'
-                                                                            wire:change="CalcJumlah_kecil_2_mr"
+                                                                            class="fd_mr_b" wire:model.defer='produk_isipadumr_b.{{ $value }}' oninput="fdCalcAll()"
                                                                             style="@error('produk_isipadumr_b.' . $value) color:red @else color:black @endif">
                                                                     </td>
                                                                     <td
                                                                         style="text-align:center;padding: 5px;padding-left: 35px">
                                                                         <input type="text" size="20"
-                                                                            wire:model='produk_isipaduwbp_b.{{ $value }}'
-                                                                            wire:change="CalcJumlah_kecil_2_wbp"
+                                                                            class="fd_wbp_b" wire:model.defer='produk_isipaduwbp_b.{{ $value }}' oninput="fdCalcAll()"
                                                                             style="@error('produk_isipaduwbp_b.' . $value) color:red @else color:black @endif">
                                                                         @if ($loop->last)
                                                                             <button class="btn btn-danger btn-sm"
@@ -366,11 +358,11 @@
                                                             class="">JUMLAH KECIL</th>
                                                         <td style="text-align:center;padding: 5px">
                                                             <input readonly style="background-color: #7ee48c6b;" class="text-right"
-                                                                type="text" size="20" wire:model='jumlah_kecil_2_mr'>
+                                                                type="text" size="20" id="fd_jk2_mr">
                                                         </td>
                                                         <td style="text-align:center;padding: 5px">
                                                             <input readonly style="background-color: #7ee48c6b;" class="text-right"
-                                                                type="text" size="20" wire:model='jumlah_kecil_2_wbp'>
+                                                                type="text" size="20" id="fd_jk2_wbp">
                                                         </td>
                                                     </tr>
 
@@ -379,11 +371,11 @@
                                                             class="">JUMLAH </th>
                                                         <td style="text-align:center;padding: 5px">
                                                             <input readonly style="background-color: #7ee48c6b;" class="text-right"
-                                                                type="text" size="20" wire:model='jumlah_besar_mr'>
+                                                                type="text" size="20" id="fd_jbesar_mr">
                                                         </td>
                                                         <td style="text-align:center;padding: 5px">
                                                             <input readonly style="background-color: #7ee48c6b;" class="text-right"
-                                                                type="text" size="20" wire:model='jumlah_besar_wbp'>
+                                                                type="text" size="20" id="fd_jbesar_wbp">
                                                         </td>
                                                     </tr>
 
@@ -402,8 +394,8 @@
                                                                 style=" type=" text" size="50" class="text-right"
                                                                 oninput="validate(this)"
                                                                 onkeypress="return isNumberKey(event)"
-                                                                wire:model='rekod_veniermuka'
-                                                                wire:change="CalcJumlah_Venier"></td>
+                                                                id="fd_venier_muka" wire:model.defer='rekod_veniermuka' oninput="fdCalcAll()"
+
                                                     </tr>
 
                                                     <tr style="height:50px;">
@@ -413,8 +405,8 @@
                                                                 style=" type=" text" size="50" class="text-right"
                                                                 oninput="validate(this)"
                                                                 onkeypress="return isNumberKey(event)"
-                                                                wire:model='rekod_venierteras'
-                                                                wire:change="CalcJumlah_Venier"></td>
+                                                                id="fd_venier_teras" wire:model.defer='rekod_venierteras' oninput="fdCalcAll()"
+
                                                     </tr>
 
                                                     <tr style="height:50px;">
@@ -422,7 +414,7 @@
                                                             class="">JUMLAH </th>
                                                         <td style="text-align:center;padding: 5px" colspan="2"><input
                                                                 readonly style="background-color: #7ee48c6b;" class="text-right"
-                                                                type="text" size="50" wire:model='jumlah_pengeluaran'>
+                                                                type="text" size="50" id="fd_jumlah_venier">
                                                         </td>
 
                                                     </tr>
@@ -430,7 +422,7 @@
                                                         <th style="text-align:right;background-color: #7ee48c6b;" class="">JUMLAH BESAR</th>
                                                         <td style="text-align:center;padding: 5px" colspan="2"><input
                                                             readonly style="background-color: #7ee48c6b;" class="text-right"
-                                                            type="text" size="50" wire:model='jumlah_besar_pengeluaran' >
+                                                            type="text" size="50" id="fd_jumlah_besar" >
 
                                                             @if ($formc->status != 'Tiada Pengeluaran')
                                                                 @if ($jumlah_besar_pengeluaran > $max_recovery_rate)
@@ -657,3 +649,23 @@
                     e.value = (t.indexOf(".") >= 0) ? (t.substr(0, t.indexOf(".")) + t.substr(t.indexOf("."), 3)) : t;
                 }
             </script>
+
+<script>
+    function fdN(id) { var el = document.getElementById(id); return el ? (parseFloat(el.value) || 0) : 0; }
+    function fdS(id, v) { var el = document.getElementById(id); if (el) el.value = Math.round(v * 10000) / 10000 || 0; }
+    function fdSum(cls) { var t=0; document.querySelectorAll('.'+cls).forEach(function(e){ t+=parseFloat(e.value)||0; }); return t; }
+
+    function fdCalcAll() {
+        var jk1mr=fdSum('fd_mr_a'), jk1wbp=fdSum('fd_wbp_a');
+        var jk2mr=fdSum('fd_mr_b'), jk2wbp=fdSum('fd_wbp_b');
+        var jbmr=jk1mr+jk2mr, jbwbp=jk1wbp+jk2wbp;
+        var venier=fdN('fd_venier_muka')+fdN('fd_venier_teras');
+        var jumlah_besar=jbmr+jbwbp+venier;
+
+        fdS('fd_jk1_mr',jk1mr); fdS('fd_jk1_wbp',jk1wbp);
+        fdS('fd_jk2_mr',jk2mr); fdS('fd_jk2_wbp',jk2wbp);
+        fdS('fd_jbesar_mr',jbmr); fdS('fd_jbesar_wbp',jbwbp);
+        fdS('fd_jumlah_venier',venier);
+        fdS('fd_jumlah_besar',jumlah_besar);
+    }
+</script>

@@ -23,6 +23,16 @@ class FormC extends Component
     {
         $this->month = $month;
         $this->year = $year;
+
+        $species_count = Spesis::count();
+        for ($i = 0; $i < $species_count; $i++) {
+            $this->baki_stok[$i] = 0;
+            $this->kayu_masuk[$i] = 0;
+            $this->jumlah_stok_kayu_balak[$i] = 0;
+            $this->proses_masuk[$i] = 0;
+            $this->proses_keluar[$i] = 0;
+            $this->baki_stok_kehadapan[$i] = 0;
+        }
     }
 
     public function render()
@@ -38,77 +48,100 @@ class FormC extends Component
 
     public function store()
     {
-
-        // $jenis_pembeli = Pembeli::where('shuttle', 3)->get();
-        $shuttle_id = Shuttle::first();
-
+        $id = auth()->user();
+        $kilang_info = Shuttle::where('id', $id->shuttle_id)->first();
         $species = Spesis::orderBy('kumpulan_kayu_id')->orderBy('id')->get();
 
-        $id=auth()->user();
-        $kilang_info = Shuttle::where('id',$id->shuttle_id)->first();
+        // Pass 1: compute row values, group totals, and grand totals
+        $rows = [];
+        $groupTotals = [];
+        $grand = ['baki' => 0, 'masuk' => 0, 'jumlah' => 0, 'pmasuk' => 0, 'pkeluar' => 0, 'kehadapan' => 0];
 
-        // dd($kilang_info);
-        $status= 'Sedang Diproses';
-        $shuttle_id = Shuttle::where('id',$id->shuttle_id)->first();
-        // dd($shuttle_id);
-        $formcs = ModelsFormC::create([
-            'shuttle_id'=>$shuttle_id->id,
-            'shuttle_type'=>$shuttle_id->shuttle_type,
-            'status' => $status,
-            'tahun' => $this->year,
-            'bulan' => $this->month,
-            'nama_kilang' => $kilang_info->nama_kilang,
-            'no_ssm' => $kilang_info->no_ssm,
-            'no_lesen' => $kilang_info->no_lesen,
-        ]);
+        foreach ($species as $keySpecies => $data) {
+            $gid    = $data->kumpulan_kayu_id;
+            $baki   = (float)($this->baki_stok[$keySpecies]    ?? 0);
+            $masuk  = (float)($this->kayu_masuk[$keySpecies]   ?? 0);
+            $pmasuk = (float)($this->proses_masuk[$keySpecies] ?? 0);
+            $pkeluar= (float)($this->proses_keluar[$keySpecies]?? 0);
+            $jumlah    = $baki + $masuk;
+            $kehadapan = $jumlah - $pmasuk;
 
+            $rows[$keySpecies] = compact('baki', 'masuk', 'jumlah', 'pmasuk', 'pkeluar', 'kehadapan', 'gid');
 
-        foreach($species as $keySpecies =>$data){
+            if (!isset($groupTotals[$gid])) {
+                $groupTotals[$gid] = ['baki' => 0, 'masuk' => 0, 'jumlah' => 0, 'pmasuk' => 0, 'pkeluar' => 0, 'kehadapan' => 0];
+            }
+            $groupTotals[$gid]['baki']      += $baki;
+            $groupTotals[$gid]['masuk']     += $masuk;
+            $groupTotals[$gid]['jumlah']    += $jumlah;
+            $groupTotals[$gid]['pmasuk']    += $pmasuk;
+            $groupTotals[$gid]['pkeluar']   += $pkeluar;
+            $groupTotals[$gid]['kehadapan'] += $kehadapan;
 
-            // dd( $this->jumlah_baki_stok);
-            KemasukanBahan::create([
-                'spesis_id' => $data->id,
-                'baki_stok' => $this->baki_stok[$keySpecies],
-                'kayu_masuk' => $this->kayu_masuk[$keySpecies],
-                'jumlah_stok_kayu_balak' => $this->jumlah_stok_kayu_balak[$keySpecies],
-                'proses_masuk' => $this->proses_masuk[$keySpecies],
-                'proses_keluar' => $this->proses_keluar[$keySpecies],
-                'baki_stok_kehadapan' => $this->baki_stok_kehadapan[$keySpecies],
-
-
-                'jumlah_baki_stok' => $this->jumlah_baki_stok[$keySpecies] ?? 0,
-                'jumlah_kayu_masuk' => $this->jumlah_kayu_masuk[$keySpecies] ?? 0,
-                'total_stok_kayu_balak' => $this->total_stok_kayu_balak[$keySpecies] ?? 0,
-                'total_kayu_masuk_jentera' => $this->total_kayu_masuk_jentera[$keySpecies] ?? 0,
-                'total_kayu_keluar_jentera' => $this->total_kayu_keluar_jentera[$keySpecies] ?? 0,
-                'total_kayu_dibawa_bulan_hadapan' => $this->total_kayu_dibawa_bulan_hadapan[$keySpecies] ?? 0,
-
-
-                'jumlah_besar_baki_stok_bulan_lepas' => $this->jumlah_besar_baki_stok_bulan_lepas,
-                'jumlah_besar_kemasukan_kayu_ke_kilang' => $this->jumlah_besar_kemasukan_kayu_ke_kilang,
-                'jumlah_besar_stok_kayu_balak' => $this->jumlah_besar_stok_kayu_balak,
-                'jumlah_besar_kayu_ke_dalam_jentera' => $this->jumlah_besar_kayu_ke_dalam_jentera,
-                'jumlah_besar_pengeluaran_kayu_daripada_jentera' => $this->jumlah_besar_pengeluaran_kayu_daripada_jentera,
-                'jumlah_besar_baki_stok_bulan_depan' => $this->jumlah_besar_baki_stok_bulan_depan,
-
-
-                'shuttle_id'=> $shuttle_id->id,
-                'kategori_guna_tenaga_id'=>$data->id,
-                'bulan'=>$this->month,
-                'tahun'=>$this->year,
-                'formcs_id'=>$formcs->id,
-
-
-
-            ]);
-
+            $grand['baki']      += $baki;
+            $grand['masuk']     += $masuk;
+            $grand['jumlah']    += $jumlah;
+            $grand['pmasuk']    += $pmasuk;
+            $grand['pkeluar']   += $pkeluar;
+            $grand['kehadapan'] += $kehadapan;
         }
-         Session::flash('success', 'Maklumat berjaya dimasukkan. Sila tunggu untuk pengesahan PHD.');
 
-            return redirect()->route('home-user');
+        $formcs = ModelsFormC::updateOrCreate(
+            [
+                'shuttle_id' => $kilang_info->id,
+                'bulan'      => $this->month,
+                'tahun'      => $this->year,
+            ],
+            [
+                'shuttle_type' => $kilang_info->shuttle_type,
+                'status'       => 'Sedang Diproses',
+                'nama_kilang'  => $kilang_info->nama_kilang,
+                'no_ssm'       => $kilang_info->no_ssm,
+                'no_lesen'     => $kilang_info->no_lesen,
+            ]
+        );
 
+        // Delete old detail records before re-inserting to avoid duplicates on re-submit
+        KemasukanBahan::where('formcs_id', $formcs->id)->delete();
 
+        // Pass 2: insert KemasukanBahan records with computed values
+        foreach ($species as $keySpecies => $data) {
+            $r = $rows[$keySpecies];
+            $g = $groupTotals[$r['gid']];
 
+            KemasukanBahan::create([
+                'spesis_id'              => $data->id,
+                'baki_stok'              => $r['baki'],
+                'kayu_masuk'             => $r['masuk'],
+                'jumlah_stok_kayu_balak' => $r['jumlah'],
+                'proses_masuk'           => $r['pmasuk'],
+                'proses_keluar'          => $r['pkeluar'],
+                'baki_stok_kehadapan'    => $r['kehadapan'],
+
+                'jumlah_baki_stok'                => $g['baki'],
+                'jumlah_kayu_masuk'               => $g['masuk'],
+                'total_stok_kayu_balak'           => $g['jumlah'],
+                'total_kayu_masuk_jentera'         => $g['pmasuk'],
+                'total_kayu_keluar_jentera'        => $g['pkeluar'],
+                'total_kayu_dibawa_bulan_hadapan'  => $g['kehadapan'],
+
+                'jumlah_besar_baki_stok_bulan_lepas'             => $grand['baki'],
+                'jumlah_besar_kemasukan_kayu_ke_kilang'          => $grand['masuk'],
+                'jumlah_besar_stok_kayu_balak'                   => $grand['jumlah'],
+                'jumlah_besar_kayu_ke_dalam_jentera'             => $grand['pmasuk'],
+                'jumlah_besar_pengeluaran_kayu_daripada_jentera' => $grand['pkeluar'],
+                'jumlah_besar_baki_stok_bulan_depan'             => $grand['kehadapan'],
+
+                'shuttle_id'              => $kilang_info->id,
+                'kategori_guna_tenaga_id' => $data->id,
+                'bulan'                   => $this->month,
+                'tahun'                   => $this->year,
+                'formcs_id'               => $formcs->id,
+            ]);
+        }
+
+        Session::flash('success', 'Maklumat berjaya dimasukkan. Sila tunggu untuk pengesahan PHD.');
+        return redirect()->route('home-user');
     }
 
     //jumlah total baki stok (02)
@@ -289,6 +322,7 @@ class FormC extends Component
             $total_kayu = $baki_stok + $kayu_masuk;
 
             $this->jumlah_stok_kayu_balak [$keySpecies] = $total_kayu;
+            $this->baki_stok_kehadapan[$keySpecies] = $total_kayu - ($this->proses_masuk[$keySpecies] ?? 0);
         }
 
         // $this->calcBakiStok($key);

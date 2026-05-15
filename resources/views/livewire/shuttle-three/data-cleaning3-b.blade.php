@@ -224,8 +224,7 @@
                                                                     <td
                                                                         style="text-align:center;padding:5px;background-color: #e3d3f1;">
                                                                         <input type="text" size="5" style="text-align:right;"
-                                                                            wire:model='pekerja_wargabumi_lelaki_cleaning.{{ $key }}'
-                                                                            wire:change="calcJumlahPekerjaLelakiCleaning({{ $key }})"
+                                                                            id="dc_wl_{{ $key }}" wire:model.defer='pekerja_wargabumi_lelaki_cleaning.{{ $key }}' oninput="dcCalcRow({{ $key }})"
                                                                             onkeypress="return isNumberKey(event)"></td>
 
                                                                     <td style="text-align:center;padding:5px;background-color: #b8d0f5;"><span
@@ -237,8 +236,7 @@
                                                                     <td
                                                                         style="text-align:center;padding:5px;background-color: #e3d3f1;">
                                                                         <input type="text" size="5" style="text-align:right;"
-                                                                            wire:model='pekerja_wargabumi_perempuan_cleaning.{{ $key }}'
-                                                                            wire:change="calcJumlahPekerjaPerempuanCleaning({{ $key }})"
+                                                                            id="dc_wp_{{ $key }}" wire:model.defer='pekerja_wargabumi_perempuan_cleaning.{{ $key }}' oninput="dcCalcRow({{ $key }})"
                                                                             onkeypress="return isNumberKey(event)"></td>
 
 
@@ -251,8 +249,7 @@
                                                                     <td
                                                                         style="text-align:center;padding:5px;background-color: #e3d3f1;">
                                                                         <input type="text" size="5" style="text-align:right;"
-                                                                            wire:model='pekerja_bukan_wargabumi_lelaki_cleaning.{{ $key }}'
-                                                                            wire:change="calcJumlahPekerjaLelakiCleaning({{ $key }})"
+                                                                            id="dc_bl_{{ $key }}" wire:model.defer='pekerja_bukan_wargabumi_lelaki_cleaning.{{ $key }}' oninput="dcCalcRow({{ $key }})"
                                                                             onkeypress="return isNumberKey(event)"></td>
 
 
@@ -265,8 +262,7 @@
                                                                     <td
                                                                         style="text-align:center;padding:5px;background-color: #e3d3f1;">
                                                                         <input type="text" size="5" style="text-align:right;"
-                                                                            wire:model='pekerja_bukan_wargabumi_perempuan_cleaning.{{ $key }}'
-                                                                            wire:change="calcJumlahPekerjaPerempuanCleaning({{ $key }})"
+                                                                            id="dc_bp_{{ $key }}" wire:model.defer='pekerja_bukan_wargabumi_perempuan_cleaning.{{ $key }}' oninput="dcCalcRow({{ $key }})"
                                                                             onkeypress="return isNumberKey(event)"></td>
 
 
@@ -279,8 +275,7 @@
                                                                     <td
                                                                         style="text-align:center;padding:5px;background-color: #e3d3f1;">
                                                                         <input type="text" size="5" style="text-align:right;"
-                                                                            wire:model='pekerja_asing_lelaki_cleaning.{{ $key }}'
-                                                                            wire:change="calcJumlahPekerjaLelakiCleaning({{ $key }})"
+                                                                            id="dc_al_{{ $key }}" wire:model.defer='pekerja_asing_lelaki_cleaning.{{ $key }}' oninput="dcCalcRow({{ $key }})"
                                                                             onkeypress="return isNumberKey(event)"></td>
 
 
@@ -293,8 +288,7 @@
                                                                     <td
                                                                         style="text-align:center;padding:5px;background-color: #e3d3f1;">
                                                                         <input type="text" size="5" style="text-align:right;"
-                                                                            wire:model='pekerja_asing_perempuan_cleaning.{{ $key }}'
-                                                                            wire:change="calcJumlahPekerjaPerempuanCleaning({{ $key }})"
+                                                                            id="dc_ap_{{ $key }}" wire:model.defer='pekerja_asing_perempuan_cleaning.{{ $key }}' oninput="dcCalcRow({{ $key }})"
                                                                             onkeypress="return isNumberKey(event)"></td>
 
 
@@ -309,7 +303,7 @@
                                                                     <td
                                                                         style="text-align:center;padding:5px;background-color: #dd7d54;">
                                                                         <input readonly type="text" size="5" style="text-align:right;"
-                                                                            wire:model='jumlah_lelaki_cleaning.{{ $key }}'
+                                                                            id="dc_jl_{{ $key }}"
                                                                             onkeypress="return isNumberKey(event)"></td>
 
 
@@ -324,7 +318,7 @@
                                                                     <td
                                                                         style="text-align:center;padding:5px;background-color: #dd7d54;">
                                                                         <input readonly type="text" size="5" style="text-align:right;"
-                                                                            wire:model='jumlah_perempuan_cleaning.{{ $key }}'
+                                                                            id="dc_jp_{{ $key }}"
                                                                             onkeypress="return isNumberKey(event)"></td>
 
 
@@ -339,14 +333,14 @@
                                                                     <td
                                                                         style="text-align:center;padding:5px;background-color: #dd7d54;">
                                                                         <input readonly type="text" size="5" style="text-align:right;"
-                                                                            wire:model='jumlah_pekerja_cleaning.{{ $key }}'
+                                                                            id="dc_j_{{ $key }}"
                                                                             onkeypress="return isNumberKey(event)"></td>
 
 
                                                                     <td style="text-align:center;background-color: #b8d0f5;"><span type="text"
                                                                             size="5" value="{{ $data->gaji_lelaki }}"
                                                                             wire:model='gaji_lelaki.{{ $key }}'
-                                                                            wire:change="calcJumlahPekerjaLelakiCleaning({{ $key }})"
+
 
                                                                             onkeypress="return isNumberKey(event)">{{ number_format($data->gaji_lelaki, 2) }}</span>
                                                                     </td>
@@ -354,8 +348,7 @@
                                                                     <td
                                                                         style="text-align:center;padding:5px;background-color: #e3d3f1;">
                                                                         <input type="text" size="5" style="text-align:right;"
-                                                                            wire:model='gaji_lelaki_cleaning.{{ $key }}'
-                                                                            wire:change="calcJumlahPekerjaLelakiCleaning({{ $key }})"
+                                                                            id="dc_gl_{{ $key }}" wire:model.defer='gaji_lelaki_cleaning.{{ $key }}' oninput="validate(this);dcCalcRow({{ $key }})"
                                                                             oninput="validate(this)"
                                                                             onkeypress="return isNumberKey(event)"></td>
 
@@ -364,14 +357,13 @@
                                                                             size="5"
                                                                             value="{{ $data->gaji_perempuan }}"
                                                                             wire:model='gaji_perempuan.{{ $key }}'
-                                                                            wire:change="calcJumlahPekerjaPerempuanCleaning({{ $key }})"
+
                                                                             onkeypress="return isNumberKey(event)">{{ number_format($data->gaji_perempuan, 2) }}</span>
                                                                     </td>
                                                                     <td
                                                                         style="text-align:center;padding:5px;background-color: #e3d3f1;">
                                                                         <input type="text" size="5" style="text-align:right;"
-                                                                            wire:model='gaji_perempuan_cleaning.{{ $key }}'
-                                                                            wire:change="calcJumlahPekerjaPerempuanCleaning({{ $key }})"
+                                                                            id="dc_gp_{{ $key }}" wire:model.defer='gaji_perempuan_cleaning.{{ $key }}' oninput="validate(this);dcCalcRow({{ $key }})"
                                                                             oninput="validate(this)"
                                                                             onkeypress="return isNumberKey(event)"></td>
 
@@ -380,13 +372,13 @@
                                                                         style="text-align:center;background-color: #b8d0f5;">
                                                                         <span type="text" size="5" value=""
                                                                             wire:model='gaji_lelaki_perempuan.{{ $key }}'
-                                                                            wire:change="calcJumlahPekerjaLelakiCleaning({{ $key }})"
+
                                                                             onkeypress="return isNumberKey(event)">{{ number_format($data->gaji_lelaki_perempuan, 2) }}</span>
                                                                     </td>
                                                                     <td
                                                                         style="text-align:center;padding:5px;background-color: #dd7d54;">
                                                                         <input readonly type="text" size="5" style="text-align:right;"
-                                                                            wire:model='gaji_lelaki_perempuan_cleaning.{{ $key }}'
+                                                                            id="dc_glp_{{ $key }}"
                                                                             onkeypress="return isNumberKey(event)"></td>
 
 
@@ -394,14 +386,14 @@
                                                                             size="5"
                                                                             wire:model='total_gaji_lelaki.{{ $key }}'
                                                                             value="{{ $data->total_gaji_lelaki }}"
-                                                                            wire:change="calcJumlahPekerjaLelakiCleaning({{ $key }})"
+
                                                                             onkeypress="return isNumberKey(event)">{{ number_format($data->total_gaji_lelaki, 2) }}</span>
                                                                     </td>
                                                                     <td
                                                                         style="text-align:center;padding:5px;background-color: #dd7d54;">
                                                                         <input readonly type="text" size="5" style="text-align:right;"
-                                                                            wire:model='total_gaji_lelaki_cleaning.{{ $key }}'
-                                                                            wire:change="calcJumlahPekerjaLelakiCleaning({{ $key }})"
+                                                                            id="dc_tgl_{{ $key }}"
+
                                                                             onkeypress="return isNumberKey(event)"></td>
 
 
@@ -409,14 +401,14 @@
                                                                             size="5"
                                                                             wire:model='total_gaji_perempuan.{{ $key }}'
                                                                             value="{{ $data->total_gaji_perempuan }}"
-                                                                            wire:change="calcJumlahPekerjaPerempuanCleaning({{ $key }})"
+
                                                                             onkeypress="return isNumberKey(event)">{{ number_format($data->total_gaji_perempuan, 2) }}</span>
                                                                     </td>
                                                                     <td
                                                                         style="text-align:center;padding:5px;background-color: #dd7d54;">
                                                                         <input readonly type="text" size="5" style="text-align:right;"
-                                                                            wire:model='total_gaji_perempuan_cleaning.{{ $key }}'
-                                                                            wire:change="calcJumlahPekerjaPerempuanCleaning({{ $key }})"
+                                                                            id="dc_tgp_{{ $key }}"
+
                                                                             onkeypress="return isNumberKey(event)"></td>
 
 
@@ -429,7 +421,7 @@
                                                                     <td
                                                                         style="text-align:center;padding:5px;background-color: #dd7d54;">
                                                                         <input readonly type="text" size="5" style="text-align:right;"
-                                                                            wire:model='total_gaji_cleaning.{{ $key }}'
+                                                                            id="dc_tg_{{ $key }}"
                                                                             onkeypress="return isNumberKey(event)"></td>
 
 
@@ -449,7 +441,7 @@
                                                                         <td
                                                                             style="text-align:center;padding:5px;background-color: #e3d3f1;font-weight:bold">
                                                                             <input type="text" size="5" style="text-align:right;font-weight:bold"
-                                                                                wire:model='total_bumi_lelaki_cleaning'
+                                                                                id="dc_tot_wl"
                                                                                 onkeypress="return isNumberKey(event)" readonly>
                                                                         </td>
 
@@ -461,7 +453,7 @@
                                                                         <td
                                                                             style="text-align:center;padding:5px;background-color: #e3d3f1;font-weight:bold">
                                                                             <input type="text" size="5" style="text-align:right;font-weight:bold"
-                                                                                wire:model='total_bumi_perempuan_cleaning'
+                                                                                id="dc_tot_wp"
                                                                                 onkeypress="return isNumberKey(event)" readonly>
                                                                         </td>
 
@@ -474,7 +466,7 @@
                                                                         <td
                                                                             style="text-align:center;padding:5px;background-color: #e3d3f1;font-weight:bold">
                                                                             <input type="text" size="5" style="text-align:right;font-weight:bold"
-                                                                                wire:model='total_bukanbumi_lelaki_cleaning'
+                                                                                id="dc_tot_bl"
                                                                                 onkeypress="return isNumberKey(event)" readonly>
                                                                         </td>
 
@@ -487,7 +479,7 @@
                                                                         <td
                                                                             style="text-align:center;padding:5px;background-color: #e3d3f1;font-weight:bold">
                                                                             <input type="text" size="5" style="text-align:right;font-weight:bold"
-                                                                                wire:model='total_bukanbumi_perempuan_cleaning'
+                                                                                id="dc_tot_bp"
                                                                                 onkeypress="return isNumberKey(event)" readonly>
                                                                         </td>
 
@@ -500,7 +492,7 @@
                                                                         <td
                                                                             style="text-align:center;padding:5px;background-color: #e3d3f1;font-weight:bold">
                                                                             <input type="text" size="5" style="text-align:right;font-weight:bold"
-                                                                                wire:model='total_asing_lelaki_cleaning'
+                                                                                id="dc_tot_al"
                                                                                 onkeypress="return isNumberKey(event)" readonly>
                                                                         </td>
 
@@ -513,7 +505,7 @@
                                                                         <td
                                                                             style="text-align:center;padding:5px;background-color: #e3d3f1;font-weight:bold">
                                                                             <input type="text" size="5" style="text-align:right;font-weight:bold"
-                                                                                wire:model='total_asing_perempuan_cleaning'
+                                                                                id="dc_tot_ap"
                                                                                 onkeypress="return isNumberKey(event)" readonly>
                                                                         </td>
 
@@ -526,7 +518,7 @@
                                                                         <td
                                                                             style="text-align:center;padding:5px;background-color: #dd7d54;font-weight:bold">
                                                                             <input type="text" size="5" style="text-align:right;font-weight:bold"
-                                                                                wire:model='total_pekerja_lelaki_cleaning'
+                                                                                id="dc_tot_jl"
                                                                                 onkeypress="return isNumberKey(event)" readonly>
                                                                         </td>
 
@@ -539,7 +531,7 @@
                                                                         <td
                                                                             style="text-align:center;padding:5px;background-color: #dd7d54;font-weight:bold">
                                                                             <input type="text" size="5" style="text-align:right;font-weight:bold"
-                                                                                wire:model='total_pekerja_perempuan_cleaning'
+                                                                                id="dc_tot_jp"
                                                                                 onkeypress="return isNumberKey(event)" readonly>
                                                                         </td>
 
@@ -552,7 +544,7 @@
                                                                         <td
                                                                             style="text-align:center;padding:5px;background-color: #dd7d54;font-weight:bold">
                                                                             <input type="text" size="5" style="text-align:right;font-weight:bold"
-                                                                                wire:model='total_pekerja_cleaning'
+                                                                                id="dc_tot_j"
                                                                                 onkeypress="return isNumberKey(event)" readonly>
                                                                         </td>
 
@@ -565,7 +557,7 @@
                                                                         <td
                                                                             style="text-align:center;padding:5px;background-color: #e3d3f1;font-weight:bold">
                                                                             <input type="text" size="5" style="text-align:right;font-weight:bold"
-                                                                                wire:model='jumlah_gaji_lelaki_cleaning'
+                                                                                id="dc_tot_gl"
                                                                                 onkeypress="return isNumberKey(event)" readonly>
                                                                         </td>
 
@@ -578,7 +570,7 @@
                                                                         <td
                                                                             style="text-align:center;padding:5px;background-color: #e3d3f1;font-weight:bold">
                                                                             <input type="text" size="5" style="text-align:right;font-weight:bold"
-                                                                                wire:model='jumlah_gaji_perempuan_cleaning'
+                                                                                id="dc_tot_gp"
                                                                                 onkeypress="return isNumberKey(event)" readonly>
                                                                         </td>
 
@@ -591,7 +583,7 @@
                                                                         <td
                                                                             style="text-align:center;padding:5px;background-color: #dd7d54;font-weight:bold">
                                                                             <input type="text" size="5" style="text-align:right;font-weight:bold"
-                                                                                wire:model='jumlah_lelaki_perempuan_cleaning'
+                                                                                id="dc_tot_glp"
                                                                                 onkeypress="return isNumberKey(event)" readonly>
                                                                         </td>
 
@@ -604,7 +596,7 @@
                                                                         <td
                                                                             style="text-align:center;padding:5px;background-color: #dd7d54;font-weight:bold">
                                                                             <input type="text" size="5" style="text-align:right;font-weight:bold"
-                                                                                wire:model='jumlah_total_lelaki_cleaning'
+                                                                                id="dc_tot_tgl"
                                                                                 onkeypress="return isNumberKey(event)" readonly>
                                                                         </td>
 
@@ -617,7 +609,7 @@
                                                                         <td
                                                                             style="text-align:center;padding:5px;background-color: #dd7d54;font-weight:bold">
                                                                             <input type="text" size="5" style="text-align:right;font-weight:bold"
-                                                                                wire:model='jumlah_total_perempuan_cleaning'
+                                                                                id="dc_tot_tgp"
                                                                                 onkeypress="return isNumberKey(event)" readonly>
                                                                         </td>
 
@@ -630,7 +622,7 @@
                                                                         <td
                                                                             style="text-align:center;padding:5px;background-color: #dd7d54;font-weight:bold">
                                                                             <input type="text" size="5" style="text-align:right;font-weight:bold"
-                                                                                wire:model='jumlah_total_gaji_cleaning'
+                                                                                id="dc_tot_tg"
                                                                                 onkeypress="return isNumberKey(event)" readonly>
                                                                         </td>
                                                                     </tr>
@@ -756,6 +748,52 @@
                 //     table.clear().draw();
                 // }
             </script>
+
+<script>
+    function dcN(id) { var el = document.getElementById(id); return el ? (parseFloat(el.value) || 0) : 0; }
+    function dcS(id, v) { var el = document.getElementById(id); if (el) el.value = v === 0 ? '' : (Math.round(v * 100) / 100); }
+
+    function dcCalcRow(k) {
+        var wl=dcN('dc_wl_'+k), wp=dcN('dc_wp_'+k);
+        var bl=dcN('dc_bl_'+k), bp=dcN('dc_bp_'+k);
+        var al=dcN('dc_al_'+k), ap=dcN('dc_ap_'+k);
+        var gl=dcN('dc_gl_'+k), gp=dcN('dc_gp_'+k);
+
+        var jl=wl+bl+al, jp=wp+bp+ap, j=jl+jp;
+        var glp=gl+gp, tgl=jl*gl, tgp=jp*gp, tg=tgl+tgp;
+
+        dcS('dc_jl_'+k,jl); dcS('dc_jp_'+k,jp); dcS('dc_j_'+k,j);
+        dcS('dc_glp_'+k,glp); dcS('dc_tgl_'+k,tgl); dcS('dc_tgp_'+k,tgp); dcS('dc_tg_'+k,tg);
+
+        var glEl = document.getElementById('dc_gl_'+k);
+        if (glEl) { glEl.readOnly = (jl === 0); if (jl === 0) glEl.value = ''; }
+        var gpEl = document.getElementById('dc_gp_'+k);
+        if (gpEl) { gpEl.readOnly = (jp === 0); if (jp === 0) gpEl.value = ''; }
+
+        dcCalcAll();
+    }
+
+    function dcCalcAll() {
+        var keys = []; document.querySelectorAll('[id^="dc_wl_"]').forEach(function(el) { keys.push(el.id.replace('dc_wl_','')); });
+        var twl=0,twp=0,tbl=0,tbp=0,tal=0,tap=0,tjl=0,tjp=0,tj=0,tgl=0,tgp=0,tglp=0,ttgl=0,ttgp=0,ttg=0;
+        keys.forEach(function(k) {
+            twl+=dcN('dc_wl_'+k); twp+=dcN('dc_wp_'+k);
+            tbl+=dcN('dc_bl_'+k); tbp+=dcN('dc_bp_'+k);
+            tal+=dcN('dc_al_'+k); tap+=dcN('dc_ap_'+k);
+            tjl+=dcN('dc_jl_'+k); tjp+=dcN('dc_jp_'+k); tj+=dcN('dc_j_'+k);
+            tgl+=dcN('dc_gl_'+k); tgp+=dcN('dc_gp_'+k);
+            tglp+=dcN('dc_glp_'+k); ttgl+=dcN('dc_tgl_'+k);
+            ttgp+=dcN('dc_tgp_'+k); ttg+=dcN('dc_tg_'+k);
+        });
+        dcS('dc_tot_wl',twl); dcS('dc_tot_wp',twp);
+        dcS('dc_tot_bl',tbl); dcS('dc_tot_bp',tbp);
+        dcS('dc_tot_al',tal); dcS('dc_tot_ap',tap);
+        dcS('dc_tot_jl',tjl); dcS('dc_tot_jp',tjp); dcS('dc_tot_j',tj);
+        dcS('dc_tot_gl',tgl); dcS('dc_tot_gp',tgp);
+        dcS('dc_tot_glp',tglp); dcS('dc_tot_tgl',ttgl);
+        dcS('dc_tot_tgp',ttgp); dcS('dc_tot_tg',ttg);
+    }
+</script>
 
             <style>
                 table,
