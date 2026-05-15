@@ -80,20 +80,20 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <a type="button " href="{{ route('user.shuttle-5-senaraiA', date('Y')) }}"
+                                        <a type="button " href="{{ route('user.shuttle-5-senaraiA', $year) }}"
                                             class="btn"
                                             style="background-color:white;color:black;border-color:rgb(196, 188, 186)">Borang
                                             5A</a>
-                                        <a type="button" href="{{ route('user.shuttle-5-senaraiB', date('Y')) }}"
+                                        <a type="button" href="{{ route('user.shuttle-5-senaraiB', $year) }}"
                                             class="btn"
                                             style="background-color:white;color:black;border-color:#e72cc8f3">Borang 5B</a>
-                                        <a type="button" href="{{ route('user.shuttle-5-senaraiC', date('Y')) }}"
+                                        <a type="button" href="{{ route('user.shuttle-5-senaraiC', $year) }}"
                                             class="btn"
                                             style="background-color:white;color:black;border-color:#bbb235f3">Borang 5C</a>
-                                        <a type="button" href="{{ route('user.shuttle-5-senaraiD', date('Y')) }}"
+                                        <a type="button" href="{{ route('user.shuttle-5-senaraiD', $year) }}"
                                             class="btn"
                                             style="background-color:white;color:black;border-color:#1b9e21f3">Borang 5D</a>
-                                        <a type="button" href="{{ route('user.shuttle-5-senaraiE', date('Y')) }}"
+                                        <a type="button" href="{{ route('user.shuttle-5-senaraiE', $year) }}"
                                             class="btn"
                                             style="background-color:#58afe9f3;color:black;border-color:rgb(54, 140, 238">Borang
                                             5E</a>

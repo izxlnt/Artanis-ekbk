@@ -34,11 +34,11 @@ class FormB extends Component
 
         $breadcrumbs    = [
             ['link' => route('home-phd'), 'name' => "Laman Utama"],
-            ['link' => route('user.shuttle-4-senaraiB', date('Y')), 'name' => "Kemasukan Maklumat"],
-            ['link' => route('user.shuttle-4-senaraiB', date('Y')), 'name' => "Borang 4B"],
+            ['link' => route('user.shuttle-4-senaraiB', $this->year), 'name' => "Kemasukan Maklumat"],
+            ['link' => route('user.shuttle-4-senaraiB', $this->year), 'name' => "Borang 4B"],
         ];
 
-        $kembali = route('user.shuttle-4-senaraiB', date('Y'));
+        $kembali = route('user.shuttle-4-senaraiB', $this->year);
 
         $returnArr = [
             'breadcrumbs' => $breadcrumbs,

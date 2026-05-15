@@ -361,7 +361,7 @@
                                         @endif --}}
                                         <div class="text-right form-group m-b-0">
 
-                                            <a href="{{ route('user.shuttle-3-senaraiB', date('Y')) }}" class="btn btn-primary">Kembali</a>
+                                            <a href="{{ route('user.shuttle-3-senaraiB', $year) }}" class="btn btn-primary">Kembali</a>
                                             {{-- @if ($errors->isEmpty()) --}}
                                             <button type="button" class="btn btn-primary" alt="default"
                                                 data-toggle="modal" data-target="#confirmation_borang_b"

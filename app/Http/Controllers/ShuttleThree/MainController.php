@@ -492,14 +492,14 @@ class MainController extends Controller
 
             // Check if ANY form exists for this year - if not, user can start from any month
             $any_form_this_year = FormC::where('shuttle_id', auth()->user()->shuttle_id)
-                ->whereYear('created_at', $year)
+                ->where('tahun', $year)
                 ->where('status', '!=', 'Tidak Diisi')
                 ->count();
 
             // Check if previous month form exists
             $previous_year = $year;
             $check_month = $lastmonth;
-            
+
             // If checking January (id=1), check December of previous year
             if ($id == 1) {
                 $previous_year = $year - 1;
@@ -508,7 +508,7 @@ class MainController extends Controller
 
             $form_c_checker = FormC::where('shuttle_id', auth()->user()->shuttle_id)
                 ->where('bulan', $check_month)
-                ->whereYear('created_at', $previous_year)
+                ->where('tahun', $previous_year)
                 ->where('status', '!=', 'Tidak Diisi')
                 ->count();
 
@@ -671,28 +671,13 @@ class MainController extends Controller
             $registration_year = $shuttle && $shuttle->created_at ? date('Y', strtotime($shuttle->created_at)) : null;
             $registration_month = $shuttle && $shuttle->created_at ? (int)date('m', strtotime($shuttle->created_at)) : null;
             
-            $current_year = date('Y');
-
-            // Check if ANY form exists for this year - if not, user can start from any month
-            $any_form_this_year = FormC::where('shuttle_id', auth()->user()->shuttle_id)
-                ->whereYear('created_at', $current_year)
-                ->where('status', '!=', 'Tidak Diisi')
-                ->count();
-
-            $previous_year = $current_year;
-            $check_month = $lastmonth;
-            
-            // If checking January (id=1), check December of previous year
-            if ($id == 1) {
-                $previous_year = $current_year - 1;
-                $check_month = 12;
-            }
-            
-            $form_c_checker = FormC::where('shuttle_id', auth()->user()->shuttle_id)
-                ->where('bulan', $check_month)
-                ->whereYear('created_at', $previous_year)
-                ->where('status', '!=', 'Tidak Diisi')
-                ->count();
+            // Determine the actual year of the form being accessed from the DB record
+            $form_record = FormC::where('shuttle_id', auth()->user()->shuttle_id)
+                ->where('bulan', $id)
+                ->where('status', 'Tidak Diisi')
+                ->orderBy('tahun')
+                ->first();
+            $form_year = $form_record ? (int)$form_record->tahun : (int)date('Y');
 
             if ($form_a_checker == 0) {
                 return redirect()->back()->with('error', 'Sila isi Borang A terlebih dahulu.');

@@ -56,7 +56,7 @@
                                                             <label><b>Tahun:</b></label>
                                                            <input type="text" class="form-control"
                                                                 style="background-color: #f8dbee; border-color: #d89bc4"
-                                                                value="{{ date('Y') }}" readonly />
+                                                                value="{{ $year }}" readonly />
                                                         </div>
                                                         <div class="col-md-2">
                                                             <label><b>Suku Tahun:</b></label>
@@ -358,7 +358,7 @@
                                         <div class="text-right form-group m-b-0">
                                             {{-- <button type="submit" class="btn btn-primary" >Simpan</button> --}}
                                             {{-- <button type="button" class="btn btn-primary">Kembali</button> --}}
-                                            <a href="{{ route('user.shuttle-5-senaraiB', date('Y'))}}" class="btn btn-primary">Kembali</a>
+                                            <a href="{{ route('user.shuttle-5-senaraiB', $year) }}" class="btn btn-primary">Kembali</a>
                                             {{-- @if ($errors->isEmpty()) --}}
                                             <button type="button" class="btn btn-primary" alt="default"
                                                 data-toggle="modal" data-target="#confirmation_borang_b"

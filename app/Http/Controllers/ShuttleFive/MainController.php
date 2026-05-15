@@ -353,6 +353,8 @@ class MainController extends Controller
     }
     public function shuttle_5_formD($id)
     {
+        $shuttle_id = auth()->user()->shuttle_id;
+
         $buffer = Buffer::where('shuttle', 5)->where('borang', 'D')->first();
 
         if ($id != 1) {
@@ -361,90 +363,94 @@ class MainController extends Controller
             $lastmonth = $id;
         }
 
+        // Determine the actual year of the form being accessed from the DB record
+        $form_record = Form5D::where('shuttle_id', $shuttle_id)
+            ->where('bulan', $id)
+            ->where('status', 'Tidak Diisi')
+            ->orderBy('tahun')
+            ->first();
+        $form_year = $form_record ? (int)$form_record->tahun : (int)date('Y');
+
         $early_buffer_date = (int)date('m') - ($buffer ? (int)$buffer->delay : 0);
 
         // Get user's shuttle registration date
         $shuttle = auth()->user()->shuttle;
         $registration_year = $shuttle && $shuttle->created_at ? date('Y', strtotime($shuttle->created_at)) : null;
         $registration_month = $shuttle && $shuttle->created_at ? (int)date('m', strtotime($shuttle->created_at)) : null;
-        
-        $current_year = date('Y');
 
-        $form_a_checker = FormA::where('tahun', $current_year)
-        ->where('shuttle_id', auth()->user()->shuttle->id)
-        ->where('status', '!=', 'Tidak Diisi')
-        ->count();
-
-        $form_c_checker = FormC::where('shuttle_id', auth()->user()->shuttle_id)
-            ->where('bulan', $id)
-            ->whereYear('created_at', $current_year)
+        $form_a_checker = FormA::where('tahun', $form_year)
+            ->where('shuttle_id', auth()->user()->shuttle->id)
             ->where('status', '!=', 'Tidak Diisi')
             ->count();
 
-        $form_c_data = FormC::where('shuttle_id', auth()->user()->shuttle_id)
-        ->where('bulan', $id)
-        ->whereYear('created_at', $current_year)
-        ->where('status', '!=', 'Tidak Diisi')
-        ->first();
+        $form_c_checker = FormC::where('shuttle_id', $shuttle_id)
+            ->where('bulan', $id)
+            ->where('tahun', $form_year)
+            ->where('status', '!=', 'Tidak Diisi')
+            ->count();
 
-        // dd($form_c_data);
+        $form_c_data = FormC::where('shuttle_id', $shuttle_id)
+            ->where('bulan', $id)
+            ->where('tahun', $form_year)
+            ->where('status', '!=', 'Tidak Diisi')
+            ->first();
 
         // Check if ANY Form D exists for this year - if not, user can start from any month
-        $any_form_this_year = Form5D::where('shuttle_id', auth()->user()->shuttle_id)
-            ->whereYear('created_at', $current_year)
+        $any_form_this_year = Form5D::where('shuttle_id', $shuttle_id)
+            ->where('tahun', $form_year)
             ->where('status', '!=', 'Tidak Diisi')
             ->count();
 
         // Check previous month Form D
-        $previous_year = $current_year;
         $check_month = $lastmonth;
-        
+        $prev_year = $form_year;
+
         // If checking January (id=1), check December of previous year
         if ($id == 1) {
-            $previous_year = $current_year - 1;
+            $prev_year = $form_year - 1;
             $check_month = 12;
         }
 
-        $form_d_checker = Form5D::where('shuttle_id', auth()->user()->shuttle_id)
-        ->where('bulan', $check_month)
-        ->whereYear('created_at', $previous_year)
-        ->where('status', '!=', 'Tidak Diisi')
-        ->count();
+        $form_d_checker = Form5D::where('shuttle_id', $shuttle_id)
+            ->where('bulan', $check_month)
+            ->where('tahun', $prev_year)
+            ->where('status', '!=', 'Tidak Diisi')
+            ->count();
 
         if ($form_c_checker == 0) {
             return redirect()->back()->with('error', 'Sila isi Borang C bagi bulan yang dipilih terlebih dahulu.');
         }
 
-        if($form_a_checker == 0){
+        if ($form_a_checker == 0) {
             return redirect()->back()->with('error', 'Sila isi Borang A terlebih dahulu.');
         }
 
-        if($id == 1){
+        if ($id == 1) {
             // Check if December last year Form D is needed only if forms exist for this year
             $require_previous = false;
-            if ($any_form_this_year > 0 && $registration_year && (int)$registration_year < (int)$current_year) {
+            if ($any_form_this_year > 0 && $registration_year && (int)$registration_year < $form_year) {
                 $require_previous = true;
             }
-            
+
             if ($require_previous && $form_d_checker == 0) {
                 return redirect()->back()->with('error', 'Sila isi Borang D bulan sebelum ini terlebih dahulu.');
             }
-            
-            return view('admins.shuttle-five.shuttle-5-formD',compact('id','form_c_data'));
+
+            return view('admins.shuttle-five.shuttle-5-formD', compact('id', 'form_c_data'));
         }
 
         // Check if previous month validation is needed
         $should_check_previous = false;
-        
+
         if ($any_form_this_year > 0) {
             // Forms exist, enforce sequential filling
             if ($registration_year && $registration_month) {
-                // If registered before current form year, must have previous month data
-                if ((int)$registration_year < (int)$current_year) {
+                // If registered before the form's year, must have previous month data
+                if ((int)$registration_year < $form_year) {
                     $should_check_previous = true;
                 }
-                // If registered same year, only check previous if that month is after registration
-                elseif ((int)$registration_year == (int)$current_year && $lastmonth >= $registration_month) {
+                // If registered same year as form, only check previous if that month is after registration
+                elseif ((int)$registration_year == $form_year && $lastmonth >= $registration_month) {
                     $should_check_previous = true;
                 }
             } else {
@@ -457,7 +463,7 @@ class MainController extends Controller
             return redirect()->back()->with('error', 'Sila isi Borang D bulan sebelum ini terlebih dahulu.');
         }
 
-        return view('admins.shuttle-five.shuttle-5-formD',compact('id','form_c_data'));
+        return view('admins.shuttle-five.shuttle-5-formD', compact('id', 'form_c_data'));
     }
 
     public function shuttle_5_edit_formD($id)
@@ -484,6 +490,8 @@ class MainController extends Controller
 
     public function shuttle_5_formE($id)
     {
+        $shuttle_id = auth()->user()->shuttle_id;
+
         $buffer = Buffer::where('shuttle', 5)->where('borang', 'E')->first();
 
         if ($id != 1) {
@@ -492,81 +500,87 @@ class MainController extends Controller
             $lastmonth = $id;
         }
 
+        // Determine the actual year of the form being accessed from the DB record
+        $form_record = Form5E::where('shuttle_id', $shuttle_id)
+            ->where('bulan', $id)
+            ->where('status', 'Tidak Diisi')
+            ->orderBy('tahun')
+            ->first();
+        $form_year = $form_record ? (int)$form_record->tahun : (int)date('Y');
+
         $early_buffer_date = (int)date('m') - ($buffer ? (int)$buffer->delay : 0);
 
         // Get user's shuttle registration date
         $shuttle = auth()->user()->shuttle;
         $registration_year = $shuttle && $shuttle->created_at ? date('Y', strtotime($shuttle->created_at)) : null;
         $registration_month = $shuttle && $shuttle->created_at ? (int)date('m', strtotime($shuttle->created_at)) : null;
-        
-        $current_year = date('Y');
 
-        $form_a_checker = FormA::where('tahun', $current_year)
-        ->where('shuttle_id', auth()->user()->shuttle->id)
-        ->where('status', '!=', 'Tidak Diisi')
-        ->count();
+        $form_a_checker = FormA::where('tahun', $form_year)
+            ->where('shuttle_id', auth()->user()->shuttle->id)
+            ->where('status', '!=', 'Tidak Diisi')
+            ->count();
 
-        $form_d_checker = Form5D::where('shuttle_id', auth()->user()->shuttle_id)
+        $form_d_checker = Form5D::where('shuttle_id', $shuttle_id)
             ->where('bulan', $id)
-            ->whereYear('created_at', $current_year)
+            ->where('tahun', $form_year)
             ->where('status', '!=', 'Tidak Diisi')
             ->count();
 
         // Check if ANY Form E exists for this year - if not, user can start from any month
-        $any_form_this_year = Form5E::where('shuttle_id', auth()->user()->shuttle_id)
-            ->whereYear('created_at', $current_year)
+        $any_form_this_year = Form5E::where('shuttle_id', $shuttle_id)
+            ->where('tahun', $form_year)
             ->where('status', '!=', 'Tidak Diisi')
             ->count();
 
         // Check previous month Form E
-        $previous_year = $current_year;
         $check_month = $lastmonth;
-        
+        $prev_year = $form_year;
+
         // If checking January (id=1), check December of previous year
         if ($id == 1) {
-            $previous_year = $current_year - 1;
+            $prev_year = $form_year - 1;
             $check_month = 12;
         }
 
-        $form_e_checker = Form5E::where('shuttle_id', auth()->user()->shuttle_id)
-        ->where('bulan', $check_month)
-        ->whereYear('created_at', $previous_year)
-        ->where('status', '!=', 'Tidak Diisi')
-        ->count();
+        $form_e_checker = Form5E::where('shuttle_id', $shuttle_id)
+            ->where('bulan', $check_month)
+            ->where('tahun', $prev_year)
+            ->where('status', '!=', 'Tidak Diisi')
+            ->count();
 
-        if($form_a_checker == 0){
+        if ($form_a_checker == 0) {
             return redirect()->back()->with('error', 'Sila isi Borang A terlebih dahulu.');
         }
         if ($form_d_checker == 0) {
             return redirect()->back()->with('error', 'Sila isi Borang D bagi bulan yang dipilih terlebih dahulu.');
         }
 
-        if($id == 1){
+        if ($id == 1) {
             // Check if December last year Form E is needed only if forms exist for this year
             $require_previous = false;
-            if ($any_form_this_year > 0 && $registration_year && (int)$registration_year < (int)$current_year) {
+            if ($any_form_this_year > 0 && $registration_year && (int)$registration_year < $form_year) {
                 $require_previous = true;
             }
-            
+
             if ($require_previous && $form_e_checker == 0) {
                 return redirect()->back()->with('error', 'Sila isi Borang E bulan sebelum ini terlebih dahulu.');
             }
-            
-            return view('admins.shuttle-five.shuttle-5-formE',compact('id'));
+
+            return view('admins.shuttle-five.shuttle-5-formE', compact('id'));
         }
 
         // Check if previous month validation is needed
         $should_check_previous = false;
-        
+
         if ($any_form_this_year > 0) {
             // Forms exist, enforce sequential filling
             if ($registration_year && $registration_month) {
-                // If registered before current form year, must have previous month data
-                if ((int)$registration_year < (int)$current_year) {
+                // If registered before the form's year, must have previous month data
+                if ((int)$registration_year < $form_year) {
                     $should_check_previous = true;
                 }
-                // If registered same year, only check previous if that month is after registration
-                elseif ((int)$registration_year == (int)$current_year && $lastmonth >= $registration_month) {
+                // If registered same year as form, only check previous if that month is after registration
+                elseif ((int)$registration_year == $form_year && $lastmonth >= $registration_month) {
                     $should_check_previous = true;
                 }
             } else {
@@ -579,7 +593,7 @@ class MainController extends Controller
             return redirect()->back()->with('error', 'Sila isi Borang E bulan sebelum ini terlebih dahulu.');
         }
 
-        return view('admins.shuttle-five.shuttle-5-formE',compact('id'));
+        return view('admins.shuttle-five.shuttle-5-formE', compact('id'));
     }
 
     public function update_status_phd_form5D(Request $request,$id){
