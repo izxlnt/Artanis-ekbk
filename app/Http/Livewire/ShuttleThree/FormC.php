@@ -74,19 +74,37 @@ class FormC extends Component
 
     public function mount()
     {
-        # code...
-        // $kayu_id = '1';
-        // dd($kayu_id);
-        // $this->species_count = Spesis::orderBy('kumpulan_kayu_id')->where('kumpulan_kayu_id', $kayu_id)->count();
-        $this->species_count = Spesis::orderBy('kumpulan_kayu_id')->count();
+        $this->species = Spesis::orderBy('kumpulan_kayu_id')->orderBy('id')->get();
+        $this->species_count = $this->species->count();
 
-        for ($i = 0; $i < $this->species_count; $i++) {
-            $this->baki_stok[$i] = 0;
-            $this->kayu_masuk[$i] = 0;
-            $this->jumlah_stok_kayu_balak[$i] = 0;
-            $this->proses_masuk[$i] = 0;
-            $this->proses_keluar[$i] = 0;
-            $this->baki_stok_kehadapan[$i] = 0;
+        // Build carry-forward map from previous month's closing stock
+        $shuttleId = auth()->user()->shuttle_id;
+        $month     = (int)$this->bulan_id;
+        $year      = (int)($this->tahun ?? date('Y'));
+        $prevMonth = $month == 1 ? 12 : $month - 1;
+        $prevYear  = $month == 1 ? $year - 1 : $year;
+        $carryForward = [];
+
+        $prevFormC = ModelsFormC::where('shuttle_id', $shuttleId)
+            ->where('bulan', $prevMonth)
+            ->whereYear('created_at', $prevYear)
+            ->first();
+
+        if ($prevFormC) {
+            KemasukanBahan::where('formcs_id', $prevFormC->id)
+                ->get(['spesis_id', 'baki_stok_kehadapan'])
+                ->each(function ($row) use (&$carryForward) {
+                    $carryForward[$row->spesis_id] = $row->baki_stok_kehadapan;
+                });
+        }
+
+        foreach ($this->species as $keySpecies => $data) {
+            $this->baki_stok[$keySpecies]              = $carryForward[$data->id] ?? 0;
+            $this->kayu_masuk[$keySpecies]             = 0;
+            $this->jumlah_stok_kayu_balak[$keySpecies] = 0;
+            $this->proses_masuk[$keySpecies]           = 0;
+            $this->proses_keluar[$keySpecies]          = 0;
+            $this->baki_stok_kehadapan[$keySpecies]    = 0;
         }
 
         if ($this->bulan_id ==  '1') {
@@ -115,15 +133,8 @@ class FormC extends Component
             $this->bulan = "Disember";
         }
 
-        $id = auth()->user();
-        // $kayu_id = '1';
-
-        // $this->species = Spesis::orderBy('kumpulan_kayu_id')->where('kumpulan_kayu_id', $kayu_id)->get();
-        $this->species = Spesis::orderBy('kumpulan_kayu_id')->orderBy('id')->get();
-
-        // $this->kumpulan_kayu = KumpulanKayu::where('id', $kayu_id)->get();
         $this->kumpulan_kayu = KumpulanKayu::get();
-        $this->kilang_info = Shuttle::where('id', $id->shuttle_id)->first();
+        $this->kilang_info = Shuttle::where('id', $shuttleId)->first();
     }
 
     public function store()
@@ -205,6 +216,8 @@ class FormC extends Component
         $batch->save();
 
 
+        KemasukanBahan::where('formcs_id', $formc->id)->delete();
+
         foreach ($this->species as $keySpecies => $data) {
 
             // dd( $this->jumlah_baki_stok);
@@ -236,8 +249,8 @@ class FormC extends Component
 
                 'shuttle_id' => $shuttle_id->id,
                 'kategori_guna_tenaga_id' => $data->id,
-                'bulan' => now('M'),
-                'tahun' => now('Y'),
+                'bulan' => $this->bulan_id,
+                'tahun' => $this->tahun ?? date('Y'),
                 'formcs_id' => $formc->id,
             ]);
         }
@@ -316,6 +329,8 @@ class FormC extends Component
         $batch->save();
 
 
+        KemasukanBahan::where('formcs_id', $formc->id)->delete();
+
         // foreach ($this->species as $keySpecies => $data) {
         foreach ($species as $keySpecies => $data) {
             // dd($species);
@@ -345,8 +360,8 @@ class FormC extends Component
 
                 'shuttle_id' => $shuttle_id->id,
                 'kategori_guna_tenaga_id' => $data->id,
-                'bulan' => now('M'),
-                'tahun' => now('Y'),
+                'bulan' => $this->bulan_id,
+                'tahun' => $this->tahun ?? date('Y'),
                 'formcs_id' => $formc->id,
             ]);
         }

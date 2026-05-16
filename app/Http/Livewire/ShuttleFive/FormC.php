@@ -24,14 +24,34 @@ class FormC extends Component
         $this->month = $month;
         $this->year = $year;
 
-        $species_count = Spesis::count();
-        for ($i = 0; $i < $species_count; $i++) {
-            $this->baki_stok[$i] = 0;
-            $this->kayu_masuk[$i] = 0;
-            $this->jumlah_stok_kayu_balak[$i] = 0;
-            $this->proses_masuk[$i] = 0;
-            $this->proses_keluar[$i] = 0;
-            $this->baki_stok_kehadapan[$i] = 0;
+        $species   = Spesis::orderBy('kumpulan_kayu_id')->orderBy('id')->get();
+        $shuttleId = auth()->user()->shuttle_id;
+
+        // Build spesis_id => baki_stok_kehadapan map from previous month's submission
+        $prevMonth = $month == 1 ? 12 : $month - 1;
+        $prevYear  = $month == 1 ? $year - 1 : $year;
+        $carryForward = [];
+
+        $prevFormC = ModelsFormC::where('shuttle_id', $shuttleId)
+            ->where('bulan', $prevMonth)
+            ->where('tahun', $prevYear)
+            ->first();
+
+        if ($prevFormC) {
+            KemasukanBahan::where('formcs_id', $prevFormC->id)
+                ->get(['spesis_id', 'baki_stok_kehadapan'])
+                ->each(function ($row) use (&$carryForward) {
+                    $carryForward[$row->spesis_id] = $row->baki_stok_kehadapan;
+                });
+        }
+
+        foreach ($species as $keySpecies => $data) {
+            $this->baki_stok[$keySpecies]              = $carryForward[$data->id] ?? 0;
+            $this->kayu_masuk[$keySpecies]             = 0;
+            $this->jumlah_stok_kayu_balak[$keySpecies] = 0;
+            $this->proses_masuk[$keySpecies]           = 0;
+            $this->proses_keluar[$keySpecies]          = 0;
+            $this->baki_stok_kehadapan[$keySpecies]    = 0;
         }
     }
 

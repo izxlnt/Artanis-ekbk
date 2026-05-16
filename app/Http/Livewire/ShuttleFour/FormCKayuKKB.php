@@ -378,8 +378,8 @@ class FormCKayuKKB extends Component
 
                     'shuttle_id' => $shuttle_id->id,
                     'kategori_guna_tenaga_id' => $data->id,
-                    'bulan' => now('M'),
-                    'tahun' => now('Y'),
+                    'bulan' => $this->bulan_id,
+                    'tahun' => date('Y'),
                     'formcs_id' => $formc->id,
                 ]);
             }
@@ -588,8 +588,8 @@ class FormCKayuKKB extends Component
 
                     'shuttle_id' => $shuttle_id->id,
                     'kategori_guna_tenaga_id' => $data->id,
-                    'bulan' => now('M'),
-                    'tahun' => now('Y'),
+                    'bulan' => $this->bulan_id,
+                    'tahun' => date('Y'),
                     'formcs_id' => $formc->id,
 
                 ]);
