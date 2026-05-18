@@ -92,6 +92,41 @@
                     {{-- <div style="padding: 23px;"></div> --}}
                 @endif
 
+                {{-- Maintenance Mode Quick Access (IPJPSM/BPE only) --}}
+                @php $__maint = \App\Models\MaintenanceSetting::first(); @endphp
+                <div class="card mb-3" style="border-radius:12px; border: 2px solid {{ ($__maint && $__maint->is_active) ? '#ffc107' : '#d4edda' }}; background: {{ ($__maint && $__maint->is_active) ? '#fff8e1' : '#f6fffa' }};">
+                    <div class="card-body py-3 px-4 d-flex align-items-center justify-content-between flex-wrap" style="gap:12px;">
+                        <div class="d-flex align-items-center" style="gap:14px;">
+                            <div style="width:44px;height:44px;border-radius:50%;background:{{ ($__maint && $__maint->is_active) ? '#ffc107' : '#28a745' }};display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+                                <i class="fas fa-tools text-white" style="font-size:18px;"></i>
+                            </div>
+                            <div>
+                                <div style="font-weight:700;font-size:14px;color:#333;">
+                                    Mod Penyelenggaraan Sistem
+                                    @if($__maint && $__maint->is_active)
+                                        <span class="badge badge-warning ml-1" style="font-size:10px;vertical-align:middle;">AKTIF SEKARANG</span>
+                                    @else
+                                        <span class="badge badge-success ml-1" style="font-size:10px;vertical-align:middle;">TIDAK AKTIF</span>
+                                    @endif
+                                </div>
+                                <div style="font-size:12px;color:#666;margin-top:2px;">
+                                    @if($__maint && $__maint->is_active)
+                                        Hanya pentadbir IPJPSM/BPE yang boleh mengakses sistem pada masa ini.
+                                        @if($__maint->end_date)
+                                            Dijangka selesai: <strong>{{ $__maint->end_date->format('d/m/Y, h:i A') }}</strong>
+                                        @endif
+                                    @else
+                                        Sistem beroperasi seperti biasa. Klik untuk urus tetapan penyelenggaraan.
+                                    @endif
+                                </div>
+                            </div>
+                        </div>
+                        <a href="{{ route('tetapan.penyelenggaraan.papar') }}" class="btn btn-sm {{ ($__maint && $__maint->is_active) ? 'btn-warning' : 'btn-outline-success' }}" style="white-space:nowrap;">
+                            <i class="fas fa-sliders-h mr-1"></i> Urus Tetapan
+                        </a>
+                    </div>
+                </div>
+
                 <div class="row">
                     <div class="col-md-12">
                         {{-- SECTION 1: Shows total count of active registered factories (approved users) --}}

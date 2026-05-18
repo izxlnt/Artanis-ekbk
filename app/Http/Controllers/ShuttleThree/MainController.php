@@ -1428,10 +1428,12 @@ class MainController extends Controller
 
         $formA_update->save();
 
-        $batcha = Batch::where('tahun', $formA_update->tahun)->where('bulan', date("n"))->where('borang_a', '0')->where('shuttle_id',$shuttle->id)->first();
-        $batcha->status = "Sedang Diproses";
-        $batcha->borang_a = 1;
-        $batcha->save();
+        $batcha = Batch::where('tahun', $formA_update->tahun)->where('borang_a', '0')->where('shuttle_id',$shuttle->id)->first();
+        if ($batcha) {
+            $batcha->status = "Sedang Diproses";
+            $batcha->borang_a = 1;
+            $batcha->save();
+        }
 
         // dd($formA_checker);
         if ($request->has('lesen_kilang') && $request->has('sijil_ssm')) {

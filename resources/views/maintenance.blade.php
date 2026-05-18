@@ -139,6 +139,47 @@
             color: #1a472a;
         }
 
+        .date-box {
+            background: linear-gradient(135deg, #e9f5ec, #d8f3dc);
+            border: 1px solid #b7e4c7;
+            border-radius: 10px;
+            padding: 18px 24px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            text-align: left;
+        }
+
+        .date-box .date-icon {
+            font-size: 28px;
+            flex-shrink: 0;
+        }
+
+        .date-box .date-content {
+            flex: 1;
+        }
+
+        .date-box .date-label {
+            font-size: 11px;
+            font-weight: 700;
+            color: #2d6a4f;
+            text-transform: uppercase;
+            letter-spacing: 0.6px;
+            margin-bottom: 4px;
+        }
+
+        .date-box .date-range {
+            font-size: 14px;
+            font-weight: 600;
+            color: #1a472a;
+        }
+
+        .date-box .date-range span {
+            color: #40916c;
+            margin: 0 6px;
+        }
+
         .contact-section {
             margin-top: 8px;
         }
@@ -177,6 +218,11 @@
             h1 {
                 font-size: 22px;
             }
+
+            .date-box {
+                flex-direction: column;
+                gap: 8px;
+            }
         }
     </style>
 </head>
@@ -200,17 +246,39 @@
             <h1>Sistem Sedang Dalam<br>Penyelenggaraan</h1>
 
             <p class="subtitle">
-                Kami sedang menjalankan kerja-kerja penyelenggaraan bagi memastikan
-                sistem beroperasi dengan lebih baik. Kami memohon maaf atas sebarang
-                kesulitan yang ditimbulkan.
+                {{ $message ?? 'Kami sedang menjalankan kerja-kerja penyelenggaraan bagi memastikan sistem beroperasi dengan lebih baik. Kami memohon maaf atas sebarang kesulitan yang ditimbulkan.' }}
             </p>
 
             <hr class="divider">
 
+            @if($start || $end)
+            <div class="date-box">
+                <div class="date-icon">&#128197;</div>
+                <div class="date-content">
+                    <div class="date-label">Tempoh Penyelenggaraan</div>
+                    <div class="date-range">
+                        @if($start && $end)
+                            {{ \Carbon\Carbon::parse($start)->format('d/m/Y, h:i A') }}
+                            <span>&#8594;</span>
+                            {{ \Carbon\Carbon::parse($end)->format('d/m/Y, h:i A') }}
+                        @elseif($start)
+                            Bermula {{ \Carbon\Carbon::parse($start)->format('d/m/Y, h:i A') }}
+                        @elseif($end)
+                            Dijangka selesai {{ \Carbon\Carbon::parse($end)->format('d/m/Y, h:i A') }}
+                        @endif
+                    </div>
+                </div>
+            </div>
+            @endif
+
             <div class="info-box">
-                <p>&#128337; <strong>Jangkaan masa siap:</strong> Sistem akan kembali beroperasi tidak lama lagi.</p>
+                @if($start && $end)
+                    <p>&#128337; <strong>Jangkaan masa siap:</strong> {{ \Carbon\Carbon::parse($end)->format('d/m/Y, h:i A') }}</p>
+                @else
+                    <p>&#128337; <strong>Jangkaan masa siap:</strong> Sistem akan kembali beroperasi tidak lama lagi.</p>
+                @endif
                 <p>&#128204; <strong>Status:</strong> Kerja-kerja penyelenggaraan sedang berjalan.</p>
-                <p>&#128274; <strong>Akses:</strong> Semua pengguna tidak dapat mengakses sistem buat sementara waktu.</p>
+                <p>&#128274; <strong>Akses:</strong> Sistem tidak dapat diakses buat sementara waktu.</p>
             </div>
 
             <div class="contact-section">
@@ -222,6 +290,12 @@
 
             <p class="footer-text">
                 &copy; {{ date('Y') }} <strong>SISTEM eSHUTTLE</strong> &mdash; Institut Penyelidikan Jenis-Jenis Pokok Sabah &amp; Sarawak Malaysia
+            </p>
+
+            <p style="margin-top: 16px; font-size: 11px;">
+                <a href="/login" style="color: #adb5bd; text-decoration: none;">
+                    Pentadbir sistem? <span style="text-decoration: underline;">Log masuk di sini</span>
+                </a>
             </p>
         </div>
     </div>

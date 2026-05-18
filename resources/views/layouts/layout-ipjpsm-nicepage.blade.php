@@ -193,6 +193,21 @@
 
                     </ul>
                     <ul class="float-right navbar-nav">
+                        <!-- Maintenance Mode Quick Toggle -->
+                        @php $__maint = \App\Models\MaintenanceSetting::first(); @endphp
+                        @if($__maint && $__maint->is_active)
+                        <li class="nav-item d-flex align-items-center mr-2">
+                            <form action="{{ route('tetapan.penyelenggaraan.toggle') }}" method="POST"
+                                onsubmit="return confirm('Matikan Mod Penyelenggaraan sekarang?\n\nSemua pengguna akan dapat mengakses sistem semula.');">
+                                @csrf
+                                <button type="submit"
+                                    style="background:#ffc107;border:none;border-radius:20px;padding:5px 14px;font-size:12px;font-weight:700;color:#333;cursor:pointer;display:flex;align-items:center;gap:6px;white-space:nowrap;">
+                                    <i class="fas fa-tools"></i>
+                                    PENYELENGGARAAN AKTIF &nbsp;&#x2715; Matikan
+                                </button>
+                            </form>
+                        </li>
+                        @endif
                         <!-- ============================================================== -->
                         <!-- Notification -->
                         <!-- ============================================================== -->
@@ -528,6 +543,25 @@
                                             Tetapan Buffer Penghantaran
                                             Borang
                                         </span></a>
+                                </li>
+
+                                <li class="sidebar-item">
+                                    <a href="{{ route('tetapan.penyelenggaraan.papar') }}" class="sidebar-link">
+                                        &nbsp;&nbsp;
+                                        @php $__maint = \App\Models\MaintenanceSetting::first(); @endphp
+                                        @if($__maint && $__maint->is_active)
+                                            <i class="fas fa-tools text-warning"></i>
+                                        @else
+                                            <i class="fas fa-tools"></i>
+                                        @endif
+                                        &nbsp;&nbsp;&nbsp;
+                                        <span class="hide-menu">
+                                            Mod Penyelenggaraan
+                                            @if($__maint && $__maint->is_active)
+                                                <span class="badge badge-warning badge-pill ml-1" style="font-size:9px;">AKTIF</span>
+                                            @endif
+                                        </span>
+                                    </a>
                                 </li>
 
                                 <li class="sidebar-item"><a href="{{ route('pengumuman-ipjpsm') }}"

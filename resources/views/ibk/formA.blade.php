@@ -1048,46 +1048,6 @@
             };
         };
     </script>
-    <script>
-        var uploadField = document.getElementById("icfront");
-        // console.log(uploadField);
-        uploadField.onchange = function() {
-            if (this.files[0].size > 8388608) {
-                alert("Fail dimuatnaik terlalu besar! Sila muatnaik fail tidak melebihi 8mb");
-                this.value = "";
-            };
-        };
-    </script>
-    <script>
-        var uploadField = document.getElementById("icback");
-        // console.log(uploadField);
-        uploadField.onchange = function() {
-            if (this.files[0].size > 8388608) {
-                alert("Fail dimuatnaik terlalu besar! Sila muatnaik fail tidak melebihi 8mb");
-                this.value = "";
-            };
-        };
-    </script>
-    <script>
-        var uploadField = document.getElementById("passport");
-        // console.log(uploadField);
-        uploadField.onchange = function() {
-            if (this.files[0].size > 8388608) {
-                alert("Fail dimuatnaik terlalu besar! Sila muatnaik fail tidak melebihi 8mb");
-                this.value = "";
-            };
-        };
-    </script>
-    <script>
-        var uploadField = document.getElementById("kad_pekerja");
-        // console.log(uploadField);
-        uploadField.onchange = function() {
-            if (this.files[0].size > 8388608) {
-                alert("Fail dimuatnaik terlalu besar! Sila muatnaik fail tidak melebihi 8mb");
-                this.value = "";
-            };
-        };
-    </script>
 
     </div>
 

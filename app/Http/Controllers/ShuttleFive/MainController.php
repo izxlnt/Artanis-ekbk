@@ -147,7 +147,7 @@ class MainController extends Controller
 
         $formA_update->save();
 
-        $batch = Batch::where('tahun', $formA_update->tahun)->where('bulan', date("n"))->where('borang_a', '0')->where('shuttle_id',$shuttle->id)->first();
+        $batch = Batch::where('tahun', $formA_update->tahun)->where('borang_a', '0')->where('shuttle_id',$shuttle->id)->first();
 
         if ($batch) {
             $batch->status = "Sedang Diproses";

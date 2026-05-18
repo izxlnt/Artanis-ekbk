@@ -595,6 +595,11 @@ Route::middleware('auth')->group(
             Route::middleware('admin')->group(function () {
                 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
+                // Tetapan Penyelenggaraan
+                Route::get('/admin/tetapan-penyelenggaraan', [App\Http\Controllers\MaintenanceSettingController::class, 'papar'])->name('tetapan.penyelenggaraan.papar');
+                Route::post('/admin/tetapan-penyelenggaraan', [App\Http\Controllers\MaintenanceSettingController::class, 'kemaskini'])->name('tetapan.penyelenggaraan.kemaskini');
+                Route::post('/admin/tetapan-penyelenggaraan/toggle', [App\Http\Controllers\MaintenanceSettingController::class, 'toggle'])->name('tetapan.penyelenggaraan.toggle');
+
                 Route::get('/admin/laporan', [App\Http\Controllers\Laporan\LaporanController::class, 'importExportView'])->name('laporan');
                 Route::get('laporan', [App\Http\Controllers\Laporan\LaporanController::class, 'laporanView'])->name('laporanpopup');
 
