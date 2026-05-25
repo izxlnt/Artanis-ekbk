@@ -63,6 +63,16 @@ class User extends Authenticatable implements Auditable
         'email_verified_at' => 'datetime',
     ];
 
+    public function setLoginIdAttribute($value)
+    {
+        $this->attributes['login_id'] = implode('/', array_slice(explode('/', trim($value)), 0, 2));
+    }
+
+    public function setShuttleTypeAttribute($value)
+    {
+        $this->attributes['shuttle_type'] = trim($value);
+    }
+
     public function pengguna_kilang()
     {
         return $this->hasOne('App\Models\PenggunaKilang','id','pengguna_kilang_id');

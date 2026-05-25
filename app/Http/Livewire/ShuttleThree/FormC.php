@@ -58,6 +58,7 @@ class FormC extends Component
             $min_rate = $this->proses_masuk[$i] * $min_recovery_rate;
             $max_rate = $this->proses_masuk[$i] * $max_recovery_rate;
             // dd($max_rate);
+            $this->jumlah_stok_kayu_balak[$i] = (float)($this->baki_stok[$i] ?? 0) + (float)($this->kayu_masuk[$i] ?? 0);
             $this->validate([
                 'proses_masuk.' . $i => 'numeric|max:' . $this->jumlah_stok_kayu_balak[$i],
                 'proses_keluar.' . $i => 'numeric|min:' . $min_rate . '|max:' . $max_rate,
@@ -150,6 +151,7 @@ class FormC extends Component
                 $this->proses_masuk[$i] = 0;
                 $this->proses_keluar[$i] = 0;
             }
+            $this->jumlah_stok_kayu_balak[$i] = (float)($this->baki_stok[$i] ?? 0) + (float)($this->kayu_masuk[$i] ?? 0);
             $this->validate([
                 'proses_masuk.' . $i => 'numeric|max:' . $this->jumlah_stok_kayu_balak[$i],
                 'proses_keluar.' . $i => 'numeric|max:' . $this->proses_masuk[$i],

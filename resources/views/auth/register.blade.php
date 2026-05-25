@@ -487,7 +487,7 @@
                                                                     <option value="" selected hidden disabled
                                                                         value="{{ old('shuttle_type') }}"">Sila Pilih
                                                                     Kilang</option>
-                                                                <option value=" 3"
+                                                                <option value="3"
                                                                         {{ old('shuttle_type') == '3' ? 'selected' : '' }}>
                                                                         Kilang Papan</option>
                                                                     <option value="4"

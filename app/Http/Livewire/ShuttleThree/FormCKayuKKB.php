@@ -50,6 +50,7 @@ class FormCKayuKKB extends Component
             $this->min_rate[$i] = ((float)$this->proses_masuk[$i] ?? 0) * $min_recovery_rate;
             $this->max_rate[$i] = ((float)$this->proses_masuk[$i] ?? 0) * $max_recovery_rate;
             // dd($this->proses_keluar[$i]);
+            $this->jumlah_stok_kayu_balak[$i] = (float)($this->baki_stok[$i] ?? 0) + (float)($this->kayu_masuk[$i] ?? 0);
             $this->validate([
                 'proses_masuk.' . $i => 'numeric|max:' . $this->jumlah_stok_kayu_balak[$i],
                 'proses_keluar.' . $i => 'numeric|min:' . $this->min_rate[$i] . '|max:' . $this->max_rate[$i],
@@ -266,6 +267,7 @@ class FormCKayuKKB extends Component
             $this->min_rate[$i] = ((float)$this->proses_masuk[$i] ?? 0) * $min_recovery_rate;
             $this->max_rate[$i] = ((float)$this->proses_masuk[$i] ?? 0) * $max_recovery_rate;
             // dd($this->min_rate[$i]);
+            $this->jumlah_stok_kayu_balak[$i] = (float)($this->baki_stok[$i] ?? 0) + (float)($this->kayu_masuk[$i] ?? 0);
             $this->validate([
                 'proses_masuk.' . $i => 'numeric|max:' . $this->jumlah_stok_kayu_balak[$i],
                 'proses_keluar.' . $i => 'numeric|min:' . $this->min_rate[$i] . '|max:' . $this->max_rate[$i],

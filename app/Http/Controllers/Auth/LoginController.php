@@ -48,6 +48,9 @@ class LoginController extends Controller
 
     public function login(Request $request){
 
+        // Normalize login_id: allow at most one slash (e.g. "SSM/3" is valid, "SSM/3/3" is not).
+        $request->merge(['login_id' => implode('/', array_slice(explode('/', trim($request->login_id)), 0, 2))]);
+
         //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
         $search_login_id = User::where('login_id', $request->login_id)->get();
 
@@ -63,7 +66,6 @@ class LoginController extends Controller
             return redirect()->back()->with('error', 'Kata laluan tidak sah.');
         }
 
-        // dd($request->all());
         $user_status = User::where('login_id', $request->login_id)->where('status', '0')->first();
 
 

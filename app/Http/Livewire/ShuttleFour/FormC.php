@@ -69,6 +69,7 @@ class FormC extends Component
             if (!isset($this->jumlah_stok_kayu_balak[$i])) {
                 $this->jumlah_stok_kayu_balak[$i] = 0;
             }
+            $this->jumlah_stok_kayu_balak[$i] = (float)($this->baki_stok[$i] ?? 0) + (float)($this->kayu_masuk[$i] ?? 0);
             $this->validate([
                 'proses_masuk.' . $i => 'numeric|max:' . $this->jumlah_stok_kayu_balak[$i],
             ]);
