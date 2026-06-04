@@ -502,6 +502,7 @@ class LaporanController extends LaporanDataLamaController
             WHERE shuttles.id = form_a_s.shuttle_id
             AND shuttles.shuttle_type = '3'
             AND form_a_s.status = 'Lulus'
+            AND form_a_s.tahun = $tahun
         ");
 
 
@@ -526,24 +527,31 @@ class LaporanController extends LaporanDataLamaController
             AND shuttles.id = formbs.shuttle_id
             AND guna_tenagas.shuttle_id = shuttles.id
             AND guna_tenagas.formbs_id = formbs.id
-            AND formbs.suku_tahun = (SELECT MAX(formbs.suku_tahun)
-                                                FROM shuttles, guna_tenagas, formbs
-                                                WHERE shuttles.id = formbs.shuttle_id
-                                                AND shuttles.shuttle_type = '3'
-                                                AND guna_tenagas.shuttle_id = shuttles.id
-                                                AND guna_tenagas.formbs_id = formbs.id)
+            AND formbs.tahun = '$tahun'
+            AND formbs.suku_tahun = (SELECT MAX(f2.suku_tahun)
+                                                FROM formbs f2
+                                                WHERE f2.shuttle_id = '$data_shuttle->id'
+                                                AND f2.tahun = '$tahun')
 
             ORDER BY formbs.suku_tahun DESC
         ");
-        
+
         if (empty($guna_tenaga_result)) {
-            return redirect()->back()->with('error', 'Tiada data Guna Tenaga ditemui untuk tahun ' . $tahun . ' bagi Shuttle 3');
+            $data_guna_tenagas[$data_shuttle->id] = (object)[
+                'shuttle_id' => $data_shuttle->id,
+                'pekerja_wargabumi_lelaki_laporan' => 0,
+                'pekerja_wargabumi_perempuan_laporan' => 0,
+                'pekerja_bukan_wargabumi_lelaki_laporan' => 0,
+                'pekerja_bukan_wargabumi_perempuan_laporan' => 0,
+                'pekerja_asing_lelaki_laporan' => 0,
+                'pekerja_asing_perempuan_laporan' => 0,
+            ];
+        } else {
+            $data_guna_tenagas[$data_shuttle->id] = $guna_tenaga_result[0];
         }
-        
-        $data_guna_tenagas[$data_shuttle->id] = $guna_tenaga_result[0];
 
 
-        $data_kemasukan_bahans[$data_shuttle->id] = DB::select("SELECT
+        $kemasukan_result = DB::select("SELECT
             shuttles.id as shuttle_id,
 
             sum(kemasukan_bahans.total_kayu_masuk_jentera) as jumlah_penggunaan,
@@ -561,7 +569,7 @@ class LaporanController extends LaporanDataLamaController
 
             GROUP BY shuttles.id
         ");
-        
+
         if (empty($kemasukan_result)) {
             $data_kemasukan_bahans[$data_shuttle->id] = (object)[
                 'shuttle_id' => $data_shuttle->id,
@@ -686,6 +694,7 @@ class LaporanController extends LaporanDataLamaController
         WHERE shuttles.id = form_a_s.shuttle_id
         AND shuttles.shuttle_type = '3'
         AND form_a_s.status = 'Lulus'
+        AND form_a_s.tahun = $tahun
     ");
 
 
@@ -710,15 +719,20 @@ foreach ($data_shuttles as $data_shuttle) {
     AND shuttles.id = formbs.shuttle_id
     AND guna_tenagas.shuttle_id = shuttles.id
     AND guna_tenagas.formbs_id = formbs.id
-    AND formbs.suku_tahun = (SELECT MAX(formbs.suku_tahun)
-                                        FROM shuttles, guna_tenagas, formbs
-                                        WHERE shuttles.id = formbs.shuttle_id
-                                        AND shuttles.shuttle_type = '3'
-                                        AND guna_tenagas.shuttle_id = shuttles.id
-                                        AND guna_tenagas.formbs_id = formbs.id)
+    AND formbs.tahun = '$tahun'
+    AND formbs.suku_tahun = (SELECT MAX(f2.suku_tahun)
+                                        FROM formbs f2
+                                        WHERE f2.shuttle_id = '$data_shuttle->id'
+                                        AND f2.tahun = '$tahun')
 
     ORDER BY formbs.suku_tahun DESC
-")[0];
+");
+    $data_guna_tenagas[$data_shuttle->id] = !empty($guna_tenaga_result) ? $guna_tenaga_result[0] : (object)[
+        'shuttle_id' => $data_shuttle->id, 'pekerja_wargabumi_lelaki_laporan' => 0,
+        'pekerja_wargabumi_perempuan_laporan' => 0, 'pekerja_bukan_wargabumi_lelaki_laporan' => 0,
+        'pekerja_bukan_wargabumi_perempuan_laporan' => 0, 'pekerja_asing_lelaki_laporan' => 0,
+        'pekerja_asing_perempuan_laporan' => 0,
+    ];
 
 
 $data_kemasukan_bahans[$data_shuttle->id] = DB::select("SELECT
@@ -847,10 +861,11 @@ $data_form_d_s[$data_shuttle->id] = DB::select("SELECT
         WHERE shuttles.id = form_a_s.shuttle_id
         AND shuttles.shuttle_type = '3'
         AND form_a_s.status = 'Lulus'
+        AND form_a_s.tahun = $tahun
     ");
 
 foreach ($data_shuttles as $data_shuttle) {
-    $data_guna_tenagas[$data_shuttle->id] = DB::select("SELECT
+    $gt_temp = DB::select("SELECT
     DISTINCT(shuttles.id) as shuttle_id,
     formbs.suku_tahun,
 
@@ -870,15 +885,20 @@ foreach ($data_shuttles as $data_shuttle) {
     AND shuttles.id = formbs.shuttle_id
     AND guna_tenagas.shuttle_id = shuttles.id
     AND guna_tenagas.formbs_id = formbs.id
-    AND formbs.suku_tahun = (SELECT MAX(formbs.suku_tahun)
-                                        FROM shuttles, guna_tenagas, formbs
-                                        WHERE shuttles.id = formbs.shuttle_id
-                                        AND shuttles.shuttle_type = '3'
-                                        AND guna_tenagas.shuttle_id = shuttles.id
-                                        AND guna_tenagas.formbs_id = formbs.id)
+    AND formbs.tahun = '$tahun'
+    AND formbs.suku_tahun = (SELECT MAX(f2.suku_tahun)
+                                        FROM formbs f2
+                                        WHERE f2.shuttle_id = '$data_shuttle->id'
+                                        AND f2.tahun = '$tahun')
 
     ORDER BY formbs.suku_tahun DESC
-")[0];
+");
+    $data_guna_tenagas[$data_shuttle->id] = !empty($gt_temp) ? $gt_temp[0] : (object)[
+        'shuttle_id' => $data_shuttle->id, 'pekerja_wargabumi_lelaki_laporan' => 0,
+        'pekerja_wargabumi_perempuan_laporan' => 0, 'pekerja_bukan_wargabumi_lelaki_laporan' => 0,
+        'pekerja_bukan_wargabumi_perempuan_laporan' => 0, 'pekerja_asing_lelaki_laporan' => 0,
+        'pekerja_asing_perempuan_laporan' => 0,
+    ];
 
 
 $data_kemasukan_bahans[$data_shuttle->id] = DB::select("SELECT
@@ -1007,7 +1027,7 @@ $data_form_d_s[$data_shuttle->id] = DB::select("SELECT
         ");
 
 foreach ($data_shuttles as $data_shuttle) {
-    $data_guna_tenagas[$data_shuttle->id] = DB::select("SELECT
+    $gt_temp = DB::select("SELECT
     DISTINCT(shuttles.id) as shuttle_id,
     formbs.suku_tahun,
 
@@ -1027,15 +1047,20 @@ foreach ($data_shuttles as $data_shuttle) {
     AND shuttles.id = formbs.shuttle_id
     AND guna_tenagas.shuttle_id = shuttles.id
     AND guna_tenagas.formbs_id = formbs.id
-    AND formbs.suku_tahun = (SELECT MAX(formbs.suku_tahun)
-                                        FROM shuttles, guna_tenagas, formbs
-                                        WHERE shuttles.id = formbs.shuttle_id
-                                        AND shuttles.shuttle_type = '3'
-                                        AND guna_tenagas.shuttle_id = shuttles.id
-                                        AND guna_tenagas.formbs_id = formbs.id)
+    AND formbs.tahun = '$tahun'
+    AND formbs.suku_tahun = (SELECT MAX(f2.suku_tahun)
+                                        FROM formbs f2
+                                        WHERE f2.shuttle_id = '$data_shuttle->id'
+                                        AND f2.tahun = '$tahun')
 
     ORDER BY formbs.suku_tahun DESC
-")[0];
+");
+    $data_guna_tenagas[$data_shuttle->id] = !empty($gt_temp) ? $gt_temp[0] : (object)[
+        'shuttle_id' => $data_shuttle->id, 'pekerja_wargabumi_lelaki_laporan' => 0,
+        'pekerja_wargabumi_perempuan_laporan' => 0, 'pekerja_bukan_wargabumi_lelaki_laporan' => 0,
+        'pekerja_bukan_wargabumi_perempuan_laporan' => 0, 'pekerja_asing_lelaki_laporan' => 0,
+        'pekerja_asing_perempuan_laporan' => 0,
+    ];
 
 
 $data_kemasukan_bahans[$data_shuttle->id] = DB::select("SELECT
@@ -3705,11 +3730,12 @@ $data_form_d_s[$data_shuttle->id] = DB::select("SELECT
             WHERE shuttles.id = form_a_s.shuttle_id
             AND shuttles.shuttle_type = '4'
             AND form_a_s.status = 'Lulus'
+            AND form_a_s.tahun = $tahun
         ");
 
 
         foreach ($data_shuttles as $data_shuttle) {
-            $data_guna_tenagas[$data_shuttle->id] = DB::select("SELECT
+            $gt4_result = DB::select("SELECT
             DISTINCT(shuttles.id) as shuttle_id,
             formbs.suku_tahun,
 
@@ -3729,19 +3755,24 @@ $data_form_d_s[$data_shuttle->id] = DB::select("SELECT
             AND shuttles.id = formbs.shuttle_id
             AND guna_tenagas.shuttle_id = shuttles.id
             AND guna_tenagas.formbs_id = formbs.id
-            AND formbs.suku_tahun = (SELECT MAX(formbs.suku_tahun)
-                                                FROM shuttles, guna_tenagas, formbs
-                                                WHERE shuttles.id = formbs.shuttle_id
-                                                AND shuttles.shuttle_type = '4'
-                                                AND guna_tenagas.shuttle_id = shuttles.id
-                                                AND guna_tenagas.formbs_id = formbs.id)
+            AND formbs.tahun = '$tahun'
+            AND formbs.suku_tahun = (SELECT MAX(f2.suku_tahun)
+                                                FROM formbs f2
+                                                WHERE f2.shuttle_id = '$data_shuttle->id'
+                                                AND f2.tahun = '$tahun')
 
             ORDER BY formbs.suku_tahun DESC
-        ")[0];
+        ");
+            $data_guna_tenagas[$data_shuttle->id] = !empty($gt4_result) ? $gt4_result[0] : (object)[
+                'shuttle_id' => $data_shuttle->id, 'pekerja_wargabumi_lelaki_laporan' => 0,
+                'pekerja_wargabumi_perempuan_laporan' => 0, 'pekerja_bukan_wargabumi_lelaki_laporan' => 0,
+                'pekerja_bukan_wargabumi_perempuan_laporan' => 0, 'pekerja_asing_lelaki_laporan' => 0,
+                'pekerja_asing_perempuan_laporan' => 0,
+            ];
 
 
         //form 4 c
-        $data_kemasukan_bahans[$data_shuttle->id] = DB::select("SELECT
+        $km4_result = DB::select("SELECT
             shuttles.id as shuttle_id,
 
             sum(kemasukan_bahans.baki_stok_kehadapan) as baki_stok_kehadapan,
@@ -3759,14 +3790,15 @@ $data_form_d_s[$data_shuttle->id] = DB::select("SELECT
             AND form_c_s.status = 'Lulus'
             AND form_c_s.tahun = '$tahun'
 
-
-
             GROUP BY shuttles.id
-        ")[0];
+        ");
+        $data_kemasukan_bahans[$data_shuttle->id] = !empty($km4_result) ? $km4_result[0] : (object)[
+            'shuttle_id' => $data_shuttle->id, 'baki_stok_kehadapan' => 0, 'jumlah_penggunaan' => 0,
+        ];
 
 
         //produk pengeluaran
-        $produk_pengeluaran[$data_shuttle->id] = DB::select("SELECT
+        $pp4_result = DB::select("SELECT
             shuttles.id ,
             sum( distinct produk_pengeluarans.jumlah_besar_mr)  as jumlah_besar_mr,
             sum( distinct produk_pengeluarans.jumlah_besar_wbp) as jumlah_besar_wbp,
@@ -3780,7 +3812,6 @@ $data_form_d_s[$data_shuttle->id] = DB::select("SELECT
             shuttles,
             form4_d_s
 
-            -- WHERE form4_d_s.shuttle_id = '$data_shuttle->id'
             WHERE shuttles.id  = '$data_shuttle->id'
             AND shuttles.id = form4_d_s.shuttle_id
             AND produk_pengeluarans.form4ds_id = form4_d_s.id
@@ -3789,12 +3820,15 @@ $data_form_d_s[$data_shuttle->id] = DB::select("SELECT
             AND form4_d_s.tahun = '$tahun'
 
             GROUP BY shuttles.id
-        ")[0];
-
-        // dd($produk_pengeluaran);
+        ");
+        $produk_pengeluaran[$data_shuttle->id] = !empty($pp4_result) ? $pp4_result[0] : (object)[
+            'id' => $data_shuttle->id, 'jumlah_besar_mr' => 0, 'jumlah_besar_wbp' => 0,
+            'jumlah_kecil_1_mr' => 0, 'jumlah_kecil_1_wbp' => 0,
+            'jumlah_kecil_2_mr' => 0, 'jumlah_kecil_2_wbp' => 0,
+        ];
 
         //rekod_muka
-        $rekod_muka[$data_shuttle->id] = DB::select("SELECT
+        $rm4_result = DB::select("SELECT
             shuttles.id,
             sum(form4_d_s.rekod_veniermuka)  as rekod_veniermuka,
             sum(form4_d_s.rekod_venierteras) as rekod_venierteras
@@ -3809,13 +3843,15 @@ $data_form_d_s[$data_shuttle->id] = DB::select("SELECT
             AND form4_d_s.status = 'Lulus'
             AND form4_d_s.tahun = '$tahun'
 
-
             GROUP BY shuttles.id
-        ")[0];
+        ");
+        $rekod_muka[$data_shuttle->id] = !empty($rm4_result) ? $rm4_result[0] : (object)[
+            'id' => $data_shuttle->id, 'rekod_veniermuka' => 0, 'rekod_venierteras' => 0,
+        ];
 
 
         //datas_formd
-        $data_form_d_s[$data_shuttle->id] = DB::select("SELECT
+        $fd4_result = DB::select("SELECT
             shuttles.id,
             sum(round(form4_e_s.total_export_laporan))  as export_papan_lapis,
             sum(round(form4_e_s.jumlah_venier_eksport_laporan))  as export_venier,
@@ -3833,9 +3869,12 @@ $data_form_d_s[$data_shuttle->id] = DB::select("SELECT
             AND form4_e_s.status = 'Lulus'
             AND form4_e_s.tahun = '$tahun'
 
-
             GROUP BY shuttles.id
-        ")[0];
+        ");
+        $data_form_d_s[$data_shuttle->id] = !empty($fd4_result) ? $fd4_result[0] : (object)[
+            'id' => $data_shuttle->id, 'export_papan_lapis' => 0, 'export_venier' => 0,
+            'domestik_papan_lapis' => 0, 'domestik_venier' => 0, 'jumlah_penjualan' => 0,
+        ];
 
         }
 
@@ -3933,6 +3972,7 @@ $data_form_d_s[$data_shuttle->id] = DB::select("SELECT
             WHERE shuttles.id = form_a_s.shuttle_id
             AND shuttles.shuttle_type = '4'
             AND form_a_s.status = 'Lulus'
+            AND form_a_s.tahun = $tahun
         ");
 
 
@@ -3957,15 +3997,20 @@ $data_form_d_s[$data_shuttle->id] = DB::select("SELECT
             AND shuttles.id = formbs.shuttle_id
             AND guna_tenagas.shuttle_id = shuttles.id
             AND guna_tenagas.formbs_id = formbs.id
-            AND formbs.suku_tahun = (SELECT MAX(formbs.suku_tahun)
-                                                FROM shuttles, guna_tenagas, formbs
-                                                WHERE shuttles.id = formbs.shuttle_id
-                                                AND shuttles.shuttle_type = '4'
-                                                AND guna_tenagas.shuttle_id = shuttles.id
-                                                AND guna_tenagas.formbs_id = formbs.id)
+            AND formbs.tahun = '$tahun'
+            AND formbs.suku_tahun = (SELECT MAX(f2.suku_tahun)
+                                                FROM formbs f2
+                                                WHERE f2.shuttle_id = '$data_shuttle->id'
+                                                AND f2.tahun = '$tahun')
 
             ORDER BY formbs.suku_tahun DESC
-        ")[0];
+        ");
+            $data_guna_tenagas[$data_shuttle->id] = !empty($data_guna_tenagas[$data_shuttle->id])
+                ? (is_array($data_guna_tenagas[$data_shuttle->id]) ? $data_guna_tenagas[$data_shuttle->id][0] : $data_guna_tenagas[$data_shuttle->id])
+                : (object)['shuttle_id' => $data_shuttle->id, 'pekerja_wargabumi_lelaki_laporan' => 0,
+                    'pekerja_wargabumi_perempuan_laporan' => 0, 'pekerja_bukan_wargabumi_lelaki_laporan' => 0,
+                    'pekerja_bukan_wargabumi_perempuan_laporan' => 0, 'pekerja_asing_lelaki_laporan' => 0,
+                    'pekerja_asing_perempuan_laporan' => 0];
 
 
         //form 4 c
@@ -4179,15 +4224,20 @@ $data_form_d_s[$data_shuttle->id] = DB::select("SELECT
                 AND shuttles.id = formbs.shuttle_id
                 AND guna_tenagas.shuttle_id = shuttles.id
                 AND guna_tenagas.formbs_id = formbs.id
-                AND formbs.suku_tahun = (SELECT MAX(formbs.suku_tahun)
-                                                    FROM shuttles, guna_tenagas, formbs
-                                                    WHERE shuttles.id = formbs.shuttle_id
-                                                    AND shuttles.shuttle_type = '4'
-                                                    AND guna_tenagas.shuttle_id = shuttles.id
-                                                    AND guna_tenagas.formbs_id = formbs.id)
+                AND formbs.tahun = '$tahun'
+                AND formbs.suku_tahun = (SELECT MAX(f2.suku_tahun)
+                                                    FROM formbs f2
+                                                    WHERE f2.shuttle_id = '$data_shuttle->id'
+                                                    AND f2.tahun = '$tahun')
 
                 ORDER BY formbs.suku_tahun DESC
-            ")[0];
+            ");
+            $data_guna_tenagas[$data_shuttle->id] = !empty($data_guna_tenagas[$data_shuttle->id])
+                ? (is_array($data_guna_tenagas[$data_shuttle->id]) ? $data_guna_tenagas[$data_shuttle->id][0] : $data_guna_tenagas[$data_shuttle->id])
+                : (object)['shuttle_id' => $data_shuttle->id, 'pekerja_wargabumi_lelaki_laporan' => 0,
+                    'pekerja_wargabumi_perempuan_laporan' => 0, 'pekerja_bukan_wargabumi_lelaki_laporan' => 0,
+                    'pekerja_bukan_wargabumi_perempuan_laporan' => 0, 'pekerja_asing_lelaki_laporan' => 0,
+                    'pekerja_asing_perempuan_laporan' => 0];
 
 
             //form 4 c
@@ -4400,15 +4450,20 @@ $data_form_d_s[$data_shuttle->id] = DB::select("SELECT
                 AND shuttles.id = formbs.shuttle_id
                 AND guna_tenagas.shuttle_id = shuttles.id
                 AND guna_tenagas.formbs_id = formbs.id
-                AND formbs.suku_tahun = (SELECT MAX(formbs.suku_tahun)
-                                                    FROM shuttles, guna_tenagas, formbs
-                                                    WHERE shuttles.id = formbs.shuttle_id
-                                                    AND shuttles.shuttle_type = '4'
-                                                    AND guna_tenagas.shuttle_id = shuttles.id
-                                                    AND guna_tenagas.formbs_id = formbs.id)
+                AND formbs.tahun = '$tahun'
+                AND formbs.suku_tahun = (SELECT MAX(f2.suku_tahun)
+                                                    FROM formbs f2
+                                                    WHERE f2.shuttle_id = '$data_shuttle->id'
+                                                    AND f2.tahun = '$tahun')
 
                 ORDER BY formbs.suku_tahun DESC
-            ")[0];
+            ");
+            $data_guna_tenagas[$data_shuttle->id] = !empty($data_guna_tenagas[$data_shuttle->id])
+                ? (is_array($data_guna_tenagas[$data_shuttle->id]) ? $data_guna_tenagas[$data_shuttle->id][0] : $data_guna_tenagas[$data_shuttle->id])
+                : (object)['shuttle_id' => $data_shuttle->id, 'pekerja_wargabumi_lelaki_laporan' => 0,
+                    'pekerja_wargabumi_perempuan_laporan' => 0, 'pekerja_bukan_wargabumi_lelaki_laporan' => 0,
+                    'pekerja_bukan_wargabumi_perempuan_laporan' => 0, 'pekerja_asing_lelaki_laporan' => 0,
+                    'pekerja_asing_perempuan_laporan' => 0];
 
 
             //form 4 c
@@ -8082,11 +8137,12 @@ $data_form_d_s[$data_shuttle->id] = DB::select("SELECT
             WHERE shuttles.id = form_a_s.shuttle_id
             AND shuttles.shuttle_type = '5'
             AND form_a_s.status = 'Lulus'
+            AND form_a_s.tahun = $tahun
         ");
 
 
         foreach ($data_shuttles as $data_shuttle) {
-            $data_guna_tenagas[$data_shuttle->id] = DB::select("SELECT
+            $gt5_result = DB::select("SELECT
             DISTINCT(shuttles.id) as shuttle_id,
             formbs.suku_tahun,
 
@@ -8106,18 +8162,23 @@ $data_form_d_s[$data_shuttle->id] = DB::select("SELECT
             AND shuttles.id = formbs.shuttle_id
             AND guna_tenagas.shuttle_id = shuttles.id
             AND guna_tenagas.formbs_id = formbs.id
-            AND formbs.suku_tahun = (SELECT MAX(formbs.suku_tahun)
-                                                FROM shuttles, guna_tenagas, formbs
-                                                WHERE shuttles.id = formbs.shuttle_id
-                                                AND shuttles.shuttle_type = '5'
-                                                AND guna_tenagas.shuttle_id = shuttles.id
-                                                AND guna_tenagas.formbs_id = formbs.id)
+            AND formbs.tahun = '$tahun'
+            AND formbs.suku_tahun = (SELECT MAX(f2.suku_tahun)
+                                                FROM formbs f2
+                                                WHERE f2.shuttle_id = '$data_shuttle->id'
+                                                AND f2.tahun = '$tahun')
 
             ORDER BY formbs.suku_tahun DESC
-        ")[0];
+        ");
+            $data_guna_tenagas[$data_shuttle->id] = !empty($gt5_result) ? $gt5_result[0] : (object)[
+                'shuttle_id' => $data_shuttle->id, 'pekerja_wargabumi_lelaki_laporan' => 0,
+                'pekerja_wargabumi_perempuan_laporan' => 0, 'pekerja_bukan_wargabumi_lelaki_laporan' => 0,
+                'pekerja_bukan_wargabumi_perempuan_laporan' => 0, 'pekerja_asing_lelaki_laporan' => 0,
+                'pekerja_asing_perempuan_laporan' => 0,
+            ];
 
 
-        $data_kemasukan_bahans[$data_shuttle->id] = DB::select("SELECT
+        $km5_result = DB::select("SELECT
             shuttles.id as shuttle_id,
 
             sum(kemasukan_bahans.total_kayu_masuk_jentera) as jumlah_penggunaan,
@@ -8134,10 +8195,13 @@ $data_form_d_s[$data_shuttle->id] = DB::select("SELECT
             AND form_c_s.tahun = '$tahun'
 
             GROUP BY shuttles.id
-        ")[0];
+        ");
+        $data_kemasukan_bahans[$data_shuttle->id] = !empty($km5_result) ? $km5_result[0] : (object)[
+            'shuttle_id' => $data_shuttle->id, 'jumlah_penggunaan' => 0, 'jumlah_pengeluaran' => 0,
+        ];
 
 
-        $data_form_d_s[$data_shuttle->id] = DB::select("SELECT
+        $fd5_result = DB::select("SELECT
             shuttles.id as shuttle_id,
             sum( form5_e_s.jumlah_jualan_eksport_laporan)  as export,
             sum( form5_e_s.jumlah_jualan_pasaran_tempatan_laporan) as domestik,
@@ -8154,7 +8218,10 @@ $data_form_d_s[$data_shuttle->id] = DB::select("SELECT
             AND form5_e_s.tahun = '$tahun'
 
             GROUP BY shuttles.id
-        ")[0];
+        ");
+        $data_form_d_s[$data_shuttle->id] = !empty($fd5_result) ? $fd5_result[0] : (object)[
+            'shuttle_id' => $data_shuttle->id, 'export' => 0, 'domestik' => 0, 'jumlah_penjualan' => 0,
+        ];
 
         }
 
@@ -8243,6 +8310,7 @@ $data_form_d_s[$data_shuttle->id] = DB::select("SELECT
             WHERE shuttles.id = form_a_s.shuttle_id
             AND shuttles.shuttle_type = '5'
             AND form_a_s.status = 'Lulus'
+            AND form_a_s.tahun = $tahun
         ");
 
 
@@ -8267,15 +8335,20 @@ $data_form_d_s[$data_shuttle->id] = DB::select("SELECT
             AND shuttles.id = formbs.shuttle_id
             AND guna_tenagas.shuttle_id = shuttles.id
             AND guna_tenagas.formbs_id = formbs.id
-            AND formbs.suku_tahun = (SELECT MAX(formbs.suku_tahun)
-                                                FROM shuttles, guna_tenagas, formbs
-                                                WHERE shuttles.id = formbs.shuttle_id
-                                                AND shuttles.shuttle_type = '5'
-                                                AND guna_tenagas.shuttle_id = shuttles.id
-                                                AND guna_tenagas.formbs_id = formbs.id)
+            AND formbs.tahun = '$tahun'
+            AND formbs.suku_tahun = (SELECT MAX(f2.suku_tahun)
+                                                FROM formbs f2
+                                                WHERE f2.shuttle_id = '$data_shuttle->id'
+                                                AND f2.tahun = '$tahun')
 
             ORDER BY formbs.suku_tahun DESC
-        ")[0];
+        ");
+            $data_guna_tenagas[$data_shuttle->id] = !empty($data_guna_tenagas[$data_shuttle->id])
+                ? (is_array($data_guna_tenagas[$data_shuttle->id]) ? $data_guna_tenagas[$data_shuttle->id][0] : $data_guna_tenagas[$data_shuttle->id])
+                : (object)['shuttle_id' => $data_shuttle->id, 'pekerja_wargabumi_lelaki_laporan' => 0,
+                    'pekerja_wargabumi_perempuan_laporan' => 0, 'pekerja_bukan_wargabumi_lelaki_laporan' => 0,
+                    'pekerja_bukan_wargabumi_perempuan_laporan' => 0, 'pekerja_asing_lelaki_laporan' => 0,
+                    'pekerja_asing_perempuan_laporan' => 0];
 
 
         $data_kemasukan_bahans[$data_shuttle->id] = DB::select("SELECT
@@ -8407,6 +8480,7 @@ $data_form_d_s[$data_shuttle->id] = DB::select("SELECT
             WHERE shuttles.id = form_a_s.shuttle_id
             AND shuttles.shuttle_type = '5'
             AND form_a_s.status = 'Lulus'
+            AND form_a_s.tahun = $tahun
         ");
 
 
@@ -8431,15 +8505,20 @@ $data_form_d_s[$data_shuttle->id] = DB::select("SELECT
             AND shuttles.id = formbs.shuttle_id
             AND guna_tenagas.shuttle_id = shuttles.id
             AND guna_tenagas.formbs_id = formbs.id
-            AND formbs.suku_tahun = (SELECT MAX(formbs.suku_tahun)
-                                                FROM shuttles, guna_tenagas, formbs
-                                                WHERE shuttles.id = formbs.shuttle_id
-                                                AND shuttles.shuttle_type = '5'
-                                                AND guna_tenagas.shuttle_id = shuttles.id
-                                                AND guna_tenagas.formbs_id = formbs.id)
+            AND formbs.tahun = '$tahun'
+            AND formbs.suku_tahun = (SELECT MAX(f2.suku_tahun)
+                                                FROM formbs f2
+                                                WHERE f2.shuttle_id = '$data_shuttle->id'
+                                                AND f2.tahun = '$tahun')
 
             ORDER BY formbs.suku_tahun DESC
-        ")[0];
+        ");
+            $data_guna_tenagas[$data_shuttle->id] = !empty($data_guna_tenagas[$data_shuttle->id])
+                ? (is_array($data_guna_tenagas[$data_shuttle->id]) ? $data_guna_tenagas[$data_shuttle->id][0] : $data_guna_tenagas[$data_shuttle->id])
+                : (object)['shuttle_id' => $data_shuttle->id, 'pekerja_wargabumi_lelaki_laporan' => 0,
+                    'pekerja_wargabumi_perempuan_laporan' => 0, 'pekerja_bukan_wargabumi_lelaki_laporan' => 0,
+                    'pekerja_bukan_wargabumi_perempuan_laporan' => 0, 'pekerja_asing_lelaki_laporan' => 0,
+                    'pekerja_asing_perempuan_laporan' => 0];
 
 
         $data_kemasukan_bahans[$data_shuttle->id] = DB::select("SELECT
@@ -8568,6 +8647,7 @@ $data_form_d_s[$data_shuttle->id] = DB::select("SELECT
             WHERE shuttles.id = form_a_s.shuttle_id
             AND shuttles.shuttle_type = '5'
             AND form_a_s.status = 'Lulus'
+            AND form_a_s.tahun = $tahun
         ");
 
 
@@ -8592,15 +8672,20 @@ $data_form_d_s[$data_shuttle->id] = DB::select("SELECT
             AND shuttles.id = formbs.shuttle_id
             AND guna_tenagas.shuttle_id = shuttles.id
             AND guna_tenagas.formbs_id = formbs.id
-            AND formbs.suku_tahun = (SELECT MAX(formbs.suku_tahun)
-                                                FROM shuttles, guna_tenagas, formbs
-                                                WHERE shuttles.id = formbs.shuttle_id
-                                                AND shuttles.shuttle_type = '5'
-                                                AND guna_tenagas.shuttle_id = shuttles.id
-                                                AND guna_tenagas.formbs_id = formbs.id)
+            AND formbs.tahun = '$tahun'
+            AND formbs.suku_tahun = (SELECT MAX(f2.suku_tahun)
+                                                FROM formbs f2
+                                                WHERE f2.shuttle_id = '$data_shuttle->id'
+                                                AND f2.tahun = '$tahun')
 
             ORDER BY formbs.suku_tahun DESC
-        ")[0];
+        ");
+            $data_guna_tenagas[$data_shuttle->id] = !empty($data_guna_tenagas[$data_shuttle->id])
+                ? (is_array($data_guna_tenagas[$data_shuttle->id]) ? $data_guna_tenagas[$data_shuttle->id][0] : $data_guna_tenagas[$data_shuttle->id])
+                : (object)['shuttle_id' => $data_shuttle->id, 'pekerja_wargabumi_lelaki_laporan' => 0,
+                    'pekerja_wargabumi_perempuan_laporan' => 0, 'pekerja_bukan_wargabumi_lelaki_laporan' => 0,
+                    'pekerja_bukan_wargabumi_perempuan_laporan' => 0, 'pekerja_asing_lelaki_laporan' => 0,
+                    'pekerja_asing_perempuan_laporan' => 0];
 
 
         $data_kemasukan_bahans[$data_shuttle->id] = DB::select("SELECT

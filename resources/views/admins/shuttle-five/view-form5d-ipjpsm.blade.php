@@ -161,7 +161,7 @@
                                                                             <label>No. SSM:</label>
                                                                             <input type="text" class="form-control"
                                                                                 style="background-color: #7ee48c6b;  border-color: #6df173;"
-                                                                                value="{{ $kilang_info->no_ssm }}" readonly />
+                                                                                value="{{ $form5d->no_ssm }}" readonly />
 
                                                                         </div>
                                                                     {{-- </div> --}}
@@ -172,7 +172,7 @@
                                                                             <label>No. Lesen:</label>
                                                                             <input type="text" class="form-control"
                                                                                 style="background-color: #7ee48c6b;  border-color: #6df173;"
-                                                                                value="{{ $kilang_info->no_ssm }}" readonly />
+                                                                                value="{{ $form5d->no_lesen }}" readonly />
 
 
                                                                         </div>
