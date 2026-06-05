@@ -69,7 +69,7 @@ class ListOverallController extends Controller
         ->distinct()->where('tahun', $year)->get();
 
         $formB = FormB::whereHas('shuttle', function($q){
-            $q->where('daerah_id',auth()->user()->daerah)->where('shuttle_type', '5');
+            $q->where('daerah_id', auth()->user()->daerah)->where('shuttle_type', '5');
         })->where('tahun', $year)->get();
 
          $year_list = FormB::whereHas('shuttle', function($q){
@@ -107,7 +107,7 @@ class ListOverallController extends Controller
         ->distinct()->where('tahun', $year)->get();
 
         $formC = FormC::whereHas('shuttle', function($q){
-            $q->where('daerah_id',auth()->user()->daerah)->where('shuttle_type', '5');
+            $q->where('daerah_id', auth()->user()->daerah)->where('shuttle_type', '5');
          })->where('tahun', $year)->get();
 
          $year_list = FormC::whereHas('shuttle', function($q){
@@ -147,7 +147,7 @@ class ListOverallController extends Controller
 
         $formD = Form5D::whereHas('shuttle', function($q){
             $q->where('daerah_id',auth()->user()->daerah)->where('shuttle_type', '5');
-         })->get();
+         })->where('tahun', $year)->get();
 
         // dd($formD[10]->shuttle->id);
 
@@ -186,7 +186,7 @@ class ListOverallController extends Controller
 
         $formD = Form5E::whereHas('shuttle', function($q){
             $q->where('daerah_id',auth()->user()->daerah)->where('shuttle_type', '5');
-         })->get();
+         })->where('tahun', $year)->get();
 
         // dd($formD[10]->shuttle->id);
 

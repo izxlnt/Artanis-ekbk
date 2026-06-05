@@ -198,7 +198,7 @@ class ListEController extends Controller
 
         $formE = Form4E::whereHas('shuttle', function($q){
             $q->where('negeri_id',auth()->user()->negeri)->where('shuttle_type', '4');
-         })->get();
+         })->where('tahun', $year)->get();
 
         // dd($formD[10]->shuttle->id);
 
