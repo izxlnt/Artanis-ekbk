@@ -408,16 +408,14 @@ class FormB extends Component
             $this->min_gaji[$key] = $value->gaji_min;
         }
 
-        foreach($this->jumlah_lelaki as $key => $data){
-            if($data == ''){
-                $this->jumlah_lelaki[$key] = 0;
-            }
-        }
-
-        foreach ($this->jumlah_perempuan as $key => $data) {
-            if ($data == '') {
-                $this->jumlah_perempuan[$key] = 0;
-            }
+        foreach ($kategori as $key => $value) {
+            $this->jumlah_lelaki[$key] = (int)($this->pekerja_wargabumi_lelaki[$key] ?? 0)
+                + (int)($this->pekerja_bukan_wargabumi_lelaki[$key] ?? 0)
+                + (int)($this->pekerja_asing_lelaki[$key] ?? 0);
+            $this->jumlah_perempuan[$key] = (int)($this->pekerja_wargabumi_perempuan[$key] ?? 0)
+                + (int)($this->pekerja_bukan_wargabumi_perempuan[$key] ?? 0)
+                + (int)($this->pekerja_asing_perempuan[$key] ?? 0);
+            $this->jumlah_pekerja[$key] = $this->jumlah_lelaki[$key] + $this->jumlah_perempuan[$key];
         }
 
         if ($this->jumlah_pekerja[0] == 0) {

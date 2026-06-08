@@ -394,6 +394,16 @@ class FormB extends Component
             $this->min_gaji[$key] = $value->gaji_min;
         }
 
+        foreach ($kategori as $key => $value) {
+            $this->jumlah_lelaki[$key] = (int)($this->pekerja_wargabumi_lelaki[$key] ?? 0)
+                + (int)($this->pekerja_bukan_wargabumi_lelaki[$key] ?? 0)
+                + (int)($this->pekerja_asing_lelaki[$key] ?? 0);
+            $this->jumlah_perempuan[$key] = (int)($this->pekerja_wargabumi_perempuan[$key] ?? 0)
+                + (int)($this->pekerja_bukan_wargabumi_perempuan[$key] ?? 0)
+                + (int)($this->pekerja_asing_perempuan[$key] ?? 0);
+            $this->jumlah_pekerja[$key] = $this->jumlah_lelaki[$key] + $this->jumlah_perempuan[$key];
+        }
+
         if ($this->jumlah_pekerja[0] == 0) {
             $this->emit('alert', ['type' => 'error', 'message' => 'Jumlah Pekerja bagi Pemilik dan Rakan Kongsi tidak boleh 0']);
             return back();
