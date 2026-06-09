@@ -23,6 +23,7 @@ use App\Models\Spesis;
 use App\Models\UlasanIpjpsm;
 use App\Models\UlasanPhd;
 use App\Models\User;
+use App\Models\Daerah;
 use App\Models\Warganegara;
 use App\Notifications\IBK\BorangDiHantar;
 use App\Notifications\PHD\BorangTidakLengkapNotification;
@@ -52,8 +53,9 @@ class MainController extends Controller
         //     $q->where('shuttle_type', '3');
         // })->where('tahun', $year)->get();
 
-        $formA_kilang = DB::select(DB::raw("SELECT DISTINCT shuttles.* FROM form_a_s
+        $formA_kilang = DB::select(DB::raw("SELECT DISTINCT shuttles.*, COALESCE(d.daerah_hutan, shuttles.daerah_id) as daerah_display FROM form_a_s
         INNER JOIN shuttles ON form_a_s.shuttle_id = shuttles.id
+        LEFT JOIN daerah d ON d.id = shuttles.daerah_id AND d.deleted_at IS NULL
         WHERE (form_a_s.status = 'Dihantar ke IPJPSM' OR form_a_s.status = 'Lulus')
         AND shuttles.shuttle_type = '4'
         AND form_a_s.tahun = $year"));
@@ -136,6 +138,16 @@ class MainController extends Controller
 
         $ulasan = UlasanPhd::where('formas_id', $form_a->id)->latest('created_at')->first();
 
+        $daerah_hutan_display = $kilang_info->daerah_id;
+        $daerah_sivil_display = '';
+        if ($kilang_info->daerah_id && is_numeric($kilang_info->daerah_id)) {
+            $daerah_rec = Daerah::find($kilang_info->daerah_id);
+            if ($daerah_rec) {
+                $daerah_hutan_display = $daerah_rec->daerah_hutan;
+                $daerah_sivil_display = $daerah_rec->daerah_sivil;
+            }
+        }
+
         $breadcrumbs    = [
             ['link' => route('home-user'), 'name' => "Laman Utama"],
             ['link' => route('user.shuttle-4-senaraiA', $year), 'name' => "Kemasukan Maklumat"],
@@ -151,7 +163,7 @@ class MainController extends Controller
         ];
 
         // return view('ibk.formA',compact('returnArr', 'kilang_info','ulasan','form_a','forma_count'));
-        return view('admins.shuttle-four.shuttle-4-formA', compact('returnArr', 'kilang_info', 'ulasan', 'form_a', 'forma_count'));
+        return view('admins.shuttle-four.shuttle-4-formA', compact('returnArr', 'kilang_info', 'ulasan', 'form_a', 'forma_count', 'daerah_hutan_display', 'daerah_sivil_display'));
     }
 
     public function updateForm4A(Request $request, $id)
@@ -177,23 +189,11 @@ class MainController extends Controller
             $batch->save();
         }
 
-        if ($request->has('sijil_ssm')) {
-            // dd('masuk');
-            $sijil_ssm = $request->file('sijil_ssm')->store('public/uploads/');
-            // dd($sijil_ssm);
-            $shuttle->sijil_ssm  = $sijil_ssm;
-        } else if ($request->has('lesen_kilang')) {
-            // dd('masuk lsen');
-            $lesen_kilang = $request->file('lesen_kilang')->store('public/uploads/');
-            $shuttle->lesen_kilang  = $lesen_kilang;
-        } else if ($request->has('lesen_kilang') && $request->has('sijil_ssm')) {
-            // dd('masuk lsen');
-            $lesen_kilang = $request->file('lesen_kilang')->store('public/uploads/');
-            $shuttle->lesen_kilang  = $lesen_kilang;
-
-            $sijil_ssm = $request->file('sijil_ssm')->store('public/uploads/');
-            // dd($sijil_ssm);
-            $shuttle->sijil_ssm  = $sijil_ssm;
+        if ($request->hasFile('sijil_ssm')) {
+            $shuttle->sijil_ssm = $request->file('sijil_ssm')->store('public/uploads/');
+        }
+        if ($request->hasFile('lesen_kilang')) {
+            $shuttle->lesen_kilang = $request->file('lesen_kilang')->store('public/uploads/');
         }
 
         if (isset($request->alamat_sama)) {
@@ -415,17 +415,11 @@ class MainController extends Controller
 
     // END OF SHUTTLE 3 FORM C
 
-    public function shuttle_4_formD($id)
+    public function shuttle_4_formD($year, $id)
     {
         $shuttle_id = auth()->user()->shuttle_id;
 
-        // Determine the actual year of the form being accessed from the DB record
-        $form_record = Form4D::where('shuttle_id', $shuttle_id)
-            ->where('bulan', $id)
-            ->where('status', 'Tidak Diisi')
-            ->orderBy('tahun')
-            ->first();
-        $form_year = $form_record ? (int)$form_record->tahun : (int)date('Y');
+        $form_year = (int)$year;
 
         $form_a_checker = FormA::where('tahun', $form_year)
             ->where('shuttle_id', auth()->user()->shuttle->id)
@@ -524,7 +518,7 @@ class MainController extends Controller
         return view('admins.shuttle-four.shuttle-4-formD', compact('id'));
     }
 
-    public function shuttle_4_formE($id)
+    public function shuttle_4_formE($year, $id)
     {
         $shuttle_id = auth()->user()->shuttle_id;
 
@@ -534,13 +528,7 @@ class MainController extends Controller
             $lastmonth = $id;
         }
 
-        // Determine the actual year of the form being accessed from the DB record
-        $form_record = Form4E::where('shuttle_id', $shuttle_id)
-            ->where('bulan', $id)
-            ->where('status', 'Tidak Diisi')
-            ->orderBy('tahun')
-            ->first();
-        $form_year = $form_record ? (int)$form_record->tahun : (int)date('Y');
+        $form_year = (int)$year;
 
         $form_a_checker = FormA::where('tahun', $form_year)
             ->where('shuttle_id', auth()->user()->shuttle->id)

@@ -49,8 +49,9 @@ class MainController extends Controller
         // })->where('tahun', $year)->get();
 
         //list kilang
-        $formA_kilang = DB::select(DB::raw("SELECT DISTINCT shuttles.* FROM form_a_s
+        $formA_kilang = DB::select(DB::raw("SELECT DISTINCT shuttles.*, COALESCE(d.daerah_hutan, shuttles.daerah_id) as daerah_display FROM form_a_s
         INNER JOIN shuttles ON form_a_s.shuttle_id = shuttles.id
+        LEFT JOIN daerah d ON d.id = shuttles.daerah_id AND d.deleted_at IS NULL
         WHERE (form_a_s.status = 'Dihantar ke IPJPSM' OR form_a_s.status = 'Lulus')
         AND shuttles.shuttle_type = '3'
         AND form_a_s.tahun = $year"));
@@ -750,13 +751,17 @@ class MainController extends Controller
             $status = "Dihantar ke IPJPSM";
         }
 
-        $this->validatorulasan($request->all())->validate();
         $user = auth()->user();
         $formA = FormA::find($id);
         // dd($formA);
         $shuttle = Shuttle::where('id', $formA->shuttle_id)->first();
-        $shuttle->longtitude_x = $request->longtitude_x;
-        $shuttle->langtitude_y = $request->langtitude_y;
+
+        if ($request->longtitude_x) {
+            $shuttle->longtitude_x = $request->longtitude_x;
+        }
+        if ($request->langtitude_y) {
+            $shuttle->langtitude_y = $request->langtitude_y;
+        }
         if ($request->daerah_id) {
             $shuttle->daerah_id = $request->daerah_id;
         }

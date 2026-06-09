@@ -221,20 +221,18 @@
                                                                                     @if ($data->keterangan == 'A. Komponen Pintu (Door Components)')
                                                                                         <td
                                                                                             style="text-align:center;padding-bottom: 23%;">
-                                                                                            <input style=""
-                                                                                                class="text-right"
-                                                                                                type="text"
-                                                                                                size="50"
-                                                                                                class="fsum_keluar" wire:model.defer='pengeluaran_kayu.{{ $key }}' oninput="fsumKeluar()"
+                                                                                            <input type="text" size="50"
+                                                                                                class="text-right fsum_keluar"
+                                                                                                wire:model.defer='pengeluaran_kayu.{{ $key }}'
+                                                                                                oninput="fsumKeluar()"
                                                                                                 onkeypress="return isNumberKey(event)">
                                                                                         </td>
                                                                                     @else
                                                                                         <td style="text-align:center;">
-                                                                                            <input style=""
-                                                                                                class="text-right"
-                                                                                                type="text"
-                                                                                                size="50"
-                                                                                                class="fsum_keluar" wire:model.defer='pengeluaran_kayu.{{ $key }}' oninput="fsumKeluar()"
+                                                                                            <input type="text" size="50"
+                                                                                                class="text-right fsum_keluar"
+                                                                                                wire:model.defer='pengeluaran_kayu.{{ $key }}'
+                                                                                                oninput="fsumKeluar()"
                                                                                                 onkeypress="return isNumberKey(event)">
                                                                                         </td>
                                                                                     @endif

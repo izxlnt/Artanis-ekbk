@@ -250,9 +250,10 @@
 
                                                                                 </td>
                                                                                 <td style="text-align:center;"><input
-                                                                                        style="text-align:right" type="text" size="20"
-                                                                                        class="fsum_jualan" wire:model.defer='jumlah_jualan.{{ $key }}' oninput="fsumCalc()"
-                                                                                        oninput="validate(this)"
+                                                                                        type="text" size="20"
+                                                                                        class="text-right fsum_jualan"
+                                                                                        wire:model.defer='jumlah_jualan.{{ $key }}'
+                                                                                        oninput="validate(this); fsumCalc()"
                                                                                         onkeypress="return isNumberKey(event)">
                                                                                 </td>
                                                                             </tr>

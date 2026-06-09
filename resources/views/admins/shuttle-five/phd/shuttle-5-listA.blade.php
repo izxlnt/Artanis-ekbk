@@ -1,4 +1,4 @@
-@extends('layouts.layout-phd-nicepage')
+﻿@extends('layouts.layout-phd-nicepage')
 
 @section('content')
 
@@ -132,7 +132,7 @@
 
                                                 <td class="text-left">{{ $data->shuttle->nama_kilang }}</td>
                                                 <td>{{ $data->shuttle->negeri_id }}</td>
-                                                <td>{{ $data->shuttle->daerah_id }}</td>
+                                                <td>{{ $data->shuttle->daerah->daerah_hutan ?? $data->shuttle->daerah_id }}</td>
                                                 <td>{{ $data->shuttle->no_ssm }}</td>
                                                 <td>{{ $data->shuttle->no_lesen ?? 'Tiada' }}</td>
 

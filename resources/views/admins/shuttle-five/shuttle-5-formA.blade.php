@@ -123,7 +123,7 @@
                                                                 <div class="col-md-8">
                                                                     <input readonly type="text" class="form-control"
                                                                         name='daerah' placeholder="Daerah"
-                                                                        value="{{ $kilang_info->daerah_id }}">
+                                                                        value="{{ $daerah_hutan_display }}">
 
                                                                     @error('daerah_id')
                                                                         <div class="alert alert-danger">
@@ -717,15 +717,12 @@
                                                                             Naik Sijil
                                                                             SSM</label>
                                                                         <small class="form-text text-muted mb-2">
-                                                                            <i class="fas fa-info-circle"></i> Format: JPG, JPEG, PNG sahaja. Maks: 8MB
+                                                                            <i class="fas fa-info-circle"></i> Format: JPG, JPEG, PNG, PDF. Maks: 8MB
                                                                         </small>
-                                                                        {{-- <input type='file' class="form-control"
-                                                                            name="sijil_ssm" id="ssm" /> --}}
-
                                                                         <label for="ssm" class="form-control">PILIH
                                                                             FAIL</label>
                                                                         <input type="file" id="ssm"
-                                                                            name="sijil_ssm" accept="image/jpeg,image/jpg,image/png"
+                                                                            name="sijil_ssm" accept="image/jpeg,image/jpg,image/png,application/pdf"
                                                                             style="display: none">
 
                                                                         {{-- <img id="blah" /> --}}
@@ -744,15 +741,12 @@
                                                                             Naik Lesen
                                                                             Kilang</label>
                                                                         <small class="form-text text-muted mb-2">
-                                                                            <i class="fas fa-info-circle"></i> Format: JPG, JPEG, PNG sahaja. Maks: 8MB
+                                                                            <i class="fas fa-info-circle"></i> Format: JPG, JPEG, PNG, PDF. Maks: 8MB
                                                                         </small>
-                                                                        {{-- <input type="file" class="form-control"
-                                                                            name="lesen_kilang" id="lesenkilang"> --}}
-
                                                                         <label for="lesenkilang"
                                                                             class="form-control">PILIH FAIL</label>
                                                                         <input type="file" id="lesenkilang"
-                                                                            name="lesen_kilang" accept="image/jpeg,image/jpg,image/png"
+                                                                            name="lesen_kilang" accept="image/jpeg,image/jpg,image/png,application/pdf"
                                                                             style="display: none">
                                                                         @error('lesen_kilang')
                                                                             <div class="alert alert-danger">
@@ -765,18 +759,32 @@
                                                             <div class="row">
                                                                 <div class="col-md-3"></div>
                                                                 <div class="col-md-4">
-                                                                    <p>Gambar Dimuat Naik:</p>
-                                                                    <img src="{{ asset($image_path = str_replace('public', 'storage', $kilang_info->sijil_ssm)) }}"
-                                                                        alt="Sila Muatnaik Gambar Sijil SSM"
-                                                                        id="category-img-ssm"
-                                                                        style="width:100%;height:30vh;">
+                                                                    <p>Fail Dimuat Naik (Sijil SSM):</p>
+                                                                    @if($kilang_info->sijil_ssm)
+                                                                        @php $ssm_url = asset(str_replace('public', 'storage', $kilang_info->sijil_ssm)); $ssm_ext = strtolower(pathinfo($kilang_info->sijil_ssm, PATHINFO_EXTENSION)); @endphp
+                                                                        @if($ssm_ext === 'pdf')
+                                                                            <a href="{{ $ssm_url }}" target="_blank" class="btn btn-outline-primary btn-sm"><i class="fas fa-file-pdf"></i> Lihat PDF</a>
+                                                                        @else
+                                                                            <img src="{{ $ssm_url }}" alt="Sijil SSM" id="category-img-ssm" style="width:100%;height:30vh;">
+                                                                            <div class="mt-1"><a href="{{ $ssm_url }}" target="_blank" class="btn btn-sm btn-outline-secondary">Lihat / Muat Turun</a></div>
+                                                                        @endif
+                                                                    @else
+                                                                        <p class="text-muted">Tiada fail dimuat naik</p>
+                                                                    @endif
                                                                 </div>
                                                                 <div class="col-md-4">
-                                                                    <p>Gambar Dimuat Naik:</p>
-                                                                    <img src="{{ asset($image_path = str_replace('public', 'storage', $kilang_info->lesen_kilang)) }}"
-                                                                        alt="Sila Muatnaik Gambar Lesen Kilang"
-                                                                        id="category-img-tag-lesenkilang"
-                                                                        style="width:100%;height:30vh;">
+                                                                    <p>Fail Dimuat Naik (Lesen Kilang):</p>
+                                                                    @if($kilang_info->lesen_kilang)
+                                                                        @php $lesen_url = asset(str_replace('public', 'storage', $kilang_info->lesen_kilang)); $lesen_ext = strtolower(pathinfo($kilang_info->lesen_kilang, PATHINFO_EXTENSION)); @endphp
+                                                                        @if($lesen_ext === 'pdf')
+                                                                            <a href="{{ $lesen_url }}" target="_blank" class="btn btn-outline-primary btn-sm"><i class="fas fa-file-pdf"></i> Lihat PDF</a>
+                                                                        @else
+                                                                            <img src="{{ $lesen_url }}" alt="Lesen Kilang" id="category-img-tag-lesenkilang" style="width:100%;height:30vh;">
+                                                                            <div class="mt-1"><a href="{{ $lesen_url }}" target="_blank" class="btn btn-sm btn-outline-secondary">Lihat / Muat Turun</a></div>
+                                                                        @endif
+                                                                    @else
+                                                                        <p class="text-muted">Tiada fail dimuat naik</p>
+                                                                    @endif
                                                                 </div>
                                                             </div>
                                                             <hr>

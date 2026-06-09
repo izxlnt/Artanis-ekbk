@@ -62,7 +62,7 @@ class BorangTidakLengkapNotification extends Notification
         $status = $this->status;
         $form = $this->form;
 
-        return (new BorangTidakLengkapMailable($pengguna_kilang, $user, $form, $status, $notifiable->created_at))
+        return (new BorangTidakLengkapMailable($pengguna_kilang, $user, $form, $status, $this->ulasan, $notifiable->created_at))
                 ->to($pengguna_kilang['email']);
     }
 
@@ -112,6 +112,7 @@ class BorangTidakLengkapNotification extends Notification
             'daripada' => $this->user,
             'borang' => $this->form,
             'tajuk' => 'Terdapat borang yang '.$this->status,
+            'ulasan' => $this->ulasan,
             'created_at' => $notifiable->created_at,
             'route' => $route,
         ];

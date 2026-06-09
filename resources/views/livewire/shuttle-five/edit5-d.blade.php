@@ -140,11 +140,10 @@
                                                                                         @endif
                                                                                     </td>
                                                                                     <td style="text-align:center;">
-                                                                                        <input style="" type="text"
-                                                                                            class="text-right"
-                                                                                            size="50"
-                                                                                            class="fsum_keluar" wire:model.defer='pengeluaran_kayu.{{ $key }}' oninput="fsumKeluar()"
-                                                                                            oninput="validate(this)"
+                                                                                        <input type="text" size="50"
+                                                                                            class="text-right fsum_keluar"
+                                                                                            wire:model.defer='pengeluaran_kayu.{{ $key }}'
+                                                                                            oninput="validate(this); fsumKeluar()"
                                                                                             onkeypress="return isNumberKey(event)">
                                                                                     </td>
                                                                                 </tr>

@@ -1,4 +1,4 @@
-@extends('layouts.layout-ipjpsm-nicepage')
+﻿@extends('layouts.layout-ipjpsm-nicepage')
 
 @section('content')
 
@@ -122,7 +122,7 @@ for ($m = 1; $m <= 12; $m++) {
                                                 <td>{{ $loop->iteration }}</td>
                                                 <td style="text-align:left">{{ $shuttle->nama_kilang }}</td>
                                                 <td>{{ $shuttle->negeri_id }}</td>
-                                                <td>{{ $shuttle->daerah_id }}</td>
+                                                <td>{{ $shuttle->daerah->daerah_hutan ?? $shuttle->daerah_id }}</td>
                                                 <td>{{ $shuttle->no_ssm }}</td>
                                                 <td>{{ $shuttle->no_lesen ?? 'Tiada' }}</td>
 

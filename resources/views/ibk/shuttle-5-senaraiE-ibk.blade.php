@@ -144,7 +144,7 @@
                                                                 title="Sila isi Borang D terlebih dahulu"
                                                                 style="color: black; font-size: 20pt; opacity: 0.5;"></i>
                                                         @elseif ($isPreviousYear || (date('Y-m-d') >= $data->tarikh_buka_borang && date('Y-m-d') <= $tarikh_tutup_terkini))
-                                                            <a href="{{ route('user.shuttle-5-formE', $id = 1) }}"
+                                                            <a href="{{ route('user.shuttle-5-formE', [$year, '1']) }}"
                                                                 data-toggle="tooltip" data-placement="bottom"
                                                                 title="Borang belum diisi">
                                                                 <img src="{{ asset('circle_times.png') }}" height='30px'
@@ -199,7 +199,7 @@
                                                                 title="Sila isi Borang D terlebih dahulu"
                                                                 style="color: black; font-size: 20pt; opacity: 0.5;"></i>
                                                         @elseif ($isPreviousYear || (date('Y-m-d') >= $data->tarikh_buka_borang && date('Y-m-d') <= $tarikh_tutup_terkini))
-                                                            <a href="{{ route('user.shuttle-5-formE', $id = 2) }}"
+                                                            <a href="{{ route('user.shuttle-5-formE', [$year, '2']) }}"
                                                                 data-toggle="tooltip" data-placement="bottom"
                                                                 title="Borang belum diisi">
                                                                 <img src="{{ asset('circle_times.png') }}" height='30px'
@@ -254,7 +254,7 @@
                                                                 title="Sila isi Borang D terlebih dahulu"
                                                                 style="color: black; font-size: 20pt; opacity: 0.5;"></i>
                                                         @elseif ($isPreviousYear || (date('Y-m-d') >= $data->tarikh_buka_borang && date('Y-m-d') <= $tarikh_tutup_terkini))
-                                                            <a href="{{ route('user.shuttle-5-formE', $id = 3) }}"
+                                                            <a href="{{ route('user.shuttle-5-formE', [$year, '3']) }}"
                                                                 data-toggle="tooltip" data-placement="bottom"
                                                                 title="Borang belum diisi">
                                                                 <img src="{{ asset('circle_times.png') }}" height='30px'
@@ -309,7 +309,7 @@
                                                                 title="Sila isi Borang D terlebih dahulu"
                                                                 style="color: black; font-size: 20pt; opacity: 0.5;"></i>
                                                         @elseif ($isPreviousYear || (date('Y-m-d') >= $data->tarikh_buka_borang && date('Y-m-d') <= $tarikh_tutup_terkini))
-                                                            <a href="{{ route('user.shuttle-5-formE', $id = 4) }}"
+                                                            <a href="{{ route('user.shuttle-5-formE', [$year, '4']) }}"
                                                                 data-toggle="tooltip" data-placement="bottom"
                                                                 title="Borang belum diisi">
                                                                 <img src="{{ asset('circle_times.png') }}" height='30px'
@@ -364,7 +364,7 @@
                                                                 title="Sila isi Borang D terlebih dahulu"
                                                                 style="color: black; font-size: 20pt; opacity: 0.5;"></i>
                                                         @elseif ($isPreviousYear || (date('Y-m-d') >= $data->tarikh_buka_borang && date('Y-m-d') <= $tarikh_tutup_terkini))
-                                                            <a href="{{ route('user.shuttle-5-formE', $id = 5) }}"
+                                                            <a href="{{ route('user.shuttle-5-formE', [$year, '5']) }}"
                                                                 data-toggle="tooltip" data-placement="bottom"
                                                                 title="Borang belum diisi">
                                                                 <img src="{{ asset('circle_times.png') }}" height='30px'
@@ -419,7 +419,7 @@
                                                                 title="Sila isi Borang D terlebih dahulu"
                                                                 style="color: black; font-size: 20pt; opacity: 0.5;"></i>
                                                         @elseif ($isPreviousYear || (date('Y-m-d') >= $data->tarikh_buka_borang && date('Y-m-d') <= $tarikh_tutup_terkini))
-                                                            <a href="{{ route('user.shuttle-5-formE', $id = 6) }}"
+                                                            <a href="{{ route('user.shuttle-5-formE', [$year, '6']) }}"
                                                                 data-toggle="tooltip" data-placement="bottom"
                                                                 title="Borang belum diisi">
                                                                 <img src="{{ asset('circle_times.png') }}" height='30px'
@@ -474,7 +474,7 @@
                                                                 title="Sila isi Borang D terlebih dahulu"
                                                                 style="color: black; font-size: 20pt; opacity: 0.5;"></i>
                                                         @elseif ($isPreviousYear || (date('Y-m-d') >= $data->tarikh_buka_borang && date('Y-m-d') <= $tarikh_tutup_terkini))
-                                                            <a href="{{ route('user.shuttle-5-formE', $id = 7) }}"
+                                                            <a href="{{ route('user.shuttle-5-formE', [$year, '7']) }}"
                                                                 data-toggle="tooltip" data-placement="bottom"
                                                                 title="Borang belum diisi">
                                                                 <img src="{{ asset('circle_times.png') }}" height='30px'
@@ -529,7 +529,7 @@
                                                                 title="Sila isi Borang D terlebih dahulu"
                                                                 style="color: black; font-size: 20pt; opacity: 0.5;"></i>
                                                         @elseif ($isPreviousYear || (date('Y-m-d') >= $data->tarikh_buka_borang && date('Y-m-d') <= $tarikh_tutup_terkini))
-                                                            <a href="{{ route('user.shuttle-5-formE', $id = 8) }}"
+                                                            <a href="{{ route('user.shuttle-5-formE', [$year, '8']) }}"
                                                                 data-toggle="tooltip" data-placement="bottom"
                                                                 title="Borang belum diisi">
                                                                 <img src="{{ asset('circle_times.png') }}" height='30px'
@@ -584,7 +584,7 @@
                                                                 title="Sila isi Borang D terlebih dahulu"
                                                                 style="color: black; font-size: 20pt; opacity: 0.5;"></i>
                                                         @elseif ($isPreviousYear || (date('Y-m-d') >= $data->tarikh_buka_borang && date('Y-m-d') <= $tarikh_tutup_terkini))
-                                                            <a href="{{ route('user.shuttle-5-formE', $id = 9) }}"
+                                                            <a href="{{ route('user.shuttle-5-formE', [$year, '9']) }}"
                                                                 data-toggle="tooltip" data-placement="bottom"
                                                                 title="Borang belum diisi">
                                                                 <img src="{{ asset('circle_times.png') }}" height='30px'
@@ -639,7 +639,7 @@
                                                                 title="Sila isi Borang D terlebih dahulu"
                                                                 style="color: black; font-size: 20pt; opacity: 0.5;"></i>
                                                         @elseif ($isPreviousYear || (date('Y-m-d') >= $data->tarikh_buka_borang && date('Y-m-d') <= $tarikh_tutup_terkini))
-                                                            <a href="{{ route('user.shuttle-5-formE', $id = 10) }}"
+                                                            <a href="{{ route('user.shuttle-5-formE', [$year, '10']) }}"
                                                                 data-toggle="tooltip" data-placement="bottom"
                                                                 title="Borang belum diisi">
                                                                 <img src="{{ asset('circle_times.png') }}" height='30px'
@@ -694,7 +694,7 @@
                                                                 title="Sila isi Borang D terlebih dahulu"
                                                                 style="color: black; font-size: 20pt; opacity: 0.5;"></i>
                                                         @elseif ($isPreviousYear || (date('Y-m-d') >= $data->tarikh_buka_borang && date('Y-m-d') <= $tarikh_tutup_terkini))
-                                                            <a href="{{ route('user.shuttle-5-formE', $id = 11) }}"
+                                                            <a href="{{ route('user.shuttle-5-formE', [$year, '11']) }}"
                                                                 data-toggle="tooltip" data-placement="bottom"
                                                                 title="Borang belum diisi">
                                                                 <img src="{{ asset('circle_times.png') }}" height='30px'
@@ -749,7 +749,7 @@
                                                                 title="Sila isi Borang D terlebih dahulu"
                                                                 style="color: black; font-size: 20pt; opacity: 0.5;"></i>
                                                         @elseif ($isPreviousYear || (date('Y-m-d') >= $data->tarikh_buka_borang && date('Y-m-d') <= $tarikh_tutup_terkini))
-                                                            <a href="{{ route('user.shuttle-5-formE', $id = 12) }}"
+                                                            <a href="{{ route('user.shuttle-5-formE', [$year, '12']) }}"
                                                                 data-toggle="tooltip" data-placement="bottom"
                                                                 title="Borang belum diisi">
                                                                 <img src="{{ asset('circle_times.png') }}" height='30px'

@@ -1,4 +1,4 @@
-@extends('layouts.layout-jpn-nicepage')
+﻿@extends('layouts.layout-jpn-nicepage')
 
 @section('content')
     {{-- @livewire('shuttle-three.shuttle3') --}}
@@ -144,7 +144,7 @@
                                                 <td>{{ $loop->index + 1 }}</td>
                                                 <td style="text-align:left">{{ $shuttle->shuttle->nama_kilang }}</td>
                                                 <td>{{ $shuttle->shuttle->negeri_id }}</td>
-                                                <td>{{ $shuttle->shuttle->daerah_id }}</td>
+                                                <td>{{ $shuttle->shuttle->daerah->daerah_hutan ?? $shuttle->shuttle->daerah_id }}</td>
                                                 <td>{{ $shuttle->shuttle->no_ssm }}</td>
                                                 <td>{{ $shuttle->shuttle->no_lesen ?? 'Tiada' }}</td>
 

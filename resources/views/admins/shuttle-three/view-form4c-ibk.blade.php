@@ -12,21 +12,10 @@
         border: 1px solid black;
     }
 
-    th {
-        overflow: auto;
-        /* height: 100px; */
-        width: 200px;
-    }
-
     thead th {
         position: sticky;
         top: 0;
         z-index: 1;
-    }
-
-    tbody th {
-        position: sticky;
-        left: 0;
     }
 
     /* Just common table stuff. Really. */
@@ -44,19 +33,9 @@
         background: #eee;
     }
 
-    thead,
-    tbody {
-        display: block;
-    }
-
-    tbody {
-        height: 500px;
-        /* Just for the demo          */
-        overflow-y: auto;
-        /* Trigger vertical scroll    */
-        overflow-x: hidden;
-        /* Hide the horizontal scroll */
-        width: 1600px;
+    .table-scroll-wrapper {
+        overflow-x: auto;
+        width: 100%;
     }
 
     ::-webkit-scrollbar {
@@ -260,6 +239,7 @@
                                                                         </div>
                                                                     </div>
 
+                                                                    <div class="table-scroll-wrapper">
                                                                     <table>
                                                                         <thead class="">
                                                                             <tr style="height:50px;" >
@@ -397,6 +377,7 @@
 
 
                                                                     </table>
+                                                                    </div>{{-- table-scroll-wrapper --}}
                                                                     <br>
                                                                 </div>
                                                             </div>

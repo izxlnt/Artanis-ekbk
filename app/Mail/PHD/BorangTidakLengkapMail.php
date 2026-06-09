@@ -16,14 +16,15 @@ class BorangTidakLengkapMail extends Mailable
      *
      * @return void
      */
-    public $pengguna_kilang, $user, $form, $status, $created_at;
+    public $pengguna_kilang, $user, $form, $status, $ulasan, $created_at;
 
-    public function __construct($pengguna_kilang, $user, $form, $status, $created_at)
+    public function __construct($pengguna_kilang, $user, $form, $status, $ulasan, $created_at)
     {
         $this->pengguna_kilang = $pengguna_kilang;
         $this->user = $user;
         $this->form = $form;
         $this->status = $status;
+        $this->ulasan = $ulasan;
         $this->created_at = $created_at;
     }
 
@@ -37,7 +38,7 @@ class BorangTidakLengkapMail extends Mailable
         $status = $this->status;
         $tajuk = "Terdapat borang yang ". $status;
         $perenggan_1 = $tajuk;
-        $perenggan_2 = "<br>";
+        $perenggan_2 = $this->ulasan ? "<b>Ulasan PHD:</b><br>" . nl2br(e($this->ulasan)) : "<br>";
         $perenggan_3 = "<br>";
         $perenggan_4 = "<br>";
 

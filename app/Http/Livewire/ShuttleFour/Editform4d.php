@@ -88,7 +88,7 @@ class Editform4d extends Component
         $breadcrumbs    = [
             ['link' => route('home-user'), 'name' => "Laman Utama"],
             ['link' => route('user.shuttle-4-senaraiD', date('Y')), 'name' => "Kemasukan Maklumat"],
-            ['link' => route('user.shuttle-4-formD', date('Y')), 'name' => "Borang 4D - PENYATA PENGELUARAN"],
+            ['link' => route('user.shuttle-4-senaraiD', date('Y')), 'name' => "Borang 4D - PENYATA PENGELUARAN"],
         ];
 
         $kembali = route('home-user');

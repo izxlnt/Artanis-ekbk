@@ -400,7 +400,7 @@
                                     <div class="m-l-10">
                                         <h4 class="m-b-0">{{ Auth::user()->name }}</h4>
                                         <p class=" m-b-0">{{ Auth::user()->email }}</p>
-                                        <p class=" m-b-0">PHD - {{ Auth::user()->shuttle->daerah_id }}</p>
+                                        <p class=" m-b-0">PHD - {{ Auth::user()->shuttle->daerah->daerah_hutan ?? Auth::user()->shuttle->daerah_id }}</p>
 
                                         @if (auth()->user()->pengguna_kilang_id == null)
                                             @if(auth()->user()->shuttle_type == '3')

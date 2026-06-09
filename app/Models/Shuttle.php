@@ -75,6 +75,11 @@ class Shuttle extends Model
         return $this->hasOne('App\Models\Negeri','id','alamat_surat_menyurat_daerah');
     }
 
+    public function daerah()
+    {
+        return $this->belongsTo('App\Models\Daerah', 'daerah_id');
+    }
+
 
 
 

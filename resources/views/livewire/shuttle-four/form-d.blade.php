@@ -175,17 +175,18 @@
                                                                     <td style="text-align:center;padding:
                                                                             5px">
                                                                         <input type="text" size="20"
-                                                                            class="text-right"
-                                                                            class="fd_mr_a" wire:model.defer='produk_isipadumr_a.{{ $value }}' oninput="fdCalcAll()"
+                                                                            class="text-right fd_mr_a"
+                                                                            wire:model.defer='produk_isipadumr_a.0'
+                                                                            oninput="validate(this); fdCalcAll()"
                                                                             style="@error('produk_isipadumr_a.0') color:red @else color:black @endif;"
-                                                                            oninput="validate(this)"
                                                                             onkeypress="return isNumberKey(event)">
                                                                     </td>
                                                                     <td style="text-align:center;padding: 5px">
-                                                                        <input type="text" size="20" class="text-right"
-                                                                            class="fd_wbp_a" wire:model.defer='produk_isipaduwbp_a.{{ $value }}' oninput="fdCalcAll()"
+                                                                        <input type="text" size="20"
+                                                                            class="text-right fd_wbp_a"
+                                                                            wire:model.defer='produk_isipaduwbp_a.0'
+                                                                            oninput="validate(this); fdCalcAll()"
                                                                             style="@error('produk_isipaduwbp_a.0') color:red @else color:black @endif"
-                                                                            oninput="validate(this)"
                                                                             onkeypress="return isNumberKey(event)">
                                                                     </td>
 
@@ -285,17 +286,18 @@
                                                             <td style="text-align:center;padding:
                                                                             5px">
                                                                         <input type="text" size="20"
-                                                                            class="text-right"
-                                                                            class="fd_mr_b" wire:model.defer='produk_isipadumr_b.{{ $value }}' oninput="fdCalcAll()"
+                                                                            class="text-right fd_mr_b"
+                                                                            wire:model.defer='produk_isipadumr_b.0'
+                                                                            oninput="validate(this); fdCalcAll()"
                                                                             style="@error('produk_isipadumr_b.0') color:red @else color:black @endif"
-                                                                    oninput="validate(this)"
-                                                                    onkeypress="return isNumberKey(event)">
+                                                                            onkeypress="return isNumberKey(event)">
                                                             </td>
                                                             <td style="text-align:center;padding: 5px">
-                                                                <input type="text" size="20" class="text-right"
-                                                                    class="fd_wbp_b" wire:model.defer='produk_isipaduwbp_b.{{ $value }}' oninput="fdCalcAll()"
+                                                                <input type="text" size="20"
+                                                                    class="text-right fd_wbp_b"
+                                                                    wire:model.defer='produk_isipaduwbp_b.0'
+                                                                    oninput="validate(this); fdCalcAll()"
                                                                     style="@error('produk_isipaduwbp_b.0') color:red @else color:black @endif"
-                                                                    oninput="validate(this)"
                                                                     onkeypress="return isNumberKey(event)">
                                                             </td>
                                                         </tr>
@@ -390,23 +392,23 @@
                                                     <tr style="height:50px;">
                                                         <td style="" class="">Muka (Face)
                                                             </th>
-                                                        <td style="text-align:center;padding: 5px" colspan="2"><input
-                                                                style=" type=" text" size="50" class="text-right"
-                                                                oninput="validate(this)"
+                                                        <td style="text-align:center;padding: 5px" colspan="2">
+                                                            <input type="text" size="50" class="text-right"
+                                                                oninput="validate(this); fdCalcAll()"
                                                                 onkeypress="return isNumberKey(event)"
-                                                                id="fd_venier_muka" wire:model.defer='rekod_veniermuka' oninput="fdCalcAll()"
-
+                                                                id="fd_venier_muka" wire:model.defer='rekod_veniermuka'>
+                                                        </td>
                                                     </tr>
 
                                                     <tr style="height:50px;">
                                                         <td style="" class="">Teras (Core)
                                                             </th>
-                                                        <td style="text-align:center;padding: 5px" colspan="2"><input
-                                                                style=" type=" text" size="50" class="text-right"
-                                                                oninput="validate(this)"
+                                                        <td style="text-align:center;padding: 5px" colspan="2">
+                                                            <input type="text" size="50" class="text-right"
+                                                                oninput="validate(this); fdCalcAll()"
                                                                 onkeypress="return isNumberKey(event)"
-                                                                id="fd_venier_teras" wire:model.defer='rekod_venierteras' oninput="fdCalcAll()"
-
+                                                                id="fd_venier_teras" wire:model.defer='rekod_venierteras'>
+                                                        </td>
                                                     </tr>
 
                                                     <tr style="height:50px;">

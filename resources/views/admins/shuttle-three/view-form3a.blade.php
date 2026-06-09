@@ -471,18 +471,12 @@
                                                             @csrf
                                                         <div class="form-group row">
                                                             <label for="com1"
-                                                                class="text-right col-sm-4 control-label col-form-label required" >Latitude</label>
+                                                                class="text-right col-sm-4 control-label col-form-label">Latitude</label>
                                                                 <div class="col-md-3">
                                                                     <div class="form-group">
-                                                                        @if($kilang_info->longtitude_x)
-                                                                        <input  type="text" class="form-control"
+                                                                        <input type="text" class="form-control"
                                                                             name="longtitude_x" id="longtitude_x"
                                                                             value="{{ $kilang_info->longtitude_x }}">
-                                                                        @else
-                                                                        <input  type="text" class="form-control"
-                                                                            name="longtitude_x" id="longtitude_x"
-                                                                            value="{{ old('longtitude_x') }}">
-                                                                        @endif
                                                                         @error('longtitude_x')
                                                                             <div class="alert alert-danger">
                                                                                 <strong>{{ $message }}</strong>
@@ -491,18 +485,12 @@
                                                                     </div>
                                                                 </div>
                                                             <label for="com1"
-                                                                class="text-right col-sm-1 control-label col-form-label required">Longitude</label>
+                                                                class="text-right col-sm-1 control-label col-form-label">Longitude</label>
                                                                 <div class="col-md-3">
                                                                     <div class="form-group">
-                                                                        @if($kilang_info->langtitude_y)
-                                                                        <input  type="text" class="form-control"
+                                                                        <input type="text" class="form-control"
                                                                             name="langtitude_y" id="langtitude_y"
-                                                                            value="{{  $kilang_info->langtitude_y }}">
-                                                                        @else
-                                                                        <input  type="text" class="form-control"
-                                                                            name="langtitude_y" id="langtitude_y"
-                                                                            value="{{ old('langtitude_y') }}">
-                                                                        @endif
+                                                                            value="{{ $kilang_info->langtitude_y }}">
                                                                         @error('langtitude_y')
                                                                             <div class="alert alert-danger">
                                                                                 <strong>{{ $message }}</strong>
@@ -519,7 +507,7 @@
                                                                 <option value="">-- Sila Pilih Daerah Hutan --</option>
                                                                 @forelse($daerah_list as $daerah)
                                                                     <option value="{{ $daerah->id }}" {{ $kilang_info->daerah_id == $daerah->id ? 'selected' : '' }}>
-                                                                        {{ $daerah->daerah_hutan }}
+                                                                        {{ $daerah->daerah_hutan }} - {{ $daerah->daerah_sivil }}
                                                                     </option>
                                                                 @empty
                                                                 @endforelse
@@ -530,37 +518,54 @@
                                                     <div class="row">
                                                         <div class="col-md-3"></div>
                                                         <div class="col-md-4">
-                                                            <p>Gambar Sijil SSM:</p>
-                                                            <img src="{{ asset($image_path = str_replace('public', 'storage', $kilang_info->sijil_ssm)) }}" alt="Sila Muatnaik Gambar Sijil SSM" id="category-img-ssm" style="width:100%;height:30vh;">
+                                                            <p>Fail Dimuat Naik (Sijil SSM):</p>
+                                                            @if($kilang_info->sijil_ssm)
+                                                                @php $ssm_url = asset(str_replace('public', 'storage', $kilang_info->sijil_ssm)); $ssm_ext = strtolower(pathinfo($kilang_info->sijil_ssm, PATHINFO_EXTENSION)); @endphp
+                                                                @if($ssm_ext === 'pdf')
+                                                                    <a href="{{ $ssm_url }}" target="_blank" class="btn btn-outline-primary btn-sm"><i class="fas fa-file-pdf"></i> Lihat PDF</a>
+                                                                @else
+                                                                    <img src="{{ $ssm_url }}" alt="Sijil SSM" id="category-img-ssm" style="width:100%;height:30vh;">
+                                                                    <div class="mt-1"><a href="{{ $ssm_url }}" target="_blank" class="btn btn-sm btn-outline-secondary">Lihat / Muat Turun</a></div>
+                                                                @endif
+                                                            @else
+                                                                <p class="text-muted">Tiada fail dimuat naik</p>
+                                                            @endif
                                                         </div>
                                                         <div class="col-md-4">
-                                                            <p>Gambar Lesen Kilang:</p>
-                                                            <img src="{{ asset($image_path = str_replace('public', 'storage', $kilang_info->lesen_kilang)) }}" alt="Sila Muatnaik Gambar Lesen Kilang" id="category-img-tag-lesenkilang" style="width:100%;height:30vh;">
+                                                            <p>Fail Dimuat Naik (Lesen Kilang):</p>
+                                                            @if($kilang_info->lesen_kilang)
+                                                                @php $lesen_url = asset(str_replace('public', 'storage', $kilang_info->lesen_kilang)); $lesen_ext = strtolower(pathinfo($kilang_info->lesen_kilang, PATHINFO_EXTENSION)); @endphp
+                                                                @if($lesen_ext === 'pdf')
+                                                                    <a href="{{ $lesen_url }}" target="_blank" class="btn btn-outline-primary btn-sm"><i class="fas fa-file-pdf"></i> Lihat PDF</a>
+                                                                @else
+                                                                    <img src="{{ $lesen_url }}" alt="Lesen Kilang" id="category-img-tag-lesenkilang" style="width:100%;height:30vh;">
+                                                                    <div class="mt-1"><a href="{{ $lesen_url }}" target="_blank" class="btn btn-sm btn-outline-secondary">Lihat / Muat Turun</a></div>
+                                                                @endif
+                                                            @else
+                                                                <p class="text-muted">Tiada fail dimuat naik</p>
+                                                            @endif
                                                         </div>
                                                     </div>
 
                                                     <br>
 
-                                                    @if(auth()->user()->kategori_pengguna == 'PHD')
-                                                    <div class="text-center form-group m-b-0">
-                                                        {{-- <button type="submit" class="btn btn-primary" >Simpan</button> --}}
-                                                        {{-- <button type="button" class="btn btn-primary">Kembali</button> --}}
+                                                    @if(auth()->user()->kategori_pengguna == 'PHD' && $forma->status == 'Tidak Lengkap')
+                                                    <div class="alert alert-warning text-center" style="margin-top:15px;">
+                                                        <strong>Borang ini telah dikembalikan kepada pengguna IBK untuk dilengkapkan.</strong><br>
+                                                        Sila tunggu pengguna IBK menghantar semula borang ini sebelum tindakan lanjut boleh diambil.
+                                                    </div>
 
+                                                    @elseif(auth()->user()->kategori_pengguna == 'PHD')
+                                                    <div class="text-center form-group m-b-0">
                                                         <button type="button" class="btn btn-primary" alt="default"
                                                             data-toggle="modal" data-target="#responsive-modal-tidaklengkap"
                                                             class="model_img img-fluid">
                                                             TIDAK LENGKAP</button>
 
-                                                        {{-- @if ($errors->isEmpty()) --}}
                                                             <button type="button" class="btn btn-primary" alt="default"
                                                                 data-toggle="modal" data-target="#confirmation_borang_a"
                                                                 class="model_img img-fluid">
                                                                 SIMPAN</button>
-
-                                                        {{-- @else --}}
-                                                            {{-- <button type="submit" class="btn btn-primary" disabled>RALAT</button> --}}
-                                                            {{-- <button type="submit" class="btn btn-primary" >Simpan</button> --}}
-                                                        {{-- @endif --}}
                                                     </div>
 
                                                     <div class="modal fade" id="confirmation_borang_a"

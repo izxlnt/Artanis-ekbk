@@ -144,10 +144,8 @@
                                                                                         Jumlah papan lapis yang dijual
                                                                                         dalam pasaran tempatan (m³)</td>
                                                                                     <td style="text-align:center;">
-                                                                                        <input readonly
+                                                                                        <input type="text" size="20"
                                                                                             class="text-right"
-                                                                                            style="background-color: #9ac4f7;"
-                                                                                            type="text" size="20"
                                                                                             wire:model='jumlah_pasaran_tempatan'
                                                                                             oninput="validate(this)"
                                                                                             onkeypress="return isNumberKey(event)">
@@ -236,11 +234,10 @@
                                                                                                     <strong>{{ $message }}</strong>
                                                                                                 </div>
                                                                                             @enderror
-                                                                                            <input style="" type="text"
-                                                                                                class="text-right"
-                                                                                                size="20"
-                                                                                                class="fsum_jualan" wire:model.defer='jumlah_jualan.{{ $key }}' oninput="fsumCalc()"
-                                                                                                oninput="validate(this)"
+                                                                                            <input type="text" size="20"
+                                                                                                class="text-right fsum_jualan"
+                                                                                                wire:model.defer='jumlah_jualan.{{ $key }}'
+                                                                                                oninput="validate(this); fsumCalc()"
                                                                                                 onkeypress="return isNumberKey(event)">
                                                                                             @error('jumlah_jualan.{{ $key }}')
                                                                                                 <div

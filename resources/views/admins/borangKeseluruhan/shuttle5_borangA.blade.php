@@ -104,7 +104,7 @@
                                                 <td>{{ $loop->iteration }}</td>
                                                 <td style="text-align:left">{{ $data->shuttle->nama_kilang }}</td>
                                                 <td>{{ $data->shuttle->negeri_id }}</td>
-                                                <td>{{ $data->shuttle->daerah_id }}</td>
+                                                <td>{{ $data->shuttle->daerah->daerah_hutan ?? $data->shuttle->daerah_id }}</td>
                                                 <td>{{ $data->shuttle->no_ssm }}</td>
                                                 <td>{{ $data->shuttle->no_lesen ?? 'Tiada' }}</td>
 
