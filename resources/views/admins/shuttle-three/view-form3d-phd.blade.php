@@ -190,7 +190,7 @@
                                                                                     <td style="text-align:center;">
                                                                                         <input readonly
                                                                                             style="background-color: #7ee48c6b;text-align:right;"
-                                                                                            type="text" size="15" value="{{ number_format((float)($form_d[0]->total_jumlah_jualan ?? 0), 2) }}"></td>
+                                                                                            type="text" size="15" value="{{ number_format((float)$form_d->sum('jumlah_jualan'), 2) }}"></td>
                                                                                 </tr>
 
                                                                                 <tr style="height:50px;">
@@ -238,7 +238,7 @@
                                                                                     <td style="text-align:center;background-color: #7ee48c6b;">
                                                                                         <input readonly
                                                                                             style="text-align:right"
-                                                                                            type="text" size="15" value="{{ number_format((float)($form_d[0]->total_jumlah_jualan ?? 0), 2) }}"></span>
+                                                                                            type="text" size="15" value="{{ number_format((float)$form_d->sum('jumlah_jualan'), 2) }}"></span>
                                                                                 </tr>
                                                                             </table>
                                                                             <br>

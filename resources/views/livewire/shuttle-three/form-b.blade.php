@@ -216,22 +216,24 @@
                                                                 {{-- column 11 --}}
                                                                 <td style="text-align:center; ">
 
-                                                                    <input type="text" size="6" style="text-align:right"
+                                                                    <input type="text" size="6"
                                                                         id="fb_gl_{{ $key }}"
                                                                         wire:model.defer='gaji_lelaki.{{ $key }}'
                                                                         oninput="validate(this);fbCalcRow({{ $key }})"
-                                                                        
+
                                                                         @if($jumlah_lelaki[$key] == 0)
                                                                             readonly
                                                                         @endif
                                                                         onkeypress="return isNumberKey(event)"
-                                                                        style="@error('gaji_lelaki.' . $key) color:red; outline: 2px solid red; @else color:black @endif">
-                                                                        @error('gaji_lelaki.' . $key)
-                                                                            <i class="fas fa-exclamation-circle"
-                                                                                style="color: red"
-                                                                                title="Gaji perlulah minimum {{ $min_gaji[$key] }} dan maximum {{ $max_gaji[$key] }}"
-                                                                            >
-                                                                        @enderror
+                                                                        style="text-align:right; @if($jumlah_lelaki[$key] != 0) @error('gaji_lelaki.' . $key) color:red; outline: 2px solid red; @enderror @endif">
+                                                                        @if($jumlah_lelaki[$key] != 0)
+                                                                            @error('gaji_lelaki.' . $key)
+                                                                                <i class="fas fa-exclamation-circle"
+                                                                                    style="color: red"
+                                                                                    title="Gaji perlulah minimum {{ $min_gaji[$key] }} dan maximum {{ $max_gaji[$key] }}"
+                                                                                ></i>
+                                                                            @enderror
+                                                                        @endif
                                                                     {{-- @error('gaji_lelaki.' . $key)
                                                                             <div class="alert alert-danger">
                                                                                 <strong>{{ $message }}</strong>
@@ -239,7 +241,7 @@
                                                                             @enderror --}}
                                                                 </td>
                                                                 <td style="text-align:center;">
-                                                                    <input type="text" size="6" style="text-align:right"
+                                                                    <input type="text" size="6"
                                                                         id="fb_gp_{{ $key }}"
                                                                         wire:model.defer='gaji_perempuan.{{ $key }}'
                                                                         oninput="validate(this);fbCalcRow({{ $key }})"
@@ -248,15 +250,15 @@
                                                                             readonly
                                                                         @endif
                                                                         onkeypress="return isNumberKey(event)"
-                                                                        style="@error('gaji_perempuan.' . $key) color:red; outline: 2px solid red @else color:black @endif">
-                                                                        @error('gaji_perempuan.' . $key)
-                                                                            <i class="fas fa-exclamation-circle"
-                                                                                style="color: red"
-                                                                                title="Gaji perlulah minimum {{ $min_gaji[$key] }} dan maximum {{ $max_gaji[$key] }}"
-                                                                            >
-                                                                                {{-- title="{{ $message }}" --}}
-                                                                            </i>
-                                                                        @enderror
+                                                                        style="text-align:right; @if($jumlah_perempuan[$key] != 0) @error('gaji_perempuan.' . $key) color:red; outline: 2px solid red; @enderror @endif">
+                                                                        @if($jumlah_perempuan[$key] != 0)
+                                                                            @error('gaji_perempuan.' . $key)
+                                                                                <i class="fas fa-exclamation-circle"
+                                                                                    style="color: red"
+                                                                                    title="Gaji perlulah minimum {{ $min_gaji[$key] }} dan maximum {{ $max_gaji[$key] }}"
+                                                                                ></i>
+                                                                            @enderror
+                                                                        @endif
 
                                                                 </td>
                                                                 <td style="text-align:center;background-color:#f8dbee;"><input readonly type="text" style="text-align:right"

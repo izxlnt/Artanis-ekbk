@@ -36,7 +36,7 @@ class ViewFormBController extends Controller
         $kategori_pekerja = KategoriGunaTenaga::get();
         // dd($kilang_info);
 
-        $form_b = GunaTenaga::where('formbs_id',$formb->id)->get();
+        $form_b = GunaTenaga::where('formbs_id',$formb->id)->orderBy('id','desc')->get()->unique('kategori_guna_tenaga_id')->values();
 
 
         $layout = auth()->user()->kategori_pengguna == 'PHD' ? 'layouts.layout-phd-nicepage' : (auth()->user()->kategori_pengguna == 'BPM' ? 'layouts.layout-bpm-nicepage' : (auth()->user()->kategori_pengguna == 'BPE' ? 'layouts.layout-ipjpsm-nicepage' : ''));
@@ -148,7 +148,7 @@ class ViewFormBController extends Controller
         $kategori_pekerja = KategoriGunaTenaga::get();
         // dd($kilang_info);
 
-        $form_b = GunaTenaga::where('formbs_id',$formb->id)->get();
+        $form_b = GunaTenaga::where('formbs_id',$formb->id)->orderBy('id','desc')->get()->unique('kategori_guna_tenaga_id')->values();
 
 
         $layout = auth()->user()->kategori_pengguna == 'PHD' ? 'layouts.layout-phd-nicepage' : (auth()->user()->kategori_pengguna == 'BPM' ? 'layouts.layout-bpm-nicepage' : (auth()->user()->kategori_pengguna == 'BPE' ? 'layouts.layout-ipjpsm-nicepage' : ''));

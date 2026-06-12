@@ -474,37 +474,59 @@ class FormB extends Component
             $this->jumlah_pekerja[$key] = $this->jumlah_lelaki[$key] + $this->jumlah_perempuan[$key];
         }
 
+        // Recalculate derived salary fields and grand totals
+        $this->total_bumi_lelaki = $this->total_bumi_perempuan = 0;
+        $this->total_bukanbumi_lelaki = $this->total_bukanbumi_perempuan = 0;
+        $this->total_asing_lelaki = $this->total_asing_perempuan = 0;
+        $this->total_pekerja_lelaki = $this->total_pekerja_perempuan = $this->total_pekerja = 0;
+        $this->jumlah_gaji_lelaki = $this->jumlah_gaji_perempuan = $this->jumlah_lelaki_perempuan = 0;
+        $this->jumlah_total_lelaki = $this->jumlah_total_perempuan = $this->jumlah_total_gaji = 0;
+
+        foreach ($kategori as $key => $value) {
+            $jl = $this->jumlah_lelaki[$key] ?? 0;
+            $jp = $this->jumlah_perempuan[$key] ?? 0;
+            $gl = (float)($this->gaji_lelaki[$key] ?? 0);
+            $gp = (float)($this->gaji_perempuan[$key] ?? 0);
+
+            $this->gaji_lelaki_perempuan[$key] = round($gl + $gp, 2);
+            $this->total_gaji_lelaki[$key] = round($jl * $gl, 2);
+            $this->total_gaji_perempuan[$key] = round($jp * $gp, 2);
+            $this->total_gaji[$key] = round($this->total_gaji_lelaki[$key] + $this->total_gaji_perempuan[$key], 2);
+
+            $this->total_bumi_lelaki += (int)($this->pekerja_wargabumi_lelaki[$key] ?? 0);
+            $this->total_bumi_perempuan += (int)($this->pekerja_wargabumi_perempuan[$key] ?? 0);
+            $this->total_bukanbumi_lelaki += (int)($this->pekerja_bukan_wargabumi_lelaki[$key] ?? 0);
+            $this->total_bukanbumi_perempuan += (int)($this->pekerja_bukan_wargabumi_perempuan[$key] ?? 0);
+            $this->total_asing_lelaki += (int)($this->pekerja_asing_lelaki[$key] ?? 0);
+            $this->total_asing_perempuan += (int)($this->pekerja_asing_perempuan[$key] ?? 0);
+            $this->total_pekerja_lelaki += $jl;
+            $this->total_pekerja_perempuan += $jp;
+            $this->total_pekerja += $this->jumlah_pekerja[$key] ?? 0;
+            $this->jumlah_gaji_lelaki += $gl;
+            $this->jumlah_gaji_perempuan += $gp;
+            $this->jumlah_lelaki_perempuan += $this->gaji_lelaki_perempuan[$key];
+            $this->jumlah_total_lelaki += $this->total_gaji_lelaki[$key];
+            $this->jumlah_total_perempuan += $this->total_gaji_perempuan[$key];
+            $this->jumlah_total_gaji += $this->total_gaji[$key];
+        }
+
         if ($this->jumlah_pekerja[0] == 0) {
             $this->emit('alert', ['type' => 'error', 'message' => 'Jumlah Pekerja bagi Pemilik dan Rakan Kongsi tidak boleh 0']);
             return back();
         }
 
-        $this->validate([
-            // 'pekerja_wargabumi_lelaki.0' => 'required',
-            'gaji_lelaki.0' => 'required_unless:jumlah_lelaki.0,0|numeric|min:' . $this->min_gaji[0] . '|max:' . $this->max_gaji[0],
-            'gaji_perempuan.0' => 'required_unless:jumlah_perempuan.0, >, 0|numeric|min:' . $this->min_gaji[0] . '|max:' . $this->max_gaji[0],
-
-            'gaji_lelaki.1' => 'required_unless:jumlah_lelaki.1, =, 0|numeric|min:' . $this->min_gaji[1] . '|max:' . $this->max_gaji[1],
-            'gaji_perempuan.1' => 'required_unless:jumlah_perempuan.1, =, 0|numeric|min:' . $this->min_gaji[1] . '|max:' . $this->max_gaji[1],
-
-            'gaji_lelaki.2' => 'required_unless:jumlah_lelaki.2, =, 0|numeric|min:' . $this->min_gaji[2] . '|max:' . $this->max_gaji[2],
-            'gaji_perempuan.2' => 'required_unless:jumlah_perempuan.2, =, 0|numeric|min:' . $this->min_gaji[2] . '|max:' . $this->max_gaji[2],
-
-            'gaji_lelaki.3' => 'required_unless:jumlah_lelaki.3, =, 0|numeric|min:' . $this->min_gaji[3] . '|max:' . $this->max_gaji[3],
-            'gaji_perempuan.3' => 'required_unless:jumlah_perempuan.3, =, 0|numeric|min:' . $this->min_gaji[3] . '|max:' . $this->max_gaji[3],
-
-            'gaji_lelaki.4' => 'required_unless:jumlah_lelaki.4, =, 0|numeric|min:' . $this->min_gaji[4] . '|max:' . $this->max_gaji[4],
-            'gaji_perempuan.4' => 'required_unless:jumlah_perempuan.4, =, 0|numeric|min:' . $this->min_gaji[4] . '|max:' . $this->max_gaji[4],
-
-            'gaji_lelaki.5' => 'required_unless:jumlah_lelaki.5, =, 0|numeric|min:' . $this->min_gaji[5] . '|max:' . $this->max_gaji[5],
-            'gaji_perempuan.5' => 'required_unless:jumlah_perempuan.5, =, 0|numeric|min:' . $this->min_gaji[5] . '|max:' . $this->max_gaji[5],
-
-            'gaji_lelaki.6' => 'required_unless:jumlah_lelaki.6, =, 0|numeric|min:' . $this->min_gaji[6] . '|max:' . $this->max_gaji[6],
-            'gaji_perempuan.6' => 'required_unless:jumlah_perempuan.6, =, 0|numeric|min:' . $this->min_gaji[6] . '|max:' . $this->max_gaji[6],
-
-            'gaji_lelaki.7' => 'required_unless:jumlah_lelaki.7, =, 0|numeric|min:' . $this->min_gaji[7] . '|max:' . $this->max_gaji[7],
-            'gaji_perempuan.7' => 'required_unless:jumlah_perempuan.7, =, 0|numeric|min:' . $this->min_gaji[7] . '|max:' . $this->max_gaji[7],
-        ]);
+        $rules = [];
+        foreach ($kategori as $key => $value) {
+            if (($this->jumlah_lelaki[$key] ?? 0) > 0) {
+                $rules['gaji_lelaki.' . $key] = 'required|numeric|min:' . $value->gaji_min . '|max:' . $value->gaji_max;
+            }
+            if (($this->jumlah_perempuan[$key] ?? 0) > 0) {
+                $rules['gaji_perempuan.' . $key] = 'required|numeric|min:' . $value->gaji_min . '|max:' . $value->gaji_max;
+            }
+        }
+        if (!empty($rules)) {
+            $this->validate($rules);
+        }
 
         // dd($this->jumlah_pekerja[0]);
 
