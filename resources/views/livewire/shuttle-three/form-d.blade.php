@@ -294,6 +294,7 @@
         var el=document.getElementById('fsum_tot_jualan'); if(el) el.value=rounded;
         @this.set('jumlah_pasaran_tempatan', rounded);
     }
+    document.addEventListener('DOMContentLoaded', function() { fsumCalc(); });
 </script>
 
 

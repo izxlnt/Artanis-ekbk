@@ -21,11 +21,31 @@ class FormD extends Component
     
     public function mount($year = null)
     {
-        // Default to current year if not provided
         if (!$year) {
             $this->year = date('Y');
         } else {
             $this->year = $year;
+        }
+
+        $formd = ModelsFormD::where('shuttle_id', auth()->user()->shuttle_id)
+            ->where('bulan', $this->bulan_id)
+            ->where('tahun', $this->year)
+            ->whereNotIn('status', ['Tidak Diisi'])
+            ->first();
+
+        if ($formd && $formd->status === 'Tidak Lengkap') {
+            $this->total_export = $formd->total_export;
+            $this->jumlah_pasaran_tempatan = $formd->jumlah_pasaran_tempatan;
+            $this->total_jumlah_jualan = $formd->jumlah_pasaran_tempatan;
+
+            $jenis_pembeli = Pembeli::where('shuttle', 3)->get();
+            $existing = PenjualanPembeli::where('formds_id', $formd->id)->get()->keyBy('pembeli_id');
+
+            foreach ($jenis_pembeli as $key => $pembeli) {
+                $record = $existing->get($pembeli->id);
+                $this->jumlah_jualan[$key] = $record ? $record->jumlah_jualan : null;
+                $this->catatan[$key] = $record ? $record->catatan : null;
+            }
         }
     }
     
@@ -199,6 +219,8 @@ class FormD extends Component
         $batch->status = "Sedang Diproses";
         $batch->borang_d = 1;
         $batch->save();
+
+        PenjualanPembeli::where('formds_id', $formd->id)->delete();
 
         foreach ($jenis_pembeli as $key => $data) {
             if($data->keterangan == 'Sektor awam (Nyatakan)'){
