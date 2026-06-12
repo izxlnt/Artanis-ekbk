@@ -455,6 +455,14 @@
 </script>
 
 <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        document.querySelectorAll('[id^="fb_wl_"]').forEach(function(el) {
+            fbCalcRow(el.id.replace('fb_wl_', ''));
+        });
+    });
+</script>
+
+<script>
     function fbN(id) { var el = document.getElementById(id); return el ? (parseFloat(el.value) || 0) : 0; }
     function fbS(id, v) { var el = document.getElementById(id); if (el) el.value = v === 0 ? '' : (Math.round(v * 100) / 100); }
 
