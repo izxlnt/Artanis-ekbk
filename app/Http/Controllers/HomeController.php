@@ -249,7 +249,7 @@ class HomeController extends Controller
 
     public function ajax_count_tugasan_ipjpsm_detail(Request $request)
     {
-        $currentYear = date('Y');
+        $currentYear = (int) ($request->year ?? date('Y'));
         $shuttle_type = (int) ($request->shuttle_type ?? 3);
 
         // Counts distinct factories (shuttle_id) matching exactly what each blade highlights:
@@ -850,21 +850,21 @@ class HomeController extends Controller
         return view('admins.borangKeseluruhan.shuttle5_borangE', compact('returnArr', 'year', 'list_kilang', 'buffer', 'year_list', 'form5EIndex', 'batchIndex'));
     }
 
-    private function buildGraphData(int $shuttle_type): array
+    private function buildGraphData(int $shuttle_type, int $year = 0): array
     {
-        $yearStart = date('Y') . '-01-01';
-        $yearEnd   = (date('Y') + 1) . '-01-01';
+        if ($year <= 0) $year = (int) date('Y');
 
         $rows = DB::select("SELECT shuttles.negeri_id, COUNT(DISTINCT form_a_s.shuttle_id) as total_kilang
             FROM form_a_s
             INNER JOIN shuttles ON form_a_s.shuttle_id = shuttles.id
             WHERE shuttles.shuttle_type = ?
-            AND form_a_s.created_at >= ? AND form_a_s.created_at < ?
-            GROUP BY shuttles.negeri_id", [$shuttle_type, $yearStart, $yearEnd]);
+            AND form_a_s.tahun = ?
+            GROUP BY shuttles.negeri_id", [$shuttle_type, $year]);
 
         $byNegeri = collect($rows)->keyBy('negeri_id');
 
         return [
+            'year'       => $year,
             'johor'      => optional($byNegeri->get('Johor'))->total_kilang ?? 0,
             'kedah'      => optional($byNegeri->get('Kedah'))->total_kilang ?? 0,
             'kelantan'   => optional($byNegeri->get('Kelantan'))->total_kilang ?? 0,
@@ -888,6 +888,7 @@ class HomeController extends Controller
     public function graph_dashboard(Request $request)
     {
         $shuttle_type = (int) ($request->shuttle_type ?? 3);
-        return response($this->buildGraphData($shuttle_type), 200);
+        $year = (int) ($request->year ?? date('Y'));
+        return response($this->buildGraphData($shuttle_type, $year), 200);
     }
 }

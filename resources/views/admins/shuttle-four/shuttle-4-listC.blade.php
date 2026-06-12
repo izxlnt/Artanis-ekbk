@@ -1,4 +1,4 @@
-﻿@extends('layouts.layout-ipjpsm-nicepage')
+@extends('layouts.layout-ipjpsm-nicepage')
 
 @section('content')
 
@@ -69,21 +69,21 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <a type="button " href="{{ route('shuttle-4-listA', date('Y')) }}"
+                                        <a type="button " href="{{ route('shuttle-4-listA', $year) }}"
                                             class="btn"
                                             style="background-color:white;color:black;border-color:black">Borang 4A</a>
-                                        <a type="button" href="{{ route('shuttle-4-listB', date('Y')) }}"
+                                        <a type="button" href="{{ route('shuttle-4-listB', $year) }}"
                                             class="btn"
                                             style="background-color:white;color:black;border-color:#ee8dcd">Borang 4B</a>
-                                        <a type="button" href="{{ route('shuttle-4-listC', date('Y')) }}"
+                                        <a type="button" href="{{ route('shuttle-4-listC', $year) }}"
                                             class="btn"
                                             style="background-color:#bbb235f3;color:black;border-color:#bbb235f3">Borang
                                             4C</a>
-                                        <a type="button" href="{{ route('shuttle-4-listD', date('Y')) }}"
+                                        <a type="button" href="{{ route('shuttle-4-listD', $year) }}"
                                             class="btn"
                                             style="background-color:white;color:black;border-color:#1b9e21f3">Borang 4D</a>
 
-                                        <a type="button" href="{{ route('shuttle-4-listE', date('Y')) }}"
+                                        <a type="button" href="{{ route('shuttle-4-listE', $year) }}"
                                             class="btn"
                                             style="background-color:white;color:black;border-color:#1145f0f3">Borang 4E</a>
 

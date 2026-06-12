@@ -252,6 +252,28 @@
                     var detailUrl = "{{ route('ajax.count.ipjpsm.detail') }}";
                     var formLinks = {
                         3: {
+                            A: "{{ route('shuttle-3-listA', date('Y')) }}",
+                            B: "{{ route('shuttle-3-listB', date('Y')) }}",
+                            C: "{{ route('shuttle-3-listC', date('Y')) }}",
+                            D: "{{ route('shuttle-3-listD', date('Y')) }}"
+                        },
+                        4: {
+                            A: "{{ route('shuttle-4-listA', date('Y')) }}",
+                            B: "{{ route('shuttle-4-listB', date('Y')) }}",
+                            C: "{{ route('shuttle-4-listC', date('Y')) }}",
+                            D: "{{ route('shuttle-4-listD', date('Y')) }}",
+                            E: "{{ route('shuttle-4-listE', date('Y')) }}"
+                        },
+                        5: {
+                            A: "{{ route('shuttle-5-listA', date('Y')) }}",
+                            B: "{{ route('shuttle-5-listB', date('Y')) }}",
+                            C: "{{ route('shuttle-5-listC', date('Y')) }}",
+                            D: "{{ route('shuttle-5-listD', date('Y')) }}",
+                            E: "{{ route('shuttle-5-listE', date('Y')) }}"
+                        }
+                    };
+                    var kesLinks = {
+                        3: {
                             A: "{{ route('ipjpsm.borang-keseluruhan.shuttle3.borangA', date('Y')) }}",
                             B: "{{ route('ipjpsm.borang-keseluruhan.shuttle3.borangB', date('Y')) }}",
                             C: "{{ route('ipjpsm.borang-keseluruhan.shuttle3.borangC', date('Y')) }}",
@@ -275,7 +297,6 @@
                     var colors = {A:'#555',B:'#c9559e',C:'#8a7e00',D:'#0e7012',E:'#0a5da8'};
                     [3,4,5].forEach(function(s){
                         $.get(detailUrl, {shuttle_type: s}, function(data){
-                            // Derive total from detail data so the number always matches the badges
                             var total = Object.values(data).reduce(function(sum, v){ return sum + (parseInt(v) || 0); }, 0);
                             $('#count_tugasan_shuttle'+s).text(total);
 
@@ -284,28 +305,200 @@
                             Object.keys(data).forEach(function(key){
                                 var form = key.replace('form','');
                                 var count = data[key];
-                                var link = formLinks[s][form];
-                                var btn = $('<a>')
-                                    .attr('href', link)
+                                var color = colors[form];
+
+                                // Wrapper group
+                                var group = $('<div>').css({
+                                    display:'inline-flex', alignItems:'stretch',
+                                    borderRadius:'20px', overflow:'hidden',
+                                    border:'2px solid '+color, fontSize:'13px', fontWeight:'600'
+                                });
+
+                                // Left: list button (with count badge)
+                                var listBtn = $('<a>')
+                                    .attr('href', formLinks[s][form])
+                                    .attr('title', 'Senarai')
                                     .css({
                                         display:'inline-flex', alignItems:'center', gap:'4px',
                                         background:'rgba(255,255,255,0.85)', color:'#222',
-                                        borderRadius:'20px', padding:'3px 10px', fontSize:'13px',
-                                        fontWeight:'600', textDecoration:'none', border:'2px solid '+colors[form]
+                                        padding:'3px 10px', textDecoration:'none'
                                     })
                                     .text('Borang '+s+form+' ');
                                 if(count > 0){
-                                    btn.append($('<span>').css({
+                                    listBtn.append($('<span>').css({
                                         background:'#e53935', color:'#fff',
                                         borderRadius:'50%', padding:'1px 6px', fontSize:'11px'
                                     }).text(count));
                                 }
-                                container.append(btn);
+
+                                // Divider
+                                var divider = $('<span>').css({
+                                    width:'1px', background: color, opacity:'0.5'
+                                });
+
+                                // Right: keseluruhan button
+                                var kesBtn = $('<a>')
+                                    .attr('href', kesLinks[s][form])
+                                    .attr('title', 'Borang Keseluruhan')
+                                    .css({
+                                        display:'inline-flex', alignItems:'center',
+                                        background: color, color:'#fff',
+                                        padding:'3px 8px', textDecoration:'none', fontSize:'12px'
+                                    })
+                                    .html('<i class="fas fa-list-alt"></i>');
+
+                                group.append(listBtn).append(divider).append(kesBtn);
+                                container.append(group);
                             });
                         });
                     });
                 })();
                 </script>
+
+                {{-- ── Prev Year Section ──────────────────────────────────────────────── --}}
+                <br>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card-header bg-info"
+                            style="text-align:center; background-color: #b0c4de !important; font-size: 130%; font-weight: bold;">
+                            <h4 class="text-white m-b-0" style="background-color: #b0c4de"><b>JUMLAH BORANG MENUNGGU PENGESAHAN IPJPSM/BPE ({{ date('Y') - 1 }})</b></h4>
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <div class="row" style="justify-content: space-around;">
+                    <div class="col-lg-4 col-md-6 mb-3">
+                        <div class="card bg-info card-hover" style="border-radius:25px">
+                            <div class="card-body" style="box-shadow:0 4px 8px 0 rgba(0,0,0,0.2);background-color:#ee8dcd;border-radius:25px;text-align:center;">
+                                <b><span style="font-size:40px;" id="count_prev_shuttle3">0</span></b>
+                                <h5 class="text-white">Kilang Papan</h5>
+                                <div class="mt-2" id="detail_prev_s3" style="display:flex;flex-wrap:wrap;justify-content:center;gap:6px"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6 mb-3">
+                        <div class="card bg-info card-hover" style="border-radius:25px">
+                            <div class="card-body" style="box-shadow:0 4px 8px 0 rgba(0,0,0,0.2);background-color:#f0e10dbd;border-radius:25px;text-align:center;">
+                                <b><span style="font-size:40px;" id="count_prev_shuttle4">0</span></b>
+                                <h5 class="text-white">Kilang Papan Lapis/Venir</h5>
+                                <div class="mt-2" id="detail_prev_s4" style="display:flex;flex-wrap:wrap;justify-content:center;gap:6px"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6 mb-3">
+                        <div class="card bg-info card-hover" style="border-radius:25px">
+                            <div class="card-body" style="box-shadow:0 4px 8px 0 rgba(0,0,0,0.2);background-color:#6df173;border-radius:25px;text-align:center;">
+                                <b><span style="font-size:40px;" id="count_prev_shuttle5">0</span></b>
+                                <h5 class="text-white">Kilang Kayu Kumai</h5>
+                                <div class="mt-2" id="detail_prev_s5" style="display:flex;flex-wrap:wrap;justify-content:center;gap:6px"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <script>
+                (function(){
+                    var detailUrlPrev = "{{ route('ajax.count.ipjpsm.detail') }}";
+                    var formLinksPrev = {
+                        3: {
+                            A: "{{ route('shuttle-3-listA', date('Y') - 1) }}",
+                            B: "{{ route('shuttle-3-listB', date('Y') - 1) }}",
+                            C: "{{ route('shuttle-3-listC', date('Y') - 1) }}",
+                            D: "{{ route('shuttle-3-listD', date('Y') - 1) }}"
+                        },
+                        4: {
+                            A: "{{ route('shuttle-4-listA', date('Y') - 1) }}",
+                            B: "{{ route('shuttle-4-listB', date('Y') - 1) }}",
+                            C: "{{ route('shuttle-4-listC', date('Y') - 1) }}",
+                            D: "{{ route('shuttle-4-listD', date('Y') - 1) }}",
+                            E: "{{ route('shuttle-4-listE', date('Y') - 1) }}"
+                        },
+                        5: {
+                            A: "{{ route('shuttle-5-listA', date('Y') - 1) }}",
+                            B: "{{ route('shuttle-5-listB', date('Y') - 1) }}",
+                            C: "{{ route('shuttle-5-listC', date('Y') - 1) }}",
+                            D: "{{ route('shuttle-5-listD', date('Y') - 1) }}",
+                            E: "{{ route('shuttle-5-listE', date('Y') - 1) }}"
+                        }
+                    };
+                    var kesLinksPrev = {
+                        3: {
+                            A: "{{ route('ipjpsm.borang-keseluruhan.shuttle3.borangA', date('Y') - 1) }}",
+                            B: "{{ route('ipjpsm.borang-keseluruhan.shuttle3.borangB', date('Y') - 1) }}",
+                            C: "{{ route('ipjpsm.borang-keseluruhan.shuttle3.borangC', date('Y') - 1) }}",
+                            D: "{{ route('ipjpsm.borang-keseluruhan.shuttle3.borangD', date('Y') - 1) }}"
+                        },
+                        4: {
+                            A: "{{ route('ipjpsm.borang-keseluruhan.shuttle4.borangA', date('Y') - 1) }}",
+                            B: "{{ route('ipjpsm.borang-keseluruhan.shuttle4.borangB', date('Y') - 1) }}",
+                            C: "{{ route('ipjpsm.borang-keseluruhan.shuttle4.borangC', date('Y') - 1) }}",
+                            D: "{{ route('ipjpsm.borang-keseluruhan.shuttle4.borangD', date('Y') - 1) }}",
+                            E: "{{ route('ipjpsm.borang-keseluruhan.shuttle4.borangE', date('Y') - 1) }}"
+                        },
+                        5: {
+                            A: "{{ route('ipjpsm.borang-keseluruhan.shuttle5.borangA', date('Y') - 1) }}",
+                            B: "{{ route('ipjpsm.borang-keseluruhan.shuttle5.borangB', date('Y') - 1) }}",
+                            C: "{{ route('ipjpsm.borang-keseluruhan.shuttle5.borangC', date('Y') - 1) }}",
+                            D: "{{ route('ipjpsm.borang-keseluruhan.shuttle5.borangD', date('Y') - 1) }}",
+                            E: "{{ route('ipjpsm.borang-keseluruhan.shuttle5.borangE', date('Y') - 1) }}"
+                        }
+                    };
+                    var colorsPrev = {A:'#555',B:'#c9559e',C:'#8a7e00',D:'#0e7012',E:'#0a5da8'};
+                    [3,4,5].forEach(function(s){
+                        $.get(detailUrlPrev, {shuttle_type: s, year: {{ date('Y') - 1 }}}, function(data){
+                            var total = Object.values(data).reduce(function(sum, v){ return sum + (parseInt(v) || 0); }, 0);
+                            $('#count_prev_shuttle'+s).text(total);
+
+                            var container = $('#detail_prev_s'+s);
+                            container.empty();
+                            Object.keys(data).forEach(function(key){
+                                var form = key.replace('form','');
+                                var count = data[key];
+                                var color = colorsPrev[form];
+
+                                var group = $('<div>').css({
+                                    display:'inline-flex', alignItems:'stretch',
+                                    borderRadius:'20px', overflow:'hidden',
+                                    border:'2px solid '+color, fontSize:'13px', fontWeight:'600'
+                                });
+
+                                var listBtn = $('<a>')
+                                    .attr('href', formLinksPrev[s][form])
+                                    .attr('title', 'Senarai')
+                                    .css({
+                                        display:'inline-flex', alignItems:'center', gap:'4px',
+                                        background:'rgba(255,255,255,0.85)', color:'#222',
+                                        padding:'3px 10px', textDecoration:'none'
+                                    })
+                                    .text('Borang '+s+form+' ');
+                                if(count > 0){
+                                    listBtn.append($('<span>').css({
+                                        background:'#e53935', color:'#fff',
+                                        borderRadius:'50%', padding:'1px 6px', fontSize:'11px'
+                                    }).text(count));
+                                }
+
+                                var divider = $('<span>').css({
+                                    width:'1px', background: color, opacity:'0.5'
+                                });
+
+                                var kesBtn = $('<a>')
+                                    .attr('href', kesLinksPrev[s][form])
+                                    .attr('title', 'Borang Keseluruhan')
+                                    .css({
+                                        display:'inline-flex', alignItems:'center',
+                                        background: color, color:'#fff',
+                                        padding:'3px 8px', textDecoration:'none', fontSize:'12px'
+                                    })
+                                    .html('<i class="fas fa-list-alt"></i>');
+
+                                group.append(listBtn).append(divider).append(kesBtn);
+                                container.append(group);
+                            });
+                        });
+                    });
+                })();
+                </script>
+
                 {{-- <hr>
             <div class="row" style="justify-content: space-around;">
                 <h4>Jumlah borang yang belum lengkap dihantar oleh IBK pada bulan {{ date('m') }}</h4>
@@ -437,24 +630,28 @@
                             </div>
                             <div class="card-body p-4">
                                 <div class="row mb-3">
-                                    <div class="col-md-4">
+                                    <div class="col-md-3">
                                         <label for="select_kilang" class="form-label font-weight-bold">
                                             <i class="fas fa-filter mr-2"></i>Pilih Jenis Kilang:
                                         </label>
                                         <select name="select_kilang" id="select_kilang" class="form-control form-control-lg shadow-sm">
-                                            <option value="3" selected>
-                                                <i class="fas fa-industry"></i> Kilang Papan
-                                            </option>
-                                            <option value="4">
-                                                <i class="fas fa-layer-group"></i> Kilang Papan Lapis/Venir
-                                            </option>
-                                            <option value="5">
-                                                <i class="fas fa-tree"></i> Kilang Kayu Kumai
-                                            </option>
+                                            <option value="3" selected>Kilang Papan</option>
+                                            <option value="4">Kilang Papan Lapis/Venir</option>
+                                            <option value="5">Kilang Kayu Kumai</option>
                                         </select>
                                     </div>
-                                    <div class="col-md-8">
-                                        <div class="alert alert-info mb-0">
+                                    <div class="col-md-3">
+                                        <label for="select_year_graph" class="form-label font-weight-bold">
+                                            <i class="fas fa-calendar mr-2"></i>Pilih Tahun:
+                                        </label>
+                                        <select name="select_year_graph" id="select_year_graph" class="form-control form-control-lg shadow-sm">
+                                            @for ($y = date('Y'); $y >= 2025; $y--)
+                                                <option value="{{ $y }}" {{ $y == date('Y') ? 'selected' : '' }}>{{ $y }}</option>
+                                            @endfor
+                                        </select>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="alert alert-info mb-0" style="margin-top:32px">
                                             <i class="fas fa-info-circle mr-2"></i>
                                             <strong>Info:</strong> Nilai ditunjukkan di atas setiap bar. Hover untuk maklumat lanjut.
                                         </div>
@@ -695,29 +892,18 @@
         let currentChart = null; // Store current chart instance
 
         window.addEventListener("load", function() {
-            $.ajax({
-                url: "{{ route('ipjpsm.graph_dashboard.default') }}",
-                method: "get",
-                dataType: "JSON",
-                success: function(data) {
-                    ChartResponden(data);
-                    console.log(data);
-                }
-            });
+            load_data($('#select_kilang').val(), $('#select_year_graph').val());
         });
 
         $(document).ready(function() {
-            $('#select_kilang').change(function() {
-                var shuttle = $(this).val();
-                if (shuttle != '') {
-                    load_data(shuttle);
-                }
+            $('#select_kilang, #select_year_graph').change(function() {
+                load_data($('#select_kilang').val(), $('#select_year_graph').val());
             });
         });
 
-        function load_data(shuttle) {
-            // Add loading indicator
+        function load_data(shuttle, year) {
             $('#select_kilang').prop('disabled', true);
+            $('#select_year_graph').prop('disabled', true);
             $('.chart-container').css('opacity', '0.5');
 
             $.ajax({
@@ -726,21 +912,19 @@
                 data: {
                     _token: "{{ csrf_token() }}",
                     shuttle_type: shuttle,
+                    year: year,
                 },
                 dataType: "JSON",
                 success: function(data) {
-                    console.log(data);
-                    // Update selected value before rendering chart
                     $('#select_kilang').val(shuttle);
                     ChartResponden(data);
-
-                    // Remove loading indicator
                     $('#select_kilang').prop('disabled', false);
+                    $('#select_year_graph').prop('disabled', false);
                     $('.chart-container').css('opacity', '1');
                 },
                 error: function() {
-                    // Remove loading indicator on error
                     $('#select_kilang').prop('disabled', false);
+                    $('#select_year_graph').prop('disabled', false);
                     $('.chart-container').css('opacity', '1');
                     alert('Error loading data. Please try again.');
                 }
@@ -753,8 +937,8 @@
         var jsonData = data;
         console.log(jsonData);
 
-        // Get the currently selected kilang type
         var selectedKilang = $('#select_kilang').val();
+        var selectedYear = jsonData.year || $('#select_year_graph').val();
         var kilangTypes = {
             '3': 'Kilang Papan',
             '4': 'Kilang Papan Lapis/Venir',
@@ -779,7 +963,7 @@
                         'Melaka', 'Negeri Sembilan', 'Pahang',
                         'Perak', 'Perlis', 'Pulau Pinang', 'Selangor', 'Terengganu', 'Wilayah Persekutuan'],
                 datasets: [{
-                    label: kilangTypes[selectedKilang] || 'Bilangan Responden',
+                    label: (kilangTypes[selectedKilang] || 'Bilangan Responden') + ' (' + selectedYear + ')',
                     data: [jsonData.johor, jsonData.kedah, jsonData.kelantan, jsonData.melaka, jsonData.n9, jsonData.pahang, jsonData.perak, jsonData.perlis, jsonData.pinang, jsonData.selangor, jsonData.terengganu, jsonData.wp],
                     backgroundColor: [
                         'rgba(52, 152, 219, 0.8)',   // Blue

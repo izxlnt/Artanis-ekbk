@@ -63,6 +63,16 @@ class User extends Authenticatable implements Auditable
         'email_verified_at' => 'datetime',
     ];
 
+    public function getDaerahNumericIdAttribute()
+    {
+        if (!$this->daerah) return null;
+        static $cache = [];
+        if (!array_key_exists($this->daerah, $cache)) {
+            $cache[$this->daerah] = \DB::table('daerahs')->where('daerah_hutan', $this->daerah)->value('id');
+        }
+        return $cache[$this->daerah];
+    }
+
     public function setLoginIdAttribute($value)
     {
         $this->attributes['login_id'] = implode('/', array_slice(explode('/', trim($value)), 0, 2));

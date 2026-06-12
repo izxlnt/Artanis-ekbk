@@ -33,9 +33,10 @@ class ListBController extends Controller
 
         $user = auth()->user();
         // dd($user );
-        $formB_kilang = DB::select(DB::raw("SELECT DISTINCT shuttles.* FROM formbs
+        $formB_kilang = DB::select(DB::raw("SELECT DISTINCT shuttles.*, COALESCE(d.daerah_hutan, shuttles.daerah_id) as daerah_display FROM formbs
             INNER JOIN shuttles ON formbs.shuttle_id = shuttles.id
             INNER JOIN batches ON shuttles.id = batches.shuttle_id
+            LEFT JOIN daerahs d ON d.id = shuttles.daerah_id AND d.deleted_at IS NULL
             WHERE batches.tahun = formbs.tahun
             AND (formbs.status = 'Dihantar ke IPJPSM' OR formbs.status = 'Lulus')
             AND batches.shuttle_id = formbs.shuttle_id
@@ -48,6 +49,7 @@ class ListBController extends Controller
         $year_list = DB::select(DB::raw("SELECT DISTINCT formbs.tahun FROM formbs
             INNER JOIN shuttles ON formbs.shuttle_id = shuttles.id
             INNER JOIN batches ON shuttles.id = batches.shuttle_id
+            LEFT JOIN daerahs d ON d.id = shuttles.daerah_id AND d.deleted_at IS NULL
             WHERE batches.tahun = formbs.tahun
             AND (formbs.status = 'Dihantar ke IPJPSM' OR formbs.status = 'Lulus')
             AND batches.shuttle_id = formbs.shuttle_id

@@ -1,4 +1,4 @@
-﻿@extends('layouts.layout-ipjpsm-nicepage')
+@extends('layouts.layout-ipjpsm-nicepage')
 
 @section('content')
     {{-- @livewire('shuttle-three.shuttle3') --}}
@@ -95,17 +95,17 @@
 
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <a type="button " href="{{ route('shuttle-3-listA', date('Y')) }}"
+                                        <a type="button " href="{{ route('shuttle-3-listA', $year) }}" id="nav-3A"
                                             class="btn"
                                             style="background-color:rgb(196, 188, 186);color:black;border-color:black">Borang
                                             3A</a>
-                                        <a type="button" href="{{ route('shuttle-3-listB', date('Y')) }}"
+                                        <a type="button" href="{{ route('shuttle-3-listB', $year) }}" id="nav-3B"
                                             class="btn"
                                             style="background-color:white;color:black;border-color:#ee8dcd">Borang 3B</a>
-                                        <a type="button" href="{{ route('shuttle-3-listC', date('Y')) }}"
+                                        <a type="button" href="{{ route('shuttle-3-listC', $year) }}" id="nav-3C"
                                             class="btn"
                                             style="background-color:white;color:black;border-color:#bbb235f3">Borang 3C</a>
-                                        <a type="button" href="{{ route('shuttle-3-listD', date('Y')) }}"
+                                        <a type="button" href="{{ route('shuttle-3-listD', $year) }}" id="nav-3D"
                                             class="btn"
                                             style="background-color:white;color:black;border-color:#1b9e21f3">Borang 3D</a>
 
@@ -264,5 +264,26 @@
                 return false;
             return true;
         }
+    </script>
+
+    <script>
+    $(document).ready(function(){
+        $.get("{{ route('ajax.count.ipjpsm.detail') }}", {shuttle_type: 3, year: {{ $year }}}, function(data){
+            Object.keys(data).forEach(function(key){
+                var form = key.replace('form','');
+                var count = parseInt(data[key]) || 0;
+                if(count > 0){
+                    var btn = $('#nav-3'+form);
+                    if(btn.length){
+                        btn.append($('<span>').css({
+                            background:'#e53935', color:'#fff',
+                            borderRadius:'50%', padding:'1px 7px', fontSize:'11px',
+                            marginLeft:'4px', fontWeight:'bold', display:'inline-block'
+                        }).text(count));
+                    }
+                }
+            });
+        });
+    });
     </script>
 @endsection

@@ -230,7 +230,7 @@
 
                                                 <div class="text-center form-group m-b-0">
 
-                                                    <a href="{{ route('shuttle-5-listE', date('Y')) }}"
+                                                    <a href="{{ route('shuttle-5-listE', $year) }}"
                                                         class="btn btn-primary">Kembali</a>
                                                     {{-- @if ($errors->isEmpty()) --}}
                                                     <button type="button" class="btn btn-primary" alt="default"

@@ -15,14 +15,14 @@ class ListAController extends Controller
 
         // Get FormA entries that are waiting for PHD validation
         $formA = FormA::whereHas('shuttle', function ($q) {
-            $q->where('daerah_id', auth()->user()->daerah)->where('shuttle_type', '4');
+            $q->where('daerah_id', auth()->user()->daerah_numeric_id)->where('shuttle_type', '4');
         })->where('tahun', $year)
         ->whereIn('status', ['Dihantar ke IPJPSM', 'Sedang Diproses'])
         ->get();
 
 
         $year_list = FormA::whereHas('shuttle', function ($q) {
-            $q->where('daerah_id', auth()->user()->daerah);
+            $q->where('daerah_id', auth()->user()->daerah_numeric_id);
         })->distinct()->orderBy('tahun')->get('tahun');
 
         $buffer = Buffer::where('borang', 'b')->where('shuttle', '4')->first();

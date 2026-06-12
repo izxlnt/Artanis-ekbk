@@ -39,6 +39,16 @@
 
 
 
+                <div class="row mb-2">
+                    <div class="col-12 text-center">
+                        <div class="btn-group" role="group" aria-label="Navigasi Kumpulan Kayu">
+                            <a href="{{ $returnArr['nav_kkb'] }}" class="btn btn-{{ $returnArr['current_kayu'] == 'KKB' ? 'warning' : 'outline-warning' }} font-weight-bold">KKB / HHW</a>
+                            <a href="{{ $returnArr['nav_kks'] }}" class="btn btn-{{ $returnArr['current_kayu'] == 'KKS' ? 'warning' : 'outline-warning' }} font-weight-bold">KKS / MHW</a>
+                            <a href="{{ $returnArr['nav_kkr'] }}" class="btn btn-{{ $returnArr['current_kayu'] == 'KKR' ? 'warning' : 'outline-warning' }} font-weight-bold">KKR / LHW</a>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="row">
 
                     <div class="col-md-12">
@@ -551,6 +561,7 @@
                 return false;
                 }
             });
+            fcCalcAll();
         });
         function onlyNumberKey(evt) {
 

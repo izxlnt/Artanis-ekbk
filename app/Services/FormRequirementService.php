@@ -93,28 +93,23 @@ class FormRequirementService
             ];
             $requirements['message'] = "Anda perlu mengisi borang dari Suku " . $registrationQuarter . " tahun " . ($currentYear - 1) . " dan SEMUA borang untuk tahun " . $currentYear;
         }
-        // Rule 1 & 3: Registered in current year (2026) - Fill from registration month/quarter onwards
+        // Rule 1 & 3: Registered in current year - Fill ALL forms from January of current year
         elseif ($registrationYear == $currentYear) {
             $requirements['years_to_fill'] = [$currentYear];
             $requirements['months_to_fill'] = [
-                $currentYear => range($registrationMonth, 12)
+                $currentYear => range(1, 12)
             ];
             $requirements['quarters_to_fill'] = [
-                $currentYear => range($registrationQuarter, 4)
+                $currentYear => [1, 2, 3, 4]
             ];
             $requirements['forma_required'] = [$currentYear];
             $requirements['formb_required'] = [
-                $currentYear => range($registrationQuarter, 4)
+                $currentYear => [1, 2, 3, 4]
             ];
             $requirements['formc_d_e_required'] = [
-                $currentYear => range($registrationMonth, 12)
+                $currentYear => range(1, 12)
             ];
-            
-            if ($registrationQuarter == 1) {
-                $requirements['message'] = "Anda perlu mengisi borang dari bulan " . self::getMonthName($registrationMonth) . " hingga Disember " . $currentYear;
-            } else {
-                $requirements['message'] = "Anda perlu mengisi borang dari Suku " . $registrationQuarter . " (bulan " . self::getMonthName($registrationMonth) . ") hingga Disember " . $currentYear;
-            }
+            $requirements['message'] = "Anda perlu mengisi SEMUA borang untuk tahun " . $currentYear;
         }
 
         return $requirements;
@@ -226,16 +221,13 @@ class FormRequirementService
                     $quarterLastMonth = $quarter * 3;
                     
                     $shouldShow = false;
-                    
+
                     if ($year < $currentYear) {
-                        // Past year - show all required quarters
                         $shouldShow = true;
                     } elseif ($year == $currentYear && $currentMonth >= $quarterLastMonth) {
-                        // Current year - only show if we've reached the last month of the quarter
-                        // Example: Q1 (Jan-Mar) shows only when currentMonth >= 3 (March)
                         $shouldShow = true;
                     }
-                    
+
                     if ($shouldShow) {
                         $formB = \App\Models\FormB::where('shuttle_id', $user->shuttle_id)
                             ->where('tahun', $year)
@@ -267,15 +259,14 @@ class FormRequirementService
                 foreach ($requirements['months_to_fill'][$year] as $month) {
                     $shouldShow = false;
                     
+                    $shouldShow = false;
+
                     if ($year < $currentYear) {
-                        // Past year - show all required months
                         $shouldShow = true;
-                    } elseif ($year == $currentYear && $currentMonth > $month) {
-                        // Current year - only show PAST months (month has ended)
-                        // Example: In January, NO months show yet. In February, January shows.
+                    } elseif ($year == $currentYear && $currentMonth >= $month) {
                         $shouldShow = true;
                     }
-                    
+
                     if ($shouldShow) {
                         $formC = \App\Models\FormC::where('shuttle_id', $user->shuttle_id)
                             ->where('tahun', $year)
@@ -294,6 +285,9 @@ class FormRequirementService
                 }
             }
         }
+
+        // Incomplete tasks first, completed tasks last
+        usort($tasks, fn($a, $b) => $a['completed'] <=> $b['completed']);
 
         return $tasks;
     }

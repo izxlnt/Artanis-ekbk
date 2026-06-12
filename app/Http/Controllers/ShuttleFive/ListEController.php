@@ -25,9 +25,10 @@ class ListEController extends Controller
         // })
         // ->distinct()->where('tahun', $year)->get();
 
-        $form5E_kilang = DB::select(DB::raw("SELECT DISTINCT shuttles.* FROM form5_e_s
+        $form5E_kilang = DB::select(DB::raw("SELECT DISTINCT shuttles.*, COALESCE(d.daerah_hutan, shuttles.daerah_id) as daerah_display FROM form5_e_s
         INNER JOIN shuttles ON form5_e_s.shuttle_id = shuttles.id
         INNER JOIN batches ON shuttles.id = batches.shuttle_id
+        LEFT JOIN daerahs d ON d.id = shuttles.daerah_id AND d.deleted_at IS NULL
         WHERE batches.tahun = form5_e_s.tahun
         AND (form5_e_s.status = 'Dihantar ke IPJPSM' OR form5_e_s.status = 'Lulus')
         AND batches.shuttle_id = form5_e_s.shuttle_id
@@ -45,6 +46,7 @@ class ListEController extends Controller
             $year_list = DB::select(DB::raw("SELECT DISTINCT form5_e_s.tahun FROM form5_e_s
             INNER JOIN shuttles ON form5_e_s.shuttle_id = shuttles.id
             INNER JOIN batches ON shuttles.id = batches.shuttle_id
+            LEFT JOIN daerahs d ON d.id = shuttles.daerah_id AND d.deleted_at IS NULL
             WHERE batches.tahun = form5_e_s.tahun
             AND (form5_e_s.status = 'Dihantar ke IPJPSM' OR form5_e_s.status = 'Lulus')
             AND batches.shuttle_id = form5_e_s.shuttle_id

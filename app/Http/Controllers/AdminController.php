@@ -96,8 +96,9 @@ class AdminController extends Controller{
             'email' => [
                 'required',
                 'email',
-                new \App\Rules\UniqueEmailAcrossAllTables($user->id)
-            ]
+                new \App\Rules\UniqueEmailAcrossAllTables($user->id, 'users')
+            ],
+            'jawatan' => ['nullable', 'string', 'max:255'],
         ]);
 
         // Update user fields

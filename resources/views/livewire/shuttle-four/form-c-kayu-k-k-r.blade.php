@@ -572,6 +572,7 @@
                 return false;
                 }
             });
+            fcCalcAll();
         });
         function onlyNumberKey(evt) {
 

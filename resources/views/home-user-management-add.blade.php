@@ -1,7 +1,5 @@
 @extends('layouts.layout-ibk-nicepage')
 @section('content')
-
-
     <div class="container-fluid">
 
         <div class="row">
@@ -114,8 +112,8 @@
                                 <label for="fname"
                                     class="text-right col-sm-3 control-label col-form-label required">Kaum</label>
                                 <div class="col-md-6">
-                                    <select class="form-control @error('kaum') is-invalid @enderror" id="kaum" name="kaum"
-                                        value="{{ old('kaum') }}">
+                                    <select class="form-control @error('kaum') is-invalid @enderror" id="kaum"
+                                        name="kaum" value="{{ old('kaum') }}">
                                         <option selected disabled hidden>Sila Pilih Kaum</option>
                                         <option value="Melayu" {{ old('kaum') == 'Melayu' ? 'selected' : '' }}>Melayu
                                         </option>
@@ -141,8 +139,8 @@
                                 <label for="fname"
                                     class="text-right col-sm-3 control-label col-form-label required">Emel</label>
                                 <div class="col-md-6">
-                                    <input type="email" class="form-control" id="email" name='email' placeholder="Emel"
-                                        value="{{ old('email') }}" oninput="validateEmail(this)">
+                                    <input type="email" class="form-control" id="email" name='email'
+                                        placeholder="Emel" value="{{ old('email') }}" oninput="validateEmail(this)">
                                     <div id="email-validation-message" class="invalid-feedback"></div>
                                     @error('email')
                                         <div class="alert alert-danger">
@@ -153,13 +151,14 @@
                             </div>
 
                             <div class="row" style="padding-top: 5px;">
-                                <label for="fname" class="text-right col-sm-3 control-label col-form-label required">No. Kad
+                                <label for="fname" class="text-right col-sm-3 control-label col-form-label required">No.
+                                    Kad
                                     Pengenalan</label>
                                 <div class="col-md-6">
-                                    <input type="text" class="form-control" id="no_kad_pengenalan" name='no_kad_pengenalan'
-                                        placeholder="No. Kad Pengenalan" maxlength="12" minlength="12"
-                                        value="{{ old('no_kad_pengenalan') }}" onkeypress="return onlyNumberKey(event)"
-                                        oninput="validateMalaysianIC(this)">
+                                    <input type="text" class="form-control" id="no_kad_pengenalan"
+                                        name='no_kad_pengenalan' placeholder="No. Kad Pengenalan" maxlength="12"
+                                        minlength="12" value="{{ old('no_kad_pengenalan') }}"
+                                        onkeypress="return onlyNumberKey(event)" oninput="validateMalaysianIC(this)">
                                     <div id="ic-validation-message" class="invalid-feedback"></div>
                                     @error('no_kad_pengenalan')
                                         <div class="alert alert-danger">
@@ -178,12 +177,12 @@
                                         <label for="gambar_ic_hadapan" class="required">Muat Naik Gambar Hadapan<br>
                                             Kad
                                             Pengenalan</label>
-                                        <small class="form-text text-muted mb-2">
+                                        <small class="form-text mb-2">
                                             <i class="fas fa-camera"></i> Format: JPG, PNG sahaja. Maks: 8MB
                                         </small>
                                         <label for="icfront" class="form-control">PILIH FAIL</label>
-                                        <input type="file" id="icfront" name="gambar_ic_hadapan" accept="image/jpeg,image/jpg,image/png"
-                                            style="display: none">
+                                        <input type="file" id="icfront" name="gambar_ic_hadapan"
+                                            accept="image/jpeg,image/jpg,image/png" style="display: none">
 
                                         {{-- <input type="file" class="form-control"
                                             name="gambar_ic_hadapan" id="icfront"> --}}
@@ -199,13 +198,13 @@
                                         <label for="gambar_ic_belakang" class="required">Muat Naik Gambar
                                             Belakang <br> Kad
                                             Pengenalan</label>
-                                        <small class="form-text text-muted mb-2">
+                                        <small class="form-text mb-2">
                                             <i class="fas fa-camera"></i> Format: JPG, PNG sahaja. Maks: 8MB
                                         </small>
 
                                         <label for="icback" class="form-control">PILIH FAIL</label>
-                                        <input type="file" id="icback" name="gambar_ic_belakang" accept="image/jpeg,image/jpg,image/png"
-                                            style="display: none">
+                                        <input type="file" id="icback" name="gambar_ic_belakang"
+                                            accept="image/jpeg,image/jpg,image/png" style="display: none">
                                         {{-- <input type="file" class="form-control"
                                             name="gambar_ic_belakang" id="icback"> --}}
                                         @error('gambar_ic_belakang')
@@ -219,13 +218,13 @@
                                     <div class="form-group">
                                         <label for="gambar_passport" class="required">Muat Naik Gambar<br>
                                             Berukuran Passport</label>
-                                        <small class="form-text text-muted mb-2">
+                                        <small class="form-text mb-2">
                                             <i class="fas fa-camera"></i> Format: JPG, PNG sahaja. Maks: 8MB
                                         </small>
 
                                         <label for="passport" class="form-control">PILIH FAIL</label>
-                                        <input type="file" id="passport" name="gambar_passport" accept="image/jpeg,image/jpg,image/png"
-                                            style="display: none">
+                                        <input type="file" id="passport" name="gambar_passport"
+                                            accept="image/jpeg,image/jpg,image/png" style="display: none">
                                         {{-- <input type="file" class="form-control"
                                             name="gambar_passport" id="passport"> --}}
                                         @error('gambar_passport')
@@ -251,8 +250,8 @@
                                 </div>
                                 <div class="col-md-2">
                                     <p>Gambar Dimuat Naik:</p>
-                                    <img src="" alt="Sila Muatnaik Gambar Berukuran Passport" id="category-img-tag-passport"
-                                        style="width:100%;height:30vh;display: none;">
+                                    <img src="" alt="Sila Muatnaik Gambar Berukuran Passport"
+                                        id="category-img-tag-passport" style="width:100%;height:30vh;display: none;">
                                 </div>
                             </div>
 
@@ -276,8 +275,8 @@
                                 <label for="fname" class="text-right col-sm-3 control-label col-form-label">No.
                                     Pekerja</label>
                                 <div class="col-md-6">
-                                    <input type="text" class="form-control" name='no_pekerja' placeholder="No. Pekerja"
-                                        value="{{ old('no_pekerja') }}">
+                                    <input type="text" class="form-control" name='no_pekerja'
+                                        placeholder="No. Pekerja" value="{{ old('no_pekerja') }}">
                                     @error('no_pekerja')
                                         <div class="alert alert-danger">
                                             <strong>{{ $message }}</strong>
@@ -292,12 +291,12 @@
                                     Gambar Kad Pekerja</label>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <small class="form-text text-muted mb-2">
+                                        <small class="form-text mb-2">
                                             <i class="fas fa-camera"></i> Format: JPG, PNG sahaja. Maks: 8MB
                                         </small>
                                         <label for="kad_pekerja" class="form-control">PILIH FAIL</label>
-                                        <input type="file" id="kad_pekerja" name="gambar_kad_pekerja" accept="image/jpeg,image/jpg,image/png"
-                                            style="display: none">
+                                        <input type="file" id="kad_pekerja" name="gambar_kad_pekerja"
+                                            accept="image/jpeg,image/jpg,image/png" style="display: none">
                                     </div>
                                     @error('gambar_kad_pekerja')
                                         <div class="alert alert-danger">
@@ -312,8 +311,8 @@
                                 <div class="col-md-2"></div>
                                 <div class="col-md-3">
                                     <p>Gambar Dimuat Naik:</p>
-                                    <img src="" alt="Sila Muatnaik Gambar Kad Pekerja" id="category-img-tag-kad_pekerja"
-                                        style="width:100%;height:30vh;display: none;">
+                                    <img src="" alt="Sila Muatnaik Gambar Kad Pekerja"
+                                        id="category-img-tag-kad_pekerja" style="width:100%;height:30vh;display: none;">
                                 </div>
 
                             </div>
@@ -323,8 +322,8 @@
                             <div class="row">
                                 <div class="col-md-4"></div>
                                 <div class="col-md-4">
-                                    <button type="button"
-                                        class="btn waves-effect waves-light btn-primary btn-block" data-toggle="modal" data-target="#confirmation_borang_a">HANTAR</button>
+                                    <button type="button" class="btn waves-effect waves-light btn-primary btn-block"
+                                        data-toggle="modal" data-target="#confirmation_borang_a">HANTAR</button>
                                 </div>
                                 <div class="col-md-4"></div>
                             </div>
@@ -344,7 +343,7 @@
                                         </div>
                                         <div class="modal-body">
                                             <span class="text-center"><b>Adakah anda pasti ingin menambah pengguna
-                                                ini?</span>
+                                                    ini?</span>
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-danger"
@@ -486,26 +485,28 @@
 
             // Check email uniqueness via AJAX
             fetch('/email/check-unique', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-                },
-                body: JSON.stringify({ email: email })
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.unique) {
-                    input.classList.add('is-valid');
-                    messageDiv.textContent = '';
-                } else {
-                    input.classList.add('is-invalid');
-                    messageDiv.textContent = 'Emel ini telah digunakan.';
-                }
-            })
-            .catch(error => {
-                console.error('Error checking email:', error);
-            });
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                    },
+                    body: JSON.stringify({
+                        email: email
+                    })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.unique) {
+                        input.classList.add('is-valid');
+                        messageDiv.textContent = '';
+                    } else {
+                        input.classList.add('is-invalid');
+                        messageDiv.textContent = 'Emel ini telah digunakan.';
+                    }
+                })
+                .catch(error => {
+                    console.error('Error checking email:', error);
+                });
         }
 
         function validateMalaysianIC(input) {

@@ -99,8 +99,12 @@ class FormCKayuKKR extends Component
 
 
         $returnArr = [
-            'breadcrumbs' => $breadcrumbs,
-            'kembali'     => $kembali,
+            'breadcrumbs'  => $breadcrumbs,
+            'kembali'      => $kembali,
+            'nav_kkb'      => route('user.shuttle-3-formC.KKB', [$this->bulan_id, $this->year ?? date('Y')]),
+            'nav_kks'      => route('user.shuttle-3-formC.KKS', [$this->bulan_id, $this->year ?? date('Y')]),
+            'nav_kkr'      => route('user.shuttle-3-formC.KKR', [$this->bulan_id, $this->year ?? date('Y')]),
+            'current_kayu' => 'KKR',
         ];
 
 
@@ -171,25 +175,12 @@ class FormCKayuKKR extends Component
                 $this->baki_stok_kehadapan[$key] = $baki_stok;
             }
         } else {
-            foreach ($kemasukan_bahans as $key => $data) {
-                $baki_stok = 0;
+            $kemasukan_map = $kemasukan_bahans->keyBy(fn($item) => $item->getAttributes()['spesis_id']);
+            foreach ($this->species as $key => $value) {
+                if (!$kemasukan_map->has($value->id)) continue;
+                $data = $kemasukan_map[$value->id];
 
-                if (!isset($kemasukan_bahans_lastmonth)) {
-                    $baki_stok = 0;
-                } else {
-                    foreach ($kemasukan_bahans_lastmonth as $key2 => $data2) {
-                        // dd($data2);
-                        $baki_stok = $data2->baki_stok_kehadapan;
-                        $this->jumlah_besar_baki_stok_bulan_lepas = $data2->jumlah_besar_baki_stok_bulan_depan;
-                        $this->jumlah_baki_stok[$key] = $data2->total_kayu_dibawa_bulan_hadapan;
-
-                        // dd($data2);
-                        if ($key2 == $key)
-                            break;
-                    }
-                }
-                $this->baki_stok[$key] = $baki_stok;
-                // dd($baki_stok);
+                $this->baki_stok[$key] = $data->baki_stok;
                 $this->kayu_masuk[$key] = $data->kayu_masuk;
                 $this->jumlah_stok_kayu_balak[$key] = $data->jumlah_stok_kayu_balak;
                 $this->proses_masuk[$key] = $data->proses_masuk;
@@ -276,6 +267,33 @@ class FormCKayuKKR extends Component
             // dd('test');
         }
 
+        // Recalculate all derived fields (cols 04 & 07 have no wire:model in blade, so must be computed here)
+        for ($i = 0; $i < $this->species_count; $i++) {
+            $this->jumlah_stok_kayu_balak[$i] = (float)($this->baki_stok[$i] ?? 0) + (float)($this->kayu_masuk[$i] ?? 0);
+            $this->baki_stok_kehadapan[$i]    = $this->jumlah_stok_kayu_balak[$i] - (float)($this->proses_masuk[$i] ?? 0);
+        }
+        $g_baki = $g_masuk = $g_jumlah = $g_pmasuk = $g_pkeluar = $g_kehadapan = 0.0;
+        for ($i = 0; $i < $this->species_count; $i++) {
+            $g_baki      += (float)($this->baki_stok[$i] ?? 0);
+            $g_masuk     += (float)($this->kayu_masuk[$i] ?? 0);
+            $g_jumlah    += (float)($this->jumlah_stok_kayu_balak[$i] ?? 0);
+            $g_pmasuk    += (float)($this->proses_masuk[$i] ?? 0);
+            $g_pkeluar   += (float)($this->proses_keluar[$i] ?? 0);
+            $g_kehadapan += (float)($this->baki_stok_kehadapan[$i] ?? 0);
+        }
+        $this->jumlah_baki_stok[0]                            = $g_baki;
+        $this->jumlah_kayu_masuk[0]                           = $g_masuk;
+        $this->total_stok_kayu_balak[0]                       = $g_jumlah;
+        $this->total_kayu_masuk_jentera[0]                    = $g_pmasuk;
+        $this->total_kayu_keluar_jentera[0]                   = $g_pkeluar;
+        $this->total_kayu_dibawa_bulan_hadapan[0]             = $g_kehadapan;
+        $this->jumlah_besar_baki_stok_bulan_lepas             = $g_baki;
+        $this->jumlah_besar_kemasukan_kayu_ke_kilang          = $g_masuk;
+        $this->jumlah_besar_stok_kayu_balak                   = $g_jumlah;
+        $this->jumlah_besar_kayu_ke_dalam_jentera             = $g_pmasuk;
+        $this->jumlah_besar_pengeluaran_kayu_daripada_jentera = $g_pkeluar;
+        $this->jumlah_besar_baki_stok_bulan_depan             = $g_kehadapan;
+
         $id = auth()->user();
         $kilang_info = Shuttle::where('id', $id->shuttle_id)->first();
         // dd($kilang_info);
@@ -347,24 +365,10 @@ class FormCKayuKKR extends Component
 
         // dd($kemasukan_bahans);
 
+        $species = Spesis::orderBy('kumpulan_kayu_id')->where('kumpulan_kayu_id', $this->kayu_id)->get();
+
         if ($kemasukan_bahans->isEmpty()) {
-            foreach ($this->species as $keySpecies => $data) {
-                // dd( $this->jumlah_baki_stok);
-                if ($this->jumlah_besar_kemasukan_kayu_ke_kilang == 0) {
-                    if ($this->jumlah_kayu_masuk == null) {
-                        $this->jumlah_kayu_masuk[$keySpecies] = 0;
-                    }
-                    $this->jumlah_besar_kemasukan_kayu_ke_kilang += (float)$this->jumlah_kayu_masuk ?? 0;
-                } else {
-                    $this->jumlah_besar_kemasukan_kayu_ke_kilang = 0;
-
-                    $kemasukan_bahan_semua = KemasukanBahan::with('spesis_id')
-                        ->where('shuttle_id', auth()->user()->shuttle_id)->where('formcs_id', $formc->id)->get();
-                    foreach ($kemasukan_bahan_semua as $kemasukan_bahan_semua_key => $kemasukan_bahan_semua_data) {
-                        $this->jumlah_besar_kemasukan_kayu_ke_kilang += (float)$kemasukan_bahan_semua_data->jumlah_kayu_masuk ?? 0;
-                    }
-                }
-
+            foreach ($species as $keySpecies => $data) {
                 KemasukanBahan::create([
                     'spesis_id' => $data->id,
                     'baki_stok' => $this->baki_stok[$keySpecies] ?? 0,
@@ -397,23 +401,10 @@ class FormCKayuKKR extends Component
                 ]);
             }
         } else {
-            foreach ($kemasukan_bahans as $keySpecies => $data) {
-                // dd($kemasukan_bahans);
-                // dd($data);
-                if ($this->jumlah_besar_kemasukan_kayu_ke_kilang == 0) {
-                    if ($this->jumlah_kayu_masuk == null) {
-                        $this->jumlah_kayu_masuk[$keySpecies] = 0;
-                    }
-                    $this->jumlah_besar_kemasukan_kayu_ke_kilang += (float)$this->jumlah_kayu_masuk ?? 0;
-                } else {
-                    $this->jumlah_besar_kemasukan_kayu_ke_kilang = 0;
-
-                    $kemasukan_bahan_semua = KemasukanBahan::with('spesis_id')
-                        ->where('shuttle_id', auth()->user()->shuttle_id)->where('formcs_id', $formc->id)->get();
-                    foreach ($kemasukan_bahan_semua as $kemasukan_bahan_semua_key => $kemasukan_bahan_semua_data) {
-                        $this->jumlah_besar_kemasukan_kayu_ke_kilang += (float)$kemasukan_bahan_semua_data->jumlah_kayu_masuk ?? 0;
-                    }
-                }
+            $kemasukan_map = $kemasukan_bahans->keyBy(fn($item) => $item->getAttributes()['spesis_id']);
+            foreach ($species as $keySpecies => $speciesItem) {
+                if (!$kemasukan_map->has($speciesItem->id)) continue;
+                $data = $kemasukan_map[$speciesItem->id];
 
                 $data->baki_stok = $this->baki_stok[$keySpecies] ?? 0;
                 $data->kayu_masuk = $this->kayu_masuk[$keySpecies] ?? 0;

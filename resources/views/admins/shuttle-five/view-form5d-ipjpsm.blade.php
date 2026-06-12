@@ -239,7 +239,7 @@
                                                                     <a href="{{ route('ipjpsm.borang-keseluruhan.shuttle5.borangD', date('Y')) }}"
                                                                         class="btn btn-primary">Kembali</a>
                                                                     @else
-                                                                    <a href="{{ route('shuttle-5-listD', date('Y')) }}"
+                                                                    <a href="{{ route('shuttle-5-listD', $year) }}"
                                                                         class="btn btn-primary">Kembali</a>
                                                                     @endif
 

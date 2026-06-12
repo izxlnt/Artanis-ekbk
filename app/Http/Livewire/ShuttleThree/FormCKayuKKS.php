@@ -96,8 +96,12 @@ class FormCKayuKKS extends Component
 
 
         $returnArr = [
-            'breadcrumbs' => $breadcrumbs,
-            'kembali'     => $kembali,
+            'breadcrumbs'  => $breadcrumbs,
+            'kembali'      => $kembali,
+            'nav_kkb'      => route('user.shuttle-3-formC.KKB', [$this->bulan_id, $this->year ?? date('Y')]),
+            'nav_kks'      => route('user.shuttle-3-formC.KKS', [$this->bulan_id, $this->year ?? date('Y')]),
+            'nav_kkr'      => route('user.shuttle-3-formC.KKR', [$this->bulan_id, $this->year ?? date('Y')]),
+            'current_kayu' => 'KKS',
         ];
 
 

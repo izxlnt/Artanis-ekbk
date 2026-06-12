@@ -26,9 +26,10 @@ class ListCController extends Controller
         // ->distinct()->where('tahun', $year)->get();
 
 
-        $formC_kilang = DB::select(DB::raw("SELECT DISTINCT shuttles.* FROM form_c_s
+        $formC_kilang = DB::select(DB::raw("SELECT DISTINCT shuttles.*, COALESCE(d.daerah_hutan, shuttles.daerah_id) as daerah_display FROM form_c_s
         INNER JOIN shuttles ON form_c_s.shuttle_id = shuttles.id
         INNER JOIN batches ON shuttles.id = batches.shuttle_id
+        LEFT JOIN daerahs d ON d.id = shuttles.daerah_id AND d.deleted_at IS NULL
         WHERE batches.tahun = form_c_s.tahun
         AND (form_c_s.status = 'Dihantar ke IPJPSM' OR form_c_s.status = 'Lulus')
         AND batches.shuttle_id = form_c_s.shuttle_id
@@ -52,6 +53,7 @@ class ListCController extends Controller
         $year_list = DB::select(DB::raw("SELECT DISTINCT form_c_s.tahun FROM form_c_s
         INNER JOIN shuttles ON form_c_s.shuttle_id = shuttles.id
         INNER JOIN batches ON shuttles.id = batches.shuttle_id
+        LEFT JOIN daerahs d ON d.id = shuttles.daerah_id AND d.deleted_at IS NULL
         WHERE batches.tahun = form_c_s.tahun
         AND (form_c_s.status = 'Dihantar ke IPJPSM' OR form_c_s.status = 'Lulus')
         AND batches.shuttle_id = form_c_s.shuttle_id

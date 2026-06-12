@@ -51,7 +51,7 @@ class MainController extends Controller
         //list kilang
         $formA_kilang = DB::select(DB::raw("SELECT DISTINCT shuttles.*, COALESCE(d.daerah_hutan, shuttles.daerah_id) as daerah_display FROM form_a_s
         INNER JOIN shuttles ON form_a_s.shuttle_id = shuttles.id
-        LEFT JOIN daerah d ON d.id = shuttles.daerah_id AND d.deleted_at IS NULL
+        LEFT JOIN daerahs d ON d.id = shuttles.daerah_id AND d.deleted_at IS NULL
         WHERE (form_a_s.status = 'Dihantar ke IPJPSM' OR form_a_s.status = 'Lulus')
         AND shuttles.shuttle_type = '3'
         AND form_a_s.tahun = $year"));
@@ -109,13 +109,13 @@ class MainController extends Controller
 
         $formA = FormA::where('status', '!=', 'Tidak Diisi')->where('tahun', $year)
             ->whereHas('shuttle', function ($q) {
-                $q->where('daerah_id', auth()->user()->daerah)->where('shuttle_type', '3');
+                $q->where('daerah_id', auth()->user()->daerah_numeric_id)->where('shuttle_type', '3');
             })
             ->get();
 
         $year_list = FormA::where('status', '!=', 'Tidak Diisi')->where('tahun', $year)
             ->whereHas('shuttle', function ($q) {
-                $q->where('daerah_id', auth()->user()->daerah)->where('shuttle_type', '3');
+                $q->where('daerah_id', auth()->user()->daerah_numeric_id)->where('shuttle_type', '3');
             })
             ->distinct()->orderBy('tahun')->get('tahun');
 
@@ -143,13 +143,13 @@ class MainController extends Controller
 
         $formB = FormB::where('status', '!=', 'Tidak Diisi')->where('tahun', $year)
             ->whereHas('shuttle', function ($q) {
-                $q->where('daerah_id', auth()->user()->daerah)->where('shuttle_type', '3');
+                $q->where('daerah_id', auth()->user()->daerah_numeric_id)->where('shuttle_type', '3');
             })
             ->get();
 
         $year_list = FormB::where('status', '!=', 'Tidak Diisi')->where('tahun', $year)
             ->whereHas('shuttle', function ($q) {
-                $q->where('daerah_id', auth()->user()->daerah)->where('shuttle_type', '3');
+                $q->where('daerah_id', auth()->user()->daerah_numeric_id)->where('shuttle_type', '3');
             })
             ->distinct()->orderBy('tahun')->get('tahun');
 
@@ -176,13 +176,13 @@ class MainController extends Controller
     {
         $formC = FormC::where('status', '!=', 'Tidak Diisi')->where('tahun', $year)
             ->whereHas('shuttle', function ($q) {
-                $q->where('daerah_id', auth()->user()->daerah)->where('shuttle_type', '3');
+                $q->where('daerah_id', auth()->user()->daerah_numeric_id)->where('shuttle_type', '3');
             })
             ->get();
 
         $year_list = FormC::where('status', '!=', 'Tidak Diisi')->where('tahun', $year)
             ->whereHas('shuttle', function ($q) {
-                $q->where('daerah_id', auth()->user()->daerah)->where('shuttle_type', '3');
+                $q->where('daerah_id', auth()->user()->daerah_numeric_id)->where('shuttle_type', '3');
             })
             ->distinct()->orderBy('tahun')->get('tahun');
 
@@ -210,13 +210,13 @@ class MainController extends Controller
 
         $formD = FormD::where('status', '!=', 'Tidak Diisi')->where('tahun', $year)
             ->whereHas('shuttle', function ($q) {
-                $q->where('daerah_id', auth()->user()->daerah)->where('shuttle_type', '3');
+                $q->where('daerah_id', auth()->user()->daerah_numeric_id)->where('shuttle_type', '3');
             })
             ->get();
 
         $year_list = FormD::where('status', '!=', 'Tidak Diisi')->where('tahun', $year)
             ->whereHas('shuttle', function ($q) {
-                $q->where('daerah_id', auth()->user()->daerah)->where('shuttle_type', '3');
+                $q->where('daerah_id', auth()->user()->daerah_numeric_id)->where('shuttle_type', '3');
             })
             ->distinct()->orderBy('tahun')->get('tahun');
 
@@ -244,31 +244,31 @@ class MainController extends Controller
     {
         $formB = FormB::where('status', 'Sedang Diproses')
             ->whereHas('shuttle', function ($q) {
-                $q->where('daerah_id', auth()->user()->daerah);
+                $q->where('daerah_id', auth()->user()->daerah_numeric_id);
             })->paginate(10);
         $formC = FormC::where('status', 'Sedang Diproses')
             ->whereHas('shuttle', function ($q) {
-                $q->where('daerah_id', auth()->user()->daerah);
+                $q->where('daerah_id', auth()->user()->daerah_numeric_id);
             })->paginate(10);
         $formD = FormD::where('status', 'Sedang Diproses')
             ->whereHas('shuttle', function ($q) {
-                $q->where('daerah_id', auth()->user()->daerah);
+                $q->where('daerah_id', auth()->user()->daerah_numeric_id);
             })->paginate(10);
         $form4D = Form4D::where('status', 'Sedang Diproses')
             ->whereHas('shuttle', function ($q) {
-                $q->where('daerah_id', auth()->user()->daerah);
+                $q->where('daerah_id', auth()->user()->daerah_numeric_id);
             })->paginate(10);
         $form4E = Form4E::where('status', 'Sedang Diproses')
             ->whereHas('shuttle', function ($q) {
-                $q->where('daerah_id', auth()->user()->daerah);
+                $q->where('daerah_id', auth()->user()->daerah_numeric_id);
             })->paginate(10);
         $form5D = Form5D::where('status', 'Sedang Diproses')
             ->whereHas('shuttle', function ($q) {
-                $q->where('daerah_id', auth()->user()->daerah);
+                $q->where('daerah_id', auth()->user()->daerah_numeric_id);
             })->paginate(10);
         $form5E = Form5E::where('status', 'Sedang Diproses')
             ->whereHas('shuttle', function ($q) {
-                $q->where('daerah_id', auth()->user()->daerah);
+                $q->where('daerah_id', auth()->user()->daerah_numeric_id);
             })->paginate(10);
         return view('admins.shuttle-three.senarai-tugasan-phd', compact('formB', 'formC', 'formD', 'form4D', 'form4E', 'form5D', 'form5E'));
     }

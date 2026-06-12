@@ -1,4 +1,4 @@
-﻿@extends('layouts.layout-ipjpsm-nicepage')
+@extends('layouts.layout-ipjpsm-nicepage')
 
 @section('content')
 
@@ -69,20 +69,20 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <a type="button " href="{{ route('shuttle-4-listA', date('Y')) }}"
+                                        <a type="button " href="{{ route('shuttle-4-listA', $year) }}" id="nav-4A"
                                             class="btn"
                                             style="background-color:white;color:black;border-color:black">Borang 4A</a>
-                                        <a type="button" href="{{ route('shuttle-4-listB', date('Y')) }}"
+                                        <a type="button" href="{{ route('shuttle-4-listB', $year) }}" id="nav-4B"
                                             class="btn"
                                             style="background-color:white;color:black;border-color:#ee8dcd">Borang 4B</a>
-                                        <a type="button" href="{{ route('shuttle-4-listC', date('Y')) }}"
+                                        <a type="button" href="{{ route('shuttle-4-listC', $year) }}" id="nav-4C"
                                             class="btn"
                                             style="background-color:white;color:black;border-color:#bbb235f3">Borang 4C</a>
-                                        <a type="button" href="{{ route('shuttle-4-listD', date('Y')) }}"
+                                        <a type="button" href="{{ route('shuttle-4-listD', $year) }}" id="nav-4D"
                                             class="btn"
                                             style="background-color:rgb(33, 235, 77);color:black;border-color:rgb(33, 235, 77)">Borang
                                             4D</a>
-                                        <a type="button" href="{{ route('shuttle-4-listE', date('Y')) }}"
+                                        <a type="button" href="{{ route('shuttle-4-listE', $year) }}" id="nav-4E"
                                             class="btn"
                                             style="background-color:white;color:black;border-color:#2692ebf3">Borang 4E</a>
 
@@ -131,7 +131,7 @@
                                                 <td>{{ $loop->index + 1 }}</td>
                                                 <td style="text-align:left">{{ $shuttle->nama_kilang }}</td>
                                                 <td>{{ $shuttle->negeri_id }}</td>
-                                                <td>{{ $shuttle->daerah->daerah_hutan ?? $shuttle->daerah_id }}</td>
+                                                <td>{{ $shuttle->daerah_display }}</td>
                                                 <td>{{ $shuttle->no_ssm }}</td>
                                                 <td>{{ $shuttle->no_lesen ?? 'Tiada' }}</td>
 
@@ -1371,4 +1371,25 @@
         }
     </script>
 
+
+    <script>
+    $(document).ready(function(){
+        $.get("{{ route('ajax.count.ipjpsm.detail') }}", {shuttle_type: 4, year: {{ $year }}}, function(data){
+            Object.keys(data).forEach(function(key){
+                var form = key.replace('form','');
+                var count = parseInt(data[key]) || 0;
+                if(count > 0){
+                    var btn = $('#nav-4'+form);
+                    if(btn.length){
+                        btn.append($('<span>').css({
+                            background:'#e53935', color:'#fff',
+                            borderRadius:'50%', padding:'1px 7px', fontSize:'11px',
+                            marginLeft:'4px', fontWeight:'bold', display:'inline-block'
+                        }).text(count));
+                    }
+                }
+            });
+        });
+    });
+    </script>
 @endsection

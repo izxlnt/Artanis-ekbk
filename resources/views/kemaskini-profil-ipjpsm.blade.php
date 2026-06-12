@@ -96,12 +96,7 @@
                     <div class="col-md">
                         <label>No. Kad Pengenalan</label>
                         <div class="mb-3 input-group">
-                            <input readonly class="form-control text-uppercase @error('email') is-invalid @else border-dark @enderror" id="email" name="jantina" type="email" value="{{ $user->login_id }}" oninput="let p=this.selectionStart;this.value=this.value.toUpperCase();this.setSelectionRange(p, p);">
-                          @error('email')
-                          <span class="invalid-feedback" role="alert">
-                                  <strong>{{ $message }}</strong>
-                          </span>
-                          @enderror
+                            <input readonly class="form-control text-uppercase border-dark" name="jantina" type="text" value="{{ $user->login_id }}">
                         </div>
                     </div>
 
@@ -113,18 +108,12 @@
                     <div class="col-md">
                         <label>Daerah</label>
                         <div class="mb-3 input-group">
-                            <input readonly class="form-control text-uppercase @error('email') is-invalid @else border-dark @enderror" id="email" name="jantina" type="email" value="{{ $user->daerah }}" oninput="let p=this.selectionStart;this.value=this.value.toUpperCase();this.setSelectionRange(p, p);">
-                          @error('email')
-                          <span class="invalid-feedback" role="alert">
-                                  <strong>{{ $message }}</strong>
-                          </span>
-                          @enderror
+                            <input readonly class="form-control text-uppercase border-dark" name="jantina" type="text" value="{{ $user->daerah }}">
                         </div>
                     </div>
 
                     <div class="col-md-2"></div>
                   </div>
-                  @else
                   @endif
 
                   <div class="row">
@@ -132,8 +121,8 @@
                     <div class="col-md">
                         <label>Jawatan</label>
                         <div class="mb-3 input-group">
-                            <input  class="form-control text-uppercase @error('email') is-invalid @else border-dark @enderror" id="email" name="jawatan"  value="{{ $user->jawatan }}" oninput="let p=this.selectionStart;this.value=this.value.toUpperCase();this.setSelectionRange(p, p);">
-                          @error('email')
+                            <input class="form-control text-uppercase @error('jawatan') is-invalid @else border-dark @enderror" name="jawatan" value="{{ $user->jawatan }}" oninput="let p=this.selectionStart;this.value=this.value.toUpperCase();this.setSelectionRange(p, p);">
+                          @error('jawatan')
                           <span class="invalid-feedback" role="alert">
                                   <strong>{{ $message }}</strong>
                           </span>

@@ -44,19 +44,8 @@
         background: #eee;
     }
 
-    thead,
     tbody {
-        display: block;
-    }
-
-    tbody {
-        height: 500px;
-        /* Just for the demo          */
         overflow-y: auto;
-        /* Trigger vertical scroll    */
-        overflow-x: hidden;
-        /* Hide the horizontal scroll */
-        width: 1600px;
     }
 
     ::-webkit-scrollbar {
@@ -133,8 +122,7 @@
                                         <div class="tab-pane active" id="hotel" role="tabpanel" aria-labelledby="hotel-tab">
                                             <br>
                                             <div class="">
-                                                <table class="table table-striped table-bordered" id=""
-                                                    style="width: 100%;">
+                                                <div>
                                                     <div class="row">
                                                         <div class="col-12">
                                                             <div class="card">
@@ -245,7 +233,8 @@
                                                                         </div>
                                                                     </div>
 
-                                                                    <table>
+                                                                    <div style="overflow-x: auto; width: 100%;">
+                                                                    <table style="min-width: max-content;">
                                                                         <thead class="">
                                                                             @if($kilang_info->shuttle_type == '3')
                                                                 <tr style="height:50px;">
@@ -410,6 +399,7 @@
 
 
                                                                     </table>
+                                                                    </div>
                                                                     <br>
                                                                 </div>
                                                             </div>
@@ -424,7 +414,7 @@
                                             </div>
                                         </div>
 
-                                        </table>
+                                        </div>
                                     </div>
                                 </div>
 

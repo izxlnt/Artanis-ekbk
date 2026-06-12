@@ -21,16 +21,16 @@ class ListDController extends Controller
         // $shuttle_listC = Shuttle::where('shuttle_type', '3')->paginate(10);
         $form4D_kilang = Form4D::select('shuttle_id')
             ->whereHas('shuttle', function ($q) {
-                $q->where('daerah_id', auth()->user()->daerah)->where('shuttle_type', '4');
+                $q->where('daerah_id', auth()->user()->daerah_numeric_id)->where('shuttle_type', '4');
             })
             ->distinct()->where('tahun', $year)->get();
 
         $form4D = Form4D::whereHas('shuttle', function ($q) {
-            $q->where('daerah_id', auth()->user()->daerah)->where('shuttle_type', '4');
+            $q->where('daerah_id', auth()->user()->daerah_numeric_id)->where('shuttle_type', '4');
         })->where('tahun', $year)->get();
 
         $year_list = Form4D::whereHas('shuttle', function ($q) {
-            $q->where('daerah_id', auth()->user()->daerah)->where('shuttle_type', '4');
+            $q->where('daerah_id', auth()->user()->daerah_numeric_id)->where('shuttle_type', '4');
         })->distinct()->orderBy('tahun')->get('tahun');
 
         $buffer = Buffer::where('borang', 'd')->where('shuttle', '4')->first();
@@ -144,9 +144,10 @@ class ListDController extends Controller
         // })
         // ->distinct()->where('tahun', $year)->get();
 
-        $form4D_kilang = DB::select(DB::raw("SELECT DISTINCT shuttles.* FROM form4_d_s
+        $form4D_kilang = DB::select(DB::raw("SELECT DISTINCT shuttles.*, COALESCE(d.daerah_hutan, shuttles.daerah_id) as daerah_display FROM form4_d_s
         INNER JOIN shuttles ON form4_d_s.shuttle_id = shuttles.id
         INNER JOIN batches ON shuttles.id = batches.shuttle_id
+        LEFT JOIN daerahs d ON d.id = shuttles.daerah_id AND d.deleted_at IS NULL
         WHERE batches.tahun = form4_d_s.tahun
         AND (form4_d_s.status = 'Dihantar ke IPJPSM' OR form4_d_s.status = 'Lulus')
         AND batches.shuttle_id = form4_d_s.shuttle_id
@@ -164,6 +165,7 @@ class ListDController extends Controller
         $year_list = DB::select(DB::raw("SELECT DISTINCT form4_d_s.tahun FROM form4_d_s
             INNER JOIN shuttles ON form4_d_s.shuttle_id = shuttles.id
             INNER JOIN batches ON shuttles.id = batches.shuttle_id
+            LEFT JOIN daerahs d ON d.id = shuttles.daerah_id AND d.deleted_at IS NULL
             WHERE batches.tahun = form4_d_s.tahun
             AND (form4_d_s.status = 'Dihantar ke IPJPSM' OR form4_d_s.status = 'Lulus')
             AND batches.shuttle_id = form4_d_s.shuttle_id

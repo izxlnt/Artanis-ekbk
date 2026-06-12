@@ -13,14 +13,14 @@ class PhdController extends Controller
         $batch = Batch::where('status', 'Sedang Diproses')
         ->where('tahun', $year)
         ->whereHas('shuttle', function ($q) {
-            $q->where('daerah_id', auth()->user()->daerah)->where('shuttle_type', '3');
+            $q->where('daerah_id', auth()->user()->daerah_numeric_id)->where('shuttle_type', '3');
         })
         ->get();
 
         $year_list = Batch::where('status', 'Sedang Diproses')
         // ->where('tahun', $year)
         ->whereHas('shuttle', function ($q) {
-            $q->where('daerah_id', auth()->user()->daerah)->where('shuttle_type', '3');
+            $q->where('daerah_id', auth()->user()->daerah_numeric_id)->where('shuttle_type', '3');
         })
         ->distinct()->orderBy('tahun')->get('tahun');
 
@@ -65,14 +65,14 @@ class PhdController extends Controller
         $batch = Batch::where('status', 'Sedang Diproses')
         ->where('tahun', $year)
         ->whereHas('shuttle', function ($q) {
-            $q->where('daerah_id', auth()->user()->daerah)->where('shuttle_type', '4');
+            $q->where('daerah_id', auth()->user()->daerah_numeric_id)->where('shuttle_type', '4');
         })
         ->get();
 
         $year_list = Batch::where('status', 'Sedang Diproses')
         // ->where('tahun', $year)
         ->whereHas('shuttle', function ($q) {
-            $q->where('daerah_id', auth()->user()->daerah)->where('shuttle_type', '4');
+            $q->where('daerah_id', auth()->user()->daerah_numeric_id)->where('shuttle_type', '4');
         })
         ->distinct()->orderBy('tahun')->get('tahun');
 
@@ -113,14 +113,14 @@ class PhdController extends Controller
         $batch = Batch::where('status', 'Sedang Diproses')
         ->where('tahun', $year)
         ->whereHas('shuttle', function ($q) {
-            $q->where('daerah_id', auth()->user()->daerah)->where('shuttle_type', '5');
+            $q->where('daerah_id', auth()->user()->daerah_numeric_id)->where('shuttle_type', '5');
         })
         ->get();
 
         $year_list = Batch::where('status', 'Sedang Diproses')
         ->where('tahun', $year)
         ->whereHas('shuttle', function ($q) {
-            $q->where('daerah_id', auth()->user()->daerah)->where('shuttle_type', '5');
+            $q->where('daerah_id', auth()->user()->daerah_numeric_id)->where('shuttle_type', '5');
         })
         ->distinct()->orderBy('tahun')->get('tahun');
 

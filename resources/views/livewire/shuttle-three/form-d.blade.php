@@ -174,8 +174,8 @@
                                                                                         <td style="text-align:center;">
                                                                                             <input style="text-align:right" type="text"
                                                                                                 size="15"
-                                                                                                oninput="validate(this)"
-                                                                                                class="fsum_jualan" wire:model.defer='jumlah_jualan.{{ $key }}' oninput="fsumCalc()"
+                                                                                                oninput="validate(this); fsumCalc()"
+                                                                                                class="fsum_jualan" wire:model.defer='jumlah_jualan.{{ $key }}'
                                                                                                 onkeypress="return isNumberKey(event)">
                                                                                         </td>
                                                                                     </tr>
@@ -290,7 +290,9 @@
 <script>
     function fsumCalc() {
         var t=0; document.querySelectorAll('.fsum_jualan').forEach(function(e){t+=parseFloat(e.value)||0;});
-        var el=document.getElementById('fsum_tot_jualan'); if(el) el.value=Math.round(t*10000)/10000||0;
+        var rounded = Math.round(t*10000)/10000 || 0;
+        var el=document.getElementById('fsum_tot_jualan'); if(el) el.value=rounded;
+        @this.set('jumlah_pasaran_tempatan', rounded);
     }
 </script>
 

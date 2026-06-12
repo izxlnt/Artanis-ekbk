@@ -104,7 +104,12 @@ class RegisterController extends Controller
                 // 'langtitude_y'=> ['required', 'string', 'max:255'],
                 'no_telefon'=> ['required', 'string', 'max:11', 'min:9'],
                 'no_faks'=> ['nullable', 'string', 'max:255'],
-                'no_ssm'=> ['required', 'string', 'max:255','unique:shuttles'],
+                'no_ssm'=> ['required', 'string', 'max:255', function($attribute, $value, $fail) use ($data) {
+                    $fullNoSsm = preg_replace('/[\/\\\\].*$/', '', $value) . '/' . ($data['shuttle_type'] ?? '');
+                    if (Shuttle::where('no_ssm', $fullNoSsm)->exists()) {
+                        $fail('No. SSM ini telah didaftarkan untuk jenis shuttle ini.');
+                    }
+                }],
                 'tarikh_tubuh'=> ['required', 'date'],
                 'tarikh_operasi'=> ['required', 'date'],
                 'taraf_syarikat_catatan'=> ['required', 'string', 'max:255'],
@@ -170,7 +175,12 @@ class RegisterController extends Controller
                 // 'langtitude_y'=> ['required', 'string', 'max:255'],
                 'no_telefon'=> ['required', 'string', 'max:255'],
                 'no_faks'=> ['nullable', 'string', 'max:255'],
-                'no_ssm'=> ['required', 'string', 'max:255','unique:shuttles'],
+                'no_ssm'=> ['required', 'string', 'max:255', function($attribute, $value, $fail) use ($data) {
+                    $fullNoSsm = preg_replace('/[\/\\\\].*$/', '', $value) . '/' . ($data['shuttle_type'] ?? '');
+                    if (Shuttle::where('no_ssm', $fullNoSsm)->exists()) {
+                        $fail('No. SSM ini telah didaftarkan untuk jenis shuttle ini.');
+                    }
+                }],
                 'tarikh_tubuh'=> ['required', 'date'],
                 'tarikh_operasi'=> ['required', 'date'],
                 'taraf_syarikat_catatan'=> ['required', 'string', 'max:255'],
@@ -244,7 +254,7 @@ class RegisterController extends Controller
                 // 'langtitude_y'=> $data['langtitude_y'],
                 'no_telefon'=> $data['no_telefon'],
                 'no_faks'=> $data['no_faks'],
-                'no_ssm'=> $data['no_ssm'],
+                'no_ssm'=> preg_replace('/[\/\\\\].*$/', '', $data['no_ssm']) . '/' . $data['shuttle_type'],
                 'tarikh_tubuh'=> $data['tarikh_tubuh'],
                 'tarikh_operasi'=> $data['tarikh_operasi'],
                 'taraf_syarikat_catatan'=> $data['taraf_syarikat_catatan'],
@@ -282,7 +292,7 @@ class RegisterController extends Controller
                 // 'langtitude_y'=> $data['langtitude_y'],
                 'no_telefon'=> $data['no_telefon'],
                 'no_faks'=> $data['no_faks'],
-                'no_ssm'=> $data['no_ssm'],
+                'no_ssm'=> preg_replace('/[\/\\\\].*$/', '', $data['no_ssm']) . '/' . $data['shuttle_type'],
                 'tarikh_tubuh'=> $data['tarikh_tubuh'],
                 'tarikh_operasi'=> $data['tarikh_operasi'],
                 'taraf_syarikat_catatan'=> $data['taraf_syarikat_catatan'],
@@ -343,7 +353,7 @@ class RegisterController extends Controller
             'email' => $data['email_kilang'],
             'password' => $hashed_random_password,
             'kategori_pengguna' => $kategori_pengguna,
-            'login_id' => $data['no_ssm'],
+            'login_id' => preg_replace('/[\/\\\\].*$/', '', $data['no_ssm']) . '/' . $data['shuttle_type'],
             'shuttle_type' => $data['shuttle_type'],
             'is_approved' => 0,
             'shuttle_id' => $shuttle_id->id,

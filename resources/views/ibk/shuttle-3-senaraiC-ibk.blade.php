@@ -185,7 +185,7 @@
                                                                 title="Borang telah dihantar - Tiada Pengeluaran"
                                                                 style="color: green; font-size: 20pt;"></i></a>
                                                     @elseif($data->status == 'Tidak Lengkap' && $data->bulan == '1')
-                                                        <a href="{{ route('user.shuttle-3-formC.KKB', $id = 1) }}"
+                                                        <a href="{{ route('user.shuttle-3-formC.KKB', [$id = 1, $year]) }}"
                                                             data-toggle="tooltip" data-placement="bottom"
                                                             title="Borang tidak lengkap" class="mr-1 btn btn-warning"><i
                                                                 class="fas fa-pencil-alt"></i></a>
@@ -197,7 +197,7 @@
                                                                 title="Borang telah diperaku"
                                                                 style="color: green; font-size: 20pt;"></i></a>
                                                     @elseif($data->status == 'Sedang Diisi' && $data->bulan == '1')
-                                                        <a href="{{ route('user.shuttle-3-formC.KKB', $id = 1) }}">
+                                                        <a href="{{ route('user.shuttle-3-formC.KKB', [$id = 1, $year]) }}">
                                                             <img src="{{ asset('sync.png') }}" height='30px'
                                                                     alt="" data-toggle="tooltip"
                                                             data-placement="bottom" title="Borang sedang diisi">
@@ -265,7 +265,7 @@
                                                                 title="Borang telah dihantar - Tiada Pengeluaran"
                                                                 style="color: green; font-size: 20pt;"></i></a>
                                                     @elseif($data->status == 'Tidak Lengkap' && $data->bulan == '2')
-                                                        <a href="{{ route('user.shuttle-3-formC.KKB', $id = 2) }}"
+                                                        <a href="{{ route('user.shuttle-3-formC.KKB', [$id = 2, $year]) }}"
                                                             data-toggle="tooltip" data-placement="bottom"
                                                             title="Borang tidak lengkap" class="mr-1 btn btn-warning"><i
                                                                 class="fas fa-pencil-alt"></i></a>
@@ -277,7 +277,7 @@
                                                                 title="Borang telah diperaku"
                                                                 style="color: green; font-size: 20pt;"></i></a>
                                                     @elseif($data->status == 'Sedang Diisi' && $data->bulan == '2')
-                                                        <a href="{{ route('user.shuttle-3-formC.KKB', $id = 2) }}">
+                                                        <a href="{{ route('user.shuttle-3-formC.KKB', [$id = 2, $year]) }}">
                                                             <img src="{{ asset('sync.png') }}" height='30px'
                                                                     alt="" data-toggle="tooltip"
                                                             data-placement="bottom" title="Borang sedang diisi">
@@ -343,7 +343,7 @@
                                                                 title="Borang telah dihantar - Tiada Pengeluaran"
                                                                 style="color: green; font-size: 20pt;"></i></a>
                                                     @elseif($data->status == 'Tidak Lengkap' && $data->bulan == '3')
-                                                        <a href="{{ route('user.shuttle-3-formC.KKB', $id = 3) }}"
+                                                        <a href="{{ route('user.shuttle-3-formC.KKB', [$id = 3, $year]) }}"
                                                             data-toggle="tooltip" data-placement="bottom"
                                                             title="Borang tidak lengkap" class="mr-1 btn btn-warning"><i
                                                                 class="fas fa-pencil-alt"></i></a>
@@ -355,7 +355,7 @@
                                                                 title="Borang telah diperaku"
                                                                 style="color: green; font-size: 20pt;"></i></a>
                                                     @elseif($data->status == 'Sedang Diisi' && $data->bulan == '3')
-                                                    <a href="{{ route('user.shuttle-3-formC.KKB', $id = 3) }}">
+                                                    <a href="{{ route('user.shuttle-3-formC.KKB', [$id = 3, $year]) }}">
                                                         <img src="{{ asset('sync.png') }}" height='30px'
                                                                 alt="" data-toggle="tooltip"
                                                         data-placement="bottom" title="Borang sedang diisi">
@@ -411,7 +411,7 @@
                                                                 title="Borang telah dihantar - Tiada Pengeluaran"
                                                                 style="color: green; font-size: 20pt;"></i></a>
                                                     @elseif($data->status == 'Tidak Lengkap' && $data->bulan == '4')
-                                                        <a href="{{ route('user.shuttle-3-formC.KKB', $id = 4) }}"
+                                                        <a href="{{ route('user.shuttle-3-formC.KKB', [$id = 4, $year]) }}"
                                                             data-toggle="tooltip" data-placement="bottom"
                                                             title="Borang tidak lengkap" class="mr-1 btn btn-warning"><i
                                                                 class="fas fa-pencil-alt"></i></a>
@@ -423,7 +423,7 @@
                                                                 title="Borang telah diperaku"
                                                                 style="color: green; font-size: 20pt;"></i></a>
                                                     @elseif($data->status == 'Sedang Diisi' && $data->bulan == '4')
-                                                    <a href="{{ route('user.shuttle-3-formC.KKB', $id = 4) }}">
+                                                    <a href="{{ route('user.shuttle-3-formC.KKB', [$id = 4, $year]) }}">
                                                         <img src="{{ asset('sync.png') }}" height='30px'
                                                                 alt="" data-toggle="tooltip"
                                                         data-placement="bottom" title="Borang sedang diisi">
@@ -479,7 +479,7 @@
                                                                 title="Borang telah dihantar - Tiada Pengeluaran"
                                                                 style="color: green; font-size: 20pt;"></i></a>
                                                     @elseif($data->status == 'Tidak Lengkap' && $data->bulan == '5')
-                                                        <a href="{{ route('user.shuttle-3-formC.KKB', $id = 5) }}"
+                                                        <a href="{{ route('user.shuttle-3-formC.KKB', [$id = 5, $year]) }}"
                                                             data-toggle="tooltip" data-placement="bottom"
                                                             title="Borang tidak lengkap" class="mr-1 btn btn-warning"><i
                                                                 class="fas fa-pencil-alt"></i></a>
@@ -491,7 +491,7 @@
                                                                 title="Borang telah diperaku"
                                                                 style="color: green; font-size: 20pt;"></i></a>
                                                     @elseif($data->status == 'Sedang Diisi' && $data->bulan == '5')
-                                                    <a href="{{ route('user.shuttle-3-formC.KKB', $id = 5) }}">
+                                                    <a href="{{ route('user.shuttle-3-formC.KKB', [$id = 5, $year]) }}">
                                                         <img src="{{ asset('sync.png') }}" height='30px'
                                                                 alt="" data-toggle="tooltip"
                                                         data-placement="bottom" title="Borang sedang diisi">
@@ -547,7 +547,7 @@
                                                                 title="Borang telah dihantar - Tiada Pengeluaran"
                                                                 style="color: green; font-size: 20pt;"></i></a>
                                                     @elseif($data->status == 'Tidak Lengkap' && $data->bulan == '6')
-                                                        <a href="{{ route('user.shuttle-3-formC.KKB', $id = 6) }}"
+                                                        <a href="{{ route('user.shuttle-3-formC.KKB', [$id = 6, $year]) }}"
                                                             data-toggle="tooltip" data-placement="bottom"
                                                             title="Borang tidak lengkap" class="mr-1 btn btn-warning"><i
                                                                 class="fas fa-pencil-alt"></i></a>
@@ -559,7 +559,7 @@
                                                                 title="Borang telah diperaku"
                                                                 style="color: green; font-size: 20pt;"></i></a>
                                                     @elseif($data->status == 'Sedang Diisi' && $data->bulan == '6')
-                                                    <a href="{{ route('user.shuttle-3-formC.KKB', $id = 6) }}">
+                                                    <a href="{{ route('user.shuttle-3-formC.KKB', [$id = 6, $year]) }}">
                                                         <img src="{{ asset('sync.png') }}" height='30px'
                                                                 alt="" data-toggle="tooltip"
                                                         data-placement="bottom" title="Borang sedang diisi">
@@ -617,7 +617,7 @@
                                                     @elseif($data->status == 'Tidak Lengkap' && $data->bulan == '7')
                                                         <a
                                                             href="{{ route('pengguna.shuttle-3-view-formC', $data->id) }}"><a
-                                                                href="{{ route('user.shuttle-3-formC.KKB', $id = 7) }}"
+                                                                href="{{ route('user.shuttle-3-formC.KKB', [$id = 7, $year]) }}"
                                                                 data-toggle="tooltip" data-placement="bottom"
                                                                 title="Borang tidak lengkap" class="mr-1 btn btn-warning"><i
                                                                     class="fas fa-pencil-alt"></i></a>
@@ -629,7 +629,7 @@
                                                                     title="Borang telah diperaku"
                                                                     style="color: green; font-size: 20pt;"></i></a>
                                                         @elseif($data->status == 'Sedang Diisi' && $data->bulan == '7')
-                                                        <a href="{{ route('user.shuttle-3-formC.KKB', $id = 7) }}">
+                                                        <a href="{{ route('user.shuttle-3-formC.KKB', [$id = 7, $year]) }}">
                                                             <img src="{{ asset('sync.png') }}" height='30px'
                                                                     alt="" data-toggle="tooltip"
                                                             data-placement="bottom" title="Borang sedang diisi">
@@ -685,7 +685,7 @@
                                                                 title="Borang telah dihantar - Tiada Pengeluaran"
                                                                 style="color: green; font-size: 20pt;"></i></a>
                                                     @elseif($data->status == 'Tidak Lengkap' && $data->bulan == '8')
-                                                        <a href="{{ route('user.shuttle-3-formC.KKB', $id = 8) }}"
+                                                        <a href="{{ route('user.shuttle-3-formC.KKB', [$id = 8, $year]) }}"
                                                             data-toggle="tooltip" data-placement="bottom"
                                                             title="Borang tidak lengkap" class="mr-1 btn btn-warning"><i
                                                                 class="fas fa-pencil-alt"></i></a>
@@ -697,7 +697,7 @@
                                                                 title="Borang telah diperaku"
                                                                 style="color: green; font-size: 20pt;"></i></a>
                                                     @elseif($data->status == 'Sedang Diisi' && $data->bulan == '8')
-                                                    <a href="{{ route('user.shuttle-3-formC.KKB', $id = 8) }}">
+                                                    <a href="{{ route('user.shuttle-3-formC.KKB', [$id = 8, $year]) }}">
                                                         <img src="{{ asset('sync.png') }}" height='30px'
                                                                 alt="" data-toggle="tooltip"
                                                         data-placement="bottom" title="Borang sedang diisi">
@@ -753,7 +753,7 @@
                                                                 title="Borang telah dihantar - Tiada Pengeluaran"
                                                                 style="color: green; font-size: 20pt;"></i></a>
                                                     @elseif($data->status == 'Tidak Lengkap' && $data->bulan == '9')
-                                                        <a href="{{ route('user.shuttle-3-formC.KKB', $id = 9) }}"
+                                                        <a href="{{ route('user.shuttle-3-formC.KKB', [$id = 9, $year]) }}"
                                                             data-toggle="tooltip" data-placement="bottom"
                                                             title="Borang tidak lengkap" class="mr-1 btn btn-warning"><i
                                                                 class="fas fa-pencil-alt"></i></a>
@@ -765,7 +765,7 @@
                                                                 title="Borang telah diperaku"
                                                                 style="color: green; font-size: 20pt;"></i></a>
                                                     @elseif($data->status == 'Sedang Diisi' && $data->bulan == '9')
-                                                    <a href="{{ route('user.shuttle-3-formC.KKB', $id = 9) }}">
+                                                    <a href="{{ route('user.shuttle-3-formC.KKB', [$id = 9, $year]) }}">
                                                         <img src="{{ asset('sync.png') }}" height='30px'
                                                                 alt="" data-toggle="tooltip"
                                                         data-placement="bottom" title="Borang sedang diisi">
@@ -821,7 +821,7 @@
                                                                 title="Borang telah dihantar - Tiada Pengeluaran"
                                                                 style="color: green; font-size: 20pt;"></i></a>
                                                     @elseif($data->status == 'Tidak Lengkap' && $data->bulan == '10')
-                                                        <a href="{{ route('user.shuttle-3-formC.KKB', $id = 10) }}"
+                                                        <a href="{{ route('user.shuttle-3-formC.KKB', [$id = 10, $year]) }}"
                                                             data-toggle="tooltip" data-placement="bottom"
                                                             title="Borang tidak lengkap" class="mr-1 btn btn-warning"><i
                                                                 class="fas fa-pencil-alt"></i></a>
@@ -833,7 +833,7 @@
                                                                 title="Borang telah diperaku"
                                                                 style="color: green; font-size: 20pt;"></i></a>
                                                     @elseif($data->status == 'Sedang Diisi' && $data->bulan == '10')
-                                                    <a href="{{ route('user.shuttle-3-formC.KKB', $id = 10) }}">
+                                                    <a href="{{ route('user.shuttle-3-formC.KKB', [$id = 10, $year]) }}">
                                                         <img src="{{ asset('sync.png') }}" height='30px'
                                                                 alt="" data-toggle="tooltip"
                                                         data-placement="bottom" title="Borang sedang diisi">
@@ -889,7 +889,7 @@
                                                                 title="Borang telah dihantar - Tiada Pengeluaran"
                                                                 style="color: green; font-size: 20pt;"></i></a>
                                                     @elseif($data->status == 'Tidak Lengkap' && $data->bulan == '11')
-                                                        <a href="{{ route('user.shuttle-3-formC.KKB', $id = 11) }}"
+                                                        <a href="{{ route('user.shuttle-3-formC.KKB', [$id = 11, $year]) }}"
                                                             data-toggle="tooltip" data-placement="bottom"
                                                             title="Borang tidak lengkap" class="mr-1 btn btn-warning"><i
                                                                 class="fas fa-pencil-alt"></i></a>
@@ -901,7 +901,7 @@
                                                                 title="Borang telah diperaku"
                                                                 style="color: green; font-size: 20pt;"></i></a>
                                                     @elseif($data->status == 'Sedang Diisi' && $data->bulan == '11')
-                                                    <a href="{{ route('user.shuttle-3-formC.KKB', $id = 11) }}">
+                                                    <a href="{{ route('user.shuttle-3-formC.KKB', [$id = 11, $year]) }}">
                                                         <img src="{{ asset('sync.png') }}" height='30px'
                                                                 alt="" data-toggle="tooltip"
                                                         data-placement="bottom" title="Borang sedang diisi">
@@ -957,7 +957,7 @@
                                                                 title="Borang telah dihantar - Tiada Pengeluaran"
                                                                 style="color: green; font-size: 20pt;"></i></a>
                                                     @elseif($data->status == 'Tidak Lengkap' && $data->bulan == '12')
-                                                        <a href="{{ route('user.shuttle-3-formC.KKB', $id = 12) }}"
+                                                        <a href="{{ route('user.shuttle-3-formC.KKB', [$id = 12, $year]) }}"
                                                             data-toggle="tooltip" data-placement="bottom"
                                                             title="Borang tidak lengkap" class="mr-1 btn btn-warning"><i
                                                                 class="fas fa-pencil-alt"></i></a>
@@ -969,7 +969,7 @@
                                                                 title="Borang telah diperaku"
                                                                 style="color: green; font-size: 20pt;"></i></a>
                                                     @elseif($data->status == 'Sedang Diisi' && $data->bulan == '12')
-                                                    <a href="{{ route('user.shuttle-3-formC.KKB', $id = 12) }}">
+                                                    <a href="{{ route('user.shuttle-3-formC.KKB', [$id = 12, $year]) }}">
                                                         <img src="{{ asset('sync.png') }}" height='30px'
                                                                 alt="" data-toggle="tooltip"
                                                         data-placement="bottom" title="Borang sedang diisi">

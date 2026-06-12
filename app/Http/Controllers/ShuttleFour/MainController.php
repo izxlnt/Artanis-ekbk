@@ -55,7 +55,7 @@ class MainController extends Controller
 
         $formA_kilang = DB::select(DB::raw("SELECT DISTINCT shuttles.*, COALESCE(d.daerah_hutan, shuttles.daerah_id) as daerah_display FROM form_a_s
         INNER JOIN shuttles ON form_a_s.shuttle_id = shuttles.id
-        LEFT JOIN daerah d ON d.id = shuttles.daerah_id AND d.deleted_at IS NULL
+        LEFT JOIN daerahs d ON d.id = shuttles.daerah_id AND d.deleted_at IS NULL
         WHERE (form_a_s.status = 'Dihantar ke IPJPSM' OR form_a_s.status = 'Lulus')
         AND shuttles.shuttle_type = '4'
         AND form_a_s.tahun = $year"));
@@ -627,14 +627,14 @@ class MainController extends Controller
 
         $formA = FormA::where('status', '!=', 'Tidak Diisi')->where('tahun', $year)
             ->whereHas('shuttle', function ($q) {
-                $q->where('daerah_id', auth()->user()->daerah)->where('shuttle_type', '4');
+                $q->where('daerah_id', auth()->user()->daerah_numeric_id)->where('shuttle_type', '4');
             })
             ->get();
         // dd($formA);
 
         $year_list = FormA::where('status', '!=', 'Tidak Diisi')->where('tahun', $year)
             ->whereHas('shuttle', function ($q) {
-                $q->where('daerah_id', auth()->user()->daerah)->where('shuttle_type', '4');
+                $q->where('daerah_id', auth()->user()->daerah_numeric_id)->where('shuttle_type', '4');
             })
             ->distinct()->orderBy('tahun')->get('tahun');
 
@@ -663,13 +663,13 @@ class MainController extends Controller
 
         $formB = FormB::where('status', '!=', 'Tidak Diisi')->where('tahun', $year)
             ->whereHas('shuttle', function ($q) {
-                $q->where('daerah_id', auth()->user()->daerah)->where('shuttle_type', '4');
+                $q->where('daerah_id', auth()->user()->daerah_numeric_id)->where('shuttle_type', '4');
             })
             ->get();
 
         $year_list = FormB::where('status', '!=', 'Tidak Diisi')->where('tahun', $year)
             ->whereHas('shuttle', function ($q) {
-                $q->where('daerah_id', auth()->user()->daerah)->where('shuttle_type', '4');
+                $q->where('daerah_id', auth()->user()->daerah_numeric_id)->where('shuttle_type', '4');
             })
             ->distinct()->orderBy('tahun')->get('tahun');
 
@@ -696,13 +696,13 @@ class MainController extends Controller
     {
         $formC = FormC::where('status', '!=', 'Tidak Diisi')->where('tahun', $year)
             ->whereHas('shuttle', function ($q) {
-                $q->where('daerah_id', auth()->user()->daerah)->where('shuttle_type', '4');
+                $q->where('daerah_id', auth()->user()->daerah_numeric_id)->where('shuttle_type', '4');
             })
             ->get();
 
         $year_list = FormC::where('status', '!=', 'Tidak Diisi')->where('tahun', $year)
             ->whereHas('shuttle', function ($q) {
-                $q->where('daerah_id', auth()->user()->daerah)->where('shuttle_type', '4');
+                $q->where('daerah_id', auth()->user()->daerah_numeric_id)->where('shuttle_type', '4');
             })
             ->distinct()->orderBy('tahun')->get('tahun');
 
@@ -731,13 +731,13 @@ class MainController extends Controller
 
         $form4D = Form4D::where('status', '!=', 'Tidak Diisi')->where('tahun', $year)
             ->whereHas('shuttle', function ($q) {
-                $q->where('daerah_id', auth()->user()->daerah)->where('shuttle_type', '4');
+                $q->where('daerah_id', auth()->user()->daerah_numeric_id)->where('shuttle_type', '4');
             })
             ->get();
 
         $year_list = Form4D::where('status', '!=', 'Tidak Diisi')->where('tahun', $year)
             ->whereHas('shuttle', function ($q) {
-                $q->where('daerah_id', auth()->user()->daerah)->where('shuttle_type', '4');
+                $q->where('daerah_id', auth()->user()->daerah_numeric_id)->where('shuttle_type', '4');
             })
             ->distinct()->orderBy('tahun')->get('tahun');
 
@@ -765,13 +765,13 @@ class MainController extends Controller
 
         $form4E = Form4E::where('status', '!=', 'Tidak Diisi')->where('tahun', $year)
             ->whereHas('shuttle', function ($q) {
-                $q->where('daerah_id', auth()->user()->daerah)->where('shuttle_type', '4');
+                $q->where('daerah_id', auth()->user()->daerah_numeric_id)->where('shuttle_type', '4');
             })
             ->get();
 
         $year_list = Form4E::where('status', '!=', 'Tidak Diisi')->where('tahun', $year)
             ->whereHas('shuttle', function ($q) {
-                $q->where('daerah_id', auth()->user()->daerah)->where('shuttle_type', '4');
+                $q->where('daerah_id', auth()->user()->daerah_numeric_id)->where('shuttle_type', '4');
             })
             ->distinct()->orderBy('tahun')->get('tahun');
 

@@ -20,18 +20,18 @@ class ListBController extends Controller
 
         $formB_kilang = FormB::select('shuttle_id')
         ->whereHas('shuttle', function ($q) {
-            $q->where('daerah_id', auth()->user()->daerah)->where('shuttle_type', '4');
+            $q->where('daerah_id', auth()->user()->daerah_numeric_id)->where('shuttle_type', '4');
         })
         ->distinct()->where('tahun', $year)->get();
 
         // dd($formB_kilang);
 
         $formB = FormB::whereHas('shuttle', function($q){
-            $q->where('daerah_id',auth()->user()->daerah)->where('shuttle_type', '4');
+            $q->where('daerah_id',auth()->user()->daerah_numeric_id)->where('shuttle_type', '4');
         })->where('tahun', $year)->get();
 
          $year_list = FormB::whereHas('shuttle', function($q){
-            $q->where('daerah_id',auth()->user()->daerah)->where('shuttle_type', '4');
+            $q->where('daerah_id',auth()->user()->daerah_numeric_id)->where('shuttle_type', '4');
          })->distinct()->orderBy('tahun')->get('tahun');
 
         //  dd($formB);
@@ -61,9 +61,10 @@ class ListBController extends Controller
         if ($year < 2025) return redirect()->route('shuttle-4-listB', 2025);
         $user = auth()->user();
         // dd($user );
-        $formB_kilang = DB::select(DB::raw("SELECT DISTINCT shuttles.* FROM formbs
+        $formB_kilang = DB::select(DB::raw("SELECT DISTINCT shuttles.*, COALESCE(d.daerah_hutan, shuttles.daerah_id) as daerah_display FROM formbs
         INNER JOIN shuttles ON formbs.shuttle_id = shuttles.id
         INNER JOIN batches ON shuttles.id = batches.shuttle_id
+        LEFT JOIN daerahs d ON d.id = shuttles.daerah_id AND d.deleted_at IS NULL
         WHERE batches.tahun = formbs.tahun
         AND (formbs.status = 'Dihantar ke IPJPSM' OR formbs.status = 'Lulus')
         AND batches.shuttle_id = formbs.shuttle_id
@@ -84,6 +85,7 @@ class ListBController extends Controller
         $year_list = DB::select(DB::raw("SELECT DISTINCT formbs.tahun FROM formbs
         INNER JOIN shuttles ON formbs.shuttle_id = shuttles.id
         INNER JOIN batches ON shuttles.id = batches.shuttle_id
+        LEFT JOIN daerahs d ON d.id = shuttles.daerah_id AND d.deleted_at IS NULL
         WHERE batches.tahun = formbs.tahun
         AND (formbs.status = 'Dihantar ke IPJPSM' OR formbs.status = 'Lulus')
         AND batches.shuttle_id = formbs.shuttle_id

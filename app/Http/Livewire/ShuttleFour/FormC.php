@@ -61,6 +61,46 @@ class FormC extends Component
             $this->proses_keluar[$keySpecies]          = 0;
             $this->baki_stok_kehadapan[$keySpecies]    = 0;
         }
+
+        // Load existing saved data so values are restored when user navigates back
+        $formc = ModelsFormC::where('shuttle_id', $shuttleId)
+            ->where('bulan', $month)
+            ->whereYear('created_at', $year)
+            ->first();
+
+        if ($formc) {
+            $existing = KemasukanBahan::where('formcs_id', $formc->id)
+                ->get()
+                ->keyBy('spesis_id');
+
+            foreach ($species as $keySpecies => $data) {
+                if ($existing->has($data->id)) {
+                    $row = $existing[$data->id];
+                    $this->baki_stok[$keySpecies]                       = $row->baki_stok;
+                    $this->kayu_masuk[$keySpecies]                      = $row->kayu_masuk;
+                    $this->jumlah_stok_kayu_balak[$keySpecies]          = $row->jumlah_stok_kayu_balak;
+                    $this->proses_masuk[$keySpecies]                    = $row->proses_masuk;
+                    $this->proses_keluar[$keySpecies]                   = $row->proses_keluar;
+                    $this->baki_stok_kehadapan[$keySpecies]             = $row->baki_stok_kehadapan;
+                    $this->jumlah_baki_stok[$keySpecies]                = $row->jumlah_baki_stok;
+                    $this->jumlah_kayu_masuk[$keySpecies]               = $row->jumlah_kayu_masuk;
+                    $this->total_stok_kayu_balak[$keySpecies]           = $row->total_stok_kayu_balak;
+                    $this->total_kayu_masuk_jentera[$keySpecies]        = $row->total_kayu_masuk_jentera;
+                    $this->total_kayu_keluar_jentera[$keySpecies]       = $row->total_kayu_keluar_jentera;
+                    $this->total_kayu_dibawa_bulan_hadapan[$keySpecies] = $row->total_kayu_dibawa_bulan_hadapan;
+                }
+            }
+
+            $firstRow = $existing->first();
+            if ($firstRow) {
+                $this->jumlah_besar_baki_stok_bulan_lepas             = $firstRow->jumlah_besar_baki_stok_bulan_lepas;
+                $this->jumlah_besar_kemasukan_kayu_ke_kilang          = $firstRow->jumlah_besar_kemasukan_kayu_ke_kilang;
+                $this->jumlah_besar_stok_kayu_balak                   = $firstRow->jumlah_besar_stok_kayu_balak;
+                $this->jumlah_besar_kayu_ke_dalam_jentera             = $firstRow->jumlah_besar_kayu_ke_dalam_jentera;
+                $this->jumlah_besar_pengeluaran_kayu_daripada_jentera = $firstRow->jumlah_besar_pengeluaran_kayu_daripada_jentera;
+                $this->jumlah_besar_baki_stok_bulan_depan             = $firstRow->jumlah_besar_baki_stok_bulan_depan;
+            }
+        }
     }
 
     public function updated()
@@ -172,7 +212,8 @@ class FormC extends Component
 
         KemasukanBahan::where('formcs_id', $formc->id)->delete();
 
-        foreach ($this->species as $keySpecies => $data) {
+        $species = Spesis::orderBy('kumpulan_kayu_id')->orderBy('id')->get();
+        foreach ($species as $keySpecies => $data) {
 
             // dd($keySpecies);
             KemasukanBahan::create([

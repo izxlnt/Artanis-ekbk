@@ -379,7 +379,23 @@ class UserController extends Controller
             $pengumuman = null;
         }
 
-        // dd($pengumumantest);
+        // Build indexed form data for senarai tugasan table
+        $currentMonth = (int) date('n');
+        $tableData = [];
+        foreach ($requirements['years_to_fill'] as $reqYear) {
+            $tableData[$reqYear]['formA'] = FormA::where('shuttle_id', $shuttleId)->where('tahun', $reqYear)->first();
+            $tableData[$reqYear]['formB'] = FormB::where('shuttle_id', $shuttleId)->where('tahun', $reqYear)->get()->keyBy('suku_tahun');
+            $tableData[$reqYear]['formC'] = FormC::where('shuttle_id', $shuttleId)->where('tahun', $reqYear)->get()->keyBy('bulan');
+            if ($shuttle_type == 3) {
+                $tableData[$reqYear]['formD'] = FormD::where('shuttle_id', $shuttleId)->where('tahun', $reqYear)->get()->keyBy('bulan');
+            } elseif ($shuttle_type == 4) {
+                $tableData[$reqYear]['formD'] = Form4D::where('shuttle_id', $shuttleId)->where('tahun', $reqYear)->get()->keyBy('bulan');
+                $tableData[$reqYear]['formE'] = Form4E::where('shuttle_id', $shuttleId)->where('tahun', $reqYear)->get()->keyBy('bulan');
+            } elseif ($shuttle_type == 5) {
+                $tableData[$reqYear]['formD'] = Form5D::where('shuttle_id', $shuttleId)->where('tahun', $reqYear)->get()->keyBy('bulan');
+                $tableData[$reqYear]['formE'] = Form5E::where('shuttle_id', $shuttleId)->where('tahun', $reqYear)->get()->keyBy('bulan');
+            }
+        }
 
         return view('home-user', compact(
             'user',
@@ -398,7 +414,10 @@ class UserController extends Controller
             'form5D_count',
             'form5E_count',
             'pengumuman',
-            'tugasan'
+            'tugasan',
+            'tableData',
+            'requirements',
+            'currentMonth'
         ));
     }
 
@@ -621,7 +640,7 @@ class UserController extends Controller
 
         $count_form4A = FormA::where('status', 'Tidak Diisi')->where('tahun', date("Y"))
             ->whereHas('shuttle', function ($q) {
-                $q->where('shuttle_type', 4)->where('daerah_id', auth()->user()->daerah);
+                $q->where('shuttle_type', 4)->where('daerah_id', auth()->user()->daerah_numeric_id);
             })
             ->get();
         $form4A_count = $count_form4A->count();
@@ -629,7 +648,7 @@ class UserController extends Controller
 
         // $count_form4B = FormB::where('status','Tidak Diisi')->where('created_at', '>=')
         // ->whereHas('shuttle', function ($q) {
-        //     $q->where('shuttle_type', 4)->where('daerah_id', auth()->user()->daerah);
+        //     $q->where('shuttle_type', 4)->where('daerah_id', auth()->user()->daerah_numeric_id);
         //     })
         // ->get();
 
@@ -713,14 +732,14 @@ class UserController extends Controller
         $count_form3A = FormA::where('status', 'Sedang Diproses')
             ->where('tahun', $currentYear)
             ->whereHas('shuttle', function ($q) {
-                $q->where('shuttle_type', 3)->where('daerah_id', auth()->user()->daerah);
+                $q->where('shuttle_type', 3)->where('daerah_id', auth()->user()->daerah_numeric_id);
             })->count();
 
         $count_form3B = FormB::where('status', 'Sedang Diproses')
             ->where('shuttle_type', '3')
             ->where('tahun', $currentYear)
             ->whereHas('shuttle', function ($q) {
-                $q->where('daerah_id', auth()->user()->daerah);
+                $q->where('daerah_id', auth()->user()->daerah_numeric_id);
             })->count();
 
         $count_form3C = FormC::where(function ($query) {
@@ -730,14 +749,14 @@ class UserController extends Controller
         })->where('shuttle_type', '3')
             ->where('tahun', $currentYear)
             ->whereHas('shuttle', function ($q) {
-                $q->where('daerah_id', auth()->user()->daerah);
+                $q->where('daerah_id', auth()->user()->daerah_numeric_id);
             })->count();
 
         $count_form3D = FormD::where('status', 'Sedang Diproses')
             ->where('shuttle_type', '3')
             ->where('tahun', $currentYear)
             ->whereHas('shuttle', function ($q) {
-                $q->where('daerah_id', auth()->user()->daerah);
+                $q->where('daerah_id', auth()->user()->daerah_numeric_id);
             })->count();
 
         $shuttle3_count = $count_form3A + $count_form3B + $count_form3C + $count_form3D;
@@ -755,7 +774,7 @@ class UserController extends Controller
         $count_form4A = FormA::where('status', 'Sedang Diproses')
             ->where('tahun', $currentYear)
             ->whereHas('shuttle', function ($q) {
-                $q->where('daerah_id', auth()->user()->daerah)->where('shuttle_type', '4');
+                $q->where('daerah_id', auth()->user()->daerah_numeric_id)->where('shuttle_type', '4');
             })
             ->count();
 
@@ -763,7 +782,7 @@ class UserController extends Controller
             ->where('shuttle_type', '4')
             ->where('tahun', $currentYear)
             ->whereHas('shuttle', function ($q) {
-                $q->where('daerah_id', auth()->user()->daerah);
+                $q->where('daerah_id', auth()->user()->daerah_numeric_id);
             })
             ->count();
 
@@ -774,7 +793,7 @@ class UserController extends Controller
         })->where('shuttle_type', '4')
             ->where('tahun', $currentYear)
             ->whereHas('shuttle', function ($q) {
-                $q->where('daerah_id', auth()->user()->daerah);
+                $q->where('daerah_id', auth()->user()->daerah_numeric_id);
             })
             ->count();
 
@@ -785,7 +804,7 @@ class UserController extends Controller
         })->where('shuttle_type', '4')
             ->where('tahun', $currentYear)
             ->whereHas('shuttle', function ($q) {
-                $q->where('daerah_id', auth()->user()->daerah);
+                $q->where('daerah_id', auth()->user()->daerah_numeric_id);
             })
             ->count();
 
@@ -793,7 +812,7 @@ class UserController extends Controller
             ->where('shuttle_type', '4')
             ->where('tahun', $currentYear)
             ->whereHas('shuttle', function ($q) {
-                $q->where('daerah_id', auth()->user()->daerah);
+                $q->where('daerah_id', auth()->user()->daerah_numeric_id);
             })
             ->count();
 
@@ -810,14 +829,14 @@ class UserController extends Controller
         $count_form5A = FormA::where('status', 'Sedang Diproses')
             ->where('tahun', $currentYear)
             ->whereHas('shuttle', function ($q) {
-                $q->where('shuttle_type', 5)->where('daerah_id', auth()->user()->daerah);
+                $q->where('shuttle_type', 5)->where('daerah_id', auth()->user()->daerah_numeric_id);
             })->count();
 
         $count_form5B = FormB::where('status', 'Sedang Diproses')
             ->where('shuttle_type', '5')
             ->where('tahun', $currentYear)
             ->whereHas('shuttle', function ($q) {
-                $q->where('daerah_id', auth()->user()->daerah);
+                $q->where('daerah_id', auth()->user()->daerah_numeric_id);
             })->count();
 
         $count_form5C = FormC::where(function ($query) {
@@ -827,7 +846,7 @@ class UserController extends Controller
         })->where('shuttle_type', '5')
             ->where('tahun', $currentYear)
             ->whereHas('shuttle', function ($q) {
-                $q->where('daerah_id', auth()->user()->daerah);
+                $q->where('daerah_id', auth()->user()->daerah_numeric_id);
             })->count();
 
         $count_form5D = Form5D::where(function ($query) {
@@ -837,7 +856,7 @@ class UserController extends Controller
         })->where('shuttle_type', '5')
             ->where('tahun', $currentYear)
             ->whereHas('shuttle', function ($q) {
-                $q->where('daerah_id', auth()->user()->daerah);
+                $q->where('daerah_id', auth()->user()->daerah_numeric_id);
             })->count();
 
         $count_form5E = Form5E::where(function ($query) {
@@ -847,7 +866,7 @@ class UserController extends Controller
         })->where('shuttle_type', '5')
             ->where('tahun', $currentYear)
             ->whereHas('shuttle', function ($q) {
-                $q->where('daerah_id', auth()->user()->daerah);
+                $q->where('daerah_id', auth()->user()->daerah_numeric_id);
             })->count();
 
         $shuttle5_count = $count_form5A + $count_form5B + $count_form5C + $count_form5D + $count_form5E;
@@ -1018,14 +1037,14 @@ class UserController extends Controller
         $formA = FormA::where('status', 'Sedang Diproses')
             ->where('tahun', $currentYear)
             ->whereHas('shuttle', function ($q) use ($shuttle_type) {
-                $q->where('shuttle_type', $shuttle_type)->where('daerah_id', auth()->user()->daerah);
+                $q->where('shuttle_type', $shuttle_type)->where('daerah_id', auth()->user()->daerah_numeric_id);
             })->count();
 
         $formB = FormB::where('status', 'Sedang Diproses')
             ->where('shuttle_type', (string) $shuttle_type)
             ->where('tahun', $currentYear)
             ->whereHas('shuttle', function ($q) {
-                $q->where('daerah_id', auth()->user()->daerah);
+                $q->where('daerah_id', auth()->user()->daerah_numeric_id);
             })->count();
 
         $formC = FormC::where(function ($q) {
@@ -1033,7 +1052,7 @@ class UserController extends Controller
         })->where('shuttle_type', (string) $shuttle_type)
             ->where('tahun', $currentYear)
             ->whereHas('shuttle', function ($q) {
-                $q->where('daerah_id', auth()->user()->daerah);
+                $q->where('daerah_id', auth()->user()->daerah_numeric_id);
             })->count();
 
         $result = ['formA' => $formA, 'formB' => $formB, 'formC' => $formC];
@@ -1041,24 +1060,24 @@ class UserController extends Controller
         if ($shuttle_type === 3) {
             $result['formD'] = FormD::where('status', 'Sedang Diproses')
                 ->where('shuttle_type', '3')->where('tahun', $currentYear)
-                ->whereHas('shuttle', function ($q) { $q->where('daerah_id', auth()->user()->daerah); })->count();
+                ->whereHas('shuttle', function ($q) { $q->where('daerah_id', auth()->user()->daerah_numeric_id); })->count();
         } elseif ($shuttle_type === 4) {
             $result['formD'] = Form4D::where(function ($q) {
                 $q->where('status', 'Sedang Diproses')->orWhere('status', 'Tiada Pengeluaran');
             })->where('shuttle_type', '4')->where('tahun', $currentYear)
-                ->whereHas('shuttle', function ($q) { $q->where('daerah_id', auth()->user()->daerah); })->count();
+                ->whereHas('shuttle', function ($q) { $q->where('daerah_id', auth()->user()->daerah_numeric_id); })->count();
             $result['formE'] = Form4E::where('status', 'Sedang Diproses')
                 ->where('shuttle_type', '4')->where('tahun', $currentYear)
-                ->whereHas('shuttle', function ($q) { $q->where('daerah_id', auth()->user()->daerah); })->count();
+                ->whereHas('shuttle', function ($q) { $q->where('daerah_id', auth()->user()->daerah_numeric_id); })->count();
         } elseif ($shuttle_type === 5) {
             $result['formD'] = Form5D::where(function ($q) {
                 $q->where('status', 'Sedang Diproses')->orWhere('status', 'Tiada Pengeluaran');
             })->where('shuttle_type', '5')->where('tahun', $currentYear)
-                ->whereHas('shuttle', function ($q) { $q->where('daerah_id', auth()->user()->daerah); })->count();
+                ->whereHas('shuttle', function ($q) { $q->where('daerah_id', auth()->user()->daerah_numeric_id); })->count();
             $result['formE'] = Form5E::where(function ($q) {
                 $q->where('status', 'Sedang Diproses')->orWhere('status', 'Tiada Pengeluaran');
             })->where('shuttle_type', '5')->where('tahun', $currentYear)
-                ->whereHas('shuttle', function ($q) { $q->where('daerah_id', auth()->user()->daerah); })->count();
+                ->whereHas('shuttle', function ($q) { $q->where('daerah_id', auth()->user()->daerah_numeric_id); })->count();
         }
 
         return response()->json($result, 200);
@@ -1115,7 +1134,7 @@ class UserController extends Controller
 
     public function index_phd()
     {
-        $daerah = auth()->user()->daerah;
+        $daerah = auth()->user()->daerah_numeric_id;
 
         $count_shuttle3 = User::where('shuttle_type', 3)->where('is_approved', 1)->whereNull('pengguna_kilang_id')
             ->whereHas('shuttle', fn($q) => $q->where('daerah_id', $daerah))->count();
@@ -1173,7 +1192,7 @@ class UserController extends Controller
     public function list_kilang_aktif()
     {
         $user3 = User::where('shuttle_type', 3)->where('is_approved', 1)->where('pengguna_kilang_id', null)->whereHas('shuttle', function ($q) {
-            $q->where('daerah_id', auth()->user()->daerah);
+            $q->where('daerah_id', auth()->user()->daerah_numeric_id);
         })->get();
 
         // dd($user3);
@@ -1333,7 +1352,7 @@ class UserController extends Controller
     public function list_kilang_papan_lapis_aktif()
     {
         $user4 = User::where('shuttle_type', 4)->where('is_approved', 1)->where('pengguna_kilang_id', null)->whereHas('shuttle', function ($q) {
-            $q->where('daerah_id', auth()->user()->daerah);
+            $q->where('daerah_id', auth()->user()->daerah_numeric_id);
         })->get();
 
         $breadcrumbs    = [
@@ -1407,7 +1426,7 @@ class UserController extends Controller
     public function list_kilang_kumai_aktif()
     {
         $user5 = User::where('shuttle_type', 5)->where('is_approved', 1)->where('pengguna_kilang_id', null)->whereHas('shuttle', function ($q) {
-            $q->where('daerah_id', auth()->user()->daerah);
+            $q->where('daerah_id', auth()->user()->daerah_numeric_id);
         })->get();
 
         $breadcrumbs    = [
@@ -1993,6 +2012,12 @@ class UserController extends Controller
             $prevRegYearCheck = date('Y', strtotime($shuttle->created_at)) - 1;
             if ($prevRegYearCheck >= ($currentYear - 1) && !$year_list->contains('tahun', $prevRegYearCheck)) {
                 $year_list->push((object)['tahun' => $prevRegYearCheck]);
+                $year_list = $year_list->sortBy('tahun')->values();
+            }
+            // Also ensure registrationYear itself appears (shuttles registered in a prior year need access to that year)
+            $regYearCheck = date('Y', strtotime($shuttle->created_at));
+            if ($regYearCheck >= ($currentYear - 1) && !$year_list->contains('tahun', $regYearCheck)) {
+                $year_list->push((object)['tahun' => $regYearCheck]);
                 $year_list = $year_list->sortBy('tahun')->values();
             }
         }

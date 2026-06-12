@@ -1,4 +1,4 @@
-﻿@extends('layouts.layout-ipjpsm-nicepage')
+@extends('layouts.layout-ipjpsm-nicepage')
 
 @section('content')
 
@@ -77,15 +77,15 @@
 
                             <div class="row">
                                 <div class="col-md-12">
-                                    <a type="button " href="{{ route('shuttle-5-listA', date('Y')) }}"
+                                    <a type="button " href="{{ route('shuttle-5-listA', $year) }}" id="nav-5A"
                                     class="btn" style="background-color:rgb(196, 188, 186);color:black;border-color:black">Borang 5A</a>
-                                <a type="button" href="{{ route('shuttle-5-listB', date('Y')) }}"
+                                <a type="button" href="{{ route('shuttle-5-listB', $year) }}" id="nav-5B"
                                     class="btn" style="background-color:white;color:black;border-color:#ee8dcd">Borang 5B</a>
-                                <a type="button" href="{{ route('shuttle-5-listC', date('Y')) }}"
+                                <a type="button" href="{{ route('shuttle-5-listC', $year) }}" id="nav-5C"
                                     class="btn" style="background-color:white;color:black;border-color:#bbb235f3">Borang 5C</a>
-                                <a type="button" href="{{ route('shuttle-5-listD', date('Y')) }}"
+                                <a type="button" href="{{ route('shuttle-5-listD', $year) }}" id="nav-5D"
                                     class="btn" style="background-color:white;color:black;border-color:#1b9e21f3">Borang 5D</a>
-                                <a type="button" href="{{ route('shuttle-5-listE', date('Y')) }}"
+                                <a type="button" href="{{ route('shuttle-5-listE', $year) }}" id="nav-5E"
                                     class="btn" style="background-color:white;color:black;border-color:#2692ebf3">Borang 5E</a>
 
                                 </div>
@@ -245,4 +245,25 @@
         }
     </script>
 
+
+    <script>
+    $(document).ready(function(){
+        $.get("{{ route('ajax.count.ipjpsm.detail') }}", {shuttle_type: 5, year: {{ $year }}}, function(data){
+            Object.keys(data).forEach(function(key){
+                var form = key.replace('form','');
+                var count = parseInt(data[key]) || 0;
+                if(count > 0){
+                    var btn = $('#nav-5'+form);
+                    if(btn.length){
+                        btn.append($('<span>').css({
+                            background:'#e53935', color:'#fff',
+                            borderRadius:'50%', padding:'1px 7px', fontSize:'11px',
+                            marginLeft:'4px', fontWeight:'bold', display:'inline-block'
+                        }).text(count));
+                    }
+                }
+            });
+        });
+    });
+    </script>
 @endsection
