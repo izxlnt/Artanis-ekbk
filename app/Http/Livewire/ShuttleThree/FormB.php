@@ -88,22 +88,22 @@ class FormB extends Component
         return view('livewire.shuttle-three.form-b', compact('kategori_pekerja', 'kilang_info','returnArr'));
     }
 
-    public function mount($year = null)
+    public function mount($year = null, $suku_id = null)
     {
-        // Set year from parameter, default to current year if not provided
-        if ($year) {
-            $this->year = $year;
-        } elseif (!$this->year) {
-            $this->year = date('Y');
-        }
-        
+        if ($year) $this->year = $year;
+        elseif (!$this->year) $this->year = date('Y');
+
+        if ($suku_id !== null) $this->suku_id = $suku_id;
+
         $kategori_pekerja = KategoriGunaTenaga::get();
+
+        // Default all fields to zero first
         foreach ($kategori_pekerja as $key => $value) {
             $this->jumlah_lelaki[$key] = 0;
             $this->jumlah_perempuan[$key] = 0;
             $this->jumlah_pekerja[$key] = 0;
-            // $this->gaji_lelaki[$key] = 0.00;
-            // $this->gaji_perempuan[$key] = 0.00;
+            $this->gaji_lelaki[$key] = 0;
+            $this->gaji_perempuan[$key] = 0;
             $this->gaji_lelaki_perempuan[$key] = 0.00;
             $this->total_gaji_lelaki[$key] = 0.00;
             $this->total_gaji_perempuan[$key] = 0.00;
@@ -121,10 +121,66 @@ class FormB extends Component
         $this->total_pekerja = 0;
         $this->jumlah_gaji_lelaki = 0.00;
         $this->jumlah_gaji_perempuan = 0.00;
-        $this->jumlah_lelaki_perempuan  = 0.00;
-        $this->jumlah_total_lelaki  = 0.00;
-        $this->jumlah_total_perempuan  = 0.00;
-        $this->jumlah_total_gaji  = 0.00;
+        $this->jumlah_lelaki_perempuan = 0.00;
+        $this->jumlah_total_lelaki = 0.00;
+        $this->jumlah_total_perempuan = 0.00;
+        $this->jumlah_total_gaji = 0.00;
+
+        // Load previously saved data if it exists
+        if ($this->suku_id) {
+            $user = auth()->user();
+            $formb = FormBBaru::where('shuttle_id', $user->shuttle_id)
+                ->where('suku_tahun', $this->suku_id)
+                ->where('tahun', $this->year)
+                ->first();
+
+            if ($formb) {
+                $existingData = GunaTenaga::where('formbs_id', $formb->id)
+                    ->orderBy('id', 'desc')
+                    ->get()
+                    ->unique('kategori_guna_tenaga_id')
+                    ->keyBy('kategori_guna_tenaga_id');
+
+                if ($existingData->isNotEmpty()) {
+                    foreach ($kategori_pekerja as $key => $kategori) {
+                        $row = $existingData[$kategori->id] ?? null;
+                        if (!$row) continue;
+                        $this->pekerja_wargabumi_lelaki[$key] = $row->pekerja_wargabumi_lelaki;
+                        $this->pekerja_wargabumi_perempuan[$key] = $row->pekerja_wargabumi_perempuan;
+                        $this->pekerja_bukan_wargabumi_lelaki[$key] = $row->pekerja_bukan_wargabumi_lelaki;
+                        $this->pekerja_bukan_wargabumi_perempuan[$key] = $row->pekerja_bukan_wargabumi_perempuan;
+                        $this->pekerja_asing_lelaki[$key] = $row->pekerja_asing_lelaki;
+                        $this->pekerja_asing_perempuan[$key] = $row->pekerja_asing_perempuan;
+                        $this->jumlah_lelaki[$key] = $row->jumlah_lelaki;
+                        $this->jumlah_perempuan[$key] = $row->jumlah_perempuan;
+                        $this->jumlah_pekerja[$key] = $row->jumlah_pekerja;
+                        $this->gaji_lelaki[$key] = $row->gaji_lelaki;
+                        $this->gaji_perempuan[$key] = $row->gaji_perempuan;
+                        $this->gaji_lelaki_perempuan[$key] = $row->gaji_lelaki_perempuan;
+                        $this->total_gaji_lelaki[$key] = $row->total_gaji_lelaki;
+                        $this->total_gaji_perempuan[$key] = $row->total_gaji_perempuan;
+                        $this->total_gaji[$key] = $row->total_gaji;
+                    }
+
+                    $first = $existingData->first();
+                    $this->total_bumi_lelaki = $first->total_bumi_lelaki;
+                    $this->total_bumi_perempuan = $first->total_bumi_perempuan;
+                    $this->total_bukanbumi_lelaki = $first->total_bukanbumi_lelaki;
+                    $this->total_bukanbumi_perempuan = $first->total_bukanbumi_perempuan;
+                    $this->total_asing_lelaki = $first->total_asing_lelaki;
+                    $this->total_asing_perempuan = $first->total_asing_perempuan;
+                    $this->total_pekerja_lelaki = $first->total_pekerja_lelaki;
+                    $this->total_pekerja_perempuan = $first->total_pekerja_perempuan;
+                    $this->total_pekerja = $first->total_pekerja;
+                    $this->jumlah_gaji_lelaki = $first->jumlah_gaji_lelaki;
+                    $this->jumlah_gaji_perempuan = $first->jumlah_gaji_perempuan;
+                    $this->jumlah_lelaki_perempuan = $first->jumlah_lelaki_perempuan;
+                    $this->jumlah_total_lelaki = $first->jumlah_total_lelaki;
+                    $this->jumlah_total_perempuan = $first->jumlah_total_perempuan;
+                    $this->jumlah_total_gaji = $first->jumlah_total_gaji;
+                }
+            }
+        }
     }
 
     // male cell use this function for calculation, use this in wire:change for male input cells
@@ -477,6 +533,9 @@ class FormB extends Component
 
         $formb->status = 'Sedang Diproses';
         $formb->save();
+
+        // Remove previous entries before saving fresh data
+        GunaTenaga::where('formbs_id', $formb->id)->delete();
 
         if ($formb->suku_tahun == 1) {
             $bulan = 3;
