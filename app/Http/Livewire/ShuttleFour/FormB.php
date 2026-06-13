@@ -72,24 +72,14 @@ class FormB extends Component
 
         $kategori_pekerja = KategoriGunaTenaga::get();
         foreach ($kategori_pekerja as $key => $value) {
-            # code...
-            // $this->pekerja_wargabumi_lelaki[$key] = 0;
-            // $this->pekerja_wargabumi_perempuan[$key] = 0;
-            // $this->pekerja_bukan_wargabumi_lelaki[$key] = 0;
-            // $this->pekerja_bukan_wargabumi_perempuan[$key] = 0;
-            // $this->pekerja_asing_lelaki[$key] = 0;
-            // $this->pekerja_asing_perempuan[$key] = 0;
             $this->jumlah_lelaki[$key] = 0;
             $this->jumlah_perempuan[$key] = 0;
             $this->jumlah_pekerja[$key] = 0;
-            // $this->gaji_lelaki[$key] = 0;
-            // $this->gaji_perempuan[$key] = 0;
             $this->gaji_lelaki_perempuan[$key] = 0;
             $this->total_gaji_lelaki[$key] = 0;
             $this->total_gaji_perempuan[$key] = 0;
             $this->total_gaji[$key] = 0;
         }
-
 
         $this->total_bumi_lelaki = 0;
         $this->total_bumi_perempuan = 0;
@@ -106,14 +96,38 @@ class FormB extends Component
         $this->jumlah_total_lelaki  = 0;
         $this->jumlah_total_perempuan  = 0;
         $this->jumlah_total_gaji  = 0;
-        // for ($i = 0; $i < $this->species_count; $i++) {
-        //     $this->baki_stok[$i] = 0;
-        //     $this->kayu_masuk[$i] = 0;
-        //     $this->jumlah_stok_kayu_balak[$i] = 0;
-        //     $this->proses_masuk[$i] = 0;
-        //     $this->proses_keluar[$i] = 0;
-        //     $this->baki_stok_kehadapan[$i] = 0;
-        // }
+
+        $formb = FormBBaru::where('shuttle_id', auth()->user()->shuttle_id)
+            ->where('suku_tahun', $this->suku_id)
+            ->where('tahun', $this->year)
+            ->where('status', 'Tidak Lengkap')
+            ->first();
+
+        if ($formb) {
+            $existing = GunaTenaga::where('formbs_id', $formb->id)
+                ->orderBy('id', 'desc')
+                ->get()
+                ->unique('kategori_guna_tenaga_id')
+                ->values();
+
+            foreach ($existing as $key => $row) {
+                $this->pekerja_wargabumi_lelaki[$key] = $row->pekerja_wargabumi_lelaki;
+                $this->pekerja_wargabumi_perempuan[$key] = $row->pekerja_wargabumi_perempuan;
+                $this->pekerja_bukan_wargabumi_lelaki[$key] = $row->pekerja_bukan_wargabumi_lelaki;
+                $this->pekerja_bukan_wargabumi_perempuan[$key] = $row->pekerja_bukan_wargabumi_perempuan;
+                $this->pekerja_asing_lelaki[$key] = $row->pekerja_asing_lelaki;
+                $this->pekerja_asing_perempuan[$key] = $row->pekerja_asing_perempuan;
+                $this->jumlah_lelaki[$key] = $row->jumlah_lelaki;
+                $this->jumlah_perempuan[$key] = $row->jumlah_perempuan;
+                $this->jumlah_pekerja[$key] = $row->jumlah_pekerja;
+                $this->gaji_lelaki[$key] = $row->gaji_lelaki;
+                $this->gaji_perempuan[$key] = $row->gaji_perempuan;
+                $this->gaji_lelaki_perempuan[$key] = $row->gaji_lelaki_perempuan;
+                $this->total_gaji_lelaki[$key] = $row->total_gaji_lelaki;
+                $this->total_gaji_perempuan[$key] = $row->total_gaji_perempuan;
+                $this->total_gaji[$key] = $row->total_gaji;
+            }
+        }
     }
 
     // male cell use this function for calculation, use this in wire:change for male input cells
@@ -409,33 +423,18 @@ class FormB extends Component
             return back();
         }
 
-        $this->validate([
-            // 'pekerja_wargabumi_lelaki.0' => 'required',
-
-            'gaji_lelaki.0' => 'required_unless:jumlah_lelaki.0,0|numeric|min:' . $this->min_gaji[0] . '|max:' . $this->max_gaji[0],
-            'gaji_perempuan.0' => 'required_unless:jumlah_perempuan.0, >, 0|numeric|min:' . $this->min_gaji[0] . '|max:' . $this->max_gaji[0],
-
-            'gaji_lelaki.1' => 'required_unless:jumlah_lelaki.1, =, 0|numeric|min:' . $this->min_gaji[1] . '|max:' . $this->max_gaji[1],
-            'gaji_perempuan.1' => 'required_unless:jumlah_perempuan.1, =, 0|numeric|min:' . $this->min_gaji[1] . '|max:' . $this->max_gaji[1],
-
-            'gaji_lelaki.2' => 'required_unless:jumlah_lelaki.2, =, 0|numeric|min:' . $this->min_gaji[2] . '|max:' . $this->max_gaji[2],
-            'gaji_perempuan.2' => 'required_unless:jumlah_perempuan.2, =, 0|numeric|min:' . $this->min_gaji[2] . '|max:' . $this->max_gaji[2],
-
-            'gaji_lelaki.3' => 'required_unless:jumlah_lelaki.3, =, 0|numeric|min:' . $this->min_gaji[3] . '|max:' . $this->max_gaji[3],
-            'gaji_perempuan.3' => 'required_unless:jumlah_perempuan.3, =, 0|numeric|min:' . $this->min_gaji[3] . '|max:' . $this->max_gaji[3],
-
-            'gaji_lelaki.4' => 'required_unless:jumlah_lelaki.4, =, 0|numeric|min:' . $this->min_gaji[4] . '|max:' . $this->max_gaji[4],
-            'gaji_perempuan.4' => 'required_unless:jumlah_perempuan.4, =, 0|numeric|min:' . $this->min_gaji[4] . '|max:' . $this->max_gaji[4],
-
-            'gaji_lelaki.5' => 'required_unless:jumlah_lelaki.5, =, 0|numeric|min:' . $this->min_gaji[5] . '|max:' . $this->max_gaji[5],
-            'gaji_perempuan.5' => 'required_unless:jumlah_perempuan.5, =, 0|numeric|min:' . $this->min_gaji[5] . '|max:' . $this->max_gaji[5],
-
-            'gaji_lelaki.6' => 'required_unless:jumlah_lelaki.6, =, 0|numeric|min:' . $this->min_gaji[6] . '|max:' . $this->max_gaji[6],
-            'gaji_perempuan.6' => 'required_unless:jumlah_perempuan.6, =, 0|numeric|min:' . $this->min_gaji[6] . '|max:' . $this->max_gaji[6],
-
-            'gaji_lelaki.7' => 'required_unless:jumlah_lelaki.7, =, 0|numeric|min:' . $this->min_gaji[7] . '|max:' . $this->max_gaji[7],
-            'gaji_perempuan.7' => 'required_unless:jumlah_perempuan.7, =, 0|numeric|min:' . $this->min_gaji[7] . '|max:' . $this->max_gaji[7],
-        ]);
+        $rules = [];
+        foreach ($kategori as $key => $value) {
+            if (($this->jumlah_lelaki[$key] ?? 0) > 0) {
+                $rules['gaji_lelaki.' . $key] = 'required|numeric|min:' . $value->gaji_min . '|max:' . $value->gaji_max;
+            }
+            if (($this->jumlah_perempuan[$key] ?? 0) > 0) {
+                $rules['gaji_perempuan.' . $key] = 'required|numeric|min:' . $value->gaji_min . '|max:' . $value->gaji_max;
+            }
+        }
+        if (!empty($rules)) {
+            $this->validate($rules);
+        }
         // $this->validate([
         //     'gaji_lelaki.0' => 'min:'.$this->min_gaji.'|max:'.$this->max_gaji.'|required',
         //     'gaji_perempuan.0' => 'min:'.$this->min_gaji.'|max:'.$this->max_gaji.'|required',
@@ -500,6 +499,8 @@ class FormB extends Component
         $batch->borang_b = 1;
         $batch->save();
         // dd($formb);
+
+        GunaTenaga::where('formbs_id', $formb->id)->delete();
 
         foreach ($kategori_pekerja as $key => $data) {
             GunaTenaga::create([

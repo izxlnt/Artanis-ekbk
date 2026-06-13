@@ -425,7 +425,8 @@ class FormD extends Component
         $batch->borang_d = 1;
         $batch->save();
 
-        // dd($this->jumlah_besar_mr);
+        ProdukPengeluaran::where('form4ds_id', $formd->id)->delete();
+
         if($this->produk_isipadumr_a){
             foreach($this->produk_isipadumr_a as $key => $value){
                 ProdukPengeluaran::create([
@@ -569,6 +570,8 @@ class FormD extends Component
         $batch->status = "Sedang Diproses";
         $batch->borang_d = 1;
         $batch->save();
+
+        ProdukPengeluaran::where('form4ds_id', $formd->id)->delete();
 
         ProdukPengeluaran::create([
             'form4ds_id' => $formd->id,

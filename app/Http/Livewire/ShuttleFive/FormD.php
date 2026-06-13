@@ -26,6 +26,25 @@ class FormD extends Component
         $this->formc = ModelsFormC::where('shuttle_id', auth()->user()->shuttle_id)->where('bulan', $this->bulan_id)->whereYear('created_at', date("Y"))->first();
 
         $this->kemasukan_bahan_calc_lain_lain = KemasukanBahan::where('shuttle_id', auth()->user()->shuttle_id)->where('formcs_id', $this->formc->id)->latest('updated_at')->first();
+
+        $formd = Form5D::where('shuttle_id', auth()->user()->shuttle_id)
+            ->where('bulan', $this->bulan_id)
+            ->whereYear('created_at', date("Y"))
+            ->where('status', 'Tidak Lengkap')
+            ->first();
+
+        if ($formd) {
+            $this->total_jumlah_pengeluaran = $formd->total_jumlah_pengeluaran;
+
+            $jenis_kayu = JenisKayu::get();
+            $existing = PengeluaranForm5D::where('form5ds_id', $formd->id)->get()->keyBy('jenis_kayu_id');
+
+            foreach ($jenis_kayu as $key => $jenis) {
+                $record = $existing->get($jenis->id);
+                $this->pengeluaran_kayu[$key] = $record ? $record->pengeluaran_kayu : null;
+                $this->catatan[$key] = $record ? $record->catatan : null;
+            }
+        }
     }
 
     public function render()
@@ -133,6 +152,8 @@ class FormD extends Component
         $total = $this->total_jumlah_pengeluaran;
         // dd($total);
 
+        PengeluaranForm5D::where('form5ds_id', $formd->id)->delete();
+
         foreach ($jenis_kayu as $key => $data) {
             if($data->keterangan == 'Lain-lain Profil Kumai (Other Moulding Profiles) (Nyatakan)'){
                 $data_catatan= $this->catatan[$key] ?? null;
@@ -187,6 +208,8 @@ class FormD extends Component
         // dd($test);
         $total = $this->total_jumlah_pengeluaran;
         // dd($total);
+
+        PengeluaranForm5D::where('form5ds_id', $formd->id)->delete();
 
         foreach ($jenis_kayu as $key => $data) {
             if($data->keterangan == 'Lain-lain Profil Kumai (Other Moulding Profiles) (Nyatakan)'){
