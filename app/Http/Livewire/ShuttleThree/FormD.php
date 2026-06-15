@@ -36,7 +36,6 @@ class FormD extends Component
         if ($formd && $formd->status === 'Tidak Lengkap') {
             $this->total_export = $formd->total_export;
             $this->jumlah_pasaran_tempatan = $formd->jumlah_pasaran_tempatan;
-            $this->total_jumlah_jualan = $formd->jumlah_pasaran_tempatan;
 
             $jenis_pembeli = Pembeli::where('shuttle', 3)->get();
             $existing = PenjualanPembeli::where('formds_id', $formd->id)->get()->keyBy('pembeli_id');
@@ -46,6 +45,12 @@ class FormD extends Component
                 $this->jumlah_jualan[$key] = $record ? $record->jumlah_jualan : null;
                 $this->catatan[$key] = $record ? $record->catatan : null;
             }
+
+            $loadedTotal = 0;
+            foreach ($this->jumlah_jualan ?? [] as $val) {
+                $loadedTotal += (float) $val;
+            }
+            $this->total_jumlah_jualan = number_format($loadedTotal, 2, '.', '');
         }
     }
     
@@ -208,8 +213,15 @@ class FormD extends Component
 
         $formd = ModelsFormD::where('shuttle_id',$user->shuttle_id)->where('bulan',$this->bulan_id)->where('tahun', $this->year)->first();
 
+        $total = 0;
+        foreach ($this->jumlah_jualan ?? [] as $val) {
+            $total += (float) $val;
+        }
+        $this->total_jumlah_jualan = number_format($total, 2, '.', '');
+        $this->jumlah_pasaran_tempatan = number_format($total, 2, '.', '');
+
         $formd->total_export = $this->total_export ?? 0;
-        $formd->jumlah_pasaran_tempatan = $this->jumlah_pasaran_tempatan ?? 0;
+        $formd->jumlah_pasaran_tempatan = $this->jumlah_pasaran_tempatan;
         $formd->status = 'Sedang Diproses';
         $formd->save();
 

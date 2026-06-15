@@ -395,17 +395,6 @@ class MainController extends Controller
                 $needsUpdate = false;
                 $updateData = [];
                 
-                if ($user->shuttle && $user->shuttle->daerah_id) {
-                    if (is_numeric($user->shuttle->daerah_id) && !$user->shuttle->daerah) {
-                        $daerah = Daerah::find($user->shuttle->daerah_id);
-                        if ($daerah && $daerah->daerah_hutan) {
-                            $updateData['daerah_id'] = $daerah->daerah_hutan;
-                            $user->shuttle->daerah_id = $daerah->daerah_hutan; // For display
-                            $needsUpdate = true;
-                        }
-                    }
-                }
-                
                 if ($user->shuttle && $user->shuttle->negeri_id) {
                     if (is_numeric($user->shuttle->negeri_id) && !$user->shuttle->negeri) {
                         $negeri = Daerah::find($user->shuttle->negeri_id);

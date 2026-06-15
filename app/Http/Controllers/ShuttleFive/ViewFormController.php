@@ -35,6 +35,8 @@ class ViewFormController extends Controller
 
         $form_5d = PengeluaranForm5D::where('form5ds_id', $form5d->id)->get();
 
+        $year = $form5d->tahun;
+
         $breadcrumbs    = [
             ['link' => route('home'), 'name' => "Laman Utama"],
             ['link' => route('shuttle-5-listD', date('Y')), 'name' => "Menu Utama Modul"],
@@ -56,7 +58,7 @@ class ViewFormController extends Controller
 
 
         // dd($form_5d);
-        return view('admins.shuttle-five.view-form5d-ipjpsm', compact('returnArr', 'kilang_info', 'id', 'form5d', 'jenis_kumai', 'form_5d', 'ulasan_phd'));
+        return view('admins.shuttle-five.view-form5d-ipjpsm', compact('returnArr', 'kilang_info', 'id', 'form5d', 'jenis_kumai', 'form_5d', 'ulasan_phd', 'year'));
     }
 
     public function shuttle_5_form_view_form5E_ipjpsm($id)
@@ -69,6 +71,7 @@ class ViewFormController extends Controller
         // $id =$form5d->id;
         $ulasan_phd = UlasanPhd::where('form5es_id', $form5e->id)->get();
 
+        $year = $form5e->tahun;
 
         $breadcrumbs    = [
             ['link' => route('home'), 'name' => "Laman Utama"],
@@ -89,7 +92,7 @@ class ViewFormController extends Controller
         ];
 
 
-        return view('admins.shuttle-five.view-form5e-ipjpsm', compact('returnArr', 'kilang_info', 'id', 'form5e', 'ulasan_phd'));
+        return view('admins.shuttle-five.view-form5e-ipjpsm', compact('returnArr', 'kilang_info', 'id', 'form5e', 'ulasan_phd', 'year'));
     }
 
     public function view_form5E_ipjpsm($id)

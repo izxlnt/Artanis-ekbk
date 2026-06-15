@@ -117,6 +117,11 @@ class FormD extends Component
 
     public function store()
     {
+        $total = 0;
+        foreach ($this->pengeluaran_kayu ?? [] as $val) {
+            $total += (float) $val;
+        }
+        $this->total_jumlah_pengeluaran = round($total, 2);
 
         if($this->total_jumlah_pengeluaran > $this->kemasukan_bahan_calc_lain_lain->jumlah_besar_pengeluaran_kayu_daripada_jentera || $this->total_jumlah_pengeluaran < $this->kemasukan_bahan_calc_lain_lain->jumlah_besar_pengeluaran_kayu_daripada_jentera){
             $this->emit('alert', ['type' => 'error', 'message' => 'Jumlah Pengeluaran Kayu Kumai Mestilah Sama Dengan Jumlah Pengeluaran Di Borang 5C (' . $this->kemasukan_bahan_calc_lain_lain->jumlah_besar_pengeluaran_kayu_daripada_jentera . ')']);

@@ -178,6 +178,12 @@ class FormE extends Component
         $batch->save();
 
 
+        $total = 0;
+        foreach ($this->jumlah_jualan ?? [] as $val) {
+            $total += (float) $val;
+        }
+        $this->total_jumlah_jualan = number_format($total, 2, '.', '');
+
         $catatan = "Tiada";
         foreach ($jenis_pembeli as $key => $data) {
             if ($data->keterangan == 'Lain-lain (Nyatakan)') {

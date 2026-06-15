@@ -261,8 +261,7 @@
                                                                                         <input readonly
                                                                                             style="background-color: #9ac4f7;text-align:right"
                                                                                             type="text" size="15"
-                                                                                            wire:model='total_jumlah_jualan'
-                                                                                            onkeypress="return isNumberKey(event)" value="{{ number_format($form4_e[0]->total_jumlah_jualan ?? 0,2) }}">
+                                                                                            onkeypress="return isNumberKey(event)" value="{{ number_format($form4_e->sum('jumlah_jualan'), 2) }}">
                                                                                         </td>
                                                                                 </tr>
                                                                             </table>

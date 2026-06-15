@@ -183,6 +183,16 @@
                                                                                         </div>
                                                                                 </div>
                                                                             </div>
+                                                                            @php
+                                                                                $jk1_mr     = $nipis->sum('produk_isipadumr');
+                                                                                $jk1_wbp    = $nipis->sum('produk_isipaduwbp');
+                                                                                $jk2_mr     = $tebal ? collect($tebal)->sum('produk_isipadumr') : 0;
+                                                                                $jk2_wbp    = $tebal ? collect($tebal)->sum('produk_isipaduwbp') : 0;
+                                                                                $jbesar_mr  = $jk1_mr + $jk2_mr;
+                                                                                $jbesar_wbp = $jk1_wbp + $jk2_wbp;
+                                                                                $jml_venier = ($form4d->rekod_veniermuka ?? 0) + ($form4d->rekod_venierteras ?? 0);
+                                                                                $jml_besar  = $jbesar_mr + $jbesar_wbp + $jml_venier;
+                                                                            @endphp
                                                                             <table class="table-responsive">
                                                                                 <tr style="height:50px;">
                                                                                     <th style="text-align:center;background-color: #7ee48c6b;" class="col-md-12" colspan="3">Pengeluaran</th>
@@ -202,19 +212,17 @@
 
                                                                                 @foreach($nipis as $data)
                                                                                 <tr style="height:50px;">
-                                                                                    <td style="text-align:center;padding: 10px"><input readonly style="" type="text" size="70" wire:model="produk_ketebalan_b.0"  value= {{ $data->produk_ketebalan }}></td>
-                                                                                    <td style="text-align:center;padding: 5px" ><input readonly style="text-align:right" type="text" size="20" wire:model="produk_ketebalan_b.0"  value= {{ $data->produk_isipadumr }}></td>
-                                                                                    <td style="text-align:center;padding: 5px" ><input readonly style="text-align:right" type="text" size="20" wire:model="produk_ketebalan_b.0"  value= {{ $data->produk_isipaduwbp }}></td>
-
+                                                                                    <td style="text-align:center;padding: 10px"><input readonly type="text" size="70" value="{{ $data->produk_ketebalan }}"></td>
+                                                                                    <td style="text-align:center;padding: 5px"><input readonly style="text-align:right" type="text" size="20" value="{{ $data->produk_isipadumr }}"></td>
+                                                                                    <td style="text-align:center;padding: 5px"><input readonly style="text-align:right" type="text" size="20" value="{{ $data->produk_isipaduwbp }}"></td>
                                                                                 </tr>
                                                                                 @endforeach
 
                                                                                 <tr style="height:50px;">
                                                                                     <th style="text-align:right;background-color: #7ee48c6b;" class="" >JUMLAH KECIL</th>
-                                                                                    <td style="text-align:center;padding: 5px" ><input  readonly style="background-color: #7ee48c6b;text-align:right" type="text" size="20"  value="{{ $jumlah_kecil_nipis->jumlah_kecil_1_mr}}" ></td>
-                                                                                    <td style="text-align:center;padding: 5px" ><input readonly style="background-color: #7ee48c6b;text-align:right" type="text" size="20"  value="{{ $jumlah_kecil_nipis->jumlah_kecil_1_wbp }}" ></td>
+                                                                                    <td style="text-align:center;padding: 5px"><input readonly style="background-color: #7ee48c6b;text-align:right" type="text" size="20" value="{{ number_format($jk1_mr, 2) }}"></td>
+                                                                                    <td style="text-align:center;padding: 5px"><input readonly style="background-color: #7ee48c6b;text-align:right" type="text" size="20" value="{{ number_format($jk1_wbp, 2) }}"></td>
                                                                                 </tr>
-
 
                                                                                 <tr style="height:50px;">
                                                                                     <th style="" class="col-md-12" >"Tebal" (Ketebalan 12mm dan lebih)</th>
@@ -224,46 +232,30 @@
                                                                                 @if($tebal != null)
                                                                                 @foreach($tebal as $data)
                                                                                 <tr style="height:50px;">
-                                                                                    <td style="text-align:center;padding: 10px" ><input readonly style="" type="text" size="70" value= {{ $data->produk_ketebalan }}></td>
-                                                                                    <td style="text-align:center;padding: 5px" ><input readonly style="text-align:right" type="text" size="20" value= {{ $data->produk_isipadumr }} ></td>
-                                                                                    <td style="text-align:center;padding: 5px" ><input readonly style="text-align:right" type="text" size="20" value= {{ $data->produk_isipaduwbp }}></td>
+                                                                                    <td style="text-align:center;padding: 10px"><input readonly type="text" size="70" value="{{ $data->produk_ketebalan }}"></td>
+                                                                                    <td style="text-align:center;padding: 5px"><input readonly style="text-align:right" type="text" size="20" value="{{ $data->produk_isipadumr }}"></td>
+                                                                                    <td style="text-align:center;padding: 5px"><input readonly style="text-align:right" type="text" size="20" value="{{ $data->produk_isipaduwbp }}"></td>
                                                                                 </tr>
                                                                                 @endforeach
                                                                                 @else
                                                                                 <tr style="height:50px;">
-                                                                                    <td style="text-align:center;padding: 10px" ><input readonly style="" type="text" size="70" value= "0.00"></td>
-                                                                                    <td style="text-align:center;padding: 5px" ><input readonly style="text-align:right" type="text" size="20" value= "0.00"></td>
-                                                                                    <td style="text-align:center;padding: 5px" ><input readonly style="text-align:right" type="text" size="20" value= "0.00"></td>
+                                                                                    <td style="text-align:center;padding: 10px"><input readonly type="text" size="70" value="0.00"></td>
+                                                                                    <td style="text-align:center;padding: 5px"><input readonly style="text-align:right" type="text" size="20" value="0.00"></td>
+                                                                                    <td style="text-align:center;padding: 5px"><input readonly style="text-align:right" type="text" size="20" value="0.00"></td>
                                                                                 </tr>
                                                                                 @endif
 
-                                                                                @if($jumlah_kecil_tebal)
                                                                                 <tr style="height:50px;">
                                                                                     <th style="text-align:right;background-color: #7ee48c6b;" class="" >JUMLAH KECIL</th>
-                                                                                    <td style="text-align:center;padding: 5px" ><input readonly style="background-color: #7ee48c6b;text-align:right" type="text" size="20" value="{{$jumlah_kecil_tebal->jumlah_kecil_2_mr }}"></td>
-                                                                                    <td style="text-align:center;padding: 5px" ><input readonly style="background-color: #7ee48c6b;text-align:right" type="text" size="20" value="{{ $jumlah_kecil_tebal->jumlah_kecil_2_wbp }}"></td>
+                                                                                    <td style="text-align:center;padding: 5px"><input readonly style="background-color: #7ee48c6b;text-align:right" type="text" size="20" value="{{ number_format($jk2_mr, 2) }}"></td>
+                                                                                    <td style="text-align:center;padding: 5px"><input readonly style="background-color: #7ee48c6b;text-align:right" type="text" size="20" value="{{ number_format($jk2_wbp, 2) }}"></td>
                                                                                 </tr>
 
                                                                                 <tr style="height:50px;">
-                                                                                    <th style="text-align:right;background-color: #7ee48c6b;" class="" >JUMLAH </th>
-                                                                                    <td style="text-align:center;padding: 5px" ><input readonly style="background-color: #7ee48c6b;text-align:right" type="text" size="20" value="{{ $jumlah_kecil_tebal->jumlah_besar_mr }}"></td>
-                                                                                    <td style="text-align:center;padding: 5px" ><input readonly style="background-color: #7ee48c6b;text-align:right" type="text" size="20" value="{{ $jumlah_kecil_tebal->jumlah_besar_wbp }}"></td>
+                                                                                    <th style="text-align:right;background-color: #7ee48c6b;" class="" >JUMLAH</th>
+                                                                                    <td style="text-align:center;padding: 5px"><input readonly style="background-color: #7ee48c6b;text-align:right" type="text" size="20" value="{{ number_format($jbesar_mr, 2) }}"></td>
+                                                                                    <td style="text-align:center;padding: 5px"><input readonly style="background-color: #7ee48c6b;text-align:right" type="text" size="20" value="{{ number_format($jbesar_wbp, 2) }}"></td>
                                                                                 </tr>
-                                                                                @else
-                                                                                <tr style="height:50px;">
-                                                                                    <th style="text-align:right;background-color: #7ee48c6b;" class="" >JUMLAH KECIL</th>
-                                                                                    <td style="text-align:center;padding: 5px" ><input readonly style="background-color: #7ee48c6b;text-align:right" type="text" size="20" value="0.00"></td>
-                                                                                    <td style="text-align:center;padding: 5px" ><input readonly style="background-color: #7ee48c6b;text-align:right" type="text" size="20" value="0.00"></td>
-                                                                                </tr>
-
-                                                                                <tr style="height:50px;">
-                                                                                    <th style="text-align:right;background-color: #7ee48c6b;" class="" >JUMLAH </th>
-                                                                                    <td style="text-align:center;padding: 5px" ><input readonly style="background-color: #7ee48c6b;text-align:right" type="text" size="20" value="0.00"></td>
-                                                                                    <td style="text-align:center;padding: 5px" ><input readonly style="background-color: #7ee48c6b;text-align:right" type="text" size="20" value="0.00"></td>
-                                                                                </tr>
-                                                                                @endif
-
-
 
                                                                                 <tr style="height:50px;">
                                                                                     <th style="background-color: #7ee48c6b;" class="" >B. VENIR</th>
@@ -271,25 +263,23 @@
                                                                                 </tr>
 
                                                                                 <tr style="height:50px;">
-                                                                                    <td style="" class="" >Muka (Face)</th>
-                                                                                    <td style="text-align:center;padding: 5px" colspan="2"><input readonly style="text-align:right" type="text" size="50" value="{{ number_format($form4d->rekod_veniermuka ?? '0.00',2) }}"></td>
+                                                                                    <td style="" class="" >Muka (Face)</td>
+                                                                                    <td style="text-align:center;padding: 5px" colspan="2"><input readonly style="text-align:right" type="text" size="50" value="{{ number_format($form4d->rekod_veniermuka ?? 0, 2) }}"></td>
                                                                                 </tr>
 
                                                                                 <tr style="height:50px;">
-                                                                                    <td style="" class="" >Teras (Core)</th>
-                                                                                    <td style="text-align:center;padding: 5px" colspan="2"><input readonly style="text-align:right" type="text" size="50" value="{{ number_format($form4d->rekod_venierteras ?? '0.00',2) }}"></td>
+                                                                                    <td style="" class="" >Teras (Core)</td>
+                                                                                    <td style="text-align:center;padding: 5px" colspan="2"><input readonly style="text-align:right" type="text" size="50" value="{{ number_format($form4d->rekod_venierteras ?? 0, 2) }}"></td>
                                                                                 </tr>
 
                                                                                 <tr style="height:50px;">
-                                                                                    <th style="text-align:right;background-color: #7ee48c6b;" class="" >JUMLAH </th>
-                                                                                    <td style="text-align:center;padding: 5px" colspan="2"><input readonly style="background-color: #7ee48c6b;text-align:right" type="text" size="50" value="{{ number_format($form4d->jumlah_pengeluaran ?? '0.00',2) }}"></td>
-
+                                                                                    <th style="text-align:right;background-color: #7ee48c6b;" class="" >JUMLAH</th>
+                                                                                    <td style="text-align:center;padding: 5px" colspan="2"><input readonly style="background-color: #7ee48c6b;text-align:right" type="text" size="50" value="{{ number_format($jml_venier, 2) }}"></td>
                                                                                 </tr>
 
                                                                                 <tr style="height:50px;">
                                                                                     <th style="text-align:right;background-color: #7ee48c6b;" class="" >JUMLAH BESAR</th>
-                                                                                    <td style="text-align:center;padding: 5px" colspan="2"><input readonly style="background-color: #7ee48c6b;text-align:right" type="text" size="50" value="{{ number_format($form4d->jumlah_besar_pengeluaran ?? '0.00',2) }}"></td>
-
+                                                                                    <td style="text-align:center;padding: 5px" colspan="2"><input readonly style="background-color: #7ee48c6b;text-align:right" type="text" size="50" value="{{ number_format($jml_besar, 2) }}"></td>
                                                                                 </tr>
                                                                             </table>
                                                                             <br>
@@ -300,67 +290,79 @@
 
                                                             <hr>
                                                             <div class="text-center form-group m-b-0">
-                                                                {{-- <button type="submit" class="btn btn-primary" >Simpan</button> --}}
-                                                                {{-- <button type="button" class="btn btn-primary">Kembali</button> --}}
-
-                                                                {{-- <button type="button" class="btn btn-primary" alt="default"
-                                                                    data-toggle="modal" data-target="#responsive-modal-tidaklengkap"
-                                                                    class="model_img img-fluid">
-                                                                    TIDAK LENGKAP</button> --}}
-
-                                                                {{-- @if ($errors->isEmpty()) --}}
-                                                                    <button type="button" class="btn btn-primary" alt="default"
-                                                                        data-toggle="modal" data-target="#confirmation_borang_a"
-                                                                        class="model_img img-fluid">
-                                                                        SIMPAN</button>
-
-                                                                {{-- @else --}}
-                                                                    {{-- <button type="submit" class="btn btn-primary" disabled>RALAT</button> --}}
-                                                                    {{-- <button type="submit" class="btn btn-primary" >Simpan</button> --}}
-                                                                {{-- @endif --}}
-                                                            </div>
-                                                                @if(auth()->user()->kategori_pengguna == 'BPE')
-                                                                <form action="{{ route('update_status_form4D_ipjpsm',$id) }}" method="post">
-                                                                @else
-                                                                <form action="{{ route('update_status_form4D',$id) }}" method="post">
+                                                                @if(auth()->user()->kategori_pengguna == 'PHD')
+                                                                <button type="button" class="btn btn-warning mr-2" data-toggle="modal" data-target="#modal-tidak-lengkap">
+                                                                    TIDAK LENGKAP
+                                                                </button>
                                                                 @endif
-                                                                    @csrf
-                                                                <div class="modal fade" id="confirmation_borang_a"
-                                                                tabindex="-1" role="dialog"
-                                                                aria-labelledby="confirmation_borang_aTitle"
-                                                                aria-hidden="true">
-                                                                <div class="modal-dialog modal-dialog-centered"
-                                                                    role="document">
-                                                                    <div class="modal-content">
-                                                                        <div class="modal-header bg-info">
-                                                                            <h5 class="modal-title "
-                                                                                id="exampleModalLongTitle"><i style="color:rgb(255, 255, 0)"
-                                                                                    class="fas fa-exclamation-triangle"></i>&nbspPENGESAHAN
-                                                                            </h5>
-                                                                            <button type="button" class="close"
-                                                                                data-dismiss="modal" aria-label="Close">
-                                                                                <span aria-hidden="true">&times;</span>
-                                                                            </button>
-                                                                        </div>
-                                                                        <div class="modal-body">
-                                                                            <span class="text-center"><b>Adakah anda pasti ingin mengesahkan borang ini?</b></span>
-                                                                        </div>
-                                                                        <div class="modal-footer">
-                                                                            <button type="button" class="btn btn-danger"
-                                                                                data-dismiss="modal">Batal</button>
-                                                                        @if(auth()->user()->kategori_pengguna == 'BPE')
-                                                                        <input type="hidden" value="Lulus" name="status">
-                                                                        @else
-                                                                        <input type="hidden" value="Dihantar ke IPJPSM" name="status">
-                                                                        @endif
+                                                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#confirmation_borang_a">
+                                                                    SIMPAN
+                                                                </button>
+                                                            </div>
 
-                                                                            <button type="submit"
-                                                                                class="btn btn-success">SIMPAN</button>
+                                                            {{-- SIMPAN / SAHKAN modal --}}
+                                                            @if(auth()->user()->kategori_pengguna == 'BPE')
+                                                            <form action="{{ route('update_status_form4D_ipjpsm',$id) }}" method="post">
+                                                            @else
+                                                            <form action="{{ route('update_status_form4D',$id) }}" method="post">
+                                                            @endif
+                                                                @csrf
+                                                                <div class="modal fade" id="confirmation_borang_a" tabindex="-1" role="dialog" aria-hidden="true">
+                                                                    <div class="modal-dialog modal-dialog-centered" role="document">
+                                                                        <div class="modal-content">
+                                                                            <div class="modal-header bg-info">
+                                                                                <h5 class="modal-title"><i style="color:rgb(255,255,0)" class="fas fa-exclamation-triangle"></i>&nbsp;PENGESAHAN</h5>
+                                                                                <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+                                                                            </div>
+                                                                            <div class="modal-body">
+                                                                                <p class="text-center"><b>Adakah anda pasti ingin mengesahkan borang ini?</b></p>
+                                                                                <div class="form-group mt-2">
+                                                                                    <label>Ulasan (jika ada):</label>
+                                                                                    <textarea name="ulasan_phd" class="form-control" rows="3"></textarea>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="modal-footer">
+                                                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                                                                                @if(auth()->user()->kategori_pengguna == 'BPE')
+                                                                                <input type="hidden" value="Lulus" name="status">
+                                                                                @else
+                                                                                <input type="hidden" value="Dihantar ke IPJPSM" name="status">
+                                                                                @endif
+                                                                                <button type="submit" class="btn btn-success">SAHKAN</button>
+                                                                            </div>
                                                                         </div>
                                                                     </div>
                                                                 </div>
-                                                            </div>
-                                                        </form>
+                                                            </form>
+
+                                                            {{-- TIDAK LENGKAP modal (PHD only) --}}
+                                                            @if(auth()->user()->kategori_pengguna == 'PHD')
+                                                            <form action="{{ route('update_status_form4D',$id) }}" method="post">
+                                                                @csrf
+                                                                <input type="hidden" name="status" value="Tidak Lengkap">
+                                                                <div class="modal fade" id="modal-tidak-lengkap" tabindex="-1" role="dialog" aria-hidden="true">
+                                                                    <div class="modal-dialog modal-dialog-centered" role="document">
+                                                                        <div class="modal-content">
+                                                                            <div class="modal-header bg-warning">
+                                                                                <h5 class="modal-title"><i class="fas fa-exclamation-triangle"></i>&nbsp;HANTAR SEMULA KE IBK</h5>
+                                                                                <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+                                                                            </div>
+                                                                            <div class="modal-body">
+                                                                                <p><b>Borang akan dihantar semula kepada IBK untuk diperbetulkan.</b></p>
+                                                                                <div class="form-group">
+                                                                                    <label>Sebab / Ulasan: <span class="text-danger">*</span></label>
+                                                                                    <textarea name="ulasan_phd" class="form-control" rows="3" required placeholder="Nyatakan sebab borang tidak lengkap..."></textarea>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="modal-footer">
+                                                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                                                                                <button type="submit" class="btn btn-warning">HANTAR SEMULA</button>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </form>
+                                                            @endif
 
 
 

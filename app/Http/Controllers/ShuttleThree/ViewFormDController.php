@@ -278,6 +278,7 @@ class ViewFormDController extends Controller
         $returnArr = [
             'breadcrumbs' => $breadcrumbs,
             'kembali'     => $kembali,
+            'layout'      => 'layouts.layout-phd-nicepage',
         ];
 
         if ($form_a_checker == 0) {

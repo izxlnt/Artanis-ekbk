@@ -211,7 +211,7 @@
                                                                                 </td>
                                                                                 <td style="text-align:center;">
                                                                                     <input readonly style="text-align:right" type="text" size="10"
-                                                                                        wire:model='pengeluaran_kayu.{{ $key }}' value={{ number_format($form_5d[$key]->pengeluaran_kayu,2) }}>
+                                                                                        value="{{ number_format($form_5d[$key]->pengeluaran_kayu ?? 0, 2) }}">
                                                                                 </td>
                                                                             </tr>
                                                                         @endforeach
@@ -222,7 +222,7 @@
                                                                             <td
                                                                                 style="text-align:center;background-color: #7ee48c6b;">
                                                                                 <input readonly style="text-align:right" type="text" size="10"
-                                                                                    wire:model='total_jumlah_pengeluaran' value= {{ number_format($form5d->total_jumlah_pengeluaran ?? 0,2) }}>
+                                                                                    value="{{ number_format($form_5d->sum('pengeluaran_kayu'), 2) }}">
                                                                             </td>
                                                                         </tr>
                                                                     </table>

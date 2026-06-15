@@ -670,4 +670,11 @@
         fdS('fd_jumlah_venier',venier);
         fdS('fd_jumlah_besar',jumlah_besar);
     }
+
+    document.addEventListener('livewire:load', function() {
+        fdCalcAll();
+        Livewire.hook('message.processed', function() {
+            fdCalcAll();
+        });
+    });
 </script>

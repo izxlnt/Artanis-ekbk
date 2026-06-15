@@ -199,6 +199,17 @@ class FormC extends Component
             // dd('test');
         }
 
+        for ($i = 0; $i < $this->species_count; $i++) {
+            $this->baki_stok_kehadapan[$i] = (float)($this->jumlah_stok_kayu_balak[$i] ?? 0) - (float)($this->proses_masuk[$i] ?? 0);
+        }
+
+        $this->jumlah_besar_baki_stok_bulan_lepas              = array_sum(array_map('floatval', $this->baki_stok ?? []));
+        $this->jumlah_besar_kemasukan_kayu_ke_kilang           = array_sum(array_map('floatval', $this->kayu_masuk ?? []));
+        $this->jumlah_besar_stok_kayu_balak                    = array_sum(array_map('floatval', $this->jumlah_stok_kayu_balak ?? []));
+        $this->jumlah_besar_kayu_ke_dalam_jentera              = array_sum(array_map('floatval', $this->proses_masuk ?? []));
+        $this->jumlah_besar_pengeluaran_kayu_daripada_jentera  = array_sum(array_map('floatval', $this->proses_keluar ?? []));
+        $this->jumlah_besar_baki_stok_bulan_depan              = array_sum(array_map('floatval', $this->baki_stok_kehadapan ?? []));
+
         $id = auth()->user();
         $kilang_info = Shuttle::where('id', $id->shuttle_id)->first();
 

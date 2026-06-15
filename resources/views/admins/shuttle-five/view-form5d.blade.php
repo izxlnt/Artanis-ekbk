@@ -225,12 +225,12 @@
                                                                 {{-- <button type="submit" class="btn btn-primary" >Simpan</button> --}}
                                                                 {{-- <button type="button" class="btn btn-primary">Kembali</button> --}}
 
-                                                                {{-- @if($form5d->tiada_pengeluaran == 0)
+                                                                @if($form5d->tiada_pengeluaran == 0)
                                                                 <button type="button" class="btn btn-primary" alt="default"
                                                                     data-toggle="modal" data-target="#responsive-modal-tidaklengkap"
                                                                     class="model_img img-fluid">
                                                                     TIDAK LENGKAP</button>
-                                                                @endif --}}
+                                                                @endif
 
                                                                 {{-- @if ($errors->isEmpty()) --}}
                                                                     <button type="button" class="btn btn-primary" alt="default"

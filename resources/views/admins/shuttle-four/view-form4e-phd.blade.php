@@ -261,8 +261,7 @@
                                                                                         <input readonly
                                                                                             style="background-color: #9ac4f7;text-align:right"
                                                                                             type="text" size="15"
-                                                                                            wire:model='total_jumlah_jualan'
-                                                                                            onkeypress="return isNumberKey(event)" value="{{ number_format($form4_e[0]->total_jumlah_jualan ?? 0,2) }}">
+                                                                                            onkeypress="return isNumberKey(event)" value="{{ number_format($form4_e->sum('jumlah_jualan'), 2) }}">
                                                                                         </td>
                                                                                 </tr>
                                                                             </table>
@@ -270,7 +269,66 @@
 
                                                                         </div>
                                                                 </div>
-                                                            </div>  
+                                                            </div>
+
+                                                            <hr>
+                                                            <div class="text-center form-group m-b-0">
+                                                                <button type="button" class="btn btn-primary" alt="default"
+                                                                    data-toggle="modal" data-target="#responsive-modal-tidaklengkap"
+                                                                    class="model_img img-fluid">
+                                                                    TIDAK LENGKAP</button>
+
+                                                                <button type="button" class="btn btn-primary" alt="default"
+                                                                    data-toggle="modal" data-target="#confirmation_borang_4e_phd"
+                                                                    class="model_img img-fluid">
+                                                                    SIMPAN</button>
+                                                            </div>
+
+                                                            <form action="{{ route('update_status_form4E',$id) }}" method="post">
+                                                                @csrf
+                                                                <div class="modal fade" id="confirmation_borang_4e_phd" tabindex="-1" role="dialog" aria-hidden="true">
+                                                                    <div class="modal-dialog modal-dialog-centered" role="document">
+                                                                        <div class="modal-content">
+                                                                            <div class="modal-header bg-info">
+                                                                                <h5 class="modal-title"><i style="color:rgb(255, 255, 0)" class="fas fa-exclamation-triangle"></i>&nbsp;PENGESAHAN</h5>
+                                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                                                            </div>
+                                                                            <div class="modal-body">
+                                                                                <span class="text-center"><b>Adakah anda pasti ingin mengesahkan borang ini?</b></span>
+                                                                            </div>
+                                                                            <div class="modal-footer">
+                                                                                <button type="button" class="btn btn-danger" data-dismiss="modal">Batal</button>
+                                                                                <input type="hidden" value="Dihantar ke IPJPSM" name="status">
+                                                                                <button type="submit" class="btn btn-success">SIMPAN</button>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </form>
+
+                                                            <div id="responsive-modal-tidaklengkap" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
+                                                                <div class="modal-dialog modal-dialog-centered">
+                                                                    <div class="modal-content">
+                                                                        <div class="modal-header" style="justify-content:center;background-color:#f3ce8f">
+                                                                            <h4><b>ULASAN PEGAWAI HUTAN DAERAH</b></h4>
+                                                                        </div>
+                                                                        <form action="{{ route('update_status_form4E',$id) }}" method="post">
+                                                                            @csrf
+                                                                            <div class="modal-body" style="text-align: center">
+                                                                                <input type="hidden" value="Tidak Lengkap" name="status">
+                                                                                <textarea name="ulasan_phd" cols="50" rows="10"></textarea><br>
+                                                                                <h6 style="text-align: center"><i><b>*Pegawai Hutan yang tidak rendah daripada Penolong Pegawai/Penolong Pegawai Hutan Daerah/Penolong Pegawai Hutan Jajahan</b></i></h6>
+                                                                                <br>
+                                                                            </div>
+                                                                            <div class="modal-footer">
+                                                                                <button type="button" data-dismiss="modal" class="btn btn-danger waves-effect waves-light">Batal</button>
+                                                                                <button type="submit" class="btn btn-success waves-effect waves-light">SIMPAN</button>
+                                                                            </div>
+                                                                        </form>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
                                         </div>
                                     </div>
                                 </div>

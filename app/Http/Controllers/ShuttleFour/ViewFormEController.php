@@ -61,9 +61,12 @@ class ViewFormEController extends Controller
 
         $kembali = route('phd.shuttle-4-listE', date('Y'));
 
+        $layout = auth()->user()->kategori_pengguna == 'PHD' ? 'layouts.layout-phd-nicepage' : (auth()->user()->kategori_pengguna == 'BPM' ? 'layouts.layout-bpm-nicepage' : (auth()->user()->kategori_pengguna == 'BPE' ? 'layouts.layout-ipjpsm-nicepage' : ''));
+
         $returnArr = [
             'breadcrumbs' => $breadcrumbs,
             'kembali'     => $kembali,
+            'layout'      => $layout,
         ];
 
         if ($form_a_checker == 0) {
@@ -124,9 +127,12 @@ class ViewFormEController extends Controller
 
         $kembali = route('phd.shuttle-4-listE', date('Y'));
 
+        $layout = auth()->user()->kategori_pengguna == 'PHD' ? 'layouts.layout-phd-nicepage' : (auth()->user()->kategori_pengguna == 'BPM' ? 'layouts.layout-bpm-nicepage' : (auth()->user()->kategori_pengguna == 'BPE' ? 'layouts.layout-ipjpsm-nicepage' : ''));
+
         $returnArr = [
             'breadcrumbs' => $breadcrumbs,
             'kembali'     => $kembali,
+            'layout'      => $layout,
         ];
 
         // if ($form_a_checker == 0) {

@@ -112,37 +112,83 @@ class FormD extends Component
 
     public function mount()
     {
-
         $this->formc = ModelsFormC::where('shuttle_id', auth()->user()->shuttle_id)->where('bulan', $this->bulan_id)->whereYear('created_at', date("Y"))->first();
 
-        // dd($formc);
         $this->kemasukan_bahan_calc_lain_lain = KemasukanBahan::where('shuttle_id', auth()->user()->shuttle_id)->where('formcs_id', $this->formc->id)->latest('updated_at')->first();
-
 
         $recovery_rate = RecoveryRate::where('shuttle_type', '4')->first();
 
         $this->min_recovery_rate = (float)$recovery_rate->min_recovery_rate * (float)$this->kemasukan_bahan_calc_lain_lain->jumlah_besar_kayu_ke_dalam_jentera ?? 0;
         $this->max_recovery_rate = (float)$recovery_rate->max_recovery_rate * (float)$this->kemasukan_bahan_calc_lain_lain->jumlah_besar_kayu_ke_dalam_jentera ?? 0;
 
-        $this->produk_isipadumr_a[0] = 0;
-        $this->produk_isipaduwbp_a[0] = 0;
-        $this->jumlah_kecil_1_mr = 0;
+        // Load any previously saved data so IBK can edit when form is returned (Tidak Lengkap)
+        $formd = Form4D::where('shuttle_id', auth()->user()->shuttle_id)
+            ->where('bulan', $this->bulan_id)
+            ->whereYear('created_at', date("Y"))
+            ->first();
+
+        $loadedNipis = $formd
+            ? ProdukPengeluaran::where('form4ds_id', $formd->id)
+                ->where('produk_ketebalan', '<', 12)
+                ->where(function ($q) {
+                    $q->where('produk_ketebalan', '>', 0)
+                      ->orWhere('produk_isipadumr', '>', 0)
+                      ->orWhere('produk_isipaduwbp', '>', 0);
+                })
+                ->orderBy('id')
+                ->get()
+            : collect();
+
+        $loadedTebal = $formd
+            ? ProdukPengeluaran::where('form4ds_id', $formd->id)
+                ->where('produk_ketebalan', '>=', 12)
+                ->orderBy('id')
+                ->get()
+            : collect();
+
+        // Nipis (A) section
+        if ($loadedNipis->isNotEmpty()) {
+            foreach ($loadedNipis as $idx => $row) {
+                $this->produk_ketebalan_a[$idx] = $row->produk_ketebalan;
+                $this->produk_isipadumr_a[$idx]  = $row->produk_isipadumr;
+                $this->produk_isipaduwbp_a[$idx] = $row->produk_isipaduwbp;
+                if ($idx > 0) {
+                    array_push($this->inputs, $idx);
+                    $this->i = $idx;
+                }
+            }
+        } else {
+            $this->produk_isipadumr_a[0]  = 0;
+            $this->produk_isipaduwbp_a[0] = 0;
+        }
+
+        // Tebal (B) section
+        if ($loadedTebal->isNotEmpty()) {
+            foreach ($loadedTebal as $idx => $row) {
+                $this->produk_ketebalan_b[$idx] = $row->produk_ketebalan;
+                $this->produk_isipadumr_b[$idx]  = $row->produk_isipadumr;
+                $this->produk_isipaduwbp_b[$idx] = $row->produk_isipaduwbp;
+                if ($idx > 0) {
+                    array_push($this->inputs2, $idx);
+                    $this->j = $idx;
+                }
+            }
+        } else {
+            $this->produk_isipadumr_b[0]  = 0;
+            $this->produk_isipaduwbp_b[0] = 0;
+        }
+
+        // Venir values
+        $this->rekod_veniermuka  = $formd ? ($formd->rekod_veniermuka ?? 0)  : 0;
+        $this->rekod_venierteras = $formd ? ($formd->rekod_venierteras ?? 0) : 0;
+
+        $this->jumlah_kecil_1_mr  = 0;
         $this->jumlah_kecil_1_wbp = 0;
-
-        $this->produk_isipadumr_b[0] = 0;
-        $this->produk_isipaduwbp_b[0] = 0;
-        $this->jumlah_kecil_2_mr = 0;
+        $this->jumlah_kecil_2_mr  = 0;
         $this->jumlah_kecil_2_wbp = 0;
-        $this->jumlah_kecil_2_wbp = 0;
-
-        $this->jumlah_besar_mr = 0;
-        $this->jumlah_besar_wbp = 0;
-
-        $this->rekod_veniermuka = 0;
-        $this->rekod_venierteras = 0;
+        $this->jumlah_besar_mr    = 0;
+        $this->jumlah_besar_wbp   = 0;
         $this->jumlah_pengeluaran = 0;
-
-        // dd($this->kemasukan_bahan_calc_lain_lain->jumlah_besar_kayu_ke_dalam_jentera);
     }
 
     public function addNipis($i)
@@ -336,7 +382,7 @@ class FormD extends Component
             foreach ($this->produk_isipadumr_a as $key => $value) {
                 $this->validate([
                     'produk_isipadumr_a.0' => 'required',
-                    'produk_ketebalan_a.' . $key => 'numeric|nullable|max:11',
+                    'produk_ketebalan_a.' . $key => 'numeric|nullable|lt:12',
                     'produk_isipadumr_a.' . $key => 'numeric',
                     'produk_isipaduwbp_a.' . $key => 'numeric',
                     'produk_ketebalan_b.' . $key => 'numeric|nullable|min:12',
@@ -349,7 +395,7 @@ class FormD extends Component
             foreach ($this->produk_isipadumr_a as $key => $value) {
                 $this->validate([
                     'produk_isipadumr_a.0' => 'required',
-                    'produk_ketebalan_a.' . $key => 'numeric|nullable|required_if:produk_isipadumr_a.' . $key . ',!=, 0|max:11',
+                    'produk_ketebalan_a.' . $key => 'numeric|nullable|required_if:produk_isipadumr_a.' . $key . ',!=, 0|lt:12',
                     'produk_isipadumr_a.' . $key => 'numeric',
                     'produk_isipaduwbp_a.' . $key => 'numeric',
                     'produk_ketebalan_b.' . $key => 'numeric|nullable|required_if:produk_isipadumr_b.' . $key . ',!=, 0|min:12',
@@ -359,8 +405,11 @@ class FormD extends Component
             }
         }
 
-
-
+        $this->CalcJumlah_kecil_1_mr();
+        $this->CalcJumlah_kecil_2_mr();
+        $this->CalcJumlah_kecil_1_wbp();
+        $this->CalcJumlah_kecil_2_wbp();
+        $this->CalcJumlah_Venier();
 
         $total = (float)$this->jumlah_besar_mr + (float)$this->jumlah_besar_wbp + (float)$this->jumlah_pengeluaran;
         if($total > $max_recovery_rate){
@@ -507,9 +556,8 @@ class FormD extends Component
 
         //notification hantar borang IBK to PHD
         $pengguna_kilang = auth()->user();
-        $daerah_id = $pengguna_kilang->shuttle()->first('daerah_id');
 
-        $pegawais = User::where('daerah', $daerah_id->daerah_id)->where('kategori_pengguna', 'PHD')->get();
+        $pegawais = User::where('daerah', $pengguna_kilang->daerah)->where('kategori_pengguna', 'PHD')->get();
 
         $delay = now()->addMinutes(1);
 
