@@ -128,6 +128,30 @@ class FormB extends Component
                 $this->total_gaji_perempuan[$key] = $row->total_gaji_perempuan;
                 $this->total_gaji[$key] = $row->total_gaji;
             }
+
+            foreach ($kategori_pekerja as $key => $value) {
+                $this->total_bumi_lelaki += (int)($this->pekerja_wargabumi_lelaki[$key] ?? 0);
+                $this->total_bumi_perempuan += (int)($this->pekerja_wargabumi_perempuan[$key] ?? 0);
+                $this->total_bukanbumi_lelaki += (int)($this->pekerja_bukan_wargabumi_lelaki[$key] ?? 0);
+                $this->total_bukanbumi_perempuan += (int)($this->pekerja_bukan_wargabumi_perempuan[$key] ?? 0);
+                $this->total_asing_lelaki += (int)($this->pekerja_asing_lelaki[$key] ?? 0);
+                $this->total_asing_perempuan += (int)($this->pekerja_asing_perempuan[$key] ?? 0);
+                $this->total_pekerja_lelaki += (int)($this->jumlah_lelaki[$key] ?? 0);
+                $this->total_pekerja_perempuan += (int)($this->jumlah_perempuan[$key] ?? 0);
+                $this->total_pekerja += (int)($this->jumlah_pekerja[$key] ?? 0);
+                $this->jumlah_gaji_lelaki += (float)($this->gaji_lelaki[$key] ?? 0);
+                $this->jumlah_gaji_perempuan += (float)($this->gaji_perempuan[$key] ?? 0);
+                $this->jumlah_lelaki_perempuan += (float)($this->gaji_lelaki_perempuan[$key] ?? 0);
+                $this->jumlah_total_lelaki += (float)($this->total_gaji_lelaki[$key] ?? 0);
+                $this->jumlah_total_perempuan += (float)($this->total_gaji_perempuan[$key] ?? 0);
+                $this->jumlah_total_gaji += (float)($this->total_gaji[$key] ?? 0);
+            }
+            $this->jumlah_gaji_lelaki = round($this->jumlah_gaji_lelaki, 2);
+            $this->jumlah_gaji_perempuan = round($this->jumlah_gaji_perempuan, 2);
+            $this->jumlah_lelaki_perempuan = round($this->jumlah_lelaki_perempuan, 2);
+            $this->jumlah_total_lelaki = round($this->jumlah_total_lelaki, 2);
+            $this->jumlah_total_perempuan = round($this->jumlah_total_perempuan, 2);
+            $this->jumlah_total_gaji = round($this->jumlah_total_gaji, 2);
         }
     }
 
@@ -438,6 +462,42 @@ class FormB extends Component
         }
         if (!empty($rules)) {
             $this->validate($rules);
+        }
+
+        // Recalculate derived salary fields and grand totals before saving
+        $this->total_bumi_lelaki = $this->total_bumi_perempuan = 0;
+        $this->total_bukanbumi_lelaki = $this->total_bukanbumi_perempuan = 0;
+        $this->total_asing_lelaki = $this->total_asing_perempuan = 0;
+        $this->total_pekerja_lelaki = $this->total_pekerja_perempuan = $this->total_pekerja = 0;
+        $this->jumlah_gaji_lelaki = $this->jumlah_gaji_perempuan = $this->jumlah_lelaki_perempuan = 0;
+        $this->jumlah_total_lelaki = $this->jumlah_total_perempuan = $this->jumlah_total_gaji = 0;
+
+        foreach ($kategori as $key => $value) {
+            $jl = $this->jumlah_lelaki[$key] ?? 0;
+            $jp = $this->jumlah_perempuan[$key] ?? 0;
+            $gl = (float)($this->gaji_lelaki[$key] ?? 0);
+            $gp = (float)($this->gaji_perempuan[$key] ?? 0);
+
+            $this->gaji_lelaki_perempuan[$key] = round($gl + $gp, 2);
+            $this->total_gaji_lelaki[$key] = round($jl * $gl, 2);
+            $this->total_gaji_perempuan[$key] = round($jp * $gp, 2);
+            $this->total_gaji[$key] = round($this->total_gaji_lelaki[$key] + $this->total_gaji_perempuan[$key], 2);
+
+            $this->total_bumi_lelaki += (int)($this->pekerja_wargabumi_lelaki[$key] ?? 0);
+            $this->total_bumi_perempuan += (int)($this->pekerja_wargabumi_perempuan[$key] ?? 0);
+            $this->total_bukanbumi_lelaki += (int)($this->pekerja_bukan_wargabumi_lelaki[$key] ?? 0);
+            $this->total_bukanbumi_perempuan += (int)($this->pekerja_bukan_wargabumi_perempuan[$key] ?? 0);
+            $this->total_asing_lelaki += (int)($this->pekerja_asing_lelaki[$key] ?? 0);
+            $this->total_asing_perempuan += (int)($this->pekerja_asing_perempuan[$key] ?? 0);
+            $this->total_pekerja_lelaki += $jl;
+            $this->total_pekerja_perempuan += $jp;
+            $this->total_pekerja += $this->jumlah_pekerja[$key] ?? 0;
+            $this->jumlah_gaji_lelaki += $gl;
+            $this->jumlah_gaji_perempuan += $gp;
+            $this->jumlah_lelaki_perempuan += $this->gaji_lelaki_perempuan[$key];
+            $this->jumlah_total_lelaki += $this->total_gaji_lelaki[$key];
+            $this->jumlah_total_perempuan += $this->total_gaji_perempuan[$key];
+            $this->jumlah_total_gaji += $this->total_gaji[$key];
         }
         // $this->validate([
         //     'gaji_lelaki.0' => 'min:'.$this->min_gaji.'|max:'.$this->max_gaji.'|required',

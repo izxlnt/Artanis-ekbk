@@ -204,6 +204,65 @@ class FormC extends Component
         return redirect()->route('home-user');
     }
 
+    public function tiadaPengeluaran()
+    {
+        $id = auth()->user();
+        $kilang_info = Shuttle::where('id', $id->shuttle_id)->first();
+        $species = Spesis::orderBy('kumpulan_kayu_id')->orderBy('id')->get();
+
+        $formcs = ModelsFormC::updateOrCreate(
+            [
+                'shuttle_id' => $kilang_info->id,
+                'bulan'      => $this->month,
+                'tahun'      => $this->year,
+            ],
+            [
+                'shuttle_type' => $kilang_info->shuttle_type,
+                'status'       => 'Tiada Pengeluaran',
+                'nama_kilang'  => $kilang_info->nama_kilang,
+                'no_ssm'       => $kilang_info->no_ssm,
+                'no_lesen'     => $kilang_info->no_lesen,
+            ]
+        );
+
+        KemasukanBahan::where('formcs_id', $formcs->id)->delete();
+
+        foreach ($species as $keySpecies => $data) {
+            KemasukanBahan::create([
+                'spesis_id'              => $data->id,
+                'baki_stok'              => 0,
+                'kayu_masuk'             => 0,
+                'jumlah_stok_kayu_balak' => 0,
+                'proses_masuk'           => 0,
+                'proses_keluar'          => 0,
+                'baki_stok_kehadapan'    => 0,
+
+                'jumlah_baki_stok'                => 0,
+                'jumlah_kayu_masuk'               => 0,
+                'total_stok_kayu_balak'           => 0,
+                'total_kayu_masuk_jentera'        => 0,
+                'total_kayu_keluar_jentera'       => 0,
+                'total_kayu_dibawa_bulan_hadapan' => 0,
+
+                'jumlah_besar_baki_stok_bulan_lepas'             => 0,
+                'jumlah_besar_kemasukan_kayu_ke_kilang'          => 0,
+                'jumlah_besar_stok_kayu_balak'                   => 0,
+                'jumlah_besar_kayu_ke_dalam_jentera'             => 0,
+                'jumlah_besar_pengeluaran_kayu_daripada_jentera' => 0,
+                'jumlah_besar_baki_stok_bulan_depan'             => 0,
+
+                'shuttle_id'              => $kilang_info->id,
+                'kategori_guna_tenaga_id' => $data->id,
+                'bulan'                   => $this->month,
+                'tahun'                   => $this->year,
+                'formcs_id'               => $formcs->id,
+            ]);
+        }
+
+        Session::flash('success', 'Maklumat berjaya dimasukkan. Sila tunggu untuk pengesahan PHD.');
+        return redirect()->route('home-user');
+    }
+
     //jumlah total baki stok (02)
     public function calcJumlahBakiStok($keySpecies, $keyKumpulanKayu, $singkatan)
 

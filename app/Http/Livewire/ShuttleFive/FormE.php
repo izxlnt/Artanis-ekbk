@@ -78,6 +78,16 @@ class FormE extends Component
             $this->jumlah_jualan_pasaran_tempatan = 0.00;
             $this->jumlah_jualan_eksport = 0.00;
 
+            $forme = Form5E::where('shuttle_id', auth()->user()->shuttle_id)
+                ->where('bulan', $this->bulan_id)
+                ->whereYear('created_at', date("Y"))
+                ->where('status', 'Tidak Lengkap')
+                ->first();
+
+            if ($forme) {
+                $this->jumlah_jualan_pasaran_tempatan = $forme->jumlah_jualan_pasaran_tempatan;
+                $this->jumlah_jualan_eksport = $forme->jumlah_jualan_eksport;
+            }
     }
 
     public function updated($name, $value)

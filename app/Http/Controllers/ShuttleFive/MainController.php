@@ -335,17 +335,51 @@ class MainController extends Controller
     public function shuttle_5_formC($id, $year = null)
     {
         $year = $year ?? date("Y");
-
-        $form_a_checker = FormA::where('tahun', $year)
-        ->where('shuttle_id', auth()->user()->shuttle->id)
-        ->where('status', '!=', 'Tidak Diisi')
-        ->count();
-
-        if($form_a_checker == 0){
-            return redirect()->back()->with('error', 'Sila isi Borang A terlebih dahulu.');
-        }
-        return view('admins.shuttle-five.shuttle-5-formC',compact('id', 'year'));
+        return redirect()->route('user.shuttle-5-formC.KKB', ['id' => $id, 'year' => $year]);
     }
+
+    public function shuttle_5_formCKKB($id, $year = null)
+    {
+        $year = $year ?? date("Y");
+
+        if (auth()->user()->kategori_pengguna == "IBK") {
+            $form_a_checker = FormA::where('tahun', $year)
+                ->where('shuttle_id', auth()->user()->shuttle->id)
+                ->where('status', '!=', 'Tidak Diisi')
+                ->count();
+
+            if ($form_a_checker == 0) {
+                return redirect()->back()->with('error', 'Sila isi Borang A terlebih dahulu.');
+            }
+        }
+
+        return redirect()->route('user.view.shuttle-5-formC.KKB', ['bulan' => $id, 'year' => $year]);
+    }
+
+    public function shuttle_5_formCKKS($id, $year = null)
+    {
+        $year = $year ?? date("Y");
+        return redirect()->route('user.view.shuttle-5-formC.KKS', ['bulan' => $id, 'year' => $year]);
+    }
+
+    public function shuttle_5_formCKKR($id, $year = null)
+    {
+        $year = $year ?? date("Y");
+        return redirect()->route('user.view.shuttle-5-formC.KKR', ['bulan' => $id, 'year' => $year]);
+    }
+
+    public function shuttle_5_formCKayuLembut($id, $year = null)
+    {
+        $year = $year ?? date("Y");
+        return redirect()->route('user.view.shuttle-5-formC.KayuLembut', ['bulan' => $id, 'year' => $year]);
+    }
+
+    public function shuttle_5_formCLainLain($id, $year = null)
+    {
+        $year = $year ?? date("Y");
+        return redirect()->route('user.view.shuttle-5-formC.LainLain', ['bulan' => $id, 'year' => $year]);
+    }
+
     public function shuttle_5_formD($id)
     {
         $shuttle_id = auth()->user()->shuttle_id;

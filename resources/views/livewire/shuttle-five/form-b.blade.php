@@ -509,6 +509,14 @@
         fbS('fb_tot_glp',tglp); fbS('fb_tot_tgl',ttgl);
         fbS('fb_tot_tgp',ttgp); fbS('fb_tot_tg',ttg);
     }
+
+    document.addEventListener('livewire:load', function () {
+        var keys = [];
+        document.querySelectorAll('[id^="fb_wl_"]').forEach(function (el) {
+            keys.push(el.id.replace('fb_wl_', ''));
+        });
+        keys.forEach(function (k) { fbCalcRow(k); });
+    });
 </script>
 
 <!-- ============================================================== -->

@@ -117,7 +117,7 @@
                                                                                 <input type="text"
                                                                                     class="form-control"
                                                                                     style="background-color: #7ee48c6b; border-color: #6df173"
-                                                                                    value="{{ number_format($kemasukan_bahan_calc_lain_lain->jumlah_besar_pengeluaran_kayu_daripada_jentera ?? 0, 2) ?? 0 }}"
+                                                                                    value="{{ number_format($kemasukan_bahan_calc_lain_lain ?? 0, 2) }}"
                                                                                     readonly />
                                                                             </div>
                                                                             <div class="col-md-2">
@@ -247,7 +247,8 @@
                                                                                         style="background-color: #7ee48c6b;"
                                                                                         class="text-right"
                                                                                         type="text" size="50"
-                                                                                        id="fsum_tot_keluar">
+                                                                                        id="fsum_tot_keluar"
+                                                                                        value="{{ number_format($total_jumlah_pengeluaran ?? 0, 2) }}">
                                                                                 </td>
                                                                             </tr>
                                                                         </table>
@@ -258,7 +259,7 @@
                                                                             <div class="col-md-6"
                                                                                 style="border:1px solid;text-align:center">
                                                                                 <b style="color:red">Jumlah Pengeluaran Kayu Kumai Mestilah Sama Dengan Jumlah Pengeluaran Di Borang 5C
-                                                                                    ({{ number_format($kemasukan_bahan_calc_lain_lain->jumlah_besar_pengeluaran_kayu_daripada_jentera ?? 0, 2) }})
+                                                                                    ({{ number_format($kemasukan_bahan_calc_lain_lain ?? 0, 2) }})
                                                                                 </b>
                                                                             </div>
                                                                         </div>
@@ -528,4 +529,5 @@
         var t=0; document.querySelectorAll('.fsum_keluar').forEach(function(e){t+=parseFloat(e.value)||0;});
         var el=document.getElementById('fsum_tot_keluar'); if(el) el.value=Math.round(t*10000)/10000||0;
     }
+    document.addEventListener('livewire:load', fsumKeluar);
 </script>

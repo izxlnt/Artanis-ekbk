@@ -202,6 +202,23 @@
                                                                     <th style="text-align:center;">(16)=(14)+(15)</th>
                                                                 </tr>
 
+                                                                @php
+                                                                    $jml_bumi_lelaki         = $form_b->sum('pekerja_wargabumi_lelaki');
+                                                                    $jml_bumi_perempuan      = $form_b->sum('pekerja_wargabumi_perempuan');
+                                                                    $jml_bukanbumi_lelaki    = $form_b->sum('pekerja_bukan_wargabumi_lelaki');
+                                                                    $jml_bukanbumi_perempuan = $form_b->sum('pekerja_bukan_wargabumi_perempuan');
+                                                                    $jml_asing_lelaki        = $form_b->sum('pekerja_asing_lelaki');
+                                                                    $jml_asing_perempuan     = $form_b->sum('pekerja_asing_perempuan');
+                                                                    $jml_pekerja_lelaki      = $form_b->sum('jumlah_lelaki');
+                                                                    $jml_pekerja_perempuan   = $form_b->sum('jumlah_perempuan');
+                                                                    $jml_pekerja             = $form_b->sum('jumlah_pekerja');
+                                                                    $jml_gaji_lelaki         = $form_b->sum('gaji_lelaki');
+                                                                    $jml_gaji_perempuan      = $form_b->sum('gaji_perempuan');
+                                                                    $jml_gaji_lp             = $form_b->sum(fn($r) => $r->gaji_lelaki + $r->gaji_perempuan);
+                                                                    $jml_total_lelaki        = $form_b->sum(fn($r) => $r->jumlah_lelaki * $r->gaji_lelaki);
+                                                                    $jml_total_perempuan     = $form_b->sum(fn($r) => $r->jumlah_perempuan * $r->gaji_perempuan);
+                                                                    $jml_total_gaji          = $jml_total_lelaki + $jml_total_perempuan;
+                                                                @endphp
                                                                 @forelse($form_b as $key=>$data)
                                                                     <tr style="height:50px;">
 
@@ -290,139 +307,46 @@
                                                                                 onkeypress="return isNumberKey(event)">{{ number_format($data->gaji_perempuan, 2) }}</span>
                                                                         </td>
 
-                                                                        <td
-                                                                            style="text-align:right;background-color: #f8dbee;">
-                                                                            <span type="text" size="3" value=""
-                                                                                wire:model='gaji_lelaki_perempuan.{{ $key }}'
-                                                                                wire:change="calcTotalAllBayaranGajiPerPekerjaPerempuan({{ $key }})"
-                                                                                onkeypress="return isNumberKey(event)">{{ number_format($data->gaji_lelaki_perempuan, 2) }}</span>
+                                                                        @php
+                                                                            $row_gaji_lp              = $data->gaji_lelaki + $data->gaji_perempuan;
+                                                                            $row_total_gaji_lelaki    = $data->jumlah_lelaki * $data->gaji_lelaki;
+                                                                            $row_total_gaji_perempuan = $data->jumlah_perempuan * $data->gaji_perempuan;
+                                                                            $row_total_gaji           = $row_total_gaji_lelaki + $row_total_gaji_perempuan;
+                                                                        @endphp
+                                                                        <td style="text-align:right;background-color: #f8dbee;">
+                                                                            <span>{{ number_format($row_gaji_lp, 2) }}</span>
                                                                         </td>
-
-                                                                        <td style="text-align:right;"><span type="text"
-                                                                                size="3"
-                                                                                wire:model='total_gaji_lelaki.{{ $key }}'
-                                                                                value="{{ $data->total_gaji_lelaki }}"
-                                                                                wire:change="calcJumlahGaji({{ $key }})"
-                                                                                onkeypress="return isNumberKey(event)">{{ number_format($data->total_gaji_lelaki, 2) }}</span>
+                                                                        <td style="text-align:right;">
+                                                                            <span>{{ number_format($row_total_gaji_lelaki, 2) }}</span>
                                                                         </td>
-                                                                        <td style="text-align:right;"><span type="text"
-                                                                                size="3"
-                                                                                wire:model='total_gaji_perempuan.{{ $key }}'
-                                                                                value="{{ $data->total_gaji_perempuan }}"
-                                                                                wire:change="calcJumlahGaji({{ $key }})"
-                                                                                onkeypress="return isNumberKey(event)">{{ number_format($data->total_gaji_perempuan, 2) }}</span>
+                                                                        <td style="text-align:right;">
+                                                                            <span>{{ number_format($row_total_gaji_perempuan, 2) }}</span>
                                                                         </td>
-                                                                        <td
-                                                                            style="text-align:right;background-color: #f8dbee;">
-                                                                            <span readonly type="text" size="3"
-                                                                                value="{{ $data->total_gaji }}"
-                                                                                wire:model='total_gaji.{{ $key }}'>{{ number_format($data->total_gaji, 2) }}</span>
-
-
+                                                                        <td style="text-align:right;background-color: #f8dbee;">
+                                                                            <span>{{ number_format($row_total_gaji, 2) }}</span>
                                                                         </td>
 
                                                                     </tr>
                                                                     @if ($loop->last)
                                                                         <tr style="height:50px;">
-                                                                            <td style="text-align:right;"><b>Jumlah</b>
-                                                                            </td>
-                                                                            <td style="text-align:center;"
-                                                                                style="width:20px">
-                                                                                <b>{{ $i = $i + 1 }}</b></td>
-                                                                            <td
-                                                                                style="text-align:right;background-color: #f8dbee;">
-                                                                                <span readonly type="text" size="3"
-                                                                                    value="{{ $data->total_gaji }}"
-                                                                                    wire:model='total_bumi_lelaki'><b>{{ $data->total_bumi_lelaki }}</b></span>
-                                                                            </td>
-                                                                            <td
-                                                                                style="text-align:right;background-color: #f8dbee;">
-                                                                                <span readonly type="text" size="3"
-                                                                                    value="{{ $data->total_gaji }}"
-                                                                                    wire:model='total_bumi_perempuan'><b>{{ $data->total_bumi_perempuan }}</b></span>
-                                                                            </td>
-                                                                            <td
-                                                                                style="text-align:right;background-color: #f8dbee;">
-                                                                                <span readonly type="text" size="3"
-                                                                                    value="{{ $data->total_gaji }}"
-                                                                                    wire:model='total_bukanbumi_lelaki'><b>{{ $data->total_bukanbumi_lelaki }}</b></span>
-                                                                            </td>
-                                                                            <td
-                                                                                style="text-align:right;background-color: #f8dbee;">
-                                                                                <span readonly type="text" size="3"
-                                                                                    value="{{ $data->total_gaji }}"
-                                                                                    wire:model='total_bukanbumi_perempuan'><b>{{ $data->total_bukanbumi_perempuan }}</b></span>
-                                                                            </td>
-                                                                            <td
-                                                                                style="text-align:right;background-color: #f8dbee;">
-                                                                                <span readonly type="text" size="3"
-                                                                                    value="{{ $data->total_gaji }}"
-                                                                                    wire:model='total_asing_lelaki'><b>{{ $data->total_asing_lelaki }}</b></span>
-                                                                            </td>
-                                                                            <td
-                                                                                style="text-align:right;background-color: #f8dbee;">
-                                                                                <span readonly type="text" size="3"
-                                                                                    value="{{ $data->total_gaji }}"
-                                                                                    wire:model='total_asing_perempuan'><b>{{ $data->total_asing_perempuan }}</b></span>
-                                                                            </td>
-                                                                            <td
-                                                                                style="text-align:right;background-color: #f8dbee;">
-                                                                                <span readonly type="text" size="3"
-                                                                                    value="{{ $data->total_gaji }}"
-                                                                                    wire:model='total_pekerja_lelaki'><b>{{ $data->total_pekerja_lelaki }}</b></span>
-                                                                            </td>
-                                                                            <td
-                                                                                style="text-align:right;background-color: #f8dbee;">
-                                                                                <span readonly type="text" size="3"
-                                                                                    value="{{ $data->total_gaji }}"
-                                                                                    wire:model='total_pekerja_perempuan'><b>{{ $data->total_pekerja_perempuan }}</b></span>
-                                                                            </td>
-                                                                            <td
-                                                                                style="text-align:right;background-color: #f8dbee;">
-                                                                                <span readonly type="text" size="3"
-                                                                                    value="{{ $data->total_gaji }}"
-                                                                                    wire:model='total_pekerja'><b>{{ $data->total_pekerja }}</b></span>
-                                                                            </td>
-                                                                            <td
-                                                                                style="text-align:right;background-color: #f8dbee;">
-                                                                                <span readonly type="text" size="3"
-                                                                                    value="{{ $data->total_gaji }}"
-                                                                                    wire:model='jumlah_gaji_lelaki'><b>{{ number_format($data->jumlah_gaji_lelaki, 2) }}</b></span>
-                                                                            </td>
-                                                                            <td
-                                                                                style="text-align:right;background-color: #f8dbee;">
-                                                                                <span readonly type="text" size="3"
-                                                                                    value="{{ $data->total_gaji }}"
-                                                                                    wire:model='jumlah_gaji_perempuan'><b>{{ number_format($data->jumlah_gaji_perempuan, 2) }}</b></span>
-                                                                            </td>
-
-                                                                            <td
-                                                                                style="text-align:right;background-color: #f8dbee;">
-                                                                                <span readonly type="text" size="3"
-                                                                                    value="{{ $data->total_gaji }}"
-                                                                                    wire:model='jumlah_gaji_perempuan'><b>{{ number_format($data->jumlah_lelaki_perempuan, 2) }}</b></span>
-                                                                            </td>
-
-                                                                            <td
-                                                                                style="text-align:right;background-color: #f8dbee;">
-                                                                                <span readonly type="text" size="3"
-                                                                                    value="{{ $data->total_gaji }}"
-                                                                                    wire:model='jumlah_total_lelaki'><b>{{ number_format($data->jumlah_total_lelaki, 2) }}</b></span>
-                                                                            </td>
-                                                                            <td
-                                                                                style="text-align:right;background-color: #f8dbee;">
-                                                                                <span readonly type="text" size="3"
-                                                                                    value="{{ $data->total_gaji }}"
-                                                                                    wire:model='jumlah_total_perempuan'><b>{{ number_format($data->jumlah_total_perempuan, 2) }}</b></span>
-                                                                            </td>
-                                                                            <td
-                                                                                style="text-align:right;background-color: #f8dbee;">
-                                                                                <span readonlytype="text" size="3"
-                                                                                    value="{{ $data->total_gaji }}"
-                                                                                    wire:model='jumlah_total_gaji'><b>{{ number_format($data->jumlah_total_gaji, 2) }}</b></span>
-                                                                            </td>
+                                                                            <td style="text-align:right;"><b>Jumlah</b></td>
+                                                                            <td style="text-align:center; width:20px"><b>{{ $i = $i + 1 }}</b></td>
+                                                                            <td style="text-align:right;background-color: #f8dbee;"><b>{{ $jml_bumi_lelaki }}</b></td>
+                                                                            <td style="text-align:right;background-color: #f8dbee;"><b>{{ $jml_bumi_perempuan }}</b></td>
+                                                                            <td style="text-align:right;background-color: #f8dbee;"><b>{{ $jml_bukanbumi_lelaki }}</b></td>
+                                                                            <td style="text-align:right;background-color: #f8dbee;"><b>{{ $jml_bukanbumi_perempuan }}</b></td>
+                                                                            <td style="text-align:right;background-color: #f8dbee;"><b>{{ $jml_asing_lelaki }}</b></td>
+                                                                            <td style="text-align:right;background-color: #f8dbee;"><b>{{ $jml_asing_perempuan }}</b></td>
+                                                                            <td style="text-align:right;background-color: #f8dbee;"><b>{{ $jml_pekerja_lelaki }}</b></td>
+                                                                            <td style="text-align:right;background-color: #f8dbee;"><b>{{ $jml_pekerja_perempuan }}</b></td>
+                                                                            <td style="text-align:right;background-color: #f8dbee;"><b>{{ $jml_pekerja }}</b></td>
+                                                                            <td style="text-align:right;background-color: #f8dbee;"><b>{{ number_format($jml_gaji_lelaki, 2) }}</b></td>
+                                                                            <td style="text-align:right;background-color: #f8dbee;"><b>{{ number_format($jml_gaji_perempuan, 2) }}</b></td>
+                                                                            <td style="text-align:right;background-color: #f8dbee;"><b>{{ number_format($jml_gaji_lp, 2) }}</b></td>
+                                                                            <td style="text-align:right;background-color: #f8dbee;"><b>{{ number_format($jml_total_lelaki, 2) }}</b></td>
+                                                                            <td style="text-align:right;background-color: #f8dbee;"><b>{{ number_format($jml_total_perempuan, 2) }}</b></td>
+                                                                            <td style="text-align:right;background-color: #f8dbee;"><b>{{ number_format($jml_total_gaji, 2) }}</b></td>
                                                                         </tr>
-
                                                                     @endif
                                                                 @empty
 

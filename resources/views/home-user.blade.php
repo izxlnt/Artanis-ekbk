@@ -288,13 +288,9 @@
                                         $isDue     = in_array($m, $requirements['months_to_fill'][$reqYear] ?? [])
                                                   && ($reqYear < $thisYear || ($reqYear == $thisYear && $currentMonth >= $m));
                                         $cellFormC = ($tableData[$reqYear]['formC'] ?? collect())->get($m);
-                                        if ($shuttleType == 5) {
-                                            $cFillLink = route('user.shuttle-5-formC', ['id' => $m, 'year' => $reqYear]);
-                                            $cViewLink = $cellFormC ? route('pengguna.shuttle-4-view-formC', $cellFormC->id) : $cFillLink;
-                                        } else {
-                                            $cFillLink = route('user.shuttle-' . $shuttleType . '-formC.KKB', [$m, $reqYear]);
-                                            $cViewLink = $cellFormC ? route('pengguna.shuttle-' . ($shuttleType == 3 ? 3 : 4) . '-view-formC', $cellFormC->id) : $cFillLink;
-                                        }
+                                        $cFillLink = route('user.shuttle-' . $shuttleType . '-formC.KKB', [$m, $reqYear]);
+                                        $viewRouteType = ($shuttleType == 3) ? 3 : 4;
+                                        $cViewLink = $cellFormC ? route('pengguna.shuttle-' . $viewRouteType . '-view-formC', $cellFormC->id) : $cFillLink;
                                     @endphp
                                     <td style="padding: 8px;">
                                         @include('partials.form-status-cell', [

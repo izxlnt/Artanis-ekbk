@@ -11,7 +11,6 @@ use App\Models\PengeluaranKumai;
 use App\Models\Shuttle;
 use App\Models\User;
 use App\Notifications\IBK\BorangDiHantar;
-use App\Models\FormC as ModelsFormC;
 
 use Illuminate\Support\Facades\Session;
 use Livewire\Component;
@@ -20,12 +19,13 @@ class FormD extends Component
 {
     public $bulan_id,$bulan,$form_c_data;
     public $pengeluaran_kayu,$total_jumlah_pengeluaran,$catatan,$total;
+    public $kemasukan_bahan_calc_lain_lain;
 
     public function mount()
     {
-        $this->formc = ModelsFormC::where('shuttle_id', auth()->user()->shuttle_id)->where('bulan', $this->bulan_id)->whereYear('created_at', date("Y"))->first();
-
-        $this->kemasukan_bahan_calc_lain_lain = KemasukanBahan::where('shuttle_id', auth()->user()->shuttle_id)->where('formcs_id', $this->formc->id)->latest('updated_at')->first();
+        $this->kemasukan_bahan_calc_lain_lain = $this->form_c_data
+            ? (float) KemasukanBahan::where('shuttle_id', auth()->user()->shuttle_id)->where('formcs_id', $this->form_c_data->id)->sum('proses_masuk')
+            : 0;
 
         $formd = Form5D::where('shuttle_id', auth()->user()->shuttle_id)
             ->where('bulan', $this->bulan_id)
@@ -123,8 +123,8 @@ class FormD extends Component
         }
         $this->total_jumlah_pengeluaran = round($total, 2);
 
-        if($this->total_jumlah_pengeluaran > $this->kemasukan_bahan_calc_lain_lain->jumlah_besar_pengeluaran_kayu_daripada_jentera || $this->total_jumlah_pengeluaran < $this->kemasukan_bahan_calc_lain_lain->jumlah_besar_pengeluaran_kayu_daripada_jentera){
-            $this->emit('alert', ['type' => 'error', 'message' => 'Jumlah Pengeluaran Kayu Kumai Mestilah Sama Dengan Jumlah Pengeluaran Di Borang 5C (' . $this->kemasukan_bahan_calc_lain_lain->jumlah_besar_pengeluaran_kayu_daripada_jentera . ')']);
+        if(round($this->total_jumlah_pengeluaran, 2) != round($this->kemasukan_bahan_calc_lain_lain, 2)){
+            $this->emit('alert', ['type' => 'error', 'message' => 'Jumlah Pengeluaran Kayu Kumai Mestilah Sama Dengan Jumlah Pengeluaran Di Borang 5C (' . $this->kemasukan_bahan_calc_lain_lain . ')']);
             return back();
         }
 

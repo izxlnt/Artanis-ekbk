@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\ShuttleFour;
+namespace App\Http\Controllers\ShuttleFive;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -19,7 +19,7 @@ use App\Notifications\IBK\BorangDiHantar;
 
 class FormCController extends Controller
 {
-    public function shuttle_4_formCKKB($bulan_id, $year = null)
+    public function shuttle_5_formCKKB($bulan_id, $year = null)
     {
         $year = $year ?? date("Y");
 
@@ -38,7 +38,7 @@ class FormCController extends Controller
         $formc = ModelsFormC::where('shuttle_id', auth()->user()->shuttle_id)->where('bulan', $bulan_id)->where('tahun', $year)->first();
 
         if ($bulan_id != 1) {
-            $lastmonth = $bulan_id - 1; //create
+            $lastmonth = $bulan_id - 1;
             $lastMonthformc = ModelsFormC::where('shuttle_id', auth()->user()->shuttle_id)->where('bulan', $lastmonth)->where('tahun', $year)->first();
 
             $kemasukan_bahans_lastmonth = KemasukanBahan::with('spesis_id')
@@ -51,7 +51,6 @@ class FormCController extends Controller
             $q->where('kumpulan_kayu_id', $kayu_id);
         })->where('shuttle_id', auth()->user()->shuttle_id)->where('formcs_id', $formc->id)->get();
 
-        // dd($kemasukan_bahans);
         if ($kemasukan_bahans->isEmpty()) {
             foreach ($species as $key => $value) {
                 $baki_stok = 0;
@@ -149,12 +148,11 @@ class FormCController extends Controller
 
         $breadcrumbs    = [
             ['link' => route('home-user'), 'name' => "Laman Utama"],
-            ['link' => route('user.shuttle-4-senaraiC', $year), 'name' => "Kemasukan Maklumat"],
-            ['link' => '#', 'name' => "Borang 4C - KKB"],
+            ['link' => route('user.shuttle-5-senaraiC', $year), 'name' => "Kemasukan Maklumat"],
+            ['link' => '#', 'name' => "Borang 5C - KKB"],
         ];
 
-        $kembali = route('user.shuttle-4-senaraiC', $year);
-
+        $kembali = route('user.shuttle-5-senaraiC', $year);
 
         $returnArr = [
             'kilang_info' => $kilang_info,
@@ -188,17 +186,15 @@ class FormCController extends Controller
             'jumlah_besar_baki_stok_bulan_depan'     => $jumlah_besar_baki_stok_bulan_depan ?? 0,
         ];
 
-        // dd($returnArr);
-        return view('admins.shuttle-four.FormC.shuttle-4-formC-KKB', $returnArr, compact('year'));
+        return view('admins.shuttle-five.FormC.shuttle-5-formC-KKB', $returnArr, compact('year'));
     }
 
     public function store_kkb(Request $request, $bulan_id, $year = null)
     {
         $year = $year ?? date("Y");
 
-        // dd($request->all());
         if ($request->tiadaPengeluaran) {
-            return redirect()->route('user.shuttle-4-formC.tiadaPengeluaran', [$bulan_id, $year]);
+            return redirect()->route('user.shuttle-5-formC.tiadaPengeluaran', [$bulan_id, $year]);
         }
 
         $kayu_id = '1';
@@ -213,7 +209,6 @@ class FormCController extends Controller
 
         $status = 'Sedang Diproses';
         $shuttle_id = Shuttle::where('id', $id->shuttle_id)->first();
-
 
         if ($bulan_id ==  '1') {
             $bulan = "Januari";
@@ -244,7 +239,6 @@ class FormCController extends Controller
         $user = auth()->user();
 
         $formc = ModelsFormC::where('shuttle_id', $user->shuttle_id)->where('bulan', $bulan_id)->where('tahun', $year)->first();
-        // dd($formc);
         $formc->status = 'Sedang Diisi';
         $formc->tiada_pengeluaran = 0;
         $formc->save();
@@ -255,7 +249,6 @@ class FormCController extends Controller
 
         if ($kemasukan_bahans->isEmpty()) {
             foreach ($species as $keySpecies => $data) {
-
                 KemasukanBahan::create([
                     'spesis_id' => $data->id,
                     'baki_stok' => $request->baki_stoks[$keySpecies] ?? 0,
@@ -263,7 +256,6 @@ class FormCController extends Controller
                     'jumlah_stok_kayu_balak' => $request->jumlah_stok_kayu_balak[$keySpecies] ?? 0,
                     'proses_masuk' => $request->proses_masuk[$keySpecies] ?? 0,
                     'baki_stok_kehadapan' => $request->baki_stok_kehadapan[$keySpecies] ?? 0,
-
 
                     'jumlah_baki_stok' => $request->jumlah_baki_stok[$keySpecies] ?? 0,
                     'jumlah_kayu_masuk' => $request->jumlah_kayu_masuk[$keySpecies] ?? 0,
@@ -309,13 +301,13 @@ class FormCController extends Controller
         }
 
         if ($request->sebelumnya == 1) {
-            return redirect()->route('user.shuttle-4-senaraiC', $year);
+            return redirect()->route('user.shuttle-5-senaraiC', $year);
         }
 
-        return redirect()->route('user.shuttle-4-formC.KKS', ['bulan' => $bulan_id, 'year' => $year])->with('success', 'Maklumat berjaya dimasukkan');
+        return redirect()->route('user.shuttle-5-formC.KKS', ['bulan' => $bulan_id, 'year' => $year])->with('success', 'Maklumat berjaya dimasukkan');
     }
 
-    public function shuttle_4_formCKKS($bulan_id, $year = null)
+    public function shuttle_5_formCKKS($bulan_id, $year = null)
     {
         $year = $year ?? date("Y");
 
@@ -334,7 +326,7 @@ class FormCController extends Controller
         $formc = ModelsFormC::where('shuttle_id', auth()->user()->shuttle_id)->where('bulan', $bulan_id)->where('tahun', $year)->first();
 
         if ($bulan_id != 1) {
-            $lastmonth = $bulan_id - 1; //create
+            $lastmonth = $bulan_id - 1;
             $lastMonthformc = ModelsFormC::where('shuttle_id', auth()->user()->shuttle_id)->where('bulan', $lastmonth)->where('tahun', $year)->first();
 
             $kemasukan_bahans_lastmonth = KemasukanBahan::with('spesis_id')
@@ -347,7 +339,6 @@ class FormCController extends Controller
             $q->where('kumpulan_kayu_id', $kayu_id);
         })->where('shuttle_id', auth()->user()->shuttle_id)->where('formcs_id', $formc->id)->get();
 
-        // dd($kemasukan_bahans);
         if ($kemasukan_bahans->isEmpty()) {
             foreach ($species as $key => $value) {
                 $baki_stok = 0;
@@ -445,12 +436,11 @@ class FormCController extends Controller
 
         $breadcrumbs    = [
             ['link' => route('home-user'), 'name' => "Laman Utama"],
-            ['link' => route('user.shuttle-4-senaraiC', $year), 'name' => "Kemasukan Maklumat"],
-            ['link' => '#', 'name' => "Borang 4C - KKS"],
+            ['link' => route('user.shuttle-5-senaraiC', $year), 'name' => "Kemasukan Maklumat"],
+            ['link' => '#', 'name' => "Borang 5C - KKS"],
         ];
 
-        $kembali = route('user.shuttle-4-senaraiC', $year);
-
+        $kembali = route('user.shuttle-5-senaraiC', $year);
 
         $returnArr = [
             'kilang_info' => $kilang_info,
@@ -484,17 +474,15 @@ class FormCController extends Controller
             'jumlah_besar_baki_stok_bulan_depan'     => $jumlah_besar_baki_stok_bulan_depan ?? 0,
         ];
 
-        // dd($returnArr);
-        return view('admins.shuttle-four.FormC.shuttle-4-formC-KKS', $returnArr, compact('year'));
+        return view('admins.shuttle-five.FormC.shuttle-5-formC-KKS', $returnArr, compact('year'));
     }
 
     public function store_kks(Request $request, $bulan_id, $year = null)
     {
         $year = $year ?? date("Y");
 
-        // dd($request->all());
         if ($request->tiadaPengeluaran) {
-            return redirect()->route('user.shuttle-4-formC.tiadaPengeluaran', [$bulan_id, $year]);
+            return redirect()->route('user.shuttle-5-formC.tiadaPengeluaran', [$bulan_id, $year]);
         }
 
         $kayu_id = '2';
@@ -505,42 +493,11 @@ class FormCController extends Controller
         $species = Spesis::orderBy('kumpulan_kayu_id')->where('kumpulan_kayu_id', $kayu_id)->get();
 
         $id = auth()->user();
-        $kilang_info = Shuttle::where('id', $id->shuttle_id)->first();
-
-        $status = 'Sedang Diproses';
         $shuttle_id = Shuttle::where('id', $id->shuttle_id)->first();
-
-
-        if ($bulan_id ==  '1') {
-            $bulan = "Januari";
-        } else if ($bulan_id ==  '2') {
-            $bulan = "Februari";
-        } else if ($bulan_id ==  '3') {
-            $bulan = "Mac";
-        } else if ($bulan_id ==  '4') {
-            $bulan = "April";
-        } else if ($bulan_id ==  '5') {
-            $bulan = "Mei";
-        } else if ($bulan_id ==  '6') {
-            $bulan = "Jun";
-        } else if ($bulan_id ==  '7') {
-            $bulan = "Julai";
-        } else if ($bulan_id ==  '8') {
-            $bulan = "Ogos";
-        } else if ($bulan_id ==  '9') {
-            $bulan = "September";
-        } else if ($bulan_id ==  '10') {
-            $bulan = "Oktober";
-        } else if ($bulan_id ==  '11') {
-            $bulan = "November";
-        } else if ($bulan_id ==  '12') {
-            $bulan = "Disember";
-        }
 
         $user = auth()->user();
 
         $formc = ModelsFormC::where('shuttle_id', $user->shuttle_id)->where('bulan', $bulan_id)->where('tahun', $year)->first();
-        // dd($formc);
         $formc->status = 'Sedang Diisi';
         $formc->tiada_pengeluaran = 0;
         $formc->save();
@@ -551,7 +508,6 @@ class FormCController extends Controller
 
         if ($kemasukan_bahans->isEmpty()) {
             foreach ($species as $keySpecies => $data) {
-
                 KemasukanBahan::create([
                     'spesis_id' => $data->id,
                     'baki_stok' => $request->baki_stoks[$keySpecies] ?? 0,
@@ -559,7 +515,6 @@ class FormCController extends Controller
                     'jumlah_stok_kayu_balak' => $request->jumlah_stok_kayu_balak[$keySpecies] ?? 0,
                     'proses_masuk' => $request->proses_masuk[$keySpecies] ?? 0,
                     'baki_stok_kehadapan' => $request->baki_stok_kehadapan[$keySpecies] ?? 0,
-
 
                     'jumlah_baki_stok' => $request->jumlah_baki_stok[$keySpecies] ?? 0,
                     'jumlah_kayu_masuk' => $request->jumlah_kayu_masuk[$keySpecies] ?? 0,
@@ -605,13 +560,13 @@ class FormCController extends Controller
         }
 
         if ($request->sebelumnya == 1) {
-            return redirect()->route('user.shuttle-4-formC.KKB', ['bulan' => $bulan_id, 'year' => $year]);
+            return redirect()->route('user.shuttle-5-formC.KKB', ['bulan' => $bulan_id, 'year' => $year]);
         }
 
-        return redirect()->route('user.shuttle-4-formC.KKR', ['bulan' => $bulan_id, 'year' => $year])->with('success', 'Maklumat berjaya dimasukkan');
+        return redirect()->route('user.shuttle-5-formC.KKR', ['bulan' => $bulan_id, 'year' => $year])->with('success', 'Maklumat berjaya dimasukkan');
     }
 
-    public function shuttle_4_formCKKR($bulan_id, $year = null)
+    public function shuttle_5_formCKKR($bulan_id, $year = null)
     {
         $year = $year ?? date("Y");
 
@@ -630,7 +585,7 @@ class FormCController extends Controller
         $formc = ModelsFormC::where('shuttle_id', auth()->user()->shuttle_id)->where('bulan', $bulan_id)->where('tahun', $year)->first();
 
         if ($bulan_id != 1) {
-            $lastmonth = $bulan_id - 1; //create
+            $lastmonth = $bulan_id - 1;
             $lastMonthformc = ModelsFormC::where('shuttle_id', auth()->user()->shuttle_id)->where('bulan', $lastmonth)->where('tahun', $year)->first();
 
             $kemasukan_bahans_lastmonth = KemasukanBahan::with('spesis_id')
@@ -643,7 +598,6 @@ class FormCController extends Controller
             $q->where('kumpulan_kayu_id', $kayu_id);
         })->where('shuttle_id', auth()->user()->shuttle_id)->where('formcs_id', $formc->id)->get();
 
-        // dd($kemasukan_bahans);
         if ($kemasukan_bahans->isEmpty()) {
             foreach ($species as $key => $value) {
                 $baki_stok = 0;
@@ -741,12 +695,11 @@ class FormCController extends Controller
 
         $breadcrumbs    = [
             ['link' => route('home-user'), 'name' => "Laman Utama"],
-            ['link' => route('user.shuttle-4-senaraiC', $year), 'name' => "Kemasukan Maklumat"],
-            ['link' => '#', 'name' => "Borang 4C - KKR"],
+            ['link' => route('user.shuttle-5-senaraiC', $year), 'name' => "Kemasukan Maklumat"],
+            ['link' => '#', 'name' => "Borang 5C - KKR"],
         ];
 
-        $kembali = route('user.shuttle-4-senaraiC', $year);
-
+        $kembali = route('user.shuttle-5-senaraiC', $year);
 
         $returnArr = [
             'kilang_info' => $kilang_info,
@@ -780,8 +733,7 @@ class FormCController extends Controller
             'jumlah_besar_baki_stok_bulan_depan'     => $jumlah_besar_baki_stok_bulan_depan ?? 0,
         ];
 
-        // dd($returnArr);
-        return view('admins.shuttle-four.FormC.shuttle-4-formC-KKR', $returnArr, compact('year'));
+        return view('admins.shuttle-five.FormC.shuttle-5-formC-KKR', $returnArr, compact('year'));
     }
 
     public function store_kkr(Request $request, $bulan_id, $year = null)
@@ -795,42 +747,11 @@ class FormCController extends Controller
         $species = Spesis::orderBy('kumpulan_kayu_id')->where('kumpulan_kayu_id', $kayu_id)->get();
 
         $id = auth()->user();
-        $kilang_info = Shuttle::where('id', $id->shuttle_id)->first();
-
-        $status = 'Sedang Diproses';
         $shuttle_id = Shuttle::where('id', $id->shuttle_id)->first();
-
-
-        if ($bulan_id ==  '1') {
-            $bulan = "Januari";
-        } else if ($bulan_id ==  '2') {
-            $bulan = "Februari";
-        } else if ($bulan_id ==  '3') {
-            $bulan = "Mac";
-        } else if ($bulan_id ==  '4') {
-            $bulan = "April";
-        } else if ($bulan_id ==  '5') {
-            $bulan = "Mei";
-        } else if ($bulan_id ==  '6') {
-            $bulan = "Jun";
-        } else if ($bulan_id ==  '7') {
-            $bulan = "Julai";
-        } else if ($bulan_id ==  '8') {
-            $bulan = "Ogos";
-        } else if ($bulan_id ==  '9') {
-            $bulan = "September";
-        } else if ($bulan_id ==  '10') {
-            $bulan = "Oktober";
-        } else if ($bulan_id ==  '11') {
-            $bulan = "November";
-        } else if ($bulan_id ==  '12') {
-            $bulan = "Disember";
-        }
 
         $user = auth()->user();
 
         $formc = ModelsFormC::where('shuttle_id', $user->shuttle_id)->where('bulan', $bulan_id)->where('tahun', $year)->first();
-        // dd($formc);
         $formc->status = 'Sedang Diisi';
         $formc->tiada_pengeluaran = 0;
         $formc->save();
@@ -841,7 +762,6 @@ class FormCController extends Controller
 
         if ($kemasukan_bahans->isEmpty()) {
             foreach ($species as $keySpecies => $data) {
-
                 KemasukanBahan::create([
                     'spesis_id' => $data->id,
                     'baki_stok' => $request->baki_stoks[$keySpecies] ?? 0,
@@ -849,7 +769,6 @@ class FormCController extends Controller
                     'jumlah_stok_kayu_balak' => $request->jumlah_stok_kayu_balak[$keySpecies] ?? 0,
                     'proses_masuk' => $request->proses_masuk[$keySpecies] ?? 0,
                     'baki_stok_kehadapan' => $request->baki_stok_kehadapan[$keySpecies] ?? 0,
-
 
                     'jumlah_baki_stok' => $request->jumlah_baki_stok[$keySpecies] ?? 0,
                     'jumlah_kayu_masuk' => $request->jumlah_kayu_masuk[$keySpecies] ?? 0,
@@ -895,13 +814,13 @@ class FormCController extends Controller
         }
 
         if ($request->sebelumnya == 1) {
-            return redirect()->route('user.shuttle-4-formC.KKS', ['bulan' => $bulan_id, 'year' => $year]);
+            return redirect()->route('user.shuttle-5-formC.KKS', ['bulan' => $bulan_id, 'year' => $year]);
         }
 
-        return redirect()->route('user.shuttle-4-formC.KayuLembut', ['bulan' => $bulan_id, 'year' => $year])->with('success', 'Maklumat berjaya dimasukkan');
+        return redirect()->route('user.shuttle-5-formC.KayuLembut', ['bulan' => $bulan_id, 'year' => $year])->with('success', 'Maklumat berjaya dimasukkan');
     }
 
-    public function shuttle_4_formCKayuLembut($bulan_id, $year = null)
+    public function shuttle_5_formCKayuLembut($bulan_id, $year = null)
     {
         $year = $year ?? date("Y");
         $shuttle_type = auth()->user()->shuttle->shuttle_type;
@@ -919,7 +838,7 @@ class FormCController extends Controller
         $formc = ModelsFormC::where('shuttle_id', auth()->user()->shuttle_id)->where('bulan', $bulan_id)->where('tahun', $year)->first();
 
         if ($bulan_id != 1) {
-            $lastmonth = $bulan_id - 1; //create
+            $lastmonth = $bulan_id - 1;
             $lastMonthformc = ModelsFormC::where('shuttle_id', auth()->user()->shuttle_id)->where('bulan', $lastmonth)->where('tahun', $year)->first();
 
             $kemasukan_bahans_lastmonth = KemasukanBahan::with('spesis_id')
@@ -932,7 +851,6 @@ class FormCController extends Controller
             $q->where('kumpulan_kayu_id', $kayu_id);
         })->where('shuttle_id', auth()->user()->shuttle_id)->where('formcs_id', $formc->id)->get();
 
-        // dd($kemasukan_bahans);
         if ($kemasukan_bahans->isEmpty()) {
             foreach ($species as $key => $value) {
                 $baki_stok = 0;
@@ -1030,12 +948,11 @@ class FormCController extends Controller
 
         $breadcrumbs    = [
             ['link' => route('home-user'), 'name' => "Laman Utama"],
-            ['link' => route('user.shuttle-4-senaraiC', $year), 'name' => "Kemasukan Maklumat"],
-            ['link' => '#', 'name' => "Borang 4C - Kayu Lembut"],
+            ['link' => route('user.shuttle-5-senaraiC', $year), 'name' => "Kemasukan Maklumat"],
+            ['link' => '#', 'name' => "Borang 5C - Kayu Lembut"],
         ];
 
-        $kembali = route('user.shuttle-4-senaraiC', $year);
-
+        $kembali = route('user.shuttle-5-senaraiC', $year);
 
         $returnArr = [
             'kilang_info' => $kilang_info,
@@ -1069,8 +986,7 @@ class FormCController extends Controller
             'jumlah_besar_baki_stok_bulan_depan'     => $jumlah_besar_baki_stok_bulan_depan ?? 0,
         ];
 
-        // dd($returnArr);
-        return view('admins.shuttle-four.FormC.shuttle-4-formC-KayuLembut', $returnArr, compact('year'));
+        return view('admins.shuttle-five.FormC.shuttle-5-formC-KayuLembut', $returnArr, compact('year'));
     }
 
     public function store_kayulembut(Request $request, $bulan_id, $year = null)
@@ -1084,42 +1000,11 @@ class FormCController extends Controller
         $species = Spesis::orderBy('kumpulan_kayu_id')->where('kumpulan_kayu_id', $kayu_id)->get();
 
         $id = auth()->user();
-        $kilang_info = Shuttle::where('id', $id->shuttle_id)->first();
-
-        $status = 'Sedang Diproses';
         $shuttle_id = Shuttle::where('id', $id->shuttle_id)->first();
-
-
-        if ($bulan_id ==  '1') {
-            $bulan = "Januari";
-        } else if ($bulan_id ==  '2') {
-            $bulan = "Februari";
-        } else if ($bulan_id ==  '3') {
-            $bulan = "Mac";
-        } else if ($bulan_id ==  '4') {
-            $bulan = "April";
-        } else if ($bulan_id ==  '5') {
-            $bulan = "Mei";
-        } else if ($bulan_id ==  '6') {
-            $bulan = "Jun";
-        } else if ($bulan_id ==  '7') {
-            $bulan = "Julai";
-        } else if ($bulan_id ==  '8') {
-            $bulan = "Ogos";
-        } else if ($bulan_id ==  '9') {
-            $bulan = "September";
-        } else if ($bulan_id ==  '10') {
-            $bulan = "Oktober";
-        } else if ($bulan_id ==  '11') {
-            $bulan = "November";
-        } else if ($bulan_id ==  '12') {
-            $bulan = "Disember";
-        }
 
         $user = auth()->user();
 
         $formc = ModelsFormC::where('shuttle_id', $user->shuttle_id)->where('bulan', $bulan_id)->where('tahun', $year)->first();
-        // dd($formc);
         $formc->status = 'Sedang Diisi';
         $formc->tiada_pengeluaran = 0;
         $formc->save();
@@ -1130,7 +1015,6 @@ class FormCController extends Controller
 
         if ($kemasukan_bahans->isEmpty()) {
             foreach ($species as $keySpecies => $data) {
-
                 KemasukanBahan::create([
                     'spesis_id' => $data->id,
                     'baki_stok' => $request->baki_stoks[$keySpecies] ?? 0,
@@ -1138,7 +1022,6 @@ class FormCController extends Controller
                     'jumlah_stok_kayu_balak' => $request->jumlah_stok_kayu_balak[$keySpecies] ?? 0,
                     'proses_masuk' => $request->proses_masuk[$keySpecies] ?? 0,
                     'baki_stok_kehadapan' => $request->baki_stok_kehadapan[$keySpecies] ?? 0,
-
 
                     'jumlah_baki_stok' => $request->jumlah_baki_stok[$keySpecies] ?? 0,
                     'jumlah_kayu_masuk' => $request->jumlah_kayu_masuk[$keySpecies] ?? 0,
@@ -1184,13 +1067,13 @@ class FormCController extends Controller
         }
 
         if ($request->sebelumnya == 1) {
-            return redirect()->route('user.shuttle-4-formC.KKR', ['bulan' => $bulan_id, 'year' => $year]);
+            return redirect()->route('user.shuttle-5-formC.KKR', ['bulan' => $bulan_id, 'year' => $year]);
         }
 
-        return redirect()->route('user.shuttle-4-formC.LainLain', ['bulan' => $bulan_id, 'year' => $year])->with('success', 'Maklumat berjaya dimasukkan');
+        return redirect()->route('user.shuttle-5-formC.LainLain', ['bulan' => $bulan_id, 'year' => $year])->with('success', 'Maklumat berjaya dimasukkan');
     }
 
-    public function shuttle_4_formCLainLain($bulan_id, $year = null)
+    public function shuttle_5_formCLainLain($bulan_id, $year = null)
     {
         $year = $year ?? date("Y");
         $shuttle_type = auth()->user()->shuttle->shuttle_type;
@@ -1208,7 +1091,7 @@ class FormCController extends Controller
         $formc = ModelsFormC::where('shuttle_id', auth()->user()->shuttle_id)->where('bulan', $bulan_id)->where('tahun', $year)->first();
 
         if ($bulan_id != 1) {
-            $lastmonth = $bulan_id - 1; //create
+            $lastmonth = $bulan_id - 1;
             $lastMonthformc = ModelsFormC::where('shuttle_id', auth()->user()->shuttle_id)->where('bulan', $lastmonth)->where('tahun', $year)->first();
 
             $kemasukan_bahans_lastmonth = KemasukanBahan::with('spesis_id')
@@ -1249,7 +1132,7 @@ class FormCController extends Controller
         $lain_lain = $kemasukan_bahan_calc_lain_lain->jumlah_baki_stok ?? 0;
 
         $besar_jumlah_baki_stok = (float)$kkb + (float)$kks + (float)$kkr + (float)$kayu_lembut  + (float)$lain_lain;
-        $besar_jumlah_baki_stok_tanpa_lain = (float)$kkb + (float)$kks + (float)$kkr + (float)$kayu_lembut; //for js calculation
+        $besar_jumlah_baki_stok_tanpa_lain = (float)$kkb + (float)$kks + (float)$kkr + (float)$kayu_lembut;
 
         $kkb = $kemasukan_bahan_calc_kkb->jumlah_kayu_masuk ?? 0;
         $kks = $kemasukan_bahan_calc_kks->jumlah_kayu_masuk ?? 0;
@@ -1258,7 +1141,7 @@ class FormCController extends Controller
         $lain_lain = $kemasukan_bahan_calc_lain_lain->jumlah_kayu_masuk ?? 0;
 
         $besar_jumlah_kayu_masuk = (float)$kkb + (float)$kks + (float)$kkr + (float)$kayu_lembut  + (float)$lain_lain;
-        $besar_jumlah_kayu_masuk_tanpa_lain = (float)$kkb + (float)$kks + (float)$kkr + (float)$kayu_lembut; //for js calculation
+        $besar_jumlah_kayu_masuk_tanpa_lain = (float)$kkb + (float)$kks + (float)$kkr + (float)$kayu_lembut;
 
         $kkb = $kemasukan_bahan_calc_kkb->total_stok_kayu_balak ?? 0;
         $kks = $kemasukan_bahan_calc_kks->total_stok_kayu_balak ?? 0;
@@ -1267,7 +1150,7 @@ class FormCController extends Controller
         $lain_lain = $kemasukan_bahan_calc_lain_lain->total_stok_kayu_balak ?? 0;
 
         $besar_total_stok_kayu_balak = (float)$kkb + (float)$kks + (float)$kkr + (float)$kayu_lembut  + (float)$lain_lain;
-        $besar_total_stok_kayu_balak_tanpa_lain = (float)$kkb + (float)$kks + (float)$kkr + (float)$kayu_lembut; //for js calculation
+        $besar_total_stok_kayu_balak_tanpa_lain = (float)$kkb + (float)$kks + (float)$kkr + (float)$kayu_lembut;
 
         $kkb = $kemasukan_bahan_calc_kkb->total_kayu_masuk_jentera ?? 0;
         $kks = $kemasukan_bahan_calc_kks->total_kayu_masuk_jentera ?? 0;
@@ -1276,7 +1159,7 @@ class FormCController extends Controller
         $lain_lain = $kemasukan_bahan_calc_lain_lain->total_kayu_masuk_jentera ?? 0;
 
         $besar_total_kayu_masuk_jentera = (float)$kkb + (float)$kks + (float)$kkr + (float)$kayu_lembut  + (float)$lain_lain;
-        $besar_total_kayu_masuk_jentera_tanpa_lain = (float)$kkb + (float)$kks + (float)$kkr + (float)$kayu_lembut; //for js calculation
+        $besar_total_kayu_masuk_jentera_tanpa_lain = (float)$kkb + (float)$kks + (float)$kkr + (float)$kayu_lembut;
 
         $kkb = $kemasukan_bahan_calc_kkb->total_kayu_dibawa_bulan_hadapan ?? 0;
         $kks = $kemasukan_bahan_calc_kks->total_kayu_dibawa_bulan_hadapan ?? 0;
@@ -1285,7 +1168,7 @@ class FormCController extends Controller
         $lain_lain = $kemasukan_bahan_calc_lain_lain->total_kayu_dibawa_bulan_hadapan ?? 0;
 
         $besar_total_kayu_dibawa_bulan_hadapan = (float)$kkb + (float)$kks + (float)$kkr + (float)$kayu_lembut  + (float)$lain_lain;
-        $besar_total_kayu_dibawa_bulan_hadapan_tanpa_lain = (float)$kkb + (float)$kks + (float)$kkr + (float)$kayu_lembut; //for js calculation
+        $besar_total_kayu_dibawa_bulan_hadapan_tanpa_lain = (float)$kkb + (float)$kks + (float)$kkr + (float)$kayu_lembut;
 
         if ($kemasukan_bahans->isEmpty()) {
             foreach ($species as $key => $value) {
@@ -1354,7 +1237,7 @@ class FormCController extends Controller
             }
         }
 
-        if (!$kemasukan_bahan_calc_lain_lain) { // first time masuk page lain-lain
+        if (!$kemasukan_bahan_calc_lain_lain) {
             foreach ($jumlah_baki_stok as $value) {
                 $besar_jumlah_baki_stok += (float)$value;
             }
@@ -1402,12 +1285,11 @@ class FormCController extends Controller
 
         $breadcrumbs    = [
             ['link' => route('home-user'), 'name' => "Laman Utama"],
-            ['link' => route('user.shuttle-4-senaraiC', $year), 'name' => "Kemasukan Maklumat"],
-            ['link' => '#', 'name' => "Borang 4C - Lain-Lain"],
+            ['link' => route('user.shuttle-5-senaraiC', $year), 'name' => "Kemasukan Maklumat"],
+            ['link' => '#', 'name' => "Borang 5C - Lain-Lain"],
         ];
 
-        $kembali = route('user.shuttle-4-senaraiC', $year);
-
+        $kembali = route('user.shuttle-5-senaraiC', $year);
 
         $returnArr = [
             'kilang_info' => $kilang_info,
@@ -1451,17 +1333,13 @@ class FormCController extends Controller
             'besar_total_kayu_masuk_jentera_tanpa_lain'     => $besar_total_kayu_masuk_jentera_tanpa_lain ?? 0,
             'besar_total_kayu_dibawa_bulan_hadapan_tanpa_lain'     => $besar_total_kayu_dibawa_bulan_hadapan_tanpa_lain ?? 0,
         ];
-        //  dd($besar_total_kayu_dibawa_bulan_hadapan_tanpa_lain);
-        return view('admins.shuttle-four.FormC.shuttle-4-formC-LainLain', $returnArr, compact('year'));
+
+        return view('admins.shuttle-five.FormC.shuttle-5-formC-LainLain', $returnArr, compact('year'));
     }
 
     public function store_kayulainlain(Request $request, $bulan_id, $year = null)
     {
         $year = $year ?? date("Y");
-        // if ($request->tiadaPengeluaran) {
-        //     return redirect()->route('user.shuttle-3-formC.tiadaPengeluaran', $bulan_id);
-        // }
-        // dd($request->total_kayu_dibawa_bulan_hadapan);
 
         $kayu_id = '5';
 
@@ -1471,38 +1349,7 @@ class FormCController extends Controller
         $species = Spesis::orderBy('kumpulan_kayu_id')->where('kumpulan_kayu_id', $kayu_id)->get();
 
         $id = auth()->user();
-        $kilang_info = Shuttle::where('id', $id->shuttle_id)->first();
-
-        $status = 'Sedang Diproses';
         $shuttle_id = Shuttle::where('id', $id->shuttle_id)->first();
-
-
-        if ($bulan_id ==  '1') {
-            $bulan = "Januari";
-        } else if ($bulan_id ==  '2') {
-            $bulan = "Februari";
-        } else if ($bulan_id ==  '3') {
-            $bulan = "Mac";
-        } else if ($bulan_id ==  '4') {
-            $bulan = "April";
-        } else if ($bulan_id ==  '5') {
-            $bulan = "Mei";
-        } else if ($bulan_id ==  '6') {
-            $bulan = "Jun";
-        } else if ($bulan_id ==  '7') {
-            $bulan = "Julai";
-        } else if ($bulan_id ==  '8') {
-            $bulan = "Ogos";
-        } else if ($bulan_id ==  '9') {
-            $bulan = "September";
-        } else if ($bulan_id ==  '10') {
-            $bulan = "Oktober";
-        } else if ($bulan_id ==  '11') {
-            $bulan = "November";
-        } else if ($bulan_id ==  '12') {
-            $bulan = "Disember";
-        }
-
 
         $user = auth()->user();
 
@@ -1511,7 +1358,6 @@ class FormCController extends Controller
                 $formc = ModelsFormC::where('shuttle_id', $user->shuttle_id)->where('bulan', $bulan_id)->where('tahun', $year)->first();
                 $formc->status = 'Tiada Pengeluaran';
                 $formc->tiada_pengeluaran = 1;
-                // $formc->status = 'Sedang Diisi';
                 $formc->save();
             } else {
                 $formc = ModelsFormC::where('shuttle_id', $user->shuttle_id)->where('bulan', $bulan_id)->where('tahun', $year)->first();
@@ -1532,14 +1378,12 @@ class FormCController extends Controller
             $formc->save();
         }
 
-
         $kemasukan_bahans = KemasukanBahan::with('spesis_id')->whereHas('spesis_id', function ($q) use ($kayu_id) {
             $q->where('kumpulan_kayu_id', $kayu_id);
         })->where('shuttle_id', auth()->user()->shuttle_id)->where('formcs_id', $formc->id)->get();
 
         if ($kemasukan_bahans->isEmpty()) {
             foreach ($species as $keySpecies => $data) {
-
                 KemasukanBahan::create([
                     'spesis_id' => $data->id,
                     'baki_stok' => $request->baki_stoks[$keySpecies] ?? 0,
@@ -1548,7 +1392,6 @@ class FormCController extends Controller
                     'proses_masuk' => $request->proses_masuk[$keySpecies] ?? 0,
                     'proses_keluar' => $request->proses_keluar[$keySpecies] ?? 0,
                     'baki_stok_kehadapan' => $request->baki_stok_kehadapan[$keySpecies] ?? 0,
-
 
                     'jumlah_baki_stok' => $request->jumlah_baki_stok[$keySpecies] ?? 0,
                     'jumlah_kayu_masuk' => $request->jumlah_kayu_masuk[$keySpecies] ?? 0,
@@ -1599,10 +1442,9 @@ class FormCController extends Controller
         }
 
         if ($request->sebelumnya == 1) {
-            return redirect()->route('user.shuttle-4-formC.KayuLembut', ['bulan' => $bulan_id, 'year' => $year]);
+            return redirect()->route('user.shuttle-5-formC.KayuLembut', ['bulan' => $bulan_id, 'year' => $year]);
         }
 
-        //notification hantar borang IBK to PHD
         $pengguna_kilang = auth()->user();
         $daerah_id = $pengguna_kilang->shuttle()->first('daerah_id');
 
@@ -1623,15 +1465,13 @@ class FormCController extends Controller
     public function tiadaPengeluaran($bulan_id, $year = null)
     {
         $year = $year ?? date("Y");
-        // dd($bulan_id);
         $id = auth()->user();
         $kilang_info = Shuttle::where('id', $id->shuttle_id)->first();
 
-        $status = 'Sedang Diproses';
         $shuttle_id = Shuttle::where('id', $id->shuttle_id)->first();
 
         if ($bulan_id != 1) {
-            $lastmonth = $bulan_id - 1; //create
+            $lastmonth = $bulan_id - 1;
             $lastMonthformc = ModelsFormC::where('shuttle_id', auth()->user()->shuttle_id)->where('bulan', $lastmonth)->where('tahun', $year)->first();
 
             $kemasukan_bahans_lastmonth = KemasukanBahan::with('spesis_id')
@@ -1657,40 +1497,12 @@ class FormCController extends Controller
             $jumlah_besar_baki_stok_bulan_depan = 0;
         }
 
-        if ($bulan_id ==  '1') {
-            $bulan = "Januari";
-        } else if ($bulan_id ==  '2') {
-            $bulan = "Februari";
-        } else if ($bulan_id ==  '3') {
-            $bulan = "Mac";
-        } else if ($bulan_id ==  '4') {
-            $bulan = "April";
-        } else if ($bulan_id ==  '5') {
-            $bulan = "Mei";
-        } else if ($bulan_id ==  '6') {
-            $bulan = "Jun";
-        } else if ($bulan_id ==  '7') {
-            $bulan = "Julai";
-        } else if ($bulan_id ==  '8') {
-            $bulan = "Ogos";
-        } else if ($bulan_id ==  '9') {
-            $bulan = "September";
-        } else if ($bulan_id ==  '10') {
-            $bulan = "Oktober";
-        } else if ($bulan_id ==  '11') {
-            $bulan = "November";
-        } else if ($bulan_id ==  '12') {
-            $bulan = "Disember";
-        }
-
         $user = auth()->user();
-        // dd($this->suku_id);
 
         $formc = ModelsFormC::where('shuttle_id', $user->shuttle_id)->where('bulan', $bulan_id)->where('tahun', $year)->first();
         $status_terkini = $formc->status;
         $formc->status = 'Tiada Pengeluaran';
         $formc->tiada_pengeluaran = 1;
-        // $formc->status = 'Sedang Diisi';
         $formc->save();
 
         $batch = Batch::where('tahun', $formc->tahun)->where('shuttle_id', $formc->shuttle->id)->where('bulan', $formc->bulan)->first();
@@ -1702,7 +1514,6 @@ class FormCController extends Controller
         if ($status_terkini == 'Sedang Diisi') {
             $kemasukan_bahans = KemasukanBahan::with('spesis_id')
             ->where('shuttle_id', auth()->user()->shuttle_id)->where('formcs_id', $formc->id)->get();
-            // dd($kemasukan_bahans);
             foreach ($kemasukan_bahans as $key => $data) {
                 $data->delete();
             }
@@ -1712,13 +1523,12 @@ class FormCController extends Controller
         }
 
         if ($bulan_id != 1) {
-            $lastmonth = $bulan_id - 1; //create
+            $lastmonth = $bulan_id - 1;
             $lastMonthformc = ModelsFormC::where('shuttle_id', auth()->user()->shuttle_id)->where('bulan', $lastmonth)->where('tahun', $year)->first();
 
             $kemasukan_bahans_lastmonth = KemasukanBahan::with('spesis_id')
             ->where('shuttle_id', auth()->user()->shuttle_id)->where('formcs_id', $lastMonthformc->id)->get();
         }
-
 
         $species = Spesis::orderBy('kumpulan_kayu_id')->orderBy('id')->get();
 
@@ -1731,11 +1541,8 @@ class FormCController extends Controller
                     $jumlah_baki_stok = 0;
                 } else {
                     foreach ($kemasukan_bahans_lastmonth as $key2 => $data2) {
-                        // dd($data2);
                         $baki_stok = $data2->baki_stok_kehadapan;
-                        // $jumlah_besar_baki_stok_bulan_lepas = $data2->jumlah_besar_baki_stok_bulan_depan;
                         $jumlah_baki_stok = $data2->total_kayu_dibawa_bulan_hadapan;
-                        // dd($data2);
                         if ($key2 == $keySpecies)
                             break;
                     }
@@ -1769,12 +1576,10 @@ class FormCController extends Controller
                     'bulan' => $bulan_id,
                     'tahun' => $year,
                     'formcs_id' => $formc->id,
-
                 ]);
             }
         }
 
-        //notification hantar borang IBK to PHD
         $pengguna_kilang = auth()->user();
         $daerah_id = $pengguna_kilang->shuttle()->first('daerah_id');
 

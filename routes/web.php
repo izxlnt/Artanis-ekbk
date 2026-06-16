@@ -318,6 +318,29 @@ Route::middleware('auth')->group(
 
                 Route::get('/pengguna/shuttle-5-formB/{id}/{year?}', [App\Http\Controllers\ShuttleFive\MainController::class, 'shuttle_5_formB'])->name('user.shuttle-5-formB');
                 Route::get('/pengguna/shuttle-5-formC/{id}/{year?}', [App\Http\Controllers\ShuttleFive\MainController::class, 'shuttle_5_formC'])->name('user.shuttle-5-formC');
+
+                Route::get('/pengguna/shuttle-5-formC/KKB/{bulan}/{year?}', [App\Http\Controllers\ShuttleFive\MainController::class, 'shuttle_5_formCKKB'])->name('user.shuttle-5-formC.KKB');
+                Route::get('/pengguna/shuttle-5-formC/view/KKB/{bulan}/{year?}', [App\Http\Controllers\ShuttleFive\FormCController::class, 'shuttle_5_formCKKB'])->name('user.view.shuttle-5-formC.KKB');
+                Route::post('/pengguna/shuttle-5-formC/store/KKB/{bulan}/{year?}', [App\Http\Controllers\ShuttleFive\FormCController::class, 'store_kkb'])->name('user.view.shuttle-5-formC.KKB.store');
+
+                Route::get('/pengguna/shuttle-5-formC/KKS/{bulan}/{year?}', [App\Http\Controllers\ShuttleFive\MainController::class, 'shuttle_5_formCKKS'])->name('user.shuttle-5-formC.KKS');
+                Route::get('/pengguna/shuttle-5-formC/view/KKS/{bulan}/{year?}', [App\Http\Controllers\ShuttleFive\FormCController::class, 'shuttle_5_formCKKS'])->name('user.view.shuttle-5-formC.KKS');
+                Route::post('/pengguna/shuttle-5-formC/store/KKS/{bulan}/{year?}', [App\Http\Controllers\ShuttleFive\FormCController::class, 'store_kks'])->name('user.view.shuttle-5-formC.KKS.store');
+
+                Route::get('/pengguna/shuttle-5-formC/KKR/{bulan}/{year?}', [App\Http\Controllers\ShuttleFive\MainController::class, 'shuttle_5_formCKKR'])->name('user.shuttle-5-formC.KKR');
+                Route::get('/pengguna/shuttle-5-formC/view/KKR/{bulan}/{year?}', [App\Http\Controllers\ShuttleFive\FormCController::class, 'shuttle_5_formCKKR'])->name('user.view.shuttle-5-formC.KKR');
+                Route::post('/pengguna/shuttle-5-formC/store/KKR/{bulan}/{year?}', [App\Http\Controllers\ShuttleFive\FormCController::class, 'store_kkr'])->name('user.view.shuttle-5-formC.KKR.store');
+
+                Route::get('/pengguna/shuttle-5-formC/Kayu-Lembut/{bulan}/{year?}', [App\Http\Controllers\ShuttleFive\MainController::class, 'shuttle_5_formCKayuLembut'])->name('user.shuttle-5-formC.KayuLembut');
+                Route::get('/pengguna/shuttle-5-formC/view/Kayu-Lembut/{bulan}/{year?}', [App\Http\Controllers\ShuttleFive\FormCController::class, 'shuttle_5_formCKayuLembut'])->name('user.view.shuttle-5-formC.KayuLembut');
+                Route::post('/pengguna/shuttle-5-formC/store/Kayu-Lembut/{bulan}/{year?}', [App\Http\Controllers\ShuttleFive\FormCController::class, 'store_kayulembut'])->name('user.view.shuttle-5-formC.KayuLembut.store');
+
+                Route::get('/pengguna/shuttle-5-formC/Lain-Lain/{bulan}/{year?}', [App\Http\Controllers\ShuttleFive\MainController::class, 'shuttle_5_formCLainLain'])->name('user.shuttle-5-formC.LainLain');
+                Route::get('/pengguna/shuttle-5-formC/view/Lain-Lain/{bulan}/{year?}', [App\Http\Controllers\ShuttleFive\FormCController::class, 'shuttle_5_formCLainLain'])->name('user.view.shuttle-5-formC.LainLain');
+                Route::post('/pengguna/shuttle-5-formC/store/Lain-Lain/{bulan}/{year?}', [App\Http\Controllers\ShuttleFive\FormCController::class, 'store_kayulainlain'])->name('user.view.shuttle-5-formC.LainLain.store');
+
+                Route::get('/pengguna/shuttle-5-formC/store/tiada-pengeluaran/{bulan}/{year?}', [App\Http\Controllers\ShuttleFive\FormCController::class, 'tiadaPengeluaran'])->name('user.shuttle-5-formC.tiadaPengeluaran');
+
                 Route::get('/pengguna/shuttle-5-formD/{id}', [App\Http\Controllers\ShuttleFive\MainController::class, 'shuttle_5_formD'])->name('user.shuttle-5-formD');
                 Route::get('/pengguna/shuttle-5-formE/{year}/{id}', [App\Http\Controllers\ShuttleFive\MainController::class, 'shuttle_5_formE'])->name('user.shuttle-5-formE');
 
