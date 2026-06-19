@@ -19,14 +19,14 @@ class ListOverallController extends Controller
 
         // Get FormA entries that need PHD attention (excluding already verified ones)
         $formA = FormA::whereHas('shuttle', function ($q) {
-                $q->where('daerah_id', auth()->user()->daerah_numeric_id)->where('shuttle_type', '5');
+                $q->whereIn('daerah_id', auth()->user()->daerah_ids)->where('shuttle_type', '5');
             })->where('tahun', $year)
             ->whereNotIn('status', ['Lulus', 'Tidak Diisi'])
             ->get();
 
 
         $year_list = FormA::whereHas('shuttle', function ($q) {
-            $q->where('daerah_id', auth()->user()->daerah_numeric_id);
+            $q->whereIn('daerah_id', auth()->user()->daerah_ids);
         })->distinct()->orderBy('tahun')->get('tahun');
 
         $buffer = Buffer::where('borang', 'a')->where('shuttle', '5')->first();
@@ -64,16 +64,16 @@ class ListOverallController extends Controller
 
         $formB_kilang = FormB::select('shuttle_id')
         ->whereHas('shuttle', function ($q) {
-            $q->where('daerah_id', auth()->user()->daerah_numeric_id)->where('shuttle_type', '5');
+            $q->whereIn('daerah_id', auth()->user()->daerah_ids)->where('shuttle_type', '5');
         })
         ->distinct()->where('tahun', $year)->get();
 
         $formB = FormB::whereHas('shuttle', function($q){
-            $q->where('daerah_id', auth()->user()->daerah_numeric_id)->where('shuttle_type', '5');
+            $q->whereIn('daerah_id', auth()->user()->daerah_ids)->where('shuttle_type', '5');
         })->where('tahun', $year)->get();
 
          $year_list = FormB::whereHas('shuttle', function($q){
-            $q->where('daerah_id',auth()->user()->daerah_numeric_id)->where('shuttle_type', '5');
+            $q->whereIn('daerah_id', auth()->user()->daerah_ids)->where('shuttle_type', '5');
          })->distinct()->orderBy('tahun')->get('tahun');
 
          $buffer = Buffer::where('borang', 'b')->where('shuttle', '5')->first();
@@ -102,16 +102,16 @@ class ListOverallController extends Controller
         // $shuttle_listC = Shuttle::where('shuttle_type', '3')->paginate(10);
         $formC_kilang = FormC::select('shuttle_id')
         ->whereHas('shuttle', function ($q) {
-            $q->where('daerah_id', auth()->user()->daerah_numeric_id)->where('shuttle_type', '5');
+            $q->whereIn('daerah_id', auth()->user()->daerah_ids)->where('shuttle_type', '5');
         })
         ->distinct()->where('tahun', $year)->get();
 
         $formC = FormC::whereHas('shuttle', function($q){
-            $q->where('daerah_id', auth()->user()->daerah_numeric_id)->where('shuttle_type', '5');
+            $q->whereIn('daerah_id', auth()->user()->daerah_ids)->where('shuttle_type', '5');
          })->where('tahun', $year)->get();
 
          $year_list = FormC::whereHas('shuttle', function($q){
-            $q->where('daerah_id',auth()->user()->daerah_numeric_id)->where('shuttle_type', '5');
+            $q->whereIn('daerah_id', auth()->user()->daerah_ids)->where('shuttle_type', '5');
          })->distinct()->orderBy('tahun')->get('tahun');
 
          $buffer = Buffer::where('borang', 'c')->where('shuttle', '5')->first();
@@ -141,18 +141,18 @@ class ListOverallController extends Controller
 
         $formD_kilang = Form5D::select('shuttle_id')->
         whereHas('shuttle', function ($q) {
-            $q->where('daerah_id', auth()->user()->daerah_numeric_id)->where('shuttle_type', '5');
+            $q->whereIn('daerah_id', auth()->user()->daerah_ids)->where('shuttle_type', '5');
         })->
         distinct()->where('tahun', $year)->get();
 
         $formD = Form5D::whereHas('shuttle', function($q){
-            $q->where('daerah_id',auth()->user()->daerah_numeric_id)->where('shuttle_type', '5');
+            $q->whereIn('daerah_id', auth()->user()->daerah_ids)->where('shuttle_type', '5');
          })->where('tahun', $year)->get();
 
         // dd($formD[10]->shuttle->id);
 
          $year_list = Form5D::whereHas('shuttle', function($q){
-            $q->where('daerah_id',auth()->user()->daerah_numeric_id);
+            $q->whereIn('daerah_id', auth()->user()->daerah_ids);
          })->distinct()->orderBy('tahun')->get('tahun');
          $buffer = Buffer::where('borang', 'd')->where('shuttle', '5')->first();
 
@@ -180,18 +180,18 @@ class ListOverallController extends Controller
 
         $formD_kilang = Form5E::select('shuttle_id')->
         whereHas('shuttle', function ($q) {
-            $q->where('daerah_id', auth()->user()->daerah_numeric_id)->where('shuttle_type', '5');
+            $q->whereIn('daerah_id', auth()->user()->daerah_ids)->where('shuttle_type', '5');
         })->
         distinct()->where('tahun', $year)->get();
 
         $formD = Form5E::whereHas('shuttle', function($q){
-            $q->where('daerah_id',auth()->user()->daerah_numeric_id)->where('shuttle_type', '5');
+            $q->whereIn('daerah_id', auth()->user()->daerah_ids)->where('shuttle_type', '5');
          })->where('tahun', $year)->get();
 
         // dd($formD[10]->shuttle->id);
 
          $year_list = Form5E::whereHas('shuttle', function($q){
-            $q->where('daerah_id',auth()->user()->daerah_numeric_id);
+            $q->whereIn('daerah_id', auth()->user()->daerah_ids);
          })->distinct()->orderBy('tahun')->get('tahun');
          $buffer = Buffer::where('borang', 'e')->where('shuttle', '5')->first();
 

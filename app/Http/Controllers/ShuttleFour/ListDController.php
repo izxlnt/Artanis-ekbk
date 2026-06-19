@@ -21,16 +21,16 @@ class ListDController extends Controller
         // $shuttle_listC = Shuttle::where('shuttle_type', '3')->paginate(10);
         $form4D_kilang = Form4D::select('shuttle_id')
             ->whereHas('shuttle', function ($q) {
-                $q->where('daerah_id', auth()->user()->daerah_numeric_id)->where('shuttle_type', '4');
+                $q->whereIn('daerah_id', auth()->user()->daerah_ids)->where('shuttle_type', '4');
             })
             ->distinct()->where('tahun', $year)->get();
 
         $form4D = Form4D::whereHas('shuttle', function ($q) {
-            $q->where('daerah_id', auth()->user()->daerah_numeric_id)->where('shuttle_type', '4');
+            $q->whereIn('daerah_id', auth()->user()->daerah_ids)->where('shuttle_type', '4');
         })->where('tahun', $year)->get();
 
         $year_list = Form4D::whereHas('shuttle', function ($q) {
-            $q->where('daerah_id', auth()->user()->daerah_numeric_id)->where('shuttle_type', '4');
+            $q->whereIn('daerah_id', auth()->user()->daerah_ids)->where('shuttle_type', '4');
         })->distinct()->orderBy('tahun')->get('tahun');
 
         $buffer = Buffer::where('borang', 'd')->where('shuttle', '4')->first();

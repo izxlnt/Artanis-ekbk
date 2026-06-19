@@ -19,16 +19,16 @@ class ListCController extends Controller
         // $shuttle_listC = Shuttle::where('shuttle_type', '3')->paginate(10);
         $formC_kilang = FormC::select('shuttle_id')
             ->whereHas('shuttle', function ($q) {
-                $q->where('daerah_id', auth()->user()->daerah_numeric_id)->where('shuttle_type', '4');
+                $q->whereIn('daerah_id', auth()->user()->daerah_ids)->where('shuttle_type', '4');
             })
             ->distinct()->where('tahun', $year)->get();
 
         $formC = FormC::whereHas('shuttle', function ($q) {
-            $q->where('daerah_id', auth()->user()->daerah_numeric_id)->where('shuttle_type', '4');
+            $q->whereIn('daerah_id', auth()->user()->daerah_ids)->where('shuttle_type', '4');
         })->where('tahun', $year)->get();
 
         $year_list = FormC::whereHas('shuttle', function ($q) {
-            $q->where('daerah_id', auth()->user()->daerah_numeric_id)->where('shuttle_type', '4');
+            $q->whereIn('daerah_id', auth()->user()->daerah_ids)->where('shuttle_type', '4');
         })->distinct()->orderBy('tahun')->get('tahun');
 
         $buffer = Buffer::where('borang', 'c')->where('shuttle', '4')->first();

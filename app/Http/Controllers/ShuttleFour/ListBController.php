@@ -20,18 +20,18 @@ class ListBController extends Controller
 
         $formB_kilang = FormB::select('shuttle_id')
         ->whereHas('shuttle', function ($q) {
-            $q->where('daerah_id', auth()->user()->daerah_numeric_id)->where('shuttle_type', '4');
+            $q->whereIn('daerah_id', auth()->user()->daerah_ids)->where('shuttle_type', '4');
         })
         ->distinct()->where('tahun', $year)->get();
 
         // dd($formB_kilang);
 
         $formB = FormB::whereHas('shuttle', function($q){
-            $q->where('daerah_id',auth()->user()->daerah_numeric_id)->where('shuttle_type', '4');
+            $q->whereIn('daerah_id', auth()->user()->daerah_ids)->where('shuttle_type', '4');
         })->where('tahun', $year)->get();
 
          $year_list = FormB::whereHas('shuttle', function($q){
-            $q->where('daerah_id',auth()->user()->daerah_numeric_id)->where('shuttle_type', '4');
+            $q->whereIn('daerah_id', auth()->user()->daerah_ids)->where('shuttle_type', '4');
          })->distinct()->orderBy('tahun')->get('tahun');
 
         //  dd($formB);

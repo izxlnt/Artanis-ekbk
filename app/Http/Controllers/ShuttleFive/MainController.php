@@ -695,13 +695,13 @@ class MainController extends Controller
 
         $formA = FormA::where('status', '!=', 'Tidak Diisi')->where('tahun', $year)
             ->whereHas('shuttle', function ($q) {
-                $q->where('daerah_id', auth()->user()->daerah_numeric_id)->where('shuttle_type', '5');
+                $q->whereIn('daerah_id', auth()->user()->daerah_ids)->where('shuttle_type', '5');
             })
             ->get();
 
         $year_list = FormA::where('status', '!=', 'Tidak Diisi')->where('tahun', $year)
         ->whereHas('shuttle', function ($q) {
-            $q->where('daerah_id', auth()->user()->daerah_numeric_id)->where('shuttle_type', '5');
+            $q->whereIn('daerah_id', auth()->user()->daerah_ids)->where('shuttle_type', '5');
         })
         ->distinct()->orderBy('tahun')->get('tahun');
 
@@ -728,13 +728,13 @@ class MainController extends Controller
 
         $formB = FormB::where('status', '!=', 'Tidak Diisi')->where('tahun', $year)
         ->whereHas('shuttle', function ($q) {
-            $q->where('daerah_id', auth()->user()->daerah_numeric_id)->where('shuttle_type', '5');
+            $q->whereIn('daerah_id', auth()->user()->daerah_ids)->where('shuttle_type', '5');
         })
         ->get();
 
         $year_list = FormB::where('status', '!=', 'Tidak Diisi')->where('tahun', $year)
         ->whereHas('shuttle', function ($q) {
-            $q->where('daerah_id', auth()->user()->daerah_numeric_id)->where('shuttle_type', '5');
+            $q->whereIn('daerah_id', auth()->user()->daerah_ids)->where('shuttle_type', '5');
         })
         ->distinct()->orderBy('tahun')->get('tahun');
 
@@ -761,13 +761,13 @@ class MainController extends Controller
     public function senarai_tugasan_5C($year){
         $formC = FormC::where('status', '!=', 'Tidak Diisi')->where('tahun', $year)
         ->whereHas('shuttle', function ($q) {
-            $q->where('daerah_id', auth()->user()->daerah_numeric_id)->where('shuttle_type', '5');
+            $q->whereIn('daerah_id', auth()->user()->daerah_ids)->where('shuttle_type', '5');
         })
         ->get();
 
         $year_list = FormC::where('status', '!=', 'Tidak Diisi')->where('tahun', $year)
         ->whereHas('shuttle', function ($q) {
-            $q->where('daerah_id', auth()->user()->daerah_numeric_id)->where('shuttle_type', '5');
+            $q->whereIn('daerah_id', auth()->user()->daerah_ids)->where('shuttle_type', '5');
         })
         ->distinct()->orderBy('tahun')->get('tahun');
 
@@ -794,13 +794,13 @@ class MainController extends Controller
 
         $form5D = Form5D::where('status', '!=', 'Tidak Diisi')->where('tahun', $year)
         ->whereHas('shuttle', function ($q) {
-            $q->where('daerah_id', auth()->user()->daerah_numeric_id)->where('shuttle_type', '5');
+            $q->whereIn('daerah_id', auth()->user()->daerah_ids)->where('shuttle_type', '5');
         })
         ->get();
 
         $year_list = Form5D::where('status', '!=', 'Tidak Diisi')->where('tahun', $year)
         ->whereHas('shuttle', function ($q) {
-            $q->where('daerah_id', auth()->user()->daerah_numeric_id)->where('shuttle_type', '5');
+            $q->whereIn('daerah_id', auth()->user()->daerah_ids)->where('shuttle_type', '5');
         })
         ->distinct()->orderBy('tahun')->get('tahun');
 
@@ -827,13 +827,13 @@ class MainController extends Controller
 
         $form5E = Form5E::where('status', '!=', 'Tidak Diisi')->where('tahun', $year)
         ->whereHas('shuttle', function ($q) {
-            $q->where('daerah_id', auth()->user()->daerah_numeric_id)->where('shuttle_type', '5');
+            $q->whereIn('daerah_id', auth()->user()->daerah_ids)->where('shuttle_type', '5');
         })
         ->get();
 
         $year_list = Form5E::where('status', '!=', 'Tidak Diisi')->where('tahun', $year)
         ->whereHas('shuttle', function ($q) {
-            $q->where('daerah_id', auth()->user()->daerah_numeric_id)->where('shuttle_type', '5');
+            $q->whereIn('daerah_id', auth()->user()->daerah_ids)->where('shuttle_type', '5');
         })
         ->distinct()->orderBy('tahun')->get('tahun');
 

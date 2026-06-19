@@ -28,14 +28,14 @@ class ListAController extends Controller
 
         // Get FormA entries that are waiting for PHD validation
         $formA = FormA::whereHas('shuttle', function ($q) {
-                $q->where('daerah_id', auth()->user()->daerah_numeric_id)->where('shuttle_type', '3');
+                $q->whereIn('daerah_id', auth()->user()->daerah_ids)->where('shuttle_type', '3');
             })->where('tahun', $year)
             ->whereIn('status', ['Dihantar ke IPJPSM', 'Sedang Diproses'])
             ->get();
 
         // Temporary debug: Let's see what statuses exist
         $allFormA = FormA::whereHas('shuttle', function ($q) {
-                $q->where('daerah_id', auth()->user()->daerah_numeric_id)->where('shuttle_type', '3');
+                $q->whereIn('daerah_id', auth()->user()->daerah_ids)->where('shuttle_type', '3');
             })->where('tahun', $year)->get();
         
         \Log::info('All FormA statuses for PHD area: ' . $allFormA->pluck('status')->unique()->implode(', '));
@@ -46,7 +46,7 @@ class ListAController extends Controller
 
 
         $year_list = FormA::whereHas('shuttle', function ($q) {
-            $q->where('daerah_id', auth()->user()->daerah_numeric_id);
+            $q->whereIn('daerah_id', auth()->user()->daerah_ids);
         })->distinct()->pluck('tahun')->unique()->sort()->values();
         $buffer = Buffer::where('borang', 'b')->where('shuttle', '3')->first();
 

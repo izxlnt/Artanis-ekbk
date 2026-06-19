@@ -19,17 +19,17 @@ class ListDController extends Controller
 
         $formD_kilang = FormD::select('shuttle_id')->
         whereHas('shuttle', function ($q) {
-            $q->where('daerah_id', auth()->user()->daerah_numeric_id)->where('shuttle_type', '3');
+            $q->whereIn('daerah_id', auth()->user()->daerah_ids)->where('shuttle_type', '3');
         })->
         distinct()->where('tahun', $year)->get();
 
         $formD = FormD::whereHas('shuttle', function($q){
-            $q->where('daerah_id',auth()->user()->daerah_numeric_id)->where('shuttle_type', '3');
+            $q->whereIn('daerah_id', auth()->user()->daerah_ids)->where('shuttle_type', '3');
         })->where('tahun', $year)->get();
 
 
          $year_list = FormD::whereHas('shuttle', function($q){
-            $q->where('daerah_id',auth()->user()->daerah_numeric_id);
+            $q->whereIn('daerah_id', auth()->user()->daerah_ids);
          })->distinct()->orderBy('tahun')->get('tahun');
          $buffer = Buffer::where('borang', 'd')->where('shuttle', '3')->first();
 

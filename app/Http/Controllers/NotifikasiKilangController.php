@@ -20,11 +20,11 @@ class NotifikasiKilangController extends Controller
 {
     public function shuttle_3_phd(){
 
-        $kilang_s3 = Shuttle::where('daerah_id', auth()->user()->daerah_numeric_id)->where('shuttle_type', '3')->get();
+        $kilang_s3 = Shuttle::whereIn('daerah_id', auth()->user()->daerah_ids)->where('shuttle_type', '3')->get();
 
         $form_a = FormA::
         whereHas('shuttle', function ($q) {
-            $q->where('daerah_id', auth()->user()->daerah_numeric_id)->where('shuttle_type', '3');
+            $q->whereIn('daerah_id', auth()->user()->daerah_ids)->where('shuttle_type', '3');
         })
         ->where(function ($query) {
             $query
@@ -36,7 +36,7 @@ class NotifikasiKilangController extends Controller
         // dd($form_a);
 
         $form_b = FormB::whereHas('shuttle', function ($q) {
-            $q->where('daerah_id', auth()->user()->daerah_numeric_id)->where('shuttle_type', '3');
+            $q->whereIn('daerah_id', auth()->user()->daerah_ids)->where('shuttle_type', '3');
         })
         ->where(function ($query) {
             $query
@@ -46,7 +46,7 @@ class NotifikasiKilangController extends Controller
         ->get();
 
         $form_c = FormC::whereHas('shuttle', function ($q) {
-            $q->where('daerah_id', auth()->user()->daerah_numeric_id)->where('shuttle_type', '3');
+            $q->whereIn('daerah_id', auth()->user()->daerah_ids)->where('shuttle_type', '3');
         })
         ->where(function ($query) {
             $query
@@ -57,7 +57,7 @@ class NotifikasiKilangController extends Controller
         ->get();
 
         $form_d = FormD::whereHas('shuttle', function ($q) {
-            $q->where('daerah_id', auth()->user()->daerah_numeric_id)->where('shuttle_type', '3');
+            $q->whereIn('daerah_id', auth()->user()->daerah_ids)->where('shuttle_type', '3');
         })
         ->where(function ($query) {
             $query
@@ -216,11 +216,11 @@ class NotifikasiKilangController extends Controller
 
     public function shuttle_4_phd(){
 
-        $kilang_s4 = Shuttle::where('daerah_id', auth()->user()->daerah_numeric_id)->where('shuttle_type', '4')->get();
+        $kilang_s4 = Shuttle::whereIn('daerah_id', auth()->user()->daerah_ids)->where('shuttle_type', '4')->get();
 
         $form_a = FormA::
         whereHas('shuttle', function ($q) {
-            $q->where('daerah_id', auth()->user()->daerah_numeric_id)->where('shuttle_type', '4');
+            $q->whereIn('daerah_id', auth()->user()->daerah_ids)->where('shuttle_type', '4');
         })
         ->where(function ($query) {
             $query
@@ -230,7 +230,7 @@ class NotifikasiKilangController extends Controller
         ->get();
 
         $form_b = FormB::whereHas('shuttle', function ($q) {
-            $q->where('daerah_id', auth()->user()->daerah_numeric_id)->where('shuttle_type', '4');
+            $q->whereIn('daerah_id', auth()->user()->daerah_ids)->where('shuttle_type', '4');
         })
         ->where(function ($query) {
             $query
@@ -240,7 +240,7 @@ class NotifikasiKilangController extends Controller
         ->get();
 
         $form_c = FormC::whereHas('shuttle', function ($q) {
-            $q->where('daerah_id', auth()->user()->daerah_numeric_id)->where('shuttle_type', '4');
+            $q->whereIn('daerah_id', auth()->user()->daerah_ids)->where('shuttle_type', '4');
         })
         ->where(function ($query) {
             $query
@@ -251,7 +251,7 @@ class NotifikasiKilangController extends Controller
         ->get();
 
         $form_d = Form4D::whereHas('shuttle', function ($q) {
-            $q->where('daerah_id', auth()->user()->daerah_numeric_id)->where('shuttle_type', '4');
+            $q->whereIn('daerah_id', auth()->user()->daerah_ids)->where('shuttle_type', '4');
         })
         ->where(function ($query) {
             $query
@@ -261,7 +261,7 @@ class NotifikasiKilangController extends Controller
         ->get();
 
         $form_e = Form4E::whereHas('shuttle', function ($q) {
-            $q->where('daerah_id', auth()->user()->daerah_numeric_id)->where('shuttle_type', '4');
+            $q->whereIn('daerah_id', auth()->user()->daerah_ids)->where('shuttle_type', '4');
         })
         ->where(function ($query) {
             $query
@@ -459,10 +459,10 @@ class NotifikasiKilangController extends Controller
 
     public function shuttle_5_phd(){
 
-        $kilang_s5 = Shuttle::where('daerah_id', auth()->user()->daerah_numeric_id)->where('shuttle_type', '5')->get();
+        $kilang_s5 = Shuttle::whereIn('daerah_id', auth()->user()->daerah_ids)->where('shuttle_type', '5')->get();
         $form_a = FormA::
         whereHas('shuttle', function ($q) {
-            $q->where('daerah_id', auth()->user()->daerah_numeric_id)->where('shuttle_type', '5');
+            $q->whereIn('daerah_id', auth()->user()->daerah_ids)->where('shuttle_type', '5');
         })
         ->where(function ($query) {
             $query
@@ -472,7 +472,7 @@ class NotifikasiKilangController extends Controller
         ->get();
 
         $form_b = FormB::whereHas('shuttle', function ($q) {
-            $q->where('daerah_id', auth()->user()->daerah_numeric_id)->where('shuttle_type', '5');
+            $q->whereIn('daerah_id', auth()->user()->daerah_ids)->where('shuttle_type', '5');
         })
         ->where(function ($query) {
             $query
@@ -482,7 +482,7 @@ class NotifikasiKilangController extends Controller
         ->get();
 
         $form_c = FormC::whereHas('shuttle', function ($q) {
-            $q->where('daerah_id', auth()->user()->daerah_numeric_id)->where('shuttle_type', '5');
+            $q->whereIn('daerah_id', auth()->user()->daerah_ids)->where('shuttle_type', '5');
         })
         ->where(function ($query) {
             $query
@@ -493,7 +493,7 @@ class NotifikasiKilangController extends Controller
         ->get();
 
         $form_d = Form5D::whereHas('shuttle', function ($q) {
-            $q->where('daerah_id', auth()->user()->daerah_numeric_id)->where('shuttle_type', '5');
+            $q->whereIn('daerah_id', auth()->user()->daerah_ids)->where('shuttle_type', '5');
         })
         ->where(function ($query) {
             $query
@@ -503,7 +503,7 @@ class NotifikasiKilangController extends Controller
         ->get();
 
         $form_e = Form5E::whereHas('shuttle', function ($q) {
-            $q->where('daerah_id', auth()->user()->daerah_numeric_id)->where('shuttle_type', '5');
+            $q->whereIn('daerah_id', auth()->user()->daerah_ids)->where('shuttle_type', '5');
         })
         ->where(function ($query) {
             $query

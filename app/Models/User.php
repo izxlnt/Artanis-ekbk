@@ -73,6 +73,16 @@ class User extends Authenticatable implements Auditable
         return $cache[$this->daerah];
     }
 
+    public function getDaerahIdsAttribute()
+    {
+        if (!$this->daerah) return [];
+        static $cache = [];
+        if (!array_key_exists($this->daerah, $cache)) {
+            $cache[$this->daerah] = \DB::table('daerahs')->where('daerah_hutan', $this->daerah)->pluck('id')->toArray();
+        }
+        return $cache[$this->daerah];
+    }
+
     public function setLoginIdAttribute($value)
     {
         $this->attributes['login_id'] = implode('/', array_slice(explode('/', trim($value)), 0, 2));

@@ -22,16 +22,16 @@ class ListEController extends Controller
         // $shuttle_listC = Shuttle::where('shuttle_type', '3')->paginate(10);
         $form4E_kilang = Form4E::select('shuttle_id')
         ->whereHas('shuttle', function ($q) {
-            $q->where('daerah_id', auth()->user()->daerah_numeric_id)->where('shuttle_type', '4');
+            $q->whereIn('daerah_id', auth()->user()->daerah_ids)->where('shuttle_type', '4');
         })
         ->distinct()->where('tahun', $year)->get();
 
         $form4E = Form4E::whereHas('shuttle', function($q){
-            $q->where('daerah_id',auth()->user()->daerah_numeric_id)->where('shuttle_type', '4');
+            $q->whereIn('daerah_id', auth()->user()->daerah_ids)->where('shuttle_type', '4');
          })->where('tahun', $year)->get();
 
          $year_list = Form4E::whereHas('shuttle', function($q){
-            $q->where('daerah_id',auth()->user()->daerah_numeric_id)->where('shuttle_type', '4');
+            $q->whereIn('daerah_id', auth()->user()->daerah_ids)->where('shuttle_type', '4');
          })->distinct()->orderBy('tahun')->get('tahun');
 
          $buffer = Buffer::where('borang', 'e')->where('shuttle', '4')->first();
