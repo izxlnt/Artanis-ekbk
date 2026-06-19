@@ -470,6 +470,11 @@
             fcS('fc_grand_jumlah',gj);  fcS('fc_grand_pmasuk',gpm);
             fcS('fc_grand_pkeluar',gpk);fcS('fc_grand_kehadapan',gk);
         }
+
+        // Recalculate all display-only fields on page load (Livewire populates
+        // wire:model inputs server-side but JS totals must be recomputed).
+        document.addEventListener('livewire:load', function() { fcCalcAll(); });
+        document.addEventListener('livewire:update', function() { fcCalcAll(); });
     </script>
 
 </div>

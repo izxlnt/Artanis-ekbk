@@ -203,6 +203,31 @@ class FormC extends Component
             $this->baki_stok_kehadapan[$i] = (float)($this->jumlah_stok_kayu_balak[$i] ?? 0) - (float)($this->proses_masuk[$i] ?? 0);
         }
 
+        // Build group subtotals keyed by kumpulan_kayu order index so the PHD
+        // view (which reads ->first() per group) gets the correct sums.
+        $kumpulan_kayu_list = KumpulanKayu::orderBy('id')->get();
+        $kg_key_map = [];
+        foreach ($kumpulan_kayu_list as $kgKey => $kg) {
+            $kg_key_map[$kg->id] = $kgKey;
+        }
+        $g_count = $kumpulan_kayu_list->count();
+        $g_baki     = array_fill(0, $g_count, 0.0);
+        $g_masuk    = array_fill(0, $g_count, 0.0);
+        $g_jumlah   = array_fill(0, $g_count, 0.0);
+        $g_pmasuk   = array_fill(0, $g_count, 0.0);
+        $g_pkeluar  = array_fill(0, $g_count, 0.0);
+        $g_kehadapan = array_fill(0, $g_count, 0.0);
+        foreach ($species as $keySpecies => $data) {
+            $kgKey = $kg_key_map[$data->kumpulan_kayu_id] ?? 0;
+            $g_baki[$kgKey]      += (float)($this->baki_stok[$keySpecies] ?? 0);
+            $g_masuk[$kgKey]     += (float)($this->kayu_masuk[$keySpecies] ?? 0);
+            $g_jumlah[$kgKey]    += (float)($this->jumlah_stok_kayu_balak[$keySpecies] ?? 0);
+            $g_pmasuk[$kgKey]    += (float)($this->proses_masuk[$keySpecies] ?? 0);
+            $g_pkeluar[$kgKey]   += (float)($this->proses_keluar[$keySpecies] ?? 0);
+            $g_kehadapan[$kgKey] += (float)($this->baki_stok_kehadapan[$keySpecies] ?? 0);
+        }
+        $first_in_group = array_fill(0, $g_count, true);
+
         $this->jumlah_besar_baki_stok_bulan_lepas              = array_sum(array_map('floatval', $this->baki_stok ?? []));
         $this->jumlah_besar_kemasukan_kayu_ke_kilang           = array_sum(array_map('floatval', $this->kayu_masuk ?? []));
         $this->jumlah_besar_stok_kayu_balak                    = array_sum(array_map('floatval', $this->jumlah_stok_kayu_balak ?? []));
@@ -273,8 +298,10 @@ class FormC extends Component
 
         $species = Spesis::orderBy('kumpulan_kayu_id')->orderBy('id')->get();
         foreach ($species as $keySpecies => $data) {
+            $kgKey   = $kg_key_map[$data->kumpulan_kayu_id] ?? 0;
+            $isFirst = $first_in_group[$kgKey] ?? false;
+            if ($isFirst) { $first_in_group[$kgKey] = false; }
 
-            // dd( $this->jumlah_baki_stok);
             KemasukanBahan::create([
                 'spesis_id' => $data->id,
                 'baki_stok' => $this->baki_stok[$keySpecies] ?? 0,
@@ -284,14 +311,14 @@ class FormC extends Component
                 'proses_keluar' => $this->proses_keluar[$keySpecies] ?? 0,
                 'baki_stok_kehadapan' => $this->baki_stok_kehadapan[$keySpecies] ?? 0,
 
-
-                'jumlah_baki_stok' => $this->jumlah_baki_stok[$keySpecies] ?? 0,
-                'jumlah_kayu_masuk' => $this->jumlah_kayu_masuk[$keySpecies] ?? 0,
-                'total_stok_kayu_balak' => $this->total_stok_kayu_balak[$keySpecies] ?? 0,
-                'total_kayu_masuk_jentera' => $this->total_kayu_masuk_jentera[$keySpecies] ?? 0,
-                'total_kayu_keluar_jentera' => $this->total_kayu_keluar_jentera[$keySpecies] ?? 0,
-                'total_kayu_dibawa_bulan_hadapan' => $this->total_kayu_dibawa_bulan_hadapan[$keySpecies] ?? 0,
-
+                // Group subtotal stored only on the first species of each group
+                // so that PHD view's ->first() per kumpulan reads the correct sum.
+                'jumlah_baki_stok'             => $isFirst ? $g_baki[$kgKey]     : 0,
+                'jumlah_kayu_masuk'            => $isFirst ? $g_masuk[$kgKey]    : 0,
+                'total_stok_kayu_balak'        => $isFirst ? $g_jumlah[$kgKey]   : 0,
+                'total_kayu_masuk_jentera'     => $isFirst ? $g_pmasuk[$kgKey]   : 0,
+                'total_kayu_keluar_jentera'    => $isFirst ? $g_pkeluar[$kgKey]  : 0,
+                'total_kayu_dibawa_bulan_hadapan' => $isFirst ? $g_kehadapan[$kgKey] : 0,
 
                 'jumlah_besar_baki_stok_bulan_lepas' => $this->jumlah_besar_baki_stok_bulan_lepas ?? 0,
                 'jumlah_besar_kemasukan_kayu_ke_kilang' => $this->jumlah_besar_kemasukan_kayu_ke_kilang ?? 0,
@@ -299,7 +326,6 @@ class FormC extends Component
                 'jumlah_besar_kayu_ke_dalam_jentera' => $this->jumlah_besar_kayu_ke_dalam_jentera ?? 0,
                 'jumlah_besar_pengeluaran_kayu_daripada_jentera' => $this->jumlah_besar_pengeluaran_kayu_daripada_jentera ?? 0,
                 'jumlah_besar_baki_stok_bulan_depan' => $this->jumlah_besar_baki_stok_bulan_depan ?? 0,
-
 
                 'shuttle_id' => $shuttle_id->id,
                 'kategori_guna_tenaga_id' => $data->id,

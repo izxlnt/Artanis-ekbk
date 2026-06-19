@@ -418,24 +418,15 @@
 
                                                         <br>
                                                         <div class="text-center form-group m-b-0">
-                                                            {{-- <button type="submit" class="btn btn-primary" >Simpan</button> --}}
-                                                            {{-- <button type="button" class="btn btn-primary">Kembali</button> --}}
-
-                                                            {{-- <button type="button" class="btn btn-primary" alt="default"
+                                                            <button type="button" class="btn btn-primary" alt="default"
                                                                         data-toggle="modal" data-target="#responsive-modal-tidaklengkap"
                                                                         class="model_img img-fluid">
-                                                                        TIDAK LENGKAP</button> --}}
+                                                                        TIDAK LENGKAP</button>
 
-                                                            {{-- @if ($errors->isEmpty()) --}}
                                                             <button type="button" class="btn btn-primary" alt="default"
                                                                 data-toggle="modal" data-target="#confirmation_borang_a"
                                                                 class="model_img img-fluid">
                                                                 SIMPAN</button>
-
-                                                            {{-- @else --}}
-                                                            {{-- <button type="submit" class="btn btn-primary" disabled>RALAT</button> --}}
-                                                            {{-- <button type="submit" class="btn btn-primary" >Simpan</button> --}}
-                                                            {{-- @endif --}}
                                                         </div>
 
                                                         <form action="{{ route('update_status_form3C', $id) }}"
@@ -477,18 +468,15 @@
                                                             </div>
                                                         </form>
 
-                                                        {{-- <div id="responsive-modal-tidaklengkap" class="modal fade"
+                                                        <div id="responsive-modal-tidaklengkap" class="modal fade"
                                                             tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
                                                             aria-hidden="true" style="display: none;">
                                                             <div class="modal-dialog modal-dialog-centered">
                                                                 <div class="modal-content">
                                                                     <div class="modal-header"
                                                                         style="justify-content:center;background-color:#f3ce8f">
-                                                                        <h4><b>ULASAN PEGAWAI HUTAN DAERAH<b></h4> --}}
-
-                                                                        {{-- <button type="button" class="close"
-                                                                        data-dismiss="modal" aria-hidden="true">×</button> --}}
-                                                                    {{-- </div>
+                                                                        <h4><b>ULASAN PEGAWAI HUTAN DAERAH</b></h4>
+                                                                    </div>
                                                                     <form
                                                                         action="{{ route('update_status_form3C', $id) }}"
                                                                         method="post">
@@ -512,14 +500,12 @@
                                                                                 class="btn btn-danger waves-effect waves-light">Batal</button>
                                                                             <button type="submit" id="submit-button"
                                                                                 class="btn btn-success waves-effect waves-light">HANTAR</button>
-
-
                                                                         </div>
                                                                     </form>
 
                                                                 </div>
                                                             </div>
-                                                        </div> --}}
+                                                        </div>
                                                         <br>
                                                     </div>
                                             </div>
