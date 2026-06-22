@@ -657,11 +657,12 @@ $batch_checker = Batch::where('shuttle_id', $user->shuttle_id)->where('tahun', d
 
         //=========================== checker C (Shuttle 3,4,5) ===============================================
         $formC_checker = FormC::where('shuttle_id', $user->shuttle_id)->where('tahun', date("Y"))->count();
-        // dd($formC_checker);
-        $status = 'Tidak Diisi';
 
         if ($formC_checker == '0') {
+            $currentApprovalMonth = (int)date('n');
             for ($i = 1; $i < 13; $i++) {
+                // Future months are created as 'Ditutup' and will auto-open when their month arrives.
+                $status = ($i <= $currentApprovalMonth) ? 'Tidak Diisi' : 'Ditutup';
 
                 if ($i == 1) {
 

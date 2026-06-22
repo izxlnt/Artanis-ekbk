@@ -23,6 +23,11 @@ class FormCController extends Controller
     {
         $year = $year ?? date("Y");
 
+        // Block access to months that have not arrived yet
+        if ((int)$year > (int)date('Y') || ((int)$year == (int)date('Y') && (int)$bulan_id > (int)date('n'))) {
+            return redirect()->back()->with('error', 'Borang untuk bulan ini belum dibuka.');
+        }
+
         $shuttle_type = auth()->user()->shuttle->shuttle_type;
         $recovery_rate = RecoveryRate::where('shuttle_type', $shuttle_type)->first();
         $min_recovery_rate = $recovery_rate->min_recovery_rate;

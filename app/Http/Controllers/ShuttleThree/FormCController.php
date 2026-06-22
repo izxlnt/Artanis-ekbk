@@ -28,6 +28,11 @@ class FormCController extends Controller
             $year = date('Y');
         }
 
+        // Block access to months that have not arrived yet
+        if ((int)$year > (int)date('Y') || ((int)$year == (int)date('Y') && (int)$bulan_id > (int)date('n'))) {
+            return redirect()->back()->with('error', 'Borang untuk bulan ini belum dibuka.');
+        }
+
         // Check registration date - user cannot fill months before registration
         $shuttle = Shuttle::where('id', auth()->user()->shuttle_id)->first();
         $registrationDate = $shuttle->created_at;
@@ -56,6 +61,10 @@ class FormCController extends Controller
             $formc->tahun = $year;
             $formc->status = 'Tidak Diisi';
             $formc->created_at = $year . '-' . str_pad($bulan_id, 2, '0', STR_PAD_LEFT) . '-01';
+            $formc->save();
+        } elseif ($formc->status === 'Ditutup') {
+            // Month has arrived — auto-open the form
+            $formc->status = 'Tidak Diisi';
             $formc->save();
         }
 
@@ -432,6 +441,10 @@ class FormCController extends Controller
             $formc->status = 'Tidak Diisi';
             $formc->created_at = $year . '-' . str_pad($bulan_id, 2, '0', STR_PAD_LEFT) . '-01';
             $formc->save();
+        } elseif ($formc->status === 'Ditutup') {
+            // Month has arrived — auto-open the form
+            $formc->status = 'Tidak Diisi';
+            $formc->save();
         }
 
         $currentYear = date('Y');
@@ -792,6 +805,10 @@ class FormCController extends Controller
             $formc->tahun = $year;
             $formc->status = 'Tidak Diisi';
             $formc->created_at = $year . '-' . str_pad($bulan_id, 2, '0', STR_PAD_LEFT) . '-01';
+            $formc->save();
+        } elseif ($formc->status === 'Ditutup') {
+            // Month has arrived — auto-open the form
+            $formc->status = 'Tidak Diisi';
             $formc->save();
         }
 
@@ -1157,6 +1174,10 @@ class FormCController extends Controller
             $formc->status = 'Tidak Diisi';
             $formc->created_at = $year . '-' . str_pad($bulan_id, 2, '0', STR_PAD_LEFT) . '-01';
             $formc->save();
+        } elseif ($formc->status === 'Ditutup') {
+            // Month has arrived — auto-open the form
+            $formc->status = 'Tidak Diisi';
+            $formc->save();
         }
 
         $currentYear = date('Y');
@@ -1515,6 +1536,10 @@ class FormCController extends Controller
             $formc->tahun = $year;
             $formc->status = 'Tidak Diisi';
             $formc->created_at = $year . '-' . str_pad($bulan_id, 2, '0', STR_PAD_LEFT) . '-01';
+            $formc->save();
+        } elseif ($formc->status === 'Ditutup') {
+            // Month has arrived — auto-open the form
+            $formc->status = 'Tidak Diisi';
             $formc->save();
         }
 

@@ -1,7 +1,11 @@
 {{-- Variables: $form (model|null), $fillLink, $viewLink, $isDue --}}
 @if($isDue)
     @php $status = $form ? $form->status : 'Tidak Diisi'; @endphp
-    @if($status === 'Tidak Diisi')
+    @if($status === 'Ditutup')
+        <span data-toggle="tooltip" data-placement="bottom" title="Borang belum dibuka">
+            <i class="fas fa-lock text-muted"></i>
+        </span>
+    @elseif($status === 'Tidak Diisi')
         <a href="{{ $fillLink }}" data-toggle="tooltip" data-placement="bottom" title="Borang belum diisi">
             <img src="{{ asset('circle_times.png') }}" height="28">
         </a>
