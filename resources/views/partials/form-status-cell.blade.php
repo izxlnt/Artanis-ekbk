@@ -23,5 +23,9 @@
         </a>
     @endif
 @else
-    <span class="text-muted">-</span>
+    @if($form && $form->status === 'Ditutup')
+        <span class="badge badge-secondary" data-toggle="tooltip" data-placement="bottom" title="Borang belum dibuka untuk bulan ini">Ditutup</span>
+    @else
+        <span class="text-muted">-</span>
+    @endif
 @endif

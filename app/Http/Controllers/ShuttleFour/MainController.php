@@ -311,6 +311,10 @@ class MainController extends Controller
     {
         $year = $year ?? date("Y");
 
+        if ((int)$year > (int)date('Y') || ((int)$year == (int)date('Y') && (int)date('n') < (int)$id * 3)) {
+            return redirect()->back()->with('error', 'Borang untuk suku tahun ini belum dibuka.');
+        }
+
         if ($id != 1) {
             $lastmonth = $id - 1;
         } else {
@@ -341,6 +345,15 @@ class MainController extends Controller
 
         if ($form_a_checker == 0) {
             return redirect()->back()->with('error', 'Sila isi Borang A tahun ' . $year . ' terlebih dahulu.');
+        }
+
+        $formb = FormB::where('shuttle_id', auth()->user()->shuttle_id)
+            ->where('suku_tahun', $id)
+            ->where('tahun', $year)
+            ->first();
+        if ($formb && $formb->status === 'Ditutup') {
+            $formb->status = 'Tidak Diisi';
+            $formb->save();
         }
 
         if ($id == 1) {

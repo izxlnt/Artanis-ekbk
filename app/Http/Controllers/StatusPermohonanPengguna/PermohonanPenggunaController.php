@@ -592,10 +592,9 @@ $batch_checker = Batch::where('shuttle_id', $user->shuttle_id)->where('tahun', d
         //=========================== checker B (Shuttle 3,4,5) ===============================================
         $list = FormB::where('shuttle_id', $user->shuttle_id)->where('tahun', date("Y"))->count();
 
-        $status = 'Tidak Diisi';
-
         if ($list == '0') {
             for ($i = 1; $i < 5; $i++) {
+                $status = ((int)date('n') >= $i * 3) ? 'Tidak Diisi' : 'Ditutup';
 
                 if ($i == 1) {
                     $formbs = FormB::create([

@@ -139,6 +139,9 @@
                                                                 alt="" style="color: green; font-size: 20pt;"
                                                                 data-toggle="tooltip" data-placement="bottom"
                                                                 title="Borang telah diperaku "></i></a>
+                                                    @else
+                                                        <span class="text-muted" data-toggle="tooltip" data-placement="bottom"
+                                                            title="Borang belum diisi ({{ $data->status }})">-</span>
                                                     @endif
                                                 </td>
                                             </tr>
