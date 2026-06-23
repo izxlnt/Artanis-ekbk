@@ -140,8 +140,9 @@
                                                                 data-toggle="tooltip" data-placement="bottom"
                                                                 title="Borang telah diperaku "></i></a>
                                                     @else
-                                                        <span class="text-muted" data-toggle="tooltip" data-placement="bottom"
-                                                            title="Borang belum diisi ({{ $data->status }})">-</span>
+                                                        <img src="{{ asset('circle_times.png') }}" height='30px' alt=""
+                                                            data-toggle="tooltip" data-placement="bottom"
+                                                            title="Borang belum diisi">
                                                     @endif
                                                 </td>
                                             </tr>
