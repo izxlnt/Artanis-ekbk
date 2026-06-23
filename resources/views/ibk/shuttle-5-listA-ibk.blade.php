@@ -146,7 +146,7 @@
                                                         <a href="" class="mr-1 btn btn-dark disabled"><i
                                                                 class="fas fa-pencil-alt"></i></a>
                                                     @elseif($data->status =="Tidak Lengkap")
-                                                        <a href="{{ route('edit-form4a', $shuttle->id) }}"><img src="{{ asset('pencil.png') }}" height='30px' alt="" style="font-size: 15pt;"
+                                                        <a href="{{ route('edit-form4a', $shuttle->id) }}"><img src="{{ asset('history.png') }}" height='30px' alt="" style="font-size: 15pt;"
                                                             data-toggle="tooltip" data-placement="bottom"
                                                             title="Borang Tidak Lengkap"></i></a>
                                                     @else

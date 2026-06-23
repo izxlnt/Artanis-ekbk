@@ -149,13 +149,12 @@
 
                                                     @if ($data->status == 'Tidak Lengkap')
                                                         <a href="{{ url('/pengguna/shuttle-3-formA/' . $year) }}">
-                                                            <img src="{{ asset('pencil.png') }}" height='30px' alt="" style="font-size: 15pt;"
+                                                            <img src="{{ asset('history.png') }}" height='30px' alt="" style="font-size: 15pt;"
                                                             data-toggle="tooltip" data-placement="bottom"
                                                             title="Borang Tidak Lengkap"></i></a>
                                                     @elseif($data->status == 'Tidak Diisi')
                                                         <a href="{{ url('/pengguna/shuttle-3-formA/' . $year) }}"
-                                                            class="mr-1 btn btn-danger"><i
-                                                                class="fas fa-times-circle"></i></a>
+                                                            class="mr-1 btn btn-danger"><img src="{{ asset('circle_times.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang belum diisi"></a>
 
                                                     @else
                                                         <a href="" class="mr-1 btn btn-dark disabled"><i

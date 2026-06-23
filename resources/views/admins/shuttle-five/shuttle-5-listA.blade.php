@@ -160,7 +160,7 @@
                                                                 data-placement="bottom"
                                                                 title="Borang perlu disahkan"></i></a>
                                                     @elseif($form->status == "Lulus")
-                                                        <img src="{{ asset('check.png') }}" height='30px' alt="" style="color: #68eb34; font-size: 20pt;"
+                                                        <img src="{{ asset('circle_check_yellow.png') }}" height='30px' alt="" style="color: #68eb34; font-size: 20pt;"
                                                             data-toggle="tooltip" data-placement="bottom"
                                                             title="Borang telah disahkan "></i>
                                                     @endif

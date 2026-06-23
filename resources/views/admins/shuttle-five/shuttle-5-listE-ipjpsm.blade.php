@@ -198,7 +198,7 @@
                                                                     data-toggle="tooltip" data-placement="bottom"
                                                                     title="Borang tidak lengkap "></i>
                                                             @elseif($data->status == 'Sedang Diproses')
-                                                                <img src="{{ asset('check.png') }}" height='30px' alt=""
+                                                                <img src="{{ asset('circle_check_yellow.png') }}" height='30px' alt=""
                                                                     style="color: #dbd400; font-size: 20pt;"
                                                                     data-toggle="tooltip" data-placement="bottom"
                                                                     title="Borang perlu disahkan PHD "></i>
@@ -265,7 +265,7 @@
                                                                 data-toggle="tooltip" data-placement="bottom"
                                                                 title="Borang tidak lengkap "></i>
                                                         @elseif($data->status == 'Sedang Diproses')
-                                                            <img src="{{ asset('check.png') }}" height='30px' alt=""
+                                                            <img src="{{ asset('circle_check_yellow.png') }}" height='30px' alt=""
                                                                 style="color: #dbd400; font-size: 20pt;"
                                                                 data-toggle="tooltip" data-placement="bottom"
                                                                 title="Borang perlu disahkan PHD "></i>
@@ -331,7 +331,7 @@
                                                             data-toggle="tooltip" data-placement="bottom"
                                                             title="Borang tidak lengkap "></i>
                                                     @elseif($data->status == 'Sedang Diproses')
-                                                        <img src="{{ asset('check.png') }}" height='30px' alt=""
+                                                        <img src="{{ asset('circle_check_yellow.png') }}" height='30px' alt=""
                                                             style="color: #dbd400; font-size: 20pt;"
                                                             data-toggle="tooltip" data-placement="bottom"
                                                             title="Borang perlu disahkan PHD "></i>
@@ -397,7 +397,7 @@
                                                         data-toggle="tooltip" data-placement="bottom"
                                                         title="Borang tidak lengkap "></i>
                                                 @elseif($data->status == 'Sedang Diproses')
-                                                    <img src="{{ asset('check.png') }}" height='30px' alt=""
+                                                    <img src="{{ asset('circle_check_yellow.png') }}" height='30px' alt=""
                                                         style="color: #dbd400; font-size: 20pt;"
                                                         data-toggle="tooltip" data-placement="bottom"
                                                         title="Borang perlu disahkan PHD "></i>
@@ -463,7 +463,7 @@
                                                     data-toggle="tooltip" data-placement="bottom"
                                                     title="Borang tidak lengkap "></i>
                                             @elseif($data->status == 'Sedang Diproses')
-                                                <img src="{{ asset('check.png') }}" height='30px' alt=""
+                                                <img src="{{ asset('circle_check_yellow.png') }}" height='30px' alt=""
                                                     style="color: #dbd400; font-size: 20pt;"
                                                     data-toggle="tooltip" data-placement="bottom"
                                                     title="Borang perlu disahkan PHD "></i>
@@ -529,7 +529,7 @@
                                                 data-toggle="tooltip" data-placement="bottom"
                                                 title="Borang tidak lengkap "></i>
                                         @elseif($data->status == 'Sedang Diproses')
-                                            <img src="{{ asset('check.png') }}" height='30px' alt=""
+                                            <img src="{{ asset('circle_check_yellow.png') }}" height='30px' alt=""
                                                 style="color: #dbd400; font-size: 20pt;"
                                                 data-toggle="tooltip" data-placement="bottom"
                                                 title="Borang perlu disahkan PHD "></i>
@@ -595,7 +595,7 @@
                                             data-toggle="tooltip" data-placement="bottom"
                                             title="Borang tidak lengkap "></i>
                                     @elseif($data->status == 'Sedang Diproses')
-                                        <img src="{{ asset('check.png') }}" height='30px' alt=""
+                                        <img src="{{ asset('circle_check_yellow.png') }}" height='30px' alt=""
                                             style="color: #dbd400; font-size: 20pt;"
                                             data-toggle="tooltip" data-placement="bottom"
                                             title="Borang perlu disahkan PHD "></i>
@@ -661,7 +661,7 @@
                                         data-toggle="tooltip" data-placement="bottom"
                                         title="Borang tidak lengkap "></i>
                                 @elseif($data->status == 'Sedang Diproses')
-                                    <img src="{{ asset('check.png') }}" height='30px' alt=""
+                                    <img src="{{ asset('circle_check_yellow.png') }}" height='30px' alt=""
                                         style="color: #dbd400; font-size: 20pt;"
                                         data-toggle="tooltip" data-placement="bottom"
                                         title="Borang perlu disahkan PHD "></i>
@@ -727,7 +727,7 @@
                                     data-toggle="tooltip" data-placement="bottom"
                                     title="Borang tidak lengkap "></i>
                             @elseif($data->status == 'Sedang Diproses')
-                                <img src="{{ asset('check.png') }}" height='30px' alt=""
+                                <img src="{{ asset('circle_check_yellow.png') }}" height='30px' alt=""
                                     style="color: #dbd400; font-size: 20pt;"
                                     data-toggle="tooltip" data-placement="bottom"
                                     title="Borang perlu disahkan PHD "></i>
@@ -793,7 +793,7 @@
                                 data-toggle="tooltip" data-placement="bottom"
                                 title="Borang tidak lengkap "></i>
                         @elseif($data->status == 'Sedang Diproses')
-                            <img src="{{ asset('check.png') }}" height='30px' alt=""
+                            <img src="{{ asset('circle_check_yellow.png') }}" height='30px' alt=""
                                 style="color: #dbd400; font-size: 20pt;"
                                 data-toggle="tooltip" data-placement="bottom"
                                 title="Borang perlu disahkan PHD "></i>
@@ -859,7 +859,7 @@
                             data-toggle="tooltip" data-placement="bottom"
                             title="Borang tidak lengkap "></i>
                     @elseif($data->status == 'Sedang Diproses')
-                        <img src="{{ asset('check.png') }}" height='30px' alt=""
+                        <img src="{{ asset('circle_check_yellow.png') }}" height='30px' alt=""
                             style="color: #dbd400; font-size: 20pt;"
                             data-toggle="tooltip" data-placement="bottom"
                             title="Borang perlu disahkan PHD "></i>
@@ -926,7 +926,7 @@
                         data-toggle="tooltip" data-placement="bottom"
                         title="Borang tidak lengkap "></i>
                 @elseif($data->status == 'Sedang Diproses')
-                    <img src="{{ asset('check.png') }}" height='30px' alt=""
+                    <img src="{{ asset('circle_check_yellow.png') }}" height='30px' alt=""
                         style="color: #dbd400; font-size: 20pt;"
                         data-toggle="tooltip" data-placement="bottom"
                         title="Borang perlu disahkan PHD "></i>

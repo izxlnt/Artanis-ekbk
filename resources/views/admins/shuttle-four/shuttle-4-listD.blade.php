@@ -180,7 +180,7 @@
                                                             @elseif($data->status =="Lulus" &&
                                                                 $data->bulan =='1' && $shuttle->id ==
                                                                 $data->shuttle_id)
-                                                                <img src="{{ asset('check.png') }}" height='30px' alt=""
+                                                                <img src="{{ asset('double_check.png') }}" height='30px' alt=""
                                                                     style="color: green; font-size: 20pt;"
                                                                     data-toggle="tooltip" data-placement="bottom"
                                                                     title="Borang telah disahkan"></i>
@@ -228,7 +228,7 @@
                                                     @elseif($data->status =="Lulus" &&
                                                         $data->bulan =='2' && $shuttle->id ==
                                                         $data->shuttle_id)
-                                                        <img src="{{ asset('check.png') }}" height='30px' alt="" style="color: green; font-size: 20pt;"
+                                                        <img src="{{ asset('double_check.png') }}" height='30px' alt="" style="color: green; font-size: 20pt;"
                                                             data-toggle="tooltip" data-placement="bottom"
                                                             title="Borang telah disahkan"></i>
                                                     @else
@@ -274,7 +274,7 @@
                                                     @elseif($data->status =="Lulus" &&
                                                         $data->bulan =='3' && $shuttle->id ==
                                                         $data->shuttle_id)
-                                                        <img src="{{ asset('check.png') }}" height='30px' alt="" style="color: green; font-size: 20pt;"
+                                                        <img src="{{ asset('double_check.png') }}" height='30px' alt="" style="color: green; font-size: 20pt;"
                                                             data-toggle="tooltip" data-placement="bottom"
                                                             title="Borang telah disahkan"></i>
                                                     @else
@@ -320,7 +320,7 @@
                                                     @elseif($data->status =="Lulus" &&
                                                         $data->bulan =='4' && $shuttle->id ==
                                                         $data->shuttle_id)
-                                                        <img src="{{ asset('check.png') }}" height='30px' alt="" style="color: green; font-size: 20pt;"
+                                                        <img src="{{ asset('double_check.png') }}" height='30px' alt="" style="color: green; font-size: 20pt;"
                                                             data-toggle="tooltip" data-placement="bottom"
                                                             title="Borang telah disahkan"></i>
                                                     @else
@@ -366,7 +366,7 @@
                                                     @elseif($data->status =="Lulus" &&
                                                         $data->bulan =='5' && $shuttle->id ==
                                                         $data->shuttle_id)
-                                                        <img src="{{ asset('check.png') }}" height='30px' alt="" style="color: green; font-size: 20pt;"
+                                                        <img src="{{ asset('double_check.png') }}" height='30px' alt="" style="color: green; font-size: 20pt;"
                                                             data-toggle="tooltip" data-placement="bottom"
                                                             title="Borang telah disahkan"></i>
                                                     @else
@@ -411,7 +411,7 @@
                                                     @elseif($data->status =="Lulus" &&
                                                         $data->bulan =='6' && $shuttle->id ==
                                                         $data->shuttle_id)
-                                                        <img src="{{ asset('check.png') }}" height='30px' alt="" style="color: green; font-size: 20pt;"
+                                                        <img src="{{ asset('double_check.png') }}" height='30px' alt="" style="color: green; font-size: 20pt;"
                                                             data-toggle="tooltip" data-placement="bottom"
                                                             title="Borang telah disahkan"></i>
                                                     @else
@@ -456,7 +456,7 @@
                                                     @elseif($data->status =="Lulus" &&
                                                         $data->bulan =='7' && $shuttle->id ==
                                                         $data->shuttle_id)
-                                                        <img src="{{ asset('check.png') }}" height='30px' alt="" style="color: green; font-size: 20pt;"
+                                                        <img src="{{ asset('double_check.png') }}" height='30px' alt="" style="color: green; font-size: 20pt;"
                                                             data-toggle="tooltip" data-placement="bottom"
                                                             title="Borang telah disahkan"></i>
                                                     @else
@@ -501,7 +501,7 @@
                                                     @elseif($data->status =="Lulus" &&
                                                         $data->bulan =='8' && $shuttle->id ==
                                                         $data->shuttle_id)
-                                                        <img src="{{ asset('check.png') }}" height='30px' alt="" style="color: green; font-size: 20pt;"
+                                                        <img src="{{ asset('double_check.png') }}" height='30px' alt="" style="color: green; font-size: 20pt;"
                                                             data-toggle="tooltip" data-placement="bottom"
                                                             title="Borang telah disahkan"></i>
                                                     @else
@@ -545,7 +545,7 @@
                                                             title="Borang tidak lengkap "></i>
                                                     @elseif($data->status =="Dihantar ke IPJPSM" && $data->bulan
                                                         =='9' && $shuttle->id == $data->id)
-                                                        <img src="{{ asset('check.png') }}" height='30px' alt="" style="color: green; font-size: 20pt;"
+                                                        <img src="{{ asset('circle_check_yellow.png') }}" height='30px' alt="" style="color: green; font-size: 20pt;"
                                                             data-toggle="tooltip" data-placement="bottom"
                                                             title="Borang telah disahkan"></i>
                                                     @else
@@ -591,7 +591,7 @@
                                                     @elseif($data->status =="Lulus" &&
                                                         $data->bulan =='10' && $shuttle->id ==
                                                         $data->shuttle_id)
-                                                        <img src="{{ asset('check.png') }}" height='30px' alt="" style="color: green; font-size: 20pt;"
+                                                        <img src="{{ asset('double_check.png') }}" height='30px' alt="" style="color: green; font-size: 20pt;"
                                                             data-toggle="tooltip" data-placement="bottom"
                                                             title="Borang telah disahkan"></i>
                                                     @else
@@ -637,7 +637,7 @@
                                                     @elseif($data->status =="Lulus" &&
                                                         $data->bulan =='11' && $shuttle->id ==
                                                         $data->shuttle_id)
-                                                        <img src="{{ asset('check.png') }}" height='30px' alt="" style="color: green; font-size: 20pt;"
+                                                        <img src="{{ asset('double_check.png') }}" height='30px' alt="" style="color: green; font-size: 20pt;"
                                                             data-toggle="tooltip" data-placement="bottom"
                                                             title="Borang telah disahkan"></i>
 
@@ -684,7 +684,7 @@
                                                     @elseif($data->status =="Lulus" &&
                                                         $data->bulan =='12' && $shuttle->id ==
                                                         $data->shuttle_id)
-                                                        <img src="{{ asset('check.png') }}" height='30px' alt="" style="color: green; font-size: 20pt;"
+                                                        <img src="{{ asset('double_check.png') }}" height='30px' alt="" style="color: green; font-size: 20pt;"
                                                             data-toggle="tooltip" data-placement="bottom"
                                                             title="Borang telah disahkan"></i>
                                                     @else

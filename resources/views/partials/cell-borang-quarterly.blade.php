@@ -20,8 +20,9 @@
                 data-toggle="tooltip" data-placement="bottom" title="Borang telah diperaku">
         </a>
     @elseif ($data->status == 'Tidak Lengkap')
-        <i class="fas fa-undo-alt" style="color:orange;font-size:25pt"
-            data-toggle="tooltip" data-placement="bottom" title="Borang tidak lengkap"></i>
+        <img src="{{ asset('history.png') }}" height='30px' alt=""
+            style="color:#dbd400;font-size:20pt"
+            data-toggle="tooltip" data-placement="bottom" title="Borang tidak lengkap">
     @elseif ($data->status == 'Sedang Diproses')
         <img src="{{ asset('circle_times_yellow.png') }}" height='30px' alt=""
             style="color:#dbd400;font-size:25pt"
@@ -45,4 +46,8 @@
             style="color:grey;font-size:20pt"
             data-toggle="tooltip" data-placement="bottom" title="Borang ditutup">
     @endif
+@else
+    <img src="{{ asset('calendar.png') }}" height='30px' alt=""
+        style="color:grey;font-size:20pt"
+        data-toggle="tooltip" data-placement="bottom" title="Borang belum dibuka">
 @endif

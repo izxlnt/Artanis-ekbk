@@ -159,7 +159,7 @@
                                                             data-original-title="Borang belum disii "></i>
                                                     @elseif($data->status == 'Dihantar ke IPJPSM')
                                                         <a href="{{ route('jpn.shuttle-3-view-formA', $data->id) }}">
-                                                            <img src="{{ asset('check.png') }}" height='30px' alt=""
+                                                            <img src="{{ asset('circle_check_yellow.png') }}" height='30px' alt=""
                                                                 style="color: green; font-size: 20pt;" data-toggle="tooltip"
                                                                 data-placement="bottom"
                                                                 data-original-title="Borang telah disahkan PHD"></i></a>

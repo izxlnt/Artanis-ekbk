@@ -167,7 +167,7 @@
                                                             @elseif($data->status == 'Sedang Diproses' && $data->suku_tahun == '1' && $shuttle->shuttle_id == $data->shuttle_id)
                                                                 <a
                                                                     href="{{ route('phd.shuttle-3-view-formB', $data->id) }}"><img
-                                                                        src="{{ asset('eye.png') }}" height='30px'
+                                                                        src="{{ asset('circle_times_yellow.png') }}" height='30px'
                                                                         data-toggle="tooltip" data-placement="bottom"
                                                                         title="Borang perlu disahkan PHD"></i></a>
                                                             @elseif($data->status == 'Tidak Lengkap' && $data->suku_tahun == '1' && $shuttle->shuttle_id == $data->shuttle_id)
@@ -177,7 +177,7 @@
                                                                     title="Borang tidak lengkap "></i>
                                                             @elseif($data->status == 'Dihantar ke IPJPSM' && $data->suku_tahun == '1' && $shuttle->shuttle_id == $data->shuttle_id)
                                                             <a href="{{ route('phd.shuttle-3-view-formB-phd', $data->id) }}">
-                                                                <img src="{{ asset('check.png') }}" height='30px' alt=""
+                                                                <img src="{{ asset('circle_check_yellow.png') }}" height='30px' alt=""
                                                                     style="color: green; font-size: 20pt;"
                                                                     data-toggle="tooltip" data-placement="bottom"
                                                                     title="Borang telah disahkan PHD">
@@ -216,7 +216,7 @@
                                                             @endif
                                                         @elseif($data->status == 'Sedang Diproses' && $data->suku_tahun == '2' && $shuttle->shuttle_id == $data->shuttle_id)
                                                             <a href="{{ route('phd.shuttle-3-view-formB', $data->id) }}"><img
-                                                                    src="{{ asset('eye.png') }}" height='30px'
+                                                                    src="{{ asset('circle_times_yellow.png') }}" height='30px'
                                                                     data-toggle="tooltip" data-placement="bottom"
                                                                     title="Borang perlu disahkan PHD"></i></a>
                                                         @elseif($data->status == 'Tidak Lengkap' && $data->suku_tahun == '2' && $shuttle->shuttle_id == $data->shuttle_id)
@@ -226,7 +226,7 @@
                                                                 title="Borang tidak lengkap "></i>
                                                         @elseif($data->status == 'Dihantar ke IPJPSM' && $data->suku_tahun == '2' && $shuttle->shuttle_id == $data->shuttle_id)
                                                         <a href="{{ route('phd.shuttle-3-view-formB-phd', $data->id) }}">
-                                                            <img src="{{ asset('check.png') }}" height='30px' alt=""
+                                                            <img src="{{ asset('circle_check_yellow.png') }}" height='30px' alt=""
                                                                 style="color: green; font-size: 20pt;" data-toggle="tooltip"
                                                                 data-placement="bottom"
                                                                 title="Borang telah disahkan PHD">
@@ -265,7 +265,7 @@
                                                             {{-- @if ($data->status == 'Tidak Diisi' && $data->bulan == '1' && $shuttle->shuttle_id == $data->shuttle_id) --}}
                                                         @elseif($data->status == 'Sedang Diproses' && $data->suku_tahun == '3' && $shuttle->shuttle_id == $data->shuttle_id)
                                                             <a href="{{ route('phd.shuttle-3-view-formB', $data->id) }}"><img
-                                                                    src="{{ asset('eye.png') }}" height='30px'
+                                                                    src="{{ asset('circle_times_yellow.png') }}" height='30px'
                                                                     data-toggle="tooltip" data-placement="bottom"
                                                                     title="Borang perlu disahkan PHD"></i></a>
                                                         @elseif($data->status == 'Tiada Pengeluaran' && $data->suku_tahun == '3' && $shuttle->shuttle_id == $data->shuttle_id)
@@ -280,7 +280,7 @@
                                                                 title="Borang tidak lengkap "></i>
                                                         @elseif($data->status == 'Dihantar ke IPJPSM' && $data->suku_tahun == '3' && $shuttle->shuttle_id == $data->shuttle_id)
                                                         <a href="{{ route('phd.shuttle-3-view-formB-phd', $data->id) }}">
-                                                            <img src="{{ asset('check.png') }}" height='30px' alt=""
+                                                            <img src="{{ asset('circle_check_yellow.png') }}" height='30px' alt=""
                                                                 style="color: green; font-size: 20pt;" data-toggle="tooltip"
                                                                 data-placement="bottom"
                                                                 title="Borang telah disahkan PHD">
@@ -317,7 +317,7 @@
                                                             @endif
                                                         @elseif($data->status == 'Sedang Diproses' && $data->suku_tahun == '4' && $shuttle->shuttle_id == $data->shuttle_id)
                                                             <a href="{{ route('phd.shuttle-3-view-formB', $data->id) }}"><img
-                                                                    src="{{ asset('eye.png') }}" height='30px'
+                                                                    src="{{ asset('circle_times_yellow.png') }}" height='30px'
                                                                     data-toggle="tooltip" data-placement="bottom"
                                                                     title="Borang perlu disahkan PHD"></i></a>
                                                         @elseif($data->status == 'Tidak Lengkap' && $data->suku_tahun == '4' && $shuttle->shuttle_id == $data->shuttle_id)
@@ -327,7 +327,7 @@
                                                                 title="Borang tidak lengkap "></i>
                                                         @elseif($data->status == 'Dihantar ke IPJPSM' && $data->suku_tahun == '4' && $shuttle->shuttle_id == $data->shuttle_id)
                                                         <a href="{{ route('phd.shuttle-3-view-formB-phd', $data->id) }}">
-                                                            <img src="{{ asset('check.png') }}" height='30px' alt=""
+                                                            <img src="{{ asset('circle_check_yellow.png') }}" height='30px' alt=""
                                                                 style="color: green; font-size: 20pt;" data-toggle="tooltip"
                                                                 data-placement="bottom"
                                                                 title="Borang telah disahkan PHD">

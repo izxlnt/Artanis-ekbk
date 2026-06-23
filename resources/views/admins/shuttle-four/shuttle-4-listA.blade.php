@@ -134,7 +134,7 @@
                                                             title="Borang belum diisi"></i>
                                                     @elseif ($data->status == 'Sedang Diproses')
                                                     <a href="{{ route('phd.shuttle-3-view-formA', $data->id) }}">
-                                                        <img src="{{ asset('eye.png') }}"
+                                                        <img src="{{ asset('circle_times_yellow.png') }}"
                                                             height='30px' data-toggle="tooltip" data-placement="bottom"
                                                         title="Borang perlu disahkan PHD"></i></a>
                                                     @elseif($data->status == "Tidak Lengkap")
@@ -142,11 +142,11 @@
                                                             data-toggle="tooltip" data-placement="bottom"
                                                             title="Borang tidak lengkap "></i>
                                                     @elseif($data->status == "Dihantar ke IPJPSM")
-                                                            <img src="{{ asset('check.png') }}" height='30px' alt="" style="color: green; font-size: 20pt;"
+                                                            <img src="{{ asset('circle_check_yellow.png') }}" height='30px' alt="" style="color: green; font-size: 20pt;"
                                                                 data-toggle="tooltip" data-placement="bottom"
                                                                 title="Borang telah disahkan"></i>
                                                     @elseif($data->status == "Lulus")
-                                                    <img src="{{ asset('check.png') }}" height='30px' alt="" style="color: green; font-size: 20pt;"
+                                                    <img src="{{ asset('double_check.png') }}" height='30px' alt="" style="color: green; font-size: 20pt;"
                                                         data-toggle="tooltip" data-placement="bottom"
                                                         title="Borang telah diluluskan oleh IPJPSM"></i>
                                                     @endif

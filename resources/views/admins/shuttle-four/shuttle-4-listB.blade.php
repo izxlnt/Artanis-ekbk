@@ -121,15 +121,12 @@
                                                                             data-toggle="tooltip" data-placement="bottom"
                                                                             title="Borang perlu disahkan"></i></a>
                                                                 @elseif($data->status =="Lulus")
-                                                                    <img src="{{ asset('check.png') }}" height='30px' alt=""
+                                                                    <img src="{{ asset('double_check.png') }}" height='30px' alt=""
                                                                         style="color: green; font-size: 20pt;"
                                                                         data-toggle="tooltip" data-placement="bottom"
                                                                         title="Borang telah disahkan"></i>
                                                                 @elseif($data->status =="Tidak Lengkap")
-                                                                    <i class="fas fa-undo-alt"
-                                                                        style="color: orange; font-size: 25pt;"
-                                                                        data-toggle="tooltip" data-placement="bottom"
-                                                                        title="Borang tidak lengkap"></i>
+                                                                    <img src="{{ asset('history.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang tidak lengkap">
                                                                 @elseif($data->status == "Sedang Diproses")
                                                                     <i class="fas fa-hourglass-start"
                                                                         style="color: yellow;font-size: 25pt;"
@@ -185,15 +182,12 @@
                                                                             data-toggle="tooltip" data-placement="bottom"
                                                                             title="Borang perlu disahkan"></i></a>
                                                                 @elseif($data->status =="Lulus")
-                                                                    <img src="{{ asset('check.png') }}" height='30px' alt=""
+                                                                    <img src="{{ asset('double_check.png') }}" height='30px' alt=""
                                                                         style="color: green; font-size: 20pt;"
                                                                         data-toggle="tooltip" data-placement="bottom"
                                                                         title="Borang telah disahkan"></i>
                                                                 @elseif($data->status =="Tidak Lengkap")
-                                                                    <i class="fas fa-undo-alt"
-                                                                        style="color: orange; font-size: 25pt;"
-                                                                        data-toggle="tooltip" data-placement="bottom"
-                                                                        title="Borang tidak lengkap"></i>
+                                                                    <img src="{{ asset('history.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang tidak lengkap">
                                                                 @elseif($data->status == "Sedang Diproses")
                                                                     <i class="fas fa-hourglass-start"
                                                                         style="color: yellow;font-size: 25pt;"
@@ -250,15 +244,12 @@
                                                                             data-toggle="tooltip" data-placement="bottom"
                                                                             title="Borang perlu disahkan"></i></a>
                                                                 @elseif($data->status =="Lulus")
-                                                                    <img src="{{ asset('check.png') }}" height='30px' alt=""
+                                                                    <img src="{{ asset('double_check.png') }}" height='30px' alt=""
                                                                         style="color: green; font-size: 20pt;"
                                                                         data-toggle="tooltip" data-placement="bottom"
                                                                         title="Borang telah disahkan"></i>
                                                                 @elseif($data->status =="Tidak Lengkap")
-                                                                    <i class="fas fa-undo-alt"
-                                                                        style="color: orange; font-size: 25pt;"
-                                                                        data-toggle="tooltip" data-placement="bottom"
-                                                                        title="Borang tidak lengkap"></i>
+                                                                    <img src="{{ asset('history.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang tidak lengkap">
                                                                 @elseif($data->status == "Sedang Diproses")
                                                                     <i class="fas fa-hourglass-start"
                                                                         style="color: yellow;font-size: 25pt;"
@@ -315,15 +306,12 @@
                                                                             data-toggle="tooltip" data-placement="bottom"
                                                                             title="Borang perlu disahkan"></i></a>
                                                                 @elseif($data->status =="Lulus")
-                                                                    <img src="{{ asset('check.png') }}" height='30px' alt=""
+                                                                    <img src="{{ asset('double_check.png') }}" height='30px' alt=""
                                                                         style="color: green; font-size: 20pt;"
                                                                         data-toggle="tooltip" data-placement="bottom"
                                                                         title="Borang telah disahkan"></i>
                                                                 @elseif($data->status =="Tidak Lengkap")
-                                                                    <i class="fas fa-undo-alt"
-                                                                        style="color: orange; font-size: 25pt;"
-                                                                        data-toggle="tooltip" data-placement="bottom"
-                                                                        title="Borang tidak lengkap"></i>
+                                                                    <img src="{{ asset('history.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang tidak lengkap">
                                                                 @elseif($data->status == "Sedang Diproses")
                                                                     <i class="fas fa-hourglass-start"
                                                                         style="color: yellow;font-size: 25pt;"

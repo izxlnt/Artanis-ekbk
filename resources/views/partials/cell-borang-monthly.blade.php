@@ -70,4 +70,8 @@
             style="color:grey;font-size:20pt"
             data-toggle="tooltip" data-placement="bottom" title="Borang ditutup">
     @endif
+@else
+    <img src="{{ asset('calendar.png') }}" height='30px' alt=""
+        style="color:grey;font-size:20pt"
+        data-toggle="tooltip" data-placement="bottom" title="Borang belum dibuka">
 @endif

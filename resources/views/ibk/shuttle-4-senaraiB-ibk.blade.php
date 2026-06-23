@@ -186,7 +186,7 @@
                                                         <a href="{{ route('edit-form3b', $data->id) }}"
                                                             data-toggle="tooltip" data-placement="bottom"
                                                             title="Borang tidak lengkap">
-                                                            <img src="{{ asset('pencil.png') }}" height='30px'
+                                                            <img src="{{ asset('history.png') }}" height='30px'
                                                                 alt=""></i></a>
                                                     @elseif($data->status == 'Lulus' && $data->suku_tahun == '1')
                                                         <a
@@ -238,7 +238,7 @@
                                                         <a href="{{ route('edit-form3b', $data->id) }}"
                                                             data-toggle="tooltip" data-placement="bottom"
                                                             title="Borang tidak lengkap">
-                                                            <img src="{{ asset('pencil.png') }}" height='30px'
+                                                            <img src="{{ asset('history.png') }}" height='30px'
                                                                 alt=""></i></a>
                                                     @elseif($data->status == 'Lulus' && $data->suku_tahun == '2')
                                                         <a
@@ -290,7 +290,7 @@
                                                         <a href="{{ route('edit-form3b', $data->id) }}"
                                                             data-toggle="tooltip" data-placement="bottom"
                                                             title="Borang tidak lengkap">
-                                                            <img src="{{ asset('pencil.png') }}" height='30px'
+                                                            <img src="{{ asset('history.png') }}" height='30px'
                                                                 alt=""></i></a>
                                                     @elseif($data->status == 'Lulus' && $data->suku_tahun == '3')
                                                         <a
@@ -342,7 +342,7 @@
                                                         <a href="{{ route('edit-form3b', $data->id) }}"
                                                             data-toggle="tooltip" data-placement="bottom"
                                                             title="Borang tidak lengkap">
-                                                            <img src="{{ asset('pencil.png') }}" height='30px'
+                                                            <img src="{{ asset('history.png') }}" height='30px'
                                                                 alt=""></i></a>
                                                     @elseif($data->status == 'Lulus' && $data->suku_tahun == '4')
                                                         <a

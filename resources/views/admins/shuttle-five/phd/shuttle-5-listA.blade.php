@@ -140,7 +140,7 @@
                                                 <td>
                                                     @if ($data->status == 'Sedang Diproses')
                                                     <a href="{{ route('phd.shuttle-3-view-formA', $data->id) }}">
-                                                        <img src="{{ asset('eye.png') }}"
+                                                        <img src="{{ asset('circle_times_yellow.png') }}"
                                                             height='30px' data-toggle="tooltip" data-placement="bottom"
                                                         title="Borang perlu disahkan PHD"></i></a>
                                                     @elseif($data->status == "Tidak Lengkap")
@@ -149,7 +149,7 @@
                                                             title="Borang tidak lengkap "></i>
                                                     @elseif($data->status == "Dihantar ke IPJPSM")
                                                     <a href="{{ route('phd.shuttle-3-view-formA-phd', $data->id) }}">
-                                                        <img src="{{ asset('check.png') }}" height='30px' alt="" style="color: green; font-size: 20pt;"
+                                                        <img src="{{ asset('circle_check_yellow.png') }}" height='30px' alt="" style="color: green; font-size: 20pt;"
                                                                 data-toggle="tooltip" data-placement="bottom"
                                                                 title="Borang telah disahkan PHD">
                                                     </a>

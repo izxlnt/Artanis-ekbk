@@ -183,10 +183,7 @@
                                                                         data-toggle="tooltip" data-placement="bottom"
                                                                         title="Borang telah diperaku"></i>
                                                                 @elseif($data->status == 'Tidak Lengkap')
-                                                                    <i class="fas fa-undo-alt"
-                                                                        style="color: orange; font-size: 25pt;"
-                                                                        data-toggle="tooltip" data-placement="bottom"
-                                                                        title="Borang tidak lengkap"></i>
+                                                                    <img src="{{ asset('history.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang tidak lengkap">
                                                                 @elseif($data->status == 'Sedang Diproses')
                                                                     <i class="fas fa-times"
                                                                         style="color: yellow;font-size: 25pt;"
@@ -273,10 +270,7 @@
                                                                         data-toggle="tooltip" data-placement="bottom"
                                                                         title="Borang telah diperaku"></i>
                                                                 @elseif($data->status == 'Tidak Lengkap')
-                                                                    <i class="fas fa-undo-alt"
-                                                                        style="color: orange; font-size: 25pt;"
-                                                                        data-toggle="tooltip" data-placement="bottom"
-                                                                        title="Borang tidak lengkap"></i>
+                                                                    <img src="{{ asset('history.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang tidak lengkap">
                                                                 @elseif($data->status == 'Sedang Diproses')
                                                                     <i class="fas fa-times"
                                                                         style="color: yellow;font-size: 25pt;"
@@ -364,10 +358,7 @@
                                                                         data-toggle="tooltip" data-placement="bottom"
                                                                         title="Borang telah diperaku"></i>
                                                                 @elseif($data->status == 'Tidak Lengkap')
-                                                                    <i class="fas fa-undo-alt"
-                                                                        style="color: orange; font-size: 25pt;"
-                                                                        data-toggle="tooltip" data-placement="bottom"
-                                                                        title="Borang tidak lengkap"></i>
+                                                                    <img src="{{ asset('history.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang tidak lengkap">
                                                                 @elseif($data->status == 'Sedang Diproses')
                                                                     <i class="fas fa-times"
                                                                         style="color: yellow;font-size: 25pt;"
@@ -456,10 +447,7 @@
                                                                         data-toggle="tooltip" data-placement="bottom"
                                                                         title="Borang telah diperaku"></i>
                                                                 @elseif($data->status == 'Tidak Lengkap')
-                                                                    <i class="fas fa-undo-alt"
-                                                                        style="color: orange; font-size: 25pt;"
-                                                                        data-toggle="tooltip" data-placement="bottom"
-                                                                        title="Borang tidak lengkap"></i>
+                                                                    <img src="{{ asset('history.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang tidak lengkap">
                                                                 @elseif($data->status == 'Sedang Diproses')
                                                                     <i class="fas fa-times"
                                                                         style="color: yellow;font-size: 25pt;"

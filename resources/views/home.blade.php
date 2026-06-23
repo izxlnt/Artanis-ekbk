@@ -815,7 +815,7 @@
                                         data-toggle="tooltip" data-placement="bottom"
                                         title="Borang perlu disahkan"></i></a>Borang perlu disahkan PHD<br><br>
 
-                                        <img src="{{ asset('check.png') }}" height='30px' alt="" style="color: green; font-size: 20pt;"
+                                        <img src="{{ asset('circle_check_yellow.png') }}" height='30px' alt="" style="color: green; font-size: 20pt;"
                                         data-toggle="tooltip" data-placement="bottom"
                                         title="Borang telah disahkan"></i></a> Borang
                                         telah disahkan PHD<br><br>

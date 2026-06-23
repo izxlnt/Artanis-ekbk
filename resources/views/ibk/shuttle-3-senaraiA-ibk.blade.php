@@ -157,7 +157,7 @@
                                                     @endif
                                                 @elseif($list->status == 'Tidak Lengkap')
                                                     <a href="{{ url('/pengguna/shuttle-3-formA/' . $year) }}">
-                                                       <img src="{{ asset('pencil.png') }}" height='30px' alt="" style="font-size: 15pt;"
+                                                       <img src="{{ asset('history.png') }}" height='30px' alt="" style="font-size: 15pt;"
                                                             data-toggle="tooltip" data-placement="bottom"
                                                             title="Borang Tidak Lengkap"></i></a>
                                                 @endif

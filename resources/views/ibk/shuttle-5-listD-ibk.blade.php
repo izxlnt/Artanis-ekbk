@@ -145,7 +145,7 @@
                                                     class="fas fa-pencil-alt"></i></a>
                                                 @elseif($data->status =="Tidak Lengkap")
                                                 <a href="{{ route('user.shuttle-5-edit-formD',$data->id) }}" > <img
-                                                    src="{{ asset('pencil.png') }}" height='30px'
+                                                    src="{{ asset('history.png') }}" height='30px'
                                                     alt=""></i></a>
                                                 @else
                                                 <a href="" class="mr-1 btn btn-dark disabled"><i

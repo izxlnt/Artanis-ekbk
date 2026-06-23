@@ -163,7 +163,7 @@
 
                                                     @if ($data->status == 'Sedang Diproses' || $data->status == 'Tiada Pengeluaran')
                                                         <a href="{{ route('phd.shuttle-5-view-formD', $data->id) }}">
-                                                            <img src="{{ asset('eye.png') }}" height='30px'
+                                                            <img src="{{ asset('circle_times_yellow.png') }}" height='30px'
                                                                 data-toggle="tooltip" data-placement="bottom"
                                                                 title="Borang perlu disahkan PHD"></i></a>
                                                     @elseif($data->status == 'Tidak Lengkap')
@@ -172,7 +172,7 @@
                                                             title="Borang tidak lengkap"></i></a>
                                                     @elseif($data->status == 'Dihantar ke IPJPSM')
                                                     <a href="{{ route('phd.shuttle-5-view-formD-phd', $data->id) }}">
-                                                        <img src="{{ asset('check.png') }}" height='30px'
+                                                        <img src="{{ asset('circle_check_yellow.png') }}" height='30px'
                                                             data-toggle="tooltip" data-placement="bottom"
                                                             title="Borang telah disahkan PHD"></a>
                                                     @elseif($data->status == 'Lulus')
