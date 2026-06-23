@@ -1,4 +1,4 @@
-@extends('layouts.layout-ibk-nicepage')
+﻿@extends('layouts.layout-ibk-nicepage')
 
 @section('content')
     {{-- @livewire('shuttle-three.shuttle3') --}}
@@ -205,7 +205,10 @@
                                                                         data-placement="bottom"
                                                                         title="Borang telah diluluskan oleh IPJPSM"
                                                                         style="color: green; font-size: 20pt;"></i></a>
-                                                            @endif
+                                                            
+                                                            @elseif($data->status == 'Ditutup' && $data->bulan == '1')
+                                                                <img src="{{ asset('calendar.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang belum dibuka" style="color: black; font-size: 20pt;">
+@endif
                                                         @endforeach
                                                     </td>
                                                     <td>
@@ -275,6 +278,8 @@
                                                                         data-placement="bottom"
                                                                         title="Borang telah diluluskan oleh IPJPSM"
                                                                         style="color: green; font-size: 20pt;"></i></a>
+                                                            @elseif($data->status == 'Ditutup' && $data->bulan == '2')
+                                                                <img src="{{ asset('calendar.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang belum dibuka" style="color: black; font-size: 20pt;">
                                                             @endif
                                                         @endforeach
                                                     </td>
@@ -345,7 +350,10 @@
                                                                         data-placement="bottom"
                                                                         title="Borang telah diluluskan oleh IPJPSM"
                                                                         style="color: green; font-size: 20pt;"></i></a>
-                                                            @endif
+                                                            
+                                                            @elseif($data->status == 'Ditutup' && $data->bulan == '3')
+                                                                <img src="{{ asset('calendar.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang belum dibuka" style="color: black; font-size: 20pt;">
+@endif
                                                         @endforeach
                                                     </td>
                                                     <td>
@@ -415,7 +423,10 @@
                                                                         data-placement="bottom"
                                                                         title="Borang telah diluluskan oleh IPJPSM"
                                                                         style="color: green; font-size: 20pt;"></i></a>
-                                                            @endif
+                                                            
+                                                            @elseif($data->status == 'Ditutup' && $data->bulan == '4')
+                                                                <img src="{{ asset('calendar.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang belum dibuka" style="color: black; font-size: 20pt;">
+@endif
                                                         @endforeach
                                                     </td>
                                                     <td>
@@ -485,7 +496,10 @@
                                                                         data-placement="bottom"
                                                                         title="Borang telah diluluskan oleh IPJPSM"
                                                                         style="color: green; font-size: 20pt;"></i></a>
-                                                            @endif
+                                                            
+                                                            @elseif($data->status == 'Ditutup' && $data->bulan == '5')
+                                                                <img src="{{ asset('calendar.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang belum dibuka" style="color: black; font-size: 20pt;">
+@endif
                                                         @endforeach
                                                     </td>
                                                     <td>
@@ -555,7 +569,10 @@
                                                                         data-placement="bottom"
                                                                         title="Borang telah diluluskan oleh IPJPSM"
                                                                         style="color: green; font-size: 20pt;"></i></a>
-                                                            @endif
+                                                            
+                                                            @elseif($data->status == 'Ditutup' && $data->bulan == '6')
+                                                                <img src="{{ asset('calendar.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang belum dibuka" style="color: black; font-size: 20pt;">
+@endif
                                                         @endforeach
                                                     </td>
                                                     <td>
@@ -625,7 +642,10 @@
                                                                         data-placement="bottom"
                                                                         title="Borang telah diluluskan oleh IPJPSM"
                                                                         style="color: green; font-size: 20pt;"></i></a>
-                                                            @endif
+                                                            
+                                                            @elseif($data->status == 'Ditutup' && $data->bulan == '7')
+                                                                <img src="{{ asset('calendar.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang belum dibuka" style="color: black; font-size: 20pt;">
+@endif
                                                         @endforeach
                                                     </td>
                                                     <td>
@@ -695,7 +715,10 @@
                                                                         data-placement="bottom"
                                                                         title="Borang telah diluluskan oleh IPJPSM"
                                                                         style="color: green; font-size: 20pt;"></i></a>
-                                                            @endif
+                                                            
+                                                            @elseif($data->status == 'Ditutup' && $data->bulan == '8')
+                                                                <img src="{{ asset('calendar.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang belum dibuka" style="color: black; font-size: 20pt;">
+@endif
                                                         @endforeach
                                                     </td>
                                                     <td>
@@ -765,7 +788,10 @@
                                                                         data-placement="bottom"
                                                                         title="Borang telah diluluskan oleh IPJPSM"
                                                                         style="color: green; font-size: 20pt;"></i></a>
-                                                            @endif
+                                                            
+                                                            @elseif($data->status == 'Ditutup' && $data->bulan == '9')
+                                                                <img src="{{ asset('calendar.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang belum dibuka" style="color: black; font-size: 20pt;">
+@endif
                                                         @endforeach
                                                     </td>
                                                     <td>
@@ -835,7 +861,10 @@
                                                                         data-placement="bottom"
                                                                         title="Borang telah diluluskan oleh IPJPSM"
                                                                         style="color: green; font-size: 20pt;"></i></a>
-                                                            @endif
+                                                            
+                                                            @elseif($data->status == 'Ditutup' && $data->bulan == '10')
+                                                                <img src="{{ asset('calendar.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang belum dibuka" style="color: black; font-size: 20pt;">
+@endif
                                                         @endforeach
                                                     </td>
                                                     <td>
@@ -905,7 +934,10 @@
                                                                         data-placement="bottom"
                                                                         title="Borang telah diluluskan oleh IPJPSM"
                                                                         style="color: green; font-size: 20pt;"></i></a>
-                                                            @endif
+                                                            
+                                                            @elseif($data->status == 'Ditutup' && $data->bulan == '11')
+                                                                <img src="{{ asset('calendar.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang belum dibuka" style="color: black; font-size: 20pt;">
+@endif
                                                         @endforeach
                                                     </td>
                                                     <td>
@@ -975,7 +1007,10 @@
                                                                         data-placement="bottom"
                                                                         title="Borang telah diluluskan oleh IPJPSM"
                                                                         style="color: green; font-size: 20pt;"></i></a>
-                                                            @endif
+                                                            
+                                                            @elseif($data->status == 'Ditutup' && $data->bulan == '12')
+                                                                <img src="{{ asset('calendar.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang belum dibuka" style="color: black; font-size: 20pt;">
+@endif
                                                         @endforeach
                                                     </td>
 
