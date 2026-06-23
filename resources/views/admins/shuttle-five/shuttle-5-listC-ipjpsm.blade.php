@@ -1,4 +1,4 @@
-@extends('layouts.layout-ipjpsm-nicepage')
+﻿@extends('layouts.layout-ipjpsm-nicepage')
 
 @section('content')
 
@@ -135,7 +135,7 @@
                                                 @for ($m = 1; $m <= 12; $m++)
                                                     <td>
                                                         @php $data = $formCIndex[$shuttle->id][$m] ?? null; $cb = $data ? ($batchIndex[$shuttle->id][$m] ?? null) : null; @endphp
-                                                        @include('partials.cell-borang-monthly', ['data' => $data, 'current_batch' => $cb, 'buffer' => $buffer, 'viewRoute' => 'ipjpsm.shuttle-5-view-formC', 'batchField' => 'borang_c'])
+                                                        @include('partials.cell-borang-monthly', ['data' => $data, 'current_batch' => $cb, 'buffer' => $buffer, 'viewRoute' => 'ipjpsm.shuttle-5-view-formC', 'batchField' => 'borang_c', 'bulan' => $m])
                                                     </td>
                                                 @endfor
                                             </tr>

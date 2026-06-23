@@ -71,7 +71,13 @@
             data-toggle="tooltip" data-placement="bottom" title="Borang ditutup">
     @endif
 @else
-    <img src="{{ asset('calendar.png') }}" height='30px' alt=""
-        style="color:grey;font-size:20pt"
-        data-toggle="tooltip" data-placement="bottom" title="Borang belum dibuka">
+    @if (isset($bulan) && $bulan > (int) date('n'))
+        <img src="{{ asset('calendar.png') }}" height='30px' alt=""
+            style="color:grey;font-size:20pt"
+            data-toggle="tooltip" data-placement="bottom" title="Borang belum dibuka">
+    @else
+        <img src="{{ asset('circle_times.png') }}" height='30px' alt=""
+            style="color:red;font-size:25pt"
+            data-toggle="tooltip" data-placement="bottom" title="Borang belum diisi">
+    @endif
 @endif
