@@ -1,4 +1,4 @@
-@extends('layouts.layout-ibk-nicepage')
+﻿@extends('layouts.layout-ibk-nicepage')
 
 @section('content')
     {{-- @livewire('shuttle-three.shuttle3') --}}
@@ -201,6 +201,8 @@
                                                                 alt="" data-toggle="tooltip" data-placement="bottom"
                                                                 title="Borang telah diluluskan oleh IPJPSM"
                                                                 style="color: green; font-size: 20pt;"></i></a>
+                                                    @elseif($data->status == 'Ditutup' && $data->suku_tahun == '1')
+                                                        <img src="{{ asset('calendar.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang belum dibuka" style="color: black; font-size: 20pt;">
                                                     @endif
                                                 @endforeach
                                             </td>
@@ -257,7 +259,10 @@
                                                                 alt="" data-toggle="tooltip" data-placement="bottom"
                                                                 title="Borang telah diluluskan oleh IPJPSM"
                                                                 style="color: green; font-size: 20pt;"></i></a>
-                                                    @endif
+                                                    
+                                                    @elseif($data->status == 'Ditutup' && $data->suku_tahun == '2')
+                                                        <img src="{{ asset('calendar.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang belum dibuka" style="color: black; font-size: 20pt;">
+@endif
                                                 @endforeach
                                             </td>
                                             <td>-</td>
@@ -313,7 +318,10 @@
                                                                 alt="" data-toggle="tooltip" data-placement="bottom"
                                                                 title="Borang telah diluluskan oleh IPJPSM"
                                                                 style="color: green; font-size: 20pt;"></i></a>
-                                                    @endif
+                                                    
+                                                    @elseif($data->status == 'Ditutup' && $data->suku_tahun == '3')
+                                                        <img src="{{ asset('calendar.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang belum dibuka" style="color: black; font-size: 20pt;">
+@endif
                                                 @endforeach
                                             </td>
                                             <td>-</td>
@@ -369,7 +377,10 @@
                                                                 alt="" data-toggle="tooltip" data-placement="bottom"
                                                                 title="Borang telah diluluskan oleh IPJPSM"
                                                                 style="color: green; font-size: 20pt;"></i></a>
-                                                    @endif
+                                                    
+                                                    @elseif($data->status == 'Ditutup' && $data->suku_tahun == '4')
+                                                        <img src="{{ asset('calendar.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang belum dibuka" style="color: black; font-size: 20pt;">
+@endif
                                                 @endforeach
                                             </td>
 
