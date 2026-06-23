@@ -19,7 +19,7 @@
 
 
     <!-- Favicon icon -->
-    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('logo.png')  }}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('logo.png') }}">
 
     <!-- font-awesome icon -->
     <link rel="stylesheet" href="{{ asset('nice-admin/icon/css/all.css') }}">
@@ -148,7 +148,6 @@
             -moz-border-radius: 6px 0 6px 6px;
             border-radius: 6px 0 6px 6px;
         }
-
     </style>
 
 </head>
@@ -173,7 +172,7 @@
                 <div class="navbar-collapse collapse" id="navbarSupportedContent">
                     <ul class="float-left navbar-nav">
                         <span class="logo-icon" style="align:left;">
-                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/94/Jata_MalaysiaV2.svg/1200px-Jata_MalaysiaV2.svg.png"
+                            <img src="{{ asset('Coat_of_Arms_of_Malaysia.png') }}"
                                 style="height: 50px;" alt="homepage" class="dark-logo" />
 
 
@@ -187,7 +186,8 @@
                     </ul>
                     <ul class="mr-auto navbar-nav" style="text-align:center;margin-left: auto !important">
                         <span class=""
-                            style="color: #000; font-weight: bold; font-size: 20px;text-align:center;">SISTEM eSHUTTLE<br>
+                            style="color: #000; font-weight: bold; font-size: 20px;text-align:center;">SISTEM
+                            eSHUTTLE<br>
                             JABATAN PERHUTANAN SEMENANJUNG MALAYSIA
                         </span>
 
@@ -195,25 +195,25 @@
                     <ul class="float-right navbar-nav">
                         <!-- Maintenance Mode Quick Toggle -->
                         @php $__maint = \App\Models\MaintenanceSetting::first(); @endphp
-                        @if($__maint && $__maint->is_active)
-                        <li class="nav-item d-flex align-items-center mr-2">
-                            <form action="{{ route('tetapan.penyelenggaraan.toggle') }}" method="POST"
-                                onsubmit="return confirm('Matikan Mod Penyelenggaraan sekarang?\n\nSemua pengguna akan dapat mengakses sistem semula.');">
-                                @csrf
-                                <button type="submit"
-                                    style="background:#ffc107;border:none;border-radius:20px;padding:5px 14px;font-size:12px;font-weight:700;color:#333;cursor:pointer;display:flex;align-items:center;gap:6px;white-space:nowrap;">
-                                    <i class="fas fa-tools"></i>
-                                    PENYELENGGARAAN AKTIF &nbsp;&#x2715; Matikan
-                                </button>
-                            </form>
-                        </li>
+                        @if ($__maint && $__maint->is_active)
+                            <li class="nav-item d-flex align-items-center mr-2">
+                                <form action="{{ route('tetapan.penyelenggaraan.toggle') }}" method="POST"
+                                    onsubmit="return confirm('Matikan Mod Penyelenggaraan sekarang?\n\nSemua pengguna akan dapat mengakses sistem semula.');">
+                                    @csrf
+                                    <button type="submit"
+                                        style="background:#ffc107;border:none;border-radius:20px;padding:5px 14px;font-size:12px;font-weight:700;color:#333;cursor:pointer;display:flex;align-items:center;gap:6px;white-space:nowrap;">
+                                        <i class="fas fa-tools"></i>
+                                        PENYELENGGARAAN AKTIF &nbsp;&#x2715; Matikan
+                                    </button>
+                                </form>
+                            </li>
                         @endif
                         <!-- ============================================================== -->
                         <!-- Notification -->
                         <!-- ============================================================== -->
                         <li class="nav-item dropdown border-right">
-                            <a class="nav-link dropdown-toggle waves-effect waves-dark" href="" data-toggle="dropdown"
-                                aria-haspopup="true" aria-expanded="false">
+                            <a class="nav-link dropdown-toggle waves-effect waves-dark" href=""
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="mdi mdi-bell-outline font-22"></i>
                                 <span
                                     class="badge badge-pill badge-info noti">{{ optional(optional(auth()->user())->unreadNotifications)->count() ?? 0 }}</span>
@@ -226,7 +226,8 @@
                                     <li>
                                         <div class="drop-title bg-primary text-white">
                                             <h4 class="m-b-0 m-t-5" style="color: #000">
-                                                {{ optional(optional(auth()->user())->unreadNotifications)->count() ?? 0 }} Notifikasi</h4>
+                                                {{ optional(optional(auth()->user())->unreadNotifications)->count() ?? 0 }}
+                                                Notifikasi</h4>
                                             <span class="font-light" style="color: #000">Baharu</span>
                                         </div>
                                     </li>
@@ -267,8 +268,9 @@
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 {{-- <img src="{{asset('nice-admin/assets/images/users/2.jpg')}}" alt="user"
                                 class="rounded-circle" width="40"> --}}
-                                <span class="font-medium m-l-5 d-none d-sm-inline-block">{{ optional(Auth::user())->name }} <i
-                                        class="mdi mdi-chevron-down"></i></span>
+                                <span
+                                    class="font-medium m-l-5 d-none d-sm-inline-block">{{ optional(Auth::user())->name }}
+                                    <i class="mdi mdi-chevron-down"></i></span>
                             </a>
                             <div class="dropdown-menu dropdown-menu-right user-dd animated flipInY">
                                 <span class="with-arrow">
@@ -420,8 +422,9 @@
 
 
                         <li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark"
-                                href="javascript:void(0)" aria-expanded="false"><i class="mdi mdi-view-module"></i><span
-                                    class="hide-menu" style="padding-left: 10px;font-size: large;">Menu Utama
+                                href="javascript:void(0)" aria-expanded="false"><i
+                                    class="mdi mdi-view-module"></i><span class="hide-menu"
+                                    style="padding-left: 10px;font-size: large;">Menu Utama
                                     Modul</span></a>
                             <ul aria-expanded="false" class="collapse first-level">
                                 <li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark"
@@ -429,18 +432,15 @@
                                             class="mdi mdi-collage"></i><span class="hide-menu">Perakuan
                                             Maklumat</span></a>
                                     <ul aria-expanded="false" class="collapse second-level">
-                                        <li class="sidebar-item"><a
-                                                href="{{ route('shuttle-3-listA', date('Y')) }}"
+                                        <li class="sidebar-item"><a href="{{ route('shuttle-3-listA', date('Y')) }}"
                                                 class="sidebar-link"><i class="mdi mdi-priority-low"></i><span
                                                     class="hide-menu">&nbsp Shuttle 3 - Kilang Papan</span></a>
                                         </li>
-                                        <li class="sidebar-item"><a
-                                                href="{{ route('shuttle-4-listA', date('Y')) }}"
+                                        <li class="sidebar-item"><a href="{{ route('shuttle-4-listA', date('Y')) }}"
                                                 class="sidebar-link"><i class="mdi mdi-priority-low"></i><span
                                                     class="hide-menu"> &nbsp
                                                     Shuttle 4 - Kilang Papan Lapis/Venir</span></a></li>
-                                        <li class="sidebar-item"><a
-                                                href="{{ route('shuttle-5-listA', date('Y')) }}"
+                                        <li class="sidebar-item"><a href="{{ route('shuttle-5-listA', date('Y')) }}"
                                                 class="sidebar-link"><i class="mdi mdi-priority-low"></i><span
                                                     class="hide-menu"> &nbsp
                                                     Shuttle 5 - Kilang Kayu Kumai</span></a></li>
@@ -474,9 +474,8 @@
                                     </ul>
                                 </li>
 
-                                <li class="sidebar-item"><a href="{{ route('laporan') }}"
-                                        class="sidebar-link"><i class="mdi mdi-file-document"></i><span
-                                            class="hide-menu"> Laporan
+                                <li class="sidebar-item"><a href="{{ route('laporan') }}" class="sidebar-link"><i
+                                            class="mdi mdi-file-document"></i><span class="hide-menu"> Laporan
                                         </span></a></li>
 
                                 {{-- <li class="sidebar-item"><a href="{{ route('getreport_senaraikilang') }}" class="sidebar-link"><i
@@ -538,8 +537,8 @@
                                 </li>
 
                                 <li class="sidebar-item"><a href="{{ route('tetapan.buffer.papar') }}"
-                                        class="sidebar-link">&nbsp&nbsp <i
-                                            class="fas fa-cogs"></i>&nbsp&nbsp&nbsp <span class="hide-menu">
+                                        class="sidebar-link">&nbsp&nbsp <i class="fas fa-cogs"></i>&nbsp&nbsp&nbsp
+                                        <span class="hide-menu">
                                             Tetapan Buffer Penghantaran
                                             Borang
                                         </span></a>
@@ -549,7 +548,7 @@
                                     <a href="{{ route('tetapan.penyelenggaraan.papar') }}" class="sidebar-link">
                                         &nbsp;&nbsp;
                                         @php $__maint = \App\Models\MaintenanceSetting::first(); @endphp
-                                        @if($__maint && $__maint->is_active)
+                                        @if ($__maint && $__maint->is_active)
                                             <i class="fas fa-tools text-warning"></i>
                                         @else
                                             <i class="fas fa-tools"></i>
@@ -557,19 +556,21 @@
                                         &nbsp;&nbsp;&nbsp;
                                         <span class="hide-menu">
                                             Mod Penyelenggaraan
-                                            @if($__maint && $__maint->is_active)
-                                                <span class="badge badge-warning badge-pill ml-1" style="font-size:9px;">AKTIF</span>
+                                            @if ($__maint && $__maint->is_active)
+                                                <span class="badge badge-warning badge-pill ml-1"
+                                                    style="font-size:9px;">AKTIF</span>
                                             @endif
                                         </span>
                                     </a>
                                 </li>
 
                                 <li class="sidebar-item"><a href="{{ route('pengumuman-ipjpsm') }}"
-                                    class="sidebar-link">&nbsp&nbsp <i
-                                        class="fas fa-solid fa-bullhorn"></i>&nbsp&nbsp&nbsp <span class="hide-menu">
-                                        Pengumuman JPN
-                                    </span></a>
-                            </li>
+                                        class="sidebar-link">&nbsp&nbsp <i
+                                            class="fas fa-solid fa-bullhorn"></i>&nbsp&nbsp&nbsp <span
+                                            class="hide-menu">
+                                            Pengumuman JPN
+                                        </span></a>
+                                </li>
 
                             </ul>
                         </li>
@@ -598,8 +599,7 @@
                                     style="padding-left: 10px;font-size: large;">Profil Pengguna</span></a>
                             <ul aria-expanded="false" class="collapse first-level">
 
-                                <li class="sidebar-item"><a
-                                        href="{{ route('tambah-pengurusan-pengguna-ipjpsm') }}"
+                                <li class="sidebar-item"><a href="{{ route('tambah-pengurusan-pengguna-ipjpsm') }}"
                                         class="sidebar-link"><i class="mdi mdi-account-box"></i><span
                                             class="hide-menu"> Tambah Pengguna
                                         </span></a></li>
@@ -625,9 +625,9 @@
                                     style="padding-left: 10px;font-size: large;">Bantuan</span></a>
                             <ul aria-expanded="false" class="collapse first-level">
 
-                                <li class="sidebar-item"><a target="_blank"
-                                        href="{{ asset('Manual_IPJPSM.pdf') }}" class="sidebar-link"><i
-                                            class="mdi mdi-collage"></i><span class="hide-menu">&nbsp Panduan
+                                <li class="sidebar-item"><a target="_blank" href="{{ asset('Manual_IPJPSM.pdf') }}"
+                                        class="sidebar-link"><i class="mdi mdi-collage"></i><span
+                                            class="hide-menu">&nbsp Panduan
                                             Pentadbir
                                             Modul</span></a>
                                 </li>
@@ -673,9 +673,10 @@
         <!-- ============================================================== -->
     </div>
 
-    <footer class="text-center footer" style="bottom:0;text-align:center;left:0; color: rgb(0, 0, 0) !important;background-image: url(/bghutan.png); background-position: bottom; opacity: 0.75;">
+    <footer class="text-center footer"
+        style="bottom:0;text-align:center;left:0; color: rgb(0, 0, 0) !important;background-image: url(/bghutan.png); background-position: bottom; opacity: 0.75;">
         <span style=" color: rgb(255, 255, 255)">Hakcipta Terpelihara © {{ date('Y') }}. SISTEM eSHUTTLE. <br>
-        Paparan terbaik untuk sistem ini adalah 1920x1080 resolusi piksel.</span>
+            Paparan terbaik untuk sistem ini adalah 1920x1080 resolusi piksel.</span>
     </footer>
     <!-- Bootstrap tether Core JavaScript -->
     <script src="{{ asset('nice-admin/assets/libs/popper.js/dist/umd/popper.min.js') }}"></script>
@@ -747,9 +748,13 @@
         toastr.options.fadeOut = 2500;
 
         @if (Session::get('success'))
-            toastr.success('{{ session('success') }}', 'Berjaya', { "progressBar": true });
+            toastr.success('{{ session('success') }}', 'Berjaya', {
+                "progressBar": true
+            });
         @elseif ($message = Session::get('error'))
-            toastr.error('{{ session('error') }}', 'Ralat', { "progressBar": true });
+            toastr.error('{{ session('error') }}', 'Ralat', {
+                "progressBar": true
+            });
         @endif
     </script>
 

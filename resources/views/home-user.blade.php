@@ -53,7 +53,7 @@
             <div class="card bg-info card-hover" style="border-radius: 10px">
                 <div class="card-body" style="box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2); background-color: #ee8dcd ;border-radius: 10px;text-align:center;">
                     <h2 style="padding-top: 2%;"><i class="fas fa-copy"></i></h2>
-                    <h2 style="padding-top: 2%;"><b>{{ $formB_count }}/4</b></h2>
+                    <h2 style="padding-top: 2%;"><b>{{ $formB_count }}/{{ (int) ceil($currentMonth / 3) }}</b></h2>
                     <h3 style="padding-top: 2%;">BORANG B</h3>
                 </div>
             </div>
@@ -62,7 +62,7 @@
             <div class="card bg-info card-hover" style="border-radius: 10px">
                 <div class="card-body" style="box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2); background-color: #f0e10dbd;border-radius: 10px;text-align:center;">
                     <h2 style="padding-top: 2%;"><i class="fas fa-copy"></i></h2>
-                    <h2 style="padding-top: 2%;"><b>{{ $formC_count }}/12</b></h2>
+                    <h2 style="padding-top: 2%;"><b>{{ $formC_count }}/{{ $currentMonth }}</b></h2>
                     <h3 style="padding-top: 2%;">BORANG C</h3>
                 </div>
             </div>
@@ -71,7 +71,7 @@
             <div class="card bg-info card-hover" style="border-radius: 10px">
                 <div class="card-body" style="box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2); background-color: #6df173 ;border-radius: 10px;text-align:center;">
                     <h2 style="padding-top: 2%;"><i class="fas fa-copy"></i></h2>
-                    <h2 style="padding-top: 2%;"><b>{{ $formD_count }}/12</b></h2>
+                    <h2 style="padding-top: 2%;"><b>{{ $formD_count }}/{{ $currentMonth }}</b></h2>
                     <h3 style="padding-top: 2%;">BORANG D</h3>
                 </div>
             </div>
@@ -92,7 +92,7 @@
                 <div class="card bg-info card-hover" style="border-radius: 10px">
                     <div class="card-body" style="box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2); background-color: #ee8dcd ;border-radius: 10px;text-align:center;">
                         <h2 style="padding-top: 2%;"><i class="fas fa-copy"></i></h2>
-                        <h2 style="padding-top: 2%;"><b>{{ $form4B_count }}/4</b></h2>
+                        <h2 style="padding-top: 2%;"><b>{{ $form4B_count }}/{{ (int) ceil($currentMonth / 3) }}</b></h2>
                         <h3 style="padding-top: 2%;">BORANG B</h3>
                     </div>
                 </div>
@@ -101,7 +101,7 @@
                 <div class="card bg-info card-hover" style="border-radius: 10px">
                     <div class="card-body" style="box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2); background-color: #f0e10dbd;border-radius: 10px;text-align:center;">
                         <h2 style="padding-top: 2%;"><i class="fas fa-copy"></i></h2>
-                        <h2 style="padding-top: 2%;"><b>{{ $form4C_count }}/12</b></h2>
+                        <h2 style="padding-top: 2%;"><b>{{ $form4C_count }}/{{ $currentMonth }}</b></h2>
                         <h3 style="padding-top: 2%;">BORANG C</h3>
                     </div>
                 </div>
@@ -110,7 +110,7 @@
                 <div class="card bg-info card-hover" style="border-radius: 10px">
                     <div class="card-body" style="box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2); background-color: #6df173 ;border-radius: 10px;text-align:center;">
                         <h2 style="padding-top: 2%;"><i class="fas fa-copy"></i></h2>
-                        <h2 style="padding-top: 2%;"><b>{{ $form4D_count }}/12</b></h2>
+                        <h2 style="padding-top: 2%;"><b>{{ $form4D_count }}/{{ $currentMonth }}</b></h2>
                         <h3 style="padding-top: 2%;">BORANG D</h3>
                     </div>
                 </div>
@@ -119,7 +119,7 @@
                 <div class="card bg-info card-hover" style="border-radius: 10px">
                     <div class="card-body" style="box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2); background-color: #74d4f1 ;border-radius: 10px;text-align:center;">
                         <h2 style="padding-top: 2%;"><i class="fas fa-copy"></i></h2>
-                        <h2 style="padding-top: 2%;"><b>{{ $form4E_count }}/12</b></h2>
+                        <h2 style="padding-top: 2%;"><b>{{ $form4E_count }}/{{ $currentMonth }}</b></h2>
                         <h3 style="padding-top: 2%;">BORANG E</h3>
                     </div>
                 </div>
@@ -142,7 +142,7 @@
                 <div class="card-body" style="box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2); background-color: #ee8dcd;border-radius: 10px;text-align:center;">
                     <!-- <h5 style="padding-top: 25%;">BORANG 5B:<br> JUMLAH GUNA TENAGA</h5> -->
                     <h2 style="padding-top: 2%;"><i class="fas fa-copy"></i></h2>
-                    <h2 style="padding-top: 2%;"><b>{{ $form5B_count }}/4</b></h2>
+                    <h2 style="padding-top: 2%;"><b>{{ $form5B_count }}/{{ (int) ceil($currentMonth / 3) }}</b></h2>
                     <h3 style="padding-top: 2%;">BORANG B</h3>
                 </div>
             </div>
@@ -152,7 +152,7 @@
                 <div class="card-body" style="box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2); background-color: #f0e10dbd;border-radius: 10px;text-align:center;">
                     <!-- <h5 style="font-size: 15px;">BORANG 5C:<br> PENYATA KEMASUKAN & PEMPROSESAN KAYU GERGAJI DAN PENGELUARAN KAYU KUMAI MENGIKUT KUMPULAN KAYU-KAYAN</h5> -->
                     <h2 style="padding-top: 2%;"><i class="fas fa-copy"></i></h2>
-                    <h2 style="padding-top: 2%;"><b>{{ $form5C_count }}/12</b></h2>
+                    <h2 style="padding-top: 2%;"><b>{{ $form5C_count }}/{{ $currentMonth }}</b></h2>
                     <h3 style="padding-top: 2%;">BORANG C</h3>
                 </div>
             </div>
@@ -162,7 +162,7 @@
                 <div class="card-body" style="box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2); background-color: #6df173;border-radius: 10px;text-align:center;">
                     <!-- <h5 style="padding-top: 15%;">BORANG 5D:<br> PENYATA PENGELUARAN KAYU KUMAI MENGIKUT JENIS KAYU KUMAI</h5> -->
                     <h2 style="padding-top: 2%;"><i class="fas fa-copy"></i></h2>
-                    <h2 style="padding-top: 2%;"><b>{{ $form5D_count }}/12</b></h2>
+                    <h2 style="padding-top: 2%;"><b>{{ $form5D_count }}/{{ $currentMonth }}</b></h2>
                     <h3 style="padding-top: 2%;">BORANG D</h3>
                 </div>
             </div>
@@ -172,7 +172,7 @@
                 <div class="card-body" style="box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2); background-color: #a0e4ff;border-radius: 10px;text-align:center;">
                     <!-- <h5 style="padding-top: 15%;">BORANG 5E:<br> PENYATA PENJUALAN KAYU KUMAI DALAM PASARAN TEMPATAN DAN EKSPORT</h5> -->
                     <h2 style="padding-top: 2%;"><i class="fas fa-copy"></i></h2>
-                    <h2 style="padding-top: 2%;"><b>{{ $form5E_count }}/12</b></h2>
+                    <h2 style="padding-top: 2%;"><b>{{ $form5E_count }}/{{ $currentMonth }}</b></h2>
                     <h3 style="padding-top: 2%;">BORANG E</h3>
                 </div>
             </div>

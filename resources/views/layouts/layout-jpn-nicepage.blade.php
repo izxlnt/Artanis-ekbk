@@ -17,7 +17,7 @@
 
 
     <!-- Favicon icon -->
-    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('logo.png')  }}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('logo.png') }}">
 
     <!-- font-awesome icon -->
     <link rel="stylesheet" href="{{ asset('nice-admin/icon/css/all.css') }}">
@@ -130,7 +130,6 @@
             -moz-border-radius: 6px 0 6px 6px;
             border-radius: 6px 0 6px 6px;
         }
-
     </style>
 
 </head>
@@ -156,7 +155,7 @@
                     <ul class="float-left navbar-nav">
                         <span class="logo-icon" style="align:left;">
 
-                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/94/Jata_MalaysiaV2.svg/1200px-Jata_MalaysiaV2.svg.png"
+                            <img src="{{ asset('Coat_of_Arms_of_Malaysia.png') }}"
                                 style="height: 50px;" alt="homepage" class="dark-logo" />
 
                         </span>
@@ -169,7 +168,8 @@
                     </ul>
                     <ul class="mr-auto navbar-nav" style="text-align:center;margin-left: auto !important">
                         <span class=""
-                            style="color: #000; font-weight: bold; font-size: 20px;text-align:center;">SISTEM eSHUTTLE<br>
+                            style="color: #000; font-weight: bold; font-size: 20px;text-align:center;">SISTEM
+                            eSHUTTLE<br>
                             JABATAN PERHUTANAN SEMENANJUNG MALAYSIA
                         </span>
 
@@ -179,9 +179,11 @@
                         <!-- Notification -->
                         <!-- ============================================================== -->
                         <li class="nav-item dropdown border-right">
-                            <a class="nav-link dropdown-toggle waves-effect waves-dark" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <a class="nav-link dropdown-toggle waves-effect waves-dark" href=""
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="mdi mdi-bell-outline font-22"></i>
-                                <span class="badge badge-pill badge-info noti">{{ auth()->user()->unreadNotifications->count() }}</span>
+                                <span
+                                    class="badge badge-pill badge-info noti">{{ auth()->user()->unreadNotifications->count() }}</span>
                             </a>
                             <div class="dropdown-menu dropdown-menu-right mailbox animated bounceInDown">
                                 <span class="with-arrow">
@@ -190,24 +192,28 @@
                                 <ul class="list-style-none">
                                     <li>
                                         <div class="drop-title bg-primary text-white">
-                                            <h4 class="m-b-0 m-t-5" style="color: #000">{{ auth()->user()->unreadNotifications->count() }} Notifikasi</h4>
+                                            <h4 class="m-b-0 m-t-5" style="color: #000">
+                                                {{ auth()->user()->unreadNotifications->count() }} Notifikasi</h4>
                                             <span class="font-light" style="color: #000">Baharu</span>
                                         </div>
                                     </li>
                                     <li>
                                         <div class="message-center notifications">
                                             <!-- Message -->
-                                            @foreach(auth()->user()->unreadNotifications as $notification)
-                                            <a href="{{ route('notification.show', $notification->id) }}" class="message-item">
-                                                <span class="btn btn-danger btn-circle">
-                                                    <i class="fab fa-wpforms"></i>
-                                                </span>
-                                                <div class="mail-contnet">
-                                                    <h5 class="message-title">{{ $notification->data['tajuk'] }}</h5>
-                                                    {{-- <span class="mail-desc">Just see the my new admin!</span> --}}
-                                                    <span class="time">{{ date('d-m-Y H:i:s', strtotime($notification->created_at))  }}</span>
-                                                </div>
-                                            </a>
+                                            @foreach (auth()->user()->unreadNotifications as $notification)
+                                                <a href="{{ route('notification.show', $notification->id) }}"
+                                                    class="message-item">
+                                                    <span class="btn btn-danger btn-circle">
+                                                        <i class="fab fa-wpforms"></i>
+                                                    </span>
+                                                    <div class="mail-contnet">
+                                                        <h5 class="message-title">{{ $notification->data['tajuk'] }}
+                                                        </h5>
+                                                        {{-- <span class="mail-desc">Just see the my new admin!</span> --}}
+                                                        <span
+                                                            class="time">{{ date('d-m-Y H:i:s', strtotime($notification->created_at)) }}</span>
+                                                    </div>
+                                                </a>
                                             @endforeach
                                         </div>
                                     </li>
@@ -387,31 +393,32 @@
                             <ul aria-expanded="false" class="collapse first-level">
 
                                 <li class="sidebar-item"><a href="#"
-                                    class="sidebar-link has-arrow waves-effect waves-dark">&nbsp&nbsp&nbsp<i
-                                        class="fas fa-file"></i>&nbsp&nbsp&nbsp&nbsp<span class="hide-menu">
-                                        Status Borang
-                                    </span></a>
-                                <ul aria-expanded="false" class="collapse second-level">
+                                        class="sidebar-link has-arrow waves-effect waves-dark">&nbsp&nbsp&nbsp<i
+                                            class="fas fa-file"></i>&nbsp&nbsp&nbsp&nbsp<span class="hide-menu">
+                                            Status Borang
+                                        </span></a>
+                                    <ul aria-expanded="false" class="collapse second-level">
 
 
-                                    <li class="sidebar-item"><a
-                                            href="{{ route('jpn.shuttle-3-listA-jpn', date("Y")) }}"
-                                            class="sidebar-link"><i class="mdi mdi-priority-low"></i><span
-                                                class="hide-menu">&nbsp Shuttle 3 - Kilang Papan</span></a>
-                                    </li>
-                                    <li class="sidebar-item"><a
-                                            href="{{ route('jpn.shuttle-4-listA-jpn', date("Y")) }}"
-                                            class="sidebar-link"><i class="mdi mdi-priority-low"></i><span
-                                                class="hide-menu"> &nbsp
-                                                Shuttle 4 - Kilang Papan Lapis/Venir</span></a></li>
-                                    <li class="sidebar-item"><a href="{{ route('jpn.shuttle-5-listA-jpn', date("Y")) }}"
-                                            class="sidebar-link"><i class="mdi mdi-priority-low"></i><span
-                                                class="hide-menu"> &nbsp
-                                                Shuttle 5 - Kilang Kayu Kumai</span></a></li>
+                                        <li class="sidebar-item"><a
+                                                href="{{ route('jpn.shuttle-3-listA-jpn', date('Y')) }}"
+                                                class="sidebar-link"><i class="mdi mdi-priority-low"></i><span
+                                                    class="hide-menu">&nbsp Shuttle 3 - Kilang Papan</span></a>
+                                        </li>
+                                        <li class="sidebar-item"><a
+                                                href="{{ route('jpn.shuttle-4-listA-jpn', date('Y')) }}"
+                                                class="sidebar-link"><i class="mdi mdi-priority-low"></i><span
+                                                    class="hide-menu"> &nbsp
+                                                    Shuttle 4 - Kilang Papan Lapis/Venir</span></a></li>
+                                        <li class="sidebar-item"><a
+                                                href="{{ route('jpn.shuttle-5-listA-jpn', date('Y')) }}"
+                                                class="sidebar-link"><i class="mdi mdi-priority-low"></i><span
+                                                    class="hide-menu"> &nbsp
+                                                    Shuttle 5 - Kilang Kayu Kumai</span></a></li>
 
 
-                                </ul>
-                            </li>
+                                    </ul>
+                                </li>
 
 
 
@@ -421,15 +428,17 @@
                                 </li> --}}
 
 
-                                <li class="sidebar-item"><a href="{{ route('jpn.notifikasi.list') }}" class="sidebar-link">&nbsp&nbsp&nbsp<i
-                                            class="fas fa-bell"></i>&nbsp&nbsp&nbsp&nbsp<span
-                                            class="hide-menu">&nbsp Notifikasi PHD</span></a>
+                                <li class="sidebar-item"><a href="{{ route('jpn.notifikasi.list') }}"
+                                        class="sidebar-link">&nbsp&nbsp&nbsp<i
+                                            class="fas fa-bell"></i>&nbsp&nbsp&nbsp&nbsp<span class="hide-menu">&nbsp
+                                            Notifikasi PHD</span></a>
                                 </li>
 
-                                <li class="sidebar-item"><a href="{{ route('jpn.pengumuman-jpn') }}" class="sidebar-link">&nbsp&nbsp&nbsp<i
-                                    class="fas fa-solid fa-bullhorn"></i>&nbsp&nbsp&nbsp&nbsp<span
-                                    class="hide-menu">&nbsp Pengumuman PHD</span></a>
-                        </li>
+                                <li class="sidebar-item"><a href="{{ route('jpn.pengumuman-jpn') }}"
+                                        class="sidebar-link">&nbsp&nbsp&nbsp<i
+                                            class="fas fa-solid fa-bullhorn"></i>&nbsp&nbsp&nbsp&nbsp<span
+                                            class="hide-menu">&nbsp Pengumuman PHD</span></a>
+                                </li>
 
                             </ul>
 
@@ -467,9 +476,9 @@
                                     style="padding-left: 10px;">Bantuan</span></a>
                             <ul aria-expanded="false" class="collapse first-level">
 
-                                <li class="sidebar-item"><a target="_blank"
-                                        href="{{ asset('Manual_JPN.pdf') }}" class="sidebar-link"><i
-                                            class="mdi mdi-adjust"></i><span class="hide-menu">&nbsp Panduan
+                                <li class="sidebar-item"><a target="_blank" href="{{ asset('Manual_JPN.pdf') }}"
+                                        class="sidebar-link"><i class="mdi mdi-adjust"></i><span
+                                            class="hide-menu">&nbsp Panduan
                                             Pengguna
                                             Modul</span></a>
                                 </li>
@@ -512,9 +521,10 @@
     </div>
 
 
-    <footer class="text-center footer" style="bottom:0;text-align:center;left:0; color: rgb(0, 0, 0) !important;background-image: url(/bghutan.png); background-position: bottom; opacity: 0.75;">
+    <footer class="text-center footer"
+        style="bottom:0;text-align:center;left:0; color: rgb(0, 0, 0) !important;background-image: url(/bghutan.png); background-position: bottom; opacity: 0.75;">
         <span style=" color: rgb(255, 255, 255)">Hakcipta Terpelihara © {{ date('Y') }}. SISTEM eSHUTTLE. <br>
-        Paparan terbaik untuk sistem ini adalah 1920x1080 resolusi piksel.</span>
+            Paparan terbaik untuk sistem ini adalah 1920x1080 resolusi piksel.</span>
     </footer>
 
     <script src="{{ asset('nice-admin/assets/libs/popper.js/dist/umd/popper.min.js') }}"></script>
@@ -582,9 +592,13 @@
         toastr.options.fadeOut = 2500;
 
         @if (Session::get('success'))
-            toastr.success('{{ session('success') }}', 'Berjaya', { "progressBar": true });
+            toastr.success('{{ session('success') }}', 'Berjaya', {
+                "progressBar": true
+            });
         @elseif ($message = Session::get('error'))
-            toastr.error('{{ session('error') }}', 'Ralat', { "progressBar": true });
+            toastr.error('{{ session('error') }}', 'Ralat', {
+                "progressBar": true
+            });
         @endif
     </script>
     <!-- ============================================================== -->

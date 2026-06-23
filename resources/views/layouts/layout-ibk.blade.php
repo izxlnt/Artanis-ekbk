@@ -128,7 +128,6 @@
             -moz-border-radius: 6px 0 6px 6px;
             border-radius: 6px 0 6px 6px;
         }
-
     </style>
 
 </head>
@@ -179,7 +178,7 @@
                                     style="height: 50px;" class="dark-logo" />
                                 <!-- Light Logo icon -->
                                 {{-- <span class="sispaa" style="margin-left: -20%">e-KBK</span> --}}
-                                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/94/Jata_MalaysiaV2.svg/1200px-Jata_MalaysiaV2.svg.png"
+                                <img src="{{ asset('Coat_of_Arms_of_Malaysia.png') }}"
                                     style="height: 50px;" alt="homepage" class="dark-logo" />
                             </span>
                         </a>
@@ -223,7 +222,8 @@
 
                         </span>
 
-                        <span class="" style="color: #000; font-weight: bold; font-size: 15px"> Sistem e-KBK (KILANG
+                        <span class="" style="color: #000; font-weight: bold; font-size: 15px"> Sistem e-KBK
+                            (KILANG
                             BERASAS KAYU)<br>
                             JABATAN PERHUTANAN SEMENANJUNG MALAYSIA
                         </span>
@@ -468,16 +468,18 @@
                     <ul id="sidebarnav">
 
                         <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark"
-                                href="{{ route('home') }}" aria-expanded="false"><i class="mdi mdi-home-variant"></i><span
-                                    class="hide-menu" style="padding-left: 10px;">Laman Utama</span></a>
+                                href="{{ route('home') }}" aria-expanded="false"><i
+                                    class="mdi mdi-home-variant"></i><span class="hide-menu"
+                                    style="padding-left: 10px;">Laman Utama</span></a>
 
                         </li>
 
 
 
-                        <li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)"
-                            aria-expanded="false"><i class="mdi mdi-view-module"></i><span class="hide-menu"
-                                style="padding-left: 10px;">Menu Utama Modul</span></a>
+                        <li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark"
+                                href="javascript:void(0)" aria-expanded="false"><i
+                                    class="mdi mdi-view-module"></i><span class="hide-menu"
+                                    style="padding-left: 10px;">Menu Utama Modul</span></a>
                             <ul aria-expanded="false" class="collapse first-level">
                                 <li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark"
                                         href="javascript:void(0)" aria-expanded="false"><i
@@ -487,8 +489,9 @@
                                         <li class="sidebar-item"><a href="{{ route('user.shuttle-3-listB') }}"
                                                 class="sidebar-link"><i class="mdi mdi-priority-low"></i><span
                                                     class="hide-menu">&nbsp Shuttle 3 - Kilang Papan</span></a></li>
-                                        <li class="sidebar-item"><a href="{{ route('shuttle-4-listA') }}" class="sidebar-link"><i
-                                                    class="mdi mdi-priority-low"></i><span class="hide-menu"> &nbsp
+                                        <li class="sidebar-item"><a href="{{ route('shuttle-4-listA') }}"
+                                                class="sidebar-link"><i class="mdi mdi-priority-low"></i><span
+                                                    class="hide-menu"> &nbsp
                                                     Shuttle 4 - Kilang Papan Lapis/Venir</span></a></li>
                                         <li class="sidebar-item"><a href="#" class="sidebar-link"><i
                                                     class="mdi mdi-priority-low"></i><span class="hide-menu"> &nbsp
@@ -518,24 +521,25 @@
 
                             </ul>
                         </li> --}}
-                        <li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)"
-                            aria-expanded="false"><i class="mdi mdi-television-guide"></i><span class="hide-menu"
-                                style="padding-left: 10px;">Bantuan</span></a>
-                                <ul aria-expanded="false" class="collapse first-level">
+                        <li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark"
+                                href="javascript:void(0)" aria-expanded="false"><i
+                                    class="mdi mdi-television-guide"></i><span class="hide-menu"
+                                    style="padding-left: 10px;">Bantuan</span></a>
+                            <ul aria-expanded="false" class="collapse first-level">
 
-                                        <li class="sidebar-item"><a href="{{ route('taraf-syarikat') }}"
-                                                class="sidebar-link"><i class="mdi mdi-collage"></i><span
-                                                    class="hide-menu">&nbsp Panduan Pentadbir
-                                                    Modul</span></a>
-                                        </li>
+                                <li class="sidebar-item"><a href="{{ route('taraf-syarikat') }}"
+                                        class="sidebar-link"><i class="mdi mdi-collage"></i><span
+                                            class="hide-menu">&nbsp Panduan Pentadbir
+                                            Modul</span></a>
+                                </li>
 
-                                        <li class="sidebar-item"><a href="{{ route('taraf-syarikat') }}"
-                                            class="sidebar-link"><i class="mdi mdi-adjust"></i><span
-                                                class="hide-menu">&nbsp Panduan Pengguna
-                                                Modul</span></a>
-                                    </li>
+                                <li class="sidebar-item"><a href="{{ route('taraf-syarikat') }}"
+                                        class="sidebar-link"><i class="mdi mdi-adjust"></i><span
+                                            class="hide-menu">&nbsp Panduan Pengguna
+                                            Modul</span></a>
+                                </li>
 
-                                </ul>
+                            </ul>
 
                         </li>
 
@@ -559,15 +563,15 @@
         <!-- Page wrapper  -->
         <!-- ============================================================== -->
         <br>
-        <div class="page-wrapper" >
+        <div class="page-wrapper">
             @if ($message = Session::get('success'))
                 <script type="text/javascript">
                     $(document).ready(function() {
                         $('#modal').modal();
                     });
                 </script>
-                <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-                    aria-hidden="true">
+                <div class="modal fade" id="modal" tabindex="-1" role="dialog"
+                    aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered" role="document">
                         <div class="modal-content alert alert-card alert-success">
                             <div class="modal-header">
@@ -588,8 +592,8 @@
                         $('#error_modal').modal();
                     });
                 </script>
-                <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-                    aria-hidden="true">
+                <div class="modal fade" id="modal" tabindex="-1" role="dialog"
+                    aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered" role="document">
                         <div class="modal-content alert alert-card warning-danger">
                             <div class="modal-header">
@@ -621,7 +625,8 @@
             <!-- ============================================================== -->
             <!-- footer -->
             <!-- ============================================================== -->
-            <footer class="text-center footer" style="bottom:0;text-align:center;width:100%;left:0; color: white !important;">
+            <footer class="text-center footer"
+                style="bottom:0;text-align:center;width:100%;left:0; color: white !important;">
                 Hakcipta Terpelihara © {{ date('Y') }}. Sistem e-KBK (Kilang Berasas Kayu) .
             </footer>
             <!-- ============================================================== -->

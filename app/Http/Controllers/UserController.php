@@ -325,51 +325,50 @@ class UserController extends Controller
         $shuttleId = auth()->user()->shuttle_id;
         $year = date('Y');
 
-        $formA_count = FormA::where('status', '!=', 'Tidak Diisi')->where('status', '!=', 'Tidak Lengkap')
+        $excludedStatuses = ['Tidak Diisi', 'Tidak Lengkap', 'Sedang Diisi', 'Ditutup'];
+
+        $formA_count = FormA::whereNotIn('status', $excludedStatuses)
             ->where('tahun', $year)->where('shuttle_id', $shuttleId)->count();
 
-        $formB_count = FormB::where('status', '!=', 'Tidak Diisi')->where('status', '!=', 'Tidak Lengkap')
+        $formB_count = FormB::whereNotIn('status', $excludedStatuses)
             ->where('tahun', $year)->where('shuttle_id', $shuttleId)->count();
 
-        $formC_count = FormC::where('status', '!=', 'Tidak Diisi')->where('status', '!=', 'Tidak Lengkap')
-            ->where('status', '!=', 'Sedang Diisi')
+        $formC_count = FormC::whereNotIn('status', $excludedStatuses)
             ->where('tahun', $year)->where('shuttle_id', $shuttleId)->count();
 
-        $formD_count = FormD::where('status', '!=', 'Tidak Diisi')->where('status', '!=', 'Tidak Lengkap')
+        $formD_count = FormD::whereNotIn('status', $excludedStatuses)
             ->where('tahun', $year)->where('shuttle_id', $shuttleId)->count();
 
         // shuttle 4 counts
-        $form4A_count = FormA::where('status', '!=', 'Tidak Diisi')->where('status', '!=', 'Tidak Lengkap')
+        $form4A_count = FormA::whereNotIn('status', $excludedStatuses)
             ->where('tahun', $year)->where('shuttle_id', $shuttleId)->count();
 
-        $form4B_count = FormB::where('status', '!=', 'Tidak Diisi')->where('status', '!=', 'Tidak Lengkap')
+        $form4B_count = FormB::whereNotIn('status', $excludedStatuses)
             ->where('tahun', $year)->where('shuttle_id', $shuttleId)->count();
 
-        $form4C_count = FormC::where('status', '!=', 'Tidak Diisi')->where('status', '!=', 'Tidak Lengkap')
-            ->where('status', '!=', 'Sedang Diisi')
+        $form4C_count = FormC::whereNotIn('status', $excludedStatuses)
             ->where('tahun', $year)->where('shuttle_id', $shuttleId)->count();
 
-        $form4D_count = Form4D::where('status', '!=', 'Tidak Diisi')->where('status', '!=', 'Tidak Lengkap')
+        $form4D_count = Form4D::whereNotIn('status', $excludedStatuses)
             ->where('tahun', $year)->where('shuttle_id', $shuttleId)->count();
 
-        $form4E_count = Form4E::where('status', '!=', 'Tidak Diisi')->where('status', '!=', 'Tidak Lengkap')
+        $form4E_count = Form4E::whereNotIn('status', $excludedStatuses)
             ->where('tahun', $year)->where('shuttle_id', $shuttleId)->count();
 
         // shuttle 5 counts
-        $form5A_count = FormA::where('status', '!=', 'Tidak Diisi')->where('status', '!=', 'Tidak Lengkap')
+        $form5A_count = FormA::whereNotIn('status', $excludedStatuses)
             ->where('tahun', $year)->where('shuttle_id', $shuttleId)->count();
 
-        $form5B_count = FormB::where('status', '!=', 'Tidak Diisi')->where('status', '!=', 'Tidak Lengkap')
+        $form5B_count = FormB::whereNotIn('status', $excludedStatuses)
             ->where('tahun', $year)->where('shuttle_id', $shuttleId)->count();
 
-        $form5C_count = FormC::where('status', '!=', 'Tidak Diisi')->where('status', '!=', 'Tidak Lengkap')
-            ->where('status', '!=', 'Sedang Diisi')
+        $form5C_count = FormC::whereNotIn('status', $excludedStatuses)
             ->where('tahun', $year)->where('shuttle_id', $shuttleId)->count();
 
-        $form5D_count = Form5D::where('status', '!=', 'Tidak Diisi')->where('status', '!=', 'Tidak Lengkap')
+        $form5D_count = Form5D::whereNotIn('status', $excludedStatuses)
             ->where('tahun', $year)->where('shuttle_id', $shuttleId)->count();
 
-        $form5E_count = Form5E::where('status', '!=', 'Tidak Diisi')->where('status', '!=', 'Tidak Lengkap')
+        $form5E_count = Form5E::whereNotIn('status', $excludedStatuses)
             ->where('tahun', $year)->where('shuttle_id', $shuttleId)->count();
 
         $user_daerah = Auth::user()->shuttle->daerah_id;

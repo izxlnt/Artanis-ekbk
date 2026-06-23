@@ -30,153 +30,180 @@
     <link rel="stylesheet" href="{{ asset('nice-admin/icon/css/solid.css') }}">
     <style>
         input:focus {
-          /* background-color: yellow; */
+            /* background-color: yellow; */
 
-          border: solid 3px black;
+            border: solid 3px black;
         }
+
         .la-ball-pulse-sync,
-        .la-ball-pulse-sync > div {
+        .la-ball-pulse-sync>div {
             position: relative;
             -webkit-box-sizing: border-box;
             -moz-box-sizing: border-box;
-                    box-sizing: border-box;
+            box-sizing: border-box;
         }
+
         .la-ball-pulse-sync {
             display: block;
             font-size: 0;
             color: #fff;
         }
+
         .la-ball-pulse-sync.la-dark {
             color: #333;
         }
-        .la-ball-pulse-sync > div {
+
+        .la-ball-pulse-sync>div {
             display: inline-block;
             float: none;
             background-color: currentColor;
             border: 0 solid currentColor;
         }
+
         .la-ball-pulse-sync {
             width: 54px;
             height: 18px;
         }
-        .la-ball-pulse-sync > div {
+
+        .la-ball-pulse-sync>div {
             width: 10px;
             height: 10px;
             margin: 4px;
             border-radius: 100%;
             -webkit-animation: ball-pulse-sync .6s infinite ease-in-out;
             -moz-animation: ball-pulse-sync .6s infinite ease-in-out;
-                -o-animation: ball-pulse-sync .6s infinite ease-in-out;
-                    animation: ball-pulse-sync .6s infinite ease-in-out;
+            -o-animation: ball-pulse-sync .6s infinite ease-in-out;
+            animation: ball-pulse-sync .6s infinite ease-in-out;
         }
-        .la-ball-pulse-sync > div:nth-child(1) {
+
+        .la-ball-pulse-sync>div:nth-child(1) {
             -webkit-animation-delay: -.14s;
             -moz-animation-delay: -.14s;
-                -o-animation-delay: -.14s;
-                    animation-delay: -.14s;
+            -o-animation-delay: -.14s;
+            animation-delay: -.14s;
         }
-        .la-ball-pulse-sync > div:nth-child(2) {
+
+        .la-ball-pulse-sync>div:nth-child(2) {
             -webkit-animation-delay: -.07s;
             -moz-animation-delay: -.07s;
-                -o-animation-delay: -.07s;
-                    animation-delay: -.07s;
+            -o-animation-delay: -.07s;
+            animation-delay: -.07s;
         }
-        .la-ball-pulse-sync > div:nth-child(3) {
+
+        .la-ball-pulse-sync>div:nth-child(3) {
             -webkit-animation-delay: 0s;
             -moz-animation-delay: 0s;
-                -o-animation-delay: 0s;
-                    animation-delay: 0s;
+            -o-animation-delay: 0s;
+            animation-delay: 0s;
         }
+
         .la-ball-pulse-sync.la-sm {
             width: 26px;
             height: 8px;
         }
-        .la-ball-pulse-sync.la-sm > div {
+
+        .la-ball-pulse-sync.la-sm>div {
             width: 4px;
             height: 4px;
             margin: 2px;
         }
+
         .la-ball-pulse-sync.la-2x {
             width: 108px;
             height: 36px;
         }
-        .la-ball-pulse-sync.la-2x > div {
+
+        .la-ball-pulse-sync.la-2x>div {
             width: 20px;
             height: 20px;
             margin: 8px;
         }
+
         .la-ball-pulse-sync.la-3x {
             width: 162px;
             height: 54px;
         }
-        .la-ball-pulse-sync.la-3x > div {
+
+        .la-ball-pulse-sync.la-3x>div {
             width: 30px;
             height: 30px;
             margin: 12px;
         }
+
         /*
         * Animation
         */
         @-webkit-keyframes ball-pulse-sync {
             33% {
                 -webkit-transform: translateY(100%);
-                        transform: translateY(100%);
+                transform: translateY(100%);
             }
+
             66% {
                 -webkit-transform: translateY(-100%);
-                        transform: translateY(-100%);
+                transform: translateY(-100%);
             }
+
             100% {
                 -webkit-transform: translateY(0);
-                        transform: translateY(0);
+                transform: translateY(0);
             }
         }
+
         @-moz-keyframes ball-pulse-sync {
             33% {
                 -moz-transform: translateY(100%);
-                    transform: translateY(100%);
+                transform: translateY(100%);
             }
+
             66% {
                 -moz-transform: translateY(-100%);
-                    transform: translateY(-100%);
+                transform: translateY(-100%);
             }
+
             100% {
                 -moz-transform: translateY(0);
-                    transform: translateY(0);
+                transform: translateY(0);
             }
         }
+
         @-o-keyframes ball-pulse-sync {
             33% {
                 -o-transform: translateY(100%);
                 transform: translateY(100%);
             }
+
             66% {
                 -o-transform: translateY(-100%);
                 transform: translateY(-100%);
             }
+
             100% {
                 -o-transform: translateY(0);
                 transform: translateY(0);
             }
         }
+
         @keyframes ball-pulse-sync {
             33% {
                 -webkit-transform: translateY(100%);
                 -moz-transform: translateY(100%);
-                    -o-transform: translateY(100%);
-                        transform: translateY(100%);
+                -o-transform: translateY(100%);
+                transform: translateY(100%);
             }
+
             66% {
                 -webkit-transform: translateY(-100%);
                 -moz-transform: translateY(-100%);
-                    -o-transform: translateY(-100%);
-                        transform: translateY(-100%);
+                -o-transform: translateY(-100%);
+                transform: translateY(-100%);
             }
+
             100% {
                 -webkit-transform: translateY(0);
                 -moz-transform: translateY(0);
-                    -o-transform: translateY(0);
-                        transform: translateY(0);
+                -o-transform: translateY(0);
+                transform: translateY(0);
             }
         }
     </style>
@@ -284,7 +311,6 @@
             -moz-border-radius: 6px 0 6px 6px;
             border-radius: 6px 0 6px 6px;
         }
-
     </style>
 
 </head>
@@ -310,7 +336,7 @@
                     <ul class="float-left navbar-nav">
                         <span class="logo-icon" style="align:left;">
 
-                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/94/Jata_MalaysiaV2.svg/1200px-Jata_MalaysiaV2.svg.png"
+                            <img src="{{ asset('Coat_of_Arms_of_Malaysia.png') }}"
                                 style="height: 50px;" alt="homepage" class="dark-logo" />
 
 
@@ -318,13 +344,14 @@
 
                         <span class="logo-text" style="align:left;">
 
-                                <img src="https://www.forestry.gov.my/images/halaman/logo-jpsm.jpg" style="height: 50px;"
+                            <img src="https://www.forestry.gov.my/images/halaman/logo-jpsm.jpg" style="height: 50px;"
                                 alt="homepage" class="dark-logo" />
                         </span>
                     </ul>
                     <ul class="mr-auto navbar-nav" style="text-align:center;margin-left: auto !important">
                         <span class=""
-                            style="color: #000; font-weight: bold; font-size: 20px;text-align:center;">SISTEM eSHUTTLE<br>
+                            style="color: #000; font-weight: bold; font-size: 20px;text-align:center;">SISTEM
+                            eSHUTTLE<br>
                             JABATAN PERHUTANAN SEMENANJUNG MALAYSIA
                         </span>
 
@@ -335,9 +362,11 @@
                         <!-- Notification -->
                         <!-- ============================================================== -->
                         <li class="nav-item dropdown border-right">
-                            <a class="nav-link dropdown-toggle waves-effect waves-dark" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <a class="nav-link dropdown-toggle waves-effect waves-dark" href=""
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="mdi mdi-bell-outline font-22"></i>
-                                <span class="badge badge-pill badge-info noti">{{ auth()->user()->unreadNotifications->count() }}</span>
+                                <span
+                                    class="badge badge-pill badge-info noti">{{ auth()->user()->unreadNotifications->count() }}</span>
                             </a>
                             <div class="dropdown-menu dropdown-menu-right mailbox animated bounceInDown">
                                 <span class="with-arrow">
@@ -346,24 +375,28 @@
                                 <ul class="list-style-none">
                                     <li>
                                         <div class="drop-title bg-primary text-white">
-                                            <h4 class="m-b-0 m-t-5" style="color: #000">{{ auth()->user()->unreadNotifications->count() }} Notifikasi</h4>
+                                            <h4 class="m-b-0 m-t-5" style="color: #000">
+                                                {{ auth()->user()->unreadNotifications->count() }} Notifikasi</h4>
                                             <span class="font-light" style="color: #000">Baharu</span>
                                         </div>
                                     </li>
                                     <li>
                                         <div class="message-center notifications">
                                             <!-- Message -->
-                                            @foreach(auth()->user()->unreadNotifications as $notification)
-                                            <a href="{{ route('notification.show', $notification->id) }}" class="message-item">
-                                                <span class="btn btn-danger btn-circle">
-                                                    <i class="fab fa-wpforms"></i>
-                                                </span>
-                                                <div class="mail-contnet">
-                                                    <h5 class="message-title">{{ $notification->data['tajuk'] }}</h5>
-                                                    {{-- <span class="mail-desc">Just see the my new admin!</span> --}}
-                                                    <span class="time">{{ date('d-m-Y H:i:s', strtotime($notification->created_at))  }}</span>
-                                                </div>
-                                            </a>
+                                            @foreach (auth()->user()->unreadNotifications as $notification)
+                                                <a href="{{ route('notification.show', $notification->id) }}"
+                                                    class="message-item">
+                                                    <span class="btn btn-danger btn-circle">
+                                                        <i class="fab fa-wpforms"></i>
+                                                    </span>
+                                                    <div class="mail-contnet">
+                                                        <h5 class="message-title">{{ $notification->data['tajuk'] }}
+                                                        </h5>
+                                                        {{-- <span class="mail-desc">Just see the my new admin!</span> --}}
+                                                        <span
+                                                            class="time">{{ date('d-m-Y H:i:s', strtotime($notification->created_at)) }}</span>
+                                                    </div>
+                                                </a>
                                             @endforeach
                                         </div>
                                     </li>
@@ -393,33 +426,35 @@
                                 </span>
                                 <div class="text-white d-flex no-block align-items-center p-15 m-b-10"
                                     style="padding: 15px;background-color: #f3ce8f">
-                                     {{-- <div class="">
+                                    {{-- <div class="">
                                         <img src="{{asset('nice-admin/assets/images/users/2.jpg')}}" alt="user"
                                     class="rounded-circle" width="60">
                                 </div> --}}
                                     <div class="m-l-10">
                                         <h4 class="m-b-0">{{ Auth::user()->name }}</h4>
                                         <p class=" m-b-0">{{ Auth::user()->email }}</p>
-                                        <p class=" m-b-0">PHD - {{ Auth::user()->shuttle->daerah->daerah_hutan ?? Auth::user()->shuttle->daerah_id }}</p>
+                                        <p class=" m-b-0">PHD -
+                                            {{ Auth::user()->shuttle->daerah->daerah_hutan ?? Auth::user()->shuttle->daerah_id }}
+                                        </p>
 
                                         @if (auth()->user()->pengguna_kilang_id == null)
-                                            @if(auth()->user()->shuttle_type == '3')
-                                            <p class=" m-b-0">Kilang Papan</p>
+                                            @if (auth()->user()->shuttle_type == '3')
+                                                <p class=" m-b-0">Kilang Papan</p>
                                             @elseif(auth()->user()->shuttle_type == '4')
-                                            <p class=" m-b-0">Kilang Papan Lapis/Venir</p>
+                                                <p class=" m-b-0">Kilang Papan Lapis/Venir</p>
                                             @else
-                                            <p class=" m-b-0">Kilang Kayu Kumai</p>
+                                                <p class=" m-b-0">Kilang Kayu Kumai</p>
                                             @endif
                                         @else
-                                        @if (auth()->user()->shuttle_type == '3')
-                                            <p class=" m-b-0">Pengguna Kilang Papan</p>
-                                        @endif
-                                        @if (auth()->user()->shuttle_type == '4')
-                                            <p class=" m-b-0">Pengguna Kilang Papan Lapis/Venir</p>
-                                        @endif
-                                        @if (auth()->user()->shuttle_type == '5')
-                                            <p class=" m-b-0">Pengguna Kilang Kayu Kumai</p>
-                                        @endif
+                                            @if (auth()->user()->shuttle_type == '3')
+                                                <p class=" m-b-0">Pengguna Kilang Papan</p>
+                                            @endif
+                                            @if (auth()->user()->shuttle_type == '4')
+                                                <p class=" m-b-0">Pengguna Kilang Papan Lapis/Venir</p>
+                                            @endif
+                                            @if (auth()->user()->shuttle_type == '5')
+                                                <p class=" m-b-0">Pengguna Kilang Kayu Kumai</p>
+                                            @endif
                                         @endif
 
                                         <p class=" m-b-0">{{ Auth::user()->shuttle->no_ssm }}</p>
@@ -474,7 +509,8 @@
                             <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark"
                                     href="{{ route('home') }}" aria-expanded="false"><i
                                         class="mdi mdi-home-variant"></i>
-                                        <span class="hide-menu" style="padding-left: 10px;font-size: large;">Laman Utama</span></a>
+                                    <span class="hide-menu" style="padding-left: 10px;font-size: large;">Laman
+                                        Utama</span></a>
 
                             </li>
 
@@ -527,7 +563,7 @@
 
                             @if (auth()->user()->shuttle_type == '3')
                                 <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark"
-                                        href="{{ route('user.shuttle-3-senaraiA', date("Y")) }}"
+                                        href="{{ route('user.shuttle-3-senaraiA', date('Y')) }}"
                                         aria-expanded="false"><i class="mdi mdi-folder-multiple"></i><span
                                             class="hide-menu" style="padding-left: 10px;font-size: large;">Kemasukan
                                             Maklumat</span></a>
@@ -543,9 +579,10 @@
                                 </li>
                             @elseif(auth()->user()->shuttle_type == '5')
                                 <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark"
-                                        href="{{ route('user.shuttle-5-senaraiA', date("Y")) }}" aria-expanded="false"><i
-                                            class="mdi mdi-folder-multiple"></i><span class="hide-menu"
-                                            style="padding-left: 10px;font-size: large;">Kemasukan Maklumat</span></a>
+                                        href="{{ route('user.shuttle-5-senaraiA', date('Y')) }}"
+                                        aria-expanded="false"><i class="mdi mdi-folder-multiple"></i><span
+                                            class="hide-menu" style="padding-left: 10px;font-size: large;">Kemasukan
+                                            Maklumat</span></a>
 
                                 </li>
                             @endif
@@ -583,20 +620,22 @@
                             </li> --}}
                             @if (auth()->user()->shuttle_type == '3')
                                 <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark"
-                                        href="{{ route('user.shuttle-3-listA', date('Y')) }}"" aria-expanded="
-                                        false"><i class="fas fa-file"></i><span class="hide-menu"
+                                        href="{{ route('user.shuttle-3-listA', date('Y')) }}""
+                                        aria-expanded="
+                                        false"><i
+                                            class="fas fa-file"></i><span class="hide-menu"
                                             style="padding-left: 10px;font-size: large;">Status Borang</span></a>
-
                                 @elseif(auth()->user()->shuttle_type == '4')
                                 <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark"
-                                        href="{{ route('user.shuttle-4-listA', date('Y')) }}"" aria-expanded="
-                                        false"><i class="fas fa-file"></i><span class="hide-menu"
+                                        href="{{ route('user.shuttle-4-listA', date('Y')) }}""
+                                        aria-expanded="
+                                        false"><i
+                                            class="fas fa-file"></i><span class="hide-menu"
                                             style="padding-left: 10px;font-size: large;">Status Borang</span></a>
-
                                 @elseif(auth()->user()->shuttle_type == '5')
                                 <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark"
-                                        href="{{ route('user.shuttle-5-listA', date('Y')) }}"" aria-expanded=" false"><i
-                                            class="fas fa-file"></i><span class="hide-menu"
+                                        href="{{ route('user.shuttle-5-listA', date('Y')) }}""
+                                        aria-expanded=" false"><i class="fas fa-file"></i><span class="hide-menu"
                                             style="padding-left: 10px;font-size: large;">Status Borang</span></a>
                             @endif
 
@@ -630,27 +669,27 @@
                                                 Pentadbir
                                                 Modul</span></a>
                                     </li> --}}
-                                    @if(auth()->user()->shuttle_type == 3)
-                                    <li class="sidebar-item"><a target="_blank"
-                                            href="{{ asset('Manual_shuttle3.pdf') }}" class="sidebar-link"><i
-                                                class="mdi mdi-adjust"></i><span class="hide-menu">&nbsp Panduan
-                                                Pengguna
-                                                Modul</span></a>
-                                    </li>
+                                    @if (auth()->user()->shuttle_type == 3)
+                                        <li class="sidebar-item"><a target="_blank"
+                                                href="{{ asset('Manual_shuttle3.pdf') }}" class="sidebar-link"><i
+                                                    class="mdi mdi-adjust"></i><span class="hide-menu">&nbsp Panduan
+                                                    Pengguna
+                                                    Modul</span></a>
+                                        </li>
                                     @elseif(auth()->user()->shuttle_type == 4)
-                                    <li class="sidebar-item"><a target="_blank"
-                                            href="{{ asset('Manual_shuttle4.pdf') }}" class="sidebar-link"><i
-                                                class="mdi mdi-adjust"></i><span class="hide-menu">&nbsp Panduan
-                                                Pengguna
-                                                Modul</span></a>
-                                    </li>
+                                        <li class="sidebar-item"><a target="_blank"
+                                                href="{{ asset('Manual_shuttle4.pdf') }}" class="sidebar-link"><i
+                                                    class="mdi mdi-adjust"></i><span class="hide-menu">&nbsp Panduan
+                                                    Pengguna
+                                                    Modul</span></a>
+                                        </li>
                                     @elseif(auth()->user()->shuttle_type == 5)
-                                    <li class="sidebar-item"><a target="_blank"
-                                            href="{{ asset('Manual_shuttle5.pdf') }}" class="sidebar-link"><i
-                                                class="mdi mdi-adjust"></i><span class="hide-menu">&nbsp Panduan
-                                                Pengguna
-                                                Modul</span></a>
-                                    </li>
+                                        <li class="sidebar-item"><a target="_blank"
+                                                href="{{ asset('Manual_shuttle5.pdf') }}" class="sidebar-link"><i
+                                                    class="mdi mdi-adjust"></i><span class="hide-menu">&nbsp Panduan
+                                                    Pengguna
+                                                    Modul</span></a>
+                                        </li>
                                     @endif
 
                                 </ul>
@@ -754,9 +793,10 @@
         <!-- ============================================================== -->
     </div>
 
-    <footer class="text-center footer" style="bottom:0;text-align:center;left:0; color: rgb(0, 0, 0) !important;background-image: url(/bghutan.png); background-position: bottom; opacity: 0.75;">
+    <footer class="text-center footer"
+        style="bottom:0;text-align:center;left:0; color: rgb(0, 0, 0) !important;background-image: url(/bghutan.png); background-position: bottom; opacity: 0.75;">
         <span style=" color: rgb(255, 255, 255)">Hakcipta Terpelihara © {{ date('Y') }}. SISTEM eSHUTTLE. <br>
-        Paparan terbaik untuk sistem ini adalah 1920x1080 resolusi piksel.</span>
+            Paparan terbaik untuk sistem ini adalah 1920x1080 resolusi piksel.</span>
     </footer>
 
     <!-- ============================================================== -->
@@ -818,9 +858,13 @@
     <script>
         toastr.options.fadeOut = 2500;
         @if (Session::get('success'))
-            toastr.success('{{ session('success') }}', 'Berjaya', { "progressBar": true });
+            toastr.success('{{ session('success') }}', 'Berjaya', {
+                "progressBar": true
+            });
         @elseif ($message = Session::get('error'))
-            toastr.error('{{ session('error') }}', 'Ralat', { "progressBar": true });
+            toastr.error('{{ session('error') }}', 'Ralat', {
+                "progressBar": true
+            });
         @endif
     </script>
 

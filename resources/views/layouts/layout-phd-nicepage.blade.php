@@ -16,7 +16,7 @@
     <link href="{{ asset('nice-admin/assets/libs/toastr/build/toastr.min.css') }}" rel="stylesheet">
 
     <!-- Favicon icon -->
-    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('logo.png')  }}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('logo.png') }}">
 
     <!-- font-awesome icon -->
     <link rel="stylesheet" href="{{ asset('nice-admin/icon/css/all.css') }}">
@@ -31,11 +31,11 @@
     {{-- focus input box --}}
     <style>
         input:focus {
-          /* background-color: yellow; */
+            /* background-color: yellow; */
 
-          border: solid 3px black;
+            border: solid 3px black;
         }
-        </style>
+    </style>
     <!-- Custom CSS -->
     {{-- <link href="{{ asset('nice-admin/assets/libs/chartist/dist/chartist.min.css') }}" rel="stylesheet">
     <link href="{{ asset('nice-admin/assets/extra-libs/c3/c3.min.css') }}" rel="stylesheet">
@@ -142,7 +142,6 @@
             -moz-border-radius: 6px 0 6px 6px;
             border-radius: 6px 0 6px 6px;
         }
-
     </style>
 
 </head>
@@ -170,7 +169,7 @@
 
                         <span class="logo-text" style="align:left;">
 
-                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/94/Jata_MalaysiaV2.svg/1200px-Jata_MalaysiaV2.svg.png"
+                            <img src="{{ asset('Coat_of_Arms_of_Malaysia.png') }}"
                                 style="height: 50px;" alt="homepage" class="dark-logo" />
                         </span>
 
@@ -183,7 +182,8 @@
                     </ul>
                     <ul class="mr-auto navbar-nav" style="text-align:center;margin-left: auto !important">
                         <span class=""
-                            style="color: #000; font-weight: bold; font-size: 20px;text-align:center;">SISTEM eSHUTTLE<br>
+                            style="color: #000; font-weight: bold; font-size: 20px;text-align:center;">SISTEM
+                            eSHUTTLE<br>
                             JABATAN PERHUTANAN SEMENANJUNG MALAYSIA
                         </span>
 
@@ -193,9 +193,11 @@
                         <!-- Notification -->
                         <!-- ============================================================== -->
                         <li class="nav-item dropdown border-right">
-                            <a class="nav-link dropdown-toggle waves-effect waves-dark" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <a class="nav-link dropdown-toggle waves-effect waves-dark" href=""
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="mdi mdi-bell-outline font-22"></i>
-                                <span class="badge badge-pill badge-info noti">{{ auth()->user()->unreadNotifications->count() }}</span>
+                                <span
+                                    class="badge badge-pill badge-info noti">{{ auth()->user()->unreadNotifications->count() }}</span>
                             </a>
                             <div class="dropdown-menu dropdown-menu-right mailbox animated bounceInDown">
                                 <span class="with-arrow">
@@ -204,24 +206,28 @@
                                 <ul class="list-style-none">
                                     <li>
                                         <div class="drop-title bg-primary text-white">
-                                            <h4 class="m-b-0 m-t-5" style="color: #000">{{ auth()->user()->unreadNotifications->count() }} Notifikasi</h4>
+                                            <h4 class="m-b-0 m-t-5" style="color: #000">
+                                                {{ auth()->user()->unreadNotifications->count() }} Notifikasi</h4>
                                             <span class="font-light" style="color: #000">Baharu</span>
                                         </div>
                                     </li>
                                     <li>
                                         <div class="message-center notifications">
                                             <!-- Message -->
-                                            @foreach(auth()->user()->unreadNotifications as $notification)
-                                            <a href="{{ route('notification.show', $notification->id) }}" class="message-item">
-                                                <span class="btn btn-danger btn-circle">
-                                                    <i class="fab fa-wpforms"></i>
-                                                </span>
-                                                <div class="mail-contnet">
-                                                    <h5 class="message-title">{{ $notification->data['tajuk'] }}</h5>
-                                                    {{-- <span class="mail-desc">Just see the my new admin!</span> --}}
-                                                    <span class="time">{{ date('d-m-Y H:i:s', strtotime($notification->created_at))  }}</span>
-                                                </div>
-                                            </a>
+                                            @foreach (auth()->user()->unreadNotifications as $notification)
+                                                <a href="{{ route('notification.show', $notification->id) }}"
+                                                    class="message-item">
+                                                    <span class="btn btn-danger btn-circle">
+                                                        <i class="fab fa-wpforms"></i>
+                                                    </span>
+                                                    <div class="mail-contnet">
+                                                        <h5 class="message-title">{{ $notification->data['tajuk'] }}
+                                                        </h5>
+                                                        {{-- <span class="mail-desc">Just see the my new admin!</span> --}}
+                                                        <span
+                                                            class="time">{{ date('d-m-Y H:i:s', strtotime($notification->created_at)) }}</span>
+                                                    </div>
+                                                </a>
                                             @endforeach
                                         </div>
                                     </li>
@@ -398,8 +404,9 @@
 
 
                         <li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark"
-                                href="javascript:void(0)" aria-expanded="false"><i class="mdi mdi-view-module"></i><span
-                                    class="hide-menu" style="padding-left: 10px;font-size: large;">Pengesahan
+                                href="javascript:void(0)" aria-expanded="false"><i
+                                    class="mdi mdi-view-module"></i><span class="hide-menu"
+                                    style="padding-left: 10px;font-size: large;">Pengesahan
                                     Maklumat</span></a>
                             <ul aria-expanded="false" class="collapse first-level">
 
@@ -423,7 +430,8 @@
                                                 class="sidebar-link"><i class="mdi mdi-priority-low"></i><span
                                                     class="hide-menu"> &nbsp
                                                     Shuttle 4 - Kilang Papan Lapis/Venir</span></a></li>
-                                        <li class="sidebar-item"><a href="{{ route('phd.shuttle-5-listA', date('Y')) }}"
+                                        <li class="sidebar-item"><a
+                                                href="{{ route('phd.shuttle-5-listA', date('Y')) }}"
                                                 class="sidebar-link"><i class="mdi mdi-priority-low"></i><span
                                                     class="hide-menu"> &nbsp
                                                     Shuttle 5 - Kilang Kayu Kumai</span></a></li>
@@ -431,29 +439,27 @@
                                 </li>
 
                                 <li class="sidebar-item"><a href="#"
-                                    class="sidebar-link has-arrow waves-effect waves-dark">&nbsp&nbsp <i
-                                        class="fas fa-cubes"></i>&nbsp&nbsp&nbsp <span class="hide-menu">
-                                        Pengesahan Pakej
-                                    </span></a>
-                                <ul aria-expanded="false" class="collapse second-level">
+                                        class="sidebar-link has-arrow waves-effect waves-dark">&nbsp&nbsp <i
+                                            class="fas fa-cubes"></i>&nbsp&nbsp&nbsp <span class="hide-menu">
+                                            Pengesahan Pakej
+                                        </span></a>
+                                    <ul aria-expanded="false" class="collapse second-level">
 
 
-                                    <li class="sidebar-item"><a
-                                        href="{{ route('phd.batch.s3', date('Y')) }}"
-                                        class="sidebar-link"><i class="mdi mdi-priority-low"></i><span
-                                            class="hide-menu">&nbsp Shuttle 3 - Kilang Papan</span></a>
+                                        <li class="sidebar-item"><a href="{{ route('phd.batch.s3', date('Y')) }}"
+                                                class="sidebar-link"><i class="mdi mdi-priority-low"></i><span
+                                                    class="hide-menu">&nbsp Shuttle 3 - Kilang Papan</span></a>
+                                        </li>
+                                        <li class="sidebar-item"><a href="{{ route('phd.batch.s4', date('Y')) }}"
+                                                class="sidebar-link"><i class="mdi mdi-priority-low"></i><span
+                                                    class="hide-menu"> &nbsp
+                                                    Shuttle 4 - Kilang Papan Lapis/Venir</span></a></li>
+                                        <li class="sidebar-item"><a href="{{ route('phd.batch.s5', date('Y')) }}"
+                                                class="sidebar-link"><i class="mdi mdi-priority-low"></i><span
+                                                    class="hide-menu"> &nbsp
+                                                    Shuttle 5 - Kilang Kayu Kumai</span></a></li>
+                                    </ul>
                                 </li>
-                                <li class="sidebar-item"><a
-                                        href="{{ route('phd.batch.s4', date('Y')) }}"
-                                        class="sidebar-link"><i class="mdi mdi-priority-low"></i><span
-                                            class="hide-menu"> &nbsp
-                                            Shuttle 4 - Kilang Papan Lapis/Venir</span></a></li>
-                                <li class="sidebar-item"><a href="{{ route('phd.batch.s5', date('Y')) }}"
-                                        class="sidebar-link"><i class="mdi mdi-priority-low"></i><span
-                                            class="hide-menu"> &nbsp
-                                            Shuttle 5 - Kilang Kayu Kumai</span></a></li>
-                            </ul>
-                        </li>
 
                                 <li class="sidebar-item"><a href="#"
                                         class="sidebar-link has-arrow waves-effect waves-dark">&nbsp&nbsp <i
@@ -465,19 +471,21 @@
                                                 class="sidebar-link"><i class="mdi mdi-priority-low"></i><span
                                                     class="hide-menu">&nbsp
                                                     Shuttle 3 - Kilang Papan</span></a></li>
-                                        <li class="sidebar-item"><a href="{{ route('phd.notifikasi-kilang.s4') }}" class="sidebar-link"><i
-                                                    class="mdi mdi-priority-low"></i><span class="hide-menu"> &nbsp
+                                        <li class="sidebar-item"><a href="{{ route('phd.notifikasi-kilang.s4') }}"
+                                                class="sidebar-link"><i class="mdi mdi-priority-low"></i><span
+                                                    class="hide-menu"> &nbsp
                                                     Shuttle 4 - Kilang Papan Lapis/Venir</span></a></li>
-                                        <li class="sidebar-item"><a href="{{ route('phd.notifikasi-kilang.s5') }}" class="sidebar-link"><i
-                                                    class="mdi mdi-priority-low"></i><span class="hide-menu"> &nbsp
+                                        <li class="sidebar-item"><a href="{{ route('phd.notifikasi-kilang.s5') }}"
+                                                class="sidebar-link"><i class="mdi mdi-priority-low"></i><span
+                                                    class="hide-menu"> &nbsp
                                                     Shuttle 5 - Kilang Kayu Kumai</span></a></li>
                                     </ul>
                                 </li>
 
-                                <li class="sidebar-item"><a href="{{ route('phd.pengumuman')}}"
-                                    class="sidebar-link"><i class="mdi mdi-adjust"></i><span
-                                        class="hide-menu">&nbsp Pengumuman IBK</span></a>
-                            </li>
+                                <li class="sidebar-item"><a href="{{ route('phd.pengumuman') }}"
+                                        class="sidebar-link"><i class="mdi mdi-adjust"></i><span
+                                            class="hide-menu">&nbsp Pengumuman IBK</span></a>
+                                </li>
 
                             </ul>
                         </li>
@@ -488,9 +496,9 @@
 
 
                         <li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark"
-                                href="javascript:void(0)" aria-expanded="false"><i
-                                    class="fas fa-file"></i><span class="hide-menu"
-                                    style="padding-left: 10px;font-size: large;">Status Borang</span></a>
+                                href="javascript:void(0)" aria-expanded="false"><i class="fas fa-file"></i><span
+                                    class="hide-menu" style="padding-left: 10px;font-size: large;">Status
+                                    Borang</span></a>
                             <ul aria-expanded="false" class="collapse first-level">
 
                                 <li class="sidebar-item"><a href="{{ route('phd.senarai-tugasan-3A', date('Y')) }}"
@@ -582,8 +590,8 @@
                         $('#error_modal').modal();
                     });
                 </script>
-                <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-                    aria-hidden="true">
+                <div class="modal fade" id="modal" tabindex="-1" role="dialog"
+                    aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered" role="document">
                         <div class="modal-content alert alert-card warning-danger">
                             <div class="modal-header">
@@ -613,9 +621,10 @@
         <!-- ============================================================== -->
     </div>
 
-    <footer class="text-center footer" style="bottom:0;text-align:center;left:0; color: rgb(0, 0, 0) !important;background-image: url(/bghutan.png); background-position: bottom; opacity: 0.75;">
+    <footer class="text-center footer"
+        style="bottom:0;text-align:center;left:0; color: rgb(0, 0, 0) !important;background-image: url(/bghutan.png); background-position: bottom; opacity: 0.75;">
         <span style=" color: rgb(255, 255, 255)">Hakcipta Terpelihara © {{ date('Y') }}. SISTEM eSHUTTLE. <br>
-        Paparan terbaik untuk sistem ini adalah 1920x1080 resolusi piksel.</span>
+            Paparan terbaik untuk sistem ini adalah 1920x1080 resolusi piksel.</span>
     </footer>
     <!-- Bootstrap tether Core JavaScript -->
     <script src="{{ asset('nice-admin/assets/libs/popper.js/dist/umd/popper.min.js') }}"></script>
@@ -682,9 +691,13 @@
         toastr.options.fadeOut = 2500;
 
         @if (Session::get('success'))
-            toastr.success('{{ session('success') }}', 'Berjaya', { "progressBar": true });
+            toastr.success('{{ session('success') }}', 'Berjaya', {
+                "progressBar": true
+            });
         @elseif ($message = Session::get('error'))
-            toastr.error('{{ session('error') }}', 'Ralat', { "progressBar": true });
+            toastr.error('{{ session('error') }}', 'Ralat', {
+                "progressBar": true
+            });
         @endif
     </script>
     <!-- ============================================================== -->

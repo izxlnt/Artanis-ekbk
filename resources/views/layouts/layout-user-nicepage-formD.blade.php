@@ -128,7 +128,6 @@
             -moz-border-radius: 6px 0 6px 6px;
             border-radius: 6px 0 6px 6px;
         }
-
     </style>
 
 </head>
@@ -161,13 +160,13 @@
 
                         <span class="logo-text" style="align:left;">
 
-                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/94/Jata_MalaysiaV2.svg/1200px-Jata_MalaysiaV2.svg.png"
+                            <img src="{{ asset('Coat_of_Arms_of_Malaysia.png') }}"
                                 style="height: 50px;" alt="homepage" class="dark-logo" />
                         </span>
                     </ul>
                     <ul class="mr-auto navbar-nav" style="text-align:center;margin-left: auto !important">
-                        <span class=""
-                            style="color: #000; font-weight: bold; font-size: 20px;text-align:center;"> SISTEM E-KBK
+                        <span class="" style="color: #000; font-weight: bold; font-size: 20px;text-align:center;">
+                            SISTEM E-KBK
                             (KILANG
                             BERASAS KAYU)<br>
                             JABATAN PERHUTANAN SEMENANJUNG MALAYSIA
@@ -402,16 +401,18 @@
 
                             @if (auth()->user()->shuttle_type == '3')
                                 <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark"
-                                        href="{{ route('user.shuttle-3-listA', date('Y')) }}"" aria-expanded="
-                                        false"><i class="mdi mdi-autorenew"></i><span class="hide-menu"
+                                        href="{{ route('user.shuttle-3-listA', date('Y')) }}""
+                                        aria-expanded="
+                                        false"><i
+                                            class="mdi mdi-autorenew"></i><span class="hide-menu"
                                             style="padding-left: 10px;font-size: large;">Status Borang</span></a>
-
                                 @elseif(auth()->user()->shuttle_type == '4')
                                 <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark"
-                                        href="{{ route('user.shuttle-4-listA', date('Y')) }}"" aria-expanded="
-                                        false"><i class="mdi mdi-mdi-autorenew"></i><span class="hide-menu"
+                                        href="{{ route('user.shuttle-4-listA', date('Y')) }}""
+                                        aria-expanded="
+                                        false"><i
+                                            class="mdi mdi-mdi-autorenew"></i><span class="hide-menu"
                                             style="padding-left: 10px;font-size: large;">Status Borang</span></a>
-
                                 @elseif(auth()->user()->shuttle_type == '5')
                                 <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark"
                                         href="{{ route('user.shuttle-5-listB') }}"" aria-expanded=" false"><i
@@ -488,8 +489,8 @@
                         $('#modal').modal();
                     });
                 </script>
-                <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-                    aria-hidden="true">
+                <div class="modal fade" id="modal" tabindex="-1" role="dialog"
+                    aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered" role="document">
                         <div class="modal-content alert alert-card alert-success">
                             <div class="modal-header">
@@ -510,8 +511,8 @@
                         $('#error_modal').modal();
                     });
                 </script>
-                <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-                    aria-hidden="true">
+                <div class="modal fade" id="modal" tabindex="-1" role="dialog"
+                    aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered" role="document">
                         <div class="modal-content alert alert-card warning-danger">
                             <div class="modal-header">
@@ -542,7 +543,8 @@
             <!-- ============================================================== -->
             <!-- footer -->
             <!-- ============================================================== -->
-            <footer class="text-center footer" style="bottom:0;text-align:center;width:100%;left:0; color: white !important;">
+            <footer class="text-center footer"
+                style="bottom:0;text-align:center;width:100%;left:0; color: white !important;">
                 Hakcipta Terpelihara © {{ date('Y') }}. Sistem e-KBK (Kilang Berasas Kayu) .
             </footer>
             <!-- ============================================================== -->

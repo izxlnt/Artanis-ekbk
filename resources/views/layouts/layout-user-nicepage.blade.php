@@ -154,20 +154,20 @@
                     <ul class="float-left navbar-nav">
                         <span class="logo-icon" style="align:left;">
 
-                            <img src="https://www.forestry.gov.my/images/halaman/logo-jpsm.jpg"
-                                style="height: 50px;" alt="homepage" class="dark-logo" />
+                            <img src="https://www.forestry.gov.my/images/halaman/logo-jpsm.jpg" style="height: 50px;"
+                                alt="homepage" class="dark-logo" />
 
                         </span>
 
                         <span class="logo-text" style="align:left;">
 
-                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/94/Jata_MalaysiaV2.svg/1200px-Jata_MalaysiaV2.svg.png"
+                            <img src="{{ asset('Coat_of_Arms_of_Malaysia.png') }}"
                                 style="height: 50px;" alt="homepage" class="dark-logo" />
                         </span>
                     </ul>
                     <ul class="mr-auto navbar-nav" style="text-align:center;margin-left: auto !important">
-                        <span class=""
-                            style="color: #000; font-weight: bold; font-size: 20px;text-align:center;"> SISTEM E-KBK
+                        <span class="" style="color: #000; font-weight: bold; font-size: 20px;text-align:center;">
+                            SISTEM E-KBK
                             (KILANG
                             BERASAS KAYU)<br>
                             JABATAN PERHUTANAN SEMENANJUNG MALAYSIA
@@ -238,7 +238,7 @@
 
 
 
-    {{-- <div class="container" style="background-color: #4c32e9;">
+        {{-- <div class="container" style="background-color: #4c32e9;">
         <div class="row" style="justify-content: space-around;">
             <a role="button" class="btn btn-primary" href="{{ route('home') }}"> <i class="fas fa-home fa-lg "></i>
     &nbsp Laman Utama <span class="caret"></span></a>
@@ -315,22 +315,23 @@
     </div>
     </div> --}}
 
-    <aside class="left-sidebar">
-        <!-- Sidebar scroll-->
-        <div class="scroll-sidebar">
-            <!-- Sidebar navigation-->
-            <nav class="sidebar-nav">
-                <ul id="sidebarnav">
+        <aside class="left-sidebar">
+            <!-- Sidebar scroll-->
+            <div class="scroll-sidebar">
+                <!-- Sidebar navigation-->
+                <nav class="sidebar-nav">
+                    <ul id="sidebarnav">
 
-                    <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark" href="{{ route('home') }}"
-                            aria-expanded="false"><i class="mdi mdi-home-variant"></i><span class="hide-menu"
-                                style="padding-left: 10px;font-size: large;">Laman Utama</span></a>
+                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark"
+                                href="{{ route('home') }}" aria-expanded="false"><i
+                                    class="mdi mdi-home-variant"></i><span class="hide-menu"
+                                    style="padding-left: 10px;font-size: large;">Laman Utama</span></a>
 
-                    </li>
+                        </li>
 
 
 
-                    {{-- <li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark" href="#"
+                        {{-- <li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark" href="#"
                                 aria-expanded="false"><i class="mdi mdi-help-circle-outline"></i><span class="hide-menu"
                                     style="padding-left: 10px;">Bantuan</span></a>
                             <ul aria-expanded="false" class="collapse first-level">
@@ -346,56 +347,58 @@
 
                             </ul>
                         </li> --}}
-                    <li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark"
-                            href="javascript:void(0)" aria-expanded="false"><i
-                                class="mdi mdi-television-guide"></i><span class="hide-menu"
-                                style="padding-left: 10px;font-size: large;">Bantuan</span></a>
-                        <ul aria-expanded="false" class="collapse first-level">
+                        <li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark"
+                                href="javascript:void(0)" aria-expanded="false"><i
+                                    class="mdi mdi-television-guide"></i><span class="hide-menu"
+                                    style="padding-left: 10px;font-size: large;">Bantuan</span></a>
+                            <ul aria-expanded="false" class="collapse first-level">
 
-                            <li class="sidebar-item"><a target="_blank" href="{{ asset('panduan_pentadbir.pdf') }}"
-                                    class="sidebar-link"><i class="mdi mdi-collage"></i><span class="hide-menu">&nbsp
-                                        Panduan Pentadbir
-                                        Modul</span></a>
-                            </li>
+                                <li class="sidebar-item"><a target="_blank"
+                                        href="{{ asset('panduan_pentadbir.pdf') }}" class="sidebar-link"><i
+                                            class="mdi mdi-collage"></i><span class="hide-menu">&nbsp
+                                            Panduan Pentadbir
+                                            Modul</span></a>
+                                </li>
 
-                            <li class="sidebar-item"><a target="_blank" href="{{ asset('panduan_pengguna.pdf') }}"
-                                    class="sidebar-link"><i class="mdi mdi-adjust"></i><span class="hide-menu">&nbsp
-                                        Panduan Pengguna
-                                        Modul</span></a>
-                            </li>
+                                <li class="sidebar-item"><a target="_blank"
+                                        href="{{ asset('panduan_pengguna.pdf') }}" class="sidebar-link"><i
+                                            class="mdi mdi-adjust"></i><span class="hide-menu">&nbsp
+                                            Panduan Pengguna
+                                            Modul</span></a>
+                                </li>
 
-                        </ul>
+                            </ul>
 
-                    </li>
+                        </li>
 
 
-                    {{-- <li class="sidebar-item"> <a class="sidebar-link" href="javascript:void(0)"
+                        {{-- <li class="sidebar-item"> <a class="sidebar-link" href="javascript:void(0)"
                                 aria-expanded="false"><i class="fab fa-audible"></i><span class="hide-menu"
                                     style="padding-left: 10px;">Tukar Modul</span></a>
                         </li> --}}
 
-                </ul>
-            </nav>
-            <!-- End Sidebar navigation -->
-        </div>
-        <!-- End Sidebar scroll-->
-    </aside>
-    <!-- ============================================================== -->
-    <!-- End Left Sidebar - style you can find in sidebar.scss  -->
-    <!-- ============================================================== -->
+                    </ul>
+                </nav>
+                <!-- End Sidebar navigation -->
+            </div>
+            <!-- End Sidebar scroll-->
+        </aside>
+        <!-- ============================================================== -->
+        <!-- End Left Sidebar - style you can find in sidebar.scss  -->
+        <!-- ============================================================== -->
 
-    <!-- ============================================================== -->
-    <!-- Page wrapper  -->
-    <!-- ============================================================== -->
-    <br>
-    <div class="page-wrapper">
-        @if ($message = Session::get('success'))
-        <script type="text/javascript">
-            $(document).ready(function() {
+        <!-- ============================================================== -->
+        <!-- Page wrapper  -->
+        <!-- ============================================================== -->
+        <br>
+        <div class="page-wrapper">
+            @if ($message = Session::get('success'))
+                <script type="text/javascript">
+                    $(document).ready(function() {
                         $('#modal').modal();
                     });
-        </script>
-        {{-- <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                </script>
+                {{-- <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
                     aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered" role="document">
                         <div class="modal-content alert alert-card alert-success">
@@ -411,56 +414,57 @@
     </div>
     </div>
     </div> --}}
-    @elseif ($message = Session::get('error'))
-    <script type="text/javascript">
-        $(document).ready(function() {
+            @elseif ($message = Session::get('error'))
+                <script type="text/javascript">
+                    $(document).ready(function() {
                         $('#error_modal').modal();
                     });
-    </script>
-    <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content alert alert-card warning-danger">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Failed!</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
+                </script>
+                <div class="modal fade" id="modal" tabindex="-1" role="dialog"
+                    aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content alert alert-card warning-danger">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Failed!</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <p>{{ $message }}</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="modal-body">
-                    <p>{{ $message }}</p>
-                </div>
+            @endif
+            @livewireScripts
+            <div class="container-fluid" style="height:100%">
+                @yield('content')
             </div>
+
+
+
+
+            {{-- BODY CONTENT IS HERE!!!!!!! --}}
+
+
+
+
+            <!-- ============================================================== -->
+            <!-- footer -->
+            <!-- ============================================================== -->
+            <footer class="text-center footer"
+                style="bottom:0;text-align:center;width:100%;left:0; color: white !important;">
+                Hakcipta Terpelihara © {{ date('Y') }}. Sistem e-KBK (Kilang Berasas Kayu) .
+            </footer>
+            <!-- ============================================================== -->
+            <!-- End footer -->
+            <!-- ============================================================== -->
+
         </div>
-    </div>
-    @endif
-    @livewireScripts
-    <div class="container-fluid" style="height:100%">
-        @yield('content')
-    </div>
-
-
-
-
-    {{-- BODY CONTENT IS HERE!!!!!!! --}}
-
-
-
-
-    <!-- ============================================================== -->
-    <!-- footer -->
-    <!-- ============================================================== -->
-    <footer class="text-center footer" style="bottom:0;text-align:center;width:100%;left:0; color: white !important;">
-        Hakcipta Terpelihara © {{ date('Y') }}. Sistem e-KBK (Kilang Berasas Kayu) .
-    </footer>
-    <!-- ============================================================== -->
-    <!-- End footer -->
-    <!-- ============================================================== -->
-
-    </div>
-    <!-- ============================================================== -->
-    <!-- End Page wrapper  -->
-    <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- End Page wrapper  -->
+        <!-- ============================================================== -->
     </div>
 
     <!-- ============================================================== -->

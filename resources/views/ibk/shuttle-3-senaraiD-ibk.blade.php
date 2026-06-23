@@ -123,6 +123,13 @@
                                         <tr>
                                             <td>Tindakan</td>
                                             <td>
+                                                @if ($list->where('bulan', 1)->isEmpty())
+                                                    @if (1 > (int)date('n'))
+                                                        <img src="{{ asset('calendar.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang belum dibuka" style="color: black; font-size: 20pt;">
+                                                    @else
+                                                        <img src="{{ asset('circle_times.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang belum diisi">
+                                                    @endif
+                                                @endif
                                                 @foreach ($list as $data)
                                                     @if ($data->status == 'Tidak Diisi' && $data->bulan == '1')
                                                         @php
@@ -181,6 +188,13 @@
                                                 @endforeach
                                             </td>
                                             <td>
+                                                @if ($list->where('bulan', 2)->isEmpty())
+                                                    @if (2 > (int)date('n'))
+                                                        <img src="{{ asset('calendar.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang belum dibuka" style="color: black; font-size: 20pt;">
+                                                    @else
+                                                        <img src="{{ asset('circle_times.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang belum diisi">
+                                                    @endif
+                                                @endif
                                                 @foreach ($list as $data)
                                                     @if ($data->status == 'Tidak Diisi' && $data->bulan == '2')
                                                         @php
@@ -238,6 +252,13 @@
                                                 @endforeach
                                             </td>
                                             <td>
+                                                @if ($list->where('bulan', 3)->isEmpty())
+                                                    @if (3 > (int)date('n'))
+                                                        <img src="{{ asset('calendar.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang belum dibuka" style="color: black; font-size: 20pt;">
+                                                    @else
+                                                        <img src="{{ asset('circle_times.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang belum diisi">
+                                                    @endif
+                                                @endif
                                                 @foreach ($list as $data)
                                                     @if ($data->status == 'Tidak Diisi' && $data->bulan == '3')
                                                         @php
@@ -295,6 +316,13 @@
                                                 @endforeach
                                             </td>
                                             <td>
+                                                @if ($list->where('bulan', 4)->isEmpty())
+                                                    @if (4 > (int)date('n'))
+                                                        <img src="{{ asset('calendar.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang belum dibuka" style="color: black; font-size: 20pt;">
+                                                    @else
+                                                        <img src="{{ asset('circle_times.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang belum diisi">
+                                                    @endif
+                                                @endif
                                                 @foreach ($list as $data)
                                                     @if ($data->status == 'Tidak Diisi' && $data->bulan == '4')
                                                         @php
@@ -352,6 +380,13 @@
                                                 @endforeach
                                             </td>
                                             <td>
+                                                @if ($list->where('bulan', 5)->isEmpty())
+                                                    @if (5 > (int)date('n'))
+                                                        <img src="{{ asset('calendar.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang belum dibuka" style="color: black; font-size: 20pt;">
+                                                    @else
+                                                        <img src="{{ asset('circle_times.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang belum diisi">
+                                                    @endif
+                                                @endif
                                                 @foreach ($list as $data)
                                                     @if ($data->status == 'Tidak Diisi' && $data->bulan == '5')
                                                         @php
@@ -409,6 +444,13 @@
                                                 @endforeach
                                             </td>
                                             <td>
+                                                @if ($list->where('bulan', 6)->isEmpty())
+                                                    @if (6 > (int)date('n'))
+                                                        <img src="{{ asset('calendar.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang belum dibuka" style="color: black; font-size: 20pt;">
+                                                    @else
+                                                        <img src="{{ asset('circle_times.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang belum diisi">
+                                                    @endif
+                                                @endif
                                                 @foreach ($list as $data)
                                                     @if ($data->status == 'Tidak Diisi' && $data->bulan == '6')
                                                         @php
@@ -466,6 +508,13 @@
                                                 @endforeach
                                             </td>
                                             <td>
+                                                @if ($list->where('bulan', 7)->isEmpty())
+                                                    @if (7 > (int)date('n'))
+                                                        <img src="{{ asset('calendar.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang belum dibuka" style="color: black; font-size: 20pt;">
+                                                    @else
+                                                        <img src="{{ asset('circle_times.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang belum diisi">
+                                                    @endif
+                                                @endif
                                                 @foreach ($list as $data)
                                                     @if ($data->status == 'Tidak Diisi' && $data->bulan == '7')
                                                         @php
@@ -523,6 +572,13 @@
                                                 @endforeach
                                             </td>
                                             <td>
+                                                @if ($list->where('bulan', 8)->isEmpty())
+                                                    @if (8 > (int)date('n'))
+                                                        <img src="{{ asset('calendar.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang belum dibuka" style="color: black; font-size: 20pt;">
+                                                    @else
+                                                        <img src="{{ asset('circle_times.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang belum diisi">
+                                                    @endif
+                                                @endif
                                                 @foreach ($list as $data)
                                                     @if ($data->status == 'Tidak Diisi' && $data->bulan == '8')
                                                         @php
@@ -580,6 +636,13 @@
                                                 @endforeach
                                             </td>
                                             <td>
+                                                @if ($list->where('bulan', 9)->isEmpty())
+                                                    @if (9 > (int)date('n'))
+                                                        <img src="{{ asset('calendar.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang belum dibuka" style="color: black; font-size: 20pt;">
+                                                    @else
+                                                        <img src="{{ asset('circle_times.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang belum diisi">
+                                                    @endif
+                                                @endif
                                                 @foreach ($list as $data)
                                                     @if ($data->status == 'Tidak Diisi' && $data->bulan == '9')
                                                         @php
@@ -637,6 +700,13 @@
                                                 @endforeach
                                             </td>
                                             <td>
+                                                @if ($list->where('bulan', 10)->isEmpty())
+                                                    @if (10 > (int)date('n'))
+                                                        <img src="{{ asset('calendar.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang belum dibuka" style="color: black; font-size: 20pt;">
+                                                    @else
+                                                        <img src="{{ asset('circle_times.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang belum diisi">
+                                                    @endif
+                                                @endif
                                                 @foreach ($list as $data)
                                                     @if ($data->status == 'Tidak Diisi' && $data->bulan == '10')
                                                         @php
@@ -694,6 +764,13 @@
                                                 @endforeach
                                             </td>
                                             <td>
+                                                @if ($list->where('bulan', 11)->isEmpty())
+                                                    @if (11 > (int)date('n'))
+                                                        <img src="{{ asset('calendar.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang belum dibuka" style="color: black; font-size: 20pt;">
+                                                    @else
+                                                        <img src="{{ asset('circle_times.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang belum diisi">
+                                                    @endif
+                                                @endif
                                                 @foreach ($list as $data)
                                                     @if ($data->status == 'Tidak Diisi' && $data->bulan == '11')
                                                         @php
@@ -751,6 +828,13 @@
                                                 @endforeach
                                             </td>
                                             <td>
+                                                @if ($list->where('bulan', 12)->isEmpty())
+                                                    @if (12 > (int)date('n'))
+                                                        <img src="{{ asset('calendar.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang belum dibuka" style="color: black; font-size: 20pt;">
+                                                    @else
+                                                        <img src="{{ asset('circle_times.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang belum diisi">
+                                                    @endif
+                                                @endif
                                                 @foreach ($list as $data)
                                                     @if ($data->status == 'Tidak Diisi' && $data->bulan == '12')
                                                         @php
