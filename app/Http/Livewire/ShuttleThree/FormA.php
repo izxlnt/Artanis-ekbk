@@ -63,6 +63,10 @@ class FormA extends Component
             $this->alamat_kilang_2 = $kilang_info->alamat_kilang_2;
             $this->alamat_kilang_poskod = $kilang_info->alamat_kilang_poskod;
             $this->alamat_kilang_daerah = $kilang_info->alamat_kilang_daerah;
+            $this->alamat_surat_menyurat_1 = $kilang_info->alamat_surat_menyurat_1;
+            $this->alamat_surat_menyurat_2 = $kilang_info->alamat_surat_menyurat_2;
+            $this->alamat_surat_menyurat_poskod = $kilang_info->alamat_surat_menyurat_poskod;
+            $this->alamat_surat_menyurat_daerah = $kilang_info->alamat_surat_menyurat_daerah;
         }
     }
 
