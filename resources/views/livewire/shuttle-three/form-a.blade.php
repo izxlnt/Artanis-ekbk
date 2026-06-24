@@ -143,66 +143,79 @@
                                                         <hr>
 
 
-                                                        <div class="row">
+                                                        <div class="form-group row">
                                                             <label for="fname"
                                                                 class="text-right col-sm-3 control-label col-form-label">Alamat
                                                                 Surat Menyurat</label>
-                                                            <div class="col-md-8 ">
-                                                                <input readonly type="text" class="form-control"
-                                                                    name='alamat_surat_menyurat_1'
-                                                                    placeholder="Alamat Surat Menyurat"
-                                                                    value="{{ $kilang_info->alamat_surat_menyurat_1 }}">
+                                                            <div class="col-sm-9">
+                                                                <input type="text" class="form-control"
+                                                                    wire:model='alamat_surat_menyurat_1'
+                                                                    placeholder="Alamat Surat Menyurat">
                                                                 @error('alamat_surat_menyurat_1')
                                                                     <div class="alert alert-danger">
                                                                         <strong>{{ $message }}</strong>
                                                                     </div>
                                                                 @enderror
-                                                            </div>
-                                                        </div> <br>
-                                                        <div class="row">
-                                                            <label for="fname"
-                                                                class="text-right col-sm-3 control-label col-form-label"></label>
-                                                            <div class="col-md-8">
-                                                                <input readonly type="text" class="form-control"
-                                                                    name='alamat_surat_menyurat_2'
-                                                                    placeholder="Alamat Surat Menyurat"
-                                                                    value="{{ $kilang_info->alamat_surat_menyurat_2 }}">
+                                                                <br>
+                                                                <input type="text" class="form-control"
+                                                                    wire:model='alamat_surat_menyurat_2'
+                                                                    placeholder="Alamat Surat Menyurat">
                                                                 @error('alamat_surat_menyurat_2')
                                                                     <div class="alert alert-danger">
                                                                         <strong>{{ $message }}</strong>
                                                                     </div>
                                                                 @enderror
                                                             </div>
-                                                        </div><br>
+                                                        </div>
 
                                                         <div class="form-group row">
                                                             <label for="com1"
                                                                 class="text-right col-sm-4 control-label col-form-label">Poskod</label>
-                                                                <div class="col-md-3">
-                                                                    <div class="form-group">
-                                                                        <input readonly type="text" class="form-control"
-                                                                            name="alamat_kilang_poskod"
-                                                                            value="{{ $kilang_info->alamat_surat_menyurat_poskod }}">
-                                                                        @error('nama_kilang')
-                                                                            <div class="alert alert-danger">
-                                                                                <strong>{{ $message }}</strong>
-                                                                            </div>
-                                                                        @enderror
-                                                                    </div>
+                                                                <div class="col-sm-3">
+                                                                    <input type="text" style="width:80px;" class="form-control"
+                                                                        wire:model='alamat_surat_menyurat_poskod'
+                                                                        wire:click="loadPoskodSuratMenyurat($event.target.value)"
+                                                                        placeholder="Poskod">
+                                                                    @error('alamat_surat_menyurat_poskod')
+                                                                        <div class="alert alert-danger">
+                                                                            <strong>{{ $message }}</strong>
+                                                                        </div>
+                                                                    @enderror
                                                                 </div>
                                                             <label for="com1"
                                                                 class="text-right col-sm-1 control-label col-form-label">Daerah</label>
-                                                                <div class="col-md-3">
-                                                                    <div class="form-group">
-                                                                        <input readonly type="text" class="form-control"
-                                                                            name="alamat_kilang_poskod"
-                                                                            value="{{ $kilang_info->alamat_surat_menyurat_daerah }}">
-                                                                        @error('nama_kilang')
+                                                                <div class="col-sm-3">
+                                                                    @if($poskod_surat_readonly == false)
+                                                                        <select class="form-control"
+                                                                            wire:model='alamat_surat_menyurat_daerah'
+                                                                            style="width:150px;text-align: center">
+                                                                            <option value="" disabled hidden>Pilih Daerah</option>
+                                                                            @forelse ($poskod_surat_menyurat as $data)
+                                                                                <option value="{{ $data->bandar }}">{{ $data->bandar }}</option>
+                                                                            @empty
+                                                                            @endforelse
+                                                                        </select>
+                                                                        @error('alamat_surat_menyurat_daerah')
                                                                             <div class="alert alert-danger">
                                                                                 <strong>{{ $message }}</strong>
                                                                             </div>
                                                                         @enderror
-                                                                    </div>
+                                                                    @else
+                                                                        <select class="form-control"
+                                                                            wire:model='alamat_surat_menyurat_daerah'
+                                                                            style="width:150px;text-align: center" disabled>
+                                                                            <option value="" disabled hidden>Pilih Daerah</option>
+                                                                            @forelse ($poskod_surat_menyurat as $data)
+                                                                                <option value="{{ $data->bandar }}">{{ $data->bandar }}</option>
+                                                                            @empty
+                                                                            @endforelse
+                                                                        </select>
+                                                                        @error('alamat_surat_menyurat_daerah')
+                                                                            <div class="alert alert-danger">
+                                                                                <strong>{{ $message }}</strong>
+                                                                            </div>
+                                                                        @enderror
+                                                                    @endif
                                                                 </div>
                                                         </div>
 
