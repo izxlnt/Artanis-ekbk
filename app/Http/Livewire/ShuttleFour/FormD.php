@@ -117,16 +117,14 @@ class FormD extends Component
 
         if (!$this->formc) {
             Session::flash('error', 'Sila isi Borang C bagi bulan yang dipilih terlebih dahulu.');
-            redirect()->route('user.shuttle-4-senaraiD', date('Y'))->send();
-            return;
+            return redirect()->route('user.shuttle-4-senaraiD', date('Y'));
         }
 
         $this->kemasukan_bahan_calc_lain_lain = KemasukanBahan::where('shuttle_id', auth()->user()->shuttle_id)->where('formcs_id', $this->formc->id)->latest('updated_at')->first();
 
         if (!$this->kemasukan_bahan_calc_lain_lain) {
             Session::flash('error', 'Sila lengkapkan dan hantar Borang C bagi bulan yang dipilih sebelum mengisi Borang D.');
-            redirect()->route('user.shuttle-4-senaraiD', date('Y'))->send();
-            return;
+            return redirect()->route('user.shuttle-4-senaraiD', date('Y'));
         }
 
         $recovery_rate = RecoveryRate::where('shuttle_type', '4')->first();

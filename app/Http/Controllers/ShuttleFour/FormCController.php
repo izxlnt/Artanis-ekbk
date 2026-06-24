@@ -1705,16 +1705,13 @@ class FormCController extends Controller
         $batch->save();
 
         if ($status_terkini == 'Sedang Diisi') {
-            $kemasukan_bahans = KemasukanBahan::with('spesis_id')
-            ->where('shuttle_id', auth()->user()->shuttle_id)->where('formcs_id', $formc->id)->get();
-            // dd($kemasukan_bahans);
-            foreach ($kemasukan_bahans as $key => $data) {
-                $data->delete();
-            }
-        } else {
-            $kemasukan_bahans = KemasukanBahan::with('spesis_id')
-            ->where('shuttle_id', auth()->user()->shuttle_id)->where('formcs_id', $formc->id)->get();
+            KemasukanBahan::where('shuttle_id', auth()->user()->shuttle_id)
+                ->where('formcs_id', $formc->id)
+                ->delete();
         }
+
+        $kemasukan_bahans = KemasukanBahan::with('spesis_id')
+            ->where('shuttle_id', auth()->user()->shuttle_id)->where('formcs_id', $formc->id)->get();
 
         if ($bulan_id != 1) {
             $lastmonth = $bulan_id - 1; //create

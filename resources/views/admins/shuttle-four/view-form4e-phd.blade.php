@@ -177,7 +177,7 @@
                                                                                     <td style="text-align:center;width:50%"><input
                                                                                             style="text-align:right"
                                                                                             type="text" size="15"
-                                                                                            value="{{ number_format($form4e->total_export ?? 0,2) }}" readonly>
+                                                                                            value="{{ number_format((float)($form4e->total_export ?? 0),2) }}" readonly>
                                                                                     </td>
                                                                                 </tr>
 
@@ -188,7 +188,7 @@
                                                                                     <td style="text-align:center;"><input
                                                                                             style="background-color: #9ac4f7;text-align:right"
                                                                                             type="text" size="15"
-                                                                                            value="{{ number_format($form4e->jumlah_pasaran_tempatan ?? 0,2) }}" readonly>
+                                                                                            value="{{ number_format((float)($form4e->jumlah_pasaran_tempatan ?? 0),2) }}" readonly>
                                                                                     </td>
                                                                                 </tr>
 
@@ -198,7 +198,7 @@
                                                                                     <td style="text-align:center;"><input
                                                                                             style="text-align:right"
                                                                                             type="text" size="15"
-                                                                                            value="{{ number_format($form4e->jumlah_venier_eksport ?? 0,2) }}" readonly>
+                                                                                            value="{{ number_format((float)($form4e->jumlah_venier_eksport ?? 0),2) }}" readonly>
                                                                                     </td>
                                                                                 </tr>
 
@@ -209,7 +209,7 @@
                                                                                     <td style="text-align:center;"><input
                                                                                             style="text-align:right"
                                                                                             type="text" size="15"
-                                                                                            value="{{ number_format($form4e->jumlah_venier_tempatan ?? 0,2) }}" readonly>
+                                                                                            value="{{ number_format((float)($form4e->jumlah_venier_tempatan ?? 0),2) }}" readonly>
                                                                                     </td>
                                                                                 </tr>
 
@@ -245,7 +245,7 @@
                                                                                             </td>
                                                                                         <td style="text-align:center;"><input
                                                                                                 style="text-align:right" type="text"
-                                                                                                size="15" value={{ number_format($form4_e[$key]->jumlah_jualan ?? 0,2) }}>
+                                                                                                size="15" value={{ number_format((float)($form4_e[$key]->jumlah_jualan ?? 0),2) }}>
                                                                                         </td>
                                                                                     </tr>
 

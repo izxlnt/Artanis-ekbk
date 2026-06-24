@@ -151,25 +151,18 @@ class UserController extends Controller
         foreach ($requirements['years_to_fill'] as $year) {
             if (!empty($requirements['months_to_fill'][$year])) {
                 foreach ($requirements['months_to_fill'][$year] as $month) {
-                    $formC_exists = FormC::where('shuttle_id', $user->shuttle_id)
-                        ->where('tahun', $year)
-                        ->where('bulan', $month)
-                        ->count();
-                    
-                    if ($formC_exists == '0') {
-                        $formcs = FormC::create([
-                            'shuttle_id' => $user->shuttle_id,
-                            'shuttle_type' => $user->shuttle_type,
-                            'status' => $status,
-                            'tahun' => $year,
-                            'bulan' => $month,
-                            'tarikh_buka_borang' => $year . $monthDates[$month]['buka'],
+                    FormC::firstOrCreate(
+                        ['shuttle_id' => $user->shuttle_id, 'tahun' => $year, 'bulan' => $month],
+                        [
+                            'shuttle_type'        => $user->shuttle_type,
+                            'status'              => $status,
+                            'tarikh_buka_borang'  => $year . $monthDates[$month]['buka'],
                             'tarikh_tutup_borang' => $year . $monthDates[$month]['tutup'],
-                            'nama_kilang' => $user->shuttle->nama_kilang,
-                            'no_ssm' => $user->shuttle->no_ssm,
-                            'no_lesen' => $user->shuttle->no_lesen,
-                        ]);
-                    }
+                            'nama_kilang'         => $user->shuttle->nama_kilang,
+                            'no_ssm'              => $user->shuttle->no_ssm,
+                            'no_lesen'            => $user->shuttle->no_lesen,
+                        ]
+                    );
                 }
             }
         }

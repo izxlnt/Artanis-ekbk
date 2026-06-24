@@ -655,174 +655,35 @@ $batch_checker = Batch::where('shuttle_id', $user->shuttle_id)->where('tahun', d
 
 
         //=========================== checker C (Shuttle 3,4,5) ===============================================
-        $formC_checker = FormC::where('shuttle_id', $user->shuttle_id)->where('tahun', date("Y"))->count();
-
-        if ($formC_checker == '0') {
-            $currentApprovalMonth = (int)date('n');
-            for ($i = 1; $i < 13; $i++) {
-                // Future months are created as 'Ditutup' and will auto-open when their month arrives.
-                $status = ($i <= $currentApprovalMonth) ? 'Tidak Diisi' : 'Ditutup';
-
-                if ($i == 1) {
-
-                    $formcs = FormC::create([
-                        'shuttle_id' => $user->shuttle_id,
-                        'shuttle_type' => $user->shuttle_type,
-                        'status' => $status,
-                        'tahun' => date("Y"),
-                        'bulan' => $i,
-                        'tarikh_buka_borang' => date("Y-01-01"),
-                        'tarikh_tutup_borang' => date("Y-02-01"),
-                        'nama_kilang' => $user->shuttle->nama_kilang,
-                        'no_ssm' => $user->shuttle->no_ssm,
-                        'no_lesen' => $user->shuttle->no_lesen,
-                    ]);
-                } elseif ($i == 2) {
-                    $formcs = FormC::create([
-                        'shuttle_id' => $user->shuttle_id,
-                        'shuttle_type' => $user->shuttle_type,
-                        'status' => $status,
-                        'tahun' => date("Y"),
-                        'bulan' => $i,
-                        'tarikh_buka_borang' => date("Y-02-01"),
-                        'tarikh_tutup_borang' => date("Y-03-01"),
-                        'nama_kilang' => $user->shuttle->nama_kilang,
-                        'no_ssm' => $user->shuttle->no_ssm,
-                        'no_lesen' => $user->shuttle->no_lesen,
-                    ]);
-                } elseif ($i == 3) {
-                    $formcs = FormC::create([
-                        'shuttle_id' => $user->shuttle_id,
-                        'shuttle_type' => $user->shuttle_type,
-                        'status' => $status,
-                        'tahun' => date("Y"),
-                        'bulan' => $i,
-                        'tarikh_buka_borang' => date("Y-03-01"),
-                        'tarikh_tutup_borang' => date("Y-04-01"),
-                        'nama_kilang' => $user->shuttle->nama_kilang,
-                        'no_ssm' => $user->shuttle->no_ssm,
-                        'no_lesen' => $user->shuttle->no_lesen,
-                    ]);
-                } elseif ($i == 4) {
-                    $formcs = FormC::create([
-                        'shuttle_id' => $user->shuttle_id,
-                        'shuttle_type' => $user->shuttle_type,
-                        'status' => $status,
-                        'tahun' => date("Y"),
-                        'bulan' => $i,
-                        'tarikh_buka_borang' => date("Y-04-01"),
-                        'tarikh_tutup_borang' => date("Y-05-01"),
-                        'nama_kilang' => $user->shuttle->nama_kilang,
-                        'no_ssm' => $user->shuttle->no_ssm,
-                        'no_lesen' => $user->shuttle->no_lesen,
-                    ]);
-                } elseif ($i == 5) {
-                    $formcs = FormC::create([
-                        'shuttle_id' => $user->shuttle_id,
-                        'shuttle_type' => $user->shuttle_type,
-                        'status' => $status,
-                        'tahun' => date("Y"),
-                        'bulan' => $i,
-                        'tarikh_buka_borang' => date("Y-05-01"),
-                        'tarikh_tutup_borang' => date("Y-06-01"),
-                        'nama_kilang' => $user->shuttle->nama_kilang,
-                        'no_ssm' => $user->shuttle->no_ssm,
-                        'no_lesen' => $user->shuttle->no_lesen,
-                    ]);
-                } elseif ($i == 6) {
-                    $formcs = FormC::create([
-                        'shuttle_id' => $user->shuttle_id,
-                        'shuttle_type' => $user->shuttle_type,
-                        'status' => $status,
-                        'tahun' => date("Y"),
-                        'bulan' => $i,
-                        'tarikh_buka_borang' => date("Y-06-01"),
-                        'tarikh_tutup_borang' => date("Y-07-01"),
-                        'nama_kilang' => $user->shuttle->nama_kilang,
-                        'no_ssm' => $user->shuttle->no_ssm,
-                        'no_lesen' => $user->shuttle->no_lesen,
-                    ]);
-                } elseif ($i == 7) {
-                    $formcs = FormC::create([
-                        'shuttle_id' => $user->shuttle_id,
-                        'shuttle_type' => $user->shuttle_type,
-                        'status' => $status,
-                        'tahun' => date("Y"),
-                        'bulan' => $i,
-                        'tarikh_buka_borang' => date("Y-07-01"),
-                        'tarikh_tutup_borang' => date("Y-08-01"),
-                        'nama_kilang' => $user->shuttle->nama_kilang,
-                        'no_ssm' => $user->shuttle->no_ssm,
-                        'no_lesen' => $user->shuttle->no_lesen,
-                    ]);
-                } elseif ($i == 8) {
-                    $formcs = FormC::create([
-                        'shuttle_id' => $user->shuttle_id,
-                        'shuttle_type' => $user->shuttle_type,
-                        'status' => $status,
-                        'tahun' => date("Y"),
-                        'bulan' => $i,
-                        'tarikh_buka_borang' => date("Y-08-01"),
-                        'tarikh_tutup_borang' => date("Y-09-01"),
-                        'nama_kilang' => $user->shuttle->nama_kilang,
-                        'no_ssm' => $user->shuttle->no_ssm,
-                        'no_lesen' => $user->shuttle->no_lesen,
-                    ]);
-                } elseif ($i == 9) {
-                    $formcs = FormC::create([
-                        'shuttle_id' => $user->shuttle_id,
-                        'shuttle_type' => $user->shuttle_type,
-                        'status' => $status,
-                        'tahun' => date("Y"),
-                        'bulan' => $i,
-                        'tarikh_buka_borang' => date("Y-09-01"),
-                        'tarikh_tutup_borang' => date("Y-10-01"),
-                        'nama_kilang' => $user->shuttle->nama_kilang,
-                        'no_ssm' => $user->shuttle->no_ssm,
-                        'no_lesen' => $user->shuttle->no_lesen,
-                    ]);
-                } elseif ($i == 10) {
-                    $formcs = FormC::create([
-                        'shuttle_id' => $user->shuttle_id,
-                        'shuttle_type' => $user->shuttle_type,
-                        'status' => $status,
-                        'tahun' => date("Y"),
-                        'bulan' => $i,
-                        'tarikh_buka_borang' => date("Y-10-01"),
-                        'tarikh_tutup_borang' => date("Y-11-01"),
-                        'nama_kilang' => $user->shuttle->nama_kilang,
-                        'no_ssm' => $user->shuttle->no_ssm,
-                        'no_lesen' => $user->shuttle->no_lesen,
-                    ]);
-                } elseif ($i == 11) {
-                    $formcs = FormC::create([
-                        'shuttle_id' => $user->shuttle_id,
-                        'shuttle_type' => $user->shuttle_type,
-                        'status' => $status,
-                        'tahun' => date("Y"),
-                        'bulan' => $i,
-                        'tarikh_buka_borang' => date("Y-11-01"),
-                        'tarikh_tutup_borang' => date("Y-12-01"),
-                        'nama_kilang' => $user->shuttle->nama_kilang,
-                        'no_ssm' => $user->shuttle->no_ssm,
-                        'no_lesen' => $user->shuttle->no_lesen,
-                    ]);
-                } elseif ($i == 12) {
-                    $formcs = FormC::create([
-                        'shuttle_id' => $user->shuttle_id,
-                        'shuttle_type' => $user->shuttle_type,
-                        'status' => $status,
-                        'tahun' => date("Y"),
-                        'bulan' => $i,
-                        'tarikh_buka_borang' => date("Y-12-01"),
-                        'tarikh_tutup_borang' => date("Y-12-31"),
-                        'nama_kilang' => $user->shuttle->nama_kilang,
-                        'no_ssm' => $user->shuttle->no_ssm,
-                        'no_lesen' => $user->shuttle->no_lesen,
-                    ]);
-                }
-            }
-            //
+        $monthDates = [
+            1  => ['buka' => '-01-01', 'tutup' => '-02-01'],
+            2  => ['buka' => '-02-01', 'tutup' => '-03-01'],
+            3  => ['buka' => '-03-01', 'tutup' => '-04-01'],
+            4  => ['buka' => '-04-01', 'tutup' => '-05-01'],
+            5  => ['buka' => '-05-01', 'tutup' => '-06-01'],
+            6  => ['buka' => '-06-01', 'tutup' => '-07-01'],
+            7  => ['buka' => '-07-01', 'tutup' => '-08-01'],
+            8  => ['buka' => '-08-01', 'tutup' => '-09-01'],
+            9  => ['buka' => '-09-01', 'tutup' => '-10-01'],
+            10 => ['buka' => '-10-01', 'tutup' => '-11-01'],
+            11 => ['buka' => '-11-01', 'tutup' => '-12-01'],
+            12 => ['buka' => '-12-01', 'tutup' => '-12-31'],
+        ];
+        $currentApprovalMonth = (int)date('n');
+        for ($i = 1; $i <= 12; $i++) {
+            $status = ($i <= $currentApprovalMonth) ? 'Tidak Diisi' : 'Ditutup';
+            FormC::firstOrCreate(
+                ['shuttle_id' => $user->shuttle_id, 'tahun' => date("Y"), 'bulan' => $i],
+                [
+                    'shuttle_type'        => $user->shuttle_type,
+                    'status'              => $status,
+                    'tarikh_buka_borang'  => date("Y") . $monthDates[$i]['buka'],
+                    'tarikh_tutup_borang' => date("Y") . $monthDates[$i]['tutup'],
+                    'nama_kilang'         => $user->shuttle->nama_kilang,
+                    'no_ssm'              => $user->shuttle->no_ssm,
+                    'no_lesen'            => $user->shuttle->no_lesen,
+                ]
+            );
         }
 
         //=========================== checker D ==============================================

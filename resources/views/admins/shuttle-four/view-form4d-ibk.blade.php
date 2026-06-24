@@ -416,7 +416,7 @@
                                                                                 <td style="text-align:center;padding: 5px"
                                                                                     colspan="2"><input readonly class="text-right"
                                                                                         style=" type=" text" size="50"
-                                                                                        value="{{ number_format($form4d->rekod_veniermuka ?? 0,2) }}">
+                                                                                        value="{{ number_format((float)($form4d->rekod_veniermuka ?? 0),2) }}">
                                                                                 </td>
                                                                             </tr>
 
@@ -426,7 +426,7 @@
                                                                                 <td style="text-align:center;padding: 5px"
                                                                                     colspan="2"><input readonly class="text-right"
                                                                                         style=" type=" text" size="50"
-                                                                                        value="{{ number_format($form4d->rekod_venierteras ?? 0,2) }}">
+                                                                                        value="{{ number_format((float)($form4d->rekod_venierteras ?? 0),2) }}">
                                                                                 </td>
                                                                             </tr>
 
@@ -437,7 +437,7 @@
                                                                                     colspan="2"><input readonly class="text-right"
                                                                                         style="background-color: #7ee48c6b;"
                                                                                         type="text" size="50"
-                                                                                        value="{{ number_format($form4d->jumlah_pengeluaran ?? 0,2) }}">
+                                                                                        value="{{ number_format((float)($form4d->jumlah_pengeluaran ?? 0),2) }}">
                                                                                 </td>
 
                                                                             </tr>
@@ -445,7 +445,7 @@
                                                                                 <th style="text-align:right;background-color: #7ee48c6b;" class="">JUMLAH BESAR</th>
                                                                                 <td style="text-align:center;padding: 5px" colspan="2"><input
                                                                                     readonly style="background-color: #7ee48c6b;" class="text-right"
-                                                                                    type="text" size="50"value="{{ number_format($form4d->jumlah_besar_pengeluaran ?? 0,2) }}" >
+                                                                                    type="text" size="50"value="{{ number_format((float)($form4d->jumlah_besar_pengeluaran ?? 0),2) }}" >
                                                                             </td>
                                                                             </tr>
                                                                         </table>

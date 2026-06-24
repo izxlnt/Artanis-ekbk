@@ -190,7 +190,7 @@
                                                                                 $jk2_wbp    = $tebal ? collect($tebal)->sum('produk_isipaduwbp') : 0;
                                                                                 $jbesar_mr  = $jk1_mr + $jk2_mr;
                                                                                 $jbesar_wbp = $jk1_wbp + $jk2_wbp;
-                                                                                $jml_venier = ($form4d->rekod_veniermuka ?? 0) + ($form4d->rekod_venierteras ?? 0);
+                                                                                $jml_venier = (float)($form4d->rekod_veniermuka ?? 0) + (float)($form4d->rekod_venierteras ?? 0);
                                                                                 $jml_besar  = $jbesar_mr + $jbesar_wbp + $jml_venier;
                                                                             @endphp
                                                                             <table class="table-responsive">
@@ -264,12 +264,12 @@
 
                                                                                 <tr style="height:50px;">
                                                                                     <td style="" class="" >Muka (Face)</td>
-                                                                                    <td style="text-align:center;padding: 5px" colspan="2"><input readonly style="text-align:right" type="text" size="50" value="{{ number_format($form4d->rekod_veniermuka ?? 0, 2) }}"></td>
+                                                                                    <td style="text-align:center;padding: 5px" colspan="2"><input readonly style="text-align:right" type="text" size="50" value="{{ number_format((float)($form4d->rekod_veniermuka ?? 0), 2) }}"></td>
                                                                                 </tr>
 
                                                                                 <tr style="height:50px;">
                                                                                     <td style="" class="" >Teras (Core)</td>
-                                                                                    <td style="text-align:center;padding: 5px" colspan="2"><input readonly style="text-align:right" type="text" size="50" value="{{ number_format($form4d->rekod_venierteras ?? 0, 2) }}"></td>
+                                                                                    <td style="text-align:center;padding: 5px" colspan="2"><input readonly style="text-align:right" type="text" size="50" value="{{ number_format((float)($form4d->rekod_venierteras ?? 0), 2) }}"></td>
                                                                                 </tr>
 
                                                                                 <tr style="height:50px;">
