@@ -22,6 +22,7 @@ class FormD extends Component
     public $i= 0;
     public $j= 0;
     public $bulan_id, $bulan, $kemasukan_bahan_calc_lain_lain,$formc;
+    public $min_recovery_rate = 0, $max_recovery_rate = 0;
     public $produk_ketebalan,$produk_isipadumr_a,$produk_isipaduwbp_a,$jumlah_mr,$junlah_wbp,$rekod_veniermuka,$rekod_venierteras,$jumlah_pengeluaran,$baki_stok,$jumlah_kecil_mr,
     $jumlah_wbp,$jumlah_kecil_1_mr,$jumlah_kecil_2_mr,$jumlah_kecil_1_wbp,$produk_isipadumr_b,$produk_isipaduwbp_b,$jumlah_kecil_2_wbp,$jumlah_besar_mr,$jumlah_besar_wbp,
     $produk_ketebalan_a,$produk_ketebalan_b,$jumlah_besar_pengeluaran = 0,$jumlah_pengeluaran_a=0,$jumlah_pengeluaran_b=0;
@@ -114,12 +115,25 @@ class FormD extends Component
     {
         $this->formc = ModelsFormC::where('shuttle_id', auth()->user()->shuttle_id)->where('bulan', $this->bulan_id)->whereYear('created_at', date("Y"))->first();
 
+        if (!$this->formc) {
+            Session::flash('error', 'Sila isi Borang C bagi bulan yang dipilih terlebih dahulu.');
+            redirect()->route('user.shuttle-4-senaraiD', date('Y'))->send();
+            return;
+        }
+
         $this->kemasukan_bahan_calc_lain_lain = KemasukanBahan::where('shuttle_id', auth()->user()->shuttle_id)->where('formcs_id', $this->formc->id)->latest('updated_at')->first();
 
-        $recovery_rate = RecoveryRate::where('shuttle_type', '4')->first();
+        if (!$this->kemasukan_bahan_calc_lain_lain) {
+            Session::flash('error', 'Sila lengkapkan dan hantar Borang C bagi bulan yang dipilih sebelum mengisi Borang D.');
+            redirect()->route('user.shuttle-4-senaraiD', date('Y'))->send();
+            return;
+        }
 
-        $this->min_recovery_rate = (float)$recovery_rate->min_recovery_rate * (float)$this->kemasukan_bahan_calc_lain_lain->jumlah_besar_kayu_ke_dalam_jentera ?? 0;
-        $this->max_recovery_rate = (float)$recovery_rate->max_recovery_rate * (float)$this->kemasukan_bahan_calc_lain_lain->jumlah_besar_kayu_ke_dalam_jentera ?? 0;
+        $recovery_rate = RecoveryRate::where('shuttle_type', '4')->first();
+        $jumlah_besar = (float)($this->kemasukan_bahan_calc_lain_lain->jumlah_besar_kayu_ke_dalam_jentera ?? 0);
+
+        $this->min_recovery_rate = $recovery_rate ? (float)$recovery_rate->min_recovery_rate * $jumlah_besar : 0;
+        $this->max_recovery_rate = $recovery_rate ? (float)$recovery_rate->max_recovery_rate * $jumlah_besar : 0;
 
         // Load any previously saved data so IBK can edit when form is returned (Tidak Lengkap)
         $formd = Form4D::where('shuttle_id', auth()->user()->shuttle_id)
@@ -367,9 +381,10 @@ class FormD extends Component
     public function store()
     {
         $recovery_rate = RecoveryRate::where('shuttle_type', '4')->first();
+        $jumlah_besar_store = (float)($this->kemasukan_bahan_calc_lain_lain->jumlah_besar_kayu_ke_dalam_jentera ?? 0);
 
-        $min_recovery_rate = (float)$recovery_rate->min_recovery_rate * (float)$this->kemasukan_bahan_calc_lain_lain->jumlah_besar_kayu_ke_dalam_jentera ?? 0;
-        $max_recovery_rate = (float)$recovery_rate->max_recovery_rate * (float)$this->kemasukan_bahan_calc_lain_lain->jumlah_besar_kayu_ke_dalam_jentera ?? 0;
+        $min_recovery_rate = $recovery_rate ? (float)$recovery_rate->min_recovery_rate * $jumlah_besar_store : 0;
+        $max_recovery_rate = $recovery_rate ? (float)$recovery_rate->max_recovery_rate * $jumlah_besar_store : 0;
 
         // dd($this->produk_isipadumr_a);
 

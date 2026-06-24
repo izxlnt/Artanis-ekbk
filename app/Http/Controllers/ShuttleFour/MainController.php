@@ -490,6 +490,20 @@ class MainController extends Controller
             return redirect()->back()->with('error', 'Sila isi Borang C bagi bulan yang dipilih terlebih dahulu.');
         }
 
+        $formc_record = FormC::where('shuttle_id', $shuttle_id)
+            ->where('bulan', $id)
+            ->where('tahun', $form_year)
+            ->where('status', '!=', 'Tidak Diisi')
+            ->first();
+
+        $kemasukan_exists = $formc_record
+            ? KemasukanBahan::where('shuttle_id', $shuttle_id)->where('formcs_id', $formc_record->id)->exists()
+            : false;
+
+        if (!$kemasukan_exists) {
+            return redirect()->back()->with('error', 'Sila lengkapkan dan hantar Borang C bagi bulan yang dipilih sebelum mengisi Borang D.');
+        }
+
         if ($id == 1) {
             // Check if December last year Form D is needed only if forms exist for this year
             $require_previous = false;
