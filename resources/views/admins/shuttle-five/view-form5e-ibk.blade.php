@@ -165,7 +165,7 @@
                                                                                                 10px"><input readonly
                                                                                     wire:model='jumlah_jualan_pasaran_tempatan'
                                                                                     style="text-align:right" type="text"
-                                                                                    size="15" value={{ number_format($form5e->jumlah_jualan_pasaran_tempatan ?? 0, 2) }}>
+                                                                                    size="15" value={{ number_format((float)($form5e->jumlah_jualan_pasaran_tempatan ?? 0), 2) }}>
                                                                               </td>
                                                                         </tr>
 
@@ -178,7 +178,7 @@
                                                                                                 10px"><input readonly
                                                                                     wire:model='jumlah_jualan_eksport'
                                                                                     style="text-align:right" type="text" size="15" value=
-                                                                                    {{ number_format($form5e->jumlah_jualan_eksport ?? 0, 2) }}>
+                                                                                    {{ number_format((float)($form5e->jumlah_jualan_eksport ?? 0), 2) }}>
                                                                                 </td>
                                                                         </tr>
                                                                     </table>

@@ -200,7 +200,7 @@
                                                                                 </td>
                                                                                 <td style="text-align:center;">
                                                                                     <input readonly style="text-align:right" type="text" size="10"
-                                                                                        value="{{ number_format($form_5d[$key]->pengeluaran_kayu ?? 0, 2) }}">
+                                                                                        value="{{ number_format((float)($form_5d[$key]->pengeluaran_kayu ?? 0), 2) }}">
                                                                                 </td>
                                                                             </tr>
                                                                         @endforeach

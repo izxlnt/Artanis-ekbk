@@ -112,9 +112,12 @@
                                     <tbody>
 
                                         @foreach ($formC as $data)
-                                            <tr>
+                                            @php $needsAction = in_array($data->status, ['Sedang Diproses', 'Tiada Pengeluaran']); @endphp
+                                            <tr @if($needsAction) style="background-color:#fff8e1; font-weight:600;" @endif>
                                                 <td>{{ $loop->iteration }}</td>
-                                                <td style="text-align:left;">{{ $data->nama_kilang }}</td>
+                                                <td style="text-align:left;">{{ $data->nama_kilang }}
+                                                    @if($needsAction) <span class="label label-warning label-rounded" style="font-size:9pt;">Perlu Tindakan</span> @endif
+                                                </td>
                                                 <td>{{ $data->no_ssm }}</td>
                                                 <td>{{ $data->no_lesen }}</td>
 
