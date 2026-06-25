@@ -68,9 +68,13 @@ class FormCController extends Controller
         $formc = ModelsFormC::where('shuttle_id', auth()->user()->shuttle_id)->where('bulan', $bulan_id)->where('tahun', $year)->first();
 
         if ($bulan_id != 1) {
-            $lastmonth = $bulan_id - 1; //create
+            $lastmonth = $bulan_id - 1;
             $lastMonthformc = ModelsFormC::where('shuttle_id', auth()->user()->shuttle_id)->where('bulan', $lastmonth)->where('tahun', $year)->first();
-
+        } else {
+            // January: carry-forward from December of the previous year
+            $lastMonthformc = ModelsFormC::where('shuttle_id', auth()->user()->shuttle_id)->where('bulan', 12)->where('tahun', $year - 1)->first();
+        }
+        if ($lastMonthformc) {
             $kemasukan_bahans_lastmonth = KemasukanBahan::with('spesis_id')
                 ->whereHas('spesis_id', function ($q) use ($kayu_id) {
                     $q->where('kumpulan_kayu_id', $kayu_id);
@@ -373,9 +377,13 @@ class FormCController extends Controller
         $formc = ModelsFormC::where('shuttle_id', auth()->user()->shuttle_id)->where('bulan', $bulan_id)->where('tahun', $year)->first();
 
         if ($bulan_id != 1) {
-            $lastmonth = $bulan_id - 1; //create
+            $lastmonth = $bulan_id - 1;
             $lastMonthformc = ModelsFormC::where('shuttle_id', auth()->user()->shuttle_id)->where('bulan', $lastmonth)->where('tahun', $year)->first();
-
+        } else {
+            // January: carry-forward from December of the previous year
+            $lastMonthformc = ModelsFormC::where('shuttle_id', auth()->user()->shuttle_id)->where('bulan', 12)->where('tahun', $year - 1)->first();
+        }
+        if ($lastMonthformc) {
             $kemasukan_bahans_lastmonth = KemasukanBahan::with('spesis_id')
             ->whereHas('spesis_id', function ($q) use ($kayu_id) {
                 $q->where('kumpulan_kayu_id', $kayu_id);
@@ -678,9 +686,13 @@ class FormCController extends Controller
         $formc = ModelsFormC::where('shuttle_id', auth()->user()->shuttle_id)->where('bulan', $bulan_id)->where('tahun', $year)->first();
 
         if ($bulan_id != 1) {
-            $lastmonth = $bulan_id - 1; //create
+            $lastmonth = $bulan_id - 1;
             $lastMonthformc = ModelsFormC::where('shuttle_id', auth()->user()->shuttle_id)->where('bulan', $lastmonth)->where('tahun', $year)->first();
-
+        } else {
+            // January: carry-forward from December of the previous year
+            $lastMonthformc = ModelsFormC::where('shuttle_id', auth()->user()->shuttle_id)->where('bulan', 12)->where('tahun', $year - 1)->first();
+        }
+        if ($lastMonthformc) {
             $kemasukan_bahans_lastmonth = KemasukanBahan::with('spesis_id')
             ->whereHas('spesis_id', function ($q) use ($kayu_id) {
                 $q->where('kumpulan_kayu_id', $kayu_id);
@@ -975,9 +987,13 @@ class FormCController extends Controller
         $formc = ModelsFormC::where('shuttle_id', auth()->user()->shuttle_id)->where('bulan', $bulan_id)->where('tahun', $year)->first();
 
         if ($bulan_id != 1) {
-            $lastmonth = $bulan_id - 1; //create
+            $lastmonth = $bulan_id - 1;
             $lastMonthformc = ModelsFormC::where('shuttle_id', auth()->user()->shuttle_id)->where('bulan', $lastmonth)->where('tahun', $year)->first();
-
+        } else {
+            // January: carry-forward from December of the previous year
+            $lastMonthformc = ModelsFormC::where('shuttle_id', auth()->user()->shuttle_id)->where('bulan', 12)->where('tahun', $year - 1)->first();
+        }
+        if ($lastMonthformc) {
             $kemasukan_bahans_lastmonth = KemasukanBahan::with('spesis_id')
             ->whereHas('spesis_id', function ($q) use ($kayu_id) {
                 $q->where('kumpulan_kayu_id', $kayu_id);
@@ -1272,9 +1288,13 @@ class FormCController extends Controller
         $formc = ModelsFormC::where('shuttle_id', auth()->user()->shuttle_id)->where('bulan', $bulan_id)->where('tahun', $year)->first();
 
         if ($bulan_id != 1) {
-            $lastmonth = $bulan_id - 1; //create
+            $lastmonth = $bulan_id - 1;
             $lastMonthformc = ModelsFormC::where('shuttle_id', auth()->user()->shuttle_id)->where('bulan', $lastmonth)->where('tahun', $year)->first();
-
+        } else {
+            // January: carry-forward from December of the previous year
+            $lastMonthformc = ModelsFormC::where('shuttle_id', auth()->user()->shuttle_id)->where('bulan', 12)->where('tahun', $year - 1)->first();
+        }
+        if ($lastMonthformc) {
             $kemasukan_bahans_lastmonth = KemasukanBahan::with('spesis_id')
             ->whereHas('spesis_id', function ($q) use ($kayu_id) {
                 $q->where('kumpulan_kayu_id', $kayu_id);

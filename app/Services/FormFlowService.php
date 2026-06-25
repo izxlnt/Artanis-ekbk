@@ -151,7 +151,11 @@ class FormFlowService
         for ($month = 1; $month <= 12; $month++) {
             $fc = $allC->get($month);
             $fcSubmitted = $fc && in_array($fc->status, self::SUBMITTED);
-            $hasKemasukan = $fc && isset($cIdsWithData[$fc->id]);
+            $hasKemasukan = $fc && (
+                isset($cIdsWithData[$fc->id]) ||
+                (bool) $fc->tiada_pengeluaran ||
+                in_array($fc->status, self::SUBMITTED)
+            );
             $fd = $allD->get($month);
             $fdFilled    = $fd && in_array($fd->status, self::FILLED);
             $fdSubmitted = $fd && in_array($fd->status, self::SUBMITTED);

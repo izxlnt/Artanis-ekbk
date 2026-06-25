@@ -89,7 +89,7 @@ class FormD extends Component
         $breadcrumbs    = [
             ['link' => route('home-user'), 'name' => "Laman Utama"],
             ['link' => route('user.shuttle-5-senaraiD', date('Y')), 'name' => "Kemasukan Maklumat"],
-            ['link' => route('user.shuttle-5-formD', date('Y')), 'name' => "Borang 5D"],
+            ['link' => route('user.shuttle-5-formD', [date('Y'), $this->bulan_id]), 'name' => "Borang 5D"],
         ];
 
         $kembali = route('user.shuttle-5-senaraiD', date('Y'));

@@ -63,19 +63,12 @@ class FormCController extends Controller
         $kumpulan_kayu = KumpulanKayu::where('id', $kayu_id)->get();
 
         $kilang_info = Shuttle::where('id', auth()->user()->shuttle_id)->first();
-        $formc = ModelsFormC::where('shuttle_id', auth()->user()->shuttle_id)->where('bulan', $bulan_id)->where('tahun', $year)->first();
+        $formc = ModelsFormC::firstOrCreate(
+            ['shuttle_id' => auth()->user()->shuttle_id, 'bulan' => $bulan_id, 'tahun' => $year],
+            ['status' => 'Tidak Diisi', 'created_at' => $year . '-' . str_pad($bulan_id, 2, '0', STR_PAD_LEFT) . '-01']
+        );
 
-        // Create Form C if it doesn't exist
-        if (!$formc) {
-            $formc = new ModelsFormC();
-            $formc->shuttle_id = auth()->user()->shuttle_id;
-            $formc->bulan = $bulan_id;
-            $formc->tahun = $year;
-            $formc->status = 'Tidak Diisi';
-            $formc->created_at = $year . '-' . str_pad($bulan_id, 2, '0', STR_PAD_LEFT) . '-01';
-            $formc->save();
-        } elseif ($formc->status === 'Ditutup') {
-            // Month has arrived — auto-open the form
+        if ($formc->status === 'Ditutup') {
             $formc->status = 'Tidak Diisi';
             $formc->save();
         }
@@ -451,19 +444,12 @@ class FormCController extends Controller
         $kumpulan_kayu = KumpulanKayu::where('id', $kayu_id)->get();
 
         $kilang_info = Shuttle::where('id', auth()->user()->shuttle_id)->first();
-        $formc = ModelsFormC::where('shuttle_id', auth()->user()->shuttle_id)->where('bulan', $bulan_id)->where('tahun', $year)->first();
+        $formc = ModelsFormC::firstOrCreate(
+            ['shuttle_id' => auth()->user()->shuttle_id, 'bulan' => $bulan_id, 'tahun' => $year],
+            ['status' => 'Tidak Diisi', 'created_at' => $year . '-' . str_pad($bulan_id, 2, '0', STR_PAD_LEFT) . '-01']
+        );
 
-        // Create Form C if it doesn't exist
-        if (!$formc) {
-            $formc = new ModelsFormC();
-            $formc->shuttle_id = auth()->user()->shuttle_id;
-            $formc->bulan = $bulan_id;
-            $formc->tahun = $year;
-            $formc->status = 'Tidak Diisi';
-            $formc->created_at = $year . '-' . str_pad($bulan_id, 2, '0', STR_PAD_LEFT) . '-01';
-            $formc->save();
-        } elseif ($formc->status === 'Ditutup') {
-            // Month has arrived — auto-open the form
+        if ($formc->status === 'Ditutup') {
             $formc->status = 'Tidak Diisi';
             $formc->save();
         }
@@ -825,19 +811,12 @@ class FormCController extends Controller
         $kumpulan_kayu = KumpulanKayu::where('id', $kayu_id)->get();
 
         $kilang_info = Shuttle::where('id', auth()->user()->shuttle_id)->first();
-        $formc = ModelsFormC::where('shuttle_id', auth()->user()->shuttle_id)->where('bulan', $bulan_id)->where('tahun', $year)->first();
+        $formc = ModelsFormC::firstOrCreate(
+            ['shuttle_id' => auth()->user()->shuttle_id, 'bulan' => $bulan_id, 'tahun' => $year],
+            ['status' => 'Tidak Diisi', 'created_at' => $year . '-' . str_pad($bulan_id, 2, '0', STR_PAD_LEFT) . '-01']
+        );
 
-        // Create Form C if it doesn't exist
-        if (!$formc) {
-            $formc = new ModelsFormC();
-            $formc->shuttle_id = auth()->user()->shuttle_id;
-            $formc->bulan = $bulan_id;
-            $formc->tahun = $year;
-            $formc->status = 'Tidak Diisi';
-            $formc->created_at = $year . '-' . str_pad($bulan_id, 2, '0', STR_PAD_LEFT) . '-01';
-            $formc->save();
-        } elseif ($formc->status === 'Ditutup') {
-            // Month has arrived — auto-open the form
+        if ($formc->status === 'Ditutup') {
             $formc->status = 'Tidak Diisi';
             $formc->save();
         }
@@ -1202,19 +1181,12 @@ class FormCController extends Controller
         $kumpulan_kayu = KumpulanKayu::where('id', $kayu_id)->get();
 
         $kilang_info = Shuttle::where('id', auth()->user()->shuttle_id)->first();
-        $formc = ModelsFormC::where('shuttle_id', auth()->user()->shuttle_id)->where('bulan', $bulan_id)->where('tahun', $year)->first();
+        $formc = ModelsFormC::firstOrCreate(
+            ['shuttle_id' => auth()->user()->shuttle_id, 'bulan' => $bulan_id, 'tahun' => $year],
+            ['status' => 'Tidak Diisi', 'created_at' => $year . '-' . str_pad($bulan_id, 2, '0', STR_PAD_LEFT) . '-01']
+        );
 
-        // Create Form C if it doesn't exist
-        if (!$formc) {
-            $formc = new ModelsFormC();
-            $formc->shuttle_id = auth()->user()->shuttle_id;
-            $formc->bulan = $bulan_id;
-            $formc->tahun = $year;
-            $formc->status = 'Tidak Diisi';
-            $formc->created_at = $year . '-' . str_pad($bulan_id, 2, '0', STR_PAD_LEFT) . '-01';
-            $formc->save();
-        } elseif ($formc->status === 'Ditutup') {
-            // Month has arrived — auto-open the form
+        if ($formc->status === 'Ditutup') {
             $formc->status = 'Tidak Diisi';
             $formc->save();
         }
@@ -1574,19 +1546,12 @@ class FormCController extends Controller
         $kumpulan_kayu = KumpulanKayu::where('id', $kayu_id)->get();
 
         $kilang_info = Shuttle::where('id', auth()->user()->shuttle_id)->first();
-        $formc = ModelsFormC::where('shuttle_id', auth()->user()->shuttle_id)->where('bulan', $bulan_id)->where('tahun', $year)->first();
+        $formc = ModelsFormC::firstOrCreate(
+            ['shuttle_id' => auth()->user()->shuttle_id, 'bulan' => $bulan_id, 'tahun' => $year],
+            ['status' => 'Tidak Diisi', 'created_at' => $year . '-' . str_pad($bulan_id, 2, '0', STR_PAD_LEFT) . '-01']
+        );
 
-        // Create Form C if it doesn't exist
-        if (!$formc) {
-            $formc = new ModelsFormC();
-            $formc->shuttle_id = auth()->user()->shuttle_id;
-            $formc->bulan = $bulan_id;
-            $formc->tahun = $year;
-            $formc->status = 'Tidak Diisi';
-            $formc->created_at = $year . '-' . str_pad($bulan_id, 2, '0', STR_PAD_LEFT) . '-01';
-            $formc->save();
-        } elseif ($formc->status === 'Ditutup') {
-            // Month has arrived — auto-open the form
+        if ($formc->status === 'Ditutup') {
             $formc->status = 'Tidak Diisi';
             $formc->save();
         }
