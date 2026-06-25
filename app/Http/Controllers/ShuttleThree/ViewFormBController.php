@@ -268,12 +268,21 @@ class ViewFormBController extends Controller
 
         $daerah_list = Daerah::where('negeri', $kilang_info->negeri_id)->get();
 
+        $daerah_hutan_display = $kilang_info->daerah_id;
+        if ($kilang_info->daerah_id && is_numeric($kilang_info->daerah_id)) {
+            $daerah_rec = Daerah::withTrashed()->find($kilang_info->daerah_id);
+            if ($daerah_rec) {
+                $daerah_hutan_display = $daerah_rec->daerah_hutan;
+            }
+        }
+
         $array = [
             'kilang_info' => $kilang_info,
             'forma' => $forma,
             'id' => $id,
             'layout' => $layout,
             'daerah_list' => $daerah_list,
+            'daerah_hutan_display' => $daerah_hutan_display,
         ];
 
         if($kilang_info->shuttle_type == '3'){
@@ -340,11 +349,20 @@ class ViewFormBController extends Controller
 
         $layout = auth()->user()->kategori_pengguna == 'PHD' ? 'layouts.layout-phd-nicepage' : (auth()->user()->kategori_pengguna == 'BPM' ? 'layouts.layout-bpm-nicepage' : (auth()->user()->kategori_pengguna == 'BPE' ? 'layouts.layout-ipjpsm-nicepage' : ''));
 
+        $daerah_hutan_display = $kilang_info->daerah_id;
+        if ($kilang_info->daerah_id && is_numeric($kilang_info->daerah_id)) {
+            $daerah_rec = Daerah::withTrashed()->find($kilang_info->daerah_id);
+            if ($daerah_rec) {
+                $daerah_hutan_display = $daerah_rec->daerah_hutan;
+            }
+        }
+
         $array = [
             'kilang_info' => $kilang_info,
             'forma' => $forma,
             'id' => $id,
-            'layout' => $layout
+            'layout' => $layout,
+            'daerah_hutan_display' => $daerah_hutan_display,
         ];
 
         if($kilang_info->shuttle_type == '3'){
@@ -433,11 +451,20 @@ class ViewFormBController extends Controller
 
         $layout = 'layouts.layout-ibk-nicepage';
 
+        $daerah_hutan_display = $kilang_info->daerah_id;
+        if ($kilang_info->daerah_id && is_numeric($kilang_info->daerah_id)) {
+            $daerah_rec = Daerah::withTrashed()->find($kilang_info->daerah_id);
+            if ($daerah_rec) {
+                $daerah_hutan_display = $daerah_rec->daerah_hutan;
+            }
+        }
+
         $array = [
             'kilang_info' => $kilang_info,
             'forma' => $forma,
             'id' => $id,
-            'layout' => $layout
+            'layout' => $layout,
+            'daerah_hutan_display' => $daerah_hutan_display,
         ];
 
         if($kilang_info->shuttle_type == '3'){
@@ -483,11 +510,20 @@ class ViewFormBController extends Controller
 
         $layout = 'layouts.layout-jpn-nicepage';
 
+        $daerah_hutan_display = $kilang_info->daerah_id;
+        if ($kilang_info->daerah_id && is_numeric($kilang_info->daerah_id)) {
+            $daerah_rec = Daerah::withTrashed()->find($kilang_info->daerah_id);
+            if ($daerah_rec) {
+                $daerah_hutan_display = $daerah_rec->daerah_hutan;
+            }
+        }
+
         $array = [
             'kilang_info' => $kilang_info,
             'forma' => $forma,
             'id' => $id,
-            'layout' => $layout
+            'layout' => $layout,
+            'daerah_hutan_display' => $daerah_hutan_display,
         ];
 
         if($kilang_info->shuttle_type == '3'){
@@ -746,12 +782,20 @@ class ViewFormBController extends Controller
             }
         }
 
+        $daerah_hutan_display = $kilang_info->daerah_id;
+        if ($kilang_info->daerah_id && is_numeric($kilang_info->daerah_id)) {
+            $daerah_rec = Daerah::withTrashed()->find($kilang_info->daerah_id);
+            if ($daerah_rec) {
+                $daerah_hutan_display = $daerah_rec->daerah_hutan;
+            }
+        }
+
         $returnArr = [
             'breadcrumbs' => $breadcrumbs,
             'kembali'     => $kembali,
         ];
 
-        return view('livewire.view-form3a-Ipjpsm',compact('kilang_info','forma','returnArr'));
+        return view('livewire.view-form3a-Ipjpsm',compact('kilang_info','forma','returnArr','daerah_hutan_display'));
     }
 
 

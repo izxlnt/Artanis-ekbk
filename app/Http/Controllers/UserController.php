@@ -380,7 +380,7 @@ class UserController extends Controller
         foreach ($requirements['years_to_fill'] as $reqYear) {
             $tableData[$reqYear]['formA'] = FormA::where('shuttle_id', $shuttleId)->where('tahun', $reqYear)->first();
             $tableData[$reqYear]['formB'] = FormB::where('shuttle_id', $shuttleId)->where('tahun', $reqYear)->get()->keyBy('suku_tahun');
-            $tableData[$reqYear]['formC'] = FormC::where('shuttle_id', $shuttleId)->where('tahun', $reqYear)->get()->keyBy('bulan');
+            $tableData[$reqYear]['formC'] = FormC::where('shuttle_id', $shuttleId)->where('tahun', $reqYear)->orderBy('id', 'desc')->get()->unique('bulan')->keyBy('bulan');
             if ($shuttle_type == 3) {
                 $tableData[$reqYear]['formD'] = FormD::where('shuttle_id', $shuttleId)->where('tahun', $reqYear)->get()->keyBy('bulan');
             } elseif ($shuttle_type == 4) {
@@ -2010,38 +2010,25 @@ class UserController extends Controller
         $prevRegYear = $registrationYear - 1;
 
         // Always ensure December of previous registration year exists (mandatory starting month)
-        $decPrevRegYear = FormC::where('shuttle_id', $shuttle->id)->where('bulan', 12)->where('tahun', $prevRegYear)->first();
-        if (!$decPrevRegYear) {
-            $decPrevRegYear = new FormC();
-            $decPrevRegYear->shuttle_id = $shuttle->id;
-            $decPrevRegYear->bulan = 12;
-            $decPrevRegYear->tahun = $prevRegYear;
-            $decPrevRegYear->status = 'Tidak Diisi';
-            $decPrevRegYear->created_at = $prevRegYear . '-12-01';
-            $decPrevRegYear->tarikh_buka_borang = $prevRegYear . '-12-01';
-            $decPrevRegYear->tarikh_tutup_borang = $prevRegYear . '-12-31';
-            $decPrevRegYear->save();
-        }
+        FormC::firstOrCreate(
+            ['shuttle_id' => $shuttle->id, 'bulan' => 12, 'tahun' => $prevRegYear],
+            ['status' => 'Tidak Diisi', 'created_at' => $prevRegYear . '-12-01',
+             'tarikh_buka_borang' => $prevRegYear . '-12-01', 'tarikh_tutup_borang' => $prevRegYear . '-12-31']
+        );
 
         // Ensure all 12 months exist for the viewed year (skip for prevRegYear — only December needed there)
         if ($year != $prevRegYear) {
             for ($month = 1; $month <= 12; $month++) {
-                $existingRecord = FormC::where('shuttle_id', $shuttle->id)
-                    ->where('bulan', $month)
-                    ->where('tahun', $year)
-                    ->first();
-
-                if (!$existingRecord) {
-                    $newFormC = new FormC();
-                    $newFormC->shuttle_id = $shuttle->id;
-                    $newFormC->bulan = $month;
-                    $newFormC->tahun = $year;
-                    $newFormC->status = 'Tidak Diisi';
-                    $newFormC->created_at = $year . '-' . str_pad($month, 2, '0', STR_PAD_LEFT) . '-01';
-                    $newFormC->tarikh_buka_borang = $year . '-' . str_pad($month, 2, '0', STR_PAD_LEFT) . '-01';
-                    $newFormC->tarikh_tutup_borang = $year . '-' . str_pad($month, 2, '0', STR_PAD_LEFT) . '-' . date('t', strtotime($year . '-' . $month . '-01'));
-                    $newFormC->save();
-                }
+                $pad = str_pad($month, 2, '0', STR_PAD_LEFT);
+                FormC::firstOrCreate(
+                    ['shuttle_id' => $shuttle->id, 'bulan' => $month, 'tahun' => $year],
+                    [
+                        'status'               => 'Tidak Diisi',
+                        'created_at'           => "{$year}-{$pad}-01",
+                        'tarikh_buka_borang'   => "{$year}-{$pad}-01",
+                        'tarikh_tutup_borang'  => "{$year}-{$pad}-" . date('t', strtotime("{$year}-{$month}-01")),
+                    ]
+                );
             }
         }
 
@@ -2264,38 +2251,25 @@ class UserController extends Controller
         }
 
         // Always ensure December of previous registration year exists (mandatory starting month)
-        $decPrevRegYear = FormC::where('shuttle_id', $shuttle->id)->where('bulan', 12)->where('tahun', $prevRegYear)->first();
-        if (!$decPrevRegYear) {
-            $newDec = new FormC();
-            $newDec->shuttle_id = $shuttle->id;
-            $newDec->bulan = 12;
-            $newDec->tahun = $prevRegYear;
-            $newDec->status = 'Tidak Diisi';
-            $newDec->created_at = $prevRegYear . '-12-01';
-            $newDec->tarikh_buka_borang = $prevRegYear . '-12-01';
-            $newDec->tarikh_tutup_borang = $prevRegYear . '-12-31';
-            $newDec->save();
-        }
+        FormC::firstOrCreate(
+            ['shuttle_id' => $shuttle->id, 'bulan' => 12, 'tahun' => $prevRegYear],
+            ['status' => 'Tidak Diisi', 'created_at' => $prevRegYear . '-12-01',
+             'tarikh_buka_borang' => $prevRegYear . '-12-01', 'tarikh_tutup_borang' => $prevRegYear . '-12-31']
+        );
 
         // Ensure all 12 months exist for the viewed year (skip for prevRegYear — only December needed there)
         if ($year != $prevRegYear) {
             for ($month = 1; $month <= 12; $month++) {
-                $existingRecord = FormC::where('shuttle_id', $shuttle->id)
-                    ->where('bulan', $month)
-                    ->where('tahun', $year)
-                    ->first();
-
-                if (!$existingRecord) {
-                    $newFormC = new FormC();
-                    $newFormC->shuttle_id = $shuttle->id;
-                    $newFormC->bulan = $month;
-                    $newFormC->tahun = $year;
-                    $newFormC->status = 'Tidak Diisi';
-                    $newFormC->created_at = $year . '-' . str_pad($month, 2, '0', STR_PAD_LEFT) . '-01';
-                    $newFormC->tarikh_buka_borang = $year . '-' . str_pad($month, 2, '0', STR_PAD_LEFT) . '-01';
-                    $newFormC->tarikh_tutup_borang = $year . '-' . str_pad($month, 2, '0', STR_PAD_LEFT) . '-' . date('t', strtotime($year . '-' . $month . '-01'));
-                    $newFormC->save();
-                }
+                $pad = str_pad($month, 2, '0', STR_PAD_LEFT);
+                FormC::firstOrCreate(
+                    ['shuttle_id' => $shuttle->id, 'bulan' => $month, 'tahun' => $year],
+                    [
+                        'status'               => 'Tidak Diisi',
+                        'created_at'           => "{$year}-{$pad}-01",
+                        'tarikh_buka_borang'   => "{$year}-{$pad}-01",
+                        'tarikh_tutup_borang'  => "{$year}-{$pad}-" . date('t', strtotime("{$year}-{$month}-01")),
+                    ]
+                );
             }
         }
 
@@ -2605,38 +2579,32 @@ class UserController extends Controller
         }
 
         // Always ensure December of previous registration year exists (mandatory starting month)
-        $decPrevRegYear = FormC::where('shuttle_id', $shuttle->id)->where('bulan', 12)->where('tahun', $prevRegYear)->first();
-        if (!$decPrevRegYear) {
-            $newDec = new FormC();
-            $newDec->shuttle_id = $shuttle->id;
-            $newDec->bulan = 12;
-            $newDec->tahun = $prevRegYear;
-            $newDec->status = 'Tidak Diisi';
-            $newDec->created_at = $prevRegYear . '-12-01';
-            $newDec->tarikh_buka_borang = $prevRegYear . '-12-01';
-            $newDec->tarikh_tutup_borang = $prevRegYear . '-12-31';
-            $newDec->save();
-        }
+        FormC::firstOrCreate(
+            ['shuttle_id' => $shuttle->id, 'bulan' => 12, 'tahun' => $prevRegYear],
+            ['status' => 'Tidak Diisi', 'created_at' => $prevRegYear . '-12-01',
+             'tarikh_buka_borang' => $prevRegYear . '-12-01', 'tarikh_tutup_borang' => $prevRegYear . '-12-31']
+        );
 
         // Ensure all 12 months exist for the viewed year (skip for prevRegYear — only December needed there)
         if ($year != $prevRegYear) {
             for ($month = 1; $month <= 12; $month++) {
-                $existingRecord = FormC::where('shuttle_id', $shuttle->id)->where('bulan', $month)->where('tahun', $year)->first();
-                if (!$existingRecord) {
-                    $newFormC = new FormC();
-                    $newFormC->shuttle_id = $shuttle->id;
-                    $newFormC->bulan = $month;
-                    $newFormC->tahun = $year;
-                    $newFormC->status = 'Tidak Diisi';
-                    $newFormC->created_at = $year . '-' . str_pad($month, 2, '0', STR_PAD_LEFT) . '-01';
-                    $newFormC->tarikh_buka_borang = $year . '-' . str_pad($month, 2, '0', STR_PAD_LEFT) . '-01';
-                    $newFormC->tarikh_tutup_borang = $year . '-' . str_pad($month, 2, '0', STR_PAD_LEFT) . '-' . date('t', strtotime($year . '-' . $month . '-01'));
-                    $newFormC->save();
-                }
+                $pad = str_pad($month, 2, '0', STR_PAD_LEFT);
+                FormC::firstOrCreate(
+                    ['shuttle_id' => $shuttle->id, 'bulan' => $month, 'tahun' => $year],
+                    [
+                        'status'               => 'Tidak Diisi',
+                        'created_at'           => "{$year}-{$pad}-01",
+                        'tarikh_buka_borang'   => "{$year}-{$pad}-01",
+                        'tarikh_tutup_borang'  => "{$year}-{$pad}-" . date('t', strtotime("{$year}-{$month}-01")),
+                    ]
+                );
             }
         }
 
-        $list = FormC::where('shuttle_id', $shuttle->id)->where('tahun', $year)->get();
+        $list = FormC::where('shuttle_id', $shuttle->id)->where('tahun', $year)
+            ->orderBy('id', 'asc')
+            ->get()
+            ->unique('bulan');
 
         $flow = FormFlowService::getStatus($shuttle->id, (int) $shuttle->shuttle_type, (int) $year);
 

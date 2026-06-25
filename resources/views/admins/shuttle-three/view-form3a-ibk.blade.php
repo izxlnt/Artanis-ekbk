@@ -108,7 +108,7 @@
                                                             <div class="col-md-8">
                                                                 <input readonly type="text" class="form-control"
                                                                 name='daerah' placeholder="Daerah"
-                                                                value="{{ $kilang_info->daerah_id }}">
+                                                                value="{{ $daerah_hutan_display }}">
 
                                                                 @error('daerah_id')
                                                                     <div class="alert alert-danger">

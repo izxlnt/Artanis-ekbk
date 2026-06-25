@@ -16,10 +16,10 @@ class ViewFormCController extends Controller
     public function shuttle_3_formC_view($id)
     {
         $formc = FormC::where('id', $id)->first();
-        // $id =$formc->id;
-        // dd($id);
+        if (!$formc) {
+            return redirect()->back()->with('error', 'Rekod Borang C tidak dijumpai.');
+        }
         $species = Spesis::orderBy('kumpulan_kayu_id')->orderBy('nama_tempatan')->get();
-        // dd($species);
         $kumpulan_kayu = KumpulanKayu::get();
 
         $kilang_info = Shuttle::where('id', $formc->shuttle_id)->first();
@@ -157,10 +157,10 @@ class ViewFormCController extends Controller
     public function shuttle_3_formC_view_phd($id)
     {
         $formc = FormC::where('id', $id)->first();
-        // $id =$formc->id;
-        // dd($id);
+        if (!$formc) {
+            return redirect()->back()->with('error', 'Rekod Borang C tidak dijumpai.');
+        }
         $species = Spesis::orderBy('kumpulan_kayu_id')->orderBy('id')->get();
-        // dd($species);
         $kumpulan_kayu = KumpulanKayu::get();
 
         $kilang_info = Shuttle::where('id', $formc->shuttle_id)->first();
@@ -300,10 +300,10 @@ class ViewFormCController extends Controller
     public function shuttle_4_formC_view($id)
     {
         $formc = FormC::where('id', $id)->first();
-        // $id =$formc->id;
-        // dd($id);
+        if (!$formc) {
+            return redirect()->back()->with('error', 'Rekod Borang C tidak dijumpai.');
+        }
         $species = Spesis::orderBy('kumpulan_kayu_id')->orderBy('nama_tempatan')->get();
-        // dd($species);
         $kumpulan_kayu = KumpulanKayu::get();
 
         $kilang_info = Shuttle::where('id', $formc->shuttle_id)->first();
@@ -431,10 +431,10 @@ class ViewFormCController extends Controller
     public function shuttle_4_formC_view_phd($id)
     {
         $formc = FormC::where('id', $id)->first();
-        // $id =$formc->id;
-        // dd($id);
+        if (!$formc) {
+            return redirect()->back()->with('error', 'Rekod Borang C tidak dijumpai.');
+        }
         $species = Spesis::orderBy('kumpulan_kayu_id')->orderBy('id')->get();
-        // dd($species);
         $kumpulan_kayu = KumpulanKayu::get();
 
         $kilang_info = Shuttle::where('id', $formc->shuttle_id)->first();
@@ -562,8 +562,9 @@ class ViewFormCController extends Controller
     public function ibk_shuttle_3_formC_view($id)
     {
         $formc = FormC::where('id', $id)->first();
-        // $id =$formc->id;
-        // dd($id);
+        if (!$formc) {
+            return redirect()->back()->with('error', 'Rekod Borang C tidak dijumpai.');
+        }
         $species = Spesis::orderBy('kumpulan_kayu_id')->orderBy('nama_tempatan')->get();
         $kumpulan_kayu = KumpulanKayu::get();
 
@@ -649,11 +650,10 @@ class ViewFormCController extends Controller
     public function jpn_shuttle_3_formC_view($id)
     {
         $formc = FormC::where('id', $id)->first();
-        // $id =$formc->id;
-        // dd($id);
+        if (!$formc) {
+            return redirect()->back()->with('error', 'Rekod Borang C tidak dijumpai.');
+        }
         $species = Spesis::orderBy('kumpulan_kayu_id')->orderBy('nama_tempatan')->get();
-        // $species = Spesis::orderBy('kumpulan_kayu_id')->orderBy('nama_tempatan')->get();
-        // dd($species);
         $kumpulan_kayu = KumpulanKayu::get();
 
         $kilang_info = Shuttle::where('id', $formc->shuttle_id)->first();
@@ -744,10 +744,12 @@ class ViewFormCController extends Controller
     public function ibk_shuttle_4_formC_view($id)
     {
         $formc = FormC::where('id', $id)->first();
-        // $id =$formc->id;
-        // dd($id);
+
+        if (!$formc) {
+            return redirect()->route('home-user')->with('error', 'Rekod Borang C tidak dijumpai.');
+        }
+
         $species = Spesis::orderBy('kumpulan_kayu_id')->orderBy('nama_tempatan')->get();
-        // dd($species);
         $kumpulan_kayu = KumpulanKayu::get();
 
         $kilang_info = Shuttle::where('id', $formc->shuttle_id)->first();
@@ -833,10 +835,10 @@ class ViewFormCController extends Controller
     public function jpn_shuttle_4_formC_view($id)
     {
         $formc = FormC::where('id', $id)->first();
-        // $id =$formc->id;
-        // dd($id);
+        if (!$formc) {
+            return redirect()->back()->with('error', 'Rekod Borang C tidak dijumpai.');
+        }
         $species = Spesis::orderBy('kumpulan_kayu_id')->orderBy('nama_tempatan')->get();
-        // dd($species);
         $kumpulan_kayu = KumpulanKayu::get();
 
         $kilang_info = Shuttle::where('id', $formc->shuttle_id)->first();
