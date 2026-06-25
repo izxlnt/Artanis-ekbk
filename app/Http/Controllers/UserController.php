@@ -25,6 +25,8 @@ use App\Models\UlasanPhd;
 use App\Models\User;
 use App\Rules\UniqueEmailAcrossAllTables;
 use App\Rules\MalaysianIC;
+use App\Models\KemasukanBahan;
+use App\Services\FormFlowService;
 use App\Services\FormRequirementService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -374,6 +376,7 @@ class UserController extends Controller
         // Build indexed form data for senarai tugasan table
         $currentMonth = (int) date('n');
         $tableData = [];
+        $flowData   = [];
         foreach ($requirements['years_to_fill'] as $reqYear) {
             $tableData[$reqYear]['formA'] = FormA::where('shuttle_id', $shuttleId)->where('tahun', $reqYear)->first();
             $tableData[$reqYear]['formB'] = FormB::where('shuttle_id', $shuttleId)->where('tahun', $reqYear)->get()->keyBy('suku_tahun');
@@ -387,6 +390,7 @@ class UserController extends Controller
                 $tableData[$reqYear]['formD'] = Form5D::where('shuttle_id', $shuttleId)->where('tahun', $reqYear)->get()->keyBy('bulan');
                 $tableData[$reqYear]['formE'] = Form5E::where('shuttle_id', $shuttleId)->where('tahun', $reqYear)->get()->keyBy('bulan');
             }
+            $flowData[$reqYear] = FormFlowService::getStatus($shuttleId, (int) $shuttle_type, (int) $reqYear);
         }
 
         return view('home-user', compact(
@@ -408,6 +412,7 @@ class UserController extends Controller
             'pengumuman',
             'tugasan',
             'tableData',
+            'flowData',
             'requirements',
             'currentMonth'
         ));
@@ -1930,28 +1935,22 @@ class UserController extends Controller
 
         $list = FormB::where('shuttle_id', $shuttle->id)->where('tahun', $year)->orderBy('suku_tahun')->get();
 
-        $isPreviousYear = ($year < $currentYear);
-
         $year_list = collect();
         for ($i = $startYear; $i <= $currentYear; $i++) {
             $year_list->push((object)['tahun' => $i]);
         }
 
-        $buffer = Buffer::where('shuttle', auth()->user()->shuttle->shuttle_type)->where('borang', 'b')->where('shuttle', '3')->first();
+        $flow = FormFlowService::getStatus($shuttle->id, (int) $shuttle->shuttle_type, (int) $year);
 
-        $breadcrumbs    = [
+        $breadcrumbs = [
             ['link' => route('home-user'), 'name' => "Laman Utama"],
             ['link' => route('user.shuttle-3-senaraiB', date('Y')), 'name' => "Kemasukan Maklumat"],
         ];
 
         $kembali = route('home-user');
+        $returnArr = ['breadcrumbs' => $breadcrumbs, 'kembali' => $kembali];
 
-        $returnArr = [
-            'breadcrumbs' => $breadcrumbs,
-            'kembali'     => $kembali,
-        ];
-
-        return view('ibk.shuttle-3-senaraiB-ibk', compact('returnArr', 'list', 'shuttle', 'buffer', 'year', 'year_list', 'isPreviousYear'));
+        return view('ibk.shuttle-3-senaraiB-ibk', compact('returnArr', 'list', 'shuttle', 'year', 'year_list', 'flow'));
     }
 
     public function shuttle_3_senaraiC_ibk($year)
@@ -2004,11 +2003,8 @@ class UserController extends Controller
             $year_list->push((object)['tahun' => $currentYear]);
         }
 
-        $buffer = Buffer::where('shuttle', auth()->user()->shuttle->shuttle_type)->where('borang', 'C')->first();
-
         // Registration date vars
         $registrationDate = $shuttle->created_at;
-        $registrationMonth = date('n', strtotime($registrationDate));
         $registrationYear = date('Y', strtotime($registrationDate));
         $currentYear = date('Y');
         $prevRegYear = $registrationYear - 1;
@@ -2058,71 +2054,17 @@ class UserController extends Controller
             ->unique('bulan')
             ->values();
 
-        // Determine which months can be filled:
-        // - prevRegYear: only December (the mandatory backfill starting point)
-        // - registrationYear and beyond: all months (date window check handles future months)
-        $canFillMonth = [];
-        for ($month = 1; $month <= 12; $month++) {
-            if ($year == $prevRegYear) {
-                $canFillMonth[$month] = ($month == 12);
-            } elseif ($year >= $registrationYear) {
-                $canFillMonth[$month] = ($year >= ($currentYear - 1) && $year <= ($currentYear + 1));
-            } else {
-                $canFillMonth[$month] = false;
-            }
-        }
+        $flow = FormFlowService::getStatus($shuttle->id, (int) $shuttle->shuttle_type, (int) $year);
 
-        // Sequential validation: each month requires the previous month to be filled
-        $previousMonthFilled = [];
-        for ($month = 1; $month <= 12; $month++) {
-            if ($year == $prevRegYear) {
-                // Previous registration year: December is the entry point — no prerequisite
-                $previousMonthFilled[$month] = ($month == 12);
-            } elseif ($registrationYear == $currentYear && $year == $currentYear && $month <= $registrationMonth) {
-                // User registered in current year: their registration month is the first required month.
-                // Months before and including registration month don't need a prior month filled.
-                $previousMonthFilled[$month] = true;
-            } elseif ($month == 1) {
-                // January: check if December of the previous year is filled
-                $previousYear = $year - 1;
-                if ($previousYear < ($currentYear - 1)) {
-                    // Previous year is too old to track; allow January
-                    $previousMonthFilled[$month] = true;
-                } else {
-                    $prevYearDec = FormC::where('shuttle_id', $shuttle->id)
-                        ->where('bulan', 12)
-                        ->where('tahun', $previousYear)
-                        ->whereIn('status', ['Sedang Diproses', 'Dihantar ke IPJPSM', 'Lulus', 'Tiada Pengeluaran'])
-                        ->exists();
-                    $previousMonthFilled[$month] = $prevYearDec;
-                }
-            } else {
-                // Feb-Dec: each month requires the previous month to be filled
-                $prevMonth = FormC::where('shuttle_id', $shuttle->id)
-                    ->where('bulan', $month - 1)
-                    ->where('tahun', $year)
-                    ->whereIn('status', ['Sedang Diproses', 'Dihantar ke IPJPSM', 'Lulus', 'Tiada Pengeluaran'])
-                    ->exists();
-                $previousMonthFilled[$month] = $prevMonth;
-            }
-        }
-
-        // Determine if this is a previous year that should bypass date checks
-        $isPreviousYear = ($year < $currentYear);
-
-        $breadcrumbs    = [
+        $breadcrumbs = [
             ['link' => route('home-user'), 'name' => "Laman Utama"],
             ['link' => route('user.shuttle-3-senaraiC', date('Y')), 'name' => "Kemasukan Maklumat"],
         ];
 
         $kembali = route('home-user');
+        $returnArr = ['breadcrumbs' => $breadcrumbs, 'kembali' => $kembali];
 
-        $returnArr = [
-            'breadcrumbs' => $breadcrumbs,
-            'kembali'     => $kembali,
-        ];
-
-        return view('ibk.shuttle-3-senaraiC-ibk', compact('returnArr', 'list', 'shuttle', 'buffer', 'year', 'year_list', 'canFillMonth', 'previousMonthFilled', 'isPreviousYear'));
+        return view('ibk.shuttle-3-senaraiC-ibk', compact('returnArr', 'list', 'shuttle', 'year', 'year_list', 'flow'));
     }
 
     public function shuttle_3_senaraiD_ibk($year)
@@ -2161,41 +2103,17 @@ class UserController extends Controller
             $year_list->push((object)['tahun' => $currentYear]);
         }
 
-        $buffer = Buffer::where('shuttle', auth()->user()->shuttle->shuttle_type)->where('borang', 'D')->first();
+        $flow = FormFlowService::getStatus($shuttle->id, (int) $shuttle->shuttle_type, (int) $year);
 
-        // Check which months have Form C filled (required before Form D can be filled)
-        // A Form C is considered "filled" if it exists and has any data entered
-        $formCFilled = [];
-        for ($month = 1; $month <= 12; $month++) {
-            $formC = FormC::where('shuttle_id', $shuttle->id)
-                ->where('bulan', $month)
-                ->where('tahun', $year)
-                ->first();
-            
-            // Form C is available for Form D if:
-            // 1. It exists AND
-            // 2. Status is NOT 'Tidak Diisi' (has been worked on/submitted)
-            $formCFilled[$month] = $formC && ($formC->status !== 'Tidak Diisi');
-        }
-
-        // Allow filling previous year forms if they were started
-        $currentYear = date('Y');
-        $isPreviousYear = ($year < $currentYear);
-
-        $breadcrumbs    = [
+        $breadcrumbs = [
             ['link' => route('home-user'), 'name' => "Laman Utama"],
             ['link' => route('user.shuttle-3-senaraiD', date('Y')), 'name' => "Kemasukan Maklumat"],
         ];
 
         $kembali = route('home-user');
+        $returnArr = ['breadcrumbs' => $breadcrumbs, 'kembali' => $kembali];
 
-        $returnArr = [
-            'breadcrumbs' => $breadcrumbs,
-            'kembali'     => $kembali,
-        ];
-
-        // dd($list);
-        return view('ibk.shuttle-3-senaraiD-ibk', compact('returnArr', 'list', 'shuttle', 'buffer', 'year', 'year_list', 'formCFilled', 'isPreviousYear'));
+        return view('ibk.shuttle-3-senaraiD-ibk', compact('returnArr', 'list', 'shuttle', 'year', 'year_list', 'flow'));
     }
 
     public function editform3B($id)
@@ -2289,8 +2207,6 @@ class UserController extends Controller
             $year_list->push((object)['tahun' => $i]);
         }
 
-        $buffer = Buffer::where('shuttle', auth()->user()->shuttle->shuttle_type)->where('borang', 'b')->where('shuttle', '4')->first();
-
         $quarterDates = [
             1 => [$year . '-01-01', $year . '-03-31'],
             2 => [$year . '-04-01', $year . '-06-30'],
@@ -2313,26 +2229,18 @@ class UserController extends Controller
         }
 
         $list = FormB::where('shuttle_id', $shuttle->id)->where('tahun', $year)->orderBy('suku_tahun')->get();
-        $isPreviousYear = ($year < $currentYear);
 
-        $formAFilled = FormA::where('shuttle_id', $shuttle->id)
-            ->where('tahun', $year)
-            ->where('status', '!=', 'Tidak Diisi')
-            ->exists();
+        $flow = FormFlowService::getStatus($shuttle->id, (int) $shuttle->shuttle_type, (int) $year);
 
-        $breadcrumbs    = [
+        $breadcrumbs = [
             ['link' => route('home'), 'name' => "Laman Utama"],
             ['link' => route('user.shuttle-4-senaraiB', date('Y')), 'name' => "Kemasukan Maklumat"],
         ];
 
         $kembali = route('home');
+        $returnArr = ['breadcrumbs' => $breadcrumbs, 'kembali' => $kembali];
 
-        $returnArr = [
-            'breadcrumbs' => $breadcrumbs,
-            'kembali'     => $kembali,
-        ];
-
-        return view('ibk.shuttle-4-senaraiB-ibk', compact('returnArr', 'list', 'shuttle', 'year', 'year_list', 'buffer', 'isPreviousYear', 'formAFilled'));
+        return view('ibk.shuttle-4-senaraiB-ibk', compact('returnArr', 'list', 'shuttle', 'year', 'year_list', 'flow'));
     }
 
     public function shuttle_4_senaraiC_ibk($year)
@@ -2354,8 +2262,6 @@ class UserController extends Controller
         for ($i = $startYear; $i <= $currentYear; $i++) {
             $year_list->push((object)['tahun' => $i]);
         }
-
-        $buffer = Buffer::where('shuttle', auth()->user()->shuttle->shuttle_type)->where('borang', 'c')->where('shuttle', '4')->first();
 
         // Always ensure December of previous registration year exists (mandatory starting month)
         $decPrevRegYear = FormC::where('shuttle_id', $shuttle->id)->where('bulan', 12)->where('tahun', $prevRegYear)->first();
@@ -2402,84 +2308,26 @@ class UserController extends Controller
             ->unique('bulan')
             ->values();
 
-        // Determine which months can be filled:
-        // - prevRegYear: only December (the mandatory backfill starting point)
-        // - registrationYear and beyond: all months (date window check handles future months)
-        $canFillMonth = [];
-        for ($month = 1; $month <= 12; $month++) {
-            if ($year == $prevRegYear) {
-                $canFillMonth[$month] = ($month == 12);
-            } elseif ($year >= $registrationYear) {
-                $canFillMonth[$month] = ($year >= ($currentYear - 1) && $year <= ($currentYear + 1));
-            } else {
-                $canFillMonth[$month] = false;
-            }
-        }
+        $flow = FormFlowService::getStatus($shuttle->id, (int) $shuttle->shuttle_type, (int) $year);
 
-        // Sequential validation: each month requires the previous month to be filled
-        $previousMonthFilled = [];
-        for ($month = 1; $month <= 12; $month++) {
-            if ($year == $prevRegYear) {
-                // Previous registration year: December is the entry point — no prerequisite
-                $previousMonthFilled[$month] = ($month == 12);
-            } elseif ($registrationYear == $currentYear && $year == $currentYear && $month <= $registrationMonth) {
-                // User registered in current year: registration month is their first required month.
-                // Months before and including registration month don't need a prior month filled.
-                $previousMonthFilled[$month] = true;
-            } elseif ($month == 1) {
-                // January: check if December of the previous year is filled
-                $previousYear = $year - 1;
-                if ($previousYear < ($currentYear - 1)) {
-                    $previousMonthFilled[$month] = true;
-                } else {
-                    $prevYearDec = FormC::where('shuttle_id', $shuttle->id)
-                        ->where('bulan', 12)
-                        ->where('tahun', $previousYear)
-                        ->whereIn('status', ['Sedang Diproses', 'Dihantar ke IPJPSM', 'Lulus', 'Tiada Pengeluaran'])
-                        ->exists();
-                    $previousMonthFilled[$month] = $prevYearDec;
-                }
-            } else {
-                // Feb-Dec: each month requires the previous month to be filled
-                $prevMonth = FormC::where('shuttle_id', $shuttle->id)
-                    ->where('bulan', $month - 1)
-                    ->where('tahun', $year)
-                    ->whereIn('status', ['Sedang Diproses', 'Dihantar ke IPJPSM', 'Lulus', 'Tiada Pengeluaran'])
-                    ->exists();
-                $previousMonthFilled[$month] = $prevMonth;
-            }
-        }
-
-        $isPreviousYear = ($year < $currentYear);
-
-        $formAFilled = FormA::where('shuttle_id', $shuttle->id)
-            ->where('tahun', $year)
-            ->where('status', '!=', 'Tidak Diisi')
-            ->exists();
-
-        $breadcrumbs    = [
+        $breadcrumbs = [
             ['link' => route('home'), 'name' => "Laman Utama"],
             ['link' => route('user.shuttle-4-senaraiC', date('Y')), 'name' => "Kemasukan Maklumat"],
         ];
 
         $kembali = route('home');
+        $returnArr = ['breadcrumbs' => $breadcrumbs, 'kembali' => $kembali];
 
-        $returnArr = [
-            'breadcrumbs' => $breadcrumbs,
-            'kembali'     => $kembali,
-        ];
-
-        return view('ibk.shuttle-4-senaraiC-ibk', compact('returnArr', 'list', 'shuttle', 'year', 'year_list', 'buffer', 'canFillMonth', 'previousMonthFilled', 'isPreviousYear', 'formAFilled'));
+        return view('ibk.shuttle-4-senaraiC-ibk', compact('returnArr', 'list', 'shuttle', 'year', 'year_list', 'flow'));
     }
 
     public function shuttle_4_senaraiD_ibk($year)
     {
         $user = auth()->user();
-
         $shuttle = Shuttle::where('id', $user->shuttle_id)->first();
+
         $list = Form4D::where('shuttle_id', $shuttle->id)->where('tahun', $year)->get();
 
-        // Year list: include registrationYear - 1 (Dec of prev year is mandatory starting month)
         $currentYear = date('Y');
         $registrationYear = $shuttle->created_at ? date('Y', strtotime($shuttle->created_at)) : $currentYear;
         $startYear = max($registrationYear - 1, $currentYear - 1);
@@ -2489,43 +2337,26 @@ class UserController extends Controller
             $year_list->push((object)['tahun' => $i]);
         }
 
-        $buffer = Buffer::where('shuttle', auth()->user()->shuttle->shuttle_type)->where('borang', 'd')->where('shuttle', '4')->first();
+        $flow = FormFlowService::getStatus($shuttle->id, (int) $shuttle->shuttle_type, (int) $year);
 
-        // Check which months have Form C filled (required before Form D can be filled)
-        $formCFilled = [];
-        for ($month = 1; $month <= 12; $month++) {
-            $formC = FormC::where('shuttle_id', $shuttle->id)
-                ->where('bulan', $month)
-                ->where('tahun', $year)
-                ->first();
-            $formCFilled[$month] = $formC && ($formC->status !== 'Tidak Diisi');
-        }
-
-        $isPreviousYear = ($year < $currentYear);
-
-        $breadcrumbs    = [
+        $breadcrumbs = [
             ['link' => route('home'), 'name' => "Laman Utama"],
             ['link' => route('user.shuttle-4-senaraiD', date('Y')), 'name' => "Kemasukan Maklumat"],
         ];
 
         $kembali = route('home');
+        $returnArr = ['breadcrumbs' => $breadcrumbs, 'kembali' => $kembali];
 
-        $returnArr = [
-            'breadcrumbs' => $breadcrumbs,
-            'kembali'     => $kembali,
-        ];
-
-        return view('ibk.shuttle-4-senaraiD-ibk', compact('returnArr', 'list', 'shuttle', 'year', 'year_list', 'buffer', 'formCFilled', 'isPreviousYear'));
+        return view('ibk.shuttle-4-senaraiD-ibk', compact('returnArr', 'list', 'shuttle', 'year', 'year_list', 'flow'));
     }
 
     public function shuttle_4_senaraiE_ibk($year)
     {
         $user = auth()->user();
-
         $shuttle = Shuttle::where('id', $user->shuttle_id)->first();
+
         $list = Form4E::where('shuttle_id', $shuttle->id)->where('tahun', $year)->get();
 
-        // Year list: include registrationYear - 1 (Dec of prev year is mandatory starting month)
         $currentYear = date('Y');
         $registrationYear = $shuttle->created_at ? date('Y', strtotime($shuttle->created_at)) : $currentYear;
         $startYear = max($registrationYear - 1, $currentYear - 1);
@@ -2535,33 +2366,17 @@ class UserController extends Controller
             $year_list->push((object)['tahun' => $i]);
         }
 
-        $buffer = Buffer::where('shuttle', auth()->user()->shuttle->shuttle_type)->where('borang', 'e')->where('shuttle', '4')->first();
+        $flow = FormFlowService::getStatus($shuttle->id, (int) $shuttle->shuttle_type, (int) $year);
 
-        // Check which months have Form D filled (required before Form E can be filled)
-        $formDFilled = [];
-        for ($month = 1; $month <= 12; $month++) {
-            $formD = Form4D::where('shuttle_id', $shuttle->id)
-                ->where('bulan', $month)
-                ->where('tahun', $year)
-                ->first();
-            $formDFilled[$month] = $formD && ($formD->status !== 'Tidak Diisi');
-        }
-
-        $isPreviousYear = ($year < $currentYear);
-
-        $breadcrumbs    = [
+        $breadcrumbs = [
             ['link' => route('home'), 'name' => "Laman Utama"],
             ['link' => route('user.shuttle-4-senaraiE', date('Y')), 'name' => "Kemasukan Maklumat"],
         ];
 
         $kembali = route('home');
+        $returnArr = ['breadcrumbs' => $breadcrumbs, 'kembali' => $kembali];
 
-        $returnArr = [
-            'breadcrumbs' => $breadcrumbs,
-            'kembali'     => $kembali,
-        ];
-
-        return view('ibk.shuttle-4-senaraiE-ibk', compact('returnArr', 'list', 'shuttle', 'year', 'year_list', 'buffer', 'formDFilled', 'isPreviousYear'));
+        return view('ibk.shuttle-4-senaraiE-ibk', compact('returnArr', 'list', 'shuttle', 'year', 'year_list', 'flow'));
     }
 
     public function shuttle_4_listA_ibk($year)
@@ -2733,8 +2548,6 @@ class UserController extends Controller
             $year_list->push((object)['tahun' => $i]);
         }
 
-        $buffer = Buffer::where('shuttle', auth()->user()->shuttle->shuttle_type)->where('borang', 'b')->where('shuttle', '5')->first();
-
         $quarterDates = [
             1 => [$year . '-01-01', $year . '-03-31'],
             2 => [$year . '-04-01', $year . '-06-30'],
@@ -2757,26 +2570,18 @@ class UserController extends Controller
         }
 
         $list = FormB::where('shuttle_id', $shuttle->id)->where('tahun', $year)->orderBy('suku_tahun')->get();
-        $isPreviousYear = ($year < $currentYear);
 
-        $formAFilled = FormA::where('shuttle_id', $shuttle->id)
-            ->where('tahun', $year)
-            ->where('status', '!=', 'Tidak Diisi')
-            ->exists();
+        $flow = FormFlowService::getStatus($shuttle->id, (int) $shuttle->shuttle_type, (int) $year);
 
-        $breadcrumbs    = [
+        $breadcrumbs = [
             ['link' => route('home'), 'name' => "Laman Utama"],
             ['link' => route('user.shuttle-5-senaraiB', date('Y')), 'name' => "Kemasukan Maklumat"],
         ];
 
         $kembali = route('home');
+        $returnArr = ['breadcrumbs' => $breadcrumbs, 'kembali' => $kembali];
 
-        $returnArr = [
-            'breadcrumbs' => $breadcrumbs,
-            'kembali'     => $kembali,
-        ];
-
-        return view('ibk.shuttle-5-senaraiB-ibk', compact('returnArr', 'list', 'shuttle', 'year', 'year_list', 'buffer', 'isPreviousYear', 'formAFilled'));
+        return view('ibk.shuttle-5-senaraiB-ibk', compact('returnArr', 'list', 'shuttle', 'year', 'year_list', 'flow'));
     }
 
     public function shuttle_5_senaraiC_ibk($year)
@@ -2798,8 +2603,6 @@ class UserController extends Controller
         for ($i = $startYear; $i <= $currentYear; $i++) {
             $year_list->push((object)['tahun' => $i]);
         }
-
-        $buffer = Buffer::where('shuttle', auth()->user()->shuttle->shuttle_type)->where('borang', 'c')->where('shuttle', '5')->first();
 
         // Always ensure December of previous registration year exists (mandatory starting month)
         $decPrevRegYear = FormC::where('shuttle_id', $shuttle->id)->where('bulan', 12)->where('tahun', $prevRegYear)->first();
@@ -2835,68 +2638,17 @@ class UserController extends Controller
 
         $list = FormC::where('shuttle_id', $shuttle->id)->where('tahun', $year)->get();
 
-        // Determine which months can be filled:
-        // - prevRegYear: only December (the mandatory backfill starting point)
-        // - registrationYear and beyond: all months (date window check handles future months)
-        $canFillMonth = [];
-        for ($month = 1; $month <= 12; $month++) {
-            if ($year == $prevRegYear) {
-                $canFillMonth[$month] = ($month == 12);
-            } elseif ($year >= $registrationYear) {
-                $canFillMonth[$month] = ($year >= ($currentYear - 1) && $year <= ($currentYear + 1));
-            } else {
-                $canFillMonth[$month] = false;
-            }
-        }
+        $flow = FormFlowService::getStatus($shuttle->id, (int) $shuttle->shuttle_type, (int) $year);
 
-        // Sequential validation: each month requires the previous month to be filled
-        $previousMonthFilled = [];
-        for ($month = 1; $month <= 12; $month++) {
-            if ($year == $prevRegYear) {
-                // Previous registration year: December is the entry point — no prerequisite
-                $previousMonthFilled[$month] = ($month == 12);
-            } elseif ($registrationYear == $currentYear && $year == $currentYear && $month <= $registrationMonth) {
-                // User registered in current year: registration month is their first required month.
-                // Months before and including registration month don't need a prior month filled.
-                $previousMonthFilled[$month] = true;
-            } elseif ($month == 1) {
-                // January: check if December of the previous year is filled
-                $previousYear = $year - 1;
-                if ($previousYear < ($currentYear - 1)) {
-                    $previousMonthFilled[$month] = true;
-                } else {
-                    $prevYearDec = FormC::where('shuttle_id', $shuttle->id)->where('bulan', 12)->where('tahun', $previousYear)
-                        ->whereIn('status', ['Sedang Diproses', 'Dihantar ke IPJPSM', 'Lulus', 'Tiada Pengeluaran'])->exists();
-                    $previousMonthFilled[$month] = $prevYearDec;
-                }
-            } else {
-                // Feb-Dec: each month requires the previous month to be filled
-                $prevMonth = FormC::where('shuttle_id', $shuttle->id)->where('bulan', $month - 1)->where('tahun', $year)
-                    ->whereIn('status', ['Sedang Diproses', 'Dihantar ke IPJPSM', 'Lulus', 'Tiada Pengeluaran'])->exists();
-                $previousMonthFilled[$month] = $prevMonth;
-            }
-        }
-
-        $isPreviousYear = ($year < $currentYear);
-
-        $formAFilled = FormA::where('shuttle_id', $shuttle->id)
-            ->where('tahun', $year)
-            ->where('status', '!=', 'Tidak Diisi')
-            ->exists();
-
-        $breadcrumbs    = [
+        $breadcrumbs = [
             ['link' => route('home'), 'name' => "Laman Utama"],
             ['link' => route('user.shuttle-5-senaraiC', date('Y')), 'name' => "Kemasukan Maklumat"],
         ];
 
         $kembali = route('home');
+        $returnArr = ['breadcrumbs' => $breadcrumbs, 'kembali' => $kembali];
 
-        $returnArr = [
-            'breadcrumbs' => $breadcrumbs,
-            'kembali'     => $kembali,
-        ];
-
-        return view('ibk.shuttle-5-senaraiC-ibk', compact('returnArr', 'list', 'shuttle', 'year', 'year_list', 'buffer', 'canFillMonth', 'previousMonthFilled', 'isPreviousYear', 'formAFilled'));
+        return view('ibk.shuttle-5-senaraiC-ibk', compact('returnArr', 'list', 'shuttle', 'year', 'year_list', 'flow'));
     }
 
     public function shuttle_5_senaraiD_ibk($year)
@@ -2916,30 +2668,17 @@ class UserController extends Controller
             $year_list->push((object)['tahun' => $i]);
         }
 
-        $buffer = Buffer::where('shuttle', auth()->user()->shuttle->shuttle_type)->where('borang', 'd')->where('shuttle', '5')->first();
+        $flow = FormFlowService::getStatus($shuttle->id, (int) $shuttle->shuttle_type, (int) $year);
 
-        // formCFilled: Form C must be submitted before Form D can be filled
-        $formCFilled = [];
-        for ($month = 1; $month <= 12; $month++) {
-            $formC = FormC::where('shuttle_id', $shuttle->id)->where('bulan', $month)->where('tahun', $year)->first();
-            $formCFilled[$month] = $formC && ($formC->status !== 'Tidak Diisi');
-        }
-
-        $isPreviousYear = ($year < $currentYear);
-
-        $breadcrumbs    = [
+        $breadcrumbs = [
             ['link' => route('home'), 'name' => "Laman Utama"],
             ['link' => route('user.shuttle-5-senaraiD', date('Y')), 'name' => "Kemasukan Maklumat"],
         ];
 
         $kembali = route('home');
+        $returnArr = ['breadcrumbs' => $breadcrumbs, 'kembali' => $kembali];
 
-        $returnArr = [
-            'breadcrumbs' => $breadcrumbs,
-            'kembali'     => $kembali,
-        ];
-
-        return view('ibk.shuttle-5-senaraiD-ibk', compact('returnArr', 'list', 'shuttle', 'year', 'year_list', 'buffer', 'formCFilled', 'isPreviousYear'));
+        return view('ibk.shuttle-5-senaraiD-ibk', compact('returnArr', 'list', 'shuttle', 'year', 'year_list', 'flow'));
     }
 
     public function shuttle_5_senaraiE_ibk($year)
@@ -2959,30 +2698,17 @@ class UserController extends Controller
             $year_list->push((object)['tahun' => $i]);
         }
 
-        $buffer = Buffer::where('shuttle', auth()->user()->shuttle->shuttle_type)->where('borang', 'e')->where('shuttle', '5')->first();
+        $flow = FormFlowService::getStatus($shuttle->id, (int) $shuttle->shuttle_type, (int) $year);
 
-        // formDFilled: Form D must be submitted before Form E can be filled
-        $formDFilled = [];
-        for ($month = 1; $month <= 12; $month++) {
-            $formD = Form5D::where('shuttle_id', $shuttle->id)->where('bulan', $month)->where('tahun', $year)->first();
-            $formDFilled[$month] = $formD && ($formD->status !== 'Tidak Diisi');
-        }
-
-        $isPreviousYear = ($year < $currentYear);
-
-        $breadcrumbs    = [
+        $breadcrumbs = [
             ['link' => route('home'), 'name' => "Laman Utama"],
             ['link' => route('user.shuttle-5-senaraiE', date('Y')), 'name' => "Kemasukan Maklumat"],
         ];
 
         $kembali = route('home');
+        $returnArr = ['breadcrumbs' => $breadcrumbs, 'kembali' => $kembali];
 
-        $returnArr = [
-            'breadcrumbs' => $breadcrumbs,
-            'kembali'     => $kembali,
-        ];
-
-        return view('ibk.shuttle-5-senaraiE-ibk', compact('returnArr', 'list', 'shuttle', 'year', 'year_list', 'buffer', 'formDFilled', 'isPreviousYear'));
+        return view('ibk.shuttle-5-senaraiE-ibk', compact('returnArr', 'list', 'shuttle', 'year', 'year_list', 'flow'));
     }
 
     public function shuttle_5_listA_ibk($year)

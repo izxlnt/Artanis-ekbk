@@ -194,7 +194,7 @@
                         $quarters    = [1=>'Suku 1<br><small>Jan-Mac</small>',2=>'Suku 2<br><small>Apr-Jun</small>',3=>'Suku 3<br><small>Jul-Sep</small>',4=>'Suku 4<br><small>Okt-Dis</small>'];
                     @endphp
 
-                    @foreach($requirements['years_to_fill'] as $reqYear)
+                    @foreach(array_reverse($requirements['years_to_fill']) as $reqYear)
                     <div style="overflow-x: auto; margin-bottom: 24px;">
                         <h5 style="font-weight: bold; border-bottom: 2px solid #17a2b8; padding-bottom: 6px; margin-bottom: 12px;">
                             TAHUN {{ $reqYear }}
@@ -253,13 +253,17 @@
                                         $cellFormB = ($tableData[$reqYear]['formB'] ?? collect())->get($q);
                                         $bFillLink = route('user.shuttle-' . $shuttleType . '-formB', [$q, $reqYear]);
                                         $bViewLink = $cellFormB ? route('pengguna.shuttle-3-view-formB', $cellFormB->id) : $bFillLink;
+                                        $bFlow     = $flowData[$reqYear]['formB'][$q] ?? null;
                                     @endphp
                                     <td style="padding: 8px;">
                                         @include('partials.form-status-cell', [
-                                            'form'     => $cellFormB,
-                                            'fillLink' => $bFillLink,
-                                            'viewLink' => $bViewLink,
-                                            'isDue'    => $isDue,
+                                            'form'        => $cellFormB,
+                                            'fillLink'    => $bFillLink,
+                                            'viewLink'    => $bViewLink,
+                                            'isDue'       => $isDue,
+                                            'canFill'     => $bFlow ? $bFlow['can_fill'] : null,
+                                            'dateBlocked' => $bFlow ? $bFlow['date_blocked'] : false,
+                                            'reason'      => $bFlow ? $bFlow['reason'] : null,
                                         ])
                                     </td>
                                     @endforeach
@@ -291,13 +295,17 @@
                                         $cFillLink = route('user.shuttle-' . $shuttleType . '-formC.KKB', [$m, $reqYear]);
                                         $viewRouteType = ($shuttleType == 3) ? 3 : 4;
                                         $cViewLink = $cellFormC ? route('pengguna.shuttle-' . $viewRouteType . '-view-formC', $cellFormC->id) : $cFillLink;
+                                        $cFlow     = $flowData[$reqYear]['formC'][$m] ?? null;
                                     @endphp
                                     <td style="padding: 8px;">
                                         @include('partials.form-status-cell', [
-                                            'form'     => $cellFormC,
-                                            'fillLink' => $cFillLink,
-                                            'viewLink' => $cViewLink,
-                                            'isDue'    => $isDue,
+                                            'form'        => $cellFormC,
+                                            'fillLink'    => $cFillLink,
+                                            'viewLink'    => $cViewLink,
+                                            'isDue'       => $isDue,
+                                            'canFill'     => $cFlow ? $cFlow['can_fill'] : null,
+                                            'dateBlocked' => $cFlow ? $cFlow['date_blocked'] : false,
+                                            'reason'      => $cFlow ? $cFlow['reason'] : null,
                                         ])
                                     </td>
                                     @endforeach
@@ -333,16 +341,20 @@
                                             $dFillLink = route('user.shuttle-4-formD', [$reqYear, $m]);
                                             $dViewLink = $cellFormD ? route('pengguna.shuttle-4-view-form4D', $cellFormD->id) : $dFillLink;
                                         } else {
-                                            $dFillLink = route('user.shuttle-5-formD', $m);
+                                            $dFillLink = route('user.shuttle-5-formD', [$reqYear, $m]);
                                             $dViewLink = $cellFormD ? route('pengguna.shuttle-5-view-form5D', $cellFormD->id) : $dFillLink;
                                         }
+                                        $dFlow = $flowData[$reqYear]['formD'][$m] ?? null;
                                     @endphp
                                     <td style="padding: 8px;">
                                         @include('partials.form-status-cell', [
-                                            'form'     => $cellFormD,
-                                            'fillLink' => $dFillLink,
-                                            'viewLink' => $dViewLink,
-                                            'isDue'    => $isDue,
+                                            'form'        => $cellFormD,
+                                            'fillLink'    => $dFillLink,
+                                            'viewLink'    => $dViewLink,
+                                            'isDue'       => $isDue,
+                                            'canFill'     => $dFlow ? $dFlow['can_fill'] : null,
+                                            'dateBlocked' => $dFlow ? $dFlow['date_blocked'] : false,
+                                            'reason'      => $dFlow ? $dFlow['reason'] : null,
                                         ])
                                     </td>
                                     @endforeach
@@ -378,13 +390,17 @@
                                             $eFillLink = route('user.shuttle-5-formE', [$reqYear, $m]);
                                             $eViewLink = $cellFormE ? route('pengguna.shuttle-5-view-form5E', $cellFormE->id) : $eFillLink;
                                         }
+                                        $eFlow = $flowData[$reqYear]['formE'][$m] ?? null;
                                     @endphp
                                     <td style="padding: 8px;">
                                         @include('partials.form-status-cell', [
-                                            'form'     => $cellFormE,
-                                            'fillLink' => $eFillLink,
-                                            'viewLink' => $eViewLink,
-                                            'isDue'    => $isDue,
+                                            'form'        => $cellFormE,
+                                            'fillLink'    => $eFillLink,
+                                            'viewLink'    => $eViewLink,
+                                            'isDue'       => $isDue,
+                                            'canFill'     => $eFlow ? $eFlow['can_fill'] : null,
+                                            'dateBlocked' => $eFlow ? $eFlow['date_blocked'] : false,
+                                            'reason'      => $eFlow ? $eFlow['reason'] : null,
                                         ])
                                     </td>
                                     @endforeach

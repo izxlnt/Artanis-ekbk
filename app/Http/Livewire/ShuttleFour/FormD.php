@@ -113,19 +113,28 @@ class FormD extends Component
 
     public function mount()
     {
-        $this->formc = ModelsFormC::where('shuttle_id', auth()->user()->shuttle_id)->where('bulan', $this->bulan_id)->whereYear('created_at', date("Y"))->first();
+        $formc_ids = ModelsFormC::where('shuttle_id', auth()->user()->shuttle_id)
+            ->where('bulan', $this->bulan_id)
+            ->whereYear('created_at', date("Y"))
+            ->pluck('id');
 
-        if (!$this->formc) {
+        if ($formc_ids->isEmpty()) {
             Session::flash('error', 'Sila isi Borang C bagi bulan yang dipilih terlebih dahulu.');
             return redirect()->route('user.shuttle-4-senaraiD', date('Y'));
         }
 
-        $this->kemasukan_bahan_calc_lain_lain = KemasukanBahan::where('shuttle_id', auth()->user()->shuttle_id)->where('formcs_id', $this->formc->id)->latest('updated_at')->first();
+        // Find the KemasukanBahan from whichever FormC record has data
+        $this->kemasukan_bahan_calc_lain_lain = KemasukanBahan::where('shuttle_id', auth()->user()->shuttle_id)
+            ->whereIn('formcs_id', $formc_ids)
+            ->latest('updated_at')
+            ->first();
 
         if (!$this->kemasukan_bahan_calc_lain_lain) {
             Session::flash('error', 'Sila lengkapkan dan hantar Borang C bagi bulan yang dipilih sebelum mengisi Borang D.');
             return redirect()->route('user.shuttle-4-senaraiD', date('Y'));
         }
+
+        $this->formc = ModelsFormC::find($this->kemasukan_bahan_calc_lain_lain->formcs_id);
 
         $recovery_rate = RecoveryRate::where('shuttle_type', '4')->first();
         $jumlah_besar = (float)($this->kemasukan_bahan_calc_lain_lain->jumlah_besar_kayu_ke_dalam_jentera ?? 0);
@@ -386,10 +395,19 @@ class FormD extends Component
 
         // dd($this->produk_isipadumr_a);
 
-        $this->formc = ModelsFormC::where('shuttle_id', auth()->user()->shuttle_id)->where('bulan', $this->bulan_id)->whereYear('created_at', date("Y"))->first();
+        $formc_ids_store = ModelsFormC::where('shuttle_id', auth()->user()->shuttle_id)
+            ->where('bulan', $this->bulan_id)
+            ->whereYear('created_at', date("Y"))
+            ->pluck('id');
 
-        // dd($formc);
-        $this->kemasukan_bahan_calc_lain_lain = KemasukanBahan::where('shuttle_id', auth()->user()->shuttle_id)->where('formcs_id', $this->formc->id)->latest('updated_at')->first();
+        $this->kemasukan_bahan_calc_lain_lain = KemasukanBahan::where('shuttle_id', auth()->user()->shuttle_id)
+            ->whereIn('formcs_id', $formc_ids_store)
+            ->latest('updated_at')
+            ->first();
+
+        $this->formc = $this->kemasukan_bahan_calc_lain_lain
+            ? ModelsFormC::find($this->kemasukan_bahan_calc_lain_lain->formcs_id)
+            : ModelsFormC::whereIn('id', $formc_ids_store)->first();
 
         if($this->kemasukan_bahan_calc_lain_lain->jumlah_besar_kayu_ke_dalam_jentera == 0){
             foreach ($this->produk_isipadumr_a as $key => $value) {
