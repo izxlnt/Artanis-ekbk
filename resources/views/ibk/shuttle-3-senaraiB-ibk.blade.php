@@ -133,22 +133,13 @@
                                                 @endif
                                                 @foreach ($list as $data)
                                                     @if ($data->status == 'Tidak Diisi' && $data->suku_tahun == '1')
-                                                        @php
-                                                            $time = strtotime($data->tarikh_tutup_borang);
-                                                            $delay = '+' . $buffer->delay . ' month';
-                                                            $tarikh_tutup_terkini = date('Y-m-d', strtotime($delay, $time));
-                                                        @endphp
-                                                        @if ($isPreviousYear || (date('Y-m-d') >= $data->tarikh_buka_borang && date('Y-m-d') <= $tarikh_tutup_terkini))
-                                                            <a href="{{ route('user.shuttle-3-formB', [1, $data->tahun]) }}"
-                                                                data-toggle="tooltip" data-placement="bottom"
-                                                                title="Borang belum diisi">
-                                                                <img src="{{ asset('circle_times.png') }}" height='30px'
-                                                                    alt="" style="font-size: 15pt;"></i></a>
+                                                        @if ($flow['formB'][1]['can_fill'])
+                                                            <a href="{{ route('user.shuttle-3-formB', [1, $data->tahun]) }}" data-toggle="tooltip" data-placement="bottom" title="Borang belum diisi">
+                                                                <img src="{{ asset('circle_times.png') }}" height='30px' alt="" style="font-size: 15pt;"></a>
+                                                        @elseif ($flow['formB'][1]['date_blocked'])
+                                                            <img src="{{ asset('calendar.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="{{ $flow['formB'][1]['reason'] }}" style="color: black; font-size: 20pt;">
                                                         @else
-                                                            <img src="{{ asset('calendar.png') }}" height='30px' alt=""
-                                                                data-toggle="tooltip" data-placement="bottom"
-                                                                title="Borang ditutup" aria-hidden="false"
-                                                                style="color: black; font-size: 20pt;">
+                                                            <img src="{{ asset('circle_times.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="{{ $flow['formB'][1]['reason'] }}" style="opacity: 0.5;">
                                                         @endif
                                                     @elseif($data->status == 'Sedang Diproses' && $data->suku_tahun == '1')
                                                         <a
@@ -194,22 +185,13 @@
                                                 @endif
                                                 @foreach ($list as $data)
                                                     @if ($data->status == 'Tidak Diisi' && $data->suku_tahun == '2')
-                                                        @php
-                                                            $time = strtotime($data->tarikh_tutup_borang);
-                                                            $delay = '+' . $buffer->delay . ' month';
-                                                            $tarikh_tutup_terkini = date('Y-m-d', strtotime($delay, $time));
-                                                        @endphp
-                                                        @if ($isPreviousYear || (date('Y-m-d') >= $data->tarikh_buka_borang && date('Y-m-d') <= $tarikh_tutup_terkini))
-                                                            <a href="{{ route('user.shuttle-3-formB', [2, $data->tahun]) }}"
-                                                                data-toggle="tooltip" data-placement="bottom"
-                                                                title="Borang belum diisi">
-                                                                <img src="{{ asset('circle_times.png') }}" height='30px'
-                                                                    alt="" style="font-size: 15pt;"></i></a>
+                                                        @if ($flow['formB'][2]['can_fill'])
+                                                            <a href="{{ route('user.shuttle-3-formB', [2, $data->tahun]) }}" data-toggle="tooltip" data-placement="bottom" title="Borang belum diisi">
+                                                                <img src="{{ asset('circle_times.png') }}" height='30px' alt="" style="font-size: 15pt;"></a>
+                                                        @elseif ($flow['formB'][2]['date_blocked'])
+                                                            <img src="{{ asset('calendar.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="{{ $flow['formB'][2]['reason'] }}" style="color: black; font-size: 20pt;">
                                                         @else
-                                                            <img src="{{ asset('calendar.png') }}" height='30px' alt=""
-                                                                data-toggle="tooltip" data-placement="bottom"
-                                                                title="Borang ditutup" aria-hidden="false"
-                                                                style="color: black; font-size: 20pt;">
+                                                            <img src="{{ asset('circle_times.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="{{ $flow['formB'][2]['reason'] }}" style="opacity: 0.5;">
                                                         @endif
                                                     @elseif($data->status == 'Sedang Diproses' && $data->suku_tahun == '2')
                                                         <a
@@ -255,26 +237,13 @@
                                                 @endif
                                                 @foreach ($list as $data)
                                                     @if ($data->status == 'Tidak Diisi' && $data->suku_tahun == '3')
-                                                        @if (!$isPreviousYear && (!$data->tarikh_buka_borang || date('Y-m-d') < $data->tarikh_buka_borang))
-                                                            <img src="{{ asset('calendar.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang belum dibuka" style="color: black; font-size: 20pt;">
+                                                        @if ($flow['formB'][3]['can_fill'])
+                                                            <a href="{{ route('user.shuttle-3-formB', [3, $data->tahun]) }}" data-toggle="tooltip" data-placement="bottom" title="Borang belum diisi">
+                                                                <img src="{{ asset('circle_times.png') }}" height='30px' alt="" style="font-size: 15pt;"></a>
+                                                        @elseif ($flow['formB'][3]['date_blocked'])
+                                                            <img src="{{ asset('calendar.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="{{ $flow['formB'][3]['reason'] }}" style="color: black; font-size: 20pt;">
                                                         @else
-                                                            @php
-                                                                $time = strtotime($data->tarikh_tutup_borang);
-                                                                $delay = '+' . $buffer->delay . ' month';
-                                                                $tarikh_tutup_terkini = date('Y-m-d', strtotime($delay, $time));
-                                                            @endphp
-                                                            @if ($isPreviousYear || (date('Y-m-d') >= $data->tarikh_buka_borang && date('Y-m-d') <= $tarikh_tutup_terkini))
-                                                                <a href="{{ route('user.shuttle-3-formB', [3, $data->tahun]) }}"
-                                                                    data-toggle="tooltip" data-placement="bottom"
-                                                                    title="Borang belum diisi">
-                                                                    <img src="{{ asset('circle_times.png') }}" height='30px'
-                                                                        alt="" style="font-size: 15pt;"></i></a>
-                                                            @else
-                                                                <img src="{{ asset('calendar.png') }}" height='30px' alt=""
-                                                                    data-toggle="tooltip" data-placement="bottom"
-                                                                    title="Borang ditutup" aria-hidden="false"
-                                                                    style="color: black; font-size: 20pt;">
-                                                            @endif
+                                                            <img src="{{ asset('circle_times.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="{{ $flow['formB'][3]['reason'] }}" style="opacity: 0.5;">
                                                         @endif
                                                     @elseif($data->status == 'Sedang Diproses' && $data->suku_tahun == '3')
                                                         <a
@@ -320,26 +289,13 @@
                                                 @endif
                                                 @foreach ($list as $data)
                                                     @if ($data->status == 'Tidak Diisi' && $data->suku_tahun == '4')
-                                                        @if (!$isPreviousYear && (!$data->tarikh_buka_borang || date('Y-m-d') < $data->tarikh_buka_borang))
-                                                            <img src="{{ asset('calendar.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang belum dibuka" style="color: black; font-size: 20pt;">
+                                                        @if ($flow['formB'][4]['can_fill'])
+                                                            <a href="{{ route('user.shuttle-3-formB', [4, $data->tahun]) }}" data-toggle="tooltip" data-placement="bottom" title="Borang belum diisi">
+                                                                <img src="{{ asset('circle_times.png') }}" height='30px' alt="" style="font-size: 15pt;"></a>
+                                                        @elseif ($flow['formB'][4]['date_blocked'])
+                                                            <img src="{{ asset('calendar.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="{{ $flow['formB'][4]['reason'] }}" style="color: black; font-size: 20pt;">
                                                         @else
-                                                            @php
-                                                                $time = strtotime($data->tarikh_tutup_borang);
-                                                                $delay = '+' . $buffer->delay . ' month';
-                                                                $tarikh_tutup_terkini = date('Y-m-d', strtotime($delay, $time));
-                                                            @endphp
-                                                            @if ($isPreviousYear || (date('Y-m-d') >= $data->tarikh_buka_borang && date('Y-m-d') <= $tarikh_tutup_terkini))
-                                                                <a href="/pengguna/shuttle-3-formB/4/{{ $data->tahun }}"
-                                                                    data-toggle="tooltip" data-placement="bottom"
-                                                                    title="Borang belum diisi - Year: {{ $data->tahun }}">
-                                                                    <img src="{{ asset('circle_times.png') }}" height='30px'
-                                                                        alt="" style="font-size: 15pt;"></i></a>
-                                                            @else
-                                                                <img src="{{ asset('calendar.png') }}" height='30px' alt=""
-                                                                    data-toggle="tooltip" data-placement="bottom"
-                                                                    title="Borang ditutup" aria-hidden="false"
-                                                                    style="color: black; font-size: 20pt;">
-                                                            @endif
+                                                            <img src="{{ asset('circle_times.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="{{ $flow['formB'][4]['reason'] }}" style="opacity: 0.5;">
                                                         @endif
                                                     @elseif($data->status == 'Sedang Diproses' && $data->suku_tahun == '4')
                                                         <a

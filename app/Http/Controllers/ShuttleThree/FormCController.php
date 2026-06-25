@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 use App\Models\Batch;
+use App\Models\FormA;
+use App\Models\FormB;
 use App\Models\FormC as ModelsFormC;
 use App\Models\Kemasukan;
 use App\Models\KemasukanBahan;
@@ -16,6 +18,7 @@ use App\Models\Shuttle;
 use App\Models\Spesis;
 use App\Models\User;
 use App\Notifications\IBK\BorangDiHantar;
+use App\Services\FormFlowService;
 
 class FormCController extends Controller
 {
@@ -31,6 +34,15 @@ class FormCController extends Controller
         // Block access to months that have not arrived yet
         if ((int)$year > (int)date('Y') || ((int)$year == (int)date('Y') && (int)$bulan_id > (int)date('n'))) {
             return redirect()->back()->with('error', 'Borang untuk bulan ini belum dibuka.');
+        }
+
+        $shuttle_id = auth()->user()->shuttle_id;
+        if (!FormA::where('shuttle_id', $shuttle_id)->where('tahun', $year)->where('status', '!=', 'Tidak Diisi')->exists()) {
+            return redirect()->back()->with('error', 'Sila isi Borang A terlebih dahulu sebelum mengisi Borang C.');
+        }
+        $suku = (int) ceil($bulan_id / 3);
+        if (!FormB::where('shuttle_id', $shuttle_id)->where('tahun', $year)->where('suku_tahun', $suku)->whereIn('status', FormFlowService::SUBMITTED)->exists()) {
+            return redirect()->back()->with('error', "Sila isi Borang B Suku {$suku} terlebih dahulu sebelum mengisi Borang C.");
         }
 
         // Check registration date - user cannot fill months before registration
@@ -412,6 +424,15 @@ class FormCController extends Controller
             $year = date('Y');
         }
 
+        $shuttle_id = auth()->user()->shuttle_id;
+        if (!FormA::where('shuttle_id', $shuttle_id)->where('tahun', $year)->where('status', '!=', 'Tidak Diisi')->exists()) {
+            return redirect()->back()->with('error', 'Sila isi Borang A terlebih dahulu sebelum mengisi Borang C.');
+        }
+        $suku = (int) ceil($bulan_id / 3);
+        if (!FormB::where('shuttle_id', $shuttle_id)->where('tahun', $year)->where('suku_tahun', $suku)->whereIn('status', FormFlowService::SUBMITTED)->exists()) {
+            return redirect()->back()->with('error', "Sila isi Borang B Suku {$suku} terlebih dahulu sebelum mengisi Borang C.");
+        }
+
         // Check registration date - user cannot fill months before registration
         $shuttle = Shuttle::where('id', auth()->user()->shuttle_id)->first();
         $registrationDate = $shuttle->created_at;
@@ -776,7 +797,16 @@ class FormCController extends Controller
         if (!$year) {
             $year = date('Y');
         }
-        
+
+        $shuttle_id = auth()->user()->shuttle_id;
+        if (!FormA::where('shuttle_id', $shuttle_id)->where('tahun', $year)->where('status', '!=', 'Tidak Diisi')->exists()) {
+            return redirect()->back()->with('error', 'Sila isi Borang A terlebih dahulu sebelum mengisi Borang C.');
+        }
+        $suku = (int) ceil($bulan_id / 3);
+        if (!FormB::where('shuttle_id', $shuttle_id)->where('tahun', $year)->where('suku_tahun', $suku)->whereIn('status', FormFlowService::SUBMITTED)->exists()) {
+            return redirect()->back()->with('error', "Sila isi Borang B Suku {$suku} terlebih dahulu sebelum mengisi Borang C.");
+        }
+
         // Check registration date - user cannot fill months before registration
         $shuttle = Shuttle::where('id', auth()->user()->shuttle_id)->first();
         $registrationDate = $shuttle->created_at;
@@ -1144,7 +1174,16 @@ class FormCController extends Controller
         if (!$year) {
             $year = date('Y');
         }
-        
+
+        $shuttle_id = auth()->user()->shuttle_id;
+        if (!FormA::where('shuttle_id', $shuttle_id)->where('tahun', $year)->where('status', '!=', 'Tidak Diisi')->exists()) {
+            return redirect()->back()->with('error', 'Sila isi Borang A terlebih dahulu sebelum mengisi Borang C.');
+        }
+        $suku = (int) ceil($bulan_id / 3);
+        if (!FormB::where('shuttle_id', $shuttle_id)->where('tahun', $year)->where('suku_tahun', $suku)->whereIn('status', FormFlowService::SUBMITTED)->exists()) {
+            return redirect()->back()->with('error', "Sila isi Borang B Suku {$suku} terlebih dahulu sebelum mengisi Borang C.");
+        }
+
         // Check registration date - user cannot fill months before registration
         $shuttle = Shuttle::where('id', auth()->user()->shuttle_id)->first();
         $registrationDate = $shuttle->created_at;
@@ -1507,7 +1546,16 @@ class FormCController extends Controller
         if (!$year) {
             $year = date('Y');
         }
-        
+
+        $shuttle_id = auth()->user()->shuttle_id;
+        if (!FormA::where('shuttle_id', $shuttle_id)->where('tahun', $year)->where('status', '!=', 'Tidak Diisi')->exists()) {
+            return redirect()->back()->with('error', 'Sila isi Borang A terlebih dahulu sebelum mengisi Borang C.');
+        }
+        $suku = (int) ceil($bulan_id / 3);
+        if (!FormB::where('shuttle_id', $shuttle_id)->where('tahun', $year)->where('suku_tahun', $suku)->whereIn('status', FormFlowService::SUBMITTED)->exists()) {
+            return redirect()->back()->with('error', "Sila isi Borang B Suku {$suku} terlebih dahulu sebelum mengisi Borang C.");
+        }
+
         // Check registration date - user cannot fill months before registration
         $shuttle = Shuttle::where('id', auth()->user()->shuttle_id)->first();
         $registrationDate = $shuttle->created_at;

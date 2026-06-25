@@ -341,7 +341,7 @@ Route::middleware('auth')->group(
 
                 Route::get('/pengguna/shuttle-5-formC/store/tiada-pengeluaran/{bulan}/{year?}', [App\Http\Controllers\ShuttleFive\FormCController::class, 'tiadaPengeluaran'])->name('user.shuttle-5-formC.tiadaPengeluaran');
 
-                Route::get('/pengguna/shuttle-5-formD/{id}', [App\Http\Controllers\ShuttleFive\MainController::class, 'shuttle_5_formD'])->name('user.shuttle-5-formD');
+                Route::get('/pengguna/shuttle-5-formD/{year}/{id}', [App\Http\Controllers\ShuttleFive\MainController::class, 'shuttle_5_formD'])->name('user.shuttle-5-formD');
                 Route::get('/pengguna/shuttle-5-formE/{year}/{id}', [App\Http\Controllers\ShuttleFive\MainController::class, 'shuttle_5_formE'])->name('user.shuttle-5-formE');
 
                 Route::get('/pengguna/shuttle-5-edit-formD/{id}', [App\Http\Controllers\ShuttleFive\MainController::class, 'shuttle_5_edit_formD'])->name('user.shuttle-5-edit-formD');
