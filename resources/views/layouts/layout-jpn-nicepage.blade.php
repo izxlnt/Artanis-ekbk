@@ -155,8 +155,8 @@
                     <ul class="float-left navbar-nav">
                         <span class="logo-icon" style="align:left;">
 
-                            <img src="{{ asset('Coat_of_Arms_of_Malaysia.png') }}"
-                                style="height: 50px;" alt="homepage" class="dark-logo" />
+                            <img src="{{ asset('jata.png') }}" style="height: 50px;" alt="homepage"
+                                class="dark-logo" />
 
                         </span>
 

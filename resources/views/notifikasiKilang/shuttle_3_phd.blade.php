@@ -113,8 +113,8 @@
 
                                                 <td style="text-align:left">{{ $data->nama_kilang }}</td>
 
-                                                <td>{{ $data->negeri_id }}</td>
-                                                <td>{{ $data->daerah_id }}</td>
+                                                <td>{{ $data->negeri->negeri ?? '' }}</td>
+                                                <td>{{ $data->daerah->daerah_hutan ?? '' }}</td>
                                                 <td>{{ $data->no_ssm }}</td>
                                                 <td>{{ $data->no_lesen }}</td>
 

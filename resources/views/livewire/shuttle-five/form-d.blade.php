@@ -305,30 +305,25 @@
                                                                             data-target="#sebelumnya_borang_a"
                                                                             class="model_img img-fluid">
                                                                             Kembali</button>
-                                                                        @if ($form_c_data->status == 'Tiada Pengeluaran')
+                                                                        <button type="button"
+                                                                            wire:loading.attr="disabled"
+                                                                            class="btn btn-primary" alt="default"
+                                                                            data-toggle="modal"
+                                                                            data-target="#tiada_pengeluaran"
+                                                                            class="model_img img-fluid">
+                                                                            Tiada Pengeluaran</button>
+                                                                        @if ($errors->isEmpty())
                                                                             <button type="button"
                                                                                 wire:loading.attr="disabled"
-                                                                                class="btn btn-primary" alt="default"
-                                                                                data-toggle="modal"
-                                                                                data-target="#tiada_pengeluaran"
+                                                                                class="btn btn-primary"
+                                                                                alt="default" data-toggle="modal"
+                                                                                data-target="#confirmation_borang_a"
                                                                                 class="model_img img-fluid">
-                                                                                Tiada Pengeluaran</button>
-                                                                        @endif
-                                                                        @if ($form_c_data->status == 'Sedang Diproses')
-                                                                            @if ($errors->isEmpty())
-                                                                                <button type="button"
-                                                                                    wire:loading.attr="disabled"
-                                                                                    class="btn btn-primary"
-                                                                                    alt="default" data-toggle="modal"
-                                                                                    data-target="#confirmation_borang_a"
-                                                                                    class="model_img img-fluid">
-                                                                                    HANTAR</button>
-                                                                            @else
-                                                                                <button type="submit"
-                                                                                    class="btn btn-primary"
-                                                                                    disabled>RALAT</button>
-                                                                                {{-- <button type="submit" class="btn btn-primary" >Simpan</button> --}}
-                                                                            @endif
+                                                                                HANTAR</button>
+                                                                        @else
+                                                                            <button type="submit"
+                                                                                class="btn btn-primary"
+                                                                                disabled>RALAT</button>
                                                                         @endif
                                                                     </div>
                                                                 </div>

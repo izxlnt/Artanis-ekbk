@@ -143,8 +143,8 @@
                                         <td class="text-left">{{ $data->alamat_kilang_1 }}</td>
                                         <td class="text-left">{{ $data->alamat_kilang_2 }}</td>
                                         <td class="text-left">{{ $data->alamat_kilang_poskod }}</td>
-                                        <td class="text-left">{{ $data->daerah_id }}</td>
-                                        <td class="text-left">{{ $data->negeri_id }}</td>
+                                        <td class="text-left">{{ $data->daerah->daerah_hutan ?? '' }}</td>
+                                        <td class="text-left">{{ $data->negeri->negeri ?? '' }}</td>
                                         <td class="text-left">{{ $data->alamat_surat_menyurat_1 }}</td>
                                         <td class="text-left">{{ $data->alamat_surat_menyurat_2 }}</td>
                                         <td class="text-left">{{ $data->alamat_surat_menyurat_poskod }}</td>
@@ -191,8 +191,8 @@
                                         <td class="text-left">{{ $data->alamat_kilang_1 }}</td>
                                         <td class="text-left">{{ $data->alamat_kilang_2 }}</td>
                                         <td class="text-left">{{ $data->alamat_kilang_poskod }}</td>
-                                        <td class="text-left">{{ $data->daerah_id }}</td>
-                                        <td class="text-left">{{ $data->negeri_id }}</td>
+                                        <td class="text-left">{{ $data->daerah->daerah_hutan ?? '' }}</td>
+                                        <td class="text-left">{{ $data->negeri->negeri ?? '' }}</td>
                                         <td class="text-left">{{ $data->alamat_surat_menyurat_1 }}</td>
                                         <td class="text-left">{{ $data->alamat_surat_menyurat_2 }}</td>
                                         <td class="text-left">{{ $data->alamat_surat_menyurat_poskod }}</td>

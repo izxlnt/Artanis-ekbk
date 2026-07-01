@@ -48,8 +48,8 @@
                                             <td style="text-align: left">{{ $kilang->shuttle->alamat_kilang_1 }}</td>
                                             <td style="text-align: left">{{ $kilang->shuttle->alamat_kilang_2 }}</td>
                                             <td style="text-align: left">{{ $kilang->shuttle->alamat_kilang_poskod }}</td>
-                                            <td style="text-align: left">{{ $kilang->shuttle->daerah_id }}</td>
-                                            <td style="text-align: left">{{ $kilang->shuttle->negeri_id }}</td>
+                                            <td style="text-align: left">{{ $kilang->shuttle->daerah->daerah_hutan ?? '' }}</td>
+                                            <td style="text-align: left">{{ $kilang->shuttle->negeri->negeri ?? '' }}</td>
                                             <td style="text-align: left">{{ $kilang->shuttle->alamat_surat_menyurat_1 }}
                                             </td>
                                             <td style="text-align: left">{{ $kilang->shuttle->alamat_surat_menyurat_2 }}

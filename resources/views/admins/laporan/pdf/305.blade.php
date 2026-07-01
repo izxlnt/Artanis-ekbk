@@ -57,8 +57,8 @@
                                     <td class="text-left">{{ $kilang->shuttle->alamat_kilang_1 }}</td>
                                     <td class="text-left">{{ $kilang->shuttle->alamat_kilang_2 }}</td>
                                     <td class="text-left">{{ $kilang->shuttle->alamat_kilang_poskod }}</td>
-                                    <td class="text-left">{{ $kilang->shuttle->daerah_id }}</td>
-                                    <td class="text-left">{{ $kilang->shuttle->negeri_id }}</td>
+                                    <td class="text-left">{{ $kilang->shuttle->daerah->daerah_hutan ?? '' }}</td>
+                                    <td class="text-left">{{ $kilang->shuttle->negeri->negeri ?? '' }}</td>
                                     <td class="text-left">
                                         {{ Carbon\Carbon::parse($kilang->shuttle->tarikh_tubuh)->format('d-m-Y') }}
                                     </td>

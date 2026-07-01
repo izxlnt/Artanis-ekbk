@@ -120,8 +120,8 @@
                                             <td class="text-left">{{ $kilang->alamat_kilang_1 }}</td>
                                             <td class="text-left">{{ $kilang->alamat_kilang_2 }}</td>
                                             <td class="text-left">{{ $kilang->alamat_kilang_poskod }}</td>
-                                            <td class="text-left">{{ $kilang->daerah_id }}</td>
-                                            <td class="text-left">{{ $kilang->negeri_id }}</td>
+                                            <td class="text-left">{{ $kilang->daerah->daerah_hutan ?? '' }}</td>
+                                            <td class="text-left">{{ $kilang->negeri->negeri ?? '' }}</td>
                                             <td class="text-left">{{ $kilang->alamat_surat_menyurat_1 }}
                                             </td>
                                             <td class="text-left">{{ $kilang->alamat_surat_menyurat_2 }}

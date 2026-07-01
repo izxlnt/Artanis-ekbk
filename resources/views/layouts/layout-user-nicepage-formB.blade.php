@@ -160,8 +160,8 @@
 
                         <span class="logo-text" style="align:left;">
 
-                            <img src="{{ asset('Coat_of_Arms_of_Malaysia.png') }}"
-                                style="height: 50px;" alt="homepage" class="dark-logo" />
+                            <img src="{{ asset('jata.png') }}" style="height: 50px;" alt="homepage"
+                                class="dark-logo" />
                         </span>
                     </ul>
                     <ul class="mr-auto navbar-nav" style="text-align:center;margin-left: auto !important">

@@ -61,8 +61,8 @@ $shuttle = $results['shuttle'] ?? [];
                                             <td >{{ $kilang->shuttle->alamat_kilang_1 }}</td>
                                             <td >{{ $kilang->shuttle->alamat_kilang_2 }}</td>
                                             <td >{{ $kilang->shuttle->alamat_kilang_poskod }}</td>
-                                            <td >{{ $kilang->shuttle->daerah_id }}</td>
-                                            <td >{{ $kilang->shuttle->negeri_id }}</td>
+                                            <td >{{ $kilang->shuttle->daerah->daerah_hutan ?? '' }}</td>
+                                            <td >{{ $kilang->shuttle->negeri->negeri ?? '' }}</td>
                                             <td >{{ $kilang->shuttle->alamat_surat_menyurat_1 }}
                                             </td>
                                             <td >{{ $kilang->shuttle->alamat_surat_menyurat_2 }}

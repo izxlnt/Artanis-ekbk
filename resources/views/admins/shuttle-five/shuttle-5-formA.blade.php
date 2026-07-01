@@ -113,7 +113,7 @@
 
                                                                     <input readonly type="text" class="form-control"
                                                                         name='negeri' placeholder="negeri"
-                                                                        value="{{ $kilang_info->negeri_id }}">
+                                                                        value="{{ $kilang_info->negeri->negeri ?? '' }}">
                                                                 </div>
                                                             </div>
                                                             <div class="row">
