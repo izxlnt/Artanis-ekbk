@@ -376,11 +376,12 @@ class MainController extends Controller
             return redirect()->back()->with('error', 'Sila isi Borang A tahun ' . $year . ' terlebih dahulu.');
         }
 
-        $formb = FormB::where('shuttle_id', auth()->user()->shuttle_id)
-            ->where('suku_tahun', $id)
-            ->where('tahun', $year)
-            ->first();
-        if ($formb && $formb->status === 'Ditutup') {
+        $shuttle = auth()->user()->shuttle;
+        $formb = FormB::firstOrCreate(
+            ['shuttle_id' => $shuttle->id, 'suku_tahun' => $id, 'tahun' => $year],
+            ['shuttle_type' => $shuttle->shuttle_type, 'status' => 'Tidak Diisi']
+        );
+        if ($formb->status === 'Ditutup') {
             $formb->status = 'Tidak Diisi';
             $formb->save();
         }

@@ -108,7 +108,7 @@ class FormFlowService
             $fbFilled    = $fb && in_array($fb->status, self::FILLED);
             $fbSubmitted = $fb && in_array($fb->status, self::SUBMITTED);
 
-            [$canFill, $reason, $dateBlocked] = self::checkFormB($formAFilled, $fb, $isPrevYear, $today, $bufB);
+            [$canFill, $reason, $dateBlocked] = self::checkFormB($formAFilled, $fb, $isPrevYear, $today, $bufB, $suku);
 
             $result['formB'][$suku] = [
                 'can_fill'     => $canFill,
@@ -216,13 +216,26 @@ class FormFlowService
      * dateBlocked=true  → date window issue (calendar icon).
      * dateBlocked=false → prerequisite missing (dimmed circle icon).
      */
-    private static function checkFormB(bool $formAFilled, $fb, bool $isPrevYear, string $today, $buf): array
+    private static function checkFormB(bool $formAFilled, $fb, bool $isPrevYear, string $today, $buf, int $suku): array
     {
         if (!$formAFilled) return [false, 'Sila isi Borang A terlebih dahulu.', false];
-        if (!$fb)          return [false, 'Borang B suku ini belum dibuka.', true];
+
+        if (!$fb) {
+            $currentMonth  = (int) date('n', strtotime($today));
+            $quarterLastMonth = $suku * 3; // Q1=3, Q2=6, Q3=9, Q4=12
+            if ($isPrevYear || $currentMonth >= $quarterLastMonth) return [true, null, false];
+            return [false, 'Borang B suku ini belum dibuka.', true];
+        }
+
         if (in_array($fb->status, self::SUBMITTED)) return [true, null, false];
+        if ($fb->status === 'Tidak Lengkap') return [true, null, false];
 
         if ($isPrevYear)   return [true, null, false];
+
+        // If dates are not configured on the record, treat the window as open
+        if (!$fb->tarikh_buka_borang || !$fb->tarikh_tutup_borang) {
+            return [true, null, false];
+        }
 
         $delay = $buf ? (int) $buf->delay : 0;
         $tutup = date('Y-m-d', strtotime("+{$delay} month", strtotime($fb->tarikh_tutup_borang)));
@@ -239,9 +252,24 @@ class FormFlowService
         if (!$formAFilled)   return [false, 'Sila isi Borang A terlebih dahulu.', false];
         if (!$sukuSubmitted) return [false, "Sila isi Borang B Suku {$suku} terlebih dahulu.", false];
         if (!$prevCFilled)   return [false, 'Sila isi Borang C bulan sebelumnya terlebih dahulu.', false];
-        if (!$fc)            return [false, 'Borang C bulan ini belum dibuka.', true];
+
+        // No record yet — auto-allow for past/current months so FormCController can
+        // create it on the fly via firstOrCreate() without needing a seeder run.
+        if (!$fc) {
+            $currentMonth = (int) date('n', strtotime($today));
+            if ($isPrevYear || $month <= $currentMonth) return [true, null, false];
+            return [false, 'Borang C bulan ini belum dibuka.', true];
+        }
+
+        // PHD rejected — IBK must be able to re-fill regardless of the date window
+        if ($fc->status === 'Tidak Lengkap') return [true, null, false];
 
         if ($isPrevYear)     return [true, null, false];
+
+        // If dates are not configured on the record, treat the window as open
+        if (!$fc->tarikh_buka_borang || !$fc->tarikh_tutup_borang) {
+            return [true, null, false];
+        }
 
         $delay = $buf ? (int) $buf->delay : 0;
         $tutup = date('Y-m-d', strtotime("+{$delay} month", strtotime($fc->tarikh_tutup_borang)));
@@ -259,9 +287,22 @@ class FormFlowService
         if (!$fcSubmitted)   return [false, 'Sila isi Borang C bulan ini terlebih dahulu.', false];
         if (!$hasKemasukan)  return [false, 'Sila lengkapkan dan hantar Borang C bulan ini terlebih dahulu.', false];
         if (!$prevDFilled)   return [false, 'Sila isi Borang D bulan sebelumnya terlebih dahulu.', false];
-        if (!$fd)            return [false, 'Borang D bulan ini belum dibuka.', true];
+
+        if (!$fd) {
+            $currentMonth = (int) date('n', strtotime($today));
+            if ($isPrevYear || $month <= $currentMonth) return [true, null, false];
+            return [false, 'Borang D bulan ini belum dibuka.', true];
+        }
+
+        // PHD rejected — IBK must be able to re-fill regardless of the date window
+        if ($fd->status === 'Tidak Lengkap') return [true, null, false];
 
         if ($isPrevYear)     return [true, null, false];
+
+        // If dates are not configured on the record, treat the window as open
+        if (!$fd->tarikh_buka_borang || !$fd->tarikh_tutup_borang) {
+            return [true, null, false];
+        }
 
         $delay = $buf ? (int) $buf->delay : 0;
         $tutup = date('Y-m-d', strtotime("+{$delay} month", strtotime($fd->tarikh_tutup_borang)));
@@ -278,9 +319,22 @@ class FormFlowService
         if (!$formAFilled) return [false, 'Sila isi Borang A terlebih dahulu.', false];
         if (!$fdFilled)    return [false, 'Sila isi Borang D bulan ini terlebih dahulu.', false];
         if (!$prevEFilled) return [false, 'Sila isi Borang E bulan sebelumnya terlebih dahulu.', false];
-        if (!$fe)          return [false, 'Borang E bulan ini belum dibuka.', true];
+
+        if (!$fe) {
+            $currentMonth = (int) date('n', strtotime($today));
+            if ($isPrevYear || $month <= $currentMonth) return [true, null, false];
+            return [false, 'Borang E bulan ini belum dibuka.', true];
+        }
+
+        // PHD rejected — IBK must be able to re-fill regardless of the date window
+        if ($fe->status === 'Tidak Lengkap') return [true, null, false];
 
         if ($isPrevYear)   return [true, null, false];
+
+        // If dates are not configured on the record, treat the window as open
+        if (!$fe->tarikh_buka_borang || !$fe->tarikh_tutup_borang) {
+            return [true, null, false];
+        }
 
         $delay = $buf ? (int) $buf->delay : 0;
         $tutup = date('Y-m-d', strtotime("+{$delay} month", strtotime($fe->tarikh_tutup_borang)));
