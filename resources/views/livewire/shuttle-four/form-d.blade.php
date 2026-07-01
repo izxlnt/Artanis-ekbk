@@ -462,24 +462,19 @@
                                                                             <a href="{{ route('user.shuttle-4-senaraiD', date('Y')) }}"
                                                                                 class="btn btn-primary">Kembali</a>
 
-                                                                            @if ($formc->tiada_pengeluaran == 1)
-                                                                                <button type="button"
-                                                                                    wire:loading.attr="disabled"
-                                                                                    class="btn btn-primary"
-                                                                                    alt="default" data-toggle="modal"
-                                                                                    data-target="#tiada_pengeluaran"
-                                                                                    class="model_img img-fluid">
-                                                                                    Tiada Pengeluaran</button>
-                                                                            @endif
-
-                                                                            @if ($formc->tiada_pengeluaran == 0)
-                                                                                <button type="button"
-                                                                                    class="btn btn-primary"
-                                                                                    alt="default" data-toggle="modal"
-                                                                                    data-target="#confirmation_borang_b"
-                                                                                    class="model_img img-fluid">
-                                                                                    HANTAR</button>
-                                                                            @endif
+                                                                            <button type="button"
+                                                                                wire:loading.attr="disabled"
+                                                                                class="btn btn-primary"
+                                                                                alt="default" data-toggle="modal"
+                                                                                data-target="#tiada_pengeluaran"
+                                                                                class="model_img img-fluid">
+                                                                                Tiada Pengeluaran</button>
+                                                                            <button type="button"
+                                                                                class="btn btn-primary"
+                                                                                alt="default" data-toggle="modal"
+                                                                                data-target="#confirmation_borang_b"
+                                                                                class="model_img img-fluid">
+                                                                                HANTAR</button>
                                                                         </div>
                                                         </div>
 

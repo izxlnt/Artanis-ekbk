@@ -443,24 +443,19 @@
                                                         data-target="#sebelumnya_borang_a" class="model_img img-fluid">
                                                         Sebelumnya</button>
 
-                                                @if($jumlah_besar_kemasukan_kayu_ke_kilang != 0.00)
-                                                    @if ($errors->isEmpty())
-                                                        <button type="button" wire:loading.attr="disabled"
-                                                            class="btn btn-primary" alt="default" data-toggle="modal"
-                                                            data-target="#confirmation_borang_a"
-                                                            class="model_img img-fluid">
-                                                            Hantar</button>
-
-                                                    @else
-                                                        <button type="submit" class="btn btn-primary"
-                                                            disabled>RALAT</button>
-                                                        {{-- <button type="submit" class="btn btn-primary" >Simpan</button> --}}
-                                                    @endif
-                                                @else
-                                                    <button type="button" wire:loading.attr="disabled"  class="btn btn-primary" alt="default"
+                                                <button type="button" wire:loading.attr="disabled" class="btn btn-primary" alt="default"
                                                     data-toggle="modal" data-target="#tiada_pengeluaran"
                                                     class="model_img img-fluid">
                                                     Tiada Pengeluaran</button>
+                                                @if ($errors->isEmpty())
+                                                    <button type="button" wire:loading.attr="disabled"
+                                                        class="btn btn-primary" alt="default" data-toggle="modal"
+                                                        data-target="#confirmation_borang_a"
+                                                        class="model_img img-fluid">
+                                                        Hantar</button>
+                                                @else
+                                                    <button type="submit" class="btn btn-primary"
+                                                        disabled>RALAT</button>
                                                 @endif
 
                                                 </div>

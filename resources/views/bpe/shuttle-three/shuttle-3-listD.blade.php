@@ -94,7 +94,7 @@
                                     @foreach ($shuttle_listD as $shuttle)
                                         <tr>
                                             <td>{{ $loop->index + 1 }}</td>
-                                            <td>{{ $shuttle->daerah_id}}</td>
+                                            <td>{{ $shuttle->daerah->daerah_hutan ?? '' }}</td>
                                             <td>{{ $shuttle->alamat_kilang_daerah}}</td>
                                             <td>{{ $shuttle->nama_kilang }}</td>
                                             <td>{{ $shuttle->no_ssm }}</td>

@@ -115,7 +115,7 @@
 
                                                                 <input readonly type="text" class="form-control"
                                                                     name='negeri' placeholder="negeri"
-                                                                    value="{{ $kilang->negeri_id }}">
+                                                                    value="{{ $kilang->negeri->negeri ?? $kilang->negeri_id }}">
                                                             </div>
                                                         </div> <br>
                                                         <div class="row">
@@ -125,7 +125,7 @@
                                                             <div class="col-md-6">
                                                                 <input readonly type="text" class="form-control"
                                                                     name='daerah' placeholder="Daerah"
-                                                                    value="{{ $kilang->daerah_id }}">
+                                                                    value="{{ $kilang->daerah->daerah_hutan ?? $kilang->daerah_id }}">
 
                                                                 @error('daerah_id')
                                                                     <div class="alert alert-danger">

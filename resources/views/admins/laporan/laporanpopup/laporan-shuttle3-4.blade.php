@@ -118,8 +118,8 @@
                                                         <td>{{ $data->shuttle->alamat_kilang_1 }}</td>
                                                         <td>{{ $data->shuttle->alamat_kilang_2 }}</td>
                                                         <td>{{ $data->shuttle->alamat_kilang_poskod }}</td>
-                                                        <td>{{ $data->shuttle->daerah_id }}</td>
-                                                        <td>{{ $data->shuttle->negeri_id }}</td>
+                                                        <td>{{ $data->shuttle->daerah->daerah_hutan ?? '' }}</td>
+                                                        <td>{{ $data->shuttle->negeri->negeri ?? '' }}</td>
                                                         <td>{{ $data->shuttle->tarikh_tubuh }}</td>
                                                         <td>{{ $data->shuttle->tarikh_operasi }}</td>
                                                         <td>{{ $data->shuttle->taraf_syarikat_catatan }}</td>

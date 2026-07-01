@@ -33,8 +33,8 @@
                                             <td style="text-align: left">{{ $kilang->alamat_kilang_1 }}</td>
                                             <td style="text-align: left">{{ $kilang->alamat_kilang_2 }}</td>
                                             <td style="text-align: left">{{ $kilang->alamat_kilang_poskod }}</td>
-                                            <td style="text-align: left">{{ $kilang->daerah_id }}</td>
-                                            <td style="text-align: left">{{ $kilang->negeri_id }}</td>
+                                            <td style="text-align: left">{{ $kilang->daerah->daerah_hutan ?? '' }}</td>
+                                            <td style="text-align: left">{{ $kilang->negeri->negeri ?? '' }}</td>
                                             <td >
                                                 {{ Carbon\Carbon::parse($kilang->tarikh_tubuh)->format('d-m-Y') }}
                                             </td>

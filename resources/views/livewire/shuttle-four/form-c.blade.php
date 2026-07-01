@@ -373,14 +373,8 @@
                                                             <div class="modal-body" style="text-align: center">
                                                                 <h4><b>Adakah anda pasti untuk menghantar data ini?</h4>
                                                                 <br>
-                                                                @if ($baki_stok)
-                                                                    <button type="submit"
-                                                                        class="btn btn-primary waves-effect waves-light">HANTAR</button>
-                                                                @else
-                                                                    <button type="button" class="btn btn-primary"
-                                                                        wire:click="tiadaPengeluaran">Tiada
-                                                                        Pengeluaran</button>
-                                                                @endif
+                                                                <button type="submit"
+                                                                    class="btn btn-primary waves-effect waves-light">HANTAR</button>
 
                                                             </div>
 
