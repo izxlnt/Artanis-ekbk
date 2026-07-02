@@ -66,9 +66,17 @@
             </a>
         @endif
     @else
-        <img src="{{ asset('calendar.png') }}" height='30px' alt=""
-            style="color:grey;font-size:20pt"
-            data-toggle="tooltip" data-placement="bottom" title="Borang ditutup">
+        {{-- "Ditutup" is a placeholder sealed by the seeder for future months.
+             Once the month has arrived (today >= tarikh_buka), show as "belum diisi". --}}
+        @if ($data->tarikh_buka_borang && date('Y-m-d') >= $data->tarikh_buka_borang)
+            <img src="{{ asset('circle_times.png') }}" height='30px' alt=""
+                style="color:red;font-size:25pt"
+                data-toggle="tooltip" data-placement="bottom" title="Borang belum diisi">
+        @else
+            <img src="{{ asset('calendar.png') }}" height='30px' alt=""
+                style="color:grey;font-size:20pt"
+                data-toggle="tooltip" data-placement="bottom" title="Borang belum dibuka">
+        @endif
     @endif
 @else
     @if (isset($bulan) && $bulan > (int) date('n'))

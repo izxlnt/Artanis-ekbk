@@ -125,7 +125,7 @@
                                             <td>-</td>
                                             <td>
                                                 @if ($list->where('suku_tahun', 1)->isEmpty())
-                                                    @if (1 > (int)ceil(date('n')/3))
+                                                    @if ((int)date('n') < 1)
                                                         <img src="{{ asset('calendar.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang belum dibuka" style="color: black; font-size: 20pt;">
                                                     @else
                                                         <img src="{{ asset('circle_times.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang belum diisi">
@@ -169,7 +169,12 @@
                                                                 title="Borang telah diperaku"
                                                                 style="color: green; font-size: 20pt;"></i></a>
                                                     @elseif($data->status == 'Ditutup' && $data->suku_tahun == '1')
-                                                        <img src="{{ asset('calendar.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang belum dibuka" style="color: black; font-size: 20pt;">
+                                                        @if ($flow['formB'][1]['can_fill'])
+                                                            <a href="{{ route('user.shuttle-3-formB', [1, $data->tahun]) }}" data-toggle="tooltip" data-placement="bottom" title="Borang belum diisi">
+                                                                <img src="{{ asset('circle_times.png') }}" height='30px' alt="" style="font-size: 15pt;"></a>
+                                                        @else
+                                                            <img src="{{ asset('calendar.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang belum dibuka" style="color: black; font-size: 20pt;">
+                                                        @endif
                                                     @endif
                                                 @endforeach
                                             </td>
@@ -177,7 +182,7 @@
                                             <td>-</td>
                                             <td>
                                                 @if ($list->where('suku_tahun', 2)->isEmpty())
-                                                    @if (2 > (int)ceil(date('n')/3))
+                                                    @if ((int)date('n') < 4)
                                                         <img src="{{ asset('calendar.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang belum dibuka" style="color: black; font-size: 20pt;">
                                                     @else
                                                         <img src="{{ asset('circle_times.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang belum diisi">
@@ -221,7 +226,12 @@
                                                                 title="Borang telah diperaku"
                                                                 style="color: green; font-size: 20pt;"></i></a>
                                                     @elseif($data->status == 'Ditutup' && $data->suku_tahun == '2')
-                                                        <img src="{{ asset('calendar.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang belum dibuka" style="color: black; font-size: 20pt;">
+                                                        @if ($flow['formB'][2]['can_fill'])
+                                                            <a href="{{ route('user.shuttle-3-formB', [2, $data->tahun]) }}" data-toggle="tooltip" data-placement="bottom" title="Borang belum diisi">
+                                                                <img src="{{ asset('circle_times.png') }}" height='30px' alt="" style="font-size: 15pt;"></a>
+                                                        @else
+                                                            <img src="{{ asset('calendar.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang belum dibuka" style="color: black; font-size: 20pt;">
+                                                        @endif
                                                     @endif
                                                 @endforeach
                                             </td>
@@ -229,7 +239,7 @@
                                             <td>-</td>
                                             <td>
                                                 @if ($list->where('suku_tahun', 3)->isEmpty())
-                                                    @if (3 > (int)ceil(date('n')/3))
+                                                    @if ((int)date('n') < 7)
                                                         <img src="{{ asset('calendar.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang belum dibuka" style="color: black; font-size: 20pt;">
                                                     @else
                                                         <img src="{{ asset('circle_times.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang belum diisi">
@@ -273,7 +283,12 @@
                                                                 title="Borang telah diperaku"
                                                                 style="color: green; font-size: 20pt;"></i></a>
                                                     @elseif($data->status == 'Ditutup' && $data->suku_tahun == '3')
-                                                        <img src="{{ asset('calendar.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang belum dibuka" style="color: black; font-size: 20pt;">
+                                                        @if ($flow['formB'][3]['can_fill'])
+                                                            <a href="{{ route('user.shuttle-3-formB', [3, $data->tahun]) }}" data-toggle="tooltip" data-placement="bottom" title="Borang belum diisi">
+                                                                <img src="{{ asset('circle_times.png') }}" height='30px' alt="" style="font-size: 15pt;"></a>
+                                                        @else
+                                                            <img src="{{ asset('calendar.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang belum dibuka" style="color: black; font-size: 20pt;">
+                                                        @endif
                                                     @endif
                                                 @endforeach
                                             </td>
@@ -281,7 +296,7 @@
                                             <td>-</td>
                                             <td>
                                                 @if ($list->where('suku_tahun', 4)->isEmpty())
-                                                    @if (4 > (int)ceil(date('n')/3))
+                                                    @if ((int)date('n') < 10)
                                                         <img src="{{ asset('calendar.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang belum dibuka" style="color: black; font-size: 20pt;">
                                                     @else
                                                         <img src="{{ asset('circle_times.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang belum diisi">
@@ -325,7 +340,12 @@
                                                                 title="Borang telah diperaku"
                                                                 style="color: green; font-size: 20pt;"></i></a>
                                                     @elseif($data->status == 'Ditutup' && $data->suku_tahun == '4')
-                                                        <img src="{{ asset('calendar.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang belum dibuka" style="color: black; font-size: 20pt;">
+                                                        @if ($flow['formB'][4]['can_fill'])
+                                                            <a href="{{ route('user.shuttle-3-formB', [4, $data->tahun]) }}" data-toggle="tooltip" data-placement="bottom" title="Borang belum diisi">
+                                                                <img src="{{ asset('circle_times.png') }}" height='30px' alt="" style="font-size: 15pt;"></a>
+                                                        @else
+                                                            <img src="{{ asset('calendar.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang belum dibuka" style="color: black; font-size: 20pt;">
+                                                        @endif
                                                     @endif
                                                 @endforeach
                                             </td>

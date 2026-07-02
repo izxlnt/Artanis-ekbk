@@ -7,13 +7,14 @@ use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
 /**
- * Seals all Form B records for quarters that have not yet arrived.
+ * Seals all Form B records for quarters that have not yet started.
  *
- * Quarter Q is considered "due" when the current month >= Q * 3.
- *   Q1 (due Mar): currentMonth >= 3
- *   Q2 (due Jun): currentMonth >= 6
- *   Q3 (due Sep): currentMonth >= 9
- *   Q4 (due Dec): currentMonth >= 12
+ * Quarter Q is considered "open" when the current month >= first month of Q.
+ *   Q1 (starts Jan): open when currentMonth >= 1 (always)
+ *   Q2 (starts Apr): open when currentMonth >= 4
+ *   Q3 (starts Jul): open when currentMonth >= 7
+ *   Q4 (starts Oct): open when currentMonth >= 10
+ * Equivalent to: ceil(currentMonth / 3) >= Q
  *
  * Safe to run on ANY environment (dev or production).
  *
@@ -31,18 +32,19 @@ class SealFutureFormBSeeder extends Seeder
         $currentYear  = (int)date('Y');
         $currentMonth = (int)date('n');
 
-        // Quarter open/close dates
+        // Quarter open/close dates (opens at start of each quarter)
+        $nextYear = $currentYear + 1;
         $quarterDates = [
-            1 => ['open' => sprintf('%04d-03-01', $currentYear), 'close' => sprintf('%04d-04-01', $currentYear)],
-            2 => ['open' => sprintf('%04d-06-01', $currentYear), 'close' => sprintf('%04d-07-01', $currentYear)],
-            3 => ['open' => sprintf('%04d-09-01', $currentYear), 'close' => sprintf('%04d-10-01', $currentYear)],
-            4 => ['open' => sprintf('%04d-12-01', $currentYear), 'close' => sprintf('%04d-12-31', $currentYear)],
+            1 => ['open' => sprintf('%04d-01-01', $currentYear), 'close' => sprintf('%04d-04-01', $currentYear)],
+            2 => ['open' => sprintf('%04d-04-01', $currentYear), 'close' => sprintf('%04d-07-01', $currentYear)],
+            3 => ['open' => sprintf('%04d-07-01', $currentYear), 'close' => sprintf('%04d-10-01', $currentYear)],
+            4 => ['open' => sprintf('%04d-10-01', $currentYear), 'close' => sprintf('%04d-01-01', $nextYear)],
         ];
 
-        // Identify which quarters are future (not yet due)
+        // Identify which quarters have not yet started (ceil(month/3) < Q)
         $futureQuarters = [];
         for ($q = 1; $q <= 4; $q++) {
-            if ($currentMonth < $q * 3) {
+            if ((int)ceil($currentMonth / 3) < $q) {
                 $futureQuarters[] = $q;
             }
         }
@@ -52,7 +54,7 @@ class SealFutureFormBSeeder extends Seeder
             return;
         }
 
-        $this->command->info("Sealing Form B for quarters " . implode(', ', $futureQuarters) . " in year {$currentYear} (current month: {$currentMonth}).");
+        $this->command->info("Sealing Form B for quarters " . implode(', ', $futureQuarters) . " in year {$currentYear} (current month: {$currentMonth}, current suku: " . (int)ceil($currentMonth/3) . ").");
         $this->command->newLine();
 
         // Work on every shuttle that has at least one formbs row for current year
