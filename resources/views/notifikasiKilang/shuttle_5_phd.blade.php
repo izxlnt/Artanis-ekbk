@@ -83,6 +83,7 @@
                             <br><br>
                             <div>
                                 <h4 class="text-center">NOTIFIKASI KILANG - SHUTTLE 5</h4>
+                                <h5 class="text-center text-muted">Tahun {{ $tahun }}</h5>
                             </div>
                             <div class="table-responsive">
                                 <table id="example" class="text-center display" style="width:100%">
@@ -122,100 +123,37 @@
 
                                                 <td>
                                                     @php
-                                                        $form_A_counter = 0;
-
-                                                        foreach ($form_a as $form) {
-                                                            if ($data->id == $form->shuttle_id) {
-                                                                $form_A_counter++;
-                                                            }
-                                                        }
+                                                        $form_A_counter = $form_a->where('shuttle_id', $data->id)->count();
                                                     @endphp
-
                                                     {{ $form_A_counter }}
-
                                                 </td>
 
                                                 <td>
                                                     @php
-                                                        $form_B_counter = 0;
-
-                                                        foreach ($form_b as $form) {
-                                                            if ($data->id == $form->shuttle_id) {
-                                                                $time = strtotime($form->tarikh_tutup_borang);
-                                                                $delay = '+' . $buffer_b->delay . ' month';
-                                                                $tarikh_tutup_terkini = date('Y-m-d', strtotime($delay, $time));
-
-                                                                if (date('Y-m-d') >= $form->tarikh_buka_borang && date('Y-m-d') <= $tarikh_tutup_terkini) {
-                                                                    $form_B_counter++;
-                                                                }
-                                                            }
-                                                        }
+                                                        $form_B_counter = $form_b->filter(fn($f) => $f->shuttle_id == $data->id && date('Y-m-d') >= $f->tarikh_buka_borang)->count();
                                                     @endphp
-
                                                     {{ $form_B_counter }}
-
                                                 </td>
 
                                                 <td>
                                                     @php
-                                                        $form_C_counter = 0;
-
-                                                        foreach ($form_c as $form) {
-                                                            if ($data->id == $form->shuttle_id) {
-                                                                $time = strtotime($form->tarikh_tutup_borang);
-                                                                $delay = '+' . $buffer_c->delay . ' month';
-                                                                $tarikh_tutup_terkini = date('Y-m-d', strtotime($delay, $time));
-
-                                                                if (date('Y-m-d') >= $form->tarikh_buka_borang && date('Y-m-d') <= $tarikh_tutup_terkini) {
-                                                                    $form_C_counter++;
-                                                                }
-                                                            }
-                                                        }
+                                                        $form_C_counter = $form_c->filter(fn($f) => $f->shuttle_id == $data->id && date('Y-m-d') >= $f->tarikh_buka_borang)->count();
                                                     @endphp
-
                                                     {{ $form_C_counter }}
                                                 </td>
 
                                                 <td>
                                                     @php
-                                                        $form_D_counter = 0;
-
-                                                        foreach ($form_d as $form) {
-                                                            if ($data->id == $form->shuttle_id) {
-                                                                $time = strtotime($form->tarikh_tutup_borang);
-                                                                $delay = '+' . $buffer_d->delay . ' month';
-                                                                $tarikh_tutup_terkini = date('Y-m-d', strtotime($delay, $time));
-
-                                                                if (date('Y-m-d') >= $form->tarikh_buka_borang && date('Y-m-d') <= $tarikh_tutup_terkini) {
-                                                                    $form_D_counter++;
-                                                                }
-                                                            }
-                                                        }
+                                                        $form_D_counter = $form_d->filter(fn($f) => $f->shuttle_id == $data->id && date('Y-m-d') >= $f->tarikh_buka_borang)->count();
                                                     @endphp
-
                                                     {{ $form_D_counter }}
-
                                                 </td>
 
                                                 <td>
                                                     @php
-                                                        $form_E_counter = 0;
-
-                                                        foreach ($form_e as $form) {
-                                                            if ($data->id == $form->shuttle_id) {
-                                                                $time = strtotime($form->tarikh_tutup_borang);
-                                                                $delay = '+' . $buffer_e->delay . ' month';
-                                                                $tarikh_tutup_terkini = date('Y-m-d', strtotime($delay, $time));
-
-                                                                if (date('Y-m-d') >= $form->tarikh_buka_borang && date('Y-m-d') <= $tarikh_tutup_terkini) {
-                                                                    $form_E_counter++;
-                                                                }
-                                                            }
-                                                        }
+                                                        $form_E_counter = $form_e->filter(fn($f) => $f->shuttle_id == $data->id && date('Y-m-d') >= $f->tarikh_buka_borang)->count();
                                                     @endphp
-
                                                     {{ $form_E_counter }}
-
                                                 </td>
 
                                                 <td>{{ $form_A_counter + $form_B_counter + $form_C_counter + $form_D_counter + $form_E_counter }}

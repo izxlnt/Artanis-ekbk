@@ -57,6 +57,16 @@ class BorangTidakDiisiNotification extends Notification
     public function toDatabase($notifiable)
     {
         $route = null;
+        if(empty($this->form_list)){
+            return [
+                'kepada' => $this->pengguna_kilang,
+                'daripada' => $this->pegawai,
+                'borang' => [],
+                'tajuk' => 'Terdapat borang yang perlu diisi',
+                'created_at' => $notifiable->created_at,
+                'route' => $route,
+            ];
+        }
         if($this->pengguna_kilang->shuttle->shuttle_type == "3"){
             if(substr($this->form_list[0], 0, 8) == "Borang A"){
                 $route = route('user.shuttle-3-formA');
