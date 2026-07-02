@@ -101,6 +101,11 @@ Route::get('/bpm/spesis-aktif', [App\Http\Controllers\SpesisAktif\MainController
 Route::get('/admin/taraf-syarikat', [App\Http\Controllers\TarafSyarikat\MainController::class, 'taraf_syarikat'])->name('taraf-syarikat');
 Route::get('/bpm/taraf-syarikat', [App\Http\Controllers\TarafSyarikat\MainController::class, 'taraf_syarikat'])->name('bpm.taraf-syarikat');
 Route::get('/admin/daerah', [App\Http\Controllers\DaerahController::class, 'daerah'])->name('daerah');
+Route::get('/admin/daerah-tambah', [App\Http\Controllers\DaerahController::class, 'daerah_tambah'])->name('daerah-tambah');
+Route::post('/admin/daerah-add', [App\Http\Controllers\DaerahController::class, 'daerah_add'])->name('daerah-add');
+Route::get('/admin/daerah-kemaskini/{id}', [App\Http\Controllers\DaerahController::class, 'daerah_kemaskini'])->name('daerah-kemaskini');
+Route::post('/admin/daerah-edit/{id}', [App\Http\Controllers\DaerahController::class, 'daerah_edit'])->name('daerah-edit');
+Route::get('/admin/delete-daerah/{id}', [App\Http\Controllers\DaerahController::class, 'delete'])->name('delete_daerah');
 Route::get('/admin/tetapan-buffer', [App\Http\Controllers\BufferController::class, 'papar_buffer'])->name('tetapan.buffer.papar');
 Route::get('/admin/tetapan-buffer-update', [App\Http\Controllers\BufferController::class, 'update_buffer'])->name('tetapan.buffer.update');
 
