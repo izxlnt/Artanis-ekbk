@@ -26,6 +26,8 @@ use App\Models\UlasanPhd;
 use App\Models\User;
 use App\Models\Daerah;
 use App\Models\Warganegara;
+use App\Models\Pembeli;
+use App\Models\PenjualanPembeli;
 use App\Notifications\IBK\BorangDiHantar;
 use App\Notifications\PHD\BorangTidakLengkapNotification;
 use Illuminate\Http\Request;
@@ -865,6 +867,9 @@ class MainController extends Controller
         $form4e = Form4E::findorfail($id);
         $kilang_info = Shuttle::findorfail($form4e->shuttle->id);
 
+        $jenis_pembeli = Pembeli::where('shuttle', 4)->get();
+        $form4_e = PenjualanPembeli::where('form4es_id', $form4e->id)->get();
+
         $layout = auth()->user()->kategori_pengguna == 'BPE' ? 'layouts.layout-ipjpsm-nicepage' : 'layouts.layout-phd-nicepage';
 
         $breadcrumbs = [
@@ -886,7 +891,7 @@ class MainController extends Controller
             'layout' => $layout
         ];
 
-        return view('admins.shuttle-four.view-form4e', compact('returnArr', 'form4e', 'kilang_info'));
+        return view('admins.shuttle-four.view-form4e', compact('returnArr', 'form4e', 'kilang_info', 'jenis_pembeli', 'form4_e', 'id'));
     }
 
     public function update_status_ipjpsm4D(Request $request, $id)
