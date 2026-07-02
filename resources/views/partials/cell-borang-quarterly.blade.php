@@ -42,13 +42,22 @@
                 data-toggle="tooltip" data-placement="bottom" title="Borang ditutup">
         @endif
     @else
-        <img src="{{ asset('calendar.png') }}" height='30px' alt=""
-            style="color:grey;font-size:20pt"
-            data-toggle="tooltip" data-placement="bottom" title="Borang ditutup">
+        {{-- "Ditutup" = seeder placeholder. Show as "belum diisi" once the quarter has started. --}}
+        @php $current_quarter_b = (int) ceil(date('n') / 3); @endphp
+        @if (isset($suku_tahun) && $current_quarter_b >= (int)$suku_tahun)
+            <img src="{{ asset('circle_times.png') }}" height='30px' alt=""
+                style="color:red;font-size:25pt"
+                data-toggle="tooltip" data-placement="bottom" title="Borang belum diisi">
+        @else
+            <img src="{{ asset('calendar.png') }}" height='30px' alt=""
+                style="color:grey;font-size:20pt"
+                data-toggle="tooltip" data-placement="bottom" title="Borang belum dibuka">
+        @endif
     @endif
 @else
-    @php $current_quarter = (int) ceil(date('n') / 3); @endphp
-    @if (isset($suku_tahun) && $suku_tahun > $current_quarter)
+    {{-- No DB record: Q opens at start of its first month (Q1=Jan, Q2=Apr, Q3=Jul, Q4=Oct). --}}
+    @php $current_month = (int) date('n'); @endphp
+    @if (isset($suku_tahun) && (int)ceil($current_month / 3) < (int)$suku_tahun)
         <img src="{{ asset('calendar.png') }}" height='30px' alt=""
             style="color:grey;font-size:20pt"
             data-toggle="tooltip" data-placement="bottom" title="Borang belum dibuka">

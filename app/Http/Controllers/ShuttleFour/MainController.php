@@ -312,7 +312,7 @@ class MainController extends Controller
     {
         $year = $year ?? date("Y");
 
-        if ((int)$year > (int)date('Y') || ((int)$year == (int)date('Y') && (int)date('n') < (int)$id * 3)) {
+        if ((int)$year > (int)date('Y') || ((int)$year == (int)date('Y') && (int)ceil(date('n') / 3) < (int)$id)) {
             return redirect()->back()->with('error', 'Borang untuk suku tahun ini belum dibuka.');
         }
 

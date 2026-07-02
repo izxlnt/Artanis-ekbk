@@ -208,7 +208,12 @@
                                                             <img src="{{ asset('sync.png') }}" height='30px'
                                                                 alt="" style="font-size: 15pt;"></i></a>
                                                     @elseif($data->status == 'Ditutup' && $data->bulan == '1')
+                                                    @if ($flow['formC'][$data->bulan]['can_fill'])
+                                                        <a href="{{ route('user.shuttle-4-formC.KKB', [$data->bulan, $year]) }}" data-toggle="tooltip" data-placement="bottom" title="Borang belum diisi">
+                                                            <img src="{{ asset('circle_times.png') }}" height='30px' alt="" style="font-size: 15pt;"></a>
+                                                    @else
                                                         <img src="{{ asset('calendar.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang belum dibuka" style="color: black; font-size: 20pt;">
+                                                    @endif
                                                     @endif
                                                 @endforeach
                                             </td>
@@ -271,7 +276,12 @@
                                                                 alt="" style="font-size: 15pt;"></i></a>
                                                     
                                                     @elseif($data->status == 'Ditutup' && $data->bulan == '2')
+                                                    @if ($flow['formC'][$data->bulan]['can_fill'])
+                                                        <a href="{{ route('user.shuttle-4-formC.KKB', [$data->bulan, $year]) }}" data-toggle="tooltip" data-placement="bottom" title="Borang belum diisi">
+                                                            <img src="{{ asset('circle_times.png') }}" height='30px' alt="" style="font-size: 15pt;"></a>
+                                                    @else
                                                         <img src="{{ asset('calendar.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang belum dibuka" style="color: black; font-size: 20pt;">
+                                                    @endif
 @endif
                                                 @endforeach
                                             </td>
@@ -334,7 +344,12 @@
                                                                 alt="" style="font-size: 15pt;"></i></a>
                                                     
                                                     @elseif($data->status == 'Ditutup' && $data->bulan == '3')
+                                                    @if ($flow['formC'][$data->bulan]['can_fill'])
+                                                        <a href="{{ route('user.shuttle-4-formC.KKB', [$data->bulan, $year]) }}" data-toggle="tooltip" data-placement="bottom" title="Borang belum diisi">
+                                                            <img src="{{ asset('circle_times.png') }}" height='30px' alt="" style="font-size: 15pt;"></a>
+                                                    @else
                                                         <img src="{{ asset('calendar.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang belum dibuka" style="color: black; font-size: 20pt;">
+                                                    @endif
 @endif
                                                 @endforeach
                                             </td>
@@ -397,7 +412,12 @@
                                                                 alt="" style="font-size: 15pt;"></i></a>
                                                     
                                                     @elseif($data->status == 'Ditutup' && $data->bulan == '4')
+                                                    @if ($flow['formC'][$data->bulan]['can_fill'])
+                                                        <a href="{{ route('user.shuttle-4-formC.KKB', [$data->bulan, $year]) }}" data-toggle="tooltip" data-placement="bottom" title="Borang belum diisi">
+                                                            <img src="{{ asset('circle_times.png') }}" height='30px' alt="" style="font-size: 15pt;"></a>
+                                                    @else
                                                         <img src="{{ asset('calendar.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang belum dibuka" style="color: black; font-size: 20pt;">
+                                                    @endif
 @endif
                                                 @endforeach
                                             </td>
@@ -460,7 +480,12 @@
                                                                 alt="" style="font-size: 15pt;"></i></a>
                                                     
                                                     @elseif($data->status == 'Ditutup' && $data->bulan == '5')
+                                                    @if ($flow['formC'][$data->bulan]['can_fill'])
+                                                        <a href="{{ route('user.shuttle-4-formC.KKB', [$data->bulan, $year]) }}" data-toggle="tooltip" data-placement="bottom" title="Borang belum diisi">
+                                                            <img src="{{ asset('circle_times.png') }}" height='30px' alt="" style="font-size: 15pt;"></a>
+                                                    @else
                                                         <img src="{{ asset('calendar.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang belum dibuka" style="color: black; font-size: 20pt;">
+                                                    @endif
 @endif
                                                 @endforeach
                                             </td>
@@ -523,7 +548,12 @@
                                                                 alt="" style="font-size: 15pt;"></i></a>
                                                     
                                                     @elseif($data->status == 'Ditutup' && $data->bulan == '6')
+                                                    @if ($flow['formC'][$data->bulan]['can_fill'])
+                                                        <a href="{{ route('user.shuttle-4-formC.KKB', [$data->bulan, $year]) }}" data-toggle="tooltip" data-placement="bottom" title="Borang belum diisi">
+                                                            <img src="{{ asset('circle_times.png') }}" height='30px' alt="" style="font-size: 15pt;"></a>
+                                                    @else
                                                         <img src="{{ asset('calendar.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang belum dibuka" style="color: black; font-size: 20pt;">
+                                                    @endif
 @endif
                                                 @endforeach
                                             </td>
@@ -586,7 +616,12 @@
                                                                 alt="" style="font-size: 15pt;"></i></a>
                                                     
                                                     @elseif($data->status == 'Ditutup' && $data->bulan == '7')
+                                                    @if ($flow['formC'][$data->bulan]['can_fill'])
+                                                        <a href="{{ route('user.shuttle-4-formC.KKB', [$data->bulan, $year]) }}" data-toggle="tooltip" data-placement="bottom" title="Borang belum diisi">
+                                                            <img src="{{ asset('circle_times.png') }}" height='30px' alt="" style="font-size: 15pt;"></a>
+                                                    @else
                                                         <img src="{{ asset('calendar.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang belum dibuka" style="color: black; font-size: 20pt;">
+                                                    @endif
 @endif
                                                 @endforeach
                                             </td>
@@ -649,7 +684,12 @@
                                                                 alt="" style="font-size: 15pt;"></i></a>
                                                     
                                                     @elseif($data->status == 'Ditutup' && $data->bulan == '8')
+                                                    @if ($flow['formC'][$data->bulan]['can_fill'])
+                                                        <a href="{{ route('user.shuttle-4-formC.KKB', [$data->bulan, $year]) }}" data-toggle="tooltip" data-placement="bottom" title="Borang belum diisi">
+                                                            <img src="{{ asset('circle_times.png') }}" height='30px' alt="" style="font-size: 15pt;"></a>
+                                                    @else
                                                         <img src="{{ asset('calendar.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang belum dibuka" style="color: black; font-size: 20pt;">
+                                                    @endif
 @endif
                                                 @endforeach
                                             </td>
@@ -712,7 +752,12 @@
                                                                 alt="" style="font-size: 15pt;"></i></a>
                                                     
                                                     @elseif($data->status == 'Ditutup' && $data->bulan == '9')
+                                                    @if ($flow['formC'][$data->bulan]['can_fill'])
+                                                        <a href="{{ route('user.shuttle-4-formC.KKB', [$data->bulan, $year]) }}" data-toggle="tooltip" data-placement="bottom" title="Borang belum diisi">
+                                                            <img src="{{ asset('circle_times.png') }}" height='30px' alt="" style="font-size: 15pt;"></a>
+                                                    @else
                                                         <img src="{{ asset('calendar.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang belum dibuka" style="color: black; font-size: 20pt;">
+                                                    @endif
 @endif
                                                 @endforeach
                                             </td>
@@ -775,7 +820,12 @@
                                                                 alt="" style="font-size: 15pt;"></i></a>
                                                     
                                                     @elseif($data->status == 'Ditutup' && $data->bulan == '10')
+                                                    @if ($flow['formC'][$data->bulan]['can_fill'])
+                                                        <a href="{{ route('user.shuttle-4-formC.KKB', [$data->bulan, $year]) }}" data-toggle="tooltip" data-placement="bottom" title="Borang belum diisi">
+                                                            <img src="{{ asset('circle_times.png') }}" height='30px' alt="" style="font-size: 15pt;"></a>
+                                                    @else
                                                         <img src="{{ asset('calendar.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang belum dibuka" style="color: black; font-size: 20pt;">
+                                                    @endif
 @endif
                                                 @endforeach
                                             </td>
@@ -838,7 +888,12 @@
                                                                 alt="" style="font-size: 15pt;"></i></a>
                                                     
                                                     @elseif($data->status == 'Ditutup' && $data->bulan == '11')
+                                                    @if ($flow['formC'][$data->bulan]['can_fill'])
+                                                        <a href="{{ route('user.shuttle-4-formC.KKB', [$data->bulan, $year]) }}" data-toggle="tooltip" data-placement="bottom" title="Borang belum diisi">
+                                                            <img src="{{ asset('circle_times.png') }}" height='30px' alt="" style="font-size: 15pt;"></a>
+                                                    @else
                                                         <img src="{{ asset('calendar.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang belum dibuka" style="color: black; font-size: 20pt;">
+                                                    @endif
 @endif
                                                 @endforeach
                                             </td>
@@ -901,7 +956,12 @@
                                                                 alt="" style="font-size: 15pt;"></i></a>
                                                     
                                                     @elseif($data->status == 'Ditutup' && $data->bulan == '12')
+                                                    @if ($flow['formC'][$data->bulan]['can_fill'])
+                                                        <a href="{{ route('user.shuttle-4-formC.KKB', [$data->bulan, $year]) }}" data-toggle="tooltip" data-placement="bottom" title="Borang belum diisi">
+                                                            <img src="{{ asset('circle_times.png') }}" height='30px' alt="" style="font-size: 15pt;"></a>
+                                                    @else
                                                         <img src="{{ asset('calendar.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang belum dibuka" style="color: black; font-size: 20pt;">
+                                                    @endif
 @endif
                                                 @endforeach
                                             </td>

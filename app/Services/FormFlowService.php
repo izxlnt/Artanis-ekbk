@@ -123,7 +123,12 @@ class FormFlowService
         // ── Form C ────────────────────────────────────────────────────────────
         for ($month = 1; $month <= 12; $month++) {
             $suku = self::monthToSuku($month);
-            $sukuSubmitted = $result['formB'][$suku]['submitted'];
+            // Require the PREVIOUS quarter's Form B, not the current quarter's.
+            // Current quarter's Form B only opens after the quarter ends (Q3 opens Sep 1),
+            // so requiring it would block the entire quarter's Form C submissions.
+            // Q1 months (Jan–Mar) have no previous quarter this year → bypass Form B check.
+            $prevSuku = $suku - 1;
+            $sukuSubmitted = $prevSuku >= 1 ? ($result['formB'][$prevSuku]['submitted'] ?? false) : true;
             $fc = $allC->get($month);
             $fcFilled    = $fc && in_array($fc->status, self::FILLED);
             $fcSubmitted = $fc && in_array($fc->status, self::SUBMITTED);
@@ -133,7 +138,7 @@ class FormFlowService
                 : ($allC->get($month - 1) && in_array($allC->get($month - 1)->status, self::SUBMITTED));
 
             [$canFill, $reason, $dateBlocked] = self::checkFormC(
-                $formAFilled, $sukuSubmitted, $suku, $prevCFilled, $month,
+                $formAFilled, $sukuSubmitted, $prevSuku, $prevCFilled, $month,
                 $fc, $isPrevYear, $today, $bufC
             );
 
@@ -220,10 +225,10 @@ class FormFlowService
     {
         if (!$formAFilled) return [false, 'Sila isi Borang A terlebih dahulu.', false];
 
-        if (!$fb) {
-            $currentMonth  = (int) date('n', strtotime($today));
-            $quarterLastMonth = $suku * 3; // Q1=3, Q2=6, Q3=9, Q4=12
-            if ($isPrevYear || $currentMonth >= $quarterLastMonth) return [true, null, false];
+        if (!$fb || $fb->status === 'Ditutup') {
+            $currentMonth = (int) date('n', strtotime($today));
+            // Q opens at the start of its first month (Q1=Jan, Q2=Apr, Q3=Jul, Q4=Oct)
+            if ($isPrevYear || (int)ceil($currentMonth / 3) >= $suku) return [true, null, false];
             return [false, 'Borang B suku ini belum dibuka.', true];
         }
 
