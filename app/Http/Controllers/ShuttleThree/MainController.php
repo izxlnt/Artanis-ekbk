@@ -634,8 +634,10 @@ class MainController extends Controller
         $batch = Batch::where('tahun', $formA->tahun)->where('shuttle_id', $formA->shuttle_id)->where('borang_a',1)->first();
 // dd( $batch);
         if ($status == "Tidak Lengkap") {
-            $batch->borang_a = "0";
-            $batch->save();
+            if ($batch) {
+                $batch->borang_a = "0";
+                $batch->save();
+            }
 
             //notification tidak lengkap
             $pengguna_kilang_data = PenggunaKilang::where('shuttle_id', $formA->shuttle->id)->first();
@@ -644,9 +646,10 @@ class MainController extends Controller
                 $pengguna_kilang->notify(new BorangTidakLengkapNotification($user, $formA, $status, $request->ulasan_phd, $pengguna_kilang));
             }
         } elseif ($status == "Dihantar ke IPJPSM") {
-            $batch->borang_a = "2";
-            $batch->save();
-
+            if ($batch) {
+                $batch->borang_a = "2";
+                $batch->save();
+            }
         }
 
         if ($shuttle->shuttle_type == '3') {
@@ -706,9 +709,10 @@ class MainController extends Controller
 
         if ($request->status == "Tidak Lengkap") {
 
-            $batch->borang_b = "0";
-
-            $batch->save();
+            if ($batch) {
+                $batch->borang_b = "0";
+                $batch->save();
+            }
 
             //notification tidak lengkap
             // dd($formB->getTable());
@@ -720,8 +724,10 @@ class MainController extends Controller
             }
         } elseif ($request->status == "Dihantar ke IPJPSM") {
 
-            $batch->borang_b = "2";
-            $batch->save();
+            if ($batch) {
+                $batch->borang_b = "2";
+                $batch->save();
+            }
         }
 
 
@@ -777,8 +783,10 @@ class MainController extends Controller
 
         if ($request->status == "Tidak Lengkap") {
 
-            $batch->borang_c = "0";
-            $batch->save();
+            if ($batch) {
+                $batch->borang_c = "0";
+                $batch->save();
+            }
 
             //notification tidak lengkap
             $pengguna_kilang_data = PenggunaKilang::where('shuttle_id', $formC->shuttle->id)->first();
@@ -788,9 +796,10 @@ class MainController extends Controller
             }
         } elseif ($request->status == "Dihantar ke IPJPSM") {
 
-
-            $batch->borang_c = "2";
-            $batch->save();
+            if ($batch) {
+                $batch->borang_c = "2";
+                $batch->save();
+            }
         }
 
 
@@ -832,8 +841,10 @@ class MainController extends Controller
 
         if ($request->status == "Tidak Lengkap") {
 
-            $batch->borang_d = "0";
-            $batch->save();
+            if ($batch) {
+                $batch->borang_d = "0";
+                $batch->save();
+            }
 
             //notification tidak lengkap
             $pengguna_kilang_data = PenggunaKilang::where('shuttle_id', $formD->shuttle->id)->first();
@@ -844,8 +855,10 @@ class MainController extends Controller
             }
         } elseif ($request->status == "Dihantar ke IPJPSM") {
 
-            $batch->borang_d = "2";
-            $batch->save();
+            if ($batch) {
+                $batch->borang_d = "2";
+                $batch->save();
+            }
         }
 
 
@@ -973,12 +986,12 @@ class MainController extends Controller
 
         foreach ($penjualan_pembeli as $key => $value) {
 
-            if($request->jumlah_jualan_cleaning[$key] == null ){
+            if(($request->jumlah_jualan_cleaning[$key] ?? null) == null ){
 
                 // dd($value->jumlah_jualan);
                 $value->jumlah_jualan_laporan = $value->jumlah_jualan ?? 0;
             }else{
-                $value->jumlah_jualan_laporan = $request->jumlah_jualan_cleaning;
+                $value->jumlah_jualan_laporan = $request->jumlah_jualan_cleaning[$key];
             }
 
             if($request->total_jumlah_jualan_cleaning == null ){
