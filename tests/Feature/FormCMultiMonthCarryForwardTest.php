@@ -169,7 +169,7 @@ class FormCMultiMonthCarryForwardTest extends TestCase
                     'jumlah_besar_baki_stok_bulan_depan' => 0,
                 ]);
 
-                $postResponse->assertSessionDoesntHaveErrors();
+                $postResponse->assertStatus(302)->assertSessionDoesntHaveErrors();
 
                 $formc = FormC::where('shuttle_id', $shuttle->id)
                     ->where('tahun', self::YEAR)

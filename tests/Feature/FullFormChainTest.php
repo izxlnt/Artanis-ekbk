@@ -234,7 +234,7 @@ class FullFormChainTest extends TestCase
             'status_hak_milik' => (string) $hakMilik->id,
             'status_warganegara' => 'Bumiputera',
         ]);
-        $response->assertSessionDoesntHaveErrors();
+        $response->assertStatus(302)->assertSessionDoesntHaveErrors();
 
         $formA = FormA::where('shuttle_id', $shuttle->id)->where('tahun', self::YEAR)->first();
         $this->assertNotNull($formA);
@@ -326,7 +326,7 @@ class FullFormChainTest extends TestCase
                 'jumlah_besar_pengeluaran_kayu_daripada_jentera' => 0,
                 'jumlah_besar_baki_stok_bulan_depan' => 0,
             ]);
-            $response->assertSessionDoesntHaveErrors();
+            $response->assertStatus(302)->assertSessionDoesntHaveErrors();
         }
 
         $formc = FormC::where('shuttle_id', $shuttle->id)->where('tahun', self::YEAR)->where('bulan', self::BULAN)->first();

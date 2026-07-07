@@ -151,7 +151,7 @@ class FormCKKBSpeciesMatchingTest extends TestCase
             $kayuMasuk[$i] = $i === $indexA ? 555 : ($i === $indexB ? 777 : 0);
         }
 
-        $this->actingAs($this->user)
+        $postResponse = $this->actingAs($this->user)
             ->post(route('user.view.shuttle-3-formC.KKB.store', [2, 2026]), [
                 'baki_stoks' => $bakiStoks,
                 'kayu_masuk' => $kayuMasuk,
@@ -166,6 +166,7 @@ class FormCKKBSpeciesMatchingTest extends TestCase
                 'total_kayu_keluar_jentera' => array_fill(0, count($species), 0),
                 'total_kayu_dibawa_bulan_hadapan' => array_fill(0, count($species), 0),
             ]);
+        $postResponse->assertStatus(302)->assertSessionDoesntHaveErrors();
 
         $rowA = KemasukanBahan::where('formcs_id', $formFeb->id)->where('spesis_id', $this->speciesA->id)->first();
         $rowB = KemasukanBahan::where('formcs_id', $formFeb->id)->where('spesis_id', $this->speciesB->id)->first();
