@@ -376,7 +376,10 @@ class FormCController extends Controller
                 ]);
             }
         } else {
-            foreach ($kemasukan_bahans as $keySpecies => $data) {
+            $kemasukan_map = $kemasukan_bahans->keyBy(fn($item) => $item->getAttributes()['spesis_id']);
+            foreach ($species as $keySpecies => $speciesItem) {
+                if (!$kemasukan_map->has($speciesItem->id)) continue;
+                $data = $kemasukan_map[$speciesItem->id];
                 $data->baki_stok = $request->baki_stoks[$keySpecies] ?? 0;
                 $data->kayu_masuk = $request->kayu_masuk[$keySpecies] ?? 0;
                 $data->jumlah_stok_kayu_balak = $request->jumlah_stok_kayu_balak[$keySpecies] ?? 0;
@@ -743,7 +746,10 @@ class FormCController extends Controller
                 ]);
             }
         } else {
-            foreach ($kemasukan_bahans as $keySpecies => $data) {
+            $kemasukan_map = $kemasukan_bahans->keyBy(fn($item) => $item->getAttributes()['spesis_id']);
+            foreach ($species as $keySpecies => $speciesItem) {
+                if (!$kemasukan_map->has($speciesItem->id)) continue;
+                $data = $kemasukan_map[$speciesItem->id];
                 $data->baki_stok = $request->baki_stoks[$keySpecies] ?? 0;
                 $data->kayu_masuk = $request->kayu_masuk[$keySpecies] ?? 0;
                 $data->jumlah_stok_kayu_balak = $request->jumlah_stok_kayu_balak[$keySpecies] ?? 0;
@@ -1112,7 +1118,10 @@ class FormCController extends Controller
                 ]);
             }
         } else {
-            foreach ($kemasukan_bahans as $keySpecies => $data) {
+            $kemasukan_map = $kemasukan_bahans->keyBy(fn($item) => $item->getAttributes()['spesis_id']);
+            foreach ($species as $keySpecies => $speciesItem) {
+                if (!$kemasukan_map->has($speciesItem->id)) continue;
+                $data = $kemasukan_map[$speciesItem->id];
                 $data->baki_stok = $request->baki_stoks[$keySpecies] ?? 0;
                 $data->kayu_masuk = $request->kayu_masuk[$keySpecies] ?? 0;
                 $data->jumlah_stok_kayu_balak = $request->jumlah_stok_kayu_balak[$keySpecies] ?? 0;
@@ -1483,7 +1492,10 @@ class FormCController extends Controller
                 ]);
             }
         } else {
-            foreach ($kemasukan_bahans as $keySpecies => $data) {
+            $kemasukan_map = $kemasukan_bahans->keyBy(fn($item) => $item->getAttributes()['spesis_id']);
+            foreach ($species as $keySpecies => $speciesItem) {
+                if (!$kemasukan_map->has($speciesItem->id)) continue;
+                $data = $kemasukan_map[$speciesItem->id];
                 $data->baki_stok = $request->baki_stoks[$keySpecies] ?? 0;
                 $data->kayu_masuk = $request->kayu_masuk[$keySpecies] ?? 0;
                 $data->jumlah_stok_kayu_balak = $request->jumlah_stok_kayu_balak[$keySpecies] ?? 0;
@@ -1980,7 +1992,10 @@ class FormCController extends Controller
                 ]);
             }
         } else {
-            foreach ($kemasukan_bahans as $keySpecies => $data) {
+            $kemasukan_map = $kemasukan_bahans->keyBy(fn($item) => $item->getAttributes()['spesis_id']);
+            foreach ($species as $keySpecies => $speciesItem) {
+                if (!$kemasukan_map->has($speciesItem->id)) continue;
+                $data = $kemasukan_map[$speciesItem->id];
                 $data->baki_stok = $request->baki_stoks[$keySpecies] ?? 0;
                 $data->kayu_masuk = $request->kayu_masuk[$keySpecies] ?? 0;
                 $data->jumlah_stok_kayu_balak = $request->jumlah_stok_kayu_balak[$keySpecies] ?? 0;
@@ -2158,23 +2173,22 @@ class FormCController extends Controller
 
         $species = Spesis::orderBy('kumpulan_kayu_id')->orderBy('id')->get();
 
+        $lastmonth_lookup_all = [];
+        if (isset($kemasukan_bahans_lastmonth)) {
+            foreach ($kemasukan_bahans_lastmonth as $lm) {
+                $lastmonth_lookup_all[$lm->getAttributes()['spesis_id']] = $lm;
+            }
+        }
+
         if ($kemasukan_bahans->isEmpty()) {
             foreach ($species as $keySpecies => $data) {
-                $baki_stok = 0;
-                $jumlah_baki_stok = 0;
-                if (!isset($kemasukan_bahans_lastmonth)) {
+                $lastmonth_data = $lastmonth_lookup_all[$data->id] ?? null;
+                if ($lastmonth_data) {
+                    $baki_stok = $lastmonth_data->baki_stok_kehadapan;
+                    $jumlah_baki_stok = $lastmonth_data->total_kayu_dibawa_bulan_hadapan;
+                } else {
                     $baki_stok = 0;
                     $jumlah_baki_stok = 0;
-                } else {
-                    foreach ($kemasukan_bahans_lastmonth as $key2 => $data2) {
-                        // dd($data2);
-                        $baki_stok = $data2->baki_stok_kehadapan;
-                        // $jumlah_besar_baki_stok_bulan_lepas = $data2->jumlah_besar_baki_stok_bulan_depan;
-                        $jumlah_baki_stok = $data2->total_kayu_dibawa_bulan_hadapan;
-                        // dd($data2);
-                        if ($key2 == $keySpecies)
-                            break;
-                    }
                 }
 
                 KemasukanBahan::create([

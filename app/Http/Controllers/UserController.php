@@ -106,10 +106,10 @@ class UserController extends Controller
                     
                     if ($formB_exists == '0') {
                         $quarterDates = [
-                            1 => ['buka' => $year.'-03-01', 'tutup' => $year.'-04-01'],
-                            2 => ['buka' => $year.'-06-01', 'tutup' => $year.'-07-01'],
-                            3 => ['buka' => $year.'-09-01', 'tutup' => $year.'-10-01'],
-                            4 => ['buka' => $year.'-12-01', 'tutup' => $year.'-12-31'],
+                            1 => ['buka' => $year.'-01-01', 'tutup' => $year.'-04-01'],
+                            2 => ['buka' => $year.'-04-01', 'tutup' => $year.'-07-01'],
+                            3 => ['buka' => $year.'-07-01', 'tutup' => $year.'-10-01'],
+                            4 => ['buka' => $year.'-10-01', 'tutup' => $year.'-12-31'],
                         ];
                         
                         $formbs = FormB::create([

@@ -155,7 +155,7 @@ class FormFlowService
             $fcSubmitted = $fc && in_array($fc->status, self::SUBMITTED);
 
             $prevCFilled = ($month === 1)
-                ? $prevDecC
+                ? ($isPrevYear ? $prevDecC : true)
                 : ($allC->get($month - 1) && in_array($allC->get($month - 1)->status, self::SUBMITTED));
 
             [$canFill, $reason, $dateBlocked] = self::checkFormC(
@@ -214,7 +214,7 @@ class FormFlowService
             $feSubmitted = $fe && in_array($fe->status, self::SUBMITTED);
 
             $prevEFilled = ($month === 1)
-                ? ($prevDecE && in_array($prevDecE->status, self::SUBMITTED))
+                ? ($isPrevYear ? ($prevDecE && in_array($prevDecE->status, self::SUBMITTED)) : true)
                 : ($allE->get($month - 1) && in_array($allE->get($month - 1)->status, self::SUBMITTED));
 
             [$canFill, $reason, $dateBlocked] = self::checkFormE(
@@ -258,15 +258,22 @@ class FormFlowService
 
         if ($isPrevYear)   return [true, null, false];
 
+        $currentMonth = (int) date('n', strtotime($today));
+        $quarterStartMonth = (($suku - 1) * 3) + 1;
+
+        if ($currentMonth < $quarterStartMonth) {
+            return [false, 'Borang B suku ini belum dibuka.', true];
+        }
+
         // If dates are not configured on the record, treat the window as open
-        if (!$fb->tarikh_buka_borang || !$fb->tarikh_tutup_borang) {
+        if (!$fb->tarikh_tutup_borang) {
             return [true, null, false];
         }
 
         $delay = $buf ? (int) $buf->delay : 0;
         $tutup = date('Y-m-d', strtotime("+{$delay} month", strtotime($fb->tarikh_tutup_borang)));
 
-        if ($today >= $fb->tarikh_buka_borang && $today <= $tutup) return [true, null, false];
+        if ($today <= $tutup) return [true, null, false];
 
         return [false, 'Tempoh pengisian Borang B telah ditutup.', true];
     }

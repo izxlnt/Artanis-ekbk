@@ -172,7 +172,7 @@ class FormE extends Component
         $forme->status = 'Sedang Diproses';
         $forme->save();
 
-        $batch = Batch::where('tahun', $forme->tahun)->where('bulan', $forme->bulan)->where('shuttle_id', $forme->shuttle->id)->first();
+        $batch = Batch::firstOrNew(['tahun' => $forme->tahun, 'bulan' => $forme->bulan, 'shuttle_id' => $forme->shuttle->id]);
 
         $batch->status = "Sedang Diproses";
         $batch->borang_e = 1;

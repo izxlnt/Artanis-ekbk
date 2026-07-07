@@ -23,7 +23,7 @@ class FormRequirementService
         $currentYear = $currentYear ?? date('Y');
         $registrationYear = $registrationDate->year;
         $registrationMonth = $registrationDate->month;
-        $registrationQuarter = ceil($registrationMonth / 3);
+        $registrationQuarter = (int) ceil($registrationMonth / 3);
 
         $requirements = [
             'current_year' => $currentYear,
@@ -213,18 +213,18 @@ class FormRequirementService
             }
 
             // FormB tasks (Quarterly) for each year
-            // Only show when the quarter has ENDED (last month of quarter has passed)
+            // Show once the quarter has STARTED so users can fill it early in the quarter
             if (!empty($requirements['quarters_to_fill'][$year])) {
                 foreach ($requirements['quarters_to_fill'][$year] as $quarter) {
-                    // Calculate last month of the quarter
-                    // Q1 = March (3), Q2 = June (6), Q3 = September (9), Q4 = December (12)
-                    $quarterLastMonth = $quarter * 3;
+                    // Calculate first month of the quarter
+                    // Q1 = January (1), Q2 = April (4), Q3 = July (7), Q4 = October (10)
+                    $quarterStartMonth = (($quarter - 1) * 3) + 1;
                     
                     $shouldShow = false;
 
                     if ($year < $currentYear) {
                         $shouldShow = true;
-                    } elseif ($year == $currentYear && $currentMonth >= $quarterLastMonth) {
+                    } elseif ($year == $currentYear && $currentMonth >= $quarterStartMonth) {
                         $shouldShow = true;
                     }
 

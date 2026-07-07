@@ -497,7 +497,7 @@ class FormD extends Component
         $formd->save();
 
         //batch
-        $batch = Batch::where('tahun',$formd->tahun)->where('bulan',$formd->bulan)->where('shuttle_id',$formd->shuttle->id)->first();
+        $batch = Batch::firstOrNew(['tahun' => $formd->tahun, 'bulan' => $formd->bulan, 'shuttle_id' => $formd->shuttle->id]);
 
         $batch->status = "Sedang Diproses";
         $batch->borang_d = 1;
@@ -642,7 +642,7 @@ class FormD extends Component
         $formd->save();
 
         //batch
-        $batch = Batch::where('tahun',$formd->tahun)->where('bulan',$formd->bulan)->where('shuttle_id',$formd->shuttle->id)->first();
+        $batch = Batch::firstOrNew(['tahun' => $formd->tahun, 'bulan' => $formd->bulan, 'shuttle_id' => $formd->shuttle->id]);
 
         $batch->status = "Sedang Diproses";
         $batch->borang_d = 1;
