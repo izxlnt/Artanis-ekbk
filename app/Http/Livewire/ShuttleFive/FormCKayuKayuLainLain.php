@@ -166,21 +166,27 @@ class FormCKayuKayuLainLain extends Component
         $lain_lain = $this->kemasukan_bahan_calc_lain_lain->total_kayu_dibawa_bulan_hadapan ?? 0;
         $besar_total_kayu_dibawa_bulan_hadapan = (float)$kkb + (float)$kks + (float)$kkr + (float)$kayu_lembut + (float)$lain_lain;
 
+        $lastmonth_lookup = [];
+        if (isset($kemasukan_bahans_lastmonth)) {
+            foreach ($kemasukan_bahans_lastmonth as $lm) {
+                $lastmonth_lookup[$lm->getAttributes()['spesis_id']] = $lm;
+            }
+        }
+
         if ($kemasukan_bahans->isEmpty()) {
             foreach ($this->species as $key => $value) {
-                $baki_stok = 0;
-                if (!isset($kemasukan_bahans_lastmonth)) {
-                    $baki_stok = 0;
+                $lastmonth_data = $lastmonth_lookup[$value->id] ?? null;
+                if ($lastmonth_data) {
+                    $baki_stok = $lastmonth_data->baki_stok_kehadapan;
+                    $this->jumlah_besar_baki_stok_bulan_lepas = $lastmonth_data->jumlah_besar_baki_stok_bulan_depan ?? 0;
+                    $this->jumlah_baki_stok[$key] = $lastmonth_data->total_kayu_dibawa_bulan_hadapan ?? 0;
+                    $this->total_stok_kayu_balak[$key] = $lastmonth_data->total_kayu_dibawa_bulan_hadapan ?? 0;
+                    $this->total_kayu_dibawa_bulan_hadapan[$key] = $lastmonth_data->total_kayu_dibawa_bulan_hadapan ?? 0;
                 } else {
-                    foreach ($kemasukan_bahans_lastmonth as $key2 => $data2) {
-                        $baki_stok = $data2->baki_stok_kehadapan;
-                        $this->jumlah_besar_baki_stok_bulan_lepas = $data2->jumlah_besar_baki_stok_bulan_depan ?? 0;
-                        $this->jumlah_baki_stok[$key] = $data2->total_kayu_dibawa_bulan_hadapan ?? 0;
-                        $this->total_stok_kayu_balak[$key] = $data2->total_kayu_dibawa_bulan_hadapan ?? 0;
-                        $this->total_kayu_dibawa_bulan_hadapan[$key] = $data2->total_kayu_dibawa_bulan_hadapan ?? 0;
-                        if ($key2 == $key)
-                            break;
-                    }
+                    $baki_stok = 0;
+                    $this->jumlah_baki_stok[$key] = 0;
+                    $this->total_stok_kayu_balak[$key] = 0;
+                    $this->total_kayu_dibawa_bulan_hadapan[$key] = 0;
                 }
                 $this->baki_stok[$key] = $baki_stok;
                 $this->jumlah_stok_kayu_balak[$key] = $baki_stok;
@@ -198,22 +204,12 @@ class FormCKayuKayuLainLain extends Component
                 $this->jumlah_besar_baki_stok_bulan_depan = $besar_total_kayu_dibawa_bulan_hadapan;
             }
         } else {
-            foreach ($kemasukan_bahans as $key => $data) {
-                $baki_stok = 0;
+            $kemasukan_map = $kemasukan_bahans->keyBy(fn($item) => $item->getAttributes()['spesis_id']);
+            foreach ($this->species as $key => $value) {
+                if (!$kemasukan_map->has($value->id)) continue;
+                $data = $kemasukan_map[$value->id];
 
-                if (!isset($kemasukan_bahans_lastmonth)) {
-                    $baki_stok = 0;
-                } else {
-                    foreach ($kemasukan_bahans_lastmonth as $key2 => $data2) {
-                        $baki_stok = $data2->baki_stok_kehadapan;
-                        $this->jumlah_besar_baki_stok_bulan_lepas = $data2->jumlah_besar_baki_stok_bulan_depan;
-                        $this->jumlah_baki_stok[$key] = $data2->total_kayu_dibawa_bulan_hadapan;
-                        if ($key2 == $key)
-                            break;
-                    }
-                }
-
-                $this->baki_stok[$key] = $baki_stok;
+                $this->baki_stok[$key] = $baki_stok = $data->baki_stok;
                 $this->kayu_masuk[$key] = $data->kayu_masuk;
                 $this->jumlah_stok_kayu_balak[$key] = $data->jumlah_stok_kayu_balak;
                 $this->proses_masuk[$key] = $data->proses_masuk;
@@ -373,7 +369,11 @@ class FormCKayuKayuLainLain extends Component
                 ]);
             }
         } else {
-            foreach ($kemasukan_bahans as $keySpecies => $data) {
+            $kemasukan_map = $kemasukan_bahans->keyBy(fn($item) => $item->getAttributes()['spesis_id']);
+            foreach ($this->species as $keySpecies => $speciesItem) {
+                if (!$kemasukan_map->has($speciesItem->id)) continue;
+                $data = $kemasukan_map[$speciesItem->id];
+
                 $data->baki_stok = $this->baki_stok[$keySpecies] ?? 0;
                 $data->kayu_masuk = $this->kayu_masuk[$keySpecies] ?? 0;
                 $data->jumlah_stok_kayu_balak = $this->jumlah_stok_kayu_balak[$keySpecies] ?? 0;

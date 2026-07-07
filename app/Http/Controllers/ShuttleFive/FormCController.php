@@ -69,24 +69,27 @@ class FormCController extends Controller
             $q->where('kumpulan_kayu_id', $kayu_id);
         })->where('shuttle_id', auth()->user()->shuttle_id)->where('formcs_id', $formc->id)->get();
 
+        $lastmonth_lookup = [];
+        if (isset($kemasukan_bahans_lastmonth)) {
+            foreach ($kemasukan_bahans_lastmonth as $lm) {
+                $lastmonth_lookup[$lm->getAttributes()['spesis_id']] = $lm;
+            }
+        }
+
         if ($kemasukan_bahans->isEmpty()) {
             foreach ($species as $key => $value) {
-                $baki_stok = 0;
-                if (!isset($kemasukan_bahans_lastmonth)) {
+                $lastmonth_data = $lastmonth_lookup[$value->id] ?? null;
+                if ($lastmonth_data) {
+                    $baki_stok = $lastmonth_data->baki_stok_kehadapan;
+                    $this->jumlah_besar_baki_stok_bulan_lepas = $lastmonth_data->jumlah_besar_baki_stok_bulan_depan ?? 0;
+                    $jumlah_baki_stok[$key] = $lastmonth_data->total_kayu_dibawa_bulan_hadapan ?? 0;
+                    $total_stok_kayu_balak[$key] = $lastmonth_data->total_kayu_dibawa_bulan_hadapan ?? 0;
+                    $total_kayu_dibawa_bulan_hadapan[$key] = $lastmonth_data->total_kayu_dibawa_bulan_hadapan ?? 0;
+                } else {
                     $baki_stok = 0;
                     $jumlah_baki_stok[$key] = 0;
                     $total_stok_kayu_balak[$key] = 0;
                     $total_kayu_dibawa_bulan_hadapan[$key] = 0;
-                } else {
-                    foreach ($kemasukan_bahans_lastmonth as $key2 => $data2) {
-                        $baki_stok = $data2->baki_stok_kehadapan;
-                        $this->jumlah_besar_baki_stok_bulan_lepas = $data2->jumlah_besar_baki_stok_bulan_depan ?? 0;
-                        $jumlah_baki_stok[$key] = $data2->total_kayu_dibawa_bulan_hadapan ?? 0;
-                        $total_stok_kayu_balak[$key] = $data2->total_kayu_dibawa_bulan_hadapan ?? 0;
-                        $total_kayu_dibawa_bulan_hadapan[$key] = $data2->total_kayu_dibawa_bulan_hadapan ?? 0;
-                        if ($key2 == $key)
-                            break;
-                    }
                 }
                 $baki_stoks[$key] = $baki_stok;
                 $jumlah_stok_kayu_balak[$key] = $baki_stok;
@@ -100,20 +103,14 @@ class FormCController extends Controller
             }
         } else {
             foreach ($kemasukan_bahans as $key => $data) {
-                $baki_stok = 0;
-
-                if (!isset($kemasukan_bahans_lastmonth)) {
+                $species_id = $data->getAttributes()['spesis_id'];
+                $lastmonth_data = $lastmonth_lookup[$species_id] ?? null;
+                if ($lastmonth_data) {
+                    $baki_stok = $lastmonth_data->baki_stok_kehadapan;
+                    $jumlah_baki_stok[$key] = $lastmonth_data->total_kayu_dibawa_bulan_hadapan ?? 0;
+                } else {
                     $baki_stok = 0;
                     $jumlah_baki_stok[$key] = 0;
-                } else {
-                    foreach ($kemasukan_bahans_lastmonth as $key2 => $data2) {
-                        $baki_stok = $data2->baki_stok_kehadapan;
-                        $this->jumlah_besar_baki_stok_bulan_lepas = $data2->jumlah_besar_baki_stok_bulan_depan;
-                        $jumlah_baki_stok[$key] = $data2->total_kayu_dibawa_bulan_hadapan ?? 0;
-
-                        if ($key2 == $key)
-                            break;
-                    }
                 }
                 $baki_stoks[$key] = $baki_stok;
                 $kayu_masuk[$key] = $data->kayu_masuk;
@@ -295,7 +292,10 @@ class FormCController extends Controller
                 ]);
             }
         } else {
-            foreach ($kemasukan_bahans as $keySpecies => $data) {
+            $kemasukan_map = $kemasukan_bahans->keyBy(fn($item) => $item->getAttributes()['spesis_id']);
+            foreach ($species as $keySpecies => $speciesItem) {
+                if (!$kemasukan_map->has($speciesItem->id)) continue;
+                $data = $kemasukan_map[$speciesItem->id];
                 $data->baki_stok = $request->baki_stoks[$keySpecies] ?? 0;
                 $data->kayu_masuk = $request->kayu_masuk[$keySpecies] ?? 0;
                 $data->jumlah_stok_kayu_balak = $request->jumlah_stok_kayu_balak[$keySpecies] ?? 0;
@@ -367,24 +367,27 @@ class FormCController extends Controller
             $q->where('kumpulan_kayu_id', $kayu_id);
         })->where('shuttle_id', auth()->user()->shuttle_id)->where('formcs_id', $formc->id)->get();
 
+        $lastmonth_lookup = [];
+        if (isset($kemasukan_bahans_lastmonth)) {
+            foreach ($kemasukan_bahans_lastmonth as $lm) {
+                $lastmonth_lookup[$lm->getAttributes()['spesis_id']] = $lm;
+            }
+        }
+
         if ($kemasukan_bahans->isEmpty()) {
             foreach ($species as $key => $value) {
-                $baki_stok = 0;
-                if (!isset($kemasukan_bahans_lastmonth)) {
+                $lastmonth_data = $lastmonth_lookup[$value->id] ?? null;
+                if ($lastmonth_data) {
+                    $baki_stok = $lastmonth_data->baki_stok_kehadapan;
+                    $this->jumlah_besar_baki_stok_bulan_lepas = $lastmonth_data->jumlah_besar_baki_stok_bulan_depan ?? 0;
+                    $jumlah_baki_stok[$key] = $lastmonth_data->total_kayu_dibawa_bulan_hadapan ?? 0;
+                    $total_stok_kayu_balak[$key] = $lastmonth_data->total_kayu_dibawa_bulan_hadapan ?? 0;
+                    $total_kayu_dibawa_bulan_hadapan[$key] = $lastmonth_data->total_kayu_dibawa_bulan_hadapan ?? 0;
+                } else {
                     $baki_stok = 0;
                     $jumlah_baki_stok[$key] = 0;
                     $total_stok_kayu_balak[$key] = 0;
                     $total_kayu_dibawa_bulan_hadapan[$key] = 0;
-                } else {
-                    foreach ($kemasukan_bahans_lastmonth as $key2 => $data2) {
-                        $baki_stok = $data2->baki_stok_kehadapan;
-                        $this->jumlah_besar_baki_stok_bulan_lepas = $data2->jumlah_besar_baki_stok_bulan_depan ?? 0;
-                        $jumlah_baki_stok[$key] = $data2->total_kayu_dibawa_bulan_hadapan ?? 0;
-                        $total_stok_kayu_balak[$key] = $data2->total_kayu_dibawa_bulan_hadapan ?? 0;
-                        $total_kayu_dibawa_bulan_hadapan[$key] = $data2->total_kayu_dibawa_bulan_hadapan ?? 0;
-                        if ($key2 == $key)
-                            break;
-                    }
                 }
                 $baki_stoks[$key] = $baki_stok;
                 $jumlah_stok_kayu_balak[$key] = $baki_stok;
@@ -398,20 +401,14 @@ class FormCController extends Controller
             }
         } else {
             foreach ($kemasukan_bahans as $key => $data) {
-                $baki_stok = 0;
-
-                if (!isset($kemasukan_bahans_lastmonth)) {
+                $species_id = $data->getAttributes()['spesis_id'];
+                $lastmonth_data = $lastmonth_lookup[$species_id] ?? null;
+                if ($lastmonth_data) {
+                    $baki_stok = $lastmonth_data->baki_stok_kehadapan;
+                    $jumlah_baki_stok[$key] = $lastmonth_data->total_kayu_dibawa_bulan_hadapan ?? 0;
+                } else {
                     $baki_stok = 0;
                     $jumlah_baki_stok[$key] = 0;
-                } else {
-                    foreach ($kemasukan_bahans_lastmonth as $key2 => $data2) {
-                        $baki_stok = $data2->baki_stok_kehadapan;
-                        $this->jumlah_besar_baki_stok_bulan_lepas = $data2->jumlah_besar_baki_stok_bulan_depan;
-                        $jumlah_baki_stok[$key] = $data2->total_kayu_dibawa_bulan_hadapan ?? 0;
-
-                        if ($key2 == $key)
-                            break;
-                    }
                 }
                 $baki_stoks[$key] = $baki_stok;
                 $kayu_masuk[$key] = $data->kayu_masuk;
@@ -564,7 +561,10 @@ class FormCController extends Controller
                 ]);
             }
         } else {
-            foreach ($kemasukan_bahans as $keySpecies => $data) {
+            $kemasukan_map = $kemasukan_bahans->keyBy(fn($item) => $item->getAttributes()['spesis_id']);
+            foreach ($species as $keySpecies => $speciesItem) {
+                if (!$kemasukan_map->has($speciesItem->id)) continue;
+                $data = $kemasukan_map[$speciesItem->id];
                 $data->baki_stok = $request->baki_stoks[$keySpecies] ?? 0;
                 $data->kayu_masuk = $request->kayu_masuk[$keySpecies] ?? 0;
                 $data->jumlah_stok_kayu_balak = $request->jumlah_stok_kayu_balak[$keySpecies] ?? 0;
@@ -636,24 +636,27 @@ class FormCController extends Controller
             $q->where('kumpulan_kayu_id', $kayu_id);
         })->where('shuttle_id', auth()->user()->shuttle_id)->where('formcs_id', $formc->id)->get();
 
+        $lastmonth_lookup = [];
+        if (isset($kemasukan_bahans_lastmonth)) {
+            foreach ($kemasukan_bahans_lastmonth as $lm) {
+                $lastmonth_lookup[$lm->getAttributes()['spesis_id']] = $lm;
+            }
+        }
+
         if ($kemasukan_bahans->isEmpty()) {
             foreach ($species as $key => $value) {
-                $baki_stok = 0;
-                if (!isset($kemasukan_bahans_lastmonth)) {
+                $lastmonth_data = $lastmonth_lookup[$value->id] ?? null;
+                if ($lastmonth_data) {
+                    $baki_stok = $lastmonth_data->baki_stok_kehadapan;
+                    $this->jumlah_besar_baki_stok_bulan_lepas = $lastmonth_data->jumlah_besar_baki_stok_bulan_depan ?? 0;
+                    $jumlah_baki_stok[$key] = $lastmonth_data->total_kayu_dibawa_bulan_hadapan ?? 0;
+                    $total_stok_kayu_balak[$key] = $lastmonth_data->total_kayu_dibawa_bulan_hadapan ?? 0;
+                    $total_kayu_dibawa_bulan_hadapan[$key] = $lastmonth_data->total_kayu_dibawa_bulan_hadapan ?? 0;
+                } else {
                     $baki_stok = 0;
                     $jumlah_baki_stok[$key] = 0;
                     $total_stok_kayu_balak[$key] = 0;
                     $total_kayu_dibawa_bulan_hadapan[$key] = 0;
-                } else {
-                    foreach ($kemasukan_bahans_lastmonth as $key2 => $data2) {
-                        $baki_stok = $data2->baki_stok_kehadapan;
-                        $this->jumlah_besar_baki_stok_bulan_lepas = $data2->jumlah_besar_baki_stok_bulan_depan ?? 0;
-                        $jumlah_baki_stok[$key] = $data2->total_kayu_dibawa_bulan_hadapan ?? 0;
-                        $total_stok_kayu_balak[$key] = $data2->total_kayu_dibawa_bulan_hadapan ?? 0;
-                        $total_kayu_dibawa_bulan_hadapan[$key] = $data2->total_kayu_dibawa_bulan_hadapan ?? 0;
-                        if ($key2 == $key)
-                            break;
-                    }
                 }
                 $baki_stoks[$key] = $baki_stok;
                 $jumlah_stok_kayu_balak[$key] = $baki_stok;
@@ -667,20 +670,14 @@ class FormCController extends Controller
             }
         } else {
             foreach ($kemasukan_bahans as $key => $data) {
-                $baki_stok = 0;
-
-                if (!isset($kemasukan_bahans_lastmonth)) {
+                $species_id = $data->getAttributes()['spesis_id'];
+                $lastmonth_data = $lastmonth_lookup[$species_id] ?? null;
+                if ($lastmonth_data) {
+                    $baki_stok = $lastmonth_data->baki_stok_kehadapan;
+                    $jumlah_baki_stok[$key] = $lastmonth_data->total_kayu_dibawa_bulan_hadapan ?? 0;
+                } else {
                     $baki_stok = 0;
                     $jumlah_baki_stok[$key] = 0;
-                } else {
-                    foreach ($kemasukan_bahans_lastmonth as $key2 => $data2) {
-                        $baki_stok = $data2->baki_stok_kehadapan;
-                        $this->jumlah_besar_baki_stok_bulan_lepas = $data2->jumlah_besar_baki_stok_bulan_depan;
-                        $jumlah_baki_stok[$key] = $data2->total_kayu_dibawa_bulan_hadapan ?? 0;
-
-                        if ($key2 == $key)
-                            break;
-                    }
                 }
                 $baki_stoks[$key] = $baki_stok;
                 $kayu_masuk[$key] = $data->kayu_masuk;
@@ -828,7 +825,10 @@ class FormCController extends Controller
                 ]);
             }
         } else {
-            foreach ($kemasukan_bahans as $keySpecies => $data) {
+            $kemasukan_map = $kemasukan_bahans->keyBy(fn($item) => $item->getAttributes()['spesis_id']);
+            foreach ($species as $keySpecies => $speciesItem) {
+                if (!$kemasukan_map->has($speciesItem->id)) continue;
+                $data = $kemasukan_map[$speciesItem->id];
                 $data->baki_stok = $request->baki_stoks[$keySpecies] ?? 0;
                 $data->kayu_masuk = $request->kayu_masuk[$keySpecies] ?? 0;
                 $data->jumlah_stok_kayu_balak = $request->jumlah_stok_kayu_balak[$keySpecies] ?? 0;
@@ -898,24 +898,27 @@ class FormCController extends Controller
             $q->where('kumpulan_kayu_id', $kayu_id);
         })->where('shuttle_id', auth()->user()->shuttle_id)->where('formcs_id', $formc->id)->get();
 
+        $lastmonth_lookup = [];
+        if (isset($kemasukan_bahans_lastmonth)) {
+            foreach ($kemasukan_bahans_lastmonth as $lm) {
+                $lastmonth_lookup[$lm->getAttributes()['spesis_id']] = $lm;
+            }
+        }
+
         if ($kemasukan_bahans->isEmpty()) {
             foreach ($species as $key => $value) {
-                $baki_stok = 0;
-                if (!isset($kemasukan_bahans_lastmonth)) {
+                $lastmonth_data = $lastmonth_lookup[$value->id] ?? null;
+                if ($lastmonth_data) {
+                    $baki_stok = $lastmonth_data->baki_stok_kehadapan;
+                    $this->jumlah_besar_baki_stok_bulan_lepas = $lastmonth_data->jumlah_besar_baki_stok_bulan_depan ?? 0;
+                    $jumlah_baki_stok[$key] = $lastmonth_data->total_kayu_dibawa_bulan_hadapan ?? 0;
+                    $total_stok_kayu_balak[$key] = $lastmonth_data->total_kayu_dibawa_bulan_hadapan ?? 0;
+                    $total_kayu_dibawa_bulan_hadapan[$key] = $lastmonth_data->total_kayu_dibawa_bulan_hadapan ?? 0;
+                } else {
                     $baki_stok = 0;
                     $jumlah_baki_stok[$key] = 0;
                     $total_stok_kayu_balak[$key] = 0;
                     $total_kayu_dibawa_bulan_hadapan[$key] = 0;
-                } else {
-                    foreach ($kemasukan_bahans_lastmonth as $key2 => $data2) {
-                        $baki_stok = $data2->baki_stok_kehadapan;
-                        $this->jumlah_besar_baki_stok_bulan_lepas = $data2->jumlah_besar_baki_stok_bulan_depan ?? 0;
-                        $jumlah_baki_stok[$key] = $data2->total_kayu_dibawa_bulan_hadapan ?? 0;
-                        $total_stok_kayu_balak[$key] = $data2->total_kayu_dibawa_bulan_hadapan ?? 0;
-                        $total_kayu_dibawa_bulan_hadapan[$key] = $data2->total_kayu_dibawa_bulan_hadapan ?? 0;
-                        if ($key2 == $key)
-                            break;
-                    }
                 }
                 $baki_stoks[$key] = $baki_stok;
                 $jumlah_stok_kayu_balak[$key] = $baki_stok;
@@ -929,20 +932,14 @@ class FormCController extends Controller
             }
         } else {
             foreach ($kemasukan_bahans as $key => $data) {
-                $baki_stok = 0;
-
-                if (!isset($kemasukan_bahans_lastmonth)) {
+                $species_id = $data->getAttributes()['spesis_id'];
+                $lastmonth_data = $lastmonth_lookup[$species_id] ?? null;
+                if ($lastmonth_data) {
+                    $baki_stok = $lastmonth_data->baki_stok_kehadapan;
+                    $jumlah_baki_stok[$key] = $lastmonth_data->total_kayu_dibawa_bulan_hadapan ?? 0;
+                } else {
                     $baki_stok = 0;
                     $jumlah_baki_stok[$key] = 0;
-                } else {
-                    foreach ($kemasukan_bahans_lastmonth as $key2 => $data2) {
-                        $baki_stok = $data2->baki_stok_kehadapan;
-                        $this->jumlah_besar_baki_stok_bulan_lepas = $data2->jumlah_besar_baki_stok_bulan_depan;
-                        $jumlah_baki_stok[$key] = $data2->total_kayu_dibawa_bulan_hadapan ?? 0;
-
-                        if ($key2 == $key)
-                            break;
-                    }
                 }
                 $baki_stoks[$key] = $baki_stok;
                 $kayu_masuk[$key] = $data->kayu_masuk;
@@ -1090,7 +1087,10 @@ class FormCController extends Controller
                 ]);
             }
         } else {
-            foreach ($kemasukan_bahans as $keySpecies => $data) {
+            $kemasukan_map = $kemasukan_bahans->keyBy(fn($item) => $item->getAttributes()['spesis_id']);
+            foreach ($species as $keySpecies => $speciesItem) {
+                if (!$kemasukan_map->has($speciesItem->id)) continue;
+                $data = $kemasukan_map[$speciesItem->id];
                 $data->baki_stok = $request->baki_stoks[$keySpecies] ?? 0;
                 $data->kayu_masuk = $request->kayu_masuk[$keySpecies] ?? 0;
                 $data->jumlah_stok_kayu_balak = $request->jumlah_stok_kayu_balak[$keySpecies] ?? 0;
@@ -1226,28 +1226,27 @@ class FormCController extends Controller
         $besar_total_kayu_dibawa_bulan_hadapan = (float)$kkb + (float)$kks + (float)$kkr + (float)$kayu_lembut  + (float)$lain_lain;
         $besar_total_kayu_dibawa_bulan_hadapan_tanpa_lain = (float)$kkb + (float)$kks + (float)$kkr + (float)$kayu_lembut;
 
+        $lastmonth_lookup = [];
+        if (isset($kemasukan_bahans_lastmonth)) {
+            foreach ($kemasukan_bahans_lastmonth as $lm) {
+                $lastmonth_lookup[$lm->getAttributes()['spesis_id']] = $lm;
+            }
+        }
+
         if ($kemasukan_bahans->isEmpty()) {
             foreach ($species as $key => $value) {
-                $baki_stok = 0;
-                $jumlah_baki_stok[$key] = 0;
-                $total_stok_kayu_balak[$key] = 0;
-                $total_kayu_dibawa_bulan_hadapan[$key] = 0;
-
-                if (!isset($kemasukan_bahans_lastmonth)) {
+                $lastmonth_data = $lastmonth_lookup[$value->id] ?? null;
+                if ($lastmonth_data) {
+                    $baki_stok = $lastmonth_data->baki_stok_kehadapan;
+                    $jumlah_besar_baki_stok_bulan_lepas = $lastmonth_data->jumlah_besar_baki_stok_bulan_depan ?? 0;
+                    $jumlah_baki_stok[$key] = $lastmonth_data->total_kayu_dibawa_bulan_hadapan ?? 0;
+                    $total_stok_kayu_balak[$key] = $lastmonth_data->total_kayu_dibawa_bulan_hadapan ?? 0;
+                    $total_kayu_dibawa_bulan_hadapan[$key] = $lastmonth_data->total_kayu_dibawa_bulan_hadapan ?? 0;
+                } else {
                     $baki_stok = 0;
                     $jumlah_baki_stok[$key] = 0;
                     $total_stok_kayu_balak[$key] = 0;
                     $total_kayu_dibawa_bulan_hadapan[$key] = 0;
-                } else {
-                    foreach ($kemasukan_bahans_lastmonth as $key2 => $data2) {
-                        $baki_stok = $data2->baki_stok_kehadapan;
-                        $jumlah_besar_baki_stok_bulan_lepas = $data2->jumlah_besar_baki_stok_bulan_depan ?? 0;
-                        $jumlah_baki_stok[$key] = $data2->total_kayu_dibawa_bulan_hadapan ?? 0;
-                        $total_stok_kayu_balak[$key] = $data2->total_kayu_dibawa_bulan_hadapan ?? 0;
-                        $total_kayu_dibawa_bulan_hadapan[$key] = $data2->total_kayu_dibawa_bulan_hadapan ?? 0;
-                        if ($key2 == $key)
-                            break;
-                    }
                 }
                 $baki_stoks[$key] = $baki_stok;
                 $jumlah_stok_kayu_balak[$key] = $baki_stok;
@@ -1260,20 +1259,15 @@ class FormCController extends Controller
             }
         } else {
             foreach ($kemasukan_bahans as $key => $data) {
-                $baki_stok = 0;
-
-                if (!isset($kemasukan_bahans_lastmonth)) {
+                $species_id = $data->getAttributes()['spesis_id'];
+                $lastmonth_data = $lastmonth_lookup[$species_id] ?? null;
+                if ($lastmonth_data) {
+                    $baki_stok = $lastmonth_data->baki_stok_kehadapan;
+                    $jumlah_besar_baki_stok_bulan_depan = $lastmonth_data->jumlah_besar_baki_stok_bulan_depan;
+                    $jumlah_baki_stok[$key] = $lastmonth_data->total_kayu_dibawa_bulan_hadapan;
+                } else {
                     $baki_stok = 0;
                     $jumlah_baki_stok[$key] = 0;
-                } else {
-                    foreach ($kemasukan_bahans_lastmonth as $key2 => $data2) {
-                        $baki_stok = $data2->baki_stok_kehadapan;
-                        $jumlah_besar_baki_stok_bulan_depan = $data2->jumlah_besar_baki_stok_bulan_depan;
-                        $jumlah_baki_stok[$key] = $data2->total_kayu_dibawa_bulan_hadapan;
-
-                        if ($key2 == $key)
-                            break;
-                    }
                 }
                 $baki_stoks[$key] = $baki_stok;
                 $kayu_masuk[$key] = $data->kayu_masuk;
@@ -1471,7 +1465,10 @@ class FormCController extends Controller
                 ]);
             }
         } else {
-            foreach ($kemasukan_bahans as $keySpecies => $data) {
+            $kemasukan_map = $kemasukan_bahans->keyBy(fn($item) => $item->getAttributes()['spesis_id']);
+            foreach ($species as $keySpecies => $speciesItem) {
+                if (!$kemasukan_map->has($speciesItem->id)) continue;
+                $data = $kemasukan_map[$speciesItem->id];
                 $data->baki_stok = $request->baki_stoks[$keySpecies] ?? 0;
                 $data->kayu_masuk = $request->kayu_masuk[$keySpecies] ?? 0;
                 $data->jumlah_stok_kayu_balak = $request->jumlah_stok_kayu_balak[$keySpecies] ?? 0;
@@ -1586,20 +1583,22 @@ class FormCController extends Controller
 
         $species = Spesis::orderBy('kumpulan_kayu_id')->orderBy('id')->get();
 
+        $lastmonth_lookup_all = [];
+        if (isset($kemasukan_bahans_lastmonth)) {
+            foreach ($kemasukan_bahans_lastmonth as $lm) {
+                $lastmonth_lookup_all[$lm->getAttributes()['spesis_id']] = $lm;
+            }
+        }
+
         if ($kemasukan_bahans->isEmpty()) {
             foreach ($species as $keySpecies => $data) {
-                $baki_stok = 0;
-                $jumlah_baki_stok = 0;
-                if (!isset($kemasukan_bahans_lastmonth)) {
+                $lastmonth_data = $lastmonth_lookup_all[$data->id] ?? null;
+                if ($lastmonth_data) {
+                    $baki_stok = $lastmonth_data->baki_stok_kehadapan;
+                    $jumlah_baki_stok = $lastmonth_data->total_kayu_dibawa_bulan_hadapan;
+                } else {
                     $baki_stok = 0;
                     $jumlah_baki_stok = 0;
-                } else {
-                    foreach ($kemasukan_bahans_lastmonth as $key2 => $data2) {
-                        $baki_stok = $data2->baki_stok_kehadapan;
-                        $jumlah_baki_stok = $data2->total_kayu_dibawa_bulan_hadapan;
-                        if ($key2 == $keySpecies)
-                            break;
-                    }
                 }
 
                 KemasukanBahan::create([

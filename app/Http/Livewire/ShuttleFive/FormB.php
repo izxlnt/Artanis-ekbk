@@ -557,7 +557,7 @@ class FormB extends Component
         } elseif ($formb->suku_tahun == 4) {
             $bulan = 12;
         }
-        $batch = Batch::where('tahun', $formb->tahun)->where('bulan', $bulan)->where('shuttle_id',$formb->shuttle->id)->first();
+        $batch = Batch::firstOrNew(['tahun' => $formb->tahun, 'bulan' => $bulan, 'shuttle_id' => $formb->shuttle->id]);
 
         $batch->status = "Sedang Diproses";
         $batch->borang_b = 1;

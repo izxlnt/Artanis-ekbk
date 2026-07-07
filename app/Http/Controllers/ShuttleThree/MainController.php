@@ -356,7 +356,7 @@ class MainController extends Controller
             $buffer = Buffer::where('shuttle', 5)->where('borang', 'B')->first();
         }
 
-        $early_buffer_date = (int)date('m') - (int)$buffer->delay;
+        $early_buffer_date = (int)date('m') - (int)($buffer->delay ?? 0);
         
         // Check Form A for the specified year, not current year
         $form_a_checker = FormA::where('tahun', $year)
@@ -457,7 +457,7 @@ class MainController extends Controller
             }
 
 
-            $early_buffer_date = (int)date('m') - (int)$buffer->delay;
+            $early_buffer_date = (int)date('m') - (int)($buffer->delay ?? 0);
             
             // Get user's shuttle registration date
             $shuttle = auth()->user()->shuttle;
@@ -499,7 +499,7 @@ class MainController extends Controller
             }
 
 
-            $early_buffer_date = (int)date('m') - (int)$buffer->delay;
+            $early_buffer_date = (int)date('m') - (int)($buffer->delay ?? 0);
             
             // Get user's shuttle registration date
             $shuttle = auth()->user()->shuttle;
@@ -540,7 +540,7 @@ class MainController extends Controller
             }
 
 
-            $early_buffer_date = (int)date('m') - (int)$buffer->delay;
+            $early_buffer_date = (int)date('m') - (int)($buffer->delay ?? 0);
             
             // Get user's shuttle registration date
             $shuttle = auth()->user()->shuttle;
