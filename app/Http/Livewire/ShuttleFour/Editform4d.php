@@ -10,6 +10,7 @@ use App\Models\ProdukPengeluaran;
 use App\Models\Shuttle;
 use App\Models\FormC as ModelsFormC;
 use App\Models\RecoveryRate;
+use App\Services\FormFlowService;
 use Illuminate\Support\Facades\Session;
 use Livewire\Component;
 
@@ -102,13 +103,13 @@ class Editform4d extends Component
 
     public function mount()
     {
-        $formc = ModelsFormC::where('shuttle_id', auth()->user()->shuttle_id)->where('bulan', $this->bulan_id)->whereYear('created_at', date("Y"))->first();
+        $formc = FormFlowService::findFormC(auth()->user()->shuttle_id, date("Y"), $this->bulan_id);
         $this->kemasukan_bahan_calc_lain_lain = KemasukanBahan::
         where('shuttle_id', auth()->user()->shuttle_id)->where('formcs_id', $formc->id)->latest('updated_at')->first();
 
         $user = auth()->user();
 
-        $formd = Form4D::where('shuttle_id',$user->shuttle_id)->where('bulan',$this->bulan_id)->whereYear('created_at', date("Y"))->first();
+        $formd = FormFlowService::findFormD($user->shuttle_id, 4, date("Y"), $this->bulan_id);
 
         $form4_d = ProdukPengeluaran::where('form4ds_id',$formd->id)->get();
 
@@ -360,7 +361,7 @@ class Editform4d extends Component
 
         $user = auth()->user();
 
-        $formd = Form4D::where('shuttle_id',$user->shuttle_id)->where('bulan',$this->bulan_id)->whereYear('created_at', date("Y"))->first();
+        $formd = FormFlowService::findFormD($user->shuttle_id, 4, date("Y"), $this->bulan_id);
 
         $formd->rekod_veniermuka = $this->rekod_veniermuka;
         $formd->rekod_venierteras = $this->rekod_venierteras;
@@ -457,7 +458,7 @@ class Editform4d extends Component
 
         $user = auth()->user();
 
-        $formd = Form4D::where('shuttle_id',$user->shuttle_id)->where('bulan',$this->bulan_id)->whereYear('created_at', date("Y"))->first();
+        $formd = FormFlowService::findFormD($user->shuttle_id, 4, date("Y"), $this->bulan_id);
 
         $formd->status = 'Tiada Pengeluaran';
         $formd->tiada_pengeluaran = 1;

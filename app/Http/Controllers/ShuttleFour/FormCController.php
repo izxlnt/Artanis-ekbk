@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 use App\Models\Batch;
+use App\Models\Form4D;
 use App\Models\FormA;
 use App\Models\FormB;
 use App\Models\FormC as ModelsFormC;
@@ -13,6 +14,7 @@ use App\Models\Kemasukan;
 use App\Models\KemasukanBahan;
 use App\Models\KumpulanKayu;
 use App\Models\Pembeli;
+use App\Models\ProdukPengeluaran;
 use App\Models\RecoveryRate;
 use App\Models\Shuttle;
 use App\Models\Spesis;
@@ -22,6 +24,46 @@ use App\Services\FormFlowService;
 
 class FormCController extends Controller
 {
+    /**
+     * When Form C is declared "Tiada Pengeluaran" (no wood intake), there is
+     * nothing to process, so Form D can't have real output either. Auto-mirror
+     * the declaration onto Form4D instead of requiring a separate manual click,
+     * unless Form D was already submitted/approved (never clobber that).
+     */
+    private function autoMarkForm4DTiadaPengeluaran($shuttleId, $bulan_id, $year)
+    {
+        $formd = Form4D::where('shuttle_id', $shuttleId)->where('bulan', $bulan_id)->where('tahun', $year)->first();
+
+        if (!$formd || in_array($formd->status, FormFlowService::SUBMITTED)) {
+            return;
+        }
+
+        $formd->status = 'Tiada Pengeluaran';
+        $formd->tiada_pengeluaran = 1;
+        $formd->save();
+
+        $batchD = Batch::where('tahun', $formd->tahun)->where('bulan', $formd->bulan)->where('shuttle_id', $shuttleId)->first();
+        if ($batchD) {
+            $batchD->status = 'Sedang Diproses';
+            $batchD->borang_d = 1;
+            $batchD->save();
+        }
+
+        ProdukPengeluaran::where('form4ds_id', $formd->id)->delete();
+        ProdukPengeluaran::create([
+            'form4ds_id' => $formd->id,
+            'produk_ketebalan' => 0,
+            'produk_isipadumr' => 0,
+            'produk_isipaduwbp' => 0,
+            'jumlah_kecil_1_mr' => 0,
+            'jumlah_kecil_1_wbp' => 0,
+            'jumlah_kecil_2_mr' => 0,
+            'jumlah_kecil_2_wbp' => 0,
+            'jumlah_besar_mr' => 0,
+            'jumlah_besar_wbp' => 0,
+        ]);
+    }
+
     public function shuttle_4_formCKKB($bulan_id, $year = null)
     {
         $year = $year ?? date("Y");
@@ -1616,6 +1658,10 @@ class FormCController extends Controller
             $batch->status = "Sedang Diproses";
             $batch->borang_c = 1;
             $batch->save();
+
+            if ($request->tiadaPengeluaran) {
+                $this->autoMarkForm4DTiadaPengeluaran($user->shuttle_id, $bulan_id, $year);
+            }
         } else {
             $formc = ModelsFormC::where('shuttle_id', $user->shuttle_id)->where('bulan', $bulan_id)->where('tahun', $year)->first();
             $formc->status = 'Sedang Diisi';
@@ -1789,6 +1835,8 @@ class FormCController extends Controller
         $batch->status = "Sedang Diproses";
         $batch->borang_c = 1;
         $batch->save();
+
+        $this->autoMarkForm4DTiadaPengeluaran($user->shuttle_id, $bulan_id, $year);
 
         if ($status_terkini == 'Sedang Diisi') {
             KemasukanBahan::where('shuttle_id', auth()->user()->shuttle_id)

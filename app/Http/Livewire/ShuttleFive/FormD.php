@@ -11,6 +11,7 @@ use App\Models\PengeluaranKumai;
 use App\Models\Shuttle;
 use App\Models\User;
 use App\Notifications\IBK\BorangDiHantar;
+use App\Services\FormFlowService;
 
 use Illuminate\Support\Facades\Session;
 use Livewire\Component;
@@ -27,13 +28,9 @@ class FormD extends Component
             ? (float) KemasukanBahan::where('shuttle_id', auth()->user()->shuttle_id)->where('formcs_id', $this->form_c_data->id)->sum('proses_masuk')
             : 0;
 
-        $formd = Form5D::where('shuttle_id', auth()->user()->shuttle_id)
-            ->where('bulan', $this->bulan_id)
-            ->whereYear('created_at', date("Y"))
-            ->where('status', 'Tidak Lengkap')
-            ->first();
+        $formd = FormFlowService::findFormD(auth()->user()->shuttle_id, 5, date("Y"), $this->bulan_id);
 
-        if ($formd) {
+        if ($formd && $formd->status === 'Tidak Lengkap') {
             $this->total_jumlah_pengeluaran = $formd->total_jumlah_pengeluaran;
 
             $jenis_kayu = JenisKayu::get();
@@ -137,7 +134,7 @@ class FormD extends Component
         // $kilang_info = Shuttle::where('id',$user->shuttle_id)->first();
         // $status= 'Sedang Diproses';
 
-        $formd = Form5D::where('shuttle_id',$user->shuttle_id)->where('bulan',$this->bulan_id)->whereYear('created_at', date("Y"))->first();
+        $formd = FormFlowService::findFormD($user->shuttle_id, 5, date("Y"), $this->bulan_id);
 
 
         $formd->total_jumlah_pengeluaran = $this->total_jumlah_pengeluaran;
@@ -193,7 +190,7 @@ class FormD extends Component
         // $kilang_info = Shuttle::where('id',$user->shuttle_id)->first();
         // $status= 'Sedang Diproses';
 
-        $formd = Form5D::where('shuttle_id',$user->shuttle_id)->where('bulan',$this->bulan_id)->whereYear('created_at', date("Y"))->first();
+        $formd = FormFlowService::findFormD($user->shuttle_id, 5, date("Y"), $this->bulan_id);
 
 
         $formd->total_jumlah_pengeluaran = 0;

@@ -9,6 +9,7 @@ use App\Models\KumpulanKayu;
 use App\Models\Pembeli;
 use App\Models\Shuttle;
 use App\Models\Spesis;
+use App\Services\FormFlowService;
 use Illuminate\Support\Facades\Session;
 use Livewire\Component;
 
@@ -40,10 +41,7 @@ class FormC extends Component
         $prevYear  = $month == 1 ? $year - 1 : $year;
         $carryForward = [];
 
-        $prevFormC = ModelsFormC::where('shuttle_id', $shuttleId)
-            ->where('bulan', $prevMonth)
-            ->whereYear('created_at', $prevYear)
-            ->first();
+        $prevFormC = FormFlowService::findFormC($shuttleId, $prevYear, $prevMonth);
 
         if ($prevFormC) {
             KemasukanBahan::where('formcs_id', $prevFormC->id)
@@ -63,10 +61,7 @@ class FormC extends Component
         }
 
         // Load existing saved data so values are restored when user navigates back
-        $formc = ModelsFormC::where('shuttle_id', $shuttleId)
-            ->where('bulan', $month)
-            ->whereYear('created_at', $year)
-            ->first();
+        $formc = FormFlowService::findFormC($shuttleId, $year, $month);
 
         if ($formc) {
             $existing = KemasukanBahan::where('formcs_id', $formc->id)
@@ -235,7 +230,7 @@ class FormC extends Component
 
         $user = auth()->user();
 
-        $formc = ModelsFormC::where('shuttle_id', $user->shuttle_id)->where('bulan', $this->bulan_id)->whereYear('created_at', date("Y"))->first();
+        $formc = FormFlowService::findFormC($user->shuttle_id, date("Y"), $this->bulan_id);
 
         $formc->status = 'Sedang Diproses';
         $formc->tiada_pengeluaran = 0;
@@ -340,7 +335,7 @@ class FormC extends Component
         $user = auth()->user();
         // dd($this->suku_id);
 
-        $formc = ModelsFormC::where('shuttle_id', $user->shuttle_id)->where('bulan', $this->bulan_id)->whereYear('created_at', date("Y"))->first();
+        $formc = FormFlowService::findFormC($user->shuttle_id, date("Y"), $this->bulan_id);
 
         $formc->status = 'Tiada Pengeluaran';
         $formc->tiada_pengeluaran = 1;

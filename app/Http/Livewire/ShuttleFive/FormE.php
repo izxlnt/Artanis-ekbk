@@ -8,6 +8,7 @@ use App\Models\PenjualanKumai;
 use App\Models\Shuttle;
 use App\Models\User;
 use App\Notifications\IBK\BorangDiHantar;
+use App\Services\FormFlowService;
 use Illuminate\Support\Facades\Session;
 use Livewire\Component;
 
@@ -78,13 +79,9 @@ class FormE extends Component
             $this->jumlah_jualan_pasaran_tempatan = 0.00;
             $this->jumlah_jualan_eksport = 0.00;
 
-            $forme = Form5E::where('shuttle_id', auth()->user()->shuttle_id)
-                ->where('bulan', $this->bulan_id)
-                ->whereYear('created_at', date("Y"))
-                ->where('status', 'Tidak Lengkap')
-                ->first();
+            $forme = FormFlowService::findFormE(auth()->user()->shuttle_id, 5, date("Y"), $this->bulan_id);
 
-            if ($forme) {
+            if ($forme && $forme->status === 'Tidak Lengkap') {
                 $this->jumlah_jualan_pasaran_tempatan = $forme->jumlah_jualan_pasaran_tempatan;
                 $this->jumlah_jualan_eksport = $forme->jumlah_jualan_eksport;
             }
@@ -142,7 +139,7 @@ class FormE extends Component
         $user = auth()->user();
 
 
-        $forme = Form5E::where('shuttle_id',$user->shuttle_id)->where('bulan',$this->bulan_id)->whereYear('created_at', date("Y"))->first();
+        $forme = FormFlowService::findFormE($user->shuttle_id, 5, date("Y"), $this->bulan_id);
 
         $forme->jumlah_jualan_pasaran_tempatan = $this->jumlah_jualan_pasaran_tempatan;
         $forme->jumlah_jualan_eksport = $this->jumlah_jualan_eksport;

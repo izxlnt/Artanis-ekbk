@@ -6,6 +6,7 @@ use App\Models\Batch;
 use App\Models\Form5E;
 use App\Models\PenjualanKumai;
 use App\Models\Shuttle;
+use App\Services\FormFlowService;
 use Illuminate\Support\Facades\Session;
 use Livewire\Component;
 
@@ -134,7 +135,7 @@ class Edit5E extends Component
 
         $user = auth()->user();
 
-        $forme = Form5E::where('shuttle_id',$user->shuttle_id)->where('bulan',$this->bulan_id)->whereYear('created_at', date("Y"))->first();
+        $forme = FormFlowService::findFormE($user->shuttle_id, 5, date("Y"), $this->bulan_id);
 
         $forme->jumlah_jualan_pasaran_tempatan = $this->jumlah_jualan_pasaran_tempatan;
         $forme->jumlah_jualan_eksport = $this->jumlah_jualan_eksport;
