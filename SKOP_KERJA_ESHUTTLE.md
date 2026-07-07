@@ -97,6 +97,15 @@
 | | | Fix paparan notifikasi kilang Shuttle 3/4/5 | Selesai |
 | | | Fix logik buka/tutup borang dalam FormFlowService | Selesai |
 | | | Fix ShuttleThree MainController — logik tutup borang | Selesai |
+| | | Fix ralat FormCController Shuttle 3/4/5 | Selesai |
+| | | Fix MainController Shuttle 3/4/5 (aliran borang) | Selesai |
+| | | Fix paparan senarai B & C IBK Shuttle 3/4/5 | Selesai |
+| | | Fix partial cell-borang-monthly & cell-borang-quarterly | Selesai |
+| | | Fix setting daerah pada Shuttle 4 (MainController & routes) | Selesai |
+| Jul 2026 | **(b) Notifikasi Sistem** | Fix NotifikasiKilangController — refactor & kurangkan saiz (>538 baris → 153) | Selesai |
+| | | Tambah BorangTidakDiisiNotification (PHD) | Selesai |
+| | | Kemaskini paparan notifikasi kilang shuttle_3/4/5_phd | Selesai |
+| Jul 2026 | **(d) Database Tuning** | Kemaskini SealFutureFormBSeeder — pembetulan logik seal borang B | Selesai |
 
 ---
 

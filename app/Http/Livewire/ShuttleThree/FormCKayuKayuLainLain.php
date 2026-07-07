@@ -13,6 +13,7 @@ use App\Models\Shuttle;
 use App\Models\Spesis;
 use App\Models\User;
 use App\Notifications\IBK\BorangDiHantar;
+use App\Services\FormFlowService;
 use Illuminate\Support\Facades\Session;
 use Livewire\Component;
 
@@ -124,7 +125,7 @@ class FormCKayuKayuLainLain extends Component
         // $this->kumpulan_kayu = KumpulanKayu::get();
 
         $this->kilang_info = Shuttle::where('id', auth()->user()->shuttle_id)->first();
-        $formc = ModelsFormC::where('shuttle_id', auth()->user()->shuttle_id)->where('bulan', $this->bulan_id)->whereYear('created_at', $this->year ?? date("Y"))->first();
+        $formc = FormFlowService::findFormC(auth()->user()->shuttle_id, $this->year ?? date("Y"), $this->bulan_id);
         
         // Auto-detect year from form if not set
         if (!$this->year && $formc) {
@@ -133,7 +134,7 @@ class FormCKayuKayuLainLain extends Component
 
         if ($this->bulan_id != 1) {
             $lastmonth = $this->bulan_id - 1;
-            $lastMonthformc = ModelsFormC::where('shuttle_id', auth()->user()->shuttle_id)->where('bulan', $lastmonth)->whereYear('created_at', $this->year ?? date("Y"))->first();
+            $lastMonthformc = FormFlowService::findFormC(auth()->user()->shuttle_id, $this->year ?? date("Y"), $lastmonth);
 
             $kemasukan_bahans_lastmonth = KemasukanBahan::with('spesis_id')->whereHas('spesis_id', function ($q) {
                 $q->where('kumpulan_kayu_id', $this->kayu_id);
@@ -351,7 +352,7 @@ class FormCKayuKayuLainLain extends Component
 
         if ($this->bulan_id != 1) {
             $lastmonth = $this->bulan_id - 1; //create
-            $lastMonthformc = ModelsFormC::where('shuttle_id', auth()->user()->shuttle_id)->where('bulan', $lastmonth)->whereYear('created_at', $this->year ?? date("Y"))->first();
+            $lastMonthformc = FormFlowService::findFormC(auth()->user()->shuttle_id, $this->year ?? date("Y"), $lastmonth);
 
             $kemasukan_bahans_lastmonth = KemasukanBahan::with('spesis_id')
                 ->whereHas('spesis_id', function ($q) {
@@ -407,7 +408,7 @@ class FormCKayuKayuLainLain extends Component
         $user = auth()->user();
         // dd($this->suku_id);
 
-        $formc = ModelsFormC::where('shuttle_id', $user->shuttle_id)->where('bulan', $this->bulan_id)->whereYear('created_at', $this->year ?? date("Y"))->first();
+        $formc = FormFlowService::findFormC($user->shuttle_id, $this->year ?? date("Y"), $this->bulan_id);
         
         // Auto-detect year from form if not set
         if (!$this->year && $formc) {
@@ -439,7 +440,7 @@ class FormCKayuKayuLainLain extends Component
 
         if ($this->bulan_id != 1) {
             $lastmonth = $this->bulan_id - 1; //create
-            $lastMonthformc = ModelsFormC::where('shuttle_id', auth()->user()->shuttle_id)->where('bulan', $lastmonth)->whereYear('created_at', $this->year ?? date("Y"))->first();
+            $lastMonthformc = FormFlowService::findFormC(auth()->user()->shuttle_id, $this->year ?? date("Y"), $lastmonth);
 
             $kemasukan_bahans_lastmonth = KemasukanBahan::with('spesis_id')
             ->where('shuttle_id', auth()->user()->shuttle_id)->where('formcs_id', $lastMonthformc->id)->get();
@@ -612,7 +613,7 @@ class FormCKayuKayuLainLain extends Component
         $user = auth()->user();
         // dd($this->suku_id);
 
-        $formc = ModelsFormC::where('shuttle_id', $user->shuttle_id)->where('bulan', $this->bulan_id)->whereYear('created_at', $this->year ?? date("Y"))->first();
+        $formc = FormFlowService::findFormC($user->shuttle_id, $this->year ?? date("Y"), $this->bulan_id);
         
         // Auto-detect year from form if not set
         if (!$this->year && $formc) {

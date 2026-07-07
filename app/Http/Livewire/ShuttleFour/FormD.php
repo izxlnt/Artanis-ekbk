@@ -12,6 +12,7 @@ use App\Models\FormC as ModelsFormC;
 use App\Models\RecoveryRate;
 use App\Models\User;
 use App\Notifications\IBK\BorangDiHantar;
+use App\Services\FormFlowService;
 use Illuminate\Support\Facades\Session;
 use Livewire\Component;
 
@@ -115,7 +116,7 @@ class FormD extends Component
     {
         $formc_ids = ModelsFormC::where('shuttle_id', auth()->user()->shuttle_id)
             ->where('bulan', $this->bulan_id)
-            ->whereYear('created_at', date("Y"))
+            ->where('tahun', date("Y"))
             ->pluck('id');
 
         if ($formc_ids->isEmpty()) {
@@ -143,10 +144,7 @@ class FormD extends Component
         $this->max_recovery_rate = $recovery_rate ? (float)$recovery_rate->max_recovery_rate * $jumlah_besar : 0;
 
         // Load any previously saved data so IBK can edit when form is returned (Tidak Lengkap)
-        $formd = Form4D::where('shuttle_id', auth()->user()->shuttle_id)
-            ->where('bulan', $this->bulan_id)
-            ->whereYear('created_at', date("Y"))
-            ->first();
+        $formd = FormFlowService::findFormD(auth()->user()->shuttle_id, 4, date("Y"), $this->bulan_id);
 
         $loadedNipis = $formd
             ? ProdukPengeluaran::where('form4ds_id', $formd->id)
@@ -397,7 +395,7 @@ class FormD extends Component
 
         $formc_ids_store = ModelsFormC::where('shuttle_id', auth()->user()->shuttle_id)
             ->where('bulan', $this->bulan_id)
-            ->whereYear('created_at', date("Y"))
+            ->where('tahun', date("Y"))
             ->pluck('id');
 
         $this->kemasukan_bahan_calc_lain_lain = KemasukanBahan::where('shuttle_id', auth()->user()->shuttle_id)
@@ -488,7 +486,7 @@ class FormD extends Component
 
         $user = auth()->user();
 
-        $formd = Form4D::where('shuttle_id',$user->shuttle_id)->where('bulan',$this->bulan_id)->whereYear('created_at', date("Y"))->first();
+        $formd = FormFlowService::findFormD($user->shuttle_id, 4, date("Y"), $this->bulan_id);
 
         $formd->rekod_veniermuka = $this->rekod_veniermuka;
         $formd->rekod_venierteras = $this->rekod_venierteras;
@@ -637,7 +635,7 @@ class FormD extends Component
 
         $user = auth()->user();
 
-        $formd = Form4D::where('shuttle_id',$user->shuttle_id)->where('bulan',$this->bulan_id)->whereYear('created_at', date("Y"))->first();
+        $formd = FormFlowService::findFormD($user->shuttle_id, 4, date("Y"), $this->bulan_id);
 
         $formd->status = 'Tiada Pengeluaran';
         $formd->tiada_pengeluaran = 1;

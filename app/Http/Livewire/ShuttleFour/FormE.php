@@ -10,6 +10,7 @@ use App\Models\PenjualanPembeli;
 use App\Models\Shuttle;
 use App\Models\User;
 use App\Notifications\IBK\BorangDiHantar;
+use App\Services\FormFlowService;
 use Illuminate\Support\Facades\Session;
 use Livewire\Component;
 
@@ -162,7 +163,7 @@ class FormE extends Component
 
         $user = auth()->user();
 
-        $forme = Form4E::where('shuttle_id', $user->shuttle_id)->where('bulan', $this->bulan_id)->whereYear('created_at', date("Y"))->first();
+        $forme = FormFlowService::findFormE($user->shuttle_id, 4, date("Y"), $this->bulan_id);
 
         $forme->total_export = $this->total_export;
         $forme->jumlah_pasaran_tempatan = $this->jumlah_pasaran_tempatan;

@@ -45,6 +45,27 @@ class FormFlowService
     }
 
     /**
+     * Single point of truth for "find the FormC/D/E row for this shuttle/month/year".
+     * Always keyed by the `tahun` column (never `created_at`) so this always agrees
+     * with getStatus() above — records can be backfilled long after the year they
+     * belong to, so created_at cannot be used to identify which year a row is for.
+     */
+    public static function findFormC(int $shuttleId, int $year, int $month)
+    {
+        return FormC::where('shuttle_id', $shuttleId)->where('tahun', $year)->where('bulan', $month)->first();
+    }
+
+    public static function findFormD(int $shuttleId, int $shuttleType, int $year, int $month)
+    {
+        return self::loadFormDSingle($shuttleId, $shuttleType, $year, $month);
+    }
+
+    public static function findFormE(int $shuttleId, int $shuttleType, int $year, int $month)
+    {
+        return self::loadFormESingle($shuttleId, $shuttleType, $year, $month);
+    }
+
+    /**
      * Compute form flow status for a shuttle for a given year.
      *
      * Returns:

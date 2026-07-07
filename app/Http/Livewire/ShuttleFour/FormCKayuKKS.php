@@ -11,6 +11,7 @@ use App\Models\Pembeli;
 use App\Models\RecoveryRate;
 use App\Models\Shuttle;
 use App\Models\Spesis;
+use App\Services\FormFlowService;
 use Illuminate\Support\Facades\Session;
 use Livewire\Component;
 
@@ -116,11 +117,11 @@ class FormCKayuKKS extends Component
         // $this->kumpulan_kayu = KumpulanKayu::get();
 
         $this->kilang_info = Shuttle::where('id', auth()->user()->shuttle_id)->first();
-        $formc = ModelsFormC::where('shuttle_id', auth()->user()->shuttle_id)->where('bulan', $this->bulan_id)->whereYear('created_at', date("Y"))->first();
+        $formc = FormFlowService::findFormC(auth()->user()->shuttle_id, date("Y"), $this->bulan_id);
 
         if ($this->bulan_id != 1) {
             $lastmonth = $this->bulan_id - 1;
-            $lastMonthformc = ModelsFormC::where('shuttle_id', auth()->user()->shuttle_id)->where('bulan', $lastmonth)->whereYear('created_at', date("Y"))->first();
+            $lastMonthformc = FormFlowService::findFormC(auth()->user()->shuttle_id, date("Y"), $lastmonth);
 
             $kemasukan_bahans_lastmonth = KemasukanBahan::with('spesis_id')
                 ->whereHas('spesis_id', function ($q) {
@@ -314,7 +315,7 @@ class FormCKayuKKS extends Component
         $user = auth()->user();
         // dd($this->suku_id);
 
-        $formc = ModelsFormC::where('shuttle_id', $user->shuttle_id)->where('bulan', $this->bulan_id)->whereYear('created_at', date("Y"))->first();
+        $formc = FormFlowService::findFormC($user->shuttle_id, date("Y"), $this->bulan_id);
 
         // $formc->status = 'Sedang Diproses';
         $formc->status = 'Sedang Diisi';

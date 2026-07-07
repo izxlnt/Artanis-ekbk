@@ -35,7 +35,11 @@
         <a href="{{ $fillLink }}" data-toggle="tooltip" data-placement="bottom" title="Borang sedang diisi">
             <img src="{{ asset('circle_times.png') }}" height="28">
         </a>
-    @elseif($status === 'Sedang Diproses' || $status === 'Tiada Pengeluaran')
+    @elseif($status === 'Tiada Pengeluaran')
+        <a href="{{ $viewLink }}" data-toggle="tooltip" data-placement="bottom" title="Borang telah dihantar - Tiada Pengeluaran">
+            <img src="{{ asset('tp_logo2.png') }}" height="28">
+        </a>
+    @elseif($status === 'Sedang Diproses')
         <a href="{{ $viewLink }}" data-toggle="tooltip" data-placement="bottom" title="Borang telah dihantar">
             <img src="{{ asset('circle_check_yellow.png') }}" height="28">
         </a>
