@@ -23,7 +23,7 @@ class ListAController extends Controller
 
         $year_list = FormA::whereHas('shuttle', function ($q) {
             $q->whereIn('daerah_id', auth()->user()->daerah_ids);
-        })->distinct()->orderBy('tahun')->get('tahun');
+        })->where('tahun', '>=', config('app.data_start_year'))->distinct()->orderBy('tahun')->get('tahun');
 
         $buffer = Buffer::where('borang', 'b')->where('shuttle', '4')->first();
 
@@ -73,7 +73,7 @@ class ListAController extends Controller
 
         $year_list = FormA::whereHas('shuttle', function ($q) {
             $q->where('negeri_id', auth()->user()->negeri);
-        })->distinct()->orderBy('tahun')->get('tahun');
+        })->where('tahun', '>=', config('app.data_start_year'))->distinct()->orderBy('tahun')->get('tahun');
 
         // $year_list = FormA::select('shuttle_id')
         //     ->whereHas('shuttle', function ($q) {

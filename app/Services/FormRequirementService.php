@@ -7,14 +7,21 @@ use Carbon\Carbon;
 class FormRequirementService
 {
     /**
-     * Determine which forms a user needs to fill based on their registration date
-     * 
-     * Rules:
-     * 1. Users registered in current year (2026) only fill forms from registration month onwards
-     * 2. Users registered in previous year (2025) fill from registration quarter onwards for 2025, then all 2026 forms
-     * 3. Users registered in 2024 or earlier must fill ALL forms for 2025 and 2026
-     * 
-     * @param Carbon $registrationDate - User's created_at date
+     * Determine which forms a user needs to fill, focused on the current year only.
+     *
+     * Rule (confirmed 2026-07-08): regardless of registration date, every user's
+     * required forms are always January–December of the CURRENT year. Previous-year
+     * data is no longer required or auto-generated — if a user already filled
+     * December of the previous year (through whatever means), Form C's own
+     * carry-forward logic (FormFlowService) will still pick it up for January's
+     * opening stock; if they didn't, January just starts fresh at zero. A user
+     * who registers mid-year (e.g. August) still gets the full current-year
+     * January–December requirement, not a partial one starting at their
+     * registration month.
+     *
+     * @param Carbon $registrationDate - User's created_at date (kept for signature
+     *                                   compatibility / reporting; no longer used
+     *                                   to vary which years/months are required).
      * @param int $currentYear - Current year (default: current year)
      * @return array - Array with form requirements
      */
@@ -25,94 +32,19 @@ class FormRequirementService
         $registrationMonth = $registrationDate->month;
         $registrationQuarter = (int) ceil($registrationMonth / 3);
 
-        $requirements = [
+        return [
             'current_year' => $currentYear,
             'registration_year' => $registrationYear,
             'registration_month' => $registrationMonth,
             'registration_quarter' => $registrationQuarter,
-            'years_to_fill' => [],
-            'months_to_fill' => [],
-            'quarters_to_fill' => [],
-            'forma_required' => [],
-            'formb_required' => [],
-            'formc_d_e_required' => [],
-            'message' => '',
+            'years_to_fill' => [$currentYear],
+            'months_to_fill' => [$currentYear => range(1, 12)],
+            'quarters_to_fill' => [$currentYear => [1, 2, 3, 4]],
+            'forma_required' => [$currentYear],
+            'formb_required' => [$currentYear => [1, 2, 3, 4]],
+            'formc_d_e_required' => [$currentYear => range(1, 12)],
+            'message' => "Anda perlu mengisi SEMUA borang untuk tahun " . $currentYear,
         ];
-
-        // Rule 4: Registered 2024 or earlier - Fill ALL forms for 2025 and current year
-        if ($registrationYear <= ($currentYear - 2)) {
-            $requirements['years_to_fill'] = [$currentYear - 1, $currentYear];
-            $requirements['months_to_fill'] = [
-                $currentYear - 1 => range(1, 12),
-                $currentYear => range(1, 12)
-            ];
-            $requirements['quarters_to_fill'] = [
-                $currentYear - 1 => [1, 2, 3, 4],
-                $currentYear => [1, 2, 3, 4]
-            ];
-            $requirements['forma_required'] = [$currentYear - 1, $currentYear];
-            $requirements['formb_required'] = [
-                $currentYear - 1 => [1, 2, 3, 4],
-                $currentYear => [1, 2, 3, 4]
-            ];
-            $requirements['formc_d_e_required'] = [
-                $currentYear - 1 => range(1, 12),
-                $currentYear => range(1, 12)
-            ];
-            $requirements['message'] = "Anda perlu mengisi SEMUA borang untuk tahun " . ($currentYear - 1) . " dan " . $currentYear;
-        }
-        // Rule 2: Registered in previous year (2025) - Fill from registration quarter onwards for 2025, then all 2026
-        elseif ($registrationYear == ($currentYear - 1)) {
-            $requirements['years_to_fill'] = [$currentYear - 1, $currentYear];
-            
-            // For previous year: from registration quarter onwards
-            $prevYearQuarters = range($registrationQuarter, 4);
-            $prevYearMonths = [];
-            foreach ($prevYearQuarters as $quarter) {
-                $startMonth = ($quarter - 1) * 3 + 1;
-                $endMonth = $quarter * 3;
-                $prevYearMonths = array_merge($prevYearMonths, range($startMonth, $endMonth));
-            }
-            
-            $requirements['months_to_fill'] = [
-                $currentYear - 1 => $prevYearMonths,
-                $currentYear => range(1, 12)
-            ];
-            $requirements['quarters_to_fill'] = [
-                $currentYear - 1 => $prevYearQuarters,
-                $currentYear => [1, 2, 3, 4]
-            ];
-            $requirements['forma_required'] = [$currentYear - 1, $currentYear];
-            $requirements['formb_required'] = [
-                $currentYear - 1 => $prevYearQuarters,
-                $currentYear => [1, 2, 3, 4]
-            ];
-            $requirements['formc_d_e_required'] = [
-                $currentYear - 1 => $prevYearMonths,
-                $currentYear => range(1, 12)
-            ];
-            $requirements['message'] = "Anda perlu mengisi borang dari Suku " . $registrationQuarter . " tahun " . ($currentYear - 1) . " dan SEMUA borang untuk tahun " . $currentYear;
-        }
-        // Rule 1 & 3: Registered in current year - Fill ALL forms from January of current year
-        elseif ($registrationYear == $currentYear) {
-            $requirements['years_to_fill'] = [$currentYear];
-            $requirements['months_to_fill'] = [
-                $currentYear => range(1, 12)
-            ];
-            $requirements['quarters_to_fill'] = [
-                $currentYear => [1, 2, 3, 4]
-            ];
-            $requirements['forma_required'] = [$currentYear];
-            $requirements['formb_required'] = [
-                $currentYear => [1, 2, 3, 4]
-            ];
-            $requirements['formc_d_e_required'] = [
-                $currentYear => range(1, 12)
-            ];
-            $requirements['message'] = "Anda perlu mengisi SEMUA borang untuk tahun " . $currentYear;
-        }
-
-        return $requirements;
     }
 
     /**

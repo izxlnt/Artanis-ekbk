@@ -32,7 +32,7 @@ class FormCController extends Controller
         }
 
         // Block access to months that have not arrived yet
-        if ((int)$year > (int)date('Y') || ((int)$year == (int)date('Y') && (int)$bulan_id > (int)date('n'))) {
+        if ((int)$year < (int)config('app.data_start_year') || (int)$year > (int)date('Y') || ((int)$year == (int)date('Y') && (int)$bulan_id > (int)date('n'))) {
             return redirect()->back()->with('error', 'Borang untuk bulan ini belum dibuka.');
         }
 
@@ -79,9 +79,9 @@ class FormCController extends Controller
         $registrationMonth = date('n', strtotime($registrationDate));
         $registrationYear = date('Y', strtotime($registrationDate));
         
-        // Block access to years that are too old (more than 1 year back)
-        if ($year < ($currentYear - 1)) {
-            return redirect()->back()->with('error', 'Tahun yang dipilih terlalu lama. Sila isi borang untuk tahun semasa atau tahun lepas sahaja.');
+        // Block access to years before the system-wide reset point
+        if ($year < config('app.data_start_year')) {
+            return redirect()->back()->with('error', 'Tahun yang dipilih terlalu lama. Sila isi borang untuk tahun ' . config('app.data_start_year') . ' dan ke atas sahaja.');
         }
         
         // Get previous month data for carryforward (baki bulan lepas)

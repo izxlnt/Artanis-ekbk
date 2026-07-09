@@ -47,7 +47,7 @@ class MainController extends Controller
 
     public function shuttle_4_listA_ipjpsm($year)
     {
-        if ($year < 2025) return redirect()->route('shuttle-4-listA', 2025);
+        if ($year < config('app.data_start_year')) return redirect()->route('shuttle-4-listA', config('app.data_start_year'));
         $user = auth()->user();
 
         // $formB_kilang = FormB::select('shuttle_id')->distinct()->where('tahun', $year)->get();
@@ -72,7 +72,7 @@ class MainController extends Controller
         INNER JOIN shuttles ON form_a_s.shuttle_id = shuttles.id
         WHERE shuttles.shuttle_type = '4'
         AND (form_a_s.status = 'Dihantar ke IPJPSM' OR form_a_s.status = 'Lulus')
-        ORDER BY form_a_s.tahun DESC"));
+        AND form_a_s.tahun >= " . ((int) config('app.data_start_year')) . " ORDER BY form_a_s.tahun DESC"));
 
         // $year_list = DB::select(DB::raw('SELECT form_a_s.tahun FROM batches, form_a_s
         // WHERE batches.tahun = form_a_s.tahun
@@ -314,7 +314,7 @@ class MainController extends Controller
     {
         $year = $year ?? date("Y");
 
-        if ((int)$year > (int)date('Y') || ((int)$year == (int)date('Y') && (int)ceil(date('n') / 3) < (int)$id)) {
+        if ((int)$year < (int)config('app.data_start_year') || (int)$year > (int)date('Y') || ((int)$year == (int)date('Y') && (int)ceil(date('n') / 3) < (int)$id)) {
             return redirect()->back()->with('error', 'Borang untuk suku tahun ini belum dibuka.');
         }
 
@@ -466,7 +466,7 @@ class MainController extends Controller
             ->whereHas('shuttle', function ($q) {
                 $q->whereIn('daerah_id', auth()->user()->daerah_ids)->where('shuttle_type', '4');
             })
-            ->distinct()->orderBy('tahun')->get('tahun');
+            ->where('tahun', '>=', config('app.data_start_year'))->distinct()->orderBy('tahun')->get('tahun');
 
         $breadcrumbs    = [
             ['link' => route('home'), 'name' => "Laman Utama"],
@@ -501,7 +501,7 @@ class MainController extends Controller
             ->whereHas('shuttle', function ($q) {
                 $q->whereIn('daerah_id', auth()->user()->daerah_ids)->where('shuttle_type', '4');
             })
-            ->distinct()->orderBy('tahun')->get('tahun');
+            ->where('tahun', '>=', config('app.data_start_year'))->distinct()->orderBy('tahun')->get('tahun');
 
         $breadcrumbs    = [
             ['link' => route('home'), 'name' => "Laman Utama"],
@@ -542,7 +542,7 @@ class MainController extends Controller
             ->whereHas('shuttle', function ($q) {
                 $q->whereIn('daerah_id', auth()->user()->daerah_ids)->where('shuttle_type', '4');
             })
-            ->distinct()->orderBy('tahun')->get('tahun');
+            ->where('tahun', '>=', config('app.data_start_year'))->distinct()->orderBy('tahun')->get('tahun');
 
         $breadcrumbs    = [
             ['link' => route('home'), 'name' => "Laman Utama"],
@@ -577,7 +577,7 @@ class MainController extends Controller
             ->whereHas('shuttle', function ($q) {
                 $q->whereIn('daerah_id', auth()->user()->daerah_ids)->where('shuttle_type', '4');
             })
-            ->distinct()->orderBy('tahun')->get('tahun');
+            ->where('tahun', '>=', config('app.data_start_year'))->distinct()->orderBy('tahun')->get('tahun');
 
         $breadcrumbs    = [
             ['link' => route('home'), 'name' => "Laman Utama"],
@@ -611,7 +611,7 @@ class MainController extends Controller
             ->whereHas('shuttle', function ($q) {
                 $q->whereIn('daerah_id', auth()->user()->daerah_ids)->where('shuttle_type', '4');
             })
-            ->distinct()->orderBy('tahun')->get('tahun');
+            ->where('tahun', '>=', config('app.data_start_year'))->distinct()->orderBy('tahun')->get('tahun');
 
         $breadcrumbs    = [
             ['link' => route('home'), 'name' => "Laman Utama"],
@@ -699,7 +699,7 @@ class MainController extends Controller
         if ($request->status == "Tidak Lengkap") {
             if ($batch) {
                 $pengguna_kilang_data = PenggunaKilang::where('shuttle_id', $form4E->shuttle->id)->first();
-                $pengguna_kilangs = User::where('pengguna_kilang_id', $pengguna_kilang_data->id)->get();
+                $pengguna_kilangs = $pengguna_kilang_data ? User::where('pengguna_kilang_id', $pengguna_kilang_data->id)->get() : collect();
                 foreach ($pengguna_kilangs as $pengguna_kilang) {
                     $pengguna_kilang->notify(new BorangTidakLengkapNotification($user, $form4E, $request->status, $request->ulasan_phd, $pengguna_kilang));
                 }

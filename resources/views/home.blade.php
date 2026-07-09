@@ -645,7 +645,7 @@
                                             <i class="fas fa-calendar mr-2"></i>Pilih Tahun:
                                         </label>
                                         <select name="select_year_graph" id="select_year_graph" class="form-control form-control-lg shadow-sm">
-                                            @for ($y = date('Y'); $y >= 2025; $y--)
+                                            @for ($y = date('Y'); $y >= intval(config('app.data_start_year')); $y--)
                                                 <option value="{{ $y }}" {{ $y == date('Y') ? 'selected' : '' }}>{{ $y }}</option>
                                             @endfor
                                         </select>

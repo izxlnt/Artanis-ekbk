@@ -15,7 +15,7 @@ class ListCController extends Controller
     public $shuttle_listC;
     public function shuttle_5_listC_ipjpsm($year)
     {
-        if ($year < 2025) return redirect()->route('shuttle-5-listC', 2025);
+        if ($year < config('app.data_start_year')) return redirect()->route('shuttle-5-listC', config('app.data_start_year'));
         $user = auth()->user();
         // dd($user );
 
@@ -35,7 +35,7 @@ class ListCController extends Controller
         AND batches.shuttle_id = form_c_s.shuttle_id
         AND batches.status = 'Dihantar ke IPJPSM'
         AND shuttles.shuttle_type = '5'
-        AND form_c_s.tahun = $year"));
+        AND form_c_s.tahun = $year AND form_c_s.tahun >= " . ((int) config('app.data_start_year')) ));
 
         // dd($formC_kilang);
 
@@ -59,7 +59,7 @@ class ListCController extends Controller
         AND batches.shuttle_id = form_c_s.shuttle_id
         AND batches.status = 'Dihantar ke IPJPSM'
         AND shuttles.shuttle_type = '5'
-        AND form_c_s.tahun = $year"));
+        AND form_c_s.tahun = $year AND form_c_s.tahun >= " . ((int) config('app.data_start_year')) ));
 
 $buffer = Buffer::where('borang', 'c')->where('shuttle', '5')->first();
 $batch = Batch::where('tahun', $year)->get();
@@ -106,7 +106,7 @@ $batch = Batch::where('tahun', $year)->get();
 
          $year_list = FormC::whereHas('shuttle', function($q){
             $q->where('negeri_id',auth()->user()->negeri)->where('shuttle_type', '5');
-         })->distinct()->orderBy('tahun')->get('tahun');
+         })->where('tahun', '>=', config('app.data_start_year'))->distinct()->orderBy('tahun')->get('tahun');
 
          $buffer = Buffer::where('borang', 'c')->where('shuttle', '5')->first();
 

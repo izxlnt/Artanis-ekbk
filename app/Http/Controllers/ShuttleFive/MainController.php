@@ -31,7 +31,7 @@ class MainController extends Controller
     public $shuttle_listA,$shuttle_listB;
     public function shuttle_5_listA_ipjpsm($year)
     {
-        if ($year < 2025) return redirect()->route('shuttle-5-listA', 2025);
+        if ($year < config('app.data_start_year')) return redirect()->route('shuttle-5-listA', config('app.data_start_year'));
         $user = auth()->user();
 
         // $formB_kilang = FormB::select('shuttle_id')->distinct()->where('tahun', $year)->get();
@@ -56,7 +56,7 @@ class MainController extends Controller
         INNER JOIN shuttles ON form_a_s.shuttle_id = shuttles.id
         WHERE shuttles.shuttle_type = '5'
         AND (form_a_s.status = 'Dihantar ke IPJPSM' OR form_a_s.status = 'Lulus')
-        ORDER BY form_a_s.tahun DESC"));
+        AND form_a_s.tahun >= " . ((int) config('app.data_start_year')) . " ORDER BY form_a_s.tahun DESC"));
 
         $breadcrumbs    = [
             ['link' => route('home-user'), 'name' => "Laman Utama"],
@@ -290,7 +290,7 @@ class MainController extends Controller
     {
         $year = $year ?? date("Y");
 
-        if ((int)$year > (int)date('Y') || ((int)$year == (int)date('Y') && (int)ceil(date('n') / 3) < (int)$id)) {
+        if ((int)$year < (int)config('app.data_start_year') || (int)$year > (int)date('Y') || ((int)$year == (int)date('Y') && (int)ceil(date('n') / 3) < (int)$id)) {
             return redirect()->back()->with('error', 'Borang untuk suku tahun ini belum dibuka.');
         }
 
@@ -526,7 +526,7 @@ class MainController extends Controller
         ->whereHas('shuttle', function ($q) {
             $q->whereIn('daerah_id', auth()->user()->daerah_ids)->where('shuttle_type', '5');
         })
-        ->distinct()->orderBy('tahun')->get('tahun');
+        ->where('tahun', '>=', config('app.data_start_year'))->distinct()->orderBy('tahun')->get('tahun');
 
         $breadcrumbs    = [
             ['link' => route('home-phd'), 'name' => "Laman Utama"],
@@ -559,7 +559,7 @@ class MainController extends Controller
         ->whereHas('shuttle', function ($q) {
             $q->whereIn('daerah_id', auth()->user()->daerah_ids)->where('shuttle_type', '5');
         })
-        ->distinct()->orderBy('tahun')->get('tahun');
+        ->where('tahun', '>=', config('app.data_start_year'))->distinct()->orderBy('tahun')->get('tahun');
 
         $breadcrumbs    = [
             ['link' => route('home-phd'), 'name' => "Laman Utama"],
@@ -600,7 +600,7 @@ class MainController extends Controller
         ->whereHas('shuttle', function ($q) {
             $q->whereIn('daerah_id', auth()->user()->daerah_ids)->where('shuttle_type', '5');
         })
-        ->distinct()->orderBy('tahun')->get('tahun');
+        ->where('tahun', '>=', config('app.data_start_year'))->distinct()->orderBy('tahun')->get('tahun');
 
         $breadcrumbs    = [
             ['link' => route('home-phd'), 'name' => "Laman Utama"],
@@ -633,7 +633,7 @@ class MainController extends Controller
         ->whereHas('shuttle', function ($q) {
             $q->whereIn('daerah_id', auth()->user()->daerah_ids)->where('shuttle_type', '5');
         })
-        ->distinct()->orderBy('tahun')->get('tahun');
+        ->where('tahun', '>=', config('app.data_start_year'))->distinct()->orderBy('tahun')->get('tahun');
 
         $breadcrumbs    = [
             ['link' => route('home-phd'), 'name' => "Laman Utama"],
@@ -666,7 +666,7 @@ class MainController extends Controller
         ->whereHas('shuttle', function ($q) {
             $q->whereIn('daerah_id', auth()->user()->daerah_ids)->where('shuttle_type', '5');
         })
-        ->distinct()->orderBy('tahun')->get('tahun');
+        ->where('tahun', '>=', config('app.data_start_year'))->distinct()->orderBy('tahun')->get('tahun');
 
         $breadcrumbs    = [
             ['link' => route('home-phd'), 'name' => "Laman Utama"],

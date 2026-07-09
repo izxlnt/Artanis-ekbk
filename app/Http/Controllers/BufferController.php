@@ -29,12 +29,15 @@ class BufferController extends Controller
 
     public function update_buffer(Request $request){
 
+        $aktif = $request->has('aktif') ? 1 : 0;
+
         if($request->buffer_id == "0"){
             $buffer = Buffer::get();
 
             foreach( $buffer as $data){
 
                 $data->delay = $request->delay;
+                $data->aktif = $aktif;
                 $data->save();
             }
 
@@ -42,6 +45,7 @@ class BufferController extends Controller
             $buffer = Buffer::findorfail($request->buffer_id);
 
             $buffer->delay = $request->delay;
+            $buffer->aktif = $aktif;
             $buffer->save();
         }
 

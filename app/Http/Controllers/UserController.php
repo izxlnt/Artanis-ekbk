@@ -1767,7 +1767,7 @@ class UserController extends Controller
 
         $shuttle = Shuttle::where('id', $user->shuttle_id)->first();
         $list = FormA::where('shuttle_id', $shuttle->id)->where('tahun', $year)->where('status', '!=', 'Tidak Diisi')->get();
-        $year_list = FormA::where('shuttle_id', $shuttle->id)->distinct()->orderBy('tahun')->get('tahun');
+        $year_list = FormA::where('shuttle_id', $shuttle->id)->where('tahun', '>=', config('app.data_start_year'))->distinct()->orderBy('tahun')->get('tahun');
 
         $breadcrumbs    = [
             ['link' => route('home-user'), 'name' => "Laman Utama"],
@@ -1792,7 +1792,7 @@ class UserController extends Controller
 
         $shuttle = Shuttle::where('id', $user->shuttle_id)->first();
         $list = FormB::where('shuttle_id', $shuttle->id)->where('status', '!=', 'Tidak Diisi')->get();
-        $year_list = FormB::where('shuttle_id', $shuttle->id)->distinct()->orderBy('tahun')->get('tahun');
+        $year_list = FormB::where('shuttle_id', $shuttle->id)->where('tahun', '>=', config('app.data_start_year'))->distinct()->orderBy('tahun')->get('tahun');
 
         $breadcrumbs    = [
             ['link' => route('home-user'), 'name' => "Laman Utama"],
@@ -1814,7 +1814,7 @@ class UserController extends Controller
         $user = auth()->user();
         $shuttle = Shuttle::where('id', $user->shuttle_id)->first();
         $list = FormC::where('shuttle_id', $shuttle->id)->where('status', '!=', 'Tidak Diisi')->get();
-        $year_list = FormC::where('shuttle_id', $shuttle->id)->distinct()->orderBy('tahun')->get('tahun');
+        $year_list = FormC::where('shuttle_id', $shuttle->id)->where('tahun', '>=', config('app.data_start_year'))->distinct()->orderBy('tahun')->get('tahun');
 
         $breadcrumbs    = [
             ['link' => route('home-user'), 'name' => "Laman Utama"],
@@ -1836,7 +1836,7 @@ class UserController extends Controller
         $user = auth()->user();
         $shuttle = Shuttle::where('id', $user->shuttle_id)->first();
         $list = FormD::where('shuttle_id', $shuttle->id)->where('status', '!=', 'Tidak Diisi')->get();
-        $year_list = FormD::where('shuttle_id', $shuttle->id)->distinct()->orderBy('tahun')->get('tahun');
+        $year_list = FormD::where('shuttle_id', $shuttle->id)->where('tahun', '>=', config('app.data_start_year'))->distinct()->orderBy('tahun')->get('tahun');
 
         $breadcrumbs    = [
             ['link' => route('home-user'), 'name' => "Laman Utama"],
@@ -1856,6 +1856,9 @@ class UserController extends Controller
 
     public function shuttle_3_senaraiA_ibk($year)
     {
+        if ($year < config('app.data_start_year')) {
+            $year = config('app.data_start_year'); // never surface or auto-create pre-reset years
+        }
         $user = auth()->user();
 
         $shuttle = Shuttle::where('id', $user->shuttle_id)->first();
@@ -1872,7 +1875,7 @@ class UserController extends Controller
 
         $currentYear = date('Y');
         $registrationYear = $shuttle->created_at ? date('Y', strtotime($shuttle->created_at)) : $currentYear;
-        $startYear = max($registrationYear - 1, $currentYear - 1);
+        $startYear = $currentYear; // Focus on current year only; previous-year data is no longer required.
 
         $year_list = collect();
         for ($i = $startYear; $i <= $currentYear; $i++) {
@@ -1899,6 +1902,9 @@ class UserController extends Controller
     public function shuttle_3_senaraiB_ibk($year)
     {
 
+        if ($year < config('app.data_start_year')) {
+            $year = config('app.data_start_year'); // never surface or auto-create pre-reset years
+        }
         $user = auth()->user();
 
         $shuttle = Shuttle::where('id', $user->shuttle_id)->first();
@@ -1906,7 +1912,7 @@ class UserController extends Controller
         $currentYear = date('Y');
         $registrationYear = $shuttle->created_at ? date('Y', strtotime($shuttle->created_at)) : $currentYear;
         $prevRegYear = $registrationYear - 1;
-        $startYear = max($prevRegYear, $currentYear - 1);
+        $startYear = $currentYear; // Focus on current year only; previous-year data is no longer required.
 
         // Auto-create FormB records for the requested year if they don't exist
         $quarterDates = [
@@ -1955,6 +1961,9 @@ class UserController extends Controller
 
     public function shuttle_3_senaraiC_ibk($year)
     {
+        if ($year < config('app.data_start_year')) {
+            $year = config('app.data_start_year'); // never surface or auto-create pre-reset years
+        }
         $user = auth()->user();
         $shuttle = Shuttle::where('id', $user->shuttle_id)->first();
         
@@ -1967,69 +1976,30 @@ class UserController extends Controller
             ->unique('bulan')
             ->values(); // Reset array keys after unique
 
-        // Get years where data exists, but filter by registration date
-        $year_list = FormC::where('shuttle_id', $shuttle->id)->distinct()->orderBy('tahun')->get('tahun');
-
-        // Filter out years before registration if shuttle has registration date
-        if ($shuttle && $shuttle->created_at) {
-            $registrationYear = date('Y', strtotime($shuttle->created_at));
-            $currentYear = date('Y');
-            
-            // Only show years from registration year up to previous year (block years more than 1 year old)
-            $year_list = $year_list->filter(function($item) use ($registrationYear, $currentYear) {
-                return $item->tahun >= ($registrationYear - 1) && $item->tahun >= ($currentYear - 1);
-            });
-        }
-
-        // Ensure prevRegYear appears in year_list (Dec of prev reg year is mandatory starting month)
-        if ($shuttle && $shuttle->created_at) {
-            $prevRegYearCheck = date('Y', strtotime($shuttle->created_at)) - 1;
-            if ($prevRegYearCheck >= ($currentYear - 1) && !$year_list->contains('tahun', $prevRegYearCheck)) {
-                $year_list->push((object)['tahun' => $prevRegYearCheck]);
-                $year_list = $year_list->sortBy('tahun')->values();
-            }
-            // Also ensure registrationYear itself appears (shuttles registered in a prior year need access to that year)
-            $regYearCheck = date('Y', strtotime($shuttle->created_at));
-            if ($regYearCheck >= ($currentYear - 1) && !$year_list->contains('tahun', $regYearCheck)) {
-                $year_list->push((object)['tahun' => $regYearCheck]);
-                $year_list = $year_list->sortBy('tahun')->values();
-            }
-        }
-
-        // If no data exists but shuttle is registered, show current year
-        if ($year_list->isEmpty()) {
-            $currentYear = date('Y');
-            $year_list = collect();
-            $year_list->push((object)['tahun' => $currentYear]);
-        }
-
-        // Registration date vars
-        $registrationDate = $shuttle->created_at;
-        $registrationYear = date('Y', strtotime($registrationDate));
+        // Year selector: current year always shown, plus any years that already
+        // have data (so existing historical records stay reachable), regardless
+        // of registration date. Previous-year data is no longer required or
+        // auto-generated — Form C's own carry-forward logic still picks up an
+        // existing December of the previous year for January's opening stock.
         $currentYear = date('Y');
-        $prevRegYear = $registrationYear - 1;
+        $year_list = FormC::where('shuttle_id', $shuttle->id)->where('tahun', '>=', config('app.data_start_year'))->distinct()->orderBy('tahun')->get('tahun');
+        if (!$year_list->contains('tahun', $currentYear)) {
+            $year_list->push((object) ['tahun' => $currentYear]);
+        }
+        $year_list = $year_list->sortBy('tahun')->values();
 
-        // Always ensure December of previous registration year exists (mandatory starting month)
-        FormC::firstOrCreate(
-            ['shuttle_id' => $shuttle->id, 'bulan' => 12, 'tahun' => $prevRegYear],
-            ['status' => 'Tidak Diisi', 'created_at' => $prevRegYear . '-12-01',
-             'tarikh_buka_borang' => $prevRegYear . '-12-01', 'tarikh_tutup_borang' => $prevRegYear . '-12-31']
-        );
-
-        // Ensure all 12 months exist for the viewed year (skip for prevRegYear — only December needed there)
-        if ($year != $prevRegYear) {
-            for ($month = 1; $month <= 12; $month++) {
-                $pad = str_pad($month, 2, '0', STR_PAD_LEFT);
-                FormC::firstOrCreate(
-                    ['shuttle_id' => $shuttle->id, 'bulan' => $month, 'tahun' => $year],
-                    [
-                        'status'               => 'Tidak Diisi',
-                        'created_at'           => "{$year}-{$pad}-01",
-                        'tarikh_buka_borang'   => "{$year}-{$pad}-01",
-                        'tarikh_tutup_borang'  => "{$year}-{$pad}-" . date('t', strtotime("{$year}-{$month}-01")),
-                    ]
-                );
-            }
+        // Ensure all 12 months exist for the viewed year
+        for ($month = 1; $month <= 12; $month++) {
+            $pad = str_pad($month, 2, '0', STR_PAD_LEFT);
+            FormC::firstOrCreate(
+                ['shuttle_id' => $shuttle->id, 'bulan' => $month, 'tahun' => $year],
+                [
+                    'status'               => 'Tidak Diisi',
+                    'created_at'           => "{$year}-{$pad}-01",
+                    'tarikh_buka_borang'   => "{$year}-{$pad}-01",
+                    'tarikh_tutup_borang'  => "{$year}-{$pad}-" . date('t', strtotime("{$year}-{$month}-01")),
+                ]
+            );
         }
 
         // Re-query to get all months including newly created ones
@@ -2056,39 +2026,21 @@ class UserController extends Controller
 
     public function shuttle_3_senaraiD_ibk($year)
     {
+        if ($year < config('app.data_start_year')) {
+            $year = config('app.data_start_year'); // never surface or auto-create pre-reset years
+        }
         $user = auth()->user();
         $shuttle = Shuttle::where('id', $user->shuttle_id)->first();
         $list = FormD::where('shuttle_id', $shuttle->id)->where('tahun', $year)->get();
 
-        // Get years where data exists, but filter by registration date
-        $year_list = FormD::where('shuttle_id', $shuttle->id)->distinct()->orderBy('tahun')->get('tahun');
-
-        // Filter out years before registration if shuttle has registration date
-        if ($shuttle && $shuttle->created_at) {
-            $registrationYear = date('Y', strtotime($shuttle->created_at));
-            $currentYear = date('Y');
-            
-            // Only show years from registration year up to previous year (block years more than 1 year old)
-            $year_list = $year_list->filter(function($item) use ($registrationYear, $currentYear) {
-                return $item->tahun >= ($registrationYear - 1) && $item->tahun >= ($currentYear - 1);
-            });
+        // Year selector: current year always shown, plus any years that already
+        // have data, regardless of registration date.
+        $currentYear = date('Y');
+        $year_list = FormD::where('shuttle_id', $shuttle->id)->where('tahun', '>=', config('app.data_start_year'))->distinct()->orderBy('tahun')->get('tahun');
+        if (!$year_list->contains('tahun', $currentYear)) {
+            $year_list->push((object) ['tahun' => $currentYear]);
         }
-
-        // Ensure prevRegYear appears in year_list even if no FormD records exist for it yet
-        if ($shuttle && $shuttle->created_at) {
-            $prevRegYear = date('Y', strtotime($shuttle->created_at)) - 1;
-            if ($prevRegYear >= ($currentYear - 1) && !$year_list->contains('tahun', $prevRegYear)) {
-                $year_list->push((object)['tahun' => $prevRegYear]);
-                $year_list = $year_list->sortBy('tahun')->values();
-            }
-        }
-
-        // If no data exists but shuttle is registered, show current year
-        if ($year_list->isEmpty()) {
-            $currentYear = date('Y');
-            $year_list = collect();
-            $year_list->push((object)['tahun' => $currentYear]);
-        }
+        $year_list = $year_list->sortBy('tahun')->values();
 
         $flow = FormFlowService::getStatus($shuttle->id, (int) $shuttle->shuttle_type, (int) $year);
 
@@ -2150,6 +2102,9 @@ class UserController extends Controller
     //shuttle 4
     public function shuttle_4_senaraiA_ibk($year)
     {
+        if ($year < config('app.data_start_year')) {
+            $year = config('app.data_start_year'); // never surface or auto-create pre-reset years
+        }
         $user = auth()->user();
 
         $shuttle = Shuttle::where('id', $user->shuttle_id)->first();
@@ -2158,7 +2113,7 @@ class UserController extends Controller
         $currentYear = date('Y');
         $registrationYear = $shuttle->created_at ? date('Y', strtotime($shuttle->created_at)) : $currentYear;
         $prevRegYear = $registrationYear - 1;
-        $startYear = max($prevRegYear, $currentYear - 1);
+        $startYear = $currentYear; // Focus on current year only; previous-year data is no longer required.
         $year_list = collect();
         for ($i = $startYear; $i <= $currentYear; $i++) {
             $year_list->push((object)['tahun' => $i]);
@@ -2181,6 +2136,9 @@ class UserController extends Controller
 
     public function shuttle_4_senaraiB_ibk($year)
     {
+        if ($year < config('app.data_start_year')) {
+            $year = config('app.data_start_year'); // never surface or auto-create pre-reset years
+        }
         $user = auth()->user();
 
         $shuttle = Shuttle::where('id', $user->shuttle_id)->first();
@@ -2188,7 +2146,7 @@ class UserController extends Controller
         $currentYear = date('Y');
         $registrationYear = $shuttle->created_at ? date('Y', strtotime($shuttle->created_at)) : $currentYear;
         $prevRegYear = $registrationYear - 1;
-        $startYear = max($prevRegYear, $currentYear - 1);
+        $startYear = $currentYear; // Focus on current year only; previous-year data is no longer required.
         $year_list = collect();
         for ($i = $startYear; $i <= $currentYear; $i++) {
             $year_list->push((object)['tahun' => $i]);
@@ -2232,45 +2190,35 @@ class UserController extends Controller
 
     public function shuttle_4_senaraiC_ibk($year)
     {
+        if ($year < config('app.data_start_year')) {
+            $year = config('app.data_start_year'); // never surface or auto-create pre-reset years
+        }
         $user = auth()->user();
 
         $shuttle = Shuttle::where('id', $user->shuttle_id)->first();
 
-        // Registration date vars
         $currentYear = date('Y');
-        $registrationDate = $shuttle->created_at;
-        $registrationMonth = date('n', strtotime($registrationDate));
-        $registrationYear = date('Y', strtotime($registrationDate));
-        $prevRegYear = $registrationYear - 1;
 
-        // Year list: from max(registrationYear - 1, currentYear - 1) to currentYear
-        $startYear = max($prevRegYear, $currentYear - 1);
-        $year_list = collect();
-        for ($i = $startYear; $i <= $currentYear; $i++) {
-            $year_list->push((object)['tahun' => $i]);
+        // Year selector: current year always shown, plus any years that already
+        // have data, regardless of registration date.
+        $year_list = FormC::where('shuttle_id', $shuttle->id)->where('tahun', '>=', config('app.data_start_year'))->distinct()->orderBy('tahun')->get('tahun');
+        if (!$year_list->contains('tahun', $currentYear)) {
+            $year_list->push((object) ['tahun' => $currentYear]);
         }
+        $year_list = $year_list->sortBy('tahun')->values();
 
-        // Always ensure December of previous registration year exists (mandatory starting month)
-        FormC::firstOrCreate(
-            ['shuttle_id' => $shuttle->id, 'bulan' => 12, 'tahun' => $prevRegYear],
-            ['status' => 'Tidak Diisi', 'created_at' => $prevRegYear . '-12-01',
-             'tarikh_buka_borang' => $prevRegYear . '-12-01', 'tarikh_tutup_borang' => $prevRegYear . '-12-31']
-        );
-
-        // Ensure all 12 months exist for the viewed year (skip for prevRegYear — only December needed there)
-        if ($year != $prevRegYear) {
-            for ($month = 1; $month <= 12; $month++) {
-                $pad = str_pad($month, 2, '0', STR_PAD_LEFT);
-                FormC::firstOrCreate(
-                    ['shuttle_id' => $shuttle->id, 'bulan' => $month, 'tahun' => $year],
-                    [
-                        'status'               => 'Tidak Diisi',
-                        'created_at'           => "{$year}-{$pad}-01",
-                        'tarikh_buka_borang'   => "{$year}-{$pad}-01",
-                        'tarikh_tutup_borang'  => "{$year}-{$pad}-" . date('t', strtotime("{$year}-{$month}-01")),
-                    ]
-                );
-            }
+        // Ensure all 12 months exist for the viewed year
+        for ($month = 1; $month <= 12; $month++) {
+            $pad = str_pad($month, 2, '0', STR_PAD_LEFT);
+            FormC::firstOrCreate(
+                ['shuttle_id' => $shuttle->id, 'bulan' => $month, 'tahun' => $year],
+                [
+                    'status'               => 'Tidak Diisi',
+                    'created_at'           => "{$year}-{$pad}-01",
+                    'tarikh_buka_borang'   => "{$year}-{$pad}-01",
+                    'tarikh_tutup_borang'  => "{$year}-{$pad}-" . date('t', strtotime("{$year}-{$month}-01")),
+                ]
+            );
         }
 
         // Re-query to get all months including newly created ones
@@ -2297,6 +2245,9 @@ class UserController extends Controller
 
     public function shuttle_4_senaraiD_ibk($year)
     {
+        if ($year < config('app.data_start_year')) {
+            $year = config('app.data_start_year'); // never surface or auto-create pre-reset years
+        }
         $user = auth()->user();
         $shuttle = Shuttle::where('id', $user->shuttle_id)->first();
 
@@ -2304,7 +2255,7 @@ class UserController extends Controller
 
         $currentYear = date('Y');
         $registrationYear = $shuttle->created_at ? date('Y', strtotime($shuttle->created_at)) : $currentYear;
-        $startYear = max($registrationYear - 1, $currentYear - 1);
+        $startYear = $currentYear; // Focus on current year only; previous-year data is no longer required.
 
         $year_list = collect();
         for ($i = $startYear; $i <= $currentYear; $i++) {
@@ -2326,6 +2277,9 @@ class UserController extends Controller
 
     public function shuttle_4_senaraiE_ibk($year)
     {
+        if ($year < config('app.data_start_year')) {
+            $year = config('app.data_start_year'); // never surface or auto-create pre-reset years
+        }
         $user = auth()->user();
         $shuttle = Shuttle::where('id', $user->shuttle_id)->first();
 
@@ -2333,7 +2287,7 @@ class UserController extends Controller
 
         $currentYear = date('Y');
         $registrationYear = $shuttle->created_at ? date('Y', strtotime($shuttle->created_at)) : $currentYear;
-        $startYear = max($registrationYear - 1, $currentYear - 1);
+        $startYear = $currentYear; // Focus on current year only; previous-year data is no longer required.
 
         $year_list = collect();
         for ($i = $startYear; $i <= $currentYear; $i++) {
@@ -2359,7 +2313,7 @@ class UserController extends Controller
 
         $shuttle = Shuttle::where('id', $user->shuttle_id)->first();
         $list = FormA::where('shuttle_id', $shuttle->id)->where('tahun', $year)->where('status', '!=', 'Tidak Diisi')->get();
-        $year_list = FormA::where('shuttle_id', $shuttle->id)->distinct()->orderBy('tahun')->get('tahun');
+        $year_list = FormA::where('shuttle_id', $shuttle->id)->where('tahun', '>=', config('app.data_start_year'))->distinct()->orderBy('tahun')->get('tahun');
 
         $breadcrumbs    = [
             ['link' => route('home'), 'name' => "Laman Utama"],
@@ -2383,7 +2337,7 @@ class UserController extends Controller
 
         $shuttle = Shuttle::where('id', $user->shuttle_id)->first();
         $list = FormB::where('shuttle_id', $shuttle->id)->where('tahun', $year)->where('status', '!=', 'Tidak Diisi')->get();
-        $year_list = FormB::where('shuttle_id', $shuttle->id)->distinct()->orderBy('tahun')->get('tahun');
+        $year_list = FormB::where('shuttle_id', $shuttle->id)->where('tahun', '>=', config('app.data_start_year'))->distinct()->orderBy('tahun')->get('tahun');
 
         $breadcrumbs    = [
             ['link' => route('home'), 'name' => "Laman Utama"],
@@ -2406,7 +2360,7 @@ class UserController extends Controller
 
         $shuttle = Shuttle::where('id', $user->shuttle_id)->first();
         $list = FormC::where('shuttle_id', $shuttle->id)->where('tahun', $year)->where('status', '!=', 'Tidak Diisi')->get();
-        $year_list = FormC::where('shuttle_id', $shuttle->id)->distinct()->orderBy('tahun')->get('tahun');
+        $year_list = FormC::where('shuttle_id', $shuttle->id)->where('tahun', '>=', config('app.data_start_year'))->distinct()->orderBy('tahun')->get('tahun');
 
 
         $breadcrumbs    = [
@@ -2430,7 +2384,7 @@ class UserController extends Controller
 
         $shuttle = Shuttle::where('id', $user->shuttle_id)->first();
         $list = Form4D::where('shuttle_id', $shuttle->id)->where('tahun', $year)->where('status', '!=', 'Tidak Diisi')->get();
-        $year_list = Form4D::where('shuttle_id', $shuttle->id)->distinct()->orderBy('tahun')->get('tahun');
+        $year_list = Form4D::where('shuttle_id', $shuttle->id)->where('tahun', '>=', config('app.data_start_year'))->distinct()->orderBy('tahun')->get('tahun');
 
 
         $breadcrumbs    = [
@@ -2454,7 +2408,7 @@ class UserController extends Controller
 
         $shuttle = Shuttle::where('id', $user->shuttle_id)->first();
         $list = Form4E::where('shuttle_id', $shuttle->id)->where('tahun', $year)->where('status', '!=', 'Tidak Diisi')->get();
-        $year_list = Form4E::where('shuttle_id', $shuttle->id)->distinct()->orderBy('tahun')->get('tahun');
+        $year_list = Form4E::where('shuttle_id', $shuttle->id)->where('tahun', '>=', config('app.data_start_year'))->distinct()->orderBy('tahun')->get('tahun');
 
 
         $breadcrumbs    = [
@@ -2477,6 +2431,9 @@ class UserController extends Controller
 
     public function shuttle_5_senaraiA_ibk($year)
     {
+        if ($year < config('app.data_start_year')) {
+            $year = config('app.data_start_year'); // never surface or auto-create pre-reset years
+        }
         $user = auth()->user();
 
         $shuttle = Shuttle::where('id', $user->shuttle_id)->first();
@@ -2485,7 +2442,7 @@ class UserController extends Controller
         $currentYear = date('Y');
         $registrationYear = $shuttle->created_at ? date('Y', strtotime($shuttle->created_at)) : $currentYear;
         $prevRegYear = $registrationYear - 1;
-        $startYear = max($prevRegYear, $currentYear - 1);
+        $startYear = $currentYear; // Focus on current year only; previous-year data is no longer required.
         $year_list = collect();
         for ($i = $startYear; $i <= $currentYear; $i++) {
             $year_list->push((object)['tahun' => $i]);
@@ -2509,6 +2466,9 @@ class UserController extends Controller
 
     public function shuttle_5_senaraiB_ibk($year)
     {
+        if ($year < config('app.data_start_year')) {
+            $year = config('app.data_start_year'); // never surface or auto-create pre-reset years
+        }
         $user = auth()->user();
 
         $shuttle = Shuttle::where('id', $user->shuttle_id)->first();
@@ -2516,7 +2476,7 @@ class UserController extends Controller
         $currentYear = date('Y');
         $registrationYear = $shuttle->created_at ? date('Y', strtotime($shuttle->created_at)) : $currentYear;
         $prevRegYear = $registrationYear - 1;
-        $startYear = max($prevRegYear, $currentYear - 1);
+        $startYear = $currentYear; // Focus on current year only; previous-year data is no longer required.
         $year_list = collect();
         for ($i = $startYear; $i <= $currentYear; $i++) {
             $year_list->push((object)['tahun' => $i]);
@@ -2560,45 +2520,35 @@ class UserController extends Controller
 
     public function shuttle_5_senaraiC_ibk($year)
     {
+        if ($year < config('app.data_start_year')) {
+            $year = config('app.data_start_year'); // never surface or auto-create pre-reset years
+        }
         $user = auth()->user();
 
         $shuttle = Shuttle::where('id', $user->shuttle_id)->first();
 
-        // Registration date vars
         $currentYear = date('Y');
-        $registrationDate = $shuttle->created_at;
-        $registrationYear = $shuttle->created_at ? date('Y', strtotime($shuttle->created_at)) : $currentYear;
-        $registrationMonth = $shuttle->created_at ? date('n', strtotime($shuttle->created_at)) : 1;
-        $prevRegYear = $registrationYear - 1;
 
-        // Year list: from max(registrationYear - 1, currentYear - 1) to currentYear
-        $startYear = max($prevRegYear, $currentYear - 1);
-        $year_list = collect();
-        for ($i = $startYear; $i <= $currentYear; $i++) {
-            $year_list->push((object)['tahun' => $i]);
+        // Year selector: current year always shown, plus any years that already
+        // have data, regardless of registration date.
+        $year_list = FormC::where('shuttle_id', $shuttle->id)->where('tahun', '>=', config('app.data_start_year'))->distinct()->orderBy('tahun')->get('tahun');
+        if (!$year_list->contains('tahun', $currentYear)) {
+            $year_list->push((object) ['tahun' => $currentYear]);
         }
+        $year_list = $year_list->sortBy('tahun')->values();
 
-        // Always ensure December of previous registration year exists (mandatory starting month)
-        FormC::firstOrCreate(
-            ['shuttle_id' => $shuttle->id, 'bulan' => 12, 'tahun' => $prevRegYear],
-            ['status' => 'Tidak Diisi', 'created_at' => $prevRegYear . '-12-01',
-             'tarikh_buka_borang' => $prevRegYear . '-12-01', 'tarikh_tutup_borang' => $prevRegYear . '-12-31']
-        );
-
-        // Ensure all 12 months exist for the viewed year (skip for prevRegYear — only December needed there)
-        if ($year != $prevRegYear) {
-            for ($month = 1; $month <= 12; $month++) {
-                $pad = str_pad($month, 2, '0', STR_PAD_LEFT);
-                FormC::firstOrCreate(
-                    ['shuttle_id' => $shuttle->id, 'bulan' => $month, 'tahun' => $year],
-                    [
-                        'status'               => 'Tidak Diisi',
-                        'created_at'           => "{$year}-{$pad}-01",
-                        'tarikh_buka_borang'   => "{$year}-{$pad}-01",
-                        'tarikh_tutup_borang'  => "{$year}-{$pad}-" . date('t', strtotime("{$year}-{$month}-01")),
-                    ]
-                );
-            }
+        // Ensure all 12 months exist for the viewed year
+        for ($month = 1; $month <= 12; $month++) {
+            $pad = str_pad($month, 2, '0', STR_PAD_LEFT);
+            FormC::firstOrCreate(
+                ['shuttle_id' => $shuttle->id, 'bulan' => $month, 'tahun' => $year],
+                [
+                    'status'               => 'Tidak Diisi',
+                    'created_at'           => "{$year}-{$pad}-01",
+                    'tarikh_buka_borang'   => "{$year}-{$pad}-01",
+                    'tarikh_tutup_borang'  => "{$year}-{$pad}-" . date('t', strtotime("{$year}-{$month}-01")),
+                ]
+            );
         }
 
         $list = FormC::where('shuttle_id', $shuttle->id)->where('tahun', $year)
@@ -2621,6 +2571,9 @@ class UserController extends Controller
 
     public function shuttle_5_senaraiD_ibk($year)
     {
+        if ($year < config('app.data_start_year')) {
+            $year = config('app.data_start_year'); // never surface or auto-create pre-reset years
+        }
         $user = auth()->user();
 
         $shuttle = Shuttle::where('id', $user->shuttle_id)->first();
@@ -2629,7 +2582,7 @@ class UserController extends Controller
         // Year list: include registrationYear - 1 (Dec of prev year is mandatory starting month)
         $currentYear = date('Y');
         $registrationYear = $shuttle->created_at ? date('Y', strtotime($shuttle->created_at)) : $currentYear;
-        $startYear = max($registrationYear - 1, $currentYear - 1);
+        $startYear = $currentYear; // Focus on current year only; previous-year data is no longer required.
 
         $year_list = collect();
         for ($i = $startYear; $i <= $currentYear; $i++) {
@@ -2651,6 +2604,9 @@ class UserController extends Controller
 
     public function shuttle_5_senaraiE_ibk($year)
     {
+        if ($year < config('app.data_start_year')) {
+            $year = config('app.data_start_year'); // never surface or auto-create pre-reset years
+        }
         $user = auth()->user();
 
         $shuttle = Shuttle::where('id', $user->shuttle_id)->first();
@@ -2659,7 +2615,7 @@ class UserController extends Controller
         // Year list: include registrationYear - 1 (Dec of prev year is mandatory starting month)
         $currentYear = date('Y');
         $registrationYear = $shuttle->created_at ? date('Y', strtotime($shuttle->created_at)) : $currentYear;
-        $startYear = max($registrationYear - 1, $currentYear - 1);
+        $startYear = $currentYear; // Focus on current year only; previous-year data is no longer required.
 
         $year_list = collect();
         for ($i = $startYear; $i <= $currentYear; $i++) {
@@ -2685,7 +2641,7 @@ class UserController extends Controller
 
         $shuttle = Shuttle::where('id', $user->shuttle_id)->first();
         $list = FormA::where('shuttle_id', $shuttle->id)->where('tahun', $year)->where('status', '!=', 'Tidak Diisi')->get();
-        $year_list = FormA::where('shuttle_id', $shuttle->id)->distinct()->orderBy('tahun')->get('tahun');
+        $year_list = FormA::where('shuttle_id', $shuttle->id)->where('tahun', '>=', config('app.data_start_year'))->distinct()->orderBy('tahun')->get('tahun');
 
         $breadcrumbs    = [
             ['link' => route('home'), 'name' => "Laman Utama"],
@@ -2710,7 +2666,7 @@ class UserController extends Controller
 
         $shuttle = Shuttle::where('id', $user->shuttle_id)->first();
         $list = FormB::where('shuttle_id', $shuttle->id)->where('tahun', $year)->where('status', '!=', 'Tidak Diisi')->get();
-        $year_list = FormB::where('shuttle_id', $shuttle->id)->distinct()->orderBy('tahun')->get('tahun');
+        $year_list = FormB::where('shuttle_id', $shuttle->id)->where('tahun', '>=', config('app.data_start_year'))->distinct()->orderBy('tahun')->get('tahun');
 
         $breadcrumbs    = [
             ['link' => route('home'), 'name' => "Laman Utama"],
@@ -2736,7 +2692,7 @@ class UserController extends Controller
         $list = FormC::where('shuttle_id', $shuttle->id)->where('tahun', $year)->where('status', '!=', 'Tidak Diisi')->get();
 
 
-        $year_list = FormC::where('shuttle_id', $shuttle->id)->distinct()->orderBy('tahun')->get('tahun');
+        $year_list = FormC::where('shuttle_id', $shuttle->id)->where('tahun', '>=', config('app.data_start_year'))->distinct()->orderBy('tahun')->get('tahun');
 
         $buffer = Buffer::where('shuttle', auth()->user()->shuttle->shuttle_type)->where('borang', 'c')->where('shuttle', '5')->first();
 
@@ -2764,7 +2720,7 @@ class UserController extends Controller
         $list = Form5D::where('shuttle_id', $shuttle->id)->where('tahun', $year)->where('status', '!=', 'Tidak Diisi')->get();
 
 
-        $year_list = Form5D::where('shuttle_id', $shuttle->id)->distinct()->orderBy('tahun')->get('tahun');
+        $year_list = Form5D::where('shuttle_id', $shuttle->id)->where('tahun', '>=', config('app.data_start_year'))->distinct()->orderBy('tahun')->get('tahun');
 
         $buffer = Buffer::where('shuttle', auth()->user()->shuttle->shuttle_type)->where('borang', 'd')->where('shuttle', '5')->first();
 
@@ -2794,7 +2750,7 @@ class UserController extends Controller
         $list = Form5E::where('shuttle_id', $shuttle->id)->where('tahun', $year)->where('status', '!=', 'Tidak Diisi')->get();
 
 
-        $year_list = Form5E::where('shuttle_id', $shuttle->id)->distinct()->orderBy('tahun')->get('tahun');
+        $year_list = Form5E::where('shuttle_id', $shuttle->id)->where('tahun', '>=', config('app.data_start_year'))->distinct()->orderBy('tahun')->get('tahun');
 
         $buffer = Buffer::where('shuttle', auth()->user()->shuttle->shuttle_type)->where('borang', 'e')->where('shuttle', '5')->first();
 

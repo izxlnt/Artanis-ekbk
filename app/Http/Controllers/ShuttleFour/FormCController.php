@@ -29,7 +29,7 @@ class FormCController extends Controller
         $year = $year ?? date("Y");
 
         // Block access to months that have not arrived yet
-        if ((int)$year > (int)date('Y') || ((int)$year == (int)date('Y') && (int)$bulan_id > (int)date('n'))) {
+        if ((int)$year < (int)config('app.data_start_year') || (int)$year > (int)date('Y') || ((int)$year == (int)date('Y') && (int)$bulan_id > (int)date('n'))) {
             return redirect()->back()->with('error', 'Borang untuk bulan ini belum dibuka.');
         }
 
