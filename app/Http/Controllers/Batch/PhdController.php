@@ -21,7 +21,7 @@ class PhdController extends Controller
         ->whereHas('shuttle', function ($q) {
             $q->whereIn('daerah_id', auth()->user()->daerah_ids)->where('shuttle_type', '3');
         })
-        ->distinct()->orderBy('tahun')->get('tahun');
+        ->where('tahun', '>=', config('app.data_start_year'))->distinct()->orderBy('tahun')->get('tahun');
 
         // dd( $year_list);
 
@@ -71,7 +71,7 @@ class PhdController extends Controller
         ->whereHas('shuttle', function ($q) {
             $q->whereIn('daerah_id', auth()->user()->daerah_ids)->where('shuttle_type', '4');
         })
-        ->distinct()->orderBy('tahun')->get('tahun');
+        ->where('tahun', '>=', config('app.data_start_year'))->distinct()->orderBy('tahun')->get('tahun');
 
         $breadcrumbs    = [
             ['link' => route('home-phd'), 'name' => "Laman Utama"],
@@ -118,7 +118,7 @@ class PhdController extends Controller
         ->whereHas('shuttle', function ($q) {
             $q->whereIn('daerah_id', auth()->user()->daerah_ids)->where('shuttle_type', '5');
         })
-        ->distinct()->orderBy('tahun')->get('tahun');
+        ->where('tahun', '>=', config('app.data_start_year'))->distinct()->orderBy('tahun')->get('tahun');
 
         $breadcrumbs    = [
             ['link' => route('home-phd'), 'name' => "Laman Utama"],

@@ -32,7 +32,7 @@ class ListBController extends Controller
 
          $year_list = FormB::whereHas('shuttle', function($q){
             $q->whereIn('daerah_id', auth()->user()->daerah_ids)->where('shuttle_type', '4');
-         })->distinct()->orderBy('tahun')->get('tahun');
+         })->where('tahun', '>=', config('app.data_start_year'))->distinct()->orderBy('tahun')->get('tahun');
 
         //  dd($formB);
          $buffer = Buffer::where('borang', 'b')->where('shuttle', '4')->first();
@@ -58,7 +58,7 @@ class ListBController extends Controller
 
     public function shuttle_4_listB_ipjpsm($year)
     {
-        if ($year < 2025) return redirect()->route('shuttle-4-listB', 2025);
+        if ($year < config('app.data_start_year')) return redirect()->route('shuttle-4-listB', config('app.data_start_year'));
         $user = auth()->user();
         // dd($user );
         $formB_kilang = DB::select(DB::raw("SELECT DISTINCT shuttles.*, COALESCE(d.daerah_hutan, shuttles.daerah_id) as daerah_display FROM formbs
@@ -90,7 +90,7 @@ class ListBController extends Controller
         AND (formbs.status = 'Dihantar ke IPJPSM' OR formbs.status = 'Lulus')
         AND batches.shuttle_id = formbs.shuttle_id
         AND batches.status = 'Dihantar ke IPJPSM'
-        AND shuttles.shuttle_type = '4'"));
+        AND shuttles.shuttle_type = '4' AND batches.tahun >= " . ((int) config('app.data_start_year')) ));
 
 
 
@@ -135,7 +135,7 @@ class ListBController extends Controller
 
          $year_list = FormB::whereHas('shuttle', function($q){
             $q->where('negeri_id',auth()->user()->negeri)->where('shuttle_type', '4');
-         })->distinct()->orderBy('tahun')->get('tahun');
+         })->where('tahun', '>=', config('app.data_start_year'))->distinct()->orderBy('tahun')->get('tahun');
 
          $buffer = Buffer::where('borang', 'b')->where('shuttle', '4')->first();
 

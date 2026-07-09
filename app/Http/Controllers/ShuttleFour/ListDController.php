@@ -31,7 +31,7 @@ class ListDController extends Controller
 
         $year_list = Form4D::whereHas('shuttle', function ($q) {
             $q->whereIn('daerah_id', auth()->user()->daerah_ids)->where('shuttle_type', '4');
-        })->distinct()->orderBy('tahun')->get('tahun');
+        })->where('tahun', '>=', config('app.data_start_year'))->distinct()->orderBy('tahun')->get('tahun');
 
         $buffer = Buffer::where('borang', 'd')->where('shuttle', '4')->first();
 
@@ -134,7 +134,7 @@ class ListDController extends Controller
 
     public function shuttle_4_listD_ipjpsm($year)
     {
-        if ($year < 2025) return redirect()->route('shuttle-4-listD', 2025);
+        if ($year < config('app.data_start_year')) return redirect()->route('shuttle-4-listD', config('app.data_start_year'));
         $user = auth()->user();
         // dd($user );
 
@@ -170,11 +170,11 @@ class ListDController extends Controller
             AND (form4_d_s.status = 'Dihantar ke IPJPSM' OR form4_d_s.status = 'Lulus')
             AND batches.shuttle_id = form4_d_s.shuttle_id
             AND batches.status = 'Dihantar ke IPJPSM'
-            AND shuttles.shuttle_type = '4'"));
+            AND shuttles.shuttle_type = '4' AND batches.tahun >= " . ((int) config('app.data_start_year')) ));
 
         //  $year_list = FormD::whereHas('shuttle', function($q){
         //     $q->where('shuttle_type', '3');
-        //  })->distinct()->orderBy('tahun')->get('tahun');
+        //  })->where('tahun', '>=', config('app.data_start_year'))->distinct()->orderBy('tahun')->get('tahun');
 
         $buffer = Buffer::where('borang', 'd')->where('shuttle', '4')->first();
         $batch = Batch::where('tahun', $year)->get();
@@ -213,7 +213,7 @@ class ListDController extends Controller
 
         $year_list = Form4D::whereHas('shuttle', function ($q) {
             $q->where('negeri_id', auth()->user()->negeri);
-        })->distinct()->orderBy('tahun')->get('tahun');
+        })->where('tahun', '>=', config('app.data_start_year'))->distinct()->orderBy('tahun')->get('tahun');
         $buffer = Buffer::where('borang', 'd')->where('shuttle', '4')->first();
 
 

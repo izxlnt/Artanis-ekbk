@@ -13,6 +13,10 @@ class Buffer extends Model
         'shuttle',
         'borang',
         'delay',
+        'aktif',
+    ];
 
+    protected $casts = [
+        'aktif' => 'boolean',
     ];
 }

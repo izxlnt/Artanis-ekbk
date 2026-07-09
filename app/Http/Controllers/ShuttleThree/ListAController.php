@@ -86,7 +86,7 @@ class ListAController extends Controller
         // $shuttle = Shuttle::where('id', $user->shuttle_id)->first();
         // $list = FormA::where('shuttle_id', $shuttle->id)->where('tahun', $year)->first();
 
-        // $year_list = FormA::where('shuttle_id', $shuttle->id)->distinct()->orderBy('tahun')->get('tahun');
+        // $year_list = FormA::where('shuttle_id', $shuttle->id)->where('tahun', '>=', config('app.data_start_year'))->distinct()->orderBy('tahun')->get('tahun');
 
         $formA_kilang = FormA::select('shuttle_id')
             ->whereHas('shuttle', function ($q) {
@@ -104,7 +104,7 @@ class ListAController extends Controller
 
         $year_list = FormA::whereHas('shuttle', function ($q) {
             $q->where('negeri_id', auth()->user()->negeri);
-        })->distinct()->orderBy('tahun')->get('tahun');
+        })->where('tahun', '>=', config('app.data_start_year'))->distinct()->orderBy('tahun')->get('tahun');
 
         // $formA = FormA::where('status', '!=', 'Tidak Diisi')
         //     ->whereHas('shuttle', function ($q) {

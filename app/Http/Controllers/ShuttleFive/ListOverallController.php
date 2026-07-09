@@ -27,7 +27,7 @@ class ListOverallController extends Controller
 
         $year_list = FormA::whereHas('shuttle', function ($q) {
             $q->whereIn('daerah_id', auth()->user()->daerah_ids);
-        })->distinct()->orderBy('tahun')->get('tahun');
+        })->where('tahun', '>=', config('app.data_start_year'))->distinct()->orderBy('tahun')->get('tahun');
 
         $buffer = Buffer::where('borang', 'a')->where('shuttle', '5')->first();
 
@@ -74,7 +74,7 @@ class ListOverallController extends Controller
 
          $year_list = FormB::whereHas('shuttle', function($q){
             $q->whereIn('daerah_id', auth()->user()->daerah_ids)->where('shuttle_type', '5');
-         })->distinct()->orderBy('tahun')->get('tahun');
+         })->where('tahun', '>=', config('app.data_start_year'))->distinct()->orderBy('tahun')->get('tahun');
 
          $buffer = Buffer::where('borang', 'b')->where('shuttle', '5')->first();
 
@@ -112,7 +112,7 @@ class ListOverallController extends Controller
 
          $year_list = FormC::whereHas('shuttle', function($q){
             $q->whereIn('daerah_id', auth()->user()->daerah_ids)->where('shuttle_type', '5');
-         })->distinct()->orderBy('tahun')->get('tahun');
+         })->where('tahun', '>=', config('app.data_start_year'))->distinct()->orderBy('tahun')->get('tahun');
 
          $buffer = Buffer::where('borang', 'c')->where('shuttle', '5')->first();
 
@@ -153,7 +153,7 @@ class ListOverallController extends Controller
 
          $year_list = Form5D::whereHas('shuttle', function($q){
             $q->whereIn('daerah_id', auth()->user()->daerah_ids);
-         })->distinct()->orderBy('tahun')->get('tahun');
+         })->where('tahun', '>=', config('app.data_start_year'))->distinct()->orderBy('tahun')->get('tahun');
          $buffer = Buffer::where('borang', 'd')->where('shuttle', '5')->first();
 
          $breadcrumbs    = [
@@ -192,7 +192,7 @@ class ListOverallController extends Controller
 
          $year_list = Form5E::whereHas('shuttle', function($q){
             $q->whereIn('daerah_id', auth()->user()->daerah_ids);
-         })->distinct()->orderBy('tahun')->get('tahun');
+         })->where('tahun', '>=', config('app.data_start_year'))->distinct()->orderBy('tahun')->get('tahun');
          $buffer = Buffer::where('borang', 'e')->where('shuttle', '5')->first();
 
          $breadcrumbs    = [

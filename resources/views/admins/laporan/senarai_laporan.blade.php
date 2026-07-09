@@ -221,7 +221,7 @@
                                                     <select type="text" class="form-control" id="tahun" name='tahun'
                                                         onchange="display_spesies_option(this)">
                                                         <option value="" selected hidden disabled>Sila Pilih Tahun</option>
-                                                        @for ($i = intval(date('Y')); $i >= 2016; $i--)
+                                                        @for ($i = intval(date('Y')); $i >= intval(config('app.data_start_year')); $i--)
                                                             <option value={{ $i }}>{{ $i }}</option>
                                                         @endfor
                                                     </select>
@@ -284,7 +284,7 @@
                                                 <div class="col-md-6">
                                                     <select type="text" class="form-control" id="tahun_mula" name='tahun'>
                                                         <option value="" selected hidden disabled>Sila Pilih Tahun</option>
-                                                        @for ($i = intval(date('Y')); $i >= 2016; $i--)
+                                                        @for ($i = intval(date('Y')); $i >= intval(config('app.data_start_year')); $i--)
                                                             <option value={{ $i }}>{{ $i }}</option>
                                                         @endfor
                                                     </select>
@@ -300,7 +300,7 @@
                                                     <select type="text" class="form-control" id="tahunakhir"
                                                         name='tahunakhir'>
                                                         <option value="" selected hidden disabled>Sila Pilih Tahun</option>
-                                                        @for ($i = intval(date('Y')); $i >= 2016; $i--)
+                                                        @for ($i = intval(date('Y')); $i >= intval(config('app.data_start_year')); $i--)
                                                             <option value={{ $i }}>{{ $i }}</option>
                                                         @endfor
                                                     </select>
@@ -517,7 +517,7 @@
                                                     <select type="text" class="form-control" id="tahun_4" name='tahun'
                                                         onchange="display_spesies_option_4(this)">
                                                         <option value="" selected hidden disabled>Sila Pilih Tahun</option>
-                                                        @for ($i = intval(date('Y')); $i >= 2016; $i--)
+                                                        @for ($i = intval(date('Y')); $i >= intval(config('app.data_start_year')); $i--)
                                                             <option value={{ $i }}>{{ $i }}</option>
                                                         @endfor
                                                     </select>
@@ -581,7 +581,7 @@
                                                     <select type="text" class="form-control" id="tahun_mula_4"
                                                         name='tahun'>
                                                         <option value="" selected hidden disabled>Sila Pilih Tahun</option>
-                                                        @for ($i = intval(date('Y')); $i >= 2016; $i--)
+                                                        @for ($i = intval(date('Y')); $i >= intval(config('app.data_start_year')); $i--)
                                                             <option value={{ $i }}>{{ $i }}</option>
                                                         @endfor
                                                     </select>
@@ -597,7 +597,7 @@
                                                     <select type="text" class="form-control" id="tahunakhir_4"
                                                         name='tahunakhir'>
                                                         <option value="" selected hidden disabled>Sila Pilih Tahun</option>
-                                                        @for ($i = intval(date('Y')); $i >= 2016; $i--)
+                                                        @for ($i = intval(date('Y')); $i >= intval(config('app.data_start_year')); $i--)
                                                             <option value={{ $i }}>{{ $i }}</option>
                                                         @endfor
                                                     </select>
@@ -766,7 +766,7 @@
                                                     <select type="text" class="form-control" id="tahun_5" name='tahun'
                                                         onchange="display_spesies_option_5(this)">
                                                         <option value="" selected hidden disabled>Sila Pilih Tahun</option>
-                                                        @for ($i = intval(date('Y')); $i >= 2016; $i--)
+                                                        @for ($i = intval(date('Y')); $i >= intval(config('app.data_start_year')); $i--)
                                                             <option value={{ $i }}>{{ $i }}</option>
                                                         @endfor
                                                     </select>
@@ -830,7 +830,7 @@
                                                     <select type="text" class="form-control" id="tahun_mula_5"
                                                         name='tahun'>
                                                         <option value="" selected hidden disabled>Sila Pilih Tahun</option>
-                                                        @for ($i = intval(date('Y')); $i >= 2016; $i--)
+                                                        @for ($i = intval(date('Y')); $i >= intval(config('app.data_start_year')); $i--)
                                                             <option value={{ $i }}>{{ $i }}</option>
                                                         @endfor
                                                     </select>
@@ -846,7 +846,7 @@
                                                     <select type="text" class="form-control" id="tahunakhir_5"
                                                         name='tahunakhir'>
                                                         <option value="" selected hidden disabled>Sila Pilih Tahun</option>
-                                                        @for ($i = intval(date('Y')); $i >= 2016; $i--)
+                                                        @for ($i = intval(date('Y')); $i >= intval(config('app.data_start_year')); $i--)
                                                             <option value={{ $i }}>{{ $i }}</option>
                                                         @endfor
                                                     </select>

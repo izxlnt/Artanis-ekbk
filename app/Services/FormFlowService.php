@@ -265,12 +265,19 @@ class FormFlowService
             return [false, 'Borang B suku ini belum dibuka.', true];
         }
 
+        // Buffer/closing-date enforcement is opt-in (admin "Tetapan Buffer"
+        // toggle, off by default) — when off, the form simply never closes
+        // once its quarter has started.
+        if (!$buf || !$buf->aktif) {
+            return [true, null, false];
+        }
+
         // If dates are not configured on the record, treat the window as open
         if (!$fb->tarikh_tutup_borang) {
             return [true, null, false];
         }
 
-        $delay = $buf ? (int) $buf->delay : 0;
+        $delay = (int) $buf->delay;
         $tutup = date('Y-m-d', strtotime("+{$delay} month", strtotime($fb->tarikh_tutup_borang)));
 
         if ($today <= $tutup) return [true, null, false];
@@ -283,6 +290,18 @@ class FormFlowService
         $fc, bool $isPrevYear, string $today, $buf
     ): array {
         if (!$formAFilled)   return [false, 'Sila isi Borang A terlebih dahulu.', false];
+
+        // Once this month's own Form C has been touched (anything other than
+        // untouched "Tidak Diisi"), it must stay reachable on its own merits —
+        // including when PHD sends it back for correction ("Tidak Lengkap").
+        // Without this, correcting an EARLIER month would retroactively lock
+        // every LATER month that had already been filled, since that earlier
+        // month's status would no longer count as "submitted" for the
+        // sequential prevCFilled/sukuSubmitted checks below.
+        if ($fc && $fc->status !== 'Tidak Diisi') {
+            return [true, null, false];
+        }
+
         if (!$sukuSubmitted) return [false, "Sila isi Borang B Suku {$suku} terlebih dahulu.", false];
         if (!$prevCFilled)   return [false, 'Sila isi Borang C bulan sebelumnya terlebih dahulu.', false];
 
@@ -294,9 +313,6 @@ class FormFlowService
             return [false, 'Borang C bulan ini belum dibuka.', true];
         }
 
-        // PHD rejected — IBK must be able to re-fill regardless of the date window
-        if ($fc->status === 'Tidak Lengkap') return [true, null, false];
-
         if ($isPrevYear)     return [true, null, false];
 
         // If dates are not configured on the record, treat the window as open
@@ -304,7 +320,15 @@ class FormFlowService
             return [true, null, false];
         }
 
-        $delay = $buf ? (int) $buf->delay : 0;
+        // Buffer/closing-date enforcement is opt-in (admin "Tetapan Buffer"
+        // toggle, off by default) — when off, the form simply never closes
+        // once its opening date has arrived.
+        if (!$buf || !$buf->aktif) {
+            if ($today >= $fc->tarikh_buka_borang) return [true, null, false];
+            return [false, 'Borang C bulan ini belum dibuka.', true];
+        }
+
+        $delay = (int) $buf->delay;
         $tutup = date('Y-m-d', strtotime("+{$delay} month", strtotime($fc->tarikh_tutup_borang)));
 
         if ($today >= $fc->tarikh_buka_borang && $today <= $tutup) return [true, null, false];
@@ -317,6 +341,15 @@ class FormFlowService
         $fd, bool $isPrevYear, string $today, $buf
     ): array {
         if (!$formAFilled)   return [false, 'Sila isi Borang A terlebih dahulu.', false];
+
+        // Once this month's own Form D has been touched (anything other than
+        // untouched "Tidak Diisi"), it must stay reachable on its own merits
+        // — including a PHD correction — regardless of what happens to an
+        // EARLIER month afterwards (see checkFormC for the full rationale).
+        if ($fd && $fd->status !== 'Tidak Diisi') {
+            return [true, null, false];
+        }
+
         if (!$fcSubmitted)   return [false, 'Sila isi Borang C bulan ini terlebih dahulu.', false];
         if (!$hasKemasukan)  return [false, 'Sila lengkapkan dan hantar Borang C bulan ini terlebih dahulu.', false];
         if (!$prevDFilled)   return [false, 'Sila isi Borang D bulan sebelumnya terlebih dahulu.', false];
@@ -327,9 +360,6 @@ class FormFlowService
             return [false, 'Borang D bulan ini belum dibuka.', true];
         }
 
-        // PHD rejected — IBK must be able to re-fill regardless of the date window
-        if ($fd->status === 'Tidak Lengkap') return [true, null, false];
-
         if ($isPrevYear)     return [true, null, false];
 
         // If dates are not configured on the record, treat the window as open
@@ -337,7 +367,15 @@ class FormFlowService
             return [true, null, false];
         }
 
-        $delay = $buf ? (int) $buf->delay : 0;
+        // Buffer/closing-date enforcement is opt-in (admin "Tetapan Buffer"
+        // toggle, off by default) — when off, the form simply never closes
+        // once its opening date has arrived.
+        if (!$buf || !$buf->aktif) {
+            if ($today >= $fd->tarikh_buka_borang) return [true, null, false];
+            return [false, 'Borang D bulan ini belum dibuka.', true];
+        }
+
+        $delay = (int) $buf->delay;
         $tutup = date('Y-m-d', strtotime("+{$delay} month", strtotime($fd->tarikh_tutup_borang)));
 
         if ($today >= $fd->tarikh_buka_borang && $today <= $tutup) return [true, null, false];
@@ -350,6 +388,15 @@ class FormFlowService
         $fe, bool $isPrevYear, string $today, $buf
     ): array {
         if (!$formAFilled) return [false, 'Sila isi Borang A terlebih dahulu.', false];
+
+        // Once this month's own Form E has been touched (anything other than
+        // untouched "Tidak Diisi"), it must stay reachable on its own merits
+        // — including a PHD correction — regardless of what happens to an
+        // EARLIER month afterwards (see checkFormC for the full rationale).
+        if ($fe && $fe->status !== 'Tidak Diisi') {
+            return [true, null, false];
+        }
+
         if (!$fdFilled)    return [false, 'Sila isi Borang D bulan ini terlebih dahulu.', false];
         if (!$prevEFilled) return [false, 'Sila isi Borang E bulan sebelumnya terlebih dahulu.', false];
 
@@ -359,9 +406,6 @@ class FormFlowService
             return [false, 'Borang E bulan ini belum dibuka.', true];
         }
 
-        // PHD rejected — IBK must be able to re-fill regardless of the date window
-        if ($fe->status === 'Tidak Lengkap') return [true, null, false];
-
         if ($isPrevYear)   return [true, null, false];
 
         // If dates are not configured on the record, treat the window as open
@@ -369,7 +413,15 @@ class FormFlowService
             return [true, null, false];
         }
 
-        $delay = $buf ? (int) $buf->delay : 0;
+        // Buffer/closing-date enforcement is opt-in (admin "Tetapan Buffer"
+        // toggle, off by default) — when off, the form simply never closes
+        // once its opening date has arrived.
+        if (!$buf || !$buf->aktif) {
+            if ($today >= $fe->tarikh_buka_borang) return [true, null, false];
+            return [false, 'Borang E bulan ini belum dibuka.', true];
+        }
+
+        $delay = (int) $buf->delay;
         $tutup = date('Y-m-d', strtotime("+{$delay} month", strtotime($fe->tarikh_tutup_borang)));
 
         if ($today >= $fe->tarikh_buka_borang && $today <= $tutup) return [true, null, false];

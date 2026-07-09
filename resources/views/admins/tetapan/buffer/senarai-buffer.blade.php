@@ -67,15 +67,16 @@
                                             <th>Shuttle</th>
                                             <th>Borang</th>
                                             <th>Penangguhan</th>
+                                            <th>Status Peraturan Buffer</th>
                                             <th>Tindakan</th>
                                         </tr>
                                     </thead>
                                     <tbody class="text-center">
                                         <tr>
                                             <td></td>
-                                            <td colspan="3"><b style="font-size: 13pt;">Tetapan Semua Borang</b></td>
+                                            <td colspan="4"><b style="font-size: 13pt;">Tetapan Semua Borang</b></td>
                                             <td><button type="button" class="btn waves-effect waves-light btn-primary"
-                                                    onclick="update_buffer(0)"><i class="fas fa-edit"></i></button></td>
+                                                    onclick="update_buffer(0, 0)"><i class="fas fa-edit"></i></button></td>
                                         </tr>
                                         @foreach ($buffer as $key => $data)
                                             <tr>
@@ -84,8 +85,15 @@
                                                 <td>Borang {{ $data->borang }}</td>
                                                 <td>{{ $data->delay }} Bulan</td>
                                                 <td>
+                                                    @if ($data->aktif)
+                                                        <span class="badge badge-success">Aktif</span>
+                                                    @else
+                                                        <span class="badge badge-secondary">Tidak Aktif</span>
+                                                    @endif
+                                                </td>
+                                                <td>
                                                     <button type="button" class="btn waves-effect waves-light btn-primary"
-                                                        onclick="update_buffer({{ $data->id }})"><i
+                                                        onclick="update_buffer({{ $data->id }}, {{ $data->aktif ? 1 : 0 }})"><i
                                                             class="fas fa-edit"></i></button>
                                                 </td>
                                             </tr>
@@ -125,6 +133,12 @@
                                                             Bulan</option>
                                                     @endfor
                                                 </select>
+
+                                                <div class="custom-control custom-switch mt-3">
+                                                    <input type="checkbox" class="custom-control-input" id="aktif" name="aktif" value="1">
+                                                    <label class="custom-control-label" for="aktif">Ikut Peraturan Buffer (tarikh buka/tutup borang)</label>
+                                                </div>
+                                                <small class="form-text text-muted">Jika tidak diaktifkan, borang akan sentiasa terbuka tanpa mengira tarikh buka/tutup.</small>
                                             </div>
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-danger"
@@ -156,8 +170,9 @@
     </div>
 
     <script>
-        function update_buffer(buffer_id) {
+        function update_buffer(buffer_id, aktif) {
             $("#buffer_id").val(buffer_id);
+            $("#aktif").prop("checked", aktif == 1);
             $("#update_buffer_modal").modal();
         }
     </script>

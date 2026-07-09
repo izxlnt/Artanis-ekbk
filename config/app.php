@@ -22,6 +22,20 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Data Start Year
+    |--------------------------------------------------------------------------
+    |
+    | System-wide reset point (confirmed 2026-07-08): every listing, year
+    | dropdown, and report only surfaces data from this year onwards. Older
+    | rows stay in the database (Form C's January carry-forward can still
+    | read December of the previous year) but are no longer shown anywhere.
+    |
+    */
+
+    'data_start_year' => env('DATA_START_YEAR', 2026),
+
+    /*
+    |--------------------------------------------------------------------------
     | Application Environment
     |--------------------------------------------------------------------------
     |
