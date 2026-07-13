@@ -298,7 +298,12 @@ class FormFlowService
         // every LATER month that had already been filled, since that earlier
         // month's status would no longer count as "submitted" for the
         // sequential prevCFilled/sukuSubmitted checks below.
-        if ($fc && $fc->status !== 'Tidak Diisi') {
+        // "Ditutup" is excluded here: it is the seeded placeholder status for
+        // not-yet-reached periods (not evidence of real work), so it must not
+        // bypass the sequential checks below — otherwise a future month whose
+        // row happens to be seeded as "Ditutup" opens before its prerequisites
+        // (previous month's Form C, current quarter's Form B) are met.
+        if ($fc && !in_array($fc->status, ['Tidak Diisi', 'Ditutup'])) {
             return [true, null, false];
         }
 
@@ -345,8 +350,9 @@ class FormFlowService
         // Once this month's own Form D has been touched (anything other than
         // untouched "Tidak Diisi"), it must stay reachable on its own merits
         // — including a PHD correction — regardless of what happens to an
-        // EARLIER month afterwards (see checkFormC for the full rationale).
-        if ($fd && $fd->status !== 'Tidak Diisi') {
+        // EARLIER month afterwards (see checkFormC for the full rationale,
+        // including why the seeded placeholder "Ditutup" is excluded).
+        if ($fd && !in_array($fd->status, ['Tidak Diisi', 'Ditutup'])) {
             return [true, null, false];
         }
 
@@ -392,8 +398,9 @@ class FormFlowService
         // Once this month's own Form E has been touched (anything other than
         // untouched "Tidak Diisi"), it must stay reachable on its own merits
         // — including a PHD correction — regardless of what happens to an
-        // EARLIER month afterwards (see checkFormC for the full rationale).
-        if ($fe && $fe->status !== 'Tidak Diisi') {
+        // EARLIER month afterwards (see checkFormC for the full rationale,
+        // including why the seeded placeholder "Ditutup" is excluded).
+        if ($fe && !in_array($fe->status, ['Tidak Diisi', 'Ditutup'])) {
             return [true, null, false];
         }
 
