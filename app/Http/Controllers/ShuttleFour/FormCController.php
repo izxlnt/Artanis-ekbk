@@ -224,6 +224,9 @@ class FormCController extends Controller
             'jumlah_besar_baki_stok_bulan_depan'     => $jumlah_besar_baki_stok_bulan_depan ?? 0,
         ];
 
+        $returnArr['showJanuaryStockReminder'] = (int) $bulan_id === 1 && !ModelsFormC::where('shuttle_id', auth()->user()->shuttle_id)
+            ->where('bulan', 12)->where('tahun', $year - 1)->where('status', '!=', 'Tidak Diisi')->exists();
+
         // dd($returnArr);
         return view('admins.shuttle-four.FormC.shuttle-4-formC-KKB', $returnArr, compact('year'));
     }
@@ -533,6 +536,9 @@ class FormCController extends Controller
             'jumlah_besar_pengeluaran_kayu_daripada_jentera'     => $jumlah_besar_pengeluaran_kayu_daripada_jentera ?? 0,
             'jumlah_besar_baki_stok_bulan_depan'     => $jumlah_besar_baki_stok_bulan_depan ?? 0,
         ];
+
+        $returnArr['showJanuaryStockReminder'] = (int) $bulan_id === 1 && !ModelsFormC::where('shuttle_id', auth()->user()->shuttle_id)
+            ->where('bulan', 12)->where('tahun', $year - 1)->where('status', '!=', 'Tidak Diisi')->exists();
 
         // dd($returnArr);
         return view('admins.shuttle-four.FormC.shuttle-4-formC-KKS', $returnArr, compact('year'));
@@ -844,6 +850,9 @@ class FormCController extends Controller
             'jumlah_besar_baki_stok_bulan_depan'     => $jumlah_besar_baki_stok_bulan_depan ?? 0,
         ];
 
+        $returnArr['showJanuaryStockReminder'] = (int) $bulan_id === 1 && !ModelsFormC::where('shuttle_id', auth()->user()->shuttle_id)
+            ->where('bulan', 12)->where('tahun', $year - 1)->where('status', '!=', 'Tidak Diisi')->exists();
+
         // dd($returnArr);
         return view('admins.shuttle-four.FormC.shuttle-4-formC-KKR', $returnArr, compact('year'));
     }
@@ -1145,6 +1154,9 @@ class FormCController extends Controller
             'jumlah_besar_pengeluaran_kayu_daripada_jentera'     => $jumlah_besar_pengeluaran_kayu_daripada_jentera ?? 0,
             'jumlah_besar_baki_stok_bulan_depan'     => $jumlah_besar_baki_stok_bulan_depan ?? 0,
         ];
+
+        $returnArr['showJanuaryStockReminder'] = (int) $bulan_id === 1 && !ModelsFormC::where('shuttle_id', auth()->user()->shuttle_id)
+            ->where('bulan', 12)->where('tahun', $year - 1)->where('status', '!=', 'Tidak Diisi')->exists();
 
         // dd($returnArr);
         return view('admins.shuttle-four.FormC.shuttle-4-formC-KayuLembut', $returnArr, compact('year'));
@@ -1538,6 +1550,10 @@ class FormCController extends Controller
             'besar_total_kayu_masuk_jentera_tanpa_lain'     => $besar_total_kayu_masuk_jentera_tanpa_lain ?? 0,
             'besar_total_kayu_dibawa_bulan_hadapan_tanpa_lain'     => $besar_total_kayu_dibawa_bulan_hadapan_tanpa_lain ?? 0,
         ];
+
+        $returnArr['showJanuaryStockReminder'] = (int) $bulan_id === 1 && !ModelsFormC::where('shuttle_id', auth()->user()->shuttle_id)
+            ->where('bulan', 12)->where('tahun', $year - 1)->where('status', '!=', 'Tidak Diisi')->exists();
+
         //  dd($besar_total_kayu_dibawa_bulan_hadapan_tanpa_lain);
         return view('admins.shuttle-four.FormC.shuttle-4-formC-LainLain', $returnArr, compact('year'));
     }

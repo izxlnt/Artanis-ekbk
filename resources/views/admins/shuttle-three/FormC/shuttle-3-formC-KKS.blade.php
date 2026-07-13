@@ -1,6 +1,7 @@
 @extends('layouts.layout-ibk-nicepage')
 
 @section('content')
+@include('partials.january-stock-reminder-modal')
 
     <style>
         table,
@@ -483,7 +484,7 @@
                                             <div class="modal-content">
                                                 <div class="modal-header" style="background-color:#f3ce8f  !important">
                                                     <h5 class="modal-title "
-                                                        id="exampleModalLongTitle"><i style="color:rgb(255, 255, 0)"
+                                                        id="confirmation_borang_aTitle"><i style="color:rgb(255, 255, 0)"
                                                             class="fas fa-exclamation-triangle"></i>&nbspPENGESAHAN
                                                     </h5>
                                                     <button type="button" class="close"
@@ -515,7 +516,7 @@
                                             <div class="modal-content">
                                                 <div class="modal-header" style="background-color:#f3ce8f  !important">
                                                     <h5 class="modal-title "
-                                                        id="exampleModalLongTitle"><i style="color:rgb(255, 255, 0)"
+                                                        id="sebelumnya_borang_aTitle"><i style="color:rgb(255, 255, 0)"
                                                             class="fas fa-exclamation-triangle"></i>&nbspPENGESAHAN
                                                     </h5>
                                                     <button type="button" class="close"

@@ -1,6 +1,7 @@
 @extends('layouts.layout-ibk-nicepage')
 
 @section('content')
+@include('partials.january-stock-reminder-modal')
 
     <style>
         table,
@@ -440,7 +441,7 @@
                                         <div class="modal-dialog modal-dialog-centered" role="document">
                                             <div class="modal-content">
                                                 <div class="modal-header" style="background-color:#f3ce8f  !important">
-                                                    <h5 class="modal-title " id="exampleModalLongTitle"><i
+                                                    <h5 class="modal-title " id="confirmation_borang_aTitle"><i
                                                             style="color:rgb(255, 255, 0)"
                                                             class="fas fa-exclamation-triangle"></i>&nbspPENGESAHAN
                                                     </h5>
@@ -469,7 +470,7 @@
                                         <div class="modal-dialog modal-dialog-centered" role="document">
                                             <div class="modal-content">
                                                 <div class="modal-header" style="background-color:#f3ce8f  !important">
-                                                    <h5 class="modal-title " id="exampleModalLongTitle"><i
+                                                    <h5 class="modal-title " id="sebelumnya_borang_aTitle"><i
                                                             style="color:rgb(255, 255, 0)"
                                                             class="fas fa-exclamation-triangle"></i>&nbspPENGESAHAN
                                                     </h5>
@@ -501,7 +502,7 @@
                                         <div class="modal-dialog modal-dialog-centered" role="document">
                                             <div class="modal-content">
                                                 <div class="modal-header" style="background-color:#f3ce8f  !important">
-                                                    <h5 class="modal-title " id="exampleModalLongTitle"><i
+                                                    <h5 class="modal-title " id="tiada_pengeluaranTitle"><i
                                                             style="color:rgb(255, 255, 0)"
                                                             class="fas fa-exclamation-triangle"></i>&nbspPENGESAHAN
                                                     </h5>
