@@ -1,6 +1,7 @@
 @extends('layouts.layout-ibk-nicepage')
 
 @section('content')
+@include('partials.january-stock-reminder-modal')
 
     <style>
         table,
@@ -323,7 +324,7 @@
                                             <div class="modal-dialog modal-dialog-centered" role="document">
                                                 <div class="modal-content">
                                                     <div class="modal-header" style="background-color:#f3ce8f  !important">
-                                                        <h5 class="modal-title " id="exampleModalLongTitle"><i style="color:rgb(255, 255, 0)" class="fas fa-exclamation-triangle"></i>&nbspPENGESAHAN</h5>
+                                                        <h5 class="modal-title " id="confirmation_borang_aTitle"><i style="color:rgb(255, 255, 0)" class="fas fa-exclamation-triangle"></i>&nbspPENGESAHAN</h5>
                                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                                                     </div>
                                                     <div class="modal-body"><span class="text-center"><b>Adakah anda pasti untuk ke paparan seterusnya?</b></span></div>
@@ -339,7 +340,7 @@
                                             <div class="modal-dialog modal-dialog-centered" role="document">
                                                 <div class="modal-content">
                                                     <div class="modal-header" style="background-color:#f3ce8f  !important">
-                                                        <h5 class="modal-title " id="exampleModalLongTitle"><i style="color:rgb(255, 255, 0)" class="fas fa-exclamation-triangle"></i>&nbspPENGESAHAN</h5>
+                                                        <h5 class="modal-title " id="sebelumnya_borang_aTitle"><i style="color:rgb(255, 255, 0)" class="fas fa-exclamation-triangle"></i>&nbspPENGESAHAN</h5>
                                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                                                     </div>
                                                     <div class="modal-body"><span class="text-center"><b>Adakah anda pasti untuk ke paparan sebelum ini?</b></span></div>
@@ -355,7 +356,7 @@
                                             <div class="modal-dialog modal-dialog-centered" role="document">
                                                 <div class="modal-content">
                                                     <div class="modal-header" style="background-color:#f3ce8f  !important">
-                                                        <h5 class="modal-title " id="exampleModalLongTitle"><i style="color:rgb(255, 255, 0)" class="fas fa-exclamation-triangle"></i>&nbspPENGESAHAN</h5>
+                                                        <h5 class="modal-title " id="tiada_pengeluaranTitle"><i style="color:rgb(255, 255, 0)" class="fas fa-exclamation-triangle"></i>&nbspPENGESAHAN</h5>
                                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                                                     </div>
                                                     <div class="modal-body"><span class="text-center"><b>Adakah anda pasti kilang anda tiada pengeluaran?</b></span></div>
