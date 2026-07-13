@@ -249,7 +249,7 @@
                                     @foreach($quarters as $q => $qLabel)
                                     @php
                                         $isDue     = in_array($q, $requirements['quarters_to_fill'][$reqYear] ?? [])
-                                                  && ($reqYear < $thisYear || ($reqYear == $thisYear && $currentMonth >= $q * 3));
+                                                  && ($reqYear < $thisYear || ($reqYear == $thisYear && $currentMonth >= ((($q - 1) * 3) + 1)));
                                         $cellFormB = ($tableData[$reqYear]['formB'] ?? collect())->get($q);
                                         $bFillLink = route('user.shuttle-' . $shuttleType . '-formB', [$q, $reqYear]);
                                         $bViewLink = $cellFormB ? route('pengguna.shuttle-3-view-formB', $cellFormB->id) : $bFillLink;
