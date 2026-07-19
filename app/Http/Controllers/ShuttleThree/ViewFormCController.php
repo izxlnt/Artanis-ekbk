@@ -135,7 +135,7 @@ class ViewFormCController extends Controller
         }
         // dd($kemasukan_bahan_calc_lain_lain);
         return view(
-            'admins.shuttle-three.view-form3c',
+            $kilang_info->shuttle_type == '5' ? 'admins.shuttle-five.view-form5c' : 'admins.shuttle-three.view-form3c',
             compact(
                 'returnArr',
                 'kilang_info',
@@ -277,7 +277,7 @@ class ViewFormCController extends Controller
         // }
         // dd($kemasukan_bahan_calc_lain_lain);
         return view(
-            'admins.shuttle-three.view-form3c-phd',
+            $kilang_info->shuttle_type == '5' ? 'admins.shuttle-five.view-form5c-phd' : 'admins.shuttle-three.view-form3c-phd',
             compact(
                 'returnArr',
                 'kilang_info',
@@ -409,7 +409,7 @@ class ViewFormCController extends Controller
         }
         // dd($kemasukan_bahan_calc_lain_lain);
         return view(
-            'admins.shuttle-three.view-form4c',
+            'admins.shuttle-four.view-form4c',
             compact(
                 'returnArr',
                 'kilang_info',
@@ -540,7 +540,7 @@ class ViewFormCController extends Controller
         // }
         // dd($kemasukan_bahan_calc_lain_lain);
         return view(
-            'admins.shuttle-three.view-form4c',
+            'admins.shuttle-four.view-form4c',
             compact(
                 'returnArr',
                 'kilang_info',
@@ -628,7 +628,7 @@ class ViewFormCController extends Controller
         ];
         // dd($form_c);
         return view(
-            'admins.shuttle-three.view-form3c-ibk',
+            $kilang_info->shuttle_type == '5' ? 'admins.shuttle-five.view-form5c-ibk' : 'admins.shuttle-three.view-form3c-ibk',
             compact(
                 'returnArr',
                 'kilang_info',
@@ -722,7 +722,7 @@ class ViewFormCController extends Controller
         ];
         // dd($kemasukan_bahan_calc_lain_lain);
         return view(
-            'admins.shuttle-three.view-form3c-ibk',
+            $kilang_info->shuttle_type == '5' ? 'admins.shuttle-five.view-form5c-ibk' : 'admins.shuttle-three.view-form3c-ibk',
             compact(
                 'returnArr',
                 'kilang_info',
@@ -812,7 +812,7 @@ class ViewFormCController extends Controller
         ];
         // dd($kemasukan_bahan_calc_lain_lain);
         return view(
-            'admins.shuttle-three.view-form4c-ibk',
+            'admins.shuttle-four.view-form4c-ibk',
             compact(
                 'returnArr',
                 'kilang_info',
@@ -913,7 +913,7 @@ class ViewFormCController extends Controller
         ];
         // dd($kemasukan_bahan_calc_lain_lain);
         return view(
-            'admins.shuttle-three.view-form4c-ibk',
+            'admins.shuttle-four.view-form4c-ibk',
             compact(
                 'returnArr',
                 'kilang_info',

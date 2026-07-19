@@ -106,27 +106,12 @@
                         </div>
 
                         <div class="rounded-lg card" style="border-color: #000000 !important;">
-                            @if($kilang_info->shuttle_type=="3")
                             <div class="card-header"
                                 style="text-align:center; background-color: #f0e10dbd !important; font-size: 130%; font-weight: bold;">
                                 BORANG 3C - PENYATA KEMASUKAN & PEMPROSESAN KAYU BALAK DAN PENGELUARAN KAYU
                                         GERGAJI MENGIKUT KUMPULAN KAYU-KAYAN
 
                             </div>
-                            @elseif($kilang_info->shuttle_type=="4")
-                            <div class="card-header"
-                                style="text-align:center; background-color: #f0e10dbd !important; font-size: 130%; font-weight: bold;">
-                                BORANG 4C - PENYATA KEMASUKAN & PEMPROSESAN KAYU BALAK MENGIKUT KUMPULAN KAYU-KAYAN
-
-
-                            </div>
-                            @elseif($kilang_info->shuttle_type=="5")
-                            <div class="card-header"
-                                style="text-align:center; background-color: #f0e10dbd !important; font-size: 130%; font-weight: bold;">
-                                BORANG 5C - PENYATA KEMASUKAN & PEMPROSESAN KAYU GERGAJI DAN PENGELUARAN KAYU
-                                        KUMAI MENGIKUT KUMPULAN KAYU-KAYAN
-                            </div>
-                            @endif
                             <div class="card-body">
 
                                     <div class="tab-content">
@@ -247,7 +232,6 @@
 
                                                                     <table>
                                                                         <thead class="">
-                                                                            @if($kilang_info->shuttle_type == '3')
                                                                 <tr style="height:50px;">
                                                                     <th style="text-align:center; width: 389px;"
                                                                         colspan="2">Kumpulan Kayu Kayan</th>
@@ -270,30 +254,6 @@
                                                                         Kayu Balak
                                                                         Dibawa Ke Bulan Hadapan</th>
                                                                 </tr>
-                                                                @elseif($kilang_info->shuttle_type == '5')
-                                                                <tr style="height:50px;">
-                                                                    <th style="text-align:center; width: 389px;"
-                                                                        colspan="2">Kumpulan Kayu Kayan</th>
-                                                                    <th style="text-align:center;" colspan="2">Baki Stok
-                                                                        Dari Bulan
-                                                                        Lepas</th>
-                                                                    <th style="text-align:center;" colspan="2">Kemasukan
-                                                                        Kayu Gergaji Ke
-                                                                        Dalam Kawasan Kilang</th>
-                                                                    <th style="text-align:center;" colspan="2">Jumlah
-                                                                        Stok Kayu Gergaji
-                                                                    </th>
-                                                                    <th style="text-align:center;" colspan="2">Kemasukan
-                                                                        Kayu Gergaji Ke
-                                                                        Dalam Jentera Memproses</th>
-                                                                    <th style="text-align:center;" colspan="2">
-                                                                        Pengeluaran Kayu Kumai</th>
-                                                                    <th style="text-align:center;" colspan="2">Baki Stok
-                                                                        Kayu Gergaji
-                                                                        Dibawa Ke Bulan Hadapan</th>
-
-                                                                </tr>
-                                                                @endif
 
                                                                             <tr style="height:50px;">
                                                                                 <th style="text-align:center;" colspan="2">(01)</th>

@@ -97,8 +97,7 @@
                         <div class="rounded-lg card" style="border-color: #000000 !important;">
                             <div class="card-header"
                                 style="text-align:center; background-color: #f0e10dbd !important; font-size: 130%; font-weight: bold;">
-                                BORANG 3C - PENYATA KEMASUKAN & PEMPROSESAN KAYU BALAK DAN PENGELUARAN KAYU GERGAJI MENGIKUT KUMPULAN KAYU-KAYAN
-
+                                BORANG 5C - PENYATA KEMASUKAN & PEMPROSESAN KAYU GERGAJI DAN PENGELUARAN KAYU KUMAI MENGIKUT KUMPULAN KAYU-KAYAN
                             </div>
                             <div class="card-body">
 
@@ -230,20 +229,20 @@
                                                                         Dari Bulan
                                                                         Lepas</th>
                                                                     <th style="text-align:center;" colspan="2">Kemasukan
-                                                                        Kayu Balak Ke
+                                                                        Kayu Gergaji Ke
                                                                         Dalam Kawasan Kilang</th>
                                                                     <th style="text-align:center;" colspan="2">Jumlah
-                                                                        Stok Kayu Balak
+                                                                        Stok Kayu Gergaji
                                                                     </th>
                                                                     <th style="text-align:center;" colspan="2">Kemasukan
-                                                                        Kayu Balak Ke
+                                                                        Kayu Gergaji Ke
                                                                         Dalam Jentera Memproses</th>
                                                                     <th style="text-align:center;" colspan="2">
-                                                                        Pengeluaran Kayu Gergaji
-                                                                        Daripada Jentera Memproses</th>
+                                                                        Pengeluaran Kayu Kumai</th>
                                                                     <th style="text-align:center;" colspan="2">Baki Stok
-                                                                        Kayu Balak
+                                                                        Kayu Gergaji
                                                                         Dibawa Ke Bulan Hadapan</th>
+
                                                                 </tr>
 
                                                                             <tr style="height:50px;">
@@ -379,6 +378,7 @@
                                         </div>
                                     </div>
                                 </div>
+
 
 
 
