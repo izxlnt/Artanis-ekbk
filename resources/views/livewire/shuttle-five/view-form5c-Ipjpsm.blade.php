@@ -106,27 +106,11 @@
                             </div>
 
                             <div class="rounded-lg card" style="border-color: #000000 !important;">
-                                @if ($kilang_info->shuttle_type == '3')
-                                    <div class="card-header"
-                                        style="text-align:center; background-color: #f0e10dbd !important; font-size: 130%; font-weight: bold;">
-                                        BORANG 3C - PENYATA KEMASUKAN & PEMPROSESAN KAYU BALAK DAN PENGELUARAN KAYU
-                                        GERGAJI MENGIKUT KUMPULAN KAYU-KAYAN
-
-                                    </div>
-                                @elseif($kilang_info->shuttle_type=="4")
-                                    <div class="card-header"
-                                        style="text-align:center; background-color: #f0e10dbd !important; font-size: 130%; font-weight: bold;">
-                                        BORANG 4C - PENYATA KEMASUKAN & PEMPROSESAN KAYU BALAK MENGIKUT KUMPULAN KAYU-KAYAN
-
-
-                                    </div>
-                                @elseif($kilang_info->shuttle_type=="5")
-                                    <div class="card-header"
-                                        style="text-align:center; background-color: #f0e10dbd !important; font-size: 130%; font-weight: bold;">
-                                        BORANG 5C - PENYATA KEMASUKAN & PEMPROSESAN KAYU GERGAJI DAN PENGELUARAN KAYU
-                                        KUMAI MENGIKUT KUMPULAN KAYU-KAYAN
-                                    </div>
-                                @endif
+                                <div class="card-header"
+                                    style="text-align:center; background-color: #f0e10dbd !important; font-size: 130%; font-weight: bold;">
+                                    BORANG 5C - PENYATA KEMASUKAN & PEMPROSESAN KAYU GERGAJI DAN PENGELUARAN KAYU
+                                    KUMAI MENGIKUT KUMPULAN KAYU-KAYAN
+                                </div>
                                 <div class="card-body">
 
 
@@ -218,6 +202,7 @@
                                                                         </div>
 
 
+
                                                                         <div class="col-md-3">
                                                                             <label>Nama Kilang:</label>
                                                                             <input type="text" class="form-control"
@@ -247,40 +232,69 @@
 
                                                                     <table>
                                                                         <thead class="">
-                                                                            <tr style="height:50px;" >
-                                                                                <th style="text-align:center; width: 589px;" colspan="2">Kumpulan Kayu Kayan</th>
-                                                                                <th style="text-align:center;" colspan="2">Baki Stok Dari Bulan Lepas</th>
-                                                                                <th style="text-align:center;" colspan="2">Kemasukan Kayu Balak Ke Dalam Kawasan Kilang</th>
-                                                                                <th style="text-align:center;" colspan="2">Jumlah Stok Kayu Balak</th>
-                                                                                <th style="text-align:center;" colspan="2">Kemasukan Kayu Balak Ke Dalam Jentera Memproses(dikupas)</th>
-                                                                                {{-- <th style="text-align:center;" colspan="2">Pengeluaran Kayu Gergaji Daripada Jentera Memproses</th> --}}
-                                                                                <th style="text-align:center;" colspan="2">Baki Stok Kayu Balak Dibawa Ke Bulan Hadapan</th>
+                                                                            <tr style="height:50px;">
+                                                                                <th style="text-align:center; width: 389px;"
+                                                                                    colspan="2">Kumpulan Kayu Kayan</th>
+                                                                                <th style="text-align:center;" colspan="2">
+                                                                                    Baki Stok Dari Bulan Lepas</th>
+                                                                                <th style="text-align:center;"
+                                                                                    colspan="2">
+                                                                                    Kemasukan Kayu Gergaji Ke Dalam
+                                                                                    Kawasan
+                                                                                    Kilang</th>
+                                                                                <th style="text-align:center;"
+                                                                                    colspan="2">
+                                                                                    Jumlah Stok Kayu Gergaji</th>
+                                                                                <th style="text-align:center;"
+                                                                                    colspan="2">
+                                                                                    Kemasukan Kayu Gergaji Ke Dalam
+                                                                                    Jentera
+                                                                                    Memproses</th>
+                                                                                <th style="text-align:center;"
+                                                                                    colspan="2">
+                                                                                    Pengeluaran Kayu Kumai</th>
+                                                                                <th style="text-align:center;"
+                                                                                    colspan="2">
+                                                                                    Baki Stok Kayu Gergaji Dibawa Ke
+                                                                                    Bulan
+                                                                                    Hadapan</th>
 
                                                                             </tr>
 
                                                                             <tr style="height:50px;">
-                                                                                <th style="text-align:center;" colspan="2">(01)</th>
-                                                                                <th style="text-align:center;" colspan="2">(&#x33A5;)<br>(02)</th>
-                                                                                <th style="text-align:center;" colspan="2">(&#x33A5;)<br>(03)</th>
-                                                                                <th style="text-align:center;" colspan="2">(&#x33A5;)<br>(04)=(02)+(03)</th>
-                                                                                <th style="text-align:center;" colspan="2">(&#x33A5;)<br>(05)</th>
-                                                                                {{-- <th style="text-align:center;" colspan="2">(&#x33A5;)<br>(06)</th> --}}
-                                                                                <th style="text-align:center;" colspan="2">(&#x33A5;)<br>(06)=(04)-(05)</th>
+                                                                                <th style="text-align:center;" colspan="2">
+                                                                                    (01)</th>
+                                                                                <th style="text-align:center;" colspan="2">
+                                                                                    (&#x33A5;)<br>(02)</th>
+                                                                                <th style="text-align:center;" colspan="2">
+                                                                                    (&#x33A5;)<br>(03)</th>
+                                                                                <th style="text-align:center;" colspan="2">
+                                                                                    (&#x33A5;)<br>(04)=(02)+(03)</th>
+                                                                                <th style="text-align:center;" colspan="2">
+                                                                                    (&#x33A5;)<br>(05)</th>
+                                                                                <th style="text-align:center;" colspan="2">
+                                                                                    (&#x33A5;)<br>(06)</th>
+                                                                                <th style="text-align:center;" colspan="2">
+                                                                                    (&#x33A5;)<br>(07)=(04)-(05)</th>
                                                                             </tr>
                                                                         </thead>
 
                                                                         <tbody class="">
-                                                                            @foreach ($kumpulan_kayu as $keyKumpulanKayu=>$data)
-                                                                            <tr style="height:50px;">
-                                                                                <th style="text-align:center;width: 489px;">{{ $data->singkatan }} </th>
-                                                                                <th style="text-align:center;width:100px;">Kod</th>
-                                                                                <th colspan="2"></th>
-                                                                                <th colspan="2"></th>
-                                                                                <th colspan="2"></th>
-                                                                                <th colspan="2"></th>
-                                                                                {{-- <th colspan="2"></th> --}}
-                                                                                <th colspan="2"></th>
-                                                                            </tr>
+                                                                            @foreach ($kumpulan_kayu as $keyKumpulanKayu => $data)
+                                                                                <tr style="height:50px;">
+                                                                                    <th
+                                                                                        style="text-align:center;width: 289px;">
+                                                                                        {{ $data->singkatan }} </th>
+                                                                                    <th
+                                                                                        style="text-align:center;width:100px;">
+                                                                                        Kod</th>
+                                                                                    <th colspan="2"></th>
+                                                                                    <th colspan="2"></th>
+                                                                                    <th colspan="2"></th>
+                                                                                    <th colspan="2"></th>
+                                                                                    <th colspan="2"></th>
+                                                                                    <th colspan="2"></th>
+                                                                                </tr>
 
                                                                                 @foreach ($species as $keySpecies=>$data1)
 
@@ -289,12 +303,12 @@
                                                                                     <tr style="height:50px;">
                                                                                         <td style="text-align:left;">{{ $data1->nama_tempatan }}</td>
                                                                                         <td style="text-align:center;">{{ $data1->kod }}</td>
-                                                                                        <td style="text-align:center;" colspan="2"><input readonly type="text" size="10" style="background-color: #e0ec3754;text-align:right" value="{{ number_format($form_c[$keySpecies]->baki_stok,2) }}" wire:change="calcJumlahBakiStok({{ $keySpecies}}, {{ $keyKumpulanKayu }}, '{{ $data->singkatan }}');" onkeypress="return isNumberKey(event)"></td>
-                                                                                        <td style="text-align:center;" colspan="2"><input readonly type="text" size="10" style="background-color: #ffffff;text-align:right" value="{{ number_format($form_c[$keySpecies]->kayu_masuk,2) }}" wire:model='kayu_masuk.{{ $keySpecies }}' wire:change="calcJumlahKayuMasuk({{ $keySpecies}}, {{ $keyKumpulanKayu }}, '{{ $data->singkatan }}');" onkeypress="return isNumberKey(event)"></td>
-                                                                                        <td style="text-align:center;" colspan="2"><input readonly style="background-color: #e0ec3754;text-align:right" type="text" size="10" value="{{ number_format($form_c[$keySpecies]->jumlah_stok_kayu_balak,2) }}" wire:model='jumlah_stok_kayu_balak.{{ $keySpecies }}' wire:change="calcTotalStokKayuDibawaBulanHadapan({{ $keySpecies}}, {{ $keyKumpulanKayu }}, '{{ $data->singkatan }}');"></td>
-                                                                                        <td style="text-align:center;" colspan="2"><input readonly type="text" size="10" style="background-color: #ffffff;text-align:right" value="{{ number_format($form_c[$keySpecies]->proses_masuk,2) }}" wire:model='proses_masuk.{{ $keySpecies }}' wire:change="calcBakiStok({{ $keySpecies}}, {{ $keyKumpulanKayu }}, '{{ $data->singkatan }}');" onkeypress="return isNumberKey(event)"></td>
-                                                                                        {{-- <td style="text-align:center;" colspan="2"><input readonly type="text" size="10" style="background-color: #ffffff;" value="{{ $form_c[$keySpecies]->proses_keluar }}" wire:model='proses_keluar.{{ $keySpecies }}' wire:change="calcTotalPengeluaranKayuDaripadaJentera({{ $keySpecies}}, {{ $keyKumpulanKayu }}, '{{ $data->singkatan }}');" onkeypress="return isNumberKey(event)"></td> --}}
-                                                                                        <td style="text-align:center;" colspan="2"><input readonly style="background-color: #e0ec3754;text-align:right" type="text" size="10" value="{{ number_format($form_c[$keySpecies]->baki_stok_kehadapan,2) }}" wire:model='baki_stok_kehadapan.{{ $keySpecies }}' ></td>
+                                                                                        <td style="text-align:center;" colspan="2"><input readonly type="text" size="10" style="background-color: #e0ec3754;text-align:right" value="{{ isset($form_c[$data1->id]) ? number_format($form_c[$data1->id]->baki_stok,2) : '0.00' }}" wire:change="calcJumlahBakiStok({{ $keySpecies}}, {{ $keyKumpulanKayu }}, '{{ $data->singkatan }}');" onkeypress="return isNumberKey(event)"></td>
+                                                                                        <td style="text-align:center;" colspan="2"><input readonly type="text" size="10" style="background-color: #ffffff;text-align:right" value="{{ isset($form_c[$data1->id]) ? number_format($form_c[$data1->id]->kayu_masuk,2) : '0.00' }}" wire:model='kayu_masuk.{{ $keySpecies }}' wire:change="calcJumlahKayuMasuk({{ $keySpecies}}, {{ $keyKumpulanKayu }}, '{{ $data->singkatan }}');" onkeypress="return isNumberKey(event)"></td>
+                                                                                        <td style="text-align:center;" colspan="2"><input readonly style="background-color: #e0ec3754;text-align:right" type="text" size="10" value="{{ isset($form_c[$data1->id]) ? number_format($form_c[$data1->id]->jumlah_stok_kayu_balak,2) : '0.00' }}" wire:model='jumlah_stok_kayu_balak.{{ $keySpecies }}' wire:change="calcTotalStokKayuDibawaBulanHadapan({{ $keySpecies}}, {{ $keyKumpulanKayu }}, '{{ $data->singkatan }}');"></td>
+                                                                                        <td style="text-align:center;" colspan="2"><input readonly type="text" size="10" style="background-color: #ffffff;text-align:right" value="{{ isset($form_c[$data1->id]) ? number_format($form_c[$data1->id]->proses_masuk,2) : '0.00' }}" wire:model='proses_masuk.{{ $keySpecies }}' wire:change="calcBakiStok({{ $keySpecies}}, {{ $keyKumpulanKayu }}, '{{ $data->singkatan }}');" onkeypress="return isNumberKey(event)"></td>
+                                                                                        <td style="text-align:center;" colspan="2"><input readonly type="text" size="10" style="background-color: #ffffff;text-align:right" value="{{ isset($form_c[$data1->id]) ? number_format($form_c[$data1->id]->proses_keluar,2) : '0.00' }}" wire:model='proses_keluar.{{ $keySpecies }}' wire:change="calcTotalPengeluaranKayuDaripadaJentera({{ $keySpecies}}, {{ $keyKumpulanKayu }}, '{{ $data->singkatan }}');" onkeypress="return isNumberKey(event)"></td>
+                                                                                        <td style="text-align:center;" colspan="2"><input readonly style="background-color: #e0ec3754;text-align:right" type="text" size="10" value="{{ isset($form_c[$data1->id]) ? number_format($form_c[$data1->id]->baki_stok_kehadapan,2) : '0.00' }}" wire:model='baki_stok_kehadapan.{{ $keySpecies }}' ></td>
                                                                                     </tr>
 
                                                                                 @endif
@@ -308,14 +322,14 @@
                                                                                     <td style="text-align:center;" colspan="2"><input readonly style="background-color: #e0ec3754;text-align:right" type="text" size="10" wire:model='jumlah_kayu_masuk.{{ $keyKumpulanKayu }}' value="{{ number_format($kemasukan_bahan_calc_kkb->jumlah_kayu_masuk ?? 0, 2) }}"></td>
                                                                                     <td style="text-align:center;" colspan="2"><input readonly style="background-color: #e0ec3754;text-align:right" type="text" size="10" wire:model='total_stok_kayu_balak.{{ $keyKumpulanKayu }}' value="{{ number_format($kemasukan_bahan_calc_kkb->total_stok_kayu_balak ?? 0, 2) }}"></td>
                                                                                     <td style="text-align:center;" colspan="2"><input readonly style="background-color: #e0ec3754;text-align:right" type="text" size="10" wire:model='total_kayu_masuk_jentera.{{ $keyKumpulanKayu }}' value="{{ number_format($kemasukan_bahan_calc_kkb->total_kayu_masuk_jentera ?? 0, 2) }}"></td>
-                                                                                    {{-- <td style="text-align:center;" colspan="2"><input readonly style="background-color: #e0ec3754;" type="text" size="10" wire:model='total_kayu_keluar_jentera.{{ $keyKumpulanKayu }}' value="{{ $kemasukan_bahan_calc_kkb->total_kayu_keluar_jentera }}"></td> --}}
+                                                                                    <td style="text-align:center;" colspan="2"><input readonly style="background-color: #e0ec3754;text-align:right" type="text" size="10" wire:model='total_kayu_keluar_jentera.{{ $keyKumpulanKayu }}' value="{{ number_format($kemasukan_bahan_calc_kkb->total_kayu_keluar_jentera ?? 0, 2) }}"></td>
                                                                                     <td style="text-align:center;" colspan="2"><input readonly style="background-color: #e0ec3754;text-align:right" type="text" size="10" wire:model='total_kayu_dibawa_bulan_hadapan.{{ $keyKumpulanKayu }}' value="{{ number_format($kemasukan_bahan_calc_kkb->total_kayu_dibawa_bulan_hadapan ?? 0, 2) }}"></td>
                                                                                 @elseif(  $keyKumpulanKayu == '1')
                                                                                     <td style="text-align:center;" colspan="2"><input readonly style="background-color: #e0ec3754;text-align:right" type="text" size="10" wire:model='jumlah_baki_stoks.{{ $keyKumpulanKayu }}' value="{{ number_format($kemasukan_bahan_calc_kks->jumlah_baki_stok ?? 0, 2) }}"></td>
                                                                                     <td style="text-align:center;" colspan="2"><input readonly style="background-color: #e0ec3754;text-align:right" type="text" size="10" wire:model='jumlah_kayu_masuk.{{ $keyKumpulanKayu }}' value="{{ number_format($kemasukan_bahan_calc_kks->jumlah_kayu_masuk ?? 0, 2) }}"></td>
                                                                                     <td style="text-align:center;" colspan="2"><input readonly style="background-color: #e0ec3754;text-align:right" type="text" size="10" wire:model='total_stok_kayu_balak.{{ $keyKumpulanKayu }}' value="{{ number_format($kemasukan_bahan_calc_kks->total_stok_kayu_balak ?? 0, 2) }}"></td>
                                                                                     <td style="text-align:center;" colspan="2"><input readonly style="background-color: #e0ec3754;text-align:right" type="text" size="10" wire:model='total_kayu_masuk_jentera.{{ $keyKumpulanKayu }}' value="{{ number_format($kemasukan_bahan_calc_kks->total_kayu_masuk_jentera ?? 0, 2) }}"></td>
-                                                                                    {{-- <td style="text-align:center;" colspan="2"><input readonly style="background-color: #e0ec3754;" type="text" size="10" wire:model='total_kayu_keluar_jentera.{{ $keyKumpulanKayu }}' value="{{ $kemasukan_bahan_calc_kks->total_kayu_keluar_jentera }}"></td> --}}
+                                                                                    <td style="text-align:center;" colspan="2"><input readonly style="background-color: #e0ec3754;text-align:right" type="text" size="10" wire:model='total_kayu_keluar_jentera.{{ $keyKumpulanKayu }}' value="{{ number_format($kemasukan_bahan_calc_kks->total_kayu_keluar_jentera ?? 0, 2) }}"></td>
                                                                                     <td style="text-align:center;" colspan="2"><input readonly style="background-color: #e0ec3754;text-align:right" type="text" size="10" wire:model='total_kayu_dibawa_bulan_hadapan.{{ $keyKumpulanKayu }}' value="{{ number_format($kemasukan_bahan_calc_kks->total_kayu_dibawa_bulan_hadapan ?? 0, 2) }}"></td>
 
                                                                                 @elseif(  $keyKumpulanKayu == '2')
@@ -323,15 +337,15 @@
                                                                                     <td style="text-align:center;" colspan="2"><input readonly style="background-color: #e0ec3754;text-align:right" type="text" size="10" wire:model='jumlah_kayu_masuk.{{ $keyKumpulanKayu }}' value="{{ number_format($kemasukan_bahan_calc_kkr->jumlah_kayu_masuk ?? 0, 2) }}"></td>
                                                                                     <td style="text-align:center;" colspan="2"><input readonly style="background-color: #e0ec3754;text-align:right" type="text" size="10" wire:model='total_stok_kayu_balak.{{ $keyKumpulanKayu }}' value="{{ number_format($kemasukan_bahan_calc_kkr->total_stok_kayu_balak ?? 0, 2) }}"></td>
                                                                                     <td style="text-align:center;" colspan="2"><input readonly style="background-color: #e0ec3754;text-align:right" type="text" size="10" wire:model='total_kayu_masuk_jentera.{{ $keyKumpulanKayu }}' value="{{ number_format($kemasukan_bahan_calc_kkr->total_kayu_masuk_jentera ?? 0, 2) }}"></td>
-                                                                                    {{-- <td style="text-align:center;" colspan="2"><input readonly style="background-color: #e0ec3754;" type="text" size="10" wire:model='total_kayu_keluar_jentera.{{ $keyKumpulanKayu }}' value="{{ $kemasukan_bahan_calc_kkr->total_kayu_keluar_jentera }}"></td> --}}
-                                                                                    <td style="text-align:center;" colspan="2"><input readonly style="background-color: #e0ec3754;" type="text" size="10" wire:model='total_kayu_dibawa_bulan_hadapan.{{ $keyKumpulanKayu }}' value="{{ number_format($kemasukan_bahan_calc_kkr->total_kayu_dibawa_bulan_hadapan ?? 0, 2) }}"></td>
+                                                                                    <td style="text-align:center;" colspan="2"><input readonly style="background-color: #e0ec3754;text-align:right" type="text" size="10" wire:model='total_kayu_keluar_jentera.{{ $keyKumpulanKayu }}' value="{{ number_format($kemasukan_bahan_calc_kkr->total_kayu_keluar_jentera ?? 0, 2) }}"></td>
+                                                                                    <td style="text-align:center;" colspan="2"><input readonly style="background-color: #e0ec3754;text-align:right" type="text" size="10" wire:model='total_kayu_dibawa_bulan_hadapan.{{ $keyKumpulanKayu }}' value="{{ number_format($kemasukan_bahan_calc_kkr->total_kayu_dibawa_bulan_hadapan ?? 0, 2) }}"></td>
 
                                                                                 @elseif(  $keyKumpulanKayu == '3')
                                                                                     <td style="text-align:center;" colspan="2"><input readonly style="background-color: #e0ec3754;text-align:right" type="text" size="10" wire:model='jumlah_baki_stoks.{{ $keyKumpulanKayu }}' value="{{ number_format($kemasukan_bahan_calc_kayu_lembut->jumlah_baki_stok ?? 0, 2) }}"></td>
                                                                                     <td style="text-align:center;" colspan="2"><input readonly style="background-color: #e0ec3754;text-align:right" type="text" size="10" wire:model='jumlah_kayu_masuk.{{ $keyKumpulanKayu }}' value="{{ number_format($kemasukan_bahan_calc_kayu_lembut->jumlah_kayu_masuk ?? 0, 2) }}"></td>
                                                                                     <td style="text-align:center;" colspan="2"><input readonly style="background-color: #e0ec3754;text-align:right" type="text" size="10" wire:model='total_stok_kayu_balak.{{ $keyKumpulanKayu }}' value="{{ number_format($kemasukan_bahan_calc_kayu_lembut->total_stok_kayu_balak ?? 0, 2) }}"></td>
                                                                                     <td style="text-align:center;" colspan="2"><input readonly style="background-color: #e0ec3754;text-align:right" type="text" size="10" wire:model='total_kayu_masuk_jentera.{{ $keyKumpulanKayu }}' value="{{ number_format($kemasukan_bahan_calc_kayu_lembut->total_kayu_masuk_jentera ?? 0, 2) }}"></td>
-                                                                                    {{-- <td style="text-align:center;" colspan="2"><input readonly style="background-color: #e0ec3754;" type="text" size="10" wire:model='total_kayu_keluar_jentera.{{ $keyKumpulanKayu }}' value="{{ $kemasukan_bahan_calc_kayu_lembut->total_kayu_keluar_jentera }}"></td> --}}
+                                                                                    <td style="text-align:center;" colspan="2"><input readonly style="background-color: #e0ec3754;text-align:right" type="text" size="10" wire:model='total_kayu_keluar_jentera.{{ $keyKumpulanKayu }}' value="{{ number_format($kemasukan_bahan_calc_kayu_lembut->total_kayu_keluar_jentera ?? 0, 2) }}"></td>
                                                                                     <td style="text-align:center;" colspan="2"><input readonly style="background-color: #e0ec3754;text-align:right" type="text" size="10" wire:model='total_kayu_dibawa_bulan_hadapan.{{ $keyKumpulanKayu }}' value="{{ number_format($kemasukan_bahan_calc_kayu_lembut->total_kayu_dibawa_bulan_hadapan ?? 0, 2) }}"></td>
 
                                                                                 @elseif(  $keyKumpulanKayu == '4')
@@ -339,7 +353,7 @@
                                                                                     <td style="text-align:center;" colspan="2"><input readonly style="background-color: #e0ec3754;text-align:right" type="text" size="10" wire:model='jumlah_kayu_masuk.{{ $keyKumpulanKayu }}' value="{{ number_format($kemasukan_bahan_calc_lain_lain->jumlah_kayu_masuk ?? 0, 2) }}"></td>
                                                                                     <td style="text-align:center;" colspan="2"><input readonly style="background-color: #e0ec3754;text-align:right" type="text" size="10" wire:model='total_stok_kayu_balak.{{ $keyKumpulanKayu }}' value="{{ number_format($kemasukan_bahan_calc_lain_lain->total_stok_kayu_balak ?? 0, 2) }}"></td>
                                                                                     <td style="text-align:center;" colspan="2"><input readonly style="background-color: #e0ec3754;text-align:right" type="text" size="10" wire:model='total_kayu_masuk_jentera.{{ $keyKumpulanKayu }}' value="{{ number_format($kemasukan_bahan_calc_lain_lain->total_kayu_masuk_jentera ?? 0, 2) }}"></td>
-                                                                                    {{-- <td style="text-align:center;" colspan="2"><input readonly style="background-color: #e0ec3754;" type="text" size="10" wire:model='total_kayu_keluar_jentera.{{ $keyKumpulanKayu }}' value="{{ $kemasukan_bahan_calc_lain_lain->total_kayu_keluar_jentera }}"></td> --}}
+                                                                                    <td style="text-align:center;" colspan="2"><input readonly style="background-color: #e0ec3754;text-align:right" type="text" size="10" wire:model='total_kayu_keluar_jentera.{{ $keyKumpulanKayu }}' value="{{ number_format($kemasukan_bahan_calc_lain_lain->total_kayu_keluar_jentera ?? 0, 2) }}"></td>
                                                                                     <td style="text-align:center;" colspan="2"><input readonly style="background-color: #e0ec3754;text-align:right" type="text" size="10" wire:model='total_kayu_dibawa_bulan_hadapan.{{ $keyKumpulanKayu }}' value="{{ number_format($kemasukan_bahan_calc_lain_lain->total_kayu_dibawa_bulan_hadapan ?? 0, 2) }}"></td>
 
                                                                                 @endif
@@ -347,24 +361,14 @@
 
                                                                         @endforeach
 
-                                                                        {{-- <tr style="height:50px;">
-                                                                            <th style="text-align:center;" colspan="2"> Jumlah Besar </th>
-                                                                            <td style="text-align:center;" colspan="2"><input readonly style="background-color: #e0ec3754;" type="text" size="10" wire:model='jumlah_besar_baki_stok_bulan_lepas' value="{{ number_format($kemasukan_bahan_calc_lain_lain->jumlah_besar_baki_stok_bulan_lepas ?? 0, 2) }}" ></td>
-                                                                            <td style="text-align:center;" colspan="2"><input readonly style="background-color: #e0ec3754;" type="text" size="10" wire:model='jumlah_besar_kemasukan_kayu_ke_kilang' value="{{ number_format($kemasukan_bahan_calc_lain_lain->jumlah_besar_kemasukan_kayu_ke_kilang ?? 0, 2) }}"></td>
-                                                                            <td style="text-align:center;" colspan="2"><input readonly style="background-color: #e0ec3754;" type="text" size="10" wire:model='jumlah_besar_stok_kayu_balak' value="{{ number_format($kemasukan_bahan_calc_lain_lain->jumlah_besar_stok_kayu_balak ?? 0, 2) }}"></td>
-                                                                            <td style="text-align:center;" colspan="2"><input readonly style="background-color: #e0ec3754;" type="text" size="10" wire:model='jumlah_besar_kayu_ke_dalam_jentera' value="{{ number_format($kemasukan_bahan_calc_lain_lain->jumlah_besar_kayu_ke_dalam_jentera ?? 0, 2) }}"></td>
-                                                                            <td style="text-align:center;" colspan="2"><input readonly style="background-color: #e0ec3754;" type="text" size="10" wire:model='jumlah_besar_pengeluaran_kayu_daripada_jentera' value="{{ $kemasukan_bahan_calc_lain_lain->jumlah_besar_pengeluaran_kayu_daripada_jentera }}"></td>
-                                                                            <td style="text-align:center;" colspan="2"><input readonly style="background-color: #e0ec3754;" type="text" size="10" wire:model='jumlah_besar_baki_stok_bulan_depan' value="{{ number_format($kemasukan_bahan_calc_lain_lain->jumlah_besar_baki_stok_bulan_depan ?? 0, 2) }}"></td>
-                                                                        </tr> --}}
-
-                                                                        @if($formc->tiada_pengeluaran == "1")
+                                                                            @if($formc->tiada_pengeluaran == "1")
                                                                         <tr style="height:50px;">
                                                                             <th style="text-align:center;" colspan="2"> Jumlah Besar </th>
                                                                             <td style="text-align:center;" colspan="2"><input readonly style="background-color: #e0ec3754;text-align:right" type="text" size="10" wire:model='jumlah_besar_baki_stok_bulan_lepas' value="0.00" ></td>
                                                                             <td style="text-align:center;" colspan="2"><input readonly style="background-color: #e0ec3754;text-align:right" type="text" size="10" wire:model='jumlah_besar_kemasukan_kayu_ke_kilang' value="0.00"></td>
                                                                             <td style="text-align:center;" colspan="2"><input readonly style="background-color: #e0ec3754;text-align:right" type="text" size="10" wire:model='jumlah_besar_stok_kayu_balak' value="0.00"></td>
                                                                             <td style="text-align:center;" colspan="2"><input readonly style="background-color: #e0ec3754;text-align:right" type="text" size="10" wire:model='jumlah_besar_kayu_ke_dalam_jentera' value="0.00"></td>
-                                                                            {{-- <td style="text-align:center;" colspan="2"><input readonly style="background-color: #e0ec3754;" type="text" size="10" wire:model='jumlah_besar_pengeluaran_kayu_daripada_jentera' value="0.00"></td> --}}
+                                                                            <td style="text-align:center;" colspan="2"><input readonly style="background-color: #e0ec3754;text-align:right" type="text" size="10" wire:model='jumlah_besar_pengeluaran_kayu_daripada_jentera' value="0.00"></td>
                                                                             <td style="text-align:center;" colspan="2"><input readonly style="background-color: #e0ec3754;text-align:right" type="text" size="10" wire:model='jumlah_besar_baki_stok_bulan_depan' value="0.00"></td>
                                                                         </tr>
                                                                         @else
@@ -374,7 +378,7 @@
                                                                             <td style="text-align:center;" colspan="2"><input readonly style="background-color: #e0ec3754;text-align:right" type="text" size="10" wire:model='jumlah_besar_kemasukan_kayu_ke_kilang' value="{{ number_format($kemasukan_bahan_calc_lain_lain->jumlah_besar_kemasukan_kayu_ke_kilang ?? 0, 2) }}"></td>
                                                                             <td style="text-align:center;" colspan="2"><input readonly style="background-color: #e0ec3754;text-align:right" type="text" size="10" wire:model='jumlah_besar_stok_kayu_balak' value="{{ number_format($kemasukan_bahan_calc_lain_lain->jumlah_besar_stok_kayu_balak ?? 0, 2) }}"></td>
                                                                             <td style="text-align:center;" colspan="2"><input readonly style="background-color: #e0ec3754;text-align:right" type="text" size="10" wire:model='jumlah_besar_kayu_ke_dalam_jentera' value="{{ number_format($kemasukan_bahan_calc_lain_lain->jumlah_besar_kayu_ke_dalam_jentera ?? 0, 2) }}"></td>
-                                                                            {{-- <td style="text-align:center;" colspan="2"><input readonly style="background-color: #e0ec3754;" type="text" size="10" wire:model='jumlah_besar_pengeluaran_kayu_daripada_jentera' value="{{ number_format($kemasukan_bahan_calc_lain_lain->jumlah_besar_pengeluaran_kayu_daripada_jentera ?? 0, 2) }}"></td> --}}
+                                                                            <td style="text-align:center;" colspan="2"><input readonly style="background-color: #e0ec3754;text-align:right" type="text" size="10" wire:model='jumlah_besar_pengeluaran_kayu_daripada_jentera' value="{{ number_format($kemasukan_bahan_calc_lain_lain->jumlah_besar_pengeluaran_kayu_daripada_jentera ?? 0, 2) }}"></td>
                                                                             <td style="text-align:center;" colspan="2"><input readonly style="background-color: #e0ec3754;text-align:right" type="text" size="10" wire:model='jumlah_besar_baki_stok_bulan_depan' value="{{ number_format($kemasukan_bahan_calc_lain_lain->jumlah_besar_baki_stok_bulan_depan ?? 0, 2) }}"></td>
                                                                         </tr>
                                                                         @endif
@@ -391,125 +395,71 @@
 
                                                         <br>
 
-                                                            <form
-                                                                action="{{ route('update_status_form3C_ipjpsm', $id) }}"
-                                                                method="post">
-                                                                @csrf
-                                                                <div class="row" style="text-align:center">
-                                                                    <div class="col-md-12">
 
+                                                        <form action="{{ route('update_status_form3C_ipjpsm', $id) }}"
+                                                            method="post">
+                                                            @csrf
+                                                            <div class="row" style="text-align:center">
+                                                                <div class="col-md-12">
+
+                                                                    <br>
+                                                                    <input type="text" name="status" value="Lulus"
+                                                                        hidden>
                                                                         @if($formc->status == 'Lulus')
-                                                                        <a href="{{ route('ipjpsm.borang-keseluruhan.shuttle4.borangC', date('Y')) }}"
+                                                                        <a href="{{ route('ipjpsm.borang-keseluruhan.shuttle5.borangC', date('Y')) }}"
                                                                         class="btn btn-primary">Kembali</a>
                                                                         @else
                                                                         <a href="{{ route('shuttle-5-listC', date('Y')) }}"
                                                                         class="btn btn-primary">Kembali</a>
                                                                         @endif
-                                                            @if($formc->status == "Lulus")
-                                                            @else
 
-                                                                        <input type="text" name="status" value="Lulus"
-                                                                            hidden>
-                                                                        <button type="button" class="btn btn-primary"
-                                                                            alt="default" data-toggle="modal"
-                                                                            data-target="#confirmation_borang_a">
-                                                                            DIPERAKU</button>
-                                                                        @endif
+                                                                    @if($formc->status == 'Lulus')
+                                                                    @else
+                                                                    <button type="button" class="btn btn-primary"
+                                                                    alt="default" data-toggle="modal"
+                                                                    data-target="#confirmation_borang_a">
+                                                                    DIPERAKU</button>
+                                                                    @endif
 
-                                                                    </div>
                                                                 </div>
+                                                            </div>
 
-                                                                <div class="modal fade" id="confirmation_borang_a"
-                                                                    tabindex="-1" role="dialog"
-                                                                    aria-labelledby="confirmation_borang_aTitle"
-                                                                    aria-hidden="true">
-                                                                    <div class="modal-dialog modal-dialog-centered"
-                                                                        role="document">
-                                                                        <div class="modal-content">
-                                                                            <div class="modal-header"
-                                                                                style="background-color:#f3ce8f  !important">
-                                                                                <h5 class="modal-title "
-                                                                                    id="exampleModalLongTitle"><i
-                                                                                        style="color:rgb(255, 255, 0)"
-                                                                                        class="fas fa-exclamation-triangle"></i>&nbspPENGESAHAN
-                                                                                </h5>
-                                                                                <button type="button" class="close"
-                                                                                    data-dismiss="modal" aria-label="Close">
-                                                                                    <span aria-hidden="true">&times;</span>
-                                                                                </button>
-                                                                            </div>
-                                                                            <div class="modal-body"><b>
-                                                                                <span class="text-center">Adakah anda
-                                                                                    pasti ingin memperaku borang
-                                                                                    ini?</b></span>
-                                                                            </div>
-                                                                            <div class="modal-footer">
-                                                                                <button type="button" class="btn btn-danger"
-                                                                                    data-dismiss="modal">Batal</button>
-                                                                                <button type="submit"
-                                                                                    class="btn btn-success">PERAKU</button>
-                                                                            </div>
+                                                            <div class="modal fade" id="confirmation_borang_a"
+                                                                tabindex="-1" role="dialog"
+                                                                aria-labelledby="confirmation_borang_aTitle"
+                                                                aria-hidden="true">
+                                                                <div class="modal-dialog modal-dialog-centered"
+                                                                    role="document">
+                                                                    <div class="modal-content">
+                                                                        <div class="modal-header"
+                                                                            style="background-color:#f3ce8f  !important">
+                                                                            <h5 class="modal-title "
+                                                                                id="exampleModalLongTitle"><i
+                                                                                    style="color:rgb(255, 255, 0)"
+                                                                                    class="fas fa-exclamation-triangle"></i>&nbspPENGESAHAN
+                                                                            </h5>
+                                                                            <button type="button" class="close"
+                                                                                data-dismiss="modal" aria-label="Close">
+                                                                                <span aria-hidden="true">&times;</span>
+                                                                            </button>
+                                                                        </div>
+                                                                        <div class="modal-body"> <b>
+                                                                            <span class="text-center">Adakah anda
+                                                                                pasti ingin memperaku borang
+                                                                                ini?</b></span>
+                                                                        </div>
+                                                                        <div class="modal-footer">
+                                                                            <button type="button" class="btn btn-danger"
+                                                                                data-dismiss="modal">Batal</button>
+                                                                            <button type="submit"
+                                                                                class="btn btn-success">PERAKU</button>
                                                                         </div>
                                                                     </div>
                                                                 </div>
-                                                            </form>
+                                                            </div>
+                                                        </form>
 
 
-                                                        {{-- @elseif($kilang_info->shuttle_type=="4")
-                                                            <form
-                                                                action="{{ route('update_status_form4D_ipjpsm', $id) }}"
-                                                                method="post">
-                                                                @csrf
-                                                                <div class="row" style="text-align:center">
-                                                                    <div class="col-md-12">
-
-                                                                        <br>
-                                                                        <input type="text" name="status" value="Lulus"
-                                                                            hidden>
-                                                                        <button type="button" class="btn btn-primary"
-                                                                            alt="default" data-toggle="modal"
-                                                                            data-target="#confirmation_borang_a">
-                                                                            DIPERAKU</button>
-                                                                    </div>
-                                                                </div>
-
-                                                                <div class="modal fade" id="confirmation_borang_a"
-                                                                    tabindex="-1" role="dialog"
-                                                                    aria-labelledby="confirmation_borang_aTitle"
-                                                                    aria-hidden="true">
-                                                                    <div class="modal-dialog modal-dialog-centered"
-                                                                        role="document">
-                                                                        <div class="modal-content">
-                                                                            <div class="modal-header"
-                                                                                style="background-color:#f3ce8f  !important">
-                                                                                <h5 class="modal-title "
-                                                                                    id="exampleModalLongTitle"><i
-                                                                                        style="color:rgb(255, 255, 0)"
-                                                                                        class="fas fa-exclamation-triangle"></i>&nbspPENGESAHAN
-                                                                                </h5>
-                                                                                <button type="button" class="close"
-                                                                                    data-dismiss="modal" aria-label="Close">
-                                                                                    <span aria-hidden="true">&times;</span>
-                                                                                </button>
-                                                                            </div>
-                                                                            <div class="modal-body">
-                                                                                <span class="text-center">Adakah anda
-                                                                                    pasti ingin memperaku borang
-                                                                                    ini?</span>
-                                                                            </div>
-                                                                            <div class="modal-footer">
-                                                                                <button type="button" class="btn btn-danger"
-                                                                                    data-dismiss="modal">Batal</button>
-                                                                                <button type="submit"
-                                                                                    class="btn btn-success">PERAKU</button>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </form>
-
-
-                                                        @endif --}}
 
                                                         <br>
                                                     </div>
@@ -519,6 +469,7 @@
                                         </table>
                                     </div>
                                 </div>
+
 
 
 

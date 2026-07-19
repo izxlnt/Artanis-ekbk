@@ -10,8 +10,7 @@
                         <div class="rounded-lg card" style="border-color: #000000 !important;">
                             <div class="card-header"
                                 style="text-align:center; background-color: #f0e10dbd !important; font-size: 130%; font-weight: bold;">
-                                BORANG 3C - PENYATA KEMASUKAN & PEMPROSESAN KAYU BALAK <br> DAN PENGELUARAN KAYU GERGAJI
-                                MENGIKUT KUMPULAN KAYU-KAYAN
+                                BORANG 4C - PENYATA KEMASUKAN & PEMPROSESAN KAYU BALAK MENGIKUT KUMPULAN KAYU-KAYAN
                             </div>
                             <div class="card-body">
 
@@ -112,10 +111,8 @@
                                                                                 </th>
                                                                                 <th style="text-align:center;"
                                                                                     colspan="2">Kemasukan Kayu Balak Ke
-                                                                                    Dalam Jentera Memproses</th>
-                                                                                <th style="text-align:center;"
-                                                                                    colspan="2">Pengeluaran Kayu Gergaji
-                                                                                    Daripada Jentera Memproses</th>
+                                                                                    Dalam Jentera Memproses <br> (dikupas)</th>
+                                                                                {{-- <th style="text-align:center;" colspan="2">Pengeluaran Kayu Gergaji Daripada Jentera Memproses</th> --}}
                                                                                 <th style="text-align:center;"
                                                                                     colspan="2">Baki Stok Kayu Balak
                                                                                     Dibawa Ke Bulan Hadapan</th>
@@ -141,13 +138,10 @@
                                                                                     colspan="2">(<span
                                                                                         style="font-size: 28px">&#13221;</span>)<br>(05)
                                                                                 </th>
+                                                                                {{-- <th style="text-align:center;" colspan="2">(<span style="font-size: 28px">&#13221;</span>)<br>(06)</th> --}}
                                                                                 <th style="text-align:center;"
                                                                                     colspan="2">(<span
-                                                                                        style="font-size: 28px">&#13221;</span>)<br>(06)
-                                                                                </th>
-                                                                                <th style="text-align:center;"
-                                                                                    colspan="2">(<span
-                                                                                        style="font-size: 28px">&#13221;</span>)<br>(07)=(04)-(05)
+                                                                                        style="font-size: 28px">&#13221;</span>)<br>(06)=(04)-(05)
                                                                                 </th>
                                                                             </tr>
                                                                         </thead>
@@ -165,7 +159,7 @@
                                                                                     <th colspan="2"></th>
                                                                                     <th colspan="2"></th>
                                                                                     <th colspan="2"></th>
-                                                                                    <th colspan="2"></th>
+                                                                                    {{-- <th colspan="2"></th> --}}
                                                                                     <th colspan="2"></th>
                                                                                 </tr>
 
@@ -216,15 +210,7 @@
                                                                                                     onkeypress="return isNumberKey(event)"
                                                                                                     style="@error('proses_masuk.' . $keySpecies) color:red @else color:black @endif">
                                                                                             </td>
-                                                                                            <td style="text-align:center;"
-                                                                                                colspan="2"><input
-                                                                                                    type="text"
-                                                                                                    size="10"
-                                                                                                    id="fc_pkeluar_{{ $keySpecies }}"
-                                                                                                    wire:model.defer='proses_keluar.{{ $keySpecies }}'
-                                                                                                    oninput="fcCalcRow({{ $keySpecies }})"
-                                                                                                    onkeypress="return isNumberKey(event)">
-                                                                                            </td>
+                                                                                            {{-- <td style="text-align:center;" colspan="2"><input type="text" size="10" id="fc_pkeluar_{{ $keySpecies }}" wire:model.defer='proses_keluar.{{ $keySpecies }}' oninput="fcCalcRow({{ $keySpecies }})" onkeypress="return isNumberKey(event)"></td> --}}
                                                                                             <td style="text-align:center;"
                                                                                                 colspan="2"><input
                                                                                                     readonly
@@ -265,12 +251,7 @@
                                                                                             type="text" size="10"
                                                                                             id="fc_tot_pmasuk_{{ $keyKumpulanKayu }}">
                                                                                     </td>
-                                                                                    <td style="text-align:center;"
-                                                                                        colspan="2"><input readonly
-                                                                                            style="background-color: #e0ec3754;"
-                                                                                            type="text" size="10"
-                                                                                            id="fc_tot_pkeluar_{{ $keyKumpulanKayu }}">
-                                                                                    </td>
+                                                                                    {{-- <td style="text-align:center;" colspan="2"><input readonly style="background-color: #e0ec3754;" type="text" size="10" id="fc_tot_pkeluar_{{ $keyKumpulanKayu }}"></td> --}}
                                                                                     <td style="text-align:center;"
                                                                                         colspan="2"><input readonly
                                                                                             style="background-color: #e0ec3754;"
@@ -308,12 +289,7 @@
                                                                                         type="text" size="10"
                                                                                         id="fc_grand_pmasuk">
                                                                                 </td>
-                                                                                <td style="text-align:center;"
-                                                                                    colspan="2"><input readonly
-                                                                                        style="background-color: #e0ec3754;"
-                                                                                        type="text" size="10"
-                                                                                        id="fc_grand_pkeluar">
-                                                                                </td>
+                                                                                {{-- <td style="text-align:center;" colspan="2"><input readonly style="background-color: #e0ec3754;" type="text" size="10" id="fc_grand_pkeluar"></td> --}}
                                                                                 <td style="text-align:center;"
                                                                                     colspan="2"><input readonly
                                                                                         style="background-color: #e0ec3754;"
@@ -434,22 +410,22 @@
         }
 
         function fcCalcAll() {
-            var gb = 0, gm = 0, gj = 0, gpm = 0, gpk = 0, gk = 0;
+            var gb = 0, gm = 0, gj = 0, gpm = 0, gk = 0;
             Object.keys(fcGroups).forEach(function(kg) {
-                var tb = 0, tm = 0, tj = 0, tpm = 0, tpk = 0, tk = 0;
+                var tb = 0, tm = 0, tj = 0, tpm = 0, tk = 0;
                 fcGroups[kg].forEach(function(ks) {
                     tb += fcN('fc_baki_'+ks);   tm  += fcN('fc_masuk_'+ks);
                     tj += fcN('fc_jumlah_'+ks); tpm += fcN('fc_pmasuk_'+ks);
-                    tpk+= fcN('fc_pkeluar_'+ks);tk  += fcN('fc_kehadapan_'+ks);
+                    tk  += fcN('fc_kehadapan_'+ks);
                 });
                 fcS('fc_tot_baki_'+kg, tb);    fcS('fc_tot_masuk_'+kg, tm);
                 fcS('fc_tot_jumlah_'+kg, tj);  fcS('fc_tot_pmasuk_'+kg, tpm);
-                fcS('fc_tot_pkeluar_'+kg, tpk);fcS('fc_tot_kehadapan_'+kg, tk);
-                gb+=tb; gm+=tm; gj+=tj; gpm+=tpm; gpk+=tpk; gk+=tk;
+                fcS('fc_tot_kehadapan_'+kg, tk);
+                gb+=tb; gm+=tm; gj+=tj; gpm+=tpm; gk+=tk;
             });
             fcS('fc_grand_baki',gb);    fcS('fc_grand_masuk',gm);
             fcS('fc_grand_jumlah',gj);  fcS('fc_grand_pmasuk',gpm);
-            fcS('fc_grand_pkeluar',gpk);fcS('fc_grand_kehadapan',gk);
+            fcS('fc_grand_kehadapan',gk);
         }
 
         document.addEventListener('livewire:load', function() { fcCalcAll(); });

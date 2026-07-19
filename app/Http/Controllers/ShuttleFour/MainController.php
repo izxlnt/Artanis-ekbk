@@ -732,10 +732,9 @@ class MainController extends Controller
         $species = Spesis::with('kumpulan_kayu')->orderBy('kumpulan_kayu_id')->orderBy('nama_tempatan')->get();
         $kumpulan_kayu = KumpulanKayu::get();
 
-        $form_c = KemasukanBahan::where('formcs_id', $formc->id)->get();
-        // $form_c = $form;
-
-        // dd($form_c[0]);
+        // Keyed by spesis_id (not row position) so the view can never show one
+        // species' saved values under a different species' name.
+        $form_c = KemasukanBahan::where('formcs_id', $formc->id)->get()->keyBy('spesis_id');
 
         $kemasukan_bahan_calc_kkb = KemasukanBahan::with('spesis_id')->whereHas('spesis_id', function ($q) {
             $q->where('kumpulan_kayu_id', '1');
@@ -807,7 +806,7 @@ class MainController extends Controller
         }
 
 
-        return view('livewire.view-form4c-Ipjpsm', compact(
+        return view('livewire.shuttle-four.view-form4c-Ipjpsm', compact(
             'returnArr',
             'kilang_info',
             'kategori_pekerja',
