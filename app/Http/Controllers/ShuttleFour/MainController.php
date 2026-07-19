@@ -462,11 +462,7 @@ class MainController extends Controller
             ->get();
         // dd($formA);
 
-        $year_list = FormA::where('status', '!=', 'Tidak Diisi')->where('tahun', $year)
-            ->whereHas('shuttle', function ($q) {
-                $q->whereIn('daerah_id', auth()->user()->daerah_ids)->where('shuttle_type', '4');
-            })
-            ->where('tahun', '>=', config('app.data_start_year'))->distinct()->orderBy('tahun')->get('tahun');
+        $year_list = collect([(object)['tahun' => (int) date('Y')], (object)['tahun' => (int) date('Y') + 1]]);
 
         $breadcrumbs    = [
             ['link' => route('home'), 'name' => "Laman Utama"],
@@ -497,11 +493,7 @@ class MainController extends Controller
             })
             ->get();
 
-        $year_list = FormB::where('status', '!=', 'Tidak Diisi')->where('tahun', $year)
-            ->whereHas('shuttle', function ($q) {
-                $q->whereIn('daerah_id', auth()->user()->daerah_ids)->where('shuttle_type', '4');
-            })
-            ->where('tahun', '>=', config('app.data_start_year'))->distinct()->orderBy('tahun')->get('tahun');
+        $year_list = collect([(object)['tahun' => (int) date('Y')], (object)['tahun' => (int) date('Y') + 1]]);
 
         $breadcrumbs    = [
             ['link' => route('home'), 'name' => "Laman Utama"],
@@ -538,11 +530,7 @@ class MainController extends Controller
             ->orderBy('bulan')
             ->get();
 
-        $year_list = FormC::where('status', '!=', 'Tidak Diisi')->where('tahun', $year)
-            ->whereHas('shuttle', function ($q) {
-                $q->whereIn('daerah_id', auth()->user()->daerah_ids)->where('shuttle_type', '4');
-            })
-            ->where('tahun', '>=', config('app.data_start_year'))->distinct()->orderBy('tahun')->get('tahun');
+        $year_list = collect([(object)['tahun' => (int) date('Y')], (object)['tahun' => (int) date('Y') + 1]]);
 
         $breadcrumbs    = [
             ['link' => route('home'), 'name' => "Laman Utama"],
@@ -573,11 +561,7 @@ class MainController extends Controller
             })
             ->get();
 
-        $year_list = Form4D::where('status', '!=', 'Tidak Diisi')->where('tahun', $year)
-            ->whereHas('shuttle', function ($q) {
-                $q->whereIn('daerah_id', auth()->user()->daerah_ids)->where('shuttle_type', '4');
-            })
-            ->where('tahun', '>=', config('app.data_start_year'))->distinct()->orderBy('tahun')->get('tahun');
+        $year_list = collect([(object)['tahun' => (int) date('Y')], (object)['tahun' => (int) date('Y') + 1]]);
 
         $breadcrumbs    = [
             ['link' => route('home'), 'name' => "Laman Utama"],
@@ -607,11 +591,7 @@ class MainController extends Controller
             })
             ->get();
 
-        $year_list = Form4E::where('status', '!=', 'Tidak Diisi')->where('tahun', $year)
-            ->whereHas('shuttle', function ($q) {
-                $q->whereIn('daerah_id', auth()->user()->daerah_ids)->where('shuttle_type', '4');
-            })
-            ->where('tahun', '>=', config('app.data_start_year'))->distinct()->orderBy('tahun')->get('tahun');
+        $year_list = collect([(object)['tahun' => (int) date('Y')], (object)['tahun' => (int) date('Y') + 1]]);
 
         $breadcrumbs    = [
             ['link' => route('home'), 'name' => "Laman Utama"],

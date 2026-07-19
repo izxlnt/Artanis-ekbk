@@ -415,9 +415,16 @@ class NotifikasiKilangController extends Controller
     {
         $notification = auth()->user()->notifications()->where('id', $id)->first();
 
-        if ($notification) {
-            $notification->markAsRead();
-            return redirect($notification->data['route']);
+        if (!$notification) {
+            return redirect()->route('home')->with('error', 'Notifikasi tidak dijumpai atau telah dipadam.');
         }
+
+        $notification->markAsRead();
+
+        if (empty($notification->data['route'])) {
+            return redirect()->route('home')->with('error', 'Pautan borang untuk notifikasi ini tidak tersedia.');
+        }
+
+        return redirect($notification->data['route']);
     }
 }

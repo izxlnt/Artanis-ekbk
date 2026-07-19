@@ -128,18 +128,20 @@
 
                                                 <td>
 
+                                                    @php
+                                                        $current_batch = null;
+                                                        if ($data->shuttle->id == $data->shuttle_id && $data->tahun == date('Y')) {
+                                                            foreach ($batch as $checker) {
+                                                                if ($checker->tahun == $year && $checker->bulan == $data->bulan && $checker->shuttle_id == $data->shuttle->id) {
+                                                                    $current_batch = $checker;
+                                                                }
+                                                            }
+                                                        }
+                                                        $packageSent = $current_batch && $current_batch->status == 'Dihantar ke IPJPSM' && $current_batch->borang_c == 2;
+                                                    @endphp
                                                     @if ($data->shuttle->id == $data->shuttle_id && $data->tahun == date('Y'))
                                                         @if ($data->status == 'Dihantar ke IPJPSM')
-                                                            @php
-                                                                foreach ($batch as $checker) {
-                                                                    if ($checker->tahun == $year && $checker->bulan == $data->bulan && $checker->shuttle_id == $data->shuttle->id) {
-                                                                        $current_batch = $checker;
-                                                                    }
-                                                                }
-                                                            @endphp
-
-                                                            {{-- {{ $current_batch->status }} --}}
-                                                            @if ($current_batch->status == 'Dihantar ke IPJPSM' && $current_batch->borang_c == 2)
+                                                            @if ($packageSent)
                                                                 <span class="label label-success label-rounded"
                                                                     style="font-size: 11pt;">Dihantar ke IPJPSM</span>
                                                             @else
@@ -165,12 +167,12 @@
                                                 </td>
 
                                                 <td>
-                                                    @if ($data->status == 'Sedang Diproses' || $data->status == 'Tiada Pengeluaran')
+                                                    @if ($data->status == 'Sedang Diproses' || $data->status == 'Tiada Pengeluaran' || ($data->status == 'Dihantar ke IPJPSM' && !$packageSent))
                                                         <a href="{{ route('phd.shuttle-4-view-formC', $data->id) }}">
                                                             <img src="{{ asset('circle_times_yellow.png') }}" height='30px'
                                                                 data-toggle="tooltip" data-placement="bottom"
                                                                 title="Borang perlu disahkan PHD"></i></a>
-                                                    @elseif($data->status == 'Dihantar ke IPJPSM')
+                                                    @elseif($data->status == 'Dihantar ke IPJPSM' && $packageSent)
                                                     <a href="{{ route('phd.shuttle-4-view-formC-phd', $data->id) }}">
                                                         <img src="{{ asset('circle_check_yellow.png') }}" height='30px'
                                                         data-toggle="tooltip" data-placement="bottom"

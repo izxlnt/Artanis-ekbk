@@ -112,6 +112,22 @@
                                     <tbody>
 
                                         @foreach ($form4D as $data)
+                                            @php
+                                                // Recomputed every row so it never carries over a
+                                                // previous iteration's batch when this row has none.
+                                                $current_batch = null;
+                                                if ($data->shuttle->id == $data->shuttle_id && $data->tahun == date('Y')) {
+                                                    foreach ($batch as $checker) {
+                                                        if ($checker->tahun == $year && $checker->bulan == $data->bulan && $checker->shuttle_id == $data->shuttle->id) {
+                                                            $current_batch = $checker;
+                                                        }
+                                                    }
+                                                }
+                                                // "Dihantar ke IPJPSM" only really means sent once the
+                                                // batch itself confirms borang_d == 2; otherwise the
+                                                // package is still pending, same as "Sedang Diproses".
+                                                $packageSent = $current_batch && $current_batch->status == 'Dihantar ke IPJPSM' && $current_batch->borang_d == 2;
+                                            @endphp
                                             <tr>
                                                 <td>{{ $loop->iteration }}</td>
                                                 <td style="text-align:left;">{{ $data->nama_kilang }}</td>
@@ -123,23 +139,13 @@
 
                                                 <td>
 
-                                                    @if ($data->shuttle->id == $data->shuttle_id && $data->tahun == date('Y'))
-                                                        @if ($data->status == 'Dihantar ke IPJPSM')
-                                                            @php
-                                                                foreach ($batch as $checker) {
-                                                                    if ($checker->tahun == $year && $checker->bulan == $data->bulan && $checker->shuttle_id == $data->shuttle->id) {
-                                                                        $current_batch = $checker;
-                                                                    }
-                                                                }
-                                                            @endphp
-
-                                                            @if ($current_batch->status == 'Dihantar ke IPJPSM' && $current_batch->borang_d == 2)
-                                                                <span class="label label-success label-rounded"
-                                                                    style="font-size: 11pt;">Dihantar ke IPJPSM</span>
-                                                            @else
-                                                                <span class="label label-warning label-rounded"
-                                                                    style="font-size: 11pt;">Pakej Belum Dihantar</span>
-                                                            @endif
+                                                    @if ($data->status == 'Dihantar ke IPJPSM')
+                                                        @if ($packageSent)
+                                                            <span class="label label-success label-rounded"
+                                                                style="font-size: 11pt;">Dihantar ke IPJPSM</span>
+                                                        @else
+                                                            <span class="label label-warning label-rounded"
+                                                                style="font-size: 11pt;">Pakej Belum Dihantar</span>
                                                         @endif
                                                     @endif
 
@@ -159,7 +165,7 @@
                                                 </td>
                                                 <td>
 
-                                                    @if ($data->status == 'Sedang Diproses' || $data->status == 'Tiada Pengeluaran')
+                                                    @if ($data->status == 'Sedang Diproses' || $data->status == 'Tiada Pengeluaran' || ($data->status == 'Dihantar ke IPJPSM' && !$packageSent))
                                                         <a href="{{ route('phd.shuttle-4-view-formD', $data->id) }}">
                                                             <img src="{{ asset('circle_times_yellow.png') }}" height='30px'
                                                                 data-toggle="tooltip" data-placement="bottom"
@@ -168,7 +174,7 @@
                                                         <img src="{{ asset('history.png') }}" height='30px'
                                                             data-toggle="tooltip" data-placement="bottom"
                                                             title="Borang tidak lengkap"></i></a>
-                                                    @elseif($data->status == 'Dihantar ke IPJPSM')
+                                                    @elseif($data->status == 'Dihantar ke IPJPSM' && $packageSent)
                                                     <a href="{{ route('phd.shuttle-4-view-formD-phd', $data->id) }}">
                                                         <img src="{{ asset('circle_check_yellow.png') }}" height='30px'
                                                             data-toggle="tooltip" data-placement="bottom"
