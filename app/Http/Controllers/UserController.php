@@ -1588,7 +1588,7 @@ class UserController extends Controller
                 'email' => [
                     'required',
                     'email',
-                    new \App\Rules\UniqueEmailAcrossAllTables($user->id)
+                    new \App\Rules\UniqueEmailAcrossAllTables($user->id, 'users')
                 ]
             ]);
         }

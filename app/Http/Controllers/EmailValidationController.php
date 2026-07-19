@@ -67,7 +67,7 @@ class EmailValidationController extends Controller
 
         try {
             // Use the UniqueEmailAcrossAllTables rule for validation
-            $rule = new \App\Rules\UniqueEmailAcrossAllTables($userId);
+            $rule = new \App\Rules\UniqueEmailAcrossAllTables($userId, 'users');
 
             $validator = Validator::make(['email' => $email], [
                 'email' => ['required', 'email', $rule]

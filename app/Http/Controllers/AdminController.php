@@ -138,14 +138,15 @@ class AdminController extends Controller{
         $user = User::with(['pengguna_kilang', 'shuttle'])->findOrFail($id);
         $oldEmail = $user->getCurrentEmail(); // Get the current email from the appropriate table
 
-        // Validate email with unique check across all tables
-        $request->validate([
-            'email' => [
-                'required',
-                'email',
-                new \App\Rules\UniqueEmailAcrossAllTables($user->id)
-            ]
-        ]);
+        // Validate format always; only check uniqueness if the email is actually changing.
+        // Otherwise re-saving an unchanged email fails, since the linked Shuttle record
+        // intentionally shares this same email (kept in sync by this same method below).
+        $request->validate(['email' => ['required', 'email']]);
+        if ($request->email !== $oldEmail) {
+            $request->validate([
+                'email' => [new \App\Rules\UniqueEmailAcrossAllTables($user->id, 'users')]
+            ]);
+        }
 
         // Update the user's email
         $user->email = $request->email;
@@ -176,14 +177,14 @@ class AdminController extends Controller{
         $user = User::with(['pengguna_kilang', 'shuttle'])->findOrFail($id);
         $oldEmail = $user->getCurrentEmail(); // Get the current email from the appropriate table
 
-        // Validate email with unique check across all tables
-        $request->validate([
-            'email' => [
-                'required',
-                'email',
-                new \App\Rules\UniqueEmailAcrossAllTables($user->id)
-            ]
-        ]);
+        // Validate format always; only check uniqueness if the email is actually changing
+        // (re-saving an unchanged email would otherwise conflict with itself/linked records).
+        $request->validate(['email' => ['required', 'email']]);
+        if ($request->email !== $oldEmail) {
+            $request->validate([
+                'email' => [new \App\Rules\UniqueEmailAcrossAllTables($user->id, 'users')]
+            ]);
+        }
 
         // Update user fields
         $user->email = $request->email;
@@ -220,14 +221,14 @@ class AdminController extends Controller{
         $user = User::with(['pengguna_kilang', 'shuttle'])->findOrFail($id);
         $oldEmail = $user->getCurrentEmail(); // Get the current email from the appropriate table
 
-        // Validate email with unique check across all tables
-        $request->validate([
-            'email' => [
-                'required',
-                'email',
-                new \App\Rules\UniqueEmailAcrossAllTables($user->id)
-            ]
-        ]);
+        // Validate format always; only check uniqueness if the email is actually changing
+        // (re-saving an unchanged email would otherwise conflict with itself/linked records).
+        $request->validate(['email' => ['required', 'email']]);
+        if ($request->email !== $oldEmail) {
+            $request->validate([
+                'email' => [new \App\Rules\UniqueEmailAcrossAllTables($user->id, 'users')]
+            ]);
+        }
 
         $negeri_name= Daerah::where('id',$request->negeri_id)->first('negeri');
 
@@ -252,14 +253,14 @@ class AdminController extends Controller{
         $user = User::with(['pengguna_kilang', 'shuttle'])->findOrFail($id);
         $oldEmail = $user->getCurrentEmail(); // Get the current email from the appropriate table
 
-        // Validate email with unique check across all tables
-        $request->validate([
-            'email' => [
-                'required',
-                'email',
-                new \App\Rules\UniqueEmailAcrossAllTables($user->id)
-            ]
-        ]);
+        // Validate format always; only check uniqueness if the email is actually changing
+        // (re-saving an unchanged email would otherwise conflict with itself/linked records).
+        $request->validate(['email' => ['required', 'email']]);
+        if ($request->email !== $oldEmail) {
+            $request->validate([
+                'email' => [new \App\Rules\UniqueEmailAcrossAllTables($user->id, 'users')]
+            ]);
+        }
 
         // Update user email
         $user->email = $request->email;
@@ -290,14 +291,14 @@ class AdminController extends Controller{
         $user = User::with(['pengguna_kilang', 'shuttle'])->findOrFail($id);
         $oldEmail = $user->getCurrentEmail(); // Get the current email from the appropriate table
 
-        // Validate email with unique check across all tables
-        $request->validate([
-            'email' => [
-                'required',
-                'email',
-                new \App\Rules\UniqueEmailAcrossAllTables($user->id)
-            ]
-        ]);
+        // Validate format always; only check uniqueness if the email is actually changing
+        // (re-saving an unchanged email would otherwise conflict with itself/linked records).
+        $request->validate(['email' => ['required', 'email']]);
+        if ($request->email !== $oldEmail) {
+            $request->validate([
+                'email' => [new \App\Rules\UniqueEmailAcrossAllTables($user->id, 'users')]
+            ]);
+        }
 
         // Update user email
         $user->email = $request->email;
