@@ -110,23 +110,20 @@
                                                 <td>{{ $data->shuttle->no_ssm }}</td>
                                                 <td>{{ $data->shuttle->no_lesen }}</td>
                                                 <td>
+                                                    @php
+                                                        $current_batch = null;
+                                                        if ($data->shuttle->id == $data->shuttle_id && $data->tahun == date('Y')) {
+                                                            foreach ($batch as $checker) {
+                                                                if ($checker->tahun == $year && $checker->shuttle_id == $data->shuttle->id && $checker->bulan == $data->created_at->format('m')) {
+                                                                    $current_batch = $checker;
+                                                                }
+                                                            }
+                                                        }
+                                                        $packageSent = $current_batch && $current_batch->status == 'Dihantar ke IPJPSM' && $current_batch->borang_a == 2;
+                                                    @endphp
                                                     @if ($data->shuttle->id == $data->shuttle_id && $data->tahun == date('Y'))
                                                         @if ($data->status == 'Dihantar ke IPJPSM')
-                                                            @php
-
-                                                                foreach ($batch as $checker) {
-
-                                                                    if ($data->tahun == date('Y')) {
-                                                                        if ($checker->tahun == $year && $checker->shuttle_id == $data->shuttle->id && $checker->bulan == $data->created_at->format('m') ) {
-                                                                            $current_batch = $checker;
-
-                                                                            // dd($current_batch);
-                                                                        }
-                                                                    }
-                                                                }
-                                                            @endphp
-
-                                                            @if ($current_batch->status == 'Dihantar ke IPJPSM' && $current_batch->borang_a == 2)
+                                                            @if ($packageSent)
                                                                 <span class="label label-success label-rounded"
                                                                     style="font-size: 11pt;">Dihantar ke IPJPSM</span>
                                                             @else
@@ -147,7 +144,7 @@
                                                     @endif
                                                 </td>
                                                 <td>
-                                                    @if ($data->status == 'Sedang Diproses')
+                                                    @if ($data->status == 'Sedang Diproses' || ($data->status == 'Dihantar ke IPJPSM' && !$packageSent))
                                                         <a href="{{ route('phd.shuttle-3-view-formA', $data->id) }}">
                                                             <img src="{{ asset('circle_times_yellow.png') }}" height='30px'
                                                                 data-toggle="tooltip" data-placement="bottom"
@@ -156,7 +153,7 @@
                                                         <img src="{{ asset('history.png') }}" height='30px'
                                                             data-toggle="tooltip" data-placement="bottom"
                                                             title="Borang tidak lengkap"></i></a>
-                                                    @elseif($data->status == 'Dihantar ke IPJPSM')
+                                                    @elseif($data->status == 'Dihantar ke IPJPSM' && $packageSent)
                                                     <a href="{{ route('phd.shuttle-3-view-formA-phd', $data->id) }}">
                                                         <img src="{{ asset('circle_check_yellow.png') }}" height='30px'
                                                             data-toggle="tooltip" data-placement="bottom"
