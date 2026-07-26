@@ -493,10 +493,12 @@ class LaporanController extends LaporanDataLamaController
         }
 
         $data_shuttles = DB::select("SELECT
-            shuttles.*
+            shuttles.*,
+            daerahs.daerah_hutan as daerah_hutan_laporan
 
             FROM
-            shuttles,
+            shuttles
+            LEFT JOIN daerahs ON daerahs.id = shuttles.daerah_id,
             form_a_s
 
             WHERE shuttles.id = form_a_s.shuttle_id
@@ -736,7 +738,7 @@ foreach ($data_shuttles as $data_shuttle) {
     ];
 
 
-$data_kemasukan_bahans[$data_shuttle->id] = DB::select("SELECT
+$km_result = DB::select("SELECT
     shuttles.id as shuttle_id,
 
     sum(kemasukan_bahans.total_kayu_masuk_jentera) as jumlah_penggunaan,
@@ -753,10 +755,13 @@ $data_kemasukan_bahans[$data_shuttle->id] = DB::select("SELECT
     AND form_c_s.tahun = '$tahun'
 
     GROUP BY shuttles.id
-")[0];
+");
+$data_kemasukan_bahans[$data_shuttle->id] = !empty($km_result) ? $km_result[0] : (object)[
+    'shuttle_id' => $data_shuttle->id, 'jumlah_penggunaan' => 0, 'jumlah_pengeluaran' => 0,
+];
 
 
-$data_form_d_s[$data_shuttle->id] = DB::select("SELECT
+$fd_result = DB::select("SELECT
     shuttles.id,
     sum( form_d_s.total_export_laporan)  as export,
     sum( form_d_s.jumlah_pasaran_tempatan_laporan) as domestik
@@ -770,7 +775,10 @@ $data_form_d_s[$data_shuttle->id] = DB::select("SELECT
     AND form_d_s.tahun = '$tahun'
 
     GROUP BY shuttles.id
-")[0];
+");
+$data_form_d_s[$data_shuttle->id] = !empty($fd_result) ? $fd_result[0] : (object)[
+    'shuttle_id' => $data_shuttle->id, 'export' => 0, 'domestik' => 0,
+];
 
 }
 
@@ -903,7 +911,7 @@ foreach ($data_shuttles as $data_shuttle) {
     ];
 
 
-$data_kemasukan_bahans[$data_shuttle->id] = DB::select("SELECT
+$km_result = DB::select("SELECT
     shuttles.id as shuttle_id,
 
     sum(kemasukan_bahans.total_kayu_masuk_jentera) as jumlah_penggunaan,
@@ -920,10 +928,13 @@ $data_kemasukan_bahans[$data_shuttle->id] = DB::select("SELECT
     AND form_c_s.tahun = '$tahun'
 
     GROUP BY shuttles.id
-")[0];
+");
+$data_kemasukan_bahans[$data_shuttle->id] = !empty($km_result) ? $km_result[0] : (object)[
+    'shuttle_id' => $data_shuttle->id, 'jumlah_penggunaan' => 0, 'jumlah_pengeluaran' => 0,
+];
 
 
-$data_form_d_s[$data_shuttle->id] = DB::select("SELECT
+$fd_result = DB::select("SELECT
     shuttles.id,
     sum( form_d_s.total_export_laporan)  as export,
     sum( form_d_s.jumlah_pasaran_tempatan_laporan) as domestik
@@ -937,7 +948,10 @@ $data_form_d_s[$data_shuttle->id] = DB::select("SELECT
     AND form_d_s.tahun = '$tahun'
 
     GROUP BY shuttles.id
-")[0];
+");
+$data_form_d_s[$data_shuttle->id] = !empty($fd_result) ? $fd_result[0] : (object)[
+    'shuttle_id' => $data_shuttle->id, 'export' => 0, 'domestik' => 0,
+];
 
 }
 
@@ -1067,7 +1081,7 @@ foreach ($data_shuttles as $data_shuttle) {
     ];
 
 
-$data_kemasukan_bahans[$data_shuttle->id] = DB::select("SELECT
+$km_result = DB::select("SELECT
     shuttles.id as shuttle_id,
 
     sum(kemasukan_bahans.total_kayu_masuk_jentera) as jumlah_penggunaan,
@@ -1084,10 +1098,13 @@ $data_kemasukan_bahans[$data_shuttle->id] = DB::select("SELECT
     AND form_c_s.tahun = '$tahun'
 
     GROUP BY shuttles.id
-")[0];
+");
+$data_kemasukan_bahans[$data_shuttle->id] = !empty($km_result) ? $km_result[0] : (object)[
+    'shuttle_id' => $data_shuttle->id, 'jumlah_penggunaan' => 0, 'jumlah_pengeluaran' => 0,
+];
 
 
-$data_form_d_s[$data_shuttle->id] = DB::select("SELECT
+$fd_result = DB::select("SELECT
     shuttles.id,
     sum( form_d_s.total_export_laporan)  as export,
     sum( form_d_s.jumlah_pasaran_tempatan_laporan) as domestik
@@ -1101,7 +1118,10 @@ $data_form_d_s[$data_shuttle->id] = DB::select("SELECT
     AND form_d_s.tahun = '$tahun'
 
     GROUP BY shuttles.id
-")[0];
+");
+$data_form_d_s[$data_shuttle->id] = !empty($fd_result) ? $fd_result[0] : (object)[
+    'shuttle_id' => $data_shuttle->id, 'export' => 0, 'domestik' => 0,
+];
 
 }
 
@@ -1483,7 +1503,7 @@ $data_form_d_s[$data_shuttle->id] = DB::select("SELECT
 
         // dd(" tahun : " . $tahun . " start : " . $start_date . " end : " . $end_date);
         $negeri_list = Daerah::distinct()->orderBy('negeri')->get('negeri');
-        for ($i = $suku_tahun; $i <= $jumlah_suku_tahun; $i++) {
+        for ($i = $suku_tahun; $i <= $suku_tahun_akhir; $i++) {
             foreach ($negeri_list as $key => $negeri) {
 
                 $datas[$i][$negeri->negeri] = DB::select("SELECT DISTINCT(shuttles.id), shuttles.negeri_id as negeri,
@@ -1598,7 +1618,7 @@ $data_form_d_s[$data_shuttle->id] = DB::select("SELECT
 
         $kategori = KategoriGunaTenaga::get();
 
-        for ($i = $suku_tahun; $i <= $jumlah_suku_tahun; $i++) {
+        for ($i = $suku_tahun; $i <= $suku_tahun_akhir; $i++) {
             foreach ($kategori as $key => $data) {
                 $datas[$i][$data->keterangan] = DB::select("SELECT
                                         kategori_guna_tenagas.keterangan as kategori,
@@ -1722,7 +1742,7 @@ $data_form_d_s[$data_shuttle->id] = DB::select("SELECT
 
         $kategori = KategoriGunaTenaga::get();
         // dd($kategori);
-        for ($i = $suku_tahun; $i <= $jumlah_suku_tahun; $i++) {
+        for ($i = $suku_tahun; $i <= $suku_tahun_akhir; $i++) {
 
             foreach ($kategori as $key => $data) {
                 $jumlah[$i][$data->keterangan] = DB::select("SELECT
@@ -1856,7 +1876,7 @@ $data_form_d_s[$data_shuttle->id] = DB::select("SELECT
 
         $negeri_list = Daerah::distinct()->orderBy('negeri')->get('negeri');
 
-        for ($i = $suku_tahun; $i <= $jumlah_suku_tahun; $i++) {
+        for ($i = $suku_tahun; $i <= $suku_tahun_akhir; $i++) {
             foreach ($negeri_list as $key => $negeri) {
                 $datas[$i][$negeri->negeri] = DB::select("SELECT shuttles.negeri_id as negeri,
                     sum(guna_tenagas.pekerja_wargabumi_lelaki_laporan) as jumlah_bumiputera_lelaki,
@@ -1977,7 +1997,7 @@ $data_form_d_s[$data_shuttle->id] = DB::select("SELECT
         // dd($tahun . " / " . $suku_tahun . " / " . $start_date . " / " . $end_date . " / " . $nama_suku_tahun );
 
         $kategori = KategoriGunaTenaga::get();
-        for ($i = $suku_tahun; $i <= $jumlah_suku_tahun; $i++) {
+        for ($i = $suku_tahun; $i <= $suku_tahun_akhir; $i++) {
             foreach ($kategori as $key => $data) {
                 $jumlah[$i][$key] = DB::select("SELECT
                                         kategori_guna_tenagas.keterangan as kategori,
@@ -2448,42 +2468,40 @@ $data_form_d_s[$data_shuttle->id] = DB::select("SELECT
 
         $spesis = Spesis::get();
 
-        //count by spesis
-        for ($x = $tahun_mula; $x <= $tahun_akhir; $x++) {
-            foreach ($kumpulan_kayu as $count_kk => $kk) {
-                foreach ($spesis as $count_spesis => $sp) {
-                    if ($sp->kumpulan_kayu_id == $kk->id) {
-                        $datas[$kk->singkatan][$sp->nama_tempatan] = DB::select("SELECT
-                        form_c_s.tahun as tahun,
-                        sum(round(kemasukan_bahans.proses_masuk)) as jumlah_penggunaan
+        // Single aggregate query instead of one query per species per year (was 500+ queries).
+        $rows = DB::select("SELECT
+            kumpulan_kayus.singkatan as singkatan,
+            spesis.nama_tempatan as nama_tempatan,
+            form_c_s.tahun as tahun,
+            sum(round(kemasukan_bahans.proses_masuk)) as jumlah_penggunaan
 
-                        FROM
-                        shuttles,
-                        form_c_s,
-                        kemasukan_bahans,
-                        spesis,
-                        kumpulan_kayus
+            FROM
+            shuttles,
+            form_c_s,
+            kemasukan_bahans,
+            spesis,
+            kumpulan_kayus
 
-                        WHERE form_c_s.shuttle_id = shuttles.id
-                        AND form_c_s.id = kemasukan_bahans.formcs_id
-                        AND kemasukan_bahans.spesis_id = spesis.id
-                        AND spesis.kumpulan_kayu_id = kumpulan_kayus.id
+            WHERE form_c_s.shuttle_id = shuttles.id
+            AND form_c_s.id = kemasukan_bahans.formcs_id
+            AND kemasukan_bahans.spesis_id = spesis.id
+            AND spesis.kumpulan_kayu_id = kumpulan_kayus.id
 
-                        AND shuttles.shuttle_type = '3'
-                        AND form_c_s.status = 'Lulus'
-                        AND kumpulan_kayus.keterangan = '$kk->keterangan'
-                        AND spesis.nama_tempatan = '$sp->nama_tempatan'
-                        AND kemasukan_bahans.tahun = '$x'
+            AND shuttles.shuttle_type = '3'
+            AND form_c_s.status = 'Lulus'
+            AND form_c_s.tahun BETWEEN '$tahun_mula' AND '$tahun_akhir'
 
-                        GROUP BY
-                        form_c_s.tahun
-                        ;");
-                    }
-                }
-            }
+            GROUP BY
+            kumpulan_kayus.singkatan, spesis.nama_tempatan, form_c_s.tahun
+        ");
+
+        $datas = [];
+        foreach ($rows as $row) {
+            $datas[$row->singkatan][$row->nama_tempatan][] = (object)[
+                'tahun' => $row->tahun,
+                'jumlah_penggunaan' => $row->jumlah_penggunaan,
+            ];
         }
-
-
 
         // dd($datas);
 
@@ -2818,40 +2836,52 @@ $data_form_d_s[$data_shuttle->id] = DB::select("SELECT
 
         $spesis = Spesis::get();
 
-        //count by spesis
-        for ($i = 1; $i < 13; $i++) {
-            foreach ($kumpulan_kayu as $count_kk => $kk) {
-                foreach ($spesis as $count_spesis => $sp) {
-                    if ($sp->kumpulan_kayu_id == $kk->id) {
-                        $datas[$kk->singkatan][$sp->nama_tempatan][$i] = DB::select("SELECT
-                            form_c_s.bulan as bulan,
-                            sum(round(kemasukan_bahans.proses_keluar)) as jumlah_pengeluaran
-
-                            FROM
-                            shuttles,
-                            form_c_s,
-                            kemasukan_bahans,
-                            spesis,
-                            kumpulan_kayus
-
-                            WHERE form_c_s.shuttle_id = shuttles.id
-                            AND form_c_s.id = kemasukan_bahans.formcs_id
-                            AND kemasukan_bahans.spesis_id = spesis.id
-                            AND spesis.kumpulan_kayu_id = kumpulan_kayus.id
-
-                            AND shuttles.shuttle_type = '3'
-                            AND form_c_s.status = 'Lulus'
-                            AND form_c_s.tahun = '$tahun'
-                            AND form_c_s.bulan = '$i'
-                            AND kumpulan_kayus.keterangan = '$kk->keterangan'
-                            AND spesis.nama_tempatan = '$sp->nama_tempatan'
-
-                            GROUP BY
-                            form_c_s.bulan
-                            ;");
+        // Pre-fill zero defaults for every species x month so every column still renders.
+        $datas = [];
+        foreach ($kumpulan_kayu as $kk) {
+            foreach ($spesis as $sp) {
+                if ($sp->kumpulan_kayu_id == $kk->id) {
+                    for ($i = 1; $i <= 12; $i++) {
+                        $datas[$kk->singkatan][$sp->nama_tempatan][$i] = [(object)[
+                            'bulan' => $i, 'jumlah_pengeluaran' => 0,
+                        ]];
                     }
                 }
             }
+        }
+
+        // Single aggregate query instead of one query per species per month (was 6000+ queries).
+        $rows = DB::select("SELECT
+            kumpulan_kayus.singkatan as singkatan,
+            spesis.nama_tempatan as nama_tempatan,
+            form_c_s.bulan as bulan,
+            sum(round(kemasukan_bahans.proses_keluar)) as jumlah_pengeluaran
+
+            FROM
+            shuttles,
+            form_c_s,
+            kemasukan_bahans,
+            spesis,
+            kumpulan_kayus
+
+            WHERE form_c_s.shuttle_id = shuttles.id
+            AND form_c_s.id = kemasukan_bahans.formcs_id
+            AND kemasukan_bahans.spesis_id = spesis.id
+            AND spesis.kumpulan_kayu_id = kumpulan_kayus.id
+
+            AND shuttles.shuttle_type = '3'
+            AND form_c_s.status = 'Lulus'
+            AND form_c_s.tahun = '$tahun'
+
+            GROUP BY
+            kumpulan_kayus.singkatan, spesis.nama_tempatan, form_c_s.bulan
+        ");
+
+        foreach ($rows as $row) {
+            $datas[$row->singkatan][$row->nama_tempatan][$row->bulan] = [(object)[
+                'bulan' => $row->bulan,
+                'jumlah_pengeluaran' => $row->jumlah_pengeluaran,
+            ]];
         }
 
         $columns = [
@@ -3727,10 +3757,12 @@ $data_form_d_s[$data_shuttle->id] = DB::select("SELECT
         }
 
         $data_shuttles = DB::select("SELECT
-            shuttles.*
+            shuttles.*,
+            daerahs.daerah_hutan as daerah_hutan_laporan
 
             FROM
-            shuttles,
+            shuttles
+            LEFT JOIN daerahs ON daerahs.id = shuttles.daerah_id,
             form_a_s
 
             WHERE shuttles.id = form_a_s.shuttle_id
@@ -4021,7 +4053,7 @@ $data_form_d_s[$data_shuttle->id] = DB::select("SELECT
 
 
         //form 4 c
-        $data_kemasukan_bahans[$data_shuttle->id] = DB::select("SELECT
+        $km_result = DB::select("SELECT
             shuttles.id as shuttle_id,
 
             sum(kemasukan_bahans.baki_stok_kehadapan) as baki_stok_kehadapan,
@@ -4042,11 +4074,14 @@ $data_form_d_s[$data_shuttle->id] = DB::select("SELECT
 
 
             GROUP BY shuttles.id
-        ")[0];
+        ");
+        $data_kemasukan_bahans[$data_shuttle->id] = !empty($km_result) ? $km_result[0] : (object)[
+            'shuttle_id' => $data_shuttle->id, 'baki_stok_kehadapan' => 0, 'jumlah_penggunaan' => 0,
+        ];
 
 
         //produk pengeluaran
-        $produk_pengeluaran[$data_shuttle->id] = DB::select("SELECT
+        $pp_result = DB::select("SELECT
             shuttles.id,
             sum( distinct produk_pengeluarans.jumlah_besar_mr)  as jumlah_besar_mr,
             sum( distinct produk_pengeluarans.jumlah_besar_wbp) as jumlah_besar_wbp,
@@ -4067,10 +4102,14 @@ $data_form_d_s[$data_shuttle->id] = DB::select("SELECT
             AND form4_d_s.tahun = '$tahun'
 
             GROUP BY shuttles.id
-        ")[0];
+        ");
+        $produk_pengeluaran[$data_shuttle->id] = !empty($pp_result) ? $pp_result[0] : (object)[
+            'id' => $data_shuttle->id, 'jumlah_besar_mr' => 0, 'jumlah_besar_wbp' => 0,
+            'jumlah_kecil_1_mr' => 0, 'jumlah_kecil_1_wbp' => 0, 'jumlah_kecil_2_mr' => 0, 'jumlah_kecil_2_wbp' => 0,
+        ];
 
         //rekod_muka
-        $rekod_muka[$data_shuttle->id] = DB::select("SELECT
+        $rm_result = DB::select("SELECT
             shuttles.id,
             sum(form4_d_s.rekod_veniermuka)  as rekod_veniermuka,
             sum(form4_d_s.rekod_venierteras) as rekod_venierteras
@@ -4087,11 +4126,14 @@ $data_form_d_s[$data_shuttle->id] = DB::select("SELECT
 
 
             GROUP BY shuttles.id
-        ")[0];
+        ");
+        $rekod_muka[$data_shuttle->id] = !empty($rm_result) ? $rm_result[0] : (object)[
+            'id' => $data_shuttle->id, 'rekod_veniermuka' => 0, 'rekod_venierteras' => 0,
+        ];
 
 
         //datas_formd
-        $data_form_d_s[$data_shuttle->id] = DB::select("SELECT
+        $fd_result = DB::select("SELECT
             shuttles.id,
             sum(round(form4_e_s.total_export_laporan))  as export_papan_lapis,
             sum(round(form4_e_s.jumlah_venier_eksport_laporan))  as export_venier,
@@ -4111,7 +4153,11 @@ $data_form_d_s[$data_shuttle->id] = DB::select("SELECT
 
 
             GROUP BY shuttles.id
-        ")[0];
+        ");
+        $data_form_d_s[$data_shuttle->id] = !empty($fd_result) ? $fd_result[0] : (object)[
+            'id' => $data_shuttle->id, 'export_papan_lapis' => 0, 'export_venier' => 0,
+            'domestik_papan_lapis' => 0, 'domestik_venier' => 0, 'jumlah_penjualan' => 0,
+        ];
 
         }
 
@@ -4250,7 +4296,7 @@ $data_form_d_s[$data_shuttle->id] = DB::select("SELECT
 
 
             //form 4 c
-            $data_kemasukan_bahans[$data_shuttle->id] = DB::select("SELECT
+            $km_result = DB::select("SELECT
                 shuttles.id as shuttle_id,
 
                 sum(kemasukan_bahans.baki_stok_kehadapan) as baki_stok_kehadapan,
@@ -4271,11 +4317,14 @@ $data_form_d_s[$data_shuttle->id] = DB::select("SELECT
 
 
                 GROUP BY shuttles.id
-            ")[0];
+            ");
+            $data_kemasukan_bahans[$data_shuttle->id] = !empty($km_result) ? $km_result[0] : (object)[
+                'shuttle_id' => $data_shuttle->id, 'baki_stok_kehadapan' => 0, 'jumlah_penggunaan' => 0,
+            ];
 
 
             //produk pengeluaran
-            $produk_pengeluaran[$data_shuttle->id] = DB::select("SELECT
+            $pp_result = DB::select("SELECT
                 shuttles.id,
                 sum( distinct produk_pengeluarans.jumlah_besar_mr)  as jumlah_besar_mr,
                 sum( distinct produk_pengeluarans.jumlah_besar_wbp) as jumlah_besar_wbp,
@@ -4296,10 +4345,14 @@ $data_form_d_s[$data_shuttle->id] = DB::select("SELECT
                 AND form4_d_s.tahun = '$tahun'
 
                 GROUP BY shuttles.id
-            ")[0];
+            ");
+            $produk_pengeluaran[$data_shuttle->id] = !empty($pp_result) ? $pp_result[0] : (object)[
+                'id' => $data_shuttle->id, 'jumlah_besar_mr' => 0, 'jumlah_besar_wbp' => 0,
+                'jumlah_kecil_1_mr' => 0, 'jumlah_kecil_1_wbp' => 0, 'jumlah_kecil_2_mr' => 0, 'jumlah_kecil_2_wbp' => 0,
+            ];
 
             //rekod_muka
-            $rekod_muka[$data_shuttle->id] = DB::select("SELECT
+            $rm_result = DB::select("SELECT
                 shuttles.id,
                 sum(form4_d_s.rekod_veniermuka)  as rekod_veniermuka,
                 sum(form4_d_s.rekod_venierteras) as rekod_venierteras
@@ -4316,11 +4369,14 @@ $data_form_d_s[$data_shuttle->id] = DB::select("SELECT
 
 
                 GROUP BY shuttles.id
-            ")[0];
+            ");
+            $rekod_muka[$data_shuttle->id] = !empty($rm_result) ? $rm_result[0] : (object)[
+                'id' => $data_shuttle->id, 'rekod_veniermuka' => 0, 'rekod_venierteras' => 0,
+            ];
 
 
             //datas_formd
-            $data_form_d_s[$data_shuttle->id] = DB::select("SELECT
+            $fd_result = DB::select("SELECT
                 shuttles.id,
                 sum(round(form4_e_s.total_export_laporan))  as export_papan_lapis,
                 sum(round(form4_e_s.jumlah_venier_eksport_laporan))  as export_venier,
@@ -4340,7 +4396,11 @@ $data_form_d_s[$data_shuttle->id] = DB::select("SELECT
 
 
                 GROUP BY shuttles.id
-            ")[0];
+            ");
+            $data_form_d_s[$data_shuttle->id] = !empty($fd_result) ? $fd_result[0] : (object)[
+                'id' => $data_shuttle->id, 'export_papan_lapis' => 0, 'export_venier' => 0,
+                'domestik_papan_lapis' => 0, 'domestik_venier' => 0, 'jumlah_penjualan' => 0,
+            ];
 
             }
 
@@ -4478,7 +4538,7 @@ $data_form_d_s[$data_shuttle->id] = DB::select("SELECT
 
 
             //form 4 c
-            $data_kemasukan_bahans[$data_shuttle->id] = DB::select("SELECT
+            $km_result = DB::select("SELECT
                 shuttles.id as shuttle_id,
 
                 sum(kemasukan_bahans.baki_stok_kehadapan) as baki_stok_kehadapan,
@@ -4499,11 +4559,14 @@ $data_form_d_s[$data_shuttle->id] = DB::select("SELECT
 
 
                 GROUP BY shuttles.id
-            ")[0];
+            ");
+            $data_kemasukan_bahans[$data_shuttle->id] = !empty($km_result) ? $km_result[0] : (object)[
+                'shuttle_id' => $data_shuttle->id, 'baki_stok_kehadapan' => 0, 'jumlah_penggunaan' => 0,
+            ];
 
 
             //produk pengeluaran
-            $produk_pengeluaran[$data_shuttle->id] = DB::select("SELECT
+            $pp_result = DB::select("SELECT
                 shuttles.id,
                 sum( distinct produk_pengeluarans.jumlah_besar_mr)  as jumlah_besar_mr,
                 sum( distinct produk_pengeluarans.jumlah_besar_wbp) as jumlah_besar_wbp,
@@ -4524,10 +4587,14 @@ $data_form_d_s[$data_shuttle->id] = DB::select("SELECT
                 AND form4_d_s.tahun = '$tahun'
 
                 GROUP BY shuttles.id
-            ")[0];
+            ");
+            $produk_pengeluaran[$data_shuttle->id] = !empty($pp_result) ? $pp_result[0] : (object)[
+                'id' => $data_shuttle->id, 'jumlah_besar_mr' => 0, 'jumlah_besar_wbp' => 0,
+                'jumlah_kecil_1_mr' => 0, 'jumlah_kecil_1_wbp' => 0, 'jumlah_kecil_2_mr' => 0, 'jumlah_kecil_2_wbp' => 0,
+            ];
 
             //rekod_muka
-            $rekod_muka[$data_shuttle->id] = DB::select("SELECT
+            $rm_result = DB::select("SELECT
                 shuttles.id,
                 sum(form4_d_s.rekod_veniermuka)  as rekod_veniermuka,
                 sum(form4_d_s.rekod_venierteras) as rekod_venierteras
@@ -4544,11 +4611,14 @@ $data_form_d_s[$data_shuttle->id] = DB::select("SELECT
 
 
                 GROUP BY shuttles.id
-            ")[0];
+            ");
+            $rekod_muka[$data_shuttle->id] = !empty($rm_result) ? $rm_result[0] : (object)[
+                'id' => $data_shuttle->id, 'rekod_veniermuka' => 0, 'rekod_venierteras' => 0,
+            ];
 
 
             //datas_formd
-            $data_form_d_s[$data_shuttle->id] = DB::select("SELECT
+            $fd_result = DB::select("SELECT
                 shuttles.id,
                 sum(round(form4_e_s.total_export_laporan))  as export_papan_lapis,
                 sum(round(form4_e_s.jumlah_venier_eksport_laporan))  as export_venier,
@@ -4568,7 +4638,11 @@ $data_form_d_s[$data_shuttle->id] = DB::select("SELECT
 
 
                 GROUP BY shuttles.id
-            ")[0];
+            ");
+            $data_form_d_s[$data_shuttle->id] = !empty($fd_result) ? $fd_result[0] : (object)[
+                'id' => $data_shuttle->id, 'export_papan_lapis' => 0, 'export_venier' => 0,
+                'domestik_papan_lapis' => 0, 'domestik_venier' => 0, 'jumlah_penjualan' => 0,
+            ];
 
             }
 
@@ -5335,7 +5409,7 @@ $data_form_d_s[$data_shuttle->id] = DB::select("SELECT
 
         // dd(" tahun : " . $tahun . " start : " . $start_date . " end : " . $end_date);
         $negeri_list = Daerah::distinct()->orderBy('negeri')->get('negeri');
-        for ($i = $suku_tahun; $i <= $jumlah_suku_tahun; $i++) {
+        for ($i = $suku_tahun; $i <= $suku_tahun_akhir; $i++) {
             foreach ($negeri_list as $key => $negeri) {
 
                 $datas[$i][$negeri->negeri] = DB::select("SELECT DISTINCT(shuttles.id), shuttles.negeri_id as negeri,
@@ -5462,7 +5536,7 @@ $data_form_d_s[$data_shuttle->id] = DB::select("SELECT
 
         $kategori = KategoriGunaTenaga::get();
 
-        for ($i = $suku_tahun; $i <= $jumlah_suku_tahun; $i++) {
+        for ($i = $suku_tahun; $i <= $suku_tahun_akhir; $i++) {
             foreach ($kategori as $key => $data) {
                 $datas[$i][$data->keterangan] = DB::select("SELECT
                                         kategori_guna_tenagas.keterangan as kategori,
@@ -5585,7 +5659,7 @@ $data_form_d_s[$data_shuttle->id] = DB::select("SELECT
 
         $kategori = KategoriGunaTenaga::get();
         // dd($kategori);
-        for ($i = $suku_tahun; $i <= $jumlah_suku_tahun; $i++) {
+        for ($i = $suku_tahun; $i <= $suku_tahun_akhir; $i++) {
 
             foreach ($kategori as $key => $data) {
                 $jumlah[$i][$data->keterangan] = DB::select("SELECT
@@ -5720,7 +5794,7 @@ $data_form_d_s[$data_shuttle->id] = DB::select("SELECT
 
         $negeri_list = Daerah::distinct()->orderBy('negeri')->get('negeri');
 
-        for ($i = $suku_tahun; $i <= $jumlah_suku_tahun; $i++) {
+        for ($i = $suku_tahun; $i <= $suku_tahun_akhir; $i++) {
             foreach ($negeri_list as $key => $negeri) {
                 $datas[$i][$negeri->negeri] = DB::select("SELECT shuttles.negeri_id as negeri,
                     sum(guna_tenagas.pekerja_wargabumi_lelaki_laporan) as jumlah_bumiputera_lelaki,
@@ -5842,7 +5916,7 @@ $data_form_d_s[$data_shuttle->id] = DB::select("SELECT
         // dd($tahun . " / " . $suku_tahun . " / " . $start_date . " / " . $end_date . " / " . $nama_suku_tahun );
 
         $kategori = KategoriGunaTenaga::get();
-        for ($i = $suku_tahun; $i <= $jumlah_suku_tahun; $i++) {
+        for ($i = $suku_tahun; $i <= $suku_tahun_akhir; $i++) {
             foreach ($kategori as $key => $data) {
                 $jumlah[$i][$key] = DB::select("SELECT
                                         kategori_guna_tenagas.keterangan as kategori,
@@ -8163,10 +8237,12 @@ $data_form_d_s[$data_shuttle->id] = DB::select("SELECT
         }
 
         $data_shuttles = DB::select("SELECT
-            shuttles.*
+            shuttles.*,
+            daerahs.daerah_hutan as daerah_hutan_laporan
 
             FROM
-            shuttles,
+            shuttles
+            LEFT JOIN daerahs ON daerahs.id = shuttles.daerah_id,
             form_a_s
 
             WHERE shuttles.id = form_a_s.shuttle_id
@@ -8387,7 +8463,7 @@ $data_form_d_s[$data_shuttle->id] = DB::select("SELECT
                     'pekerja_asing_perempuan_laporan' => 0];
 
 
-        $data_kemasukan_bahans[$data_shuttle->id] = DB::select("SELECT
+        $km_result = DB::select("SELECT
             shuttles.id as shuttle_id,
 
             sum(kemasukan_bahans.total_kayu_masuk_jentera) as jumlah_penggunaan,
@@ -8404,10 +8480,13 @@ $data_form_d_s[$data_shuttle->id] = DB::select("SELECT
             AND form_c_s.tahun = '$tahun'
 
             GROUP BY shuttles.id
-        ")[0];
+        ");
+        $data_kemasukan_bahans[$data_shuttle->id] = !empty($km_result) ? $km_result[0] : (object)[
+            'shuttle_id' => $data_shuttle->id, 'jumlah_penggunaan' => 0, 'jumlah_pengeluaran' => 0,
+        ];
 
 
-        $data_form_d_s[$data_shuttle->id] = DB::select("SELECT
+        $fd_result = DB::select("SELECT
             shuttles.id as shuttle_id,
             sum( form5_e_s.jumlah_jualan_eksport_laporan)  as export,
             sum( form5_e_s.jumlah_jualan_pasaran_tempatan_laporan) as domestik,
@@ -8424,7 +8503,10 @@ $data_form_d_s[$data_shuttle->id] = DB::select("SELECT
             AND form5_e_s.tahun = '$tahun'
 
             GROUP BY shuttles.id
-        ")[0];
+        ");
+        $data_form_d_s[$data_shuttle->id] = !empty($fd_result) ? $fd_result[0] : (object)[
+            'shuttle_id' => $data_shuttle->id, 'export' => 0, 'domestik' => 0, 'jumlah_penjualan' => 0,
+        ];
 
         }
 
@@ -8558,7 +8640,7 @@ $data_form_d_s[$data_shuttle->id] = DB::select("SELECT
                     'pekerja_asing_perempuan_laporan' => 0];
 
 
-        $data_kemasukan_bahans[$data_shuttle->id] = DB::select("SELECT
+        $km_result = DB::select("SELECT
             shuttles.id as shuttle_id,
 
             sum(kemasukan_bahans.total_kayu_masuk_jentera) as jumlah_penggunaan,
@@ -8575,10 +8657,13 @@ $data_form_d_s[$data_shuttle->id] = DB::select("SELECT
             AND form_c_s.tahun = '$tahun'
 
             GROUP BY shuttles.id
-        ")[0];
+        ");
+        $data_kemasukan_bahans[$data_shuttle->id] = !empty($km_result) ? $km_result[0] : (object)[
+            'shuttle_id' => $data_shuttle->id, 'jumlah_penggunaan' => 0, 'jumlah_pengeluaran' => 0,
+        ];
 
 
-        $data_form_d_s[$data_shuttle->id] = DB::select("SELECT
+        $fd_result = DB::select("SELECT
             shuttles.id as shuttle_id,
             sum( form5_e_s.jumlah_jualan_eksport_laporan)  as export,
             sum( form5_e_s.jumlah_jualan_pasaran_tempatan_laporan) as domestik,
@@ -8595,7 +8680,10 @@ $data_form_d_s[$data_shuttle->id] = DB::select("SELECT
             AND form5_e_s.tahun = '$tahun'
 
             GROUP BY shuttles.id
-        ")[0];
+        ");
+        $data_form_d_s[$data_shuttle->id] = !empty($fd_result) ? $fd_result[0] : (object)[
+            'shuttle_id' => $data_shuttle->id, 'export' => 0, 'domestik' => 0, 'jumlah_penjualan' => 0,
+        ];
 
         }
 
@@ -8683,6 +8771,7 @@ $data_form_d_s[$data_shuttle->id] = DB::select("SELECT
 
             WHERE shuttles.id = form_a_s.shuttle_id
             AND shuttles.shuttle_type = '5'
+            AND shuttles.status_warganegara = 'Bukan Warganegara'
             AND form_a_s.status = 'Lulus'
             AND form_a_s.tahun = $tahun
         ");
@@ -8725,7 +8814,7 @@ $data_form_d_s[$data_shuttle->id] = DB::select("SELECT
                     'pekerja_asing_perempuan_laporan' => 0];
 
 
-        $data_kemasukan_bahans[$data_shuttle->id] = DB::select("SELECT
+        $km_result = DB::select("SELECT
             shuttles.id as shuttle_id,
 
             sum(kemasukan_bahans.total_kayu_masuk_jentera) as jumlah_penggunaan,
@@ -8742,10 +8831,13 @@ $data_form_d_s[$data_shuttle->id] = DB::select("SELECT
             AND form_c_s.tahun = '$tahun'
 
             GROUP BY shuttles.id
-        ")[0];
+        ");
+        $data_kemasukan_bahans[$data_shuttle->id] = !empty($km_result) ? $km_result[0] : (object)[
+            'shuttle_id' => $data_shuttle->id, 'jumlah_penggunaan' => 0, 'jumlah_pengeluaran' => 0,
+        ];
 
 
-        $data_form_d_s[$data_shuttle->id] = DB::select("SELECT
+        $fd_result = DB::select("SELECT
             shuttles.id as shuttle_id,
             sum( form5_e_s.jumlah_jualan_eksport_laporan)  as export,
             sum( form5_e_s.jumlah_jualan_pasaran_tempatan_laporan) as domestik,
@@ -8762,7 +8854,10 @@ $data_form_d_s[$data_shuttle->id] = DB::select("SELECT
             AND form5_e_s.tahun = '$tahun'
 
             GROUP BY shuttles.id
-        ")[0];
+        ");
+        $data_form_d_s[$data_shuttle->id] = !empty($fd_result) ? $fd_result[0] : (object)[
+            'shuttle_id' => $data_shuttle->id, 'export' => 0, 'domestik' => 0, 'jumlah_penjualan' => 0,
+        ];
 
         }
 
@@ -9127,7 +9222,7 @@ $data_form_d_s[$data_shuttle->id] = DB::select("SELECT
 
         // dd(" tahun : " . $tahun . " start : " . $start_date . " end : " . $end_date);
         $negeri_list = Daerah::distinct()->orderBy('negeri')->get('negeri');
-        for ($i = $suku_tahun; $i <= $jumlah_suku_tahun; $i++) {
+        for ($i = $suku_tahun; $i <= $suku_tahun_akhir; $i++) {
             foreach ($negeri_list as $key => $negeri) {
 
                 $datas[$i][$negeri->negeri] = DB::select("SELECT DISTINCT(shuttles.id), shuttles.negeri_id as negeri,
@@ -9242,7 +9337,7 @@ $data_form_d_s[$data_shuttle->id] = DB::select("SELECT
 
         $kategori = KategoriGunaTenaga::get();
 
-        for ($i = $suku_tahun; $i <= $jumlah_suku_tahun; $i++) {
+        for ($i = $suku_tahun; $i <= $suku_tahun_akhir; $i++) {
             foreach ($kategori as $key => $data) {
                 $datas[$i][$data->keterangan] = DB::select("SELECT
                                         kategori_guna_tenagas.keterangan as kategori,
@@ -9367,7 +9462,7 @@ $data_form_d_s[$data_shuttle->id] = DB::select("SELECT
 
         $kategori = KategoriGunaTenaga::get();
         // dd($kategori);
-        for ($i = $suku_tahun; $i <= $jumlah_suku_tahun; $i++) {
+        for ($i = $suku_tahun; $i <= $suku_tahun_akhir; $i++) {
 
             foreach ($kategori as $key => $data) {
                 $jumlah[$i][$data->keterangan] = DB::select("SELECT
@@ -9502,7 +9597,7 @@ $data_form_d_s[$data_shuttle->id] = DB::select("SELECT
 
         $negeri_list = Daerah::distinct()->orderBy('negeri')->get('negeri');
 
-        for ($i = $suku_tahun; $i <= $jumlah_suku_tahun; $i++) {
+        for ($i = $suku_tahun; $i <= $suku_tahun_akhir; $i++) {
             foreach ($negeri_list as $key => $negeri) {
                 $datas[$i][$negeri->negeri] = DB::select("SELECT shuttles.negeri_id as negeri,
                     sum(guna_tenagas.pekerja_wargabumi_lelaki_laporan) as jumlah_bumiputera_lelaki,
@@ -9625,7 +9720,7 @@ $data_form_d_s[$data_shuttle->id] = DB::select("SELECT
         // dd($tahun . " / " . $suku_tahun . " / " . $start_date . " / " . $end_date . " / " . $nama_suku_tahun );
 
         $kategori = KategoriGunaTenaga::get();
-        for ($i = $suku_tahun; $i <= $jumlah_suku_tahun; $i++) {
+        for ($i = $suku_tahun; $i <= $suku_tahun_akhir; $i++) {
             foreach ($kategori as $key => $data) {
                 $jumlah[$i][$key] = DB::select("SELECT
                                         kategori_guna_tenagas.keterangan as kategori,
