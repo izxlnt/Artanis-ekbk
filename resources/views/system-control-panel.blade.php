@@ -184,7 +184,7 @@
 
                 @if ($key)
                     <div class="key-box">
-                        <div class="key-label">Kod Akses Semasa</div>
+                        <div class="key-label">Kod Akses Awam (pilihan untuk diberi kepada orang lain)</div>
                         <div class="key-value">{{ $key }}</div>
                     </div>
                 @endif
@@ -193,7 +193,13 @@
                     @csrf
                     <button type="submit" class="unlock-btn">Buka Sistem Sekarang</button>
                 </form>
-                <p class="hint">Ini membuka terus tanpa perlu menaip kod di atas.</p>
+                <p class="hint">
+                    @if ($key)
+                        Butang ini membuka terus tanpa perlu menaip kod di atas.
+                    @else
+                        Klik untuk membuka terus. (Kod akses awam tidak tersedia kerana LICENSE_SECRET belum ditetapkan — tidak diperlukan untuk guna panel ini.)
+                    @endif
+                </p>
             @else
                 <div class="status-box unlocked">
                     <div class="status-dot"></div>

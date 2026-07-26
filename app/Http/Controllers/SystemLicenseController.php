@@ -61,10 +61,13 @@ class SystemLicenseController extends Controller
     {
         $this->requireValidToken($token);
 
-        $key = $service->currentKey();
-        if ($key === null || !$service->unlock($key)) {
+        if (!$service->isLocked()) {
             return redirect()->route('system-control.panel', $token)->withErrors(['panel' => 'Sistem tidak dikunci pada masa ini.']);
         }
+
+        // The token already proved who you are — unlock directly, no
+        // LICENSE_SECRET/key derivation needed for this path.
+        $service->forceUnlock();
 
         return redirect()->route('system-control.panel', $token)->with('success', 'Sistem telah dibuka semula.');
     }

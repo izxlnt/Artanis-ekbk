@@ -38,6 +38,7 @@ class CheckSystemLicense
 
         return response()->view('system-locked', [
             'lockedMessage' => $license->locked_message,
+            'hasSecret'     => $service->hasSecret(),
         ], 503);
     }
 }
