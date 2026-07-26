@@ -36,6 +36,38 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | System License Secret
+    |--------------------------------------------------------------------------
+    |
+    | Signing secret for the system access lock (php artisan license:lock /
+    | license:unlock / license:key). Set LICENSE_SECRET in .env to a long
+    | random value once, keep it private, and never commit it — anyone who
+    | knows it can compute a valid unlock key. This is deliberately separate
+    | from maintenance_mode above: maintenance mode is client-toggleable and
+    | exempts admin users; this lock exempts no one and can't be switched
+    | off from any in-app screen, only via a key derived from this secret.
+    |
+    */
+
+    'license_secret' => env('LICENSE_SECRET'),
+
+    /*
+    |--------------------------------------------------------------------------
+    | Control Panel Access Token
+    |--------------------------------------------------------------------------
+    |
+    | Gates the web-based lock/unlock control panel at /system-control/{token}
+    | — a bookmarkable link for locking or unlocking without needing terminal
+    | access to the server. Treat this URL like a password: anyone who has it
+    | can lock or unlock the system. Set CONTROL_PANEL_TOKEN in .env to a long
+    | random value and only ever share the resulting link privately.
+    |
+    */
+
+    'control_panel_token' => env('CONTROL_PANEL_TOKEN'),
+
+    /*
+    |--------------------------------------------------------------------------
     | Application Environment
     |--------------------------------------------------------------------------
     |

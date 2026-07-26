@@ -15,6 +15,21 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::post('/system-locked/unlock', [App\Http\Controllers\SystemLicenseController::class, 'unlock'])
+    ->middleware('throttle:5,15')
+    ->name('system-locked.unlock');
+
+// Bookmarkable link-based control panel — lock/unlock without needing
+// server/SSH access, gated by CONTROL_PANEL_TOKEN instead of a login.
+Route::middleware('throttle:20,15')->group(function () {
+    Route::get('/system-control/{token}', [App\Http\Controllers\SystemLicenseController::class, 'panel'])
+        ->name('system-control.panel');
+    Route::post('/system-control/{token}/lock', [App\Http\Controllers\SystemLicenseController::class, 'panelLock'])
+        ->name('system-control.lock');
+    Route::post('/system-control/{token}/unlock', [App\Http\Controllers\SystemLicenseController::class, 'panelUnlock'])
+        ->name('system-control.unlock');
+});
+
 Route::get('/', function () {
     return view('auth/login');
 });
