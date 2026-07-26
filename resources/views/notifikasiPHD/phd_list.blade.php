@@ -137,6 +137,12 @@
                                                             }
                                                         }
 
+                                                        foreach($form_d as $form){
+                                                            if($form->shuttle->daerah_id == $data->daerah_hutan){
+                                                                $form_counter++;
+                                                            }
+                                                        }
+
                                                         foreach($form_4d as $form){
                                                             if($form->shuttle->daerah_id == $data->daerah_hutan){
                                                                 $form_counter++;
@@ -157,6 +163,12 @@
 
                                                         foreach($form_5e as $form){
                                                             if($form->shuttle->daerah_id == $data->daerah_hutan){
+                                                                $form_counter++;
+                                                            }
+                                                        }
+
+                                                        foreach($batches_belum_hantar as $batch){
+                                                            if($batch->shuttle->daerah_id == $data->daerah_hutan){
                                                                 $form_counter++;
                                                             }
                                                         }
