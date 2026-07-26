@@ -84,9 +84,15 @@
                                             <td>
                                                 @foreach ($datas as $index_bulan => $data)
                                                     @if ($index_bulan == $key + 1)
-                                                        {{ number_format($data[0]->export ?? 0) }}
                                                         @php
-                                                            $jumlah_keseluruhan += $data[0]->export ?? 0;
+                                                            $bulan_export = 0;
+                                                            foreach ($data as $negeri_row) {
+                                                                $bulan_export += $negeri_row->export ?? 0;
+                                                            }
+                                                        @endphp
+                                                        {{ number_format($bulan_export) }}
+                                                        @php
+                                                            $jumlah_keseluruhan += $bulan_export;
                                                         @endphp
                                                     @endif
                                                 @endforeach

@@ -738,7 +738,7 @@ class ExcelController extends Controller
 
         // dd(" tahun : " . $tahun . " start : " . $start_date . " end : " . $end_date);
         $negeri_list = Daerah::distinct()->orderBy('negeri')->get('negeri');
-        for ($i = $suku_tahun; $i <= $jumlah_suku_tahun; $i++) {
+        for ($i = $suku_tahun; $i <= $suku_tahun_akhir; $i++) {
             foreach ($negeri_list as $key => $negeri) {
 
                 $datas[$i][$negeri->negeri] = DB::select("SELECT DISTINCT(shuttles.id), shuttles.negeri_id as negeri,
@@ -867,7 +867,7 @@ class ExcelController extends Controller
 
         $kategori = KategoriGunaTenaga::get();
 
-        for ($i = $suku_tahun; $i <= $jumlah_suku_tahun; $i++) {
+        for ($i = $suku_tahun; $i <= $suku_tahun_akhir; $i++) {
             foreach ($kategori as $key => $data) {
                 $datas[$i][$data->keterangan] = DB::select("SELECT
                                         kategori_guna_tenagas.keterangan as kategori,
@@ -994,7 +994,7 @@ class ExcelController extends Controller
 
         $kategori = KategoriGunaTenaga::get();
         // dd($kategori);
-        for ($i = $suku_tahun; $i <= $jumlah_suku_tahun; $i++) {
+        for ($i = $suku_tahun; $i <= $suku_tahun_akhir; $i++) {
 
             foreach ($kategori as $key => $data) {
                 $jumlah[$i][$data->keterangan] = DB::select("SELECT
@@ -1130,7 +1130,7 @@ class ExcelController extends Controller
 
         $negeri_list = Daerah::distinct()->orderBy('negeri')->get('negeri');
 
-        for ($i = $suku_tahun; $i <= $jumlah_suku_tahun; $i++) {
+        for ($i = $suku_tahun; $i <= $suku_tahun_akhir; $i++) {
             foreach ($negeri_list as $key => $negeri) {
                 $datas[$i][$negeri->negeri] = DB::select("SELECT shuttles.negeri_id as negeri,
                     sum(guna_tenagas.pekerja_wargabumi_lelaki_laporan) as jumlah_bumiputera_lelaki,
@@ -1253,7 +1253,7 @@ class ExcelController extends Controller
         // dd($tahun . " / " . $suku_tahun . " / " . $start_date . " / " . $end_date . " / " . $nama_suku_tahun );
 
         $kategori = KategoriGunaTenaga::get();
-        for ($i = $suku_tahun; $i <= $jumlah_suku_tahun; $i++) {
+        for ($i = $suku_tahun; $i <= $suku_tahun_akhir; $i++) {
             foreach ($kategori as $key => $data) {
                 $jumlah[$i][$key] = DB::select("SELECT
                                         kategori_guna_tenagas.keterangan as kategori,
@@ -1745,37 +1745,39 @@ class ExcelController extends Controller
 
         $spesis = Spesis::get();
 
-        //count by spesis
-        foreach ($kumpulan_kayu as $count_kk => $kk) {
-            foreach ($spesis as $count_spesis => $sp) {
-                if ($sp->kumpulan_kayu_id == $kk->id) {
-                    $datas[$kk->singkatan][$sp->nama_tempatan] = DB::select("SELECT
-                    form_c_s.tahun as tahun,
-                    sum(round(kemasukan_bahans.proses_masuk)) as jumlah_penggunaan
+        // Single aggregate query instead of one query per species per kumpulan kayu (was 500+ queries).
+        $rows = DB::select("SELECT
+            kumpulan_kayus.singkatan as singkatan,
+            spesis.nama_tempatan as nama_tempatan,
+            form_c_s.tahun as tahun,
+            sum(round(kemasukan_bahans.proses_masuk)) as jumlah_penggunaan
 
-                    FROM
-                    shuttles,
-                    form_c_s,
-                    kemasukan_bahans,
-                    spesis,
-                    kumpulan_kayus
+            FROM
+            shuttles,
+            form_c_s,
+            kemasukan_bahans,
+            spesis,
+            kumpulan_kayus
 
-                    WHERE form_c_s.shuttle_id = shuttles.id
-                    AND form_c_s.id = kemasukan_bahans.formcs_id
-                    AND kemasukan_bahans.spesis_id = spesis.id
-                    AND spesis.kumpulan_kayu_id = kumpulan_kayus.id
+            WHERE form_c_s.shuttle_id = shuttles.id
+            AND form_c_s.id = kemasukan_bahans.formcs_id
+            AND kemasukan_bahans.spesis_id = spesis.id
+            AND spesis.kumpulan_kayu_id = kumpulan_kayus.id
 
-                    AND shuttles.shuttle_type = '3'
-                    AND form_c_s.status = 'Lulus'
-                    AND kumpulan_kayus.keterangan = '$kk->keterangan'
-                    AND spesis.nama_tempatan = '$sp->nama_tempatan'
-                    AND (form_c_s.tahun BETWEEN '$tahun_mula' AND '$tahun_akhir')
+            AND shuttles.shuttle_type = '3'
+            AND form_c_s.status = 'Lulus'
+            AND (form_c_s.tahun BETWEEN '$tahun_mula' AND '$tahun_akhir')
 
-                    GROUP BY
-                    form_c_s.tahun
-                    ;");
-                }
-            }
+            GROUP BY
+            kumpulan_kayus.singkatan, spesis.nama_tempatan, form_c_s.tahun
+        ");
+
+        $datas = [];
+        foreach ($rows as $row) {
+            $datas[$row->singkatan][$row->nama_tempatan][] = (object)[
+                'tahun' => $row->tahun,
+                'jumlah_penggunaan' => $row->jumlah_penggunaan,
+            ];
         }
 
 
@@ -2681,7 +2683,7 @@ class ExcelController extends Controller
             for ($bulan = 1; $bulan <= 12; $bulan++) {
                 $data = DB::select("SELECT
                 pembelis.keterangan as pembeli_keterangan,
-                sum(penjualan_pembelis.jumlah_jualan_laporan)  as jumlah_jualan,
+                sum(ROUND(penjualan_pembelis.jumlah_jualan_laporan))  as jumlah_jualan,
                 form_d_s.bulan as bulan
 
                 FROM
@@ -2704,7 +2706,7 @@ class ExcelController extends Controller
                 GROUP BY
                 pembelis.keterangan
                 ;");
-                
+
                 if (!empty($data)) {
                     $datas[$pembeli->keterangan][$bulan] = $data;
                 } else {
@@ -4968,7 +4970,7 @@ class ExcelController extends Controller
 
         $negeri_list = Daerah::distinct()->orderBy('negeri')->get('negeri');
 
-        for ($i = $suku_tahun; $i <= $jumlah_suku_tahun; $i++) {
+        for ($i = $suku_tahun; $i <= $suku_tahun_akhir; $i++) {
             foreach ($negeri_list as $key => $negeri) {
                 $datas[$i][$negeri->negeri] = DB::select("SELECT shuttles.negeri_id as negeri,
                     sum(guna_tenagas.pekerja_wargabumi_lelaki_laporan) as jumlah_bumiputera_lelaki,
