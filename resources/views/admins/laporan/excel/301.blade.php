@@ -87,26 +87,26 @@
 
 
             <td style="text-align: right">
-                {{ number_format($data_guna_tenagas[$kilang->id]->pekerja_wargabumi_lelaki_laporan, 0) }}</td>
+                {{ number_format($data_guna_tenagas[$kilang->shuttle_id]->pekerja_wargabumi_lelaki_laporan, 0) }}</td>
             <td style="text-align: right">
-                {{ number_format($data_guna_tenagas[$kilang->id]->pekerja_wargabumi_perempuan_laporan, 0) }}</td>
+                {{ number_format($data_guna_tenagas[$kilang->shuttle_id]->pekerja_wargabumi_perempuan_laporan, 0) }}</td>
             <td style="text-align: right">
-                {{ number_format($data_guna_tenagas[$kilang->id]->pekerja_bukan_wargabumi_lelaki_laporan, 0) }}</td>
+                {{ number_format($data_guna_tenagas[$kilang->shuttle_id]->pekerja_bukan_wargabumi_lelaki_laporan, 0) }}</td>
             <td style="text-align: right">
-                {{ number_format($data_guna_tenagas[$kilang->id]->pekerja_bukan_wargabumi_perempuan_laporan, 0) }}
+                {{ number_format($data_guna_tenagas[$kilang->shuttle_id]->pekerja_bukan_wargabumi_perempuan_laporan, 0) }}
             </td>
             <td style="text-align: right">
-                {{ number_format($data_guna_tenagas[$kilang->id]->pekerja_asing_lelaki_laporan, 0) }}</td>
+                {{ number_format($data_guna_tenagas[$kilang->shuttle_id]->pekerja_asing_lelaki_laporan, 0) }}</td>
             <td style="text-align: right">
-                {{ number_format($data_guna_tenagas[$kilang->id]->pekerja_asing_perempuan_laporan, 0) }}</td>
+                {{ number_format($data_guna_tenagas[$kilang->shuttle_id]->pekerja_asing_perempuan_laporan, 0) }}</td>
 
-            <td style="text-align: right">{{ number_format($data_kemasukan_bahans[$kilang->id]->jumlah_penggunaan, 0) }}
+            <td style="text-align: right">{{ number_format($data_kemasukan_bahans[$kilang->shuttle_id]->jumlah_penggunaan, 0) }}
             </td>
-            <td style="text-align: right">{{ number_format($data_kemasukan_bahans[$kilang->id]->jumlah_pengeluaran, 0) }}
+            <td style="text-align: right">{{ number_format($data_kemasukan_bahans[$kilang->shuttle_id]->jumlah_pengeluaran, 0) }}
             </td>
 
-            <td style="text-align: right">{{ number_format($data_form_d_s[$kilang->id]->export, 0) }}</td>
-            <td style="text-align: right">{{ number_format($data_form_d_s[$kilang->id]->domestik, 0) }}</td>
+            <td style="text-align: right">{{ number_format($data_form_d_s[$kilang->shuttle_id]->export, 0) }}</td>
+            <td style="text-align: right">{{ number_format($data_form_d_s[$kilang->shuttle_id]->domestik, 0) }}</td>
         </tr>
         @endforeach
     </tbody>
