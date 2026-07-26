@@ -68,7 +68,7 @@ class ExcelController extends Controller
 
 
             foreach ($data_shuttles as $data_shuttle) {
-                $data_guna_tenagas[$data_shuttle->id] = DB::select("SELECT
+                $gt_result = DB::select("SELECT
             DISTINCT(shuttles.id) as shuttle_id,
             formbs.suku_tahun,
 
@@ -96,10 +96,16 @@ class ExcelController extends Controller
                                                 AND guna_tenagas.formbs_id = formbs.id)
 
             ORDER BY formbs.suku_tahun DESC
-        ")[0];
+        ");
+                $data_guna_tenagas[$data_shuttle->id] = !empty($gt_result) ? $gt_result[0] : (object)[
+                    'shuttle_id' => $data_shuttle->id, 'pekerja_wargabumi_lelaki_laporan' => 0,
+                    'pekerja_wargabumi_perempuan_laporan' => 0, 'pekerja_bukan_wargabumi_lelaki_laporan' => 0,
+                    'pekerja_bukan_wargabumi_perempuan_laporan' => 0, 'pekerja_asing_lelaki_laporan' => 0,
+                    'pekerja_asing_perempuan_laporan' => 0,
+                ];
 
 
-                $query_result = DB::select("SELECT
+                $kb_result = DB::select("SELECT
             shuttles.id as shuttle_id,
 
             sum(kemasukan_bahans.total_kayu_masuk_jentera) as jumlah_penggunaan,
@@ -116,10 +122,13 @@ class ExcelController extends Controller
             AND form_c_s.tahun = '$tahun'
 
             GROUP BY shuttles.id
-        ")[0];
+        ");
+                $data_kemasukan_bahans[$data_shuttle->id] = !empty($kb_result) ? $kb_result[0] : (object)[
+                    'shuttle_id' => $data_shuttle->id, 'jumlah_penggunaan' => 0, 'jumlah_pengeluaran' => 0,
+                ];
 
 
-                $query_result = DB::select("SELECT
+                $fd_result = DB::select("SELECT
             shuttles.id,
             sum(form_d_s.total_export_laporan)  as export,
             sum(form_d_s.jumlah_pasaran_tempatan_laporan) as domestik
@@ -133,7 +142,10 @@ class ExcelController extends Controller
             AND form_d_s.tahun = '$tahun'
 
             GROUP BY shuttles.id
-        ")[0];
+        ");
+                $data_form_d_s[$data_shuttle->id] = !empty($fd_result) ? $fd_result[0] : (object)[
+                    'shuttle_id' => $data_shuttle->id, 'export' => 0, 'domestik' => 0,
+                ];
             }
         } elseif ($title == "2") {
             $title_laporan = "2. Senarai Pemilik Kilang Papan Bumiputera";
@@ -162,7 +174,7 @@ class ExcelController extends Controller
 
 
             foreach ($data_shuttles as $data_shuttle) {
-                $data_guna_tenagas[$data_shuttle->id] = DB::select("SELECT
+                $gt_result = DB::select("SELECT
             DISTINCT(shuttles.id) as shuttle_id,
             formbs.suku_tahun,
 
@@ -190,10 +202,16 @@ class ExcelController extends Controller
                                                 AND guna_tenagas.formbs_id = formbs.id)
 
             ORDER BY formbs.suku_tahun DESC
-        ")[0];
+        ");
+                $data_guna_tenagas[$data_shuttle->id] = !empty($gt_result) ? $gt_result[0] : (object)[
+                    'shuttle_id' => $data_shuttle->id, 'pekerja_wargabumi_lelaki_laporan' => 0,
+                    'pekerja_wargabumi_perempuan_laporan' => 0, 'pekerja_bukan_wargabumi_lelaki_laporan' => 0,
+                    'pekerja_bukan_wargabumi_perempuan_laporan' => 0, 'pekerja_asing_lelaki_laporan' => 0,
+                    'pekerja_asing_perempuan_laporan' => 0,
+                ];
 
 
-                $query_result = DB::select("SELECT
+                $kb_result = DB::select("SELECT
             shuttles.id as shuttle_id,
 
             sum(kemasukan_bahans.total_kayu_masuk_jentera) as jumlah_penggunaan,
@@ -210,10 +228,13 @@ class ExcelController extends Controller
             AND form_c_s.tahun = '$tahun'
 
             GROUP BY shuttles.id
-        ")[0];
+        ");
+                $data_kemasukan_bahans[$data_shuttle->id] = !empty($kb_result) ? $kb_result[0] : (object)[
+                    'shuttle_id' => $data_shuttle->id, 'jumlah_penggunaan' => 0, 'jumlah_pengeluaran' => 0,
+                ];
 
 
-                $query_result = DB::select("SELECT
+                $fd_result = DB::select("SELECT
             shuttles.id,
             sum(form_d_s.total_export_laporan)  as export,
             sum(form_d_s.jumlah_pasaran_tempatan_laporan) as domestik
@@ -227,7 +248,10 @@ class ExcelController extends Controller
             AND form_d_s.tahun = '$tahun'
 
             GROUP BY shuttles.id
-        ")[0];
+        ");
+                $data_form_d_s[$data_shuttle->id] = !empty($fd_result) ? $fd_result[0] : (object)[
+                    'shuttle_id' => $data_shuttle->id, 'export' => 0, 'domestik' => 0,
+                ];
             }
         } elseif ($title == "3") {
             $title_laporan = "3. Senarai Pemilik Kilang Papan Bukan Bumiputera";
@@ -256,7 +280,7 @@ class ExcelController extends Controller
 
 
             foreach ($data_shuttles as $data_shuttle) {
-                $data_guna_tenagas[$data_shuttle->id] = DB::select("SELECT
+                $gt_result = DB::select("SELECT
             DISTINCT(shuttles.id) as shuttle_id,
             formbs.suku_tahun,
 
@@ -284,10 +308,16 @@ class ExcelController extends Controller
                                                 AND guna_tenagas.formbs_id = formbs.id)
 
             ORDER BY formbs.suku_tahun DESC
-        ")[0];
+        ");
+                $data_guna_tenagas[$data_shuttle->id] = !empty($gt_result) ? $gt_result[0] : (object)[
+                    'shuttle_id' => $data_shuttle->id, 'pekerja_wargabumi_lelaki_laporan' => 0,
+                    'pekerja_wargabumi_perempuan_laporan' => 0, 'pekerja_bukan_wargabumi_lelaki_laporan' => 0,
+                    'pekerja_bukan_wargabumi_perempuan_laporan' => 0, 'pekerja_asing_lelaki_laporan' => 0,
+                    'pekerja_asing_perempuan_laporan' => 0,
+                ];
 
 
-                $query_result = DB::select("SELECT
+                $kb_result = DB::select("SELECT
             shuttles.id as shuttle_id,
 
             sum(kemasukan_bahans.total_kayu_masuk_jentera) as jumlah_penggunaan,
@@ -304,10 +334,13 @@ class ExcelController extends Controller
             AND form_c_s.tahun = '$tahun'
 
             GROUP BY shuttles.id
-        ")[0];
+        ");
+                $data_kemasukan_bahans[$data_shuttle->id] = !empty($kb_result) ? $kb_result[0] : (object)[
+                    'shuttle_id' => $data_shuttle->id, 'jumlah_penggunaan' => 0, 'jumlah_pengeluaran' => 0,
+                ];
 
 
-                $query_result = DB::select("SELECT
+                $fd_result = DB::select("SELECT
             shuttles.id,
             sum(form_d_s.total_export_laporan)  as export,
             sum(form_d_s.jumlah_pasaran_tempatan_laporan) as domestik
@@ -321,7 +354,10 @@ class ExcelController extends Controller
             AND form_d_s.tahun = '$tahun'
 
             GROUP BY shuttles.id
-        ")[0];
+        ");
+                $data_form_d_s[$data_shuttle->id] = !empty($fd_result) ? $fd_result[0] : (object)[
+                    'shuttle_id' => $data_shuttle->id, 'export' => 0, 'domestik' => 0,
+                ];
             }
         } elseif ($title == "4") {
             $title_laporan = "4. Senarai Pemilik Kilang Papan Bukan Warganegara";
@@ -350,7 +386,7 @@ class ExcelController extends Controller
 
 
             foreach ($data_shuttles as $data_shuttle) {
-                $data_guna_tenagas[$data_shuttle->id] = DB::select("SELECT
+                $gt_result = DB::select("SELECT
             DISTINCT(shuttles.id) as shuttle_id,
             formbs.suku_tahun,
 
@@ -378,10 +414,16 @@ class ExcelController extends Controller
                                                 AND guna_tenagas.formbs_id = formbs.id)
 
             ORDER BY formbs.suku_tahun DESC
-        ")[0];
+        ");
+                $data_guna_tenagas[$data_shuttle->id] = !empty($gt_result) ? $gt_result[0] : (object)[
+                    'shuttle_id' => $data_shuttle->id, 'pekerja_wargabumi_lelaki_laporan' => 0,
+                    'pekerja_wargabumi_perempuan_laporan' => 0, 'pekerja_bukan_wargabumi_lelaki_laporan' => 0,
+                    'pekerja_bukan_wargabumi_perempuan_laporan' => 0, 'pekerja_asing_lelaki_laporan' => 0,
+                    'pekerja_asing_perempuan_laporan' => 0,
+                ];
 
 
-                $query_result = DB::select("SELECT
+                $kb_result = DB::select("SELECT
             shuttles.id as shuttle_id,
 
             sum(kemasukan_bahans.total_kayu_masuk_jentera) as jumlah_penggunaan,
@@ -398,10 +440,13 @@ class ExcelController extends Controller
             AND form_c_s.tahun = '$tahun'
 
             GROUP BY shuttles.id
-        ")[0];
+        ");
+                $data_kemasukan_bahans[$data_shuttle->id] = !empty($kb_result) ? $kb_result[0] : (object)[
+                    'shuttle_id' => $data_shuttle->id, 'jumlah_penggunaan' => 0, 'jumlah_pengeluaran' => 0,
+                ];
 
 
-                $query_result = DB::select("SELECT
+                $fd_result = DB::select("SELECT
             shuttles.id,
             sum(form_d_s.total_export_laporan)  as export,
             sum(form_d_s.jumlah_pasaran_tempatan_laporan) as domestik
@@ -415,7 +460,10 @@ class ExcelController extends Controller
             AND form_d_s.tahun = '$tahun'
 
             GROUP BY shuttles.id
-        ")[0];
+        ");
+                $data_form_d_s[$data_shuttle->id] = !empty($fd_result) ? $fd_result[0] : (object)[
+                    'shuttle_id' => $data_shuttle->id, 'export' => 0, 'domestik' => 0,
+                ];
             }
         }
 
@@ -3159,7 +3207,7 @@ class ExcelController extends Controller
 
 
             foreach ($data_shuttles as $data_shuttle) {
-                $data_guna_tenagas[$data_shuttle->id] = DB::select("SELECT
+                $gt_result = DB::select("SELECT
             DISTINCT(shuttles.id) as shuttle_id,
             formbs.suku_tahun,
 
@@ -3187,11 +3235,17 @@ class ExcelController extends Controller
                                                 AND guna_tenagas.formbs_id = formbs.id)
 
             ORDER BY formbs.suku_tahun DESC
-        ")[0];
+        ");
+                $data_guna_tenagas[$data_shuttle->id] = !empty($gt_result) ? $gt_result[0] : (object)[
+                    'shuttle_id' => $data_shuttle->id, 'pekerja_wargabumi_lelaki_laporan' => 0,
+                    'pekerja_wargabumi_perempuan_laporan' => 0, 'pekerja_bukan_wargabumi_lelaki_laporan' => 0,
+                    'pekerja_bukan_wargabumi_perempuan_laporan' => 0, 'pekerja_asing_lelaki_laporan' => 0,
+                    'pekerja_asing_perempuan_laporan' => 0,
+                ];
 
 
                 //form 4 c
-                $query_result = DB::select("SELECT
+                $kb_result = DB::select("SELECT
             shuttles.id as shuttle_id,
 
             sum(kemasukan_bahans.baki_stok_kehadapan) as baki_stok_kehadapan,
@@ -3212,7 +3266,10 @@ class ExcelController extends Controller
 
 
             GROUP BY shuttles.id
-        ")[0];
+        ");
+                $data_kemasukan_bahans[$data_shuttle->id] = !empty($kb_result) ? $kb_result[0] : (object)[
+                    'shuttle_id' => $data_shuttle->id, 'baki_stok_kehadapan' => 0, 'jumlah_penggunaan' => 0,
+                ];
 
 
                 //produk pengeluaran
@@ -3347,7 +3404,7 @@ class ExcelController extends Controller
 
 
             foreach ($data_shuttles as $data_shuttle) {
-                $data_guna_tenagas[$data_shuttle->id] = DB::select("SELECT
+                $gt_result = DB::select("SELECT
             DISTINCT(shuttles.id) as shuttle_id,
             formbs.suku_tahun,
 
@@ -3375,11 +3432,17 @@ class ExcelController extends Controller
                                                 AND guna_tenagas.formbs_id = formbs.id)
 
             ORDER BY formbs.suku_tahun DESC
-        ")[0];
+        ");
+                $data_guna_tenagas[$data_shuttle->id] = !empty($gt_result) ? $gt_result[0] : (object)[
+                    'shuttle_id' => $data_shuttle->id, 'pekerja_wargabumi_lelaki_laporan' => 0,
+                    'pekerja_wargabumi_perempuan_laporan' => 0, 'pekerja_bukan_wargabumi_lelaki_laporan' => 0,
+                    'pekerja_bukan_wargabumi_perempuan_laporan' => 0, 'pekerja_asing_lelaki_laporan' => 0,
+                    'pekerja_asing_perempuan_laporan' => 0,
+                ];
 
 
                 //form 4 c
-                $query_result = DB::select("SELECT
+                $kb_result = DB::select("SELECT
             shuttles.id as shuttle_id,
 
             sum(kemasukan_bahans.baki_stok_kehadapan) as baki_stok_kehadapan,
@@ -3400,11 +3463,14 @@ class ExcelController extends Controller
 
 
             GROUP BY shuttles.id
-        ")[0];
+        ");
+                $data_kemasukan_bahans[$data_shuttle->id] = !empty($kb_result) ? $kb_result[0] : (object)[
+                    'shuttle_id' => $data_shuttle->id, 'baki_stok_kehadapan' => 0, 'jumlah_penggunaan' => 0,
+                ];
 
 
                 //produk pengeluaran
-                $produk_pengeluaran[$data_shuttle->id] = DB::select("SELECT
+                $pp_result = DB::select("SELECT
             shuttles.id,
             sum( distinct produk_pengeluarans.jumlah_besar_mr)  as jumlah_besar_mr,
             sum( distinct produk_pengeluarans.jumlah_besar_wbp) as jumlah_besar_wbp,
@@ -3425,10 +3491,14 @@ class ExcelController extends Controller
             AND form4_d_s.tahun = '$tahun'
 
             GROUP BY shuttles.id
-        ")[0];
+        ");
+                $produk_pengeluaran[$data_shuttle->id] = !empty($pp_result) ? $pp_result[0] : (object)[
+                    'id' => $data_shuttle->id, 'jumlah_besar_mr' => 0, 'jumlah_besar_wbp' => 0,
+                    'jumlah_kecil_1_mr' => 0, 'jumlah_kecil_1_wbp' => 0, 'jumlah_kecil_2_mr' => 0, 'jumlah_kecil_2_wbp' => 0,
+                ];
 
                 //rekod_muka
-                $rekod_muka[$data_shuttle->id] = DB::select("SELECT
+                $rm_result = DB::select("SELECT
             shuttles.id,
             sum(form4_d_s.rekod_veniermuka)  as rekod_veniermuka,
             sum(form4_d_s.rekod_venierteras) as rekod_venierteras
@@ -3445,11 +3515,14 @@ class ExcelController extends Controller
 
 
             GROUP BY shuttles.id
-        ")[0];
+        ");
+                $rekod_muka[$data_shuttle->id] = !empty($rm_result) ? $rm_result[0] : (object)[
+                    'id' => $data_shuttle->id, 'rekod_veniermuka' => 0, 'rekod_venierteras' => 0,
+                ];
 
 
                 //datas_formd
-                $query_result = DB::select("SELECT
+                $fd_result = DB::select("SELECT
             shuttles.id,
             sum(round(form4_e_s.total_export_laporan))  as export_papan_lapis,
             sum(round(form4_e_s.jumlah_venier_eksport_laporan))  as export_venier,
@@ -3469,7 +3542,11 @@ class ExcelController extends Controller
 
 
             GROUP BY shuttles.id
-        ")[0];
+        ");
+                $data_form_d_s[$data_shuttle->id] = !empty($fd_result) ? $fd_result[0] : (object)[
+                    'id' => $data_shuttle->id, 'export_papan_lapis' => 0, 'export_venier' => 0,
+                    'domestik_papan_lapis' => 0, 'domestik_venier' => 0, 'jumlah_penjualan' => 0,
+                ];
             }
         } elseif ($title == "3") {
             $title_laporan = "3. Senarai Pemilik Kilang Papan Lapis/Venir Bukan Bumiputera";
@@ -3498,7 +3575,7 @@ class ExcelController extends Controller
 
 
             foreach ($data_shuttles as $data_shuttle) {
-                $data_guna_tenagas[$data_shuttle->id] = DB::select("SELECT
+                $gt_result = DB::select("SELECT
                 DISTINCT(shuttles.id) as shuttle_id,
                 formbs.suku_tahun,
 
@@ -3526,11 +3603,17 @@ class ExcelController extends Controller
                                                     AND guna_tenagas.formbs_id = formbs.id)
 
                 ORDER BY formbs.suku_tahun DESC
-            ")[0];
+            ");
+                $data_guna_tenagas[$data_shuttle->id] = !empty($gt_result) ? $gt_result[0] : (object)[
+                    'shuttle_id' => $data_shuttle->id, 'pekerja_wargabumi_lelaki_laporan' => 0,
+                    'pekerja_wargabumi_perempuan_laporan' => 0, 'pekerja_bukan_wargabumi_lelaki_laporan' => 0,
+                    'pekerja_bukan_wargabumi_perempuan_laporan' => 0, 'pekerja_asing_lelaki_laporan' => 0,
+                    'pekerja_asing_perempuan_laporan' => 0,
+                ];
 
 
                 //form 4 c
-                $query_result = DB::select("SELECT
+                $kb_result = DB::select("SELECT
                 shuttles.id as shuttle_id,
 
                 sum(kemasukan_bahans.baki_stok_kehadapan) as baki_stok_kehadapan,
@@ -3551,11 +3634,14 @@ class ExcelController extends Controller
 
 
                 GROUP BY shuttles.id
-            ")[0];
+            ");
+                $data_kemasukan_bahans[$data_shuttle->id] = !empty($kb_result) ? $kb_result[0] : (object)[
+                    'shuttle_id' => $data_shuttle->id, 'baki_stok_kehadapan' => 0, 'jumlah_penggunaan' => 0,
+                ];
 
 
                 //produk pengeluaran
-                $produk_pengeluaran[$data_shuttle->id] = DB::select("SELECT
+                $pp_result = DB::select("SELECT
                 shuttles.id,
                 sum( distinct produk_pengeluarans.jumlah_besar_mr)  as jumlah_besar_mr,
                 sum( distinct produk_pengeluarans.jumlah_besar_wbp) as jumlah_besar_wbp,
@@ -3576,10 +3662,14 @@ class ExcelController extends Controller
                 AND form4_d_s.tahun = '$tahun'
 
                 GROUP BY shuttles.id
-            ")[0];
+            ");
+                $produk_pengeluaran[$data_shuttle->id] = !empty($pp_result) ? $pp_result[0] : (object)[
+                    'id' => $data_shuttle->id, 'jumlah_besar_mr' => 0, 'jumlah_besar_wbp' => 0,
+                    'jumlah_kecil_1_mr' => 0, 'jumlah_kecil_1_wbp' => 0, 'jumlah_kecil_2_mr' => 0, 'jumlah_kecil_2_wbp' => 0,
+                ];
 
                 //rekod_muka
-                $rekod_muka[$data_shuttle->id] = DB::select("SELECT
+                $rm_result = DB::select("SELECT
                 shuttles.id,
                 sum(form4_d_s.rekod_veniermuka)  as rekod_veniermuka,
                 sum(form4_d_s.rekod_venierteras) as rekod_venierteras
@@ -3596,11 +3686,14 @@ class ExcelController extends Controller
 
 
                 GROUP BY shuttles.id
-            ")[0];
+            ");
+                $rekod_muka[$data_shuttle->id] = !empty($rm_result) ? $rm_result[0] : (object)[
+                    'id' => $data_shuttle->id, 'rekod_veniermuka' => 0, 'rekod_venierteras' => 0,
+                ];
 
 
                 //datas_formd
-                $query_result = DB::select("SELECT
+                $fd_result = DB::select("SELECT
                 shuttles.id,
                 sum(round(form4_e_s.total_export_laporan))  as export_papan_lapis,
                 sum(round(form4_e_s.jumlah_venier_eksport_laporan))  as export_venier,
@@ -3620,7 +3713,11 @@ class ExcelController extends Controller
 
 
                 GROUP BY shuttles.id
-            ")[0];
+            ");
+                $data_form_d_s[$data_shuttle->id] = !empty($fd_result) ? $fd_result[0] : (object)[
+                    'id' => $data_shuttle->id, 'export_papan_lapis' => 0, 'export_venier' => 0,
+                    'domestik_papan_lapis' => 0, 'domestik_venier' => 0, 'jumlah_penjualan' => 0,
+                ];
             }
         } elseif ($title == "4") {
             $title_laporan = "4. Senarai Pemilik Kilang Papan Lapis/Venir Bukan Warganegara";
@@ -3649,7 +3746,7 @@ class ExcelController extends Controller
 
 
             foreach ($data_shuttles as $data_shuttle) {
-                $data_guna_tenagas[$data_shuttle->id] = DB::select("SELECT
+                $gt_result = DB::select("SELECT
                 DISTINCT(shuttles.id) as shuttle_id,
                 formbs.suku_tahun,
 
@@ -3677,11 +3774,17 @@ class ExcelController extends Controller
                                                     AND guna_tenagas.formbs_id = formbs.id)
 
                 ORDER BY formbs.suku_tahun DESC
-            ")[0];
+            ");
+                $data_guna_tenagas[$data_shuttle->id] = !empty($gt_result) ? $gt_result[0] : (object)[
+                    'shuttle_id' => $data_shuttle->id, 'pekerja_wargabumi_lelaki_laporan' => 0,
+                    'pekerja_wargabumi_perempuan_laporan' => 0, 'pekerja_bukan_wargabumi_lelaki_laporan' => 0,
+                    'pekerja_bukan_wargabumi_perempuan_laporan' => 0, 'pekerja_asing_lelaki_laporan' => 0,
+                    'pekerja_asing_perempuan_laporan' => 0,
+                ];
 
 
                 //form 4 c
-                $query_result = DB::select("SELECT
+                $kb_result = DB::select("SELECT
                 shuttles.id as shuttle_id,
 
                 sum(kemasukan_bahans.baki_stok_kehadapan) as baki_stok_kehadapan,
@@ -3702,11 +3805,14 @@ class ExcelController extends Controller
 
 
                 GROUP BY shuttles.id
-            ")[0];
+            ");
+                $data_kemasukan_bahans[$data_shuttle->id] = !empty($kb_result) ? $kb_result[0] : (object)[
+                    'shuttle_id' => $data_shuttle->id, 'baki_stok_kehadapan' => 0, 'jumlah_penggunaan' => 0,
+                ];
 
 
                 //produk pengeluaran
-                $produk_pengeluaran[$data_shuttle->id] = DB::select("SELECT
+                $pp_result = DB::select("SELECT
                 shuttles.id,
                 sum( distinct produk_pengeluarans.jumlah_besar_mr)  as jumlah_besar_mr,
                 sum( distinct produk_pengeluarans.jumlah_besar_wbp) as jumlah_besar_wbp,
@@ -3727,10 +3833,14 @@ class ExcelController extends Controller
                 AND form4_d_s.tahun = '$tahun'
 
                 GROUP BY shuttles.id
-            ")[0];
+            ");
+                $produk_pengeluaran[$data_shuttle->id] = !empty($pp_result) ? $pp_result[0] : (object)[
+                    'id' => $data_shuttle->id, 'jumlah_besar_mr' => 0, 'jumlah_besar_wbp' => 0,
+                    'jumlah_kecil_1_mr' => 0, 'jumlah_kecil_1_wbp' => 0, 'jumlah_kecil_2_mr' => 0, 'jumlah_kecil_2_wbp' => 0,
+                ];
 
                 //rekod_muka
-                $rekod_muka[$data_shuttle->id] = DB::select("SELECT
+                $rm_result = DB::select("SELECT
                 shuttles.id,
                 sum(form4_d_s.rekod_veniermuka)  as rekod_veniermuka,
                 sum(form4_d_s.rekod_venierteras) as rekod_venierteras
@@ -3747,11 +3857,14 @@ class ExcelController extends Controller
 
 
                 GROUP BY shuttles.id
-            ")[0];
+            ");
+                $rekod_muka[$data_shuttle->id] = !empty($rm_result) ? $rm_result[0] : (object)[
+                    'id' => $data_shuttle->id, 'rekod_veniermuka' => 0, 'rekod_venierteras' => 0,
+                ];
 
 
                 //datas_formd
-                $query_result = DB::select("SELECT
+                $fd_result = DB::select("SELECT
                 shuttles.id,
                 sum(round(form4_e_s.total_export_laporan))  as export_papan_lapis,
                 sum(round(form4_e_s.jumlah_venier_eksport_laporan))  as export_venier,
@@ -3771,7 +3884,11 @@ class ExcelController extends Controller
 
 
                 GROUP BY shuttles.id
-            ")[0];
+            ");
+                $data_form_d_s[$data_shuttle->id] = !empty($fd_result) ? $fd_result[0] : (object)[
+                    'id' => $data_shuttle->id, 'export_papan_lapis' => 0, 'export_venier' => 0,
+                    'domestik_papan_lapis' => 0, 'domestik_venier' => 0, 'jumlah_penjualan' => 0,
+                ];
             }
         }
 
@@ -7550,7 +7667,7 @@ class ExcelController extends Controller
 
 
             foreach ($data_shuttles as $data_shuttle) {
-                $data_guna_tenagas[$data_shuttle->id] = DB::select("SELECT
+                $gt_result = DB::select("SELECT
             DISTINCT(shuttles.id) as shuttle_id,
             formbs.suku_tahun,
 
@@ -7578,10 +7695,16 @@ class ExcelController extends Controller
                                                 AND guna_tenagas.formbs_id = formbs.id)
 
             ORDER BY formbs.suku_tahun DESC
-        ")[0];
+        ");
+                $data_guna_tenagas[$data_shuttle->id] = !empty($gt_result) ? $gt_result[0] : (object)[
+                    'shuttle_id' => $data_shuttle->id, 'pekerja_wargabumi_lelaki_laporan' => 0,
+                    'pekerja_wargabumi_perempuan_laporan' => 0, 'pekerja_bukan_wargabumi_lelaki_laporan' => 0,
+                    'pekerja_bukan_wargabumi_perempuan_laporan' => 0, 'pekerja_asing_lelaki_laporan' => 0,
+                    'pekerja_asing_perempuan_laporan' => 0,
+                ];
 
 
-                $query_result = DB::select("SELECT
+                $kb_result = DB::select("SELECT
             shuttles.id as shuttle_id,
 
             sum(kemasukan_bahans.total_kayu_masuk_jentera) as jumlah_penggunaan,
@@ -7598,10 +7721,13 @@ class ExcelController extends Controller
             AND form_c_s.tahun = '$tahun'
 
             GROUP BY shuttles.id
-        ")[0];
+        ");
+                $data_kemasukan_bahans[$data_shuttle->id] = !empty($kb_result) ? $kb_result[0] : (object)[
+                    'shuttle_id' => $data_shuttle->id, 'jumlah_penggunaan' => 0, 'jumlah_pengeluaran' => 0,
+                ];
 
 
-                $query_result = DB::select("SELECT
+                $fd_result = DB::select("SELECT
             shuttles.id as shuttle_id,
             sum( form5_e_s.jumlah_jualan_eksport_laporan)  as export,
             sum( form5_e_s.jumlah_jualan_pasaran_tempatan_laporan) as domestik,
@@ -7618,7 +7744,10 @@ class ExcelController extends Controller
             AND form5_e_s.tahun = '$tahun'
 
             GROUP BY shuttles.id
-        ")[0];
+        ");
+                $data_form_d_s[$data_shuttle->id] = !empty($fd_result) ? $fd_result[0] : (object)[
+                    'shuttle_id' => $data_shuttle->id, 'export' => 0, 'domestik' => 0, 'jumlah_penjualan' => 0,
+                ];
             }
         } elseif ($title == "3") {
             $title_laporan = "3. Senarai Pemilik Kilang Kayu Kumai Bukan Bumiputera";
@@ -7647,7 +7776,7 @@ class ExcelController extends Controller
 
 
             foreach ($data_shuttles as $data_shuttle) {
-                $data_guna_tenagas[$data_shuttle->id] = DB::select("SELECT
+                $gt_result = DB::select("SELECT
             DISTINCT(shuttles.id) as shuttle_id,
             formbs.suku_tahun,
 
@@ -7675,10 +7804,16 @@ class ExcelController extends Controller
                                                 AND guna_tenagas.formbs_id = formbs.id)
 
             ORDER BY formbs.suku_tahun DESC
-        ")[0];
+        ");
+                $data_guna_tenagas[$data_shuttle->id] = !empty($gt_result) ? $gt_result[0] : (object)[
+                    'shuttle_id' => $data_shuttle->id, 'pekerja_wargabumi_lelaki_laporan' => 0,
+                    'pekerja_wargabumi_perempuan_laporan' => 0, 'pekerja_bukan_wargabumi_lelaki_laporan' => 0,
+                    'pekerja_bukan_wargabumi_perempuan_laporan' => 0, 'pekerja_asing_lelaki_laporan' => 0,
+                    'pekerja_asing_perempuan_laporan' => 0,
+                ];
 
 
-                $query_result = DB::select("SELECT
+                $kb_result = DB::select("SELECT
             shuttles.id as shuttle_id,
 
             sum(kemasukan_bahans.total_kayu_masuk_jentera) as jumlah_penggunaan,
@@ -7695,10 +7830,13 @@ class ExcelController extends Controller
             AND form_c_s.tahun = '$tahun'
 
             GROUP BY shuttles.id
-        ")[0];
+        ");
+                $data_kemasukan_bahans[$data_shuttle->id] = !empty($kb_result) ? $kb_result[0] : (object)[
+                    'shuttle_id' => $data_shuttle->id, 'jumlah_penggunaan' => 0, 'jumlah_pengeluaran' => 0,
+                ];
 
 
-                $query_result = DB::select("SELECT
+                $fd_result = DB::select("SELECT
             shuttles.id as shuttle_id,
             sum( form5_e_s.jumlah_jualan_eksport_laporan)  as export,
             sum( form5_e_s.jumlah_jualan_pasaran_tempatan_laporan) as domestik,
@@ -7715,7 +7853,10 @@ class ExcelController extends Controller
             AND form5_e_s.tahun = '$tahun'
 
             GROUP BY shuttles.id
-        ")[0];
+        ");
+                $data_form_d_s[$data_shuttle->id] = !empty($fd_result) ? $fd_result[0] : (object)[
+                    'shuttle_id' => $data_shuttle->id, 'export' => 0, 'domestik' => 0, 'jumlah_penjualan' => 0,
+                ];
             }
         } elseif ($title == "4") {
             $title_laporan = "4. Senarai Pemilik Kilang Kayu Kumai Bukan Warganegara";
@@ -7744,7 +7885,7 @@ class ExcelController extends Controller
 
 
             foreach ($data_shuttles as $data_shuttle) {
-                $data_guna_tenagas[$data_shuttle->id] = DB::select("SELECT
+                $gt_result = DB::select("SELECT
             DISTINCT(shuttles.id) as shuttle_id,
             formbs.suku_tahun,
 
@@ -7772,10 +7913,16 @@ class ExcelController extends Controller
                                                 AND guna_tenagas.formbs_id = formbs.id)
 
             ORDER BY formbs.suku_tahun DESC
-        ")[0];
+        ");
+                $data_guna_tenagas[$data_shuttle->id] = !empty($gt_result) ? $gt_result[0] : (object)[
+                    'shuttle_id' => $data_shuttle->id, 'pekerja_wargabumi_lelaki_laporan' => 0,
+                    'pekerja_wargabumi_perempuan_laporan' => 0, 'pekerja_bukan_wargabumi_lelaki_laporan' => 0,
+                    'pekerja_bukan_wargabumi_perempuan_laporan' => 0, 'pekerja_asing_lelaki_laporan' => 0,
+                    'pekerja_asing_perempuan_laporan' => 0,
+                ];
 
 
-                $query_result = DB::select("SELECT
+                $kb_result = DB::select("SELECT
             shuttles.id as shuttle_id,
 
             sum(kemasukan_bahans.total_kayu_masuk_jentera) as jumlah_penggunaan,
@@ -7792,10 +7939,13 @@ class ExcelController extends Controller
             AND form_c_s.tahun = '$tahun'
 
             GROUP BY shuttles.id
-        ")[0];
+        ");
+                $data_kemasukan_bahans[$data_shuttle->id] = !empty($kb_result) ? $kb_result[0] : (object)[
+                    'shuttle_id' => $data_shuttle->id, 'jumlah_penggunaan' => 0, 'jumlah_pengeluaran' => 0,
+                ];
 
             }
-                $query_result = DB::select("SELECT
+                $fd_result = DB::select("SELECT
             shuttles.id as shuttle_id,
             sum( form5_e_s.jumlah_jualan_eksport_laporan)  as export,
             sum( form5_e_s.jumlah_jualan_pasaran_tempatan_laporan) as domestik,
@@ -7812,7 +7962,10 @@ class ExcelController extends Controller
             AND form5_e_s.tahun = '$tahun'
 
             GROUP BY shuttles.id
-        ")[0];
+        ");
+                $data_form_d_s[$data_shuttle->id] = !empty($fd_result) ? $fd_result[0] : (object)[
+                    'shuttle_id' => $data_shuttle->id, 'export' => 0, 'domestik' => 0, 'jumlah_penjualan' => 0,
+                ];
             }
 
             $columns = [
