@@ -693,6 +693,7 @@ class LaporanController extends LaporanDataLamaController
 
         WHERE shuttles.id = form_a_s.shuttle_id
         AND shuttles.shuttle_type = '3'
+        AND shuttles.status_warganegara = 'Bumiputera'
         AND form_a_s.status = 'Lulus'
         AND form_a_s.tahun = $tahun
     ");
@@ -860,6 +861,7 @@ $data_form_d_s[$data_shuttle->id] = DB::select("SELECT
 
         WHERE shuttles.id = form_a_s.shuttle_id
         AND shuttles.shuttle_type = '3'
+        AND shuttles.status_warganegara = 'Bukan Bumiputera'
         AND form_a_s.status = 'Lulus'
         AND form_a_s.tahun = $tahun
     ");
@@ -1023,7 +1025,9 @@ $data_form_d_s[$data_shuttle->id] = DB::select("SELECT
 
             WHERE shuttles.id = form_a_s.shuttle_id
             AND shuttles.shuttle_type = '3'
+            AND shuttles.status_warganegara = 'Bukan Warganegara'
             AND form_a_s.status = 'Lulus'
+            AND form_a_s.tahun = $tahun
         ");
 
 foreach ($data_shuttles as $data_shuttle) {
@@ -1244,6 +1248,8 @@ $data_form_d_s[$data_shuttle->id] = DB::select("SELECT
             // 'Penjualan Kayu Gergaji Eksport',
             // 'Penjualan Kayu Gergaji Tempatan',
         ];
+
+        $datas_formc = array_slice($datas_formc, 0, 10);
 
         $title_laporan = "5. Top 10 Pengeluar Kayu Gergaji di Kilang Papan";
 
@@ -3971,6 +3977,7 @@ $data_form_d_s[$data_shuttle->id] = DB::select("SELECT
 
             WHERE shuttles.id = form_a_s.shuttle_id
             AND shuttles.shuttle_type = '4'
+            AND shuttles.status_warganegara = 'Bumiputera'
             AND form_a_s.status = 'Lulus'
             AND form_a_s.tahun = $tahun
         ");
@@ -4199,7 +4206,9 @@ $data_form_d_s[$data_shuttle->id] = DB::select("SELECT
 
                 WHERE shuttles.id = form_a_s.shuttle_id
                 AND shuttles.shuttle_type = '4'
+                AND shuttles.status_warganegara = 'Bukan Bumiputera'
                 AND form_a_s.status = 'Lulus'
+                AND form_a_s.tahun = $tahun
             ");
 
 
@@ -4425,7 +4434,9 @@ $data_form_d_s[$data_shuttle->id] = DB::select("SELECT
 
                 WHERE shuttles.id = form_a_s.shuttle_id
                 AND shuttles.shuttle_type = '4'
+                AND shuttles.status_warganegara = 'Bukan Warganegara'
                 AND form_a_s.status = 'Lulus'
+                AND form_a_s.tahun = $tahun
             ");
 
 
@@ -4724,6 +4735,18 @@ $data_form_d_s[$data_shuttle->id] = DB::select("SELECT
 
         ");
 
+        $jumlah_papan_lapis_by_shuttle = [];
+        foreach ($produk_pengeluaran as $produk) {
+            $jumlah_papan_lapis_by_shuttle[$produk->shuttle_id] = ($jumlah_papan_lapis_by_shuttle[$produk->shuttle_id] ?? 0)
+                + (float) $produk->jumlah_besar_mr + (float) $produk->jumlah_besar_wbp;
+        }
+
+        $datas_formc = collect($datas_formc)
+            ->sortByDesc(fn ($kilang) => $jumlah_papan_lapis_by_shuttle[$kilang->id] ?? 0)
+            ->take(10)
+            ->values()
+            ->all();
+
         $columns = [
             'Bil',
             'Nama Kilang',
@@ -4873,6 +4896,18 @@ $data_form_d_s[$data_shuttle->id] = DB::select("SELECT
                                     jumlah_pengeluaran DESC;
 
         ");
+
+        $jumlah_venir_by_shuttle = [];
+        foreach ($rekod_muka as $jenis) {
+            $jumlah_venir_by_shuttle[$jenis->shuttle_id] = ($jumlah_venir_by_shuttle[$jenis->shuttle_id] ?? 0)
+                + (float) $jenis->rekod_veniermuka + (float) $jenis->rekod_venierteras;
+        }
+
+        $datas_formc = collect($datas_formc)
+            ->sortByDesc(fn ($kilang) => $jumlah_venir_by_shuttle[$kilang->id] ?? 0)
+            ->take(10)
+            ->values()
+            ->all();
 
         $columns = [
             'Bil',
@@ -8309,6 +8344,7 @@ $data_form_d_s[$data_shuttle->id] = DB::select("SELECT
 
             WHERE shuttles.id = form_a_s.shuttle_id
             AND shuttles.shuttle_type = '5'
+            AND shuttles.status_warganegara = 'Bumiputera'
             AND form_a_s.status = 'Lulus'
             AND form_a_s.tahun = $tahun
         ");
@@ -8479,6 +8515,7 @@ $data_form_d_s[$data_shuttle->id] = DB::select("SELECT
 
             WHERE shuttles.id = form_a_s.shuttle_id
             AND shuttles.shuttle_type = '5'
+            AND shuttles.status_warganegara = 'Bukan Bumiputera'
             AND form_a_s.status = 'Lulus'
             AND form_a_s.tahun = $tahun
         ");
@@ -8864,6 +8901,8 @@ $data_form_d_s[$data_shuttle->id] = DB::select("SELECT
             // 'Penjualan Kayu Gergaji Eksport',
             // 'Penjualan Kayu Gergaji Tempatan',
         ];
+
+        $datas_formc = array_slice($datas_formc, 0, 10);
 
         $title_laporan = "5. Top 10 Pengeluar Kayu Kumai di Kilang Kayu Kumai";
 

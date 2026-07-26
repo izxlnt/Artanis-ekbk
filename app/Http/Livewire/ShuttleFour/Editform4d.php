@@ -306,10 +306,10 @@ class Editform4d extends Component
         foreach ($this->produk_isipadumr_a as $key => $value) {
             $this->validate([
                 'produk_isipadumr_a.0' => 'required',
-                'produk_ketebalan_a.' . $key => 'numeric|required_if:produk_isipadumr_a.' . $key . ', null|max:11',
+                'produk_ketebalan_a.' . $key => 'numeric|nullable|required_unless:produk_isipadumr_a.' . $key . ',0|max:11',
                 'produk_isipadumr_a.' . $key => 'numeric',
                 'produk_isipaduwbp_a.' . $key => 'numeric',
-                'produk_ketebalan_b.' . $key => 'numeric|required_if:produk_isipadumr_a.' . $key . ', null|min:12',
+                'produk_ketebalan_b.' . $key => 'numeric|nullable|required_unless:produk_isipadumr_b.' . $key . ',0|min:12',
                 'produk_isipadumr_b.' . $key => 'numeric',
                 'produk_isipaduwbp_b.' . $key => 'numeric',
             ]);
