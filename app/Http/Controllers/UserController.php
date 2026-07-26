@@ -1994,6 +1994,7 @@ class UserController extends Controller
             FormC::firstOrCreate(
                 ['shuttle_id' => $shuttle->id, 'bulan' => $month, 'tahun' => $year],
                 [
+                    'shuttle_type'         => $shuttle->shuttle_type,
                     'status'               => 'Tidak Diisi',
                     'created_at'           => "{$year}-{$pad}-01",
                     'tarikh_buka_borang'   => "{$year}-{$pad}-01",
@@ -2213,6 +2214,7 @@ class UserController extends Controller
             FormC::firstOrCreate(
                 ['shuttle_id' => $shuttle->id, 'bulan' => $month, 'tahun' => $year],
                 [
+                    'shuttle_type'         => $shuttle->shuttle_type,
                     'status'               => 'Tidak Diisi',
                     'created_at'           => "{$year}-{$pad}-01",
                     'tarikh_buka_borang'   => "{$year}-{$pad}-01",
@@ -2543,6 +2545,7 @@ class UserController extends Controller
             FormC::firstOrCreate(
                 ['shuttle_id' => $shuttle->id, 'bulan' => $month, 'tahun' => $year],
                 [
+                    'shuttle_type'         => $shuttle->shuttle_type,
                     'status'               => 'Tidak Diisi',
                     'created_at'           => "{$year}-{$pad}-01",
                     'tarikh_buka_borang'   => "{$year}-{$pad}-01",
