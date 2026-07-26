@@ -68,9 +68,6 @@
                                         onchange="return changePage();">
 
 
-                                        <option value="2024" {{ $year == 2024 ? 'selected' : '' }}>Tahun 2024</option>
-                                        <option value="2025" {{ $year == 2025 ? 'selected' : '' }}>Tahun 2025</option>
-                                        <option value="2026" {{ $year == 2026 ? 'selected' : '' }}>Tahun 2026</option>
 
                                     @foreach ($year_list as $data)
                                         <option value="{{ $data->tahun }}"

@@ -70,7 +70,7 @@
                                     <select name="select_year" id="select_year" class="form-control"
                                         onchange="return changePage();">
 
-                                        @for ($y = 2025; $y <= date('Y'); $y++)
+                                        @for ($y = config('app.data_start_year'); $y <= date('Y'); $y++)
                                             <option value="{{ $y }}" {{ $year == $y ? 'selected' : '' }}>Tahun {{ $y }}</option>
                                         @endfor
                                     </select>
