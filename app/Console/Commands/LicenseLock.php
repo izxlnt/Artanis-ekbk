@@ -15,11 +15,6 @@ class LicenseLock extends Command
 
     public function handle(LicenseService $service)
     {
-        if (empty(config('app.license_secret'))) {
-            $this->error('LICENSE_SECRET is not set in .env. Set it to a long random value first — without it, no unlock key could ever be generated.');
-            return self::FAILURE;
-        }
-
         if ($service->isLocked()) {
             if (!$this->confirm('The system is already locked. Re-lock with a fresh key (this invalidates the current key)?')) {
                 return self::SUCCESS;
@@ -31,10 +26,16 @@ class LicenseLock extends Command
         $this->newLine();
         $this->line('<bg=red;fg=white> SYSTEM LOCKED </>');
         $this->newLine();
-        $this->line('Unlock key (give this to whoever should regain access):');
-        $this->line("  <fg=yellow;options=bold>{$key}</>");
-        $this->newLine();
-        $this->line('If you lose this key, run <fg=cyan>php artisan license:key</> to reprint it — it stays valid until the next license:lock.');
+
+        if ($key !== null) {
+            $this->line('Unlock key (give this to whoever should regain access):');
+            $this->line("  <fg=yellow;options=bold>{$key}</>");
+            $this->newLine();
+            $this->line('If you lose this key, run <fg=cyan>php artisan license:key</> to reprint it — it stays valid until the next license:lock.');
+        } else {
+            $this->line('LICENSE_SECRET is not set, so no public unlock key was generated.');
+            $this->line('Unlock it yourself via the control panel link, or via <fg=cyan>php artisan license:unlock</> after setting LICENSE_SECRET.');
+        }
 
         return self::SUCCESS;
     }

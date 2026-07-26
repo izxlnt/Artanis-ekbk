@@ -45,6 +45,8 @@ class SystemControlPanelTest extends TestCase
     /** @test */
     public function panel_can_lock_the_system()
     {
+        config(['app.license_secret' => 'test-secret-for-panel-suite']);
+
         $this->post(route('system-control.lock', $this->token()), ['reason' => 'unit test'])
             ->assertRedirect(route('system-control.panel', $this->token()));
 
@@ -53,10 +55,39 @@ class SystemControlPanelTest extends TestCase
         // Front door is now blocked...
         $this->get('/')->assertStatus(503);
 
-        // ...but the panel itself still shows the current key.
+        // ...and since a secret is configured here, the panel also shows
+        // the optional public key.
         $panel = $this->get('/system-control/' . $this->token());
         $panel->assertSee('Sistem Dikunci');
         $panel->assertSee(app(LicenseService::class)->currentKey());
+    }
+
+    /**
+     * The whole point of the panel: it must work with CONTROL_PANEL_TOKEN
+     * alone. Confirmed against this exact scenario — LICENSE_SECRET is
+     * commented out in this dev .env right now.
+     */
+    /** @test */
+    public function panel_can_lock_and_unlock_with_no_license_secret_configured_at_all()
+    {
+        config(['app.license_secret' => null]);
+
+        $this->post(route('system-control.lock', $this->token()), ['reason' => 'no secret'])
+            ->assertRedirect(route('system-control.panel', $this->token()));
+        $this->assertTrue(app(LicenseService::class)->isLocked());
+        $this->get('/')->assertStatus(503);
+
+        // Panel shows locked status but no key box (there's nothing to derive).
+        $panel = $this->get('/system-control/' . $this->token());
+        $panel->assertSee('Sistem Dikunci');
+        $panel->assertDontSee('Kod Akses Awam');
+
+        $this->post(route('system-control.unlock', $this->token()))
+            ->assertRedirect(route('system-control.panel', $this->token()))
+            ->assertSessionHas('success');
+
+        $this->assertFalse(app(LicenseService::class)->isLocked());
+        $this->get('/')->assertOk();
     }
 
     /** @test */

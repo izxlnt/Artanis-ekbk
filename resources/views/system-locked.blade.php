@@ -208,15 +208,17 @@
 
             <hr class="divider">
 
-            <form method="POST" action="{{ route('system-locked.unlock') }}">
-                @csrf
-                <label for="unlock_key">Kod Akses</label>
-                <input type="text" id="unlock_key" name="unlock_key" placeholder="XXXX-XXXX-XXXX-XXXX" autocomplete="off" autofocus>
-                @error('unlock_key')
-                    <div class="error-text">{{ $message }}</div>
-                @enderror
-                <button type="submit">Buka Sistem</button>
-            </form>
+            @if ($hasSecret ?? true)
+                <form method="POST" action="{{ route('system-locked.unlock') }}">
+                    @csrf
+                    <label for="unlock_key">Kod Akses</label>
+                    <input type="text" id="unlock_key" name="unlock_key" placeholder="XXXX-XXXX-XXXX-XXXX" autocomplete="off" autofocus>
+                    @error('unlock_key')
+                        <div class="error-text">{{ $message }}</div>
+                    @enderror
+                    <button type="submit">Buka Sistem</button>
+                </form>
+            @endif
 
             <p class="footer-text">
                 &copy; {{ date('Y') }} <strong>SISTEM eSHUTTLE</strong>

@@ -27,6 +27,11 @@ class SystemLicenseLockTest extends TestCase
         // test method in this process — flush it so one test's failed
         // attempts never count against a later, unrelated test.
         Cache::flush();
+        // These tests exercise the key-based flow, so force a known secret
+        // regardless of whatever the real .env currently has (it may well
+        // be unset — LICENSE_SECRET is optional and the panel doesn't need
+        // it at all, see SystemControlPanelTest for that scenario).
+        config(['app.license_secret' => 'test-secret-for-license-lock-suite']);
     }
 
     /** @test */
@@ -119,5 +124,61 @@ class SystemLicenseLockTest extends TestCase
         // 6th attempt within the throttle window should be rate limited (429).
         $this->post(route('system-locked.unlock'), ['unlock_key' => 'WRONG'])
             ->assertStatus(429);
+    }
+
+    /**
+     * LICENSE_SECRET is optional — a developer without full server access
+     * (or who simply never sets it) must still be able to lock and unlock
+     * entirely via the control panel. Confirmed for real: this dev .env
+     * currently has it commented out and everything below still works.
+     */
+    /** @test */
+    public function locking_still_works_with_no_license_secret_configured()
+    {
+        config(['app.license_secret' => null]);
+        $service = app(LicenseService::class);
+
+        $key = $service->lock('no secret configured');
+
+        $this->assertNull($key, 'No secret means no public key can be derived.');
+        $this->assertTrue($service->isLocked(), 'Locking itself must still succeed without a secret.');
+    }
+
+    /** @test */
+    public function locked_page_hides_the_code_form_when_no_secret_is_configured()
+    {
+        config(['app.license_secret' => null]);
+        app(LicenseService::class)->lock('no secret configured');
+
+        $resp = $this->get('/');
+        $resp->assertStatus(503);
+        $resp->assertDontSee('name="unlock_key"', false);
+    }
+
+    /** @test */
+    public function public_unlock_route_fails_gracefully_with_no_secret_configured()
+    {
+        config(['app.license_secret' => null]);
+        app(LicenseService::class)->lock('no secret configured');
+
+        // Even the correct-looking format can't possibly be valid with no
+        // secret to derive against — must fail cleanly, not error.
+        $this->post(route('system-locked.unlock'), ['unlock_key' => 'AAAA-BBBB-CCCC-DDDD'])
+            ->assertSessionHasErrors('unlock_key');
+
+        $this->assertTrue(app(LicenseService::class)->isLocked());
+    }
+
+    /** @test */
+    public function force_unlock_works_with_no_secret_configured()
+    {
+        config(['app.license_secret' => null]);
+        $service = app(LicenseService::class);
+        $service->lock('no secret configured');
+
+        $service->forceUnlock();
+
+        $this->assertFalse($service->isLocked());
+        $this->get('/')->assertOk();
     }
 }
