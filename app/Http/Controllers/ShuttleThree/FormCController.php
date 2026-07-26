@@ -66,7 +66,7 @@ class FormCController extends Controller
         $kilang_info = Shuttle::where('id', auth()->user()->shuttle_id)->first();
         $formc = ModelsFormC::firstOrCreate(
             ['shuttle_id' => auth()->user()->shuttle_id, 'bulan' => $bulan_id, 'tahun' => $year],
-            ['status' => 'Tidak Diisi', 'created_at' => $year . '-' . str_pad($bulan_id, 2, '0', STR_PAD_LEFT) . '-01']
+            ['shuttle_type' => auth()->user()->shuttle_type, 'status' => 'Tidak Diisi', 'created_at' => $year . '-' . str_pad($bulan_id, 2, '0', STR_PAD_LEFT) . '-01']
         );
 
         if ($formc->status === 'Ditutup') {
@@ -454,7 +454,7 @@ class FormCController extends Controller
         $kilang_info = Shuttle::where('id', auth()->user()->shuttle_id)->first();
         $formc = ModelsFormC::firstOrCreate(
             ['shuttle_id' => auth()->user()->shuttle_id, 'bulan' => $bulan_id, 'tahun' => $year],
-            ['status' => 'Tidak Diisi', 'created_at' => $year . '-' . str_pad($bulan_id, 2, '0', STR_PAD_LEFT) . '-01']
+            ['shuttle_type' => auth()->user()->shuttle_type, 'status' => 'Tidak Diisi', 'created_at' => $year . '-' . str_pad($bulan_id, 2, '0', STR_PAD_LEFT) . '-01']
         );
 
         if ($formc->status === 'Ditutup') {
@@ -828,7 +828,7 @@ class FormCController extends Controller
         $kilang_info = Shuttle::where('id', auth()->user()->shuttle_id)->first();
         $formc = ModelsFormC::firstOrCreate(
             ['shuttle_id' => auth()->user()->shuttle_id, 'bulan' => $bulan_id, 'tahun' => $year],
-            ['status' => 'Tidak Diisi', 'created_at' => $year . '-' . str_pad($bulan_id, 2, '0', STR_PAD_LEFT) . '-01']
+            ['shuttle_type' => auth()->user()->shuttle_type, 'status' => 'Tidak Diisi', 'created_at' => $year . '-' . str_pad($bulan_id, 2, '0', STR_PAD_LEFT) . '-01']
         );
 
         if ($formc->status === 'Ditutup') {
@@ -1204,7 +1204,7 @@ class FormCController extends Controller
         $kilang_info = Shuttle::where('id', auth()->user()->shuttle_id)->first();
         $formc = ModelsFormC::firstOrCreate(
             ['shuttle_id' => auth()->user()->shuttle_id, 'bulan' => $bulan_id, 'tahun' => $year],
-            ['status' => 'Tidak Diisi', 'created_at' => $year . '-' . str_pad($bulan_id, 2, '0', STR_PAD_LEFT) . '-01']
+            ['shuttle_type' => auth()->user()->shuttle_type, 'status' => 'Tidak Diisi', 'created_at' => $year . '-' . str_pad($bulan_id, 2, '0', STR_PAD_LEFT) . '-01']
         );
 
         if ($formc->status === 'Ditutup') {
@@ -1575,7 +1575,7 @@ class FormCController extends Controller
         $kilang_info = Shuttle::where('id', auth()->user()->shuttle_id)->first();
         $formc = ModelsFormC::firstOrCreate(
             ['shuttle_id' => auth()->user()->shuttle_id, 'bulan' => $bulan_id, 'tahun' => $year],
-            ['status' => 'Tidak Diisi', 'created_at' => $year . '-' . str_pad($bulan_id, 2, '0', STR_PAD_LEFT) . '-01']
+            ['shuttle_type' => auth()->user()->shuttle_type, 'status' => 'Tidak Diisi', 'created_at' => $year . '-' . str_pad($bulan_id, 2, '0', STR_PAD_LEFT) . '-01']
         );
 
         if ($formc->status === 'Ditutup') {
