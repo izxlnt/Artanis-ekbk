@@ -5,6 +5,7 @@ namespace App\Http\Controllers\ShuttleThree;
 use App\Http\Controllers\Controller;
 use App\Mail\JPN\BorangTidakDiambilTindakanMail;
 use App\Mail\PHD\BorangTidakDiisiMail;
+use App\Models\Batch;
 use App\Models\Buffer;
 use App\Models\Daerah;
 use App\Models\Form4D;
@@ -14,6 +15,7 @@ use App\Models\Form5E;
 use App\Models\FormA;
 use App\Models\FormB;
 use App\Models\FormC;
+use App\Models\FormD;
 use App\Models\Shuttle;
 use App\Models\User;
 use App\Notifications\JPN\BorangTidakDiambilTindakan;
@@ -157,6 +159,13 @@ class ListAController extends Controller
 
         $form_c = FormC::whereHas('shuttle', function ($q) {
             $q->where('negeri_id', auth()->user()->negeri);
+        })->whereIn('status', ['Sedang Diproses', 'Tiada Pengeluaran'])->get();
+
+        // Shuttle type 3's own Form D model — previously never queried here at
+        // all, so a shuttle-3 mill's pending Form D backlog was invisible to
+        // this reminder from any angle (only Form4D/Form5D were checked).
+        $form_d = FormD::whereHas('shuttle', function ($q) {
+            $q->where('negeri_id', auth()->user()->negeri);
         })->where('status', 'Sedang Diproses')->get();
 
         $form_4d = Form4D::whereHas('shuttle', function ($q) {
@@ -174,6 +183,37 @@ class ListAController extends Controller
         $form_5e = Form5E::whereHas('shuttle', function ($q) {
             $q->where('negeri_id', auth()->user()->negeri);
         })->where('status', 'Sedang Diproses')->get();
+
+        // Batches where PHD has already resolved every submitted form (nothing left
+        // awaiting a first look) but never sent the package on to IPJPSM. The form_*
+        // queries above only catch "PHD hasn't verified yet" — this catches "PHD
+        // verified everything but forgot to click Hantar Pakej", which otherwise
+        // shows 0 here even though IPJPSM still has nothing for that month.
+        $batches_belum_hantar = Batch::where('status', 'Sedang Diproses')
+            ->whereHas('shuttle', function ($q) {
+                $q->where('negeri_id', auth()->user()->negeri);
+            })
+            ->with('shuttle')
+            ->get()
+            ->filter(function ($batch) {
+                $fields = ['borang_a', 'borang_b', 'borang_c', 'borang_d'];
+                if ((int) $batch->shuttle->shuttle_type !== 3) {
+                    $fields[] = 'borang_e';
+                }
+
+                $hasApproved = false;
+                foreach ($fields as $field) {
+                    $value = (int) $batch->$field;
+                    if ($value === 1) {
+                        return false; // still awaiting PHD's first look, already counted above
+                    }
+                    if ($value === 2) {
+                        $hasApproved = true;
+                    }
+                }
+
+                return $hasApproved; // approved and ready, but package itself was never sent
+            });
 
         // dd($daerah_list);
 
@@ -198,10 +238,12 @@ class ListAController extends Controller
             'form_a',
             'form_b',
             'form_c',
+            'form_d',
             'form_4d',
             'form_4e',
             'form_5d',
             'form_5e',
+            'batches_belum_hantar',
             'returnArr',
 
         ));
