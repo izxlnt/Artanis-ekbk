@@ -602,7 +602,7 @@ class FormB extends Component
 
                 'shuttle_id' => $shuttle_id->id,
                 'kategori_guna_tenaga_id' => $data->id,
-                'bulan' => now()->month,
+                'bulan' => $bulan,
                 'tahun' => $this->year,
                 'formbs_id' => $formb->id,
 
