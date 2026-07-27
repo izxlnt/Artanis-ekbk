@@ -10,18 +10,47 @@ use App\Models\SystemLicense;
  * explicitly lets BPE/admin users through). This is the opposite: nobody,
  * including the client's own admin, can turn it off from any in-app screen.
  *
- * Two separate credentials, two separate purposes:
- * - CONTROL_PANEL_TOKEN gates /system-control/{token} — this alone is
- *   enough to lock or unlock at will, forever, no other secret needed.
- *   This is what you use yourself.
- * - LICENSE_SECRET (optional) additionally lets you hand out a short,
- *   typable one-time code (e.g. to the client once they've paid) so they
- *   can unlock it themselves on the public locked-out page, without ever
- *   giving them your panel link. If it's not set, that specific option is
- *   simply unavailable — the panel still works either way.
+ * Two independent trigger mechanisms, pick whichever fits your deployment:
+ *
+ * 1. Code-based (app/license-lock.php) — edit 'locked' to true, deploy as
+ *    you normally ship code. No .env, no database, no server access beyond
+ *    however you already deploy. Locking and unlocking both require a
+ *    deploy — there's no runtime button for this one, by design.
+ *
+ * 2. Database-backed, via /system-control/{token} (CONTROL_PANEL_TOKEN) or
+ *    the license:* artisan commands — needs one-time .env setup, but after
+ *    that, locking/unlocking is instant with no code deployment needed.
+ *    LICENSE_SECRET (optional, also .env) additionally lets you hand out a
+ *    short typable code so someone else can unlock the public locked-out
+ *    page themselves, without giving them your panel link.
  */
 class LicenseService
 {
+    /**
+     * Reads app/license-lock.php directly on every call (not through
+     * Laravel's config() cache), so editing the file takes effect
+     * immediately on deploy even if the server runs `php artisan config:cache`.
+     */
+    private function codeLock(): array
+    {
+        $path = base_path('app/license-lock.php');
+        if (!file_exists($path)) {
+            return ['locked' => false, 'message' => null];
+        }
+        $data = require $path;
+        return is_array($data) ? $data : ['locked' => false, 'message' => null];
+    }
+
+    public function isCodeLocked(): bool
+    {
+        return !empty($this->codeLock()['locked']);
+    }
+
+    public function codeLockMessage(): ?string
+    {
+        return $this->codeLock()['message'] ?? null;
+    }
+
     public function hasSecret(): bool
     {
         return !empty(config('app.license_secret'));
@@ -34,7 +63,7 @@ class LicenseService
 
     public function isLocked(): bool
     {
-        return (bool) $this->current()->is_locked;
+        return $this->isCodeLocked() || (bool) $this->current()->is_locked;
     }
 
     /**
