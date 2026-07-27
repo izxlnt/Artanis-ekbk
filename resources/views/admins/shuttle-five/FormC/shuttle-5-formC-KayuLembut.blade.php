@@ -188,10 +188,11 @@
                                                                     <tr style="height:50px;">
                                                                         <th style="text-align:center; width: 589px;" colspan="4">Kumpulan Kayu Kayan</th>
                                                                         <th style="text-align:center;" colspan="2">Baki Stok Dari Bulan Lepas</th>
-                                                                        <th style="text-align:center;" colspan="2">Kemasukan Kayu Balak Ke Dalam Kawasan Kilang</th>
-                                                                        <th style="text-align:center;" colspan="2">Jumlah Stok Kayu Balak</th>
-                                                                        <th style="text-align:center;" colspan="2">Kemasukan Kayu Balak Ke Dalam Jentera Memproses<br>(dikupas)</th>
-                                                                        <th style="text-align:center;" colspan="2">Baki Stok Kayu Balak Dibawa Ke Bulan Hadapan</th>
+                                                                        <th style="text-align:center;" colspan="2">Kemasukan Kayu Gergaji Ke Dalam Kawasan Kilang</th>
+                                                                        <th style="text-align:center;" colspan="2">Jumlah Stok Kayu Gergaji</th>
+                                                                        <th style="text-align:center;" colspan="2">Kemasukan Kayu Gergaji Ke Dalam Jentera Memproses</th>
+                                                                        <th style="text-align:center;" colspan="2">Pengeluaran Kayu Kumai</th>
+                                                                        <th style="text-align:center;" colspan="2">Baki Stok Kayu Gergaji Dibawa Ke Bulan Hadapan</th>
                                                                     </tr>
                                                                     <tr style="height:50px;">
                                                                         <th style="text-align:center;" colspan="4">(01)</th>
@@ -199,7 +200,8 @@
                                                                         <th style="text-align:center;" colspan="2">(m³)<br>(03)</th>
                                                                         <th style="text-align:center;" colspan="2">(m³)<br>(04)=(02)+(03)</th>
                                                                         <th style="text-align:center;" colspan="2">(m³)<br>(05)</th>
-                                                                        <th style="text-align:center;" colspan="2">(m³)<br>(06)=(04)-(05)</th>
+                                                                        <th style="text-align:center;" colspan="2">(m³)<br>(06)</th>
+                                                                        <th style="text-align:center;" colspan="2">(m³)<br>(07)=(04)-(05)</th>
                                                                     </tr>
                                                                 </thead>
                                                                 <tbody class="" style="overflow-x: auto;">
@@ -207,6 +209,7 @@
                                                                         <tr style="height:50px;">
                                                                             <th style="text-align:center;width: 489px;">{{ $data->singkatan }} </th>
                                                                             <th style="text-align:center;width:100px;">Kod</th>
+                                                                            <th colspan="2"></th>
                                                                             <th colspan="2"></th>
                                                                             <th colspan="2"></th>
                                                                             <th colspan="2"></th>
@@ -255,6 +258,15 @@
                                                                                             value="{{ $proses_masuk[$keySpecies] }}">
                                                                                     </td>
                                                                                     <td style="text-align:center;" colspan="2">
+                                                                                        <input type="text"
+                                                                                            style="background-color: #ffffff; text-align:right"
+                                                                                            size="10" oninput="validate(this);calculateTotal({{ $keySpecies }});checkValidationKeluar({{ $keySpecies }})"
+                                                                                            id='proses_keluar.{{ $keySpecies }}'
+                                                                                            name='proses_keluar[]'
+                                                                                            onkeypress="return isNumberKey(event)"
+                                                                                            value="{{ $proses_keluar[$keySpecies] }}">
+                                                                                    </td>
+                                                                                    <td style="text-align:center;" colspan="2">
                                                                                         <input readonly
                                                                                             style="background-color: #e0ec3754; text-align:right"
                                                                                             type="text" oninput="validate(this);calculateTotal({{ $keySpecies }})"
@@ -279,6 +291,9 @@
                                                                             </td>
                                                                             <td style="text-align:center;" colspan="2">
                                                                                 <input readonly style="background-color: #e0ec3754; text-align:right" type="text" size="10" oninput="validate(this)" id='total_kayu_masuk_jentera.{{ $keyKumpulanKayu }}' name='total_kayu_masuk_jentera[]' value="{{ $total_kayu_masuk_jentera[$keyKumpulanKayu] ?? 0 }}">
+                                                                            </td>
+                                                                            <td style="text-align:center;" colspan="2">
+                                                                                <input readonly style="background-color: #e0ec3754; text-align:right" type="text" size="10" oninput="validate(this)" id='total_kayu_keluar_jentera.{{ $keyKumpulanKayu }}' name='total_kayu_keluar_jentera[]' value="{{ $total_kayu_keluar_jentera[$keyKumpulanKayu] ?? 0 }}">
                                                                             </td>
                                                                             <td style="text-align:center;" colspan="2">
                                                                                 <input readonly style="background-color: #e0ec3754; text-align:right" type="text" size="10" oninput="validate(this)" id='total_kayu_dibawa_bulan_hadapan.{{ $keyKumpulanKayu }}' name='total_kayu_dibawa_bulan_hadapan[]' value="{{ $total_kayu_dibawa_bulan_hadapan[$keyKumpulanKayu] ?? 0 }}">
@@ -401,6 +416,7 @@
                             var baki_stoks = parseFloat(document.getElementById("baki_stoks." + index).value);
                             var kayu_masuk = parseFloat(document.getElementById("kayu_masuk." + index).value);
                             var proses_masuk = parseFloat(document.getElementById("proses_masuk." + index).value);
+                            var proses_keluar = parseFloat(document.getElementById("proses_keluar." + index).value);
                             var jumlah_stok_kayu_balak = 0;
                             var baki_stok_kehadapan = 0;
                             jumlah_stok_kayu_balak = kayu_masuk + baki_stoks || 0;
@@ -410,11 +426,13 @@
                             jumlah_kayu_masuk += kayu_masuk || 0;
                             total_stok_kayu_balak += kayu_masuk + baki_stoks || 0;
                             total_kayu_masuk_jentera += proses_masuk || 0;
+                            total_kayu_keluar_jentera += proses_keluar || 0;
                             total_kayu_dibawa_bulan_hadapan += baki_stok_kehadapan || 0;
                         }
                         document.getElementById("jumlah_kayu_masuk.0").value = parseFloat(jumlah_kayu_masuk).toFixed(2);
                         document.getElementById("total_stok_kayu_balak.0").value = parseFloat(total_stok_kayu_balak).toFixed(2);
                         document.getElementById("total_kayu_masuk_jentera.0").value = parseFloat(total_kayu_masuk_jentera).toFixed(2);
+                        document.getElementById("total_kayu_keluar_jentera.0").value = parseFloat(total_kayu_keluar_jentera).toFixed(2);
                         document.getElementById("total_kayu_dibawa_bulan_hadapan.0").value = parseFloat(total_kayu_dibawa_bulan_hadapan).toFixed(2);
                     }
                     function checkValidationMasuk(key) {
@@ -426,10 +444,31 @@
                             img.setAttribute('id', 'proses_masuk_validation');
                             img.setAttribute('class', 'fas fa-exclamation-circle');
                             img.setAttribute('style', 'color: red');
-                            img.setAttribute('title', 'Kemasukan Kayu Balak Ke Dalam Jentera Memproses (05) mestilah tidak melebihi ataupun sama daripada Jumlah Stok Kayu Balak (04)');
+                            img.setAttribute('title', 'Kemasukan Kayu Gergaji Ke Dalam Jentera Memproses (05) mestilah tidak melebihi ataupun sama daripada Jumlah Stok Kayu Gergaji (04)');
                             document.getElementById("proses_masuk." + key).parentNode.appendChild(img);
                         }else{
                             if ($('#proses_masuk_validation').length === 1) { $('#proses_masuk_validation').remove(); }
+                        }
+                        checkValidationKeluar(key);
+                    }
+                    function checkValidationKeluar(key) {
+                        var min = {{ $min_recovery_rate }}, max = {{ $max_recovery_rate }};
+                        var proses_masuk = document.getElementById("proses_masuk." + key).value;
+                        var proses_keluar = document.getElementById("proses_keluar." + key).value;
+                        var min_value = parseFloat(proses_masuk).toFixed(2) * parseFloat(min);
+                        var max_value = parseFloat(proses_masuk).toFixed(2) * parseFloat(max);
+                        if(parseFloat(proses_keluar) < parseFloat(min_value) || parseFloat(proses_keluar) > parseFloat(max_value)){
+                            if ($('#proses_keluar_validation').length === 1) { $('#proses_keluar_validation').remove(); }
+                            var img = document.createElement('i');
+                            img.setAttribute('id', 'proses_keluar_validation');
+                            img.setAttribute('class', 'fas fa-exclamation-circle');
+                            img.setAttribute('style', 'color: red');
+                            img.setAttribute('title', 'Pengeluaran Kayu Kumai (06)'
+                            + ' mestilah sekurang-kurangnya '+ parseFloat(min_value).toFixed(2) +' dan tidak melebihi '+ parseFloat(max_value).toFixed(2) +' daripada '
+                            + ' Kemasukan Kayu Gergaji Ke Dalam Jentera Memproses (05)');
+                            document.getElementById("proses_keluar." + key).parentNode.appendChild(img);
+                        }else{
+                            if ($('#proses_keluar_validation').length === 1) { $('#proses_keluar_validation').remove(); }
                         }
                     }
                     function checkValidationuSubmit() {
@@ -438,9 +477,18 @@
                         for (let index = 0; index < species_count; index++) {
                             var total_kayu_dibawa_bulan_hadapan = parseFloat(document.getElementById("baki_stok_kehadapan." + index).value);
                             var proses_masuk = parseFloat(document.getElementById("proses_masuk." + index).value);
+                            var proses_keluar = document.getElementById("proses_keluar." + index).value;
                             var jumlah_stok_kayu_balak = parseFloat(document.getElementById("jumlah_stok_kayu_balak." + index).value);
+                            var min_value = parseFloat(proses_masuk).toFixed(2) * parseFloat(min);
+                            var max_value = parseFloat(proses_masuk).toFixed(2) * parseFloat(max);
                             if(proses_masuk > jumlah_stok_kayu_balak){
-                                toastr.error('Kemasukan Kayu Balak Ke Dalam Jentera Memproses (05) mestilah tidak melebihi ataupun sama daripada Jumlah Stok Kayu Balak (04)', 'Ralat', { "progressBar": true });
+                                toastr.error('Kemasukan Kayu Gergaji Ke Dalam Jentera Memproses (05) mestilah tidak melebihi ataupun sama daripada Jumlah Stok Kayu Gergaji (04)', 'Ralat', { "progressBar": true });
+                                return false;
+                            }
+                            if(parseFloat(proses_keluar) < parseFloat(min_value) || parseFloat(proses_keluar) > parseFloat(max_value)){
+                                toastr.error('Pengeluaran Kayu Kumai (06)'
+                            + ' mestilah sekurang-kurangnya '+ parseFloat(min_value).toFixed(2) +' dan tidak melebihi '+ parseFloat(max_value).toFixed(2) +' daripada '
+                            + ' Kemasukan Kayu Gergaji Ke Dalam Jentera Memproses (05)', 'Ralat', { "progressBar": true });
                                 return false;
                             }
                         }
