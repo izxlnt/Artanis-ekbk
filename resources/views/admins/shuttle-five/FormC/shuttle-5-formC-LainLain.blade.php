@@ -463,6 +463,14 @@
                                                                     <input readonly
                                                                         style="background-color: #e0ec3754; text-align:right"
                                                                         type="text" size="10" oninput="validate(this)"
+                                                                        name='jumlah_besar_pengeluaran_kayu_daripada_jentera'
+                                                                        id='jumlah_besar_pengeluaran_kayu_daripada_jentera'
+                                                                        value="{{ $besar_total_kayu_keluar_jentera }}">
+                                                                </td>
+                                                                <td style="text-align:center;" colspan="2">
+                                                                    <input readonly
+                                                                        style="background-color: #e0ec3754; text-align:right"
+                                                                        type="text" size="10" oninput="validate(this)"
                                                                         name='jumlah_besar_baki_stok_bulan_depan'
                                                                         id='jumlah_besar_baki_stok_bulan_depan'
                                                                         value="{{ $besar_total_kayu_dibawa_bulan_hadapan }}">
@@ -644,7 +652,7 @@
                     var species_count = {{ $species_count }};
                     var jumlah_kayu_masuk = 0, total_stok_kayu_balak = 0, total_kayu_masuk_jentera = 0, total_kayu_dibawa_bulan_hadapan = 0, total_kayu_keluar_jentera = 0;
                     var jumlah_besar_baki_stok_bulan_lepas = {{ $besar_jumlah_baki_stok_tanpa_lain }}, jumlah_besar_kemasukan_kayu_ke_kilang = {{ $besar_jumlah_kayu_masuk_tanpa_lain }},  jumlah_besar_stok_kayu_balak = {{ $besar_total_stok_kayu_balak_tanpa_lain }},
-                    jumlah_besar_kayu_ke_dalam_jentera = {{ $besar_total_kayu_masuk_jentera_tanpa_lain }}, jumlah_besar_baki_stok_bulan_depan = {{ $besar_total_kayu_dibawa_bulan_hadapan_tanpa_lain }};
+                    jumlah_besar_kayu_ke_dalam_jentera = {{ $besar_total_kayu_masuk_jentera_tanpa_lain }}, jumlah_besar_pengeluaran_kayu_daripada_jentera = {{ $besar_total_kayu_keluar_jentera_tanpa_lain }}, jumlah_besar_baki_stok_bulan_depan = {{ $besar_total_kayu_dibawa_bulan_hadapan_tanpa_lain }};
 
                     for (let index = 0; index < species_count; index++) {
 
@@ -671,6 +679,7 @@
                     jumlah_besar_kemasukan_kayu_ke_kilang += jumlah_kayu_masuk;
                     jumlah_besar_stok_kayu_balak += total_stok_kayu_balak;
                     jumlah_besar_kayu_ke_dalam_jentera += total_kayu_masuk_jentera;
+                    jumlah_besar_pengeluaran_kayu_daripada_jentera += total_kayu_keluar_jentera;
                     jumlah_besar_baki_stok_bulan_depan += total_kayu_dibawa_bulan_hadapan;
                     // console.log(jumlah_besar_kemasukan_kayu_ke_kilang);
 
@@ -683,6 +692,7 @@
                     document.getElementById("jumlah_besar_kemasukan_kayu_ke_kilang").value =  parseFloat(jumlah_besar_kemasukan_kayu_ke_kilang).toFixed(2);
                     document.getElementById("jumlah_besar_stok_kayu_balak").value =  parseFloat(jumlah_besar_stok_kayu_balak).toFixed(2);
                     document.getElementById("jumlah_besar_kayu_ke_dalam_jentera").value =  parseFloat(jumlah_besar_kayu_ke_dalam_jentera).toFixed(2);
+                    document.getElementById("jumlah_besar_pengeluaran_kayu_daripada_jentera").value =  parseFloat(jumlah_besar_pengeluaran_kayu_daripada_jentera).toFixed(2);
                     document.getElementById("jumlah_besar_baki_stok_bulan_depan").value =  parseFloat(jumlah_besar_baki_stok_bulan_depan).toFixed(2);
 
                     console.log(jumlah_besar_kemasukan_kayu_ke_kilang);

@@ -1245,6 +1245,15 @@ class FormCController extends Controller
         $besar_total_kayu_masuk_jentera = (float)$kkb + (float)$kks + (float)$kkr + (float)$kayu_lembut  + (float)$lain_lain;
         $besar_total_kayu_masuk_jentera_tanpa_lain = (float)$kkb + (float)$kks + (float)$kkr + (float)$kayu_lembut;
 
+        $kkb = $kemasukan_bahan_calc_kkb->total_kayu_keluar_jentera ?? 0;
+        $kks = $kemasukan_bahan_calc_kks->total_kayu_keluar_jentera ?? 0;
+        $kkr = $kemasukan_bahan_calc_kkr->total_kayu_keluar_jentera ?? 0;
+        $kayu_lembut = $kemasukan_bahan_calc_kayu_lembut->total_kayu_keluar_jentera ?? 0;
+        $lain_lain = $kemasukan_bahan_calc_lain_lain->total_kayu_keluar_jentera ?? 0;
+
+        $besar_total_kayu_keluar_jentera = (float)$kkb + (float)$kks + (float)$kkr + (float)$kayu_lembut  + (float)$lain_lain;
+        $besar_total_kayu_keluar_jentera_tanpa_lain = (float)$kkb + (float)$kks + (float)$kkr + (float)$kayu_lembut;
+
         $kkb = $kemasukan_bahan_calc_kkb->total_kayu_dibawa_bulan_hadapan ?? 0;
         $kks = $kemasukan_bahan_calc_kks->total_kayu_dibawa_bulan_hadapan ?? 0;
         $kkr = $kemasukan_bahan_calc_kkr->total_kayu_dibawa_bulan_hadapan ?? 0;
@@ -1283,6 +1292,7 @@ class FormCController extends Controller
                 $proses_keluar[$key] = 0;
                 $jumlah_kayu_masuk[$key] = 0;
                 $total_kayu_masuk_jentera[$key] = 0;
+                $total_kayu_keluar_jentera[$key] = 0;
                 $baki_stok_kehadapan[$key] = $baki_stok;
             }
         } else {
@@ -1329,6 +1339,9 @@ class FormCController extends Controller
             }
             foreach ($total_kayu_masuk_jentera as $value) {
                 $besar_total_kayu_masuk_jentera += (float)$value;
+            }
+            foreach ($total_kayu_keluar_jentera as $value) {
+                $besar_total_kayu_keluar_jentera += (float)$value;
             }
             foreach ($total_kayu_dibawa_bulan_hadapan as $value) {
                 $besar_total_kayu_dibawa_bulan_hadapan += (float)$value;
@@ -1407,12 +1420,14 @@ class FormCController extends Controller
             'besar_jumlah_kayu_masuk'     => $besar_jumlah_kayu_masuk ?? 0,
             'besar_total_stok_kayu_balak'     => $besar_total_stok_kayu_balak ?? 0,
             'besar_total_kayu_masuk_jentera'     => $besar_total_kayu_masuk_jentera ?? 0,
+            'besar_total_kayu_keluar_jentera'     => $besar_total_kayu_keluar_jentera ?? 0,
             'besar_total_kayu_dibawa_bulan_hadapan'     => $besar_total_kayu_dibawa_bulan_hadapan ?? 0,
 
             'besar_jumlah_baki_stok_tanpa_lain'     => $besar_jumlah_baki_stok_tanpa_lain ?? 0,
             'besar_jumlah_kayu_masuk_tanpa_lain'     => $besar_jumlah_kayu_masuk_tanpa_lain ?? 0,
             'besar_total_stok_kayu_balak_tanpa_lain'     => $besar_total_stok_kayu_balak_tanpa_lain ?? 0,
             'besar_total_kayu_masuk_jentera_tanpa_lain'     => $besar_total_kayu_masuk_jentera_tanpa_lain ?? 0,
+            'besar_total_kayu_keluar_jentera_tanpa_lain'     => $besar_total_kayu_keluar_jentera_tanpa_lain ?? 0,
             'besar_total_kayu_dibawa_bulan_hadapan_tanpa_lain'     => $besar_total_kayu_dibawa_bulan_hadapan_tanpa_lain ?? 0,
         ];
 
