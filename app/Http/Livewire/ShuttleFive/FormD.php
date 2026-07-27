@@ -25,7 +25,7 @@ class FormD extends Component
     public function mount()
     {
         $this->kemasukan_bahan_calc_lain_lain = $this->form_c_data
-            ? (float) KemasukanBahan::where('shuttle_id', auth()->user()->shuttle_id)->where('formcs_id', $this->form_c_data->id)->sum('proses_masuk')
+            ? (float) KemasukanBahan::where('shuttle_id', auth()->user()->shuttle_id)->where('formcs_id', $this->form_c_data->id)->sum('proses_keluar')
             : 0;
 
         $formd = FormFlowService::findFormD(auth()->user()->shuttle_id, 5, date("Y"), $this->bulan_id);
