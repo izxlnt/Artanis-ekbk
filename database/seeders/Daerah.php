@@ -897,8 +897,8 @@ class Daerah extends Seeder
             [
 
             'negeri' => 'Pulau Pinang',
-            'daerah_hutan' => 'Seberang Prai Utara - Tengah',
-            'daerah_sivil' => 'Seberang Prai Utara',
+            'daerah_hutan' => 'Seberang Perai Utara/Tengah',
+            'daerah_sivil' => 'Seberang Perai Utara',
 
             ]
         );
@@ -907,8 +907,8 @@ class Daerah extends Seeder
             [
 
             'negeri' => 'Pulau Pinang',
-            'daerah_hutan' => 'Seberang Prai Utara - Tengah',
-            'daerah_sivil' => 'Seberang Prai Tengah',
+            'daerah_hutan' => 'Seberang Perai Utara/Tengah',
+            'daerah_sivil' => 'Seberang Perai Tengah',
 
             ]
         );
@@ -917,8 +917,8 @@ class Daerah extends Seeder
             [
 
             'negeri' => 'Pulau Pinang',
-            'daerah_hutan' => 'Seberang Prai Selatan (Timur-Barat)',
-            'daerah_sivil' => 'Seberang Prai Selatan',
+            'daerah_hutan' => 'Seberang Perai Selatan',
+            'daerah_sivil' => 'Seberang Perai Selatan',
 
             ]
         );

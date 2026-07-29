@@ -382,6 +382,9 @@ Route::middleware('auth')->group(
 
                 //shuttle 4 phd view
                 Route::get('/pengguna/shuttle-4-view-formC/{id}', [App\Http\Controllers\ShuttleThree\ViewFormCController::class, 'ibk_shuttle_4_formC_view'])->name('pengguna.shuttle-4-view-formC');
+
+                //shuttle 5 ibk view
+                Route::get('/pengguna/shuttle-5-view-formC/{id}', [App\Http\Controllers\ShuttleThree\ViewFormCController::class, 'ibk_shuttle_5_formC_view'])->name('pengguna.shuttle-5-view-formC');
             });
 
             Route::middleware('jpn')->group(function () {
