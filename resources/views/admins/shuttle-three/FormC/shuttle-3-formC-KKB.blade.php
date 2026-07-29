@@ -399,7 +399,7 @@
                                                                                 oninput="validate(this)"
                                                                                 id='jumlah_baki_stok.{{ $keyKumpulanKayu }}'
                                                                                 name='jumlah_baki_stok[]'
-                                                                                value="{{ $jumlah_baki_stok[$keyKumpulanKayu] ?? 0 }}">
+                                                                                value="{{ array_sum($jumlah_baki_stok ?? []) }}">
                                                                         </td>
                                                                         <td style="text-align:center;" colspan="2">
                                                                             <input readonly
@@ -408,7 +408,7 @@
                                                                                 oninput="validate(this)"
                                                                                 id='jumlah_kayu_masuk.{{ $keyKumpulanKayu }}'
                                                                                 name='jumlah_kayu_masuk[]'
-                                                                                value="{{ $jumlah_kayu_masuk[$keyKumpulanKayu] ?? 0}}">
+                                                                                value="{{ array_sum($jumlah_kayu_masuk ?? []) }}">
                                                                         </td>
                                                                         <td style="text-align:center;" colspan="2">
                                                                             <input readonly
@@ -417,7 +417,7 @@
                                                                                 oninput="validate(this)"
                                                                                 id='total_stok_kayu_balak.{{ $keyKumpulanKayu }}'
                                                                                 name='total_stok_kayu_balak[]'
-                                                                                value="{{ $total_stok_kayu_balak[$keyKumpulanKayu] ?? 0}}">
+                                                                                value="{{ array_sum($total_stok_kayu_balak ?? []) }}">
                                                                         </td>
                                                                         <td style="text-align:center;" colspan="2">
                                                                             <input readonly
@@ -426,7 +426,7 @@
                                                                                 oninput="validate(this)"
                                                                                 id='total_kayu_masuk_jentera.{{ $keyKumpulanKayu }}'
                                                                                 name='total_kayu_masuk_jentera[]'
-                                                                                value="{{ $total_kayu_masuk_jentera[$keyKumpulanKayu] ?? 0}}">
+                                                                                value="{{ array_sum($total_kayu_masuk_jentera ?? []) }}">
                                                                         </td>
                                                                         <td style="text-align:center;" colspan="2">
                                                                             <input readonly
@@ -435,7 +435,7 @@
                                                                                 oninput="validate(this)"
                                                                                 id='total_kayu_keluar_jentera.{{ $keyKumpulanKayu }}'
                                                                                 name='total_kayu_keluar_jentera[]'
-                                                                                value="{{ $total_kayu_keluar_jentera[$keyKumpulanKayu] ?? 0}}">
+                                                                                value="{{ array_sum($total_kayu_keluar_jentera ?? []) }}">
                                                                         </td>
                                                                         <td style="text-align:center;" colspan="2">
                                                                             <input readonly
@@ -444,7 +444,7 @@
                                                                                 oninput="validate(this)"
                                                                                 id='total_kayu_dibawa_bulan_hadapan.{{ $keyKumpulanKayu }}'
                                                                                 name='total_kayu_dibawa_bulan_hadapan[]'
-                                                                                value="{{ $total_kayu_dibawa_bulan_hadapan[$keyKumpulanKayu] ?? 0}}">
+                                                                                value="{{ array_sum($total_kayu_dibawa_bulan_hadapan ?? []) }}">
                                                                         </td>
                                                                     </tr>
 
