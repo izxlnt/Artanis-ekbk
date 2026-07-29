@@ -832,6 +832,81 @@ class ViewFormCController extends Controller
         );
     }
 
+    public function ibk_shuttle_5_formC_view($id)
+    {
+        $formc = FormC::where('id', $id)->first();
+
+        if (!$formc) {
+            return redirect()->route('home-user')->with('error', 'Rekod Borang C tidak dijumpai.');
+        }
+
+        $species = Spesis::orderBy('kumpulan_kayu_id')->orderBy('nama_tempatan')->get();
+        $kumpulan_kayu = KumpulanKayu::get();
+
+        $kilang_info = Shuttle::where('id', $formc->shuttle_id)->first();
+
+        $layout = 'layouts.layout-ibk-nicepage';
+
+        $form_c = KemasukanBahan::where('formcs_id', $formc->id)->get();
+        $form_c_by_species = [];
+        foreach ($form_c as $data) {
+            $form_c_by_species[$data->spesis_id] = $data;
+        }
+
+        $kemasukan_bahan_calc_kkb = KemasukanBahan::with('spesis_id')->whereHas('spesis_id', function ($q) {
+            $q->where('kumpulan_kayu_id', '1');
+        })->where('formcs_id', $formc->id)->first();
+
+        $kemasukan_bahan_calc_kks = KemasukanBahan::with('spesis_id')->whereHas('spesis_id', function ($q) {
+            $q->where('kumpulan_kayu_id', '2');
+        })->where('formcs_id', $formc->id)->first();
+
+        $kemasukan_bahan_calc_kkr = KemasukanBahan::with('spesis_id')->whereHas('spesis_id', function ($q) {
+            $q->where('kumpulan_kayu_id', '3');
+        })->where('formcs_id', $formc->id)->first();
+
+        $kemasukan_bahan_calc_kayu_lembut = KemasukanBahan::with('spesis_id')->whereHas('spesis_id', function ($q) {
+            $q->where('kumpulan_kayu_id', '4');
+        })->where('formcs_id', $formc->id)->first();
+
+        $kemasukan_bahan_calc_lain_lain = KemasukanBahan::with('spesis_id')->whereHas('spesis_id', function ($q) {
+            $q->where('kumpulan_kayu_id', '5');
+        })->where('formcs_id', $formc->id)->first();
+
+        $breadcrumbs = [
+            ['link' => route('home'), 'name' => "Laman Utama"],
+            ['link' => route('user.shuttle-5-senaraiC', date('Y')), 'name' => "Kemasukan Maklumat"],
+            ['link' => route('user.shuttle-5-senaraiC', date('Y')), 'name' => "BORANG 5C"],
+        ];
+
+        $kembali = route('user.shuttle-5-senaraiC', date('Y'));
+
+        $returnArr = [
+            'breadcrumbs' => $breadcrumbs,
+            'kembali'     => $kembali,
+        ];
+
+        return view(
+            'admins.shuttle-five.view-form5c-ibk',
+            compact(
+                'returnArr',
+                'kilang_info',
+                'form_c',
+                'form_c_by_species',
+                'id',
+                'species',
+                'kumpulan_kayu',
+                'formc',
+                'kemasukan_bahan_calc_kkb',
+                'kemasukan_bahan_calc_kkr',
+                'kemasukan_bahan_calc_kks',
+                'kemasukan_bahan_calc_kayu_lembut',
+                'kemasukan_bahan_calc_lain_lain',
+                'layout'
+            )
+        );
+    }
+
     public function jpn_shuttle_4_formC_view($id)
     {
         $formc = FormC::where('id', $id)->first();
