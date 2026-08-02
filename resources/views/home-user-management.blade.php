@@ -114,12 +114,15 @@
                                                             <button type="button"
                                                                 class="btn waves-effect waves-light btn-danger"
                                                                 onclick="disable_user({{ $data->id }})"><i
-                                                                    class="fas fa-trash-alt"></i></button>
+                                                                    class="fas fa-ban"></i></button>
                                                     </td>
                                                 @else
                                                     <button type="button" class="btn waves-effect waves-light btn-success"
                                                         onclick="enable_user({{ $data->id }})"><i
-                                                            class="fas fa-check-circle"></i></button></td>
+                                                            class="fas fa-check-circle"></i></button>
+                                                    <button type="button" class="btn waves-effect waves-light btn-danger"
+                                                        onclick="delete_user({{ $data->id }})"><i
+                                                            class="fas fa-trash-alt"></i></button></td>
                                             @endif
                                             </tr>
                                             @endforeach
@@ -194,6 +197,36 @@
                                 </div>
                             </div>
 
+                            <!-- Modal Delete User -->
+                            <div class="modal fade" id="delete_user_modal" tabindex="-1" role="dialog"
+                                aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header" style="background-color:#f3ce8f  !important">
+                                            <h5 class="modal-title" id="exampleModalLongTitle"><i
+                                                    class="fa fa-exclamation-triangle" style="color:rgb(255, 255, 0)"
+                                                    aria-hidden="true"></i>&nbspPENGESAHAN</h5>
+                                            <button type="button" class="close" data-dismiss="modal"
+                                                aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            Anda pasti mahu padam pengguna ini? Tindakan ini tidak boleh dibatalkan.
+                                        </div>
+                                        <div class="modal-footer">
+                                            <form action="{{ route('home-user.user-management.delete') }}" method="post">
+                                                @csrf
+                                                <button type="button" class="btn btn-secondary"
+                                                    data-dismiss="modal">Kembali</button>
+                                                <input type="hidden" name="user_id_delete" id="user_id_delete" readonly>
+                                                <button type="submit" class="btn btn-danger">Padam Pengguna</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
 
 
 
@@ -230,6 +263,11 @@
         function enable_user(user_id) {
             $("#user_id_enable").val(user_id);
             $("#enable_user_modal").modal();
+        }
+
+        function delete_user(user_id) {
+            $("#user_id_delete").val(user_id);
+            $("#delete_user_modal").modal();
         }
         $(document).ready(function() {
             $('#example').DataTable({

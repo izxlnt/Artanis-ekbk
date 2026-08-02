@@ -74,6 +74,7 @@ class Kernel extends HttpKernel
         'shuttle5' => \App\Http\Middleware\ShuttleFive::class,
         'shuttle4' => \App\Http\Middleware\ShuttleFour::class,
         'shuttle3' => \App\Http\Middleware\ShuttleThree::class,
+        'restrict.kilang.owner' => \App\Http\Middleware\RestrictKilangOwner::class,
 
     ];
 }

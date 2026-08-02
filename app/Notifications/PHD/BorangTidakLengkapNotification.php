@@ -5,6 +5,7 @@ namespace App\Notifications\PHD;
 use App\Mail\PHD\BorangTidakLengkapMail as BorangTidakLengkapMailable;
 
 use App\Models\PenggunaKilang;
+use App\Notifications\Concerns\GuardsMailFromAddress;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
@@ -13,7 +14,7 @@ use Illuminate\Support\Facades\Mail;
 
 class BorangTidakLengkapNotification extends Notification
 {
-    use Queueable;
+    use Queueable, GuardsMailFromAddress;
 
     /**
      * Create a new notification instance.
@@ -39,12 +40,7 @@ class BorangTidakLengkapNotification extends Notification
      */
     public function via($notifiable)
     {
-        $channels = ['database'];
-        $from = config('mail.from.address');
-        if ($from && $from !== 'null') {
-            $channels[] = 'mail';
-        }
-        return $channels;
+        return $this->channelsWithMail();
     }
 
     /**

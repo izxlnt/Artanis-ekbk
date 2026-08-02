@@ -4,6 +4,7 @@ namespace App\Http\Controllers\PengurusanPengguna;
 
 use App\Http\Controllers\Controller;
 use App\Mail\Registration\SendRegistrationMail;
+use App\Mail\Registration\PasswordRegeneratedMail;
 use Illuminate\Support\Facades\Mail;
 use App\Models\Daerah;
 use App\Models\PenggunaKilang;
@@ -569,5 +570,24 @@ class MainController extends Controller
         $user->save();
 
         return redirect()->back()->with('success', 'Pengguna Berjaya Diaktifkan');
+    }
+
+    /**
+     * Admin-triggered password reset: generates a new random password for the
+     * user, saves it, and emails it to them. Lets a user who forgot their
+     * password log in again without going through self-service reset.
+     */
+    public function janaKataLaluanBaharu($id)
+    {
+        $user = User::findOrFail($id);
+
+        $password = Str::random(8);
+
+        $user->password = Hash::make($password);
+        $user->save();
+
+        Mail::to($user)->send(new PasswordRegeneratedMail($user, $password));
+
+        return redirect()->back()->with('success', 'Kata laluan baharu telah dijana dan dihantar ke emel pengguna (' . $user->email . ').');
     }
 }

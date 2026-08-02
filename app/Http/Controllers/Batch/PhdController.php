@@ -45,9 +45,11 @@ class PhdController extends Controller
 
     public function shuttle_3_phd_hantar($id){
 
-
-        // dd($id);
         $batch = Batch::findorfail($id);
+
+        if ($incomplete = $this->borangBelumLengkap($batch, ['borang_a', 'borang_b', 'borang_c', 'borang_d'])) {
+            return redirect()->back()->with('error', 'Pakej ini belum boleh dihantar — '.$incomplete.' masih belum disahkan.');
+        }
 
         $batch->status = "Dihantar ke IPJPSM";
 
@@ -93,8 +95,11 @@ class PhdController extends Controller
 
     public function shuttle_4_phd_hantar($id){
 
-        // dd($id);
         $batch = Batch::findorfail($id);
+
+        if ($incomplete = $this->borangBelumLengkap($batch, ['borang_a', 'borang_b', 'borang_c', 'borang_d', 'borang_e'])) {
+            return redirect()->back()->with('error', 'Pakej ini belum boleh dihantar — '.$incomplete.' masih belum disahkan.');
+        }
 
         $batch->status = "Dihantar ke IPJPSM";
 
@@ -142,6 +147,10 @@ class PhdController extends Controller
 
         $batch = Batch::findorfail($id);
 
+        if ($incomplete = $this->borangBelumLengkap($batch, ['borang_a', 'borang_b', 'borang_c', 'borang_d', 'borang_e'])) {
+            return redirect()->back()->with('error', 'Pakej ini belum boleh dihantar — '.$incomplete.' masih belum disahkan.');
+        }
+
         $batch->status = "Dihantar ke IPJPSM";
 
         $batch->save();
@@ -149,5 +158,28 @@ class PhdController extends Controller
         //hantar email ke IPJPSM (lampiran baharu)
 
         return redirect()->back()->with('success', 'Borang berjaya dihantar ke IPJPSM.');
+    }
+
+    /**
+     * Returns a human-readable label for the first borang field on the batch
+     * that isn't confirmed (status "2") yet, or null if all of them are.
+     */
+    private function borangBelumLengkap(Batch $batch, array $fields): ?string
+    {
+        $labels = [
+            'borang_a' => 'Borang A',
+            'borang_b' => 'Borang B',
+            'borang_c' => 'Borang C',
+            'borang_d' => 'Borang D',
+            'borang_e' => 'Borang E',
+        ];
+
+        foreach ($fields as $field) {
+            if ($batch->{$field} != '2') {
+                return $labels[$field];
+            }
+        }
+
+        return null;
     }
 }

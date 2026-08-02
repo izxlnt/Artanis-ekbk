@@ -60,7 +60,7 @@
                                     Papan Lapis/Venir dan Kilang Kayu Kumai di bawah Penyata Shuttle 3, 4 dan 5.</li>
                                 <li style="margin-bottom:1em;">Maklumat yang dikumpul adalah mengikut peruntukan yang
                                     tertakluk kepada <strong>Seksyen 7, Enakmen Industri Berasas Kayu (EIBK)</strong>
-                                    dan <strong>Kaedah 13, Kaedah-Kaedah Industri Berasas Kayu (KKIBK) 1989</strong> di
+                                    dan <strong>Kaedah 13, Kaedah-Kaedah Industri Berasas Kayu (KKIBK)</strong> di
                                     mana telah menggariskan kewajipan IBK untuk melaporkan data-data yang telah
                                     dinyatakan di dalam EIBK dan KKIBK tersebut.</li>
                                 <li style="margin-bottom:1em;">Tuan/Puan diminta melaporkan data-data dengan lengkap
@@ -70,8 +70,8 @@
                                         BORANG</strong> sebagai panduan tuan/puan melengkapkan penyata shuttle ini.</li>
                                 <li style="margin-bottom:1em;">Kerjasama tuan/puan dalam menjayakan penyata shuttle ini
                                     amatlah dihargai.</li>
-                                <li style="margin-bottom:1em;">Pengguna yang lupa kata laluan boleh terus email kepada
-                                    Pengurus Sistem di <a href="mailto:helpdeskeshuttle@forestry.gov.my">helpdeskeshuttle@forestry.gov.my</a> dengan memberikan ID dan email yang berdaftar.</li>
+                                <li style="margin-bottom:1em;">Pengguna yang lupa kata laluan boleh terus e-mel kepada
+                                    Pengurus Sistem di <a href="mailto:helpdeskeshuttle@forestry.gov.my" style="color:inherit; text-decoration:none;"><strong>helpdeskeshuttle@forestry.gov.my</strong></a> dengan memberikan ID dan e-mel yang berdaftar.</li>
                             </ol>
                             <div class="mt-4" style="text-align:right;">
                                 <span style="display:block; font-weight:600;">Terima kasih.</span>

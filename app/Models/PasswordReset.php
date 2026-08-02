@@ -16,5 +16,10 @@ class PasswordReset extends Model
     protected $fillable = [
         'email',
         'token',
+        'created_at',
+    ];
+
+    protected $casts = [
+        'created_at' => 'datetime',
     ];
 }

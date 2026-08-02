@@ -174,11 +174,14 @@ Route::middleware('auth')->group(
                 Route::get('/pengguna/pengurusan-pengguna/tambah-pengguna-baru', [App\Http\Controllers\UserController::class, 'user_management_add'])->name('home-user.user-management.add');
                 Route::post('/pengguna/pengurusan-pengguna/tambah-pengguna-baru/create', [App\Http\Controllers\UserController::class, 'user_management_create'])->name('home-user.user-management.create');
                 Route::get('/pengguna/pengurusan-pengguna/kemaskini-status', [App\Http\Controllers\UserController::class, 'user_status_update'])->name('home-user.user-management.user-status.update');
+                Route::post('/pengguna/pengurusan-pengguna/padam-pengguna', [App\Http\Controllers\UserController::class, 'user_delete'])->name('home-user.user-management.delete');
 
 
 
                 //shuttle 3
                 Route::get('/pengguna/shuttle-3', [App\Http\Controllers\ShuttleThree\MainController::class, 'shuttle_3'])->name('shuttle-3');
+
+                Route::middleware('restrict.kilang.owner')->group(function () {
 
                 Route::get('/pengguna/shuttle-3-formA/{year?}', [App\Http\Controllers\ShuttleThree\MainController::class, 'editFormA'])->name('user.shuttle-3-formA');
 
@@ -221,6 +224,8 @@ Route::middleware('auth')->group(
                 Route::get('/pengguna/edit-shuttle-3B/{id}', [App\Http\Controllers\UserController::class, 'editform3B'])->name('edit-form3b');
                 Route::get('/pengguna/edit-shuttle-3C/{id}', [App\Http\Controllers\UserController::class, 'editform3C'])->name('edit-form3c');
                 Route::get('/pengguna/edit-shuttle-3D/{id}', [App\Http\Controllers\UserController::class, 'editform3D'])->name('edit-form3d');
+
+                });
 
 
                 //SENARAI
@@ -290,6 +295,9 @@ Route::middleware('auth')->group(
 
                 //shuttle 4
                 Route::get('/pengguna/shuttle-4', [App\Http\Controllers\ShuttleFour\MainController::class, 'shuttle_4'])->name('shuttle-4');
+
+                Route::middleware('restrict.kilang.owner')->group(function () {
+
                 Route::get('/pengguna/shuttle-4-formA/{year?}', [App\Http\Controllers\ShuttleFour\MainController::class, 'shuttle_4_formA'])->name('user.shuttle-4-formA');
                 Route::post('/pengguna/shuttle-4-formA/update/{id}', [App\Http\Controllers\ShuttleFour\MainController::class, 'updateForm4A'])->name('update.form4A');
 
@@ -331,8 +339,12 @@ Route::middleware('auth')->group(
                 Route::get('/pengguna/edit-shuttle-4D/{id}', [App\Http\Controllers\UserController::class, 'editform4D'])->name('edit-form4D');
                 Route::get('/pengguna/edit-shuttle-4E/{id}', [App\Http\Controllers\UserController::class, 'editform4E'])->name('edit-form4E');
 
+                });
+
 
                 //shuttle 5
+                Route::middleware('restrict.kilang.owner')->group(function () {
+
                 Route::get('/pengguna/shuttle-5-formA/{year?}', [App\Http\Controllers\ShuttleFive\MainController::class, 'shuttle_5_formA'])->name('user.shuttle-5-formA');
                 Route::post('/pengguna/shuttle-5-formA/update/{id}', [App\Http\Controllers\ShuttleFive\MainController::class, 'updateForm5A'])->name('update.form5A');
 
@@ -366,6 +378,8 @@ Route::middleware('auth')->group(
 
                 Route::get('/pengguna/shuttle-5-edit-formD/{id}', [App\Http\Controllers\ShuttleFive\MainController::class, 'shuttle_5_edit_formD'])->name('user.shuttle-5-edit-formD');
                 Route::get('/pengguna/shuttle-5-edit-formE/{id}', [App\Http\Controllers\ShuttleFive\MainController::class, 'shuttle_5_edit_formE'])->name('user.shuttle-5-edit-formE');
+
+                });
 
 
 
@@ -610,13 +624,13 @@ Route::middleware('auth')->group(
 
                 //Paparan Batch
                 Route::get('/phd/batch/shuttle-3/{year}', [App\Http\Controllers\Batch\PhdController::class, 'shuttle_3_phd'])->name('phd.batch.s3');
-                Route::get('/phd/batch/shuttle-3/hantar/submit/{id}', [App\Http\Controllers\Batch\PhdController::class, 'shuttle_3_phd_hantar'])->name('phd.batch.s3.hantar');
+                Route::post('/phd/batch/shuttle-3/hantar/submit/{id}', [App\Http\Controllers\Batch\PhdController::class, 'shuttle_3_phd_hantar'])->name('phd.batch.s3.hantar');
 
                 Route::get('/phd/batch/shuttle-4/{year}', [App\Http\Controllers\Batch\PhdController::class, 'shuttle_4_phd'])->name('phd.batch.s4');
-                Route::get('/phd/batch/shuttle-4/hantar/submit/{id}', [App\Http\Controllers\Batch\PhdController::class, 'shuttle_4_phd_hantar'])->name('phd.batch.s4.hantar');
+                Route::post('/phd/batch/shuttle-4/hantar/submit/{id}', [App\Http\Controllers\Batch\PhdController::class, 'shuttle_4_phd_hantar'])->name('phd.batch.s4.hantar');
 
                 Route::get('/phd/batch/shuttle-5/{year}', [App\Http\Controllers\Batch\PhdController::class, 'shuttle_5_phd'])->name('phd.batch.s5');
-                Route::get('/phd/batch/shuttle-5/hantar/submit/{id}', [App\Http\Controllers\Batch\PhdController::class, 'shuttle_5_phd_hantar'])->name('phd.batch.s5.hantar');
+                Route::post('/phd/batch/shuttle-5/hantar/submit/{id}', [App\Http\Controllers\Batch\PhdController::class, 'shuttle_5_phd_hantar'])->name('phd.batch.s5.hantar');
 
                 //Paparan Peringatan Kilang
                 Route::get('/phd/notifikasi-kilang/shuttle-3/', [App\Http\Controllers\NotifikasiKilangController::class, 'shuttle_3_phd'])->name('phd.notifikasi-kilang.s3');
@@ -910,6 +924,8 @@ Route::middleware('auth')->group(
                 Route::get('/admin/senarai-kilang-shuttle3', [App\Http\Controllers\PengurusanPengguna\MainController::class, 'senarai_kilang3'])->name('ipjpsm.senaraikilang3');
                 Route::get('/admin/senarai-kilang-shuttle4', [App\Http\Controllers\PengurusanPengguna\MainController::class, 'senarai_kilang4'])->name('ipjpsm.senaraikilang4');
                 Route::get('/admin/senarai-kilang-shuttle5', [App\Http\Controllers\PengurusanPengguna\MainController::class, 'senarai_kilang5'])->name('ipjpsm.senaraikilang5');
+
+                Route::post('/admin/jana-kata-laluan/{id}', [App\Http\Controllers\PengurusanPengguna\MainController::class, 'janaKataLaluanBaharu'])->name('ipjpsm.jana-kata-laluan');
 
                 Route::get('/admin/senarai_kilang_papan_aktif', [App\Http\Controllers\UserController::class, 'list_kilang_aktif_ipjpsm'])->name('senarai_kilang_papan_aktif_ipjpsm');
                 Route::get('/admin/senarai_kilang_papan_lapis_aktif', [App\Http\Controllers\UserController::class, 'list_kilang_papan_lapis_aktif_ipjpsm'])->name('senarai_kilang_papan_lapis_aktif_ipjpsm');
