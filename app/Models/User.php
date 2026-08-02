@@ -103,6 +103,12 @@ class User extends Authenticatable implements Auditable
         return $this->hasOne('App\Models\Shuttle','id','shuttle_id');
     }
 
+    // SSM-login owner accounts have no pengguna_kilang_id; IC-login sub-users do.
+    public function isKilangOwner()
+    {
+        return is_null($this->pengguna_kilang_id);
+    }
+
     /**
      * Get the current email for this user from the appropriate table
      * Priority: pengguna_kilang > shuttle > user

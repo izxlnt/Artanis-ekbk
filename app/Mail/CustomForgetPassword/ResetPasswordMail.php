@@ -2,7 +2,6 @@
 
 namespace App\Mail\CustomForgetPassword;
 
-use App\Models\PasswordReset;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
@@ -17,9 +16,10 @@ class ResetPasswordMail extends Mailable
      *
      * @return void
      */
-    public function __construct($user)
+    public function __construct($user, $token)
     {
         $this->user = $user;
+        $this->token = $token;
     }
 
     /**
@@ -30,10 +30,7 @@ class ResetPasswordMail extends Mailable
     public function build()
     {
         $user = $this->user;
-
-        $pw_reset = PasswordReset::where('email', $user->email)->first();
-
-        $token = $pw_reset->token;
+        $token = $this->token;
 
         return $this->to($this->user->email, $this->user->name)
             ->from(env('MAIL_FROM_ADDRESS'), env('MAIL_FROM_NAME'))

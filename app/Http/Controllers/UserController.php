@@ -572,7 +572,9 @@ class UserController extends Controller
             $user_id = $request->user_id_enable;
         }
 
-        $user = User::findorfail($user_id);
+        $user = User::where('shuttle_id', Auth::user()->shuttle_id)
+            ->where('pengguna_kilang_id', '!=', null)
+            ->findorfail($user_id);
 
         if ($user->status == 0) {
 
@@ -592,6 +594,21 @@ class UserController extends Controller
             $user->save();
             return redirect()->route('home-user.user-management')->with('success', 'Pengguna telah dinyaktif.');
         }
+    }
+
+    public function user_delete(Request $request)
+    {
+        $user = User::where('shuttle_id', Auth::user()->shuttle_id)
+            ->where('pengguna_kilang_id', '!=', null)
+            ->findorfail($request->user_id_delete);
+
+        if ($user->status != 0) {
+            return redirect()->back()->with('error', 'Nyahaktifkan pengguna sebelum memadamnya.');
+        }
+
+        $user->delete();
+
+        return redirect()->route('home-user.user-management')->with('success', 'Pengguna telah dipadam.');
     }
 
     public function ajax_count_undeclare_shuttle3()

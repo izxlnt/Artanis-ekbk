@@ -3,6 +3,7 @@
 namespace App\Notifications\PHD;
 
 use App\Mail\PHD\BorangTidakDiisiMail as BorangTidakDiisiMailable;
+use App\Notifications\Concerns\GuardsMailFromAddress;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
@@ -10,7 +11,7 @@ use Illuminate\Notifications\Notification;
 
 class BorangTidakDiisiNotification extends Notification
 {
-    use Queueable;
+    use Queueable, GuardsMailFromAddress;
 
     /**
      * Create a new notification instance.
@@ -32,12 +33,7 @@ class BorangTidakDiisiNotification extends Notification
      */
     public function via($notifiable)
     {
-        $channels = ['database'];
-        $from = config('mail.from.address');
-        if ($from && $from !== 'null') {
-            $channels[] = 'mail';
-        }
-        return $channels;
+        return $this->channelsWithMail();
     }
 
     /**

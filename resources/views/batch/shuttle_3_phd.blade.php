@@ -228,7 +228,7 @@
                                                                             data-placement="bottom"
                                                                             title="Borang belum disahkan"></i></a>
                                                                 @else
-                                                                    <form action="{{ route('phd.batch.s3.hantar',$data->id) }}">
+                                                                    <form method="POST" action="{{ route('phd.batch.s3.hantar',$data->id) }}">
                                                                         @csrf
                                                                         <input type="hidden" name="batch_id" id="batch_id"
                                                                             value="{{ $data->id }}">
@@ -297,7 +297,7 @@
                                                                         data-placement="bottom"
                                                                         title="Borang belum disahkan"></i></button>
                                                             @else
-                                                                <form action="{{ route('phd.batch.s3.hantar',$data->id) }}">
+                                                                <form method="POST" action="{{ route('phd.batch.s3.hantar',$data->id) }}">
                                                                     @csrf
                                                                     <input type="hidden" name="batch_id" id="batch_id"
                                                                         value="{{ $data->id }}">

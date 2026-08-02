@@ -221,7 +221,7 @@
                                                                             data-toggle="tooltip" data-placement="bottom"
                                                                             title="Borang belum disahkan"></i></button>
                                                                 @else
-                                                                    <form
+                                                                    <form method="POST"
                                                                         action="{{ route('phd.batch.s4.hantar', $data->id) }}">
                                                                         @csrf
                                                                         {{-- <input type="hidden" name="batch_id" id="batch_id"
@@ -295,7 +295,7 @@
                                                                         data-placement="bottom"
                                                                         title="Borang belum disahkan"></i></button>
                                                             @else
-                                                                <form
+                                                                <form method="POST"
                                                                     action="{{ route('phd.batch.s4.hantar', $data->id) }}">
                                                                     @csrf
                                                                     <input type="hidden" name="batch_id" id="batch_id"

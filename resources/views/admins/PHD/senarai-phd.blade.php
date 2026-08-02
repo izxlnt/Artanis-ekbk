@@ -143,6 +143,11 @@
                                                                     class="fas fa-pencil-alt" data-toggle="tooltip"
                                                                     data-placement="bottom"
                                                                     title="Kemaskini Emel Pengguna"></i></button>
+                                                            <button class="mr-1 btn btn-info" data-toggle="modal"
+                                                                data-target="#jana_password{{ $data->id }}"><i
+                                                                    class="fas fa-key" data-toggle="tooltip"
+                                                                    data-placement="bottom"
+                                                                    title="Jana Kata Laluan Baharu"></i></button>
                                                                     @if ($data->status == 1)
                                                                     <button class="mr-1 btn btn-danger" data-toggle="modal"
                                                                         data-target="#aktif{{ $data->id }}"><i
@@ -217,6 +222,44 @@
                                                                         href="{{ route('ipjpsm.updateStatusAktif', $data->id) }}"
                                                                         class="btn btn-success">AKTIF</a>
                                                                 </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="modal fade" id="jana_password{{ $data->id }}"
+                                                        tabindex="-1" role="dialog" aria-labelledby=""
+                                                        aria-hidden="true">
+                                                        <div class="modal-dialog modal-dialog-centered" role="document">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header"
+                                                                    style="background-color:#f3ce8f  !important">
+                                                                    <h5 class="modal-title " id="exampleModalLongTitle"><i
+                                                                            style="color:rgb(255, 255, 0)"
+                                                                            class="fas fa-exclamation-triangle"></i>&nbspPENGESAHAN
+                                                                    </h5>
+                                                                    <button type="button" class="close"
+                                                                        data-dismiss="modal" aria-label="Close">
+                                                                        <span aria-hidden="true">&times;</span>
+                                                                    </button>
+                                                                </div>
+                                                                <form action="{{ route('ipjpsm.jana-kata-laluan', $data->id) }}"
+                                                                    method="post">
+                                                                    @csrf
+                                                                    <div class="modal-body" style="text-align:left">
+                                                                        <span class="text-center"><b>Adakah anda pasti
+                                                                                ingin menjana kata laluan baharu untuk
+                                                                                pengguna ini? Kata laluan sedia ada akan
+                                                                                digantikan dan dihantar ke emel pengguna
+                                                                                ({{ $data->email }}).</b></span>
+                                                                    </div>
+                                                                    <div class="modal-footer">
+                                                                        <button type="button" class="btn btn-danger"
+                                                                            data-dismiss="modal">Batal</button>
+                                                                        <button type="submit"
+                                                                            class="btn btn-success">JANA KATA
+                                                                            LALUAN</button>
+                                                                    </div>
+                                                                </form>
                                                             </div>
                                                         </div>
                                                     </div>
