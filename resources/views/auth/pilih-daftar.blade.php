@@ -107,7 +107,7 @@
 
                                 <br> b. Maklumat yang dikumpul adalah mengikut peruntukan yang tertakluk kepada Seksyen
                                 7, Enakmen Industri Berasas Kayu (EIBK) dan Kaedah 13, Kaedah-Kaedah Industri Berasas
-                                Kayu (KKIBK) 1989 dimana telah menggariskan kewajipan IBK untuk melaporkan data-data
+                                Kayu (KKIBK) dimana telah menggariskan kewajipan IBK untuk melaporkan data-data
                                 yang telah dinyatakan di dalam EIBK dan KKIBK tersebut.<br>
 
                                 <br> c. Tuan/Puan diminta melaporkan data-data dengan lengkap yang berkaitan dengan
@@ -155,7 +155,7 @@
 
                                 <div class="row">
                                     <div class="col-md">
-                                        <button class="btn btn-block btn-lg btn-info" type="submit">Hantar Emel</button>
+                                        <button class="btn btn-block btn-lg btn-info" type="submit">Hantar E-mel</button>
                                     </div>
                                 </div>
                             </form>
@@ -202,8 +202,7 @@
                             <div class="row" style="padding-top: 25px;">
                                 <div class="col-md-3"></div>
                                 <div class="col-md-6">
-                                    <a href="{{ route('login') }}" class="btn-primary btn-lg"
-                                        >Kembali</a>
+                                    <a href="{{ route('login') }}" class="btn-primary btn-lg">Kembali</a>
                                 </div>
                                 <div class="col-md-3"></div>
                             </div>
@@ -281,9 +280,13 @@
     {{-- toaster display --}}
     <script>
         @if (Session::get('success'))
-            toastr.success('{{ session('success') }}', 'Berjaya', { "progressBar": true });
+            toastr.success('{{ session('success') }}', 'Berjaya', {
+                "progressBar": true
+            });
         @elseif ($message = Session::get('error'))
-            toastr.error('{{ session('error') }}', 'Ralat', { "progressBar": true });
+            toastr.error('{{ session('error') }}', 'Ralat', {
+                "progressBar": true
+            });
         @endif
     </script>
 </body>
