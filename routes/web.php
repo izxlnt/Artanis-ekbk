@@ -229,7 +229,7 @@ Route::middleware('auth')->group(
 
 
                 //SENARAI
-                Route::middleware('shuttle3')->group(function () {
+                Route::middleware(['shuttle3', 'restrict.kilang.owner'])->group(function () {
                     //shuttle 3
                     Route::get('/pengguna/shuttle-3-senaraiA/{year}', [App\Http\Controllers\UserController::class, 'shuttle_3_senaraiA_ibk'])->name('user.shuttle-3-senaraiA');
                     Route::get('/pengguna/shuttle-3-senaraiB/{year}', [App\Http\Controllers\UserController::class, 'shuttle_3_senaraiB_ibk'])->name('user.shuttle-3-senaraiB');
@@ -249,7 +249,7 @@ Route::middleware('auth')->group(
                     Route::get('/pengguna/shuttle-3-listD/{year}', [App\Http\Controllers\UserController::class, 'shuttle_3_listD_ibk'])->name('user.shuttle-3-listD');
                 });
 
-                Route::middleware('shuttle4')->group(function () {
+                Route::middleware(['shuttle4', 'restrict.kilang.owner'])->group(function () {
                     //shuttle 4
                     Route::get('/pengguna/shuttle-4-senaraiA/{year}', [App\Http\Controllers\UserController::class, 'shuttle_4_senaraiA_ibk'])->name('user.shuttle-4-senaraiA');
                     Route::get('/pengguna/shuttle-4-senaraiB/{year}', [App\Http\Controllers\UserController::class, 'shuttle_4_senaraiB_ibk'])->name('user.shuttle-4-senaraiB');
@@ -270,7 +270,7 @@ Route::middleware('auth')->group(
                     Route::get('/pengguna/shuttle-4-listE/{year}', [App\Http\Controllers\UserController::class, 'shuttle_4_listE_ibk'])->name('user.shuttle-4-listE');
                 });
 
-                Route::middleware('shuttle5')->group(function () {
+                Route::middleware(['shuttle5', 'restrict.kilang.owner'])->group(function () {
                     //shuttle 5
                     Route::get('/pengguna/shuttle-5-senaraiA/{year}', [App\Http\Controllers\UserController::class, 'shuttle_5_senaraiA_ibk'])->name('user.shuttle-5-senaraiA');
                     Route::get('/pengguna/shuttle-5-senaraiB/{year}', [App\Http\Controllers\UserController::class, 'shuttle_5_senaraiB_ibk'])->name('user.shuttle-5-senaraiB');
@@ -383,6 +383,8 @@ Route::middleware('auth')->group(
 
 
 
+                Route::middleware('restrict.kilang.owner')->group(function () {
+
                 Route::get('/pengguna/shuttle-view-formA/{id}', [App\Http\Controllers\ShuttleThree\ViewFormBController::class, 'ibk_shuttle_3_formA_view'])->name('pengguna.shuttle-3-view-formA');
                 Route::get('/pengguna/shuttle-view-formB/{id}', [App\Http\Controllers\ShuttleThree\ViewFormBController::class, 'ibk_shuttle_3_form_view_form3B'])->name('pengguna.shuttle-3-view-formB');
                 Route::get('/pengguna/shuttle-view-formC/{id}', [App\Http\Controllers\ShuttleThree\ViewFormCController::class, 'ibk_shuttle_3_formC_view'])->name('pengguna.shuttle-3-view-formC');
@@ -399,6 +401,8 @@ Route::middleware('auth')->group(
 
                 //shuttle 5 ibk view
                 Route::get('/pengguna/shuttle-5-view-formC/{id}', [App\Http\Controllers\ShuttleThree\ViewFormCController::class, 'ibk_shuttle_5_formC_view'])->name('pengguna.shuttle-5-view-formC');
+
+                });
             });
 
             Route::middleware('jpn')->group(function () {

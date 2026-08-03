@@ -1,6 +1,9 @@
 @extends('layouts.layout-ibk-nicepage')
 @section('content')
 
+@php
+    $isOwner = auth()->check() && auth()->user()->isKilangOwner();
+@endphp
 
 <div class="container-fluid">
     <!-- ============================================================== -->
@@ -39,7 +42,7 @@
 
         @if($user->shuttle_type == "3")
 
-        <a class="col-md-3" href="{{ route('user.shuttle-3-senaraiA', date("Y")) }}" style="color:black; ">
+        <a class="col-md-3" href="{{ $isOwner ? "#" : route("user.shuttle-3-senaraiA", date("Y")) }}" style="{{ $isOwner ? "pointer-events:none;opacity:0.6;" : "" }}color:black; ">
             <div class="card bg-info card-hover" style="border-radius: 10px">
                 <div class="card-body" style="box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2); background-color: #c5d6eb;border-radius: 10px;text-align:center;">
                     <h2 style="padding-top: 2%;"><i class="fas fa-copy"></i></h2>
@@ -49,7 +52,7 @@
                 </div>
             </div>
         </a>
-        <a class="col-md-3" href="{{ route('user.shuttle-3-senaraiB', date("Y")) }}" style="color:black;">
+        <a class="col-md-3" href="{{ $isOwner ? "#" : route("user.shuttle-3-senaraiB", date("Y")) }}" style="{{ $isOwner ? "pointer-events:none;opacity:0.6;" : "" }}color:black;">
             <div class="card bg-info card-hover" style="border-radius: 10px">
                 <div class="card-body" style="box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2); background-color: #ee8dcd ;border-radius: 10px;text-align:center;">
                     <h2 style="padding-top: 2%;"><i class="fas fa-copy"></i></h2>
@@ -58,7 +61,7 @@
                 </div>
             </div>
         </a>
-        <a class="col-md-3" href="{{ route('user.shuttle-3-senaraiC', date("Y")) }}" style="color:black;">
+        <a class="col-md-3" href="{{ $isOwner ? "#" : route("user.shuttle-3-senaraiC", date("Y")) }}" style="{{ $isOwner ? "pointer-events:none;opacity:0.6;" : "" }}color:black;">
             <div class="card bg-info card-hover" style="border-radius: 10px">
                 <div class="card-body" style="box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2); background-color: #f0e10dbd;border-radius: 10px;text-align:center;">
                     <h2 style="padding-top: 2%;"><i class="fas fa-copy"></i></h2>
@@ -67,7 +70,7 @@
                 </div>
             </div>
         </a>
-        <a class="col-md-3" href="{{ route('user.shuttle-3-senaraiD', date("Y")) }}" style="color:black;">
+        <a class="col-md-3" href="{{ $isOwner ? "#" : route("user.shuttle-3-senaraiD", date("Y")) }}" style="{{ $isOwner ? "pointer-events:none;opacity:0.6;" : "" }}color:black;">
             <div class="card bg-info card-hover" style="border-radius: 10px">
                 <div class="card-body" style="box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2); background-color: #6df173 ;border-radius: 10px;text-align:center;">
                     <h2 style="padding-top: 2%;"><i class="fas fa-copy"></i></h2>
@@ -78,7 +81,7 @@
         </a>
         @elseif($user->shuttle_type == "4")
 
-            <a class="col-md" href="{{ route('user.shuttle-4-senaraiA', date("Y")) }}" style="color:black; ">
+            <a class="col-md" href="{{ $isOwner ? "#" : route("user.shuttle-4-senaraiA", date("Y")) }}" style="{{ $isOwner ? "pointer-events:none;opacity:0.6;" : "" }}color:black; ">
                 <div class="card bg-info card-hover" style="border-radius: 10px">
                     <div class="card-body" style="box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2); background-color: #c5d6eb;border-radius: 10px;text-align:center;">
                         <h2 style="padding-top: 2%;"><i class="fas fa-copy"></i></h2>
@@ -88,7 +91,7 @@
                     </div>
                 </div>
             </a>
-            <a class="col-md" href="{{ route('user.shuttle-4-senaraiB', date("Y")) }}" style="color:black;">
+            <a class="col-md" href="{{ $isOwner ? "#" : route("user.shuttle-4-senaraiB", date("Y")) }}" style="{{ $isOwner ? "pointer-events:none;opacity:0.6;" : "" }}color:black;">
                 <div class="card bg-info card-hover" style="border-radius: 10px">
                     <div class="card-body" style="box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2); background-color: #ee8dcd ;border-radius: 10px;text-align:center;">
                         <h2 style="padding-top: 2%;"><i class="fas fa-copy"></i></h2>
@@ -97,7 +100,7 @@
                     </div>
                 </div>
             </a>
-            <a class="col-md" href="{{ route('user.shuttle-4-senaraiC', date("Y")) }}" style="color:black;">
+            <a class="col-md" href="{{ $isOwner ? "#" : route("user.shuttle-4-senaraiC", date("Y")) }}" style="{{ $isOwner ? "pointer-events:none;opacity:0.6;" : "" }}color:black;">
                 <div class="card bg-info card-hover" style="border-radius: 10px">
                     <div class="card-body" style="box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2); background-color: #f0e10dbd;border-radius: 10px;text-align:center;">
                         <h2 style="padding-top: 2%;"><i class="fas fa-copy"></i></h2>
@@ -106,7 +109,7 @@
                     </div>
                 </div>
             </a>
-            <a class="col-md" href="{{ route('user.shuttle-4-senaraiD', date("Y")) }}" style="color:black;">
+            <a class="col-md" href="{{ $isOwner ? "#" : route("user.shuttle-4-senaraiD", date("Y")) }}" style="{{ $isOwner ? "pointer-events:none;opacity:0.6;" : "" }}color:black;">
                 <div class="card bg-info card-hover" style="border-radius: 10px">
                     <div class="card-body" style="box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2); background-color: #6df173 ;border-radius: 10px;text-align:center;">
                         <h2 style="padding-top: 2%;"><i class="fas fa-copy"></i></h2>
@@ -115,7 +118,7 @@
                     </div>
                 </div>
             </a>
-            <a class="col-md" href="{{ route('user.shuttle-4-senaraiE', date("Y")) }}" style="color:black;">
+            <a class="col-md" href="{{ $isOwner ? "#" : route("user.shuttle-4-senaraiE", date("Y")) }}" style="{{ $isOwner ? "pointer-events:none;opacity:0.6;" : "" }}color:black;">
                 <div class="card bg-info card-hover" style="border-radius: 10px">
                     <div class="card-body" style="box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2); background-color: #74d4f1 ;border-radius: 10px;text-align:center;">
                         <h2 style="padding-top: 2%;"><i class="fas fa-copy"></i></h2>
@@ -127,7 +130,7 @@
 
 
         @elseif($user->shuttle_type == "5")
-        <a class="col-md" href="{{ route('user.shuttle-5-senaraiA', date("Y")) }}" style="color:black;">
+        <a class="col-md" href="{{ $isOwner ? "#" : route("user.shuttle-5-senaraiA", date("Y")) }}" style="{{ $isOwner ? "pointer-events:none;opacity:0.6;" : "" }}color:black;">
             <div class="card bg-info card-hover" style="border-radius: 10px">
                 <div class="card-body" style="box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2); background-color: #c5d6eb;border-radius: 10px;text-align:center;">
                     <!-- <h5 style="padding-top: 25%;">BORANG 5A:<br> MAKLUMAT KILANG PAPAN</h5> -->
@@ -137,7 +140,7 @@
                 </div>
             </div>
         </a>
-        <a class="col-md" href="{{ route('user.shuttle-5-senaraiB', date("Y")) }}" style="color:black;">
+        <a class="col-md" href="{{ $isOwner ? "#" : route("user.shuttle-5-senaraiB", date("Y")) }}" style="{{ $isOwner ? "pointer-events:none;opacity:0.6;" : "" }}color:black;">
             <div class="card bg-info card-hover" style="border-radius: 10px">
                 <div class="card-body" style="box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2); background-color: #ee8dcd;border-radius: 10px;text-align:center;">
                     <!-- <h5 style="padding-top: 25%;">BORANG 5B:<br> JUMLAH GUNA TENAGA</h5> -->
@@ -147,7 +150,7 @@
                 </div>
             </div>
         </a>
-        <a class="col-md" href="{{ route('user.shuttle-5-senaraiC', date("Y")) }}" style="color:black;">
+        <a class="col-md" href="{{ $isOwner ? "#" : route("user.shuttle-5-senaraiC", date("Y")) }}" style="{{ $isOwner ? "pointer-events:none;opacity:0.6;" : "" }}color:black;">
             <div class="card bg-info card-hover" style="border-radius: 10px">
                 <div class="card-body" style="box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2); background-color: #f0e10dbd;border-radius: 10px;text-align:center;">
                     <!-- <h5 style="font-size: 15px;">BORANG 5C:<br> PENYATA KEMASUKAN & PEMPROSESAN KAYU GERGAJI DAN PENGELUARAN KAYU KUMAI MENGIKUT KUMPULAN KAYU-KAYAN</h5> -->
@@ -157,7 +160,7 @@
                 </div>
             </div>
         </a>
-        <a class="col-md" href="{{ route('user.shuttle-5-senaraiD', date("Y")) }}" style="color:black;">
+        <a class="col-md" href="{{ $isOwner ? "#" : route("user.shuttle-5-senaraiD", date("Y")) }}" style="{{ $isOwner ? "pointer-events:none;opacity:0.6;" : "" }}color:black;">
             <div class="card bg-info card-hover" style="border-radius: 10px">
                 <div class="card-body" style="box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2); background-color: #6df173;border-radius: 10px;text-align:center;">
                     <!-- <h5 style="padding-top: 15%;">BORANG 5D:<br> PENYATA PENGELUARAN KAYU KUMAI MENGIKUT JENIS KAYU KUMAI</h5> -->
@@ -167,7 +170,7 @@
                 </div>
             </div>
         </a>
-        <a class="col-md" href="{{ route('user.shuttle-5-senaraiE', date("Y")) }}" style="color:black;">
+        <a class="col-md" href="{{ $isOwner ? "#" : route("user.shuttle-5-senaraiE", date("Y")) }}" style="{{ $isOwner ? "pointer-events:none;opacity:0.6;" : "" }}color:black;">
             <div class="card bg-info card-hover" style="border-radius: 10px">
                 <div class="card-body" style="box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2); background-color: #a0e4ff;border-radius: 10px;text-align:center;">
                     <!-- <h5 style="padding-top: 15%;">BORANG 5E:<br> PENYATA PENJUALAN KAYU KUMAI DALAM PASARAN TEMPATAN DAN EKSPORT</h5> -->
