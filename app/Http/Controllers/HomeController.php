@@ -328,16 +328,6 @@ class HomeController extends Controller
         return response()->json($result, 200);
     }
 
-    public function index_bpm()
-    {
-        $count_shuttle3 = User::where('shuttle_type', 3)->where('is_approved', 1)->count();
-        $count_shuttle4 = User::where('shuttle_type', 4)->where('is_approved', 1)->count();
-        $count_shuttle5 = User::where('shuttle_type', 5)->where('is_approved', 1)->count();
-
-        return view('home-bpm', compact('count_shuttle3', 'count_shuttle4', 'count_shuttle5'));
-    }
-
-
         //borang keseluruhan SHUTTLE 3
     public function shuttle_3_keseluruhan_borang_A($year){
         if ($year < config('app.data_start_year')) return redirect()->route('ipjpsm.borang-keseluruhan.shuttle3.borangA', config('app.data_start_year'));

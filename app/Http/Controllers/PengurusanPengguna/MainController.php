@@ -164,44 +164,6 @@ class MainController extends Controller
         return view('admins.pengurusan-pengguna.pengurusan-pengguna', compact('user'));
     }
 
-    public function tambah_pengurusan_pengguna_bpm()
-    {
-        $breadcrumbs = [['link' => route('home-bpm'), 'name' => 'Laman Utama'], ['link' => route('bpm.pengesahan-permohonan', date('Y')), 'name' => 'Status Pengurusan Pengguna'], ['link' => route('bpm.tambah-pengurusan-pengguna-bpm', date('Y')), 'name' => 'Tambah Pengguna Modul']];
-
-        $kembali = route('bpm.pengesahan-permohonan', date('Y'));
-
-        $returnArr = [
-            'breadcrumbs' => $breadcrumbs,
-            'kembali' => $kembali,
-        ];
-
-        return view('admins.pengurusan-pengguna.tambah-pengurusan-pengguna-ipjpsm', compact('returnArr'));
-    }
-
-    protected function tambah_pengguna_bpm(Request $request)
-    {
-        $hashed_random_password = Hash::make('1234567890');
-
-        User::create([
-            'login_id' => $request->kad_pengenalan,
-            // 'peranan' => $request->peranan,
-            'kategori_pengguna' => $request->kategori_pengguna,
-            // 'status' => $request->status,
-            'name' => $request->name,
-            'jawatan' => $request->jawatan,
-            // 'negeri' => $request->negeri_id,
-            // 'daerah' => $request->daerah_id,
-            'bahagian' => $request->bahagian,
-            'no_telefon' => $request->no_telefon,
-            'email' => $request->email,
-            'password' => $hashed_random_password,
-            'is_approved_ipjpsm' => 0,
-        ]);
-        session()->flash('message', 'Akaun anda telah berjaya didaftarkan untuk pengesahan daripada pentadbir sistem.');
-
-        return redirect()->route('bpm.pengesahan-permohonan');
-    }
-
     public function lampiran_permohonan_phd($id)
     {
         $users = User::find($id);
