@@ -63,8 +63,10 @@ class ForgetPasswordController extends Controller
             || !$reset->created_at
             || $reset->created_at->lt(now()->subMinutes($expiryMinutes))
         ) {
-            PasswordReset::where('email', $request->email)->delete();
-
+            // Don't delete the pending reset row here — a single mistyped/stale
+            // submission would otherwise burn a still-valid link for the
+            // legitimate user. Stale rows are cleaned up next time
+            // forgetPasswordSubmit() issues a fresh token for this email.
             return redirect()->route('forget-password.show')
                 ->with('error', 'Pautan tetapan semula kata laluan tidak sah atau telah tamat tempoh. Sila mohon pautan baharu.');
         }
