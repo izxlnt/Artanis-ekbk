@@ -70,7 +70,6 @@ class Kernel extends HttpKernel
         'active_user' => \App\Http\Middleware\ActiveUser::class,
         'phd' => \App\Http\Middleware\PHD::class,
         'jpn' => \App\Http\Middleware\JPN::class,
-        'bpm' => \App\Http\Middleware\BPM::class,
         'shuttle5' => \App\Http\Middleware\ShuttleFive::class,
         'shuttle4' => \App\Http\Middleware\ShuttleFour::class,
         'shuttle3' => \App\Http\Middleware\ShuttleThree::class,
