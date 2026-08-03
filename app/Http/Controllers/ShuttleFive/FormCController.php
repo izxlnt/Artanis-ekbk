@@ -82,7 +82,7 @@ class FormCController extends Controller
                 if ($lastmonth_data) {
                     $baki_stok = $lastmonth_data->baki_stok_kehadapan;
                     $this->jumlah_besar_baki_stok_bulan_lepas = $lastmonth_data->jumlah_besar_baki_stok_bulan_depan ?? 0;
-                    $jumlah_baki_stok[$key] = $lastmonth_data->total_kayu_dibawa_bulan_hadapan ?? 0;
+                    $jumlah_baki_stok[$key] = $lastmonth_data->baki_stok_kehadapan ?? 0;
                     $total_stok_kayu_balak[$key] = $lastmonth_data->total_kayu_dibawa_bulan_hadapan ?? 0;
                     $total_kayu_dibawa_bulan_hadapan[$key] = $lastmonth_data->total_kayu_dibawa_bulan_hadapan ?? 0;
                 } else {
@@ -107,7 +107,7 @@ class FormCController extends Controller
                 $lastmonth_data = $lastmonth_lookup[$species_id] ?? null;
                 if ($lastmonth_data) {
                     $baki_stok = $lastmonth_data->baki_stok_kehadapan;
-                    $jumlah_baki_stok[$key] = $lastmonth_data->total_kayu_dibawa_bulan_hadapan ?? 0;
+                    $jumlah_baki_stok[$key] = $lastmonth_data->baki_stok_kehadapan ?? 0;
                 } else {
                     $baki_stok = 0;
                     $jumlah_baki_stok[$key] = 0;
@@ -387,7 +387,7 @@ class FormCController extends Controller
                 if ($lastmonth_data) {
                     $baki_stok = $lastmonth_data->baki_stok_kehadapan;
                     $this->jumlah_besar_baki_stok_bulan_lepas = $lastmonth_data->jumlah_besar_baki_stok_bulan_depan ?? 0;
-                    $jumlah_baki_stok[$key] = $lastmonth_data->total_kayu_dibawa_bulan_hadapan ?? 0;
+                    $jumlah_baki_stok[$key] = $lastmonth_data->baki_stok_kehadapan ?? 0;
                     $total_stok_kayu_balak[$key] = $lastmonth_data->total_kayu_dibawa_bulan_hadapan ?? 0;
                     $total_kayu_dibawa_bulan_hadapan[$key] = $lastmonth_data->total_kayu_dibawa_bulan_hadapan ?? 0;
                 } else {
@@ -412,7 +412,7 @@ class FormCController extends Controller
                 $lastmonth_data = $lastmonth_lookup[$species_id] ?? null;
                 if ($lastmonth_data) {
                     $baki_stok = $lastmonth_data->baki_stok_kehadapan;
-                    $jumlah_baki_stok[$key] = $lastmonth_data->total_kayu_dibawa_bulan_hadapan ?? 0;
+                    $jumlah_baki_stok[$key] = $lastmonth_data->baki_stok_kehadapan ?? 0;
                 } else {
                     $baki_stok = 0;
                     $jumlah_baki_stok[$key] = 0;
@@ -663,7 +663,7 @@ class FormCController extends Controller
                 if ($lastmonth_data) {
                     $baki_stok = $lastmonth_data->baki_stok_kehadapan;
                     $this->jumlah_besar_baki_stok_bulan_lepas = $lastmonth_data->jumlah_besar_baki_stok_bulan_depan ?? 0;
-                    $jumlah_baki_stok[$key] = $lastmonth_data->total_kayu_dibawa_bulan_hadapan ?? 0;
+                    $jumlah_baki_stok[$key] = $lastmonth_data->baki_stok_kehadapan ?? 0;
                     $total_stok_kayu_balak[$key] = $lastmonth_data->total_kayu_dibawa_bulan_hadapan ?? 0;
                     $total_kayu_dibawa_bulan_hadapan[$key] = $lastmonth_data->total_kayu_dibawa_bulan_hadapan ?? 0;
                 } else {
@@ -688,7 +688,7 @@ class FormCController extends Controller
                 $lastmonth_data = $lastmonth_lookup[$species_id] ?? null;
                 if ($lastmonth_data) {
                     $baki_stok = $lastmonth_data->baki_stok_kehadapan;
-                    $jumlah_baki_stok[$key] = $lastmonth_data->total_kayu_dibawa_bulan_hadapan ?? 0;
+                    $jumlah_baki_stok[$key] = $lastmonth_data->baki_stok_kehadapan ?? 0;
                 } else {
                     $baki_stok = 0;
                     $jumlah_baki_stok[$key] = 0;
@@ -932,7 +932,7 @@ class FormCController extends Controller
                 if ($lastmonth_data) {
                     $baki_stok = $lastmonth_data->baki_stok_kehadapan;
                     $this->jumlah_besar_baki_stok_bulan_lepas = $lastmonth_data->jumlah_besar_baki_stok_bulan_depan ?? 0;
-                    $jumlah_baki_stok[$key] = $lastmonth_data->total_kayu_dibawa_bulan_hadapan ?? 0;
+                    $jumlah_baki_stok[$key] = $lastmonth_data->baki_stok_kehadapan ?? 0;
                     $total_stok_kayu_balak[$key] = $lastmonth_data->total_kayu_dibawa_bulan_hadapan ?? 0;
                     $total_kayu_dibawa_bulan_hadapan[$key] = $lastmonth_data->total_kayu_dibawa_bulan_hadapan ?? 0;
                 } else {
@@ -957,7 +957,7 @@ class FormCController extends Controller
                 $lastmonth_data = $lastmonth_lookup[$species_id] ?? null;
                 if ($lastmonth_data) {
                     $baki_stok = $lastmonth_data->baki_stok_kehadapan;
-                    $jumlah_baki_stok[$key] = $lastmonth_data->total_kayu_dibawa_bulan_hadapan ?? 0;
+                    $jumlah_baki_stok[$key] = $lastmonth_data->baki_stok_kehadapan ?? 0;
                 } else {
                     $baki_stok = 0;
                     $jumlah_baki_stok[$key] = 0;
@@ -1276,7 +1276,7 @@ class FormCController extends Controller
                 if ($lastmonth_data) {
                     $baki_stok = $lastmonth_data->baki_stok_kehadapan;
                     $jumlah_besar_baki_stok_bulan_lepas = $lastmonth_data->jumlah_besar_baki_stok_bulan_depan ?? 0;
-                    $jumlah_baki_stok[$key] = $lastmonth_data->total_kayu_dibawa_bulan_hadapan ?? 0;
+                    $jumlah_baki_stok[$key] = $lastmonth_data->baki_stok_kehadapan ?? 0;
                     $total_stok_kayu_balak[$key] = $lastmonth_data->total_kayu_dibawa_bulan_hadapan ?? 0;
                     $total_kayu_dibawa_bulan_hadapan[$key] = $lastmonth_data->total_kayu_dibawa_bulan_hadapan ?? 0;
                 } else {
@@ -1302,7 +1302,7 @@ class FormCController extends Controller
                 if ($lastmonth_data) {
                     $baki_stok = $lastmonth_data->baki_stok_kehadapan;
                     $jumlah_besar_baki_stok_bulan_depan = $lastmonth_data->jumlah_besar_baki_stok_bulan_depan;
-                    $jumlah_baki_stok[$key] = $lastmonth_data->total_kayu_dibawa_bulan_hadapan;
+                    $jumlah_baki_stok[$key] = $lastmonth_data->baki_stok_kehadapan;
                 } else {
                     $baki_stok = 0;
                     $jumlah_baki_stok[$key] = 0;
