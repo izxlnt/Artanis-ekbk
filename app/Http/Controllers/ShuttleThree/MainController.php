@@ -615,13 +615,13 @@ class MainController extends Controller
             'formas_id' => $id,
         ]);
 
-        $batch = Batch::where('tahun', $formA->tahun)->where('shuttle_id', $formA->shuttle_id)->where('borang_a',1)->first();
-// dd( $batch);
+        // Form A has no month dimension, but `batches` is keyed per month, so its
+        // confirmed/incomplete state must be reflected on every month's batch row
+        // for the year - not just whichever single row happened to hold
+        // borang_a=1 - otherwise every other month's "Hantar Pakej" check wrongly
+        // reports Borang A as unconfirmed.
         if ($status == "Tidak Lengkap") {
-            if ($batch) {
-                $batch->borang_a = "0";
-                $batch->save();
-            }
+            Batch::where('tahun', $formA->tahun)->where('shuttle_id', $formA->shuttle_id)->update(['borang_a' => "0"]);
 
             //notification tidak lengkap
             $pengguna_kilang_data = PenggunaKilang::where('shuttle_id', $formA->shuttle->id)->first();
@@ -630,10 +630,7 @@ class MainController extends Controller
                 $pengguna_kilang->notify(new BorangTidakLengkapNotification($user, $formA, $status, $request->ulasan_phd, $pengguna_kilang));
             }
         } elseif ($status == "Dihantar ke IPJPSM") {
-            if ($batch) {
-                $batch->borang_a = "2";
-                $batch->save();
-            }
+            Batch::where('tahun', $formA->tahun)->where('shuttle_id', $formA->shuttle_id)->update(['borang_a' => "2"]);
         }
 
         if ($shuttle->shuttle_type == '3') {
@@ -1193,6 +1190,10 @@ class MainController extends Controller
             $batcha->borang_a = 1;
             $batcha->save();
         }
+        // Form A has no month dimension; reflect its pending-review state on every
+        // month's batch row for the year, not just the single row above, so later
+        // months don't wrongly show Borang A as unconfirmed once sent.
+        Batch::where('tahun', $formA_update->tahun)->where('shuttle_id', $shuttle->id)->update(['borang_a' => 1]);
 
         // dd($formA_checker);
         if ($request->has('lesen_kilang') && $request->has('sijil_ssm')) {

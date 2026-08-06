@@ -191,6 +191,10 @@ class MainController extends Controller
             $batch->borang_a = "1";
             $batch->save();
         }
+        // Form A has no month dimension; reflect its pending-review state on every
+        // month's batch row for the year, not just the single row above, so later
+        // months don't wrongly show Borang A as unconfirmed once sent.
+        Batch::where('tahun', $formA_update->tahun)->where('shuttle_id', $shuttle->id)->update(['borang_a' => "1"]);
 
         if ($request->hasFile('sijil_ssm')) {
             $shuttle->sijil_ssm = $request->file('sijil_ssm')->store('public/uploads/');
