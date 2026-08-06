@@ -472,7 +472,7 @@
                                             data-target="#sebelumnya_borang_a" class="model_img img-fluid">
                                             Sebelumnya</button>
 
-                                     @if($besar_jumlah_kayu_masuk != 0)
+                                     @if($besar_jumlah_kayu_masuk != 0 || $besar_total_kayu_masuk_jentera != 0)
                                         <button type="button" id="submit_button"
                                             class="btn btn-primary" alt="default" data-toggle="modal"
                                             data-target="#confirmation_borang_a"
