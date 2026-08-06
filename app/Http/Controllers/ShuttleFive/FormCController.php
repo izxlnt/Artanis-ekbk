@@ -22,6 +22,53 @@ use App\Services\FormFlowService;
 
 class FormCController extends Controller
 {
+    /**
+     * Recompute and persist the "Jumlah Besar" grand totals (sum across all 5 wood
+     * groups) onto the Lain-Lain rows. Called after every group is saved so the
+     * grand total never goes stale when an earlier group is edited after Lain-Lain
+     * has already been submitted for the month.
+     */
+    private function refreshJumlahBesar($formcId, $shuttleId)
+    {
+        $lainLainExists = KemasukanBahan::whereHas('spesis_id', function ($q) {
+            $q->where('kumpulan_kayu_id', '5');
+        })->where('shuttle_id', $shuttleId)->where('formcs_id', $formcId)->exists();
+
+        if (!$lainLainExists) {
+            return;
+        }
+
+        $besar = [
+            'jumlah_baki_stok' => 0,
+            'jumlah_kayu_masuk' => 0,
+            'total_stok_kayu_balak' => 0,
+            'total_kayu_masuk_jentera' => 0,
+            'total_kayu_keluar_jentera' => 0,
+            'total_kayu_dibawa_bulan_hadapan' => 0,
+        ];
+
+        foreach (range(1, 5) as $kkid) {
+            $group = KemasukanBahan::whereHas('spesis_id', function ($q) use ($kkid) {
+                $q->where('kumpulan_kayu_id', $kkid);
+            })->where('shuttle_id', $shuttleId)->where('formcs_id', $formcId)->first();
+
+            foreach ($besar as $field => $sum) {
+                $besar[$field] += (float) ($group->{$field} ?? 0);
+            }
+        }
+
+        KemasukanBahan::whereHas('spesis_id', function ($q) {
+            $q->where('kumpulan_kayu_id', '5');
+        })->where('shuttle_id', $shuttleId)->where('formcs_id', $formcId)->update([
+            'jumlah_besar_baki_stok_bulan_lepas' => $besar['jumlah_baki_stok'],
+            'jumlah_besar_kemasukan_kayu_ke_kilang' => $besar['jumlah_kayu_masuk'],
+            'jumlah_besar_stok_kayu_balak' => $besar['total_stok_kayu_balak'],
+            'jumlah_besar_kayu_ke_dalam_jentera' => $besar['total_kayu_masuk_jentera'],
+            'jumlah_besar_pengeluaran_kayu_daripada_jentera' => $besar['total_kayu_keluar_jentera'],
+            'jumlah_besar_baki_stok_bulan_depan' => $besar['total_kayu_dibawa_bulan_hadapan'],
+        ]);
+    }
+
     public function shuttle_5_formCKKB($bulan_id, $year = null)
     {
         $year = $year ?? date("Y");
@@ -83,8 +130,8 @@ class FormCController extends Controller
                     $baki_stok = $lastmonth_data->baki_stok_kehadapan;
                     $this->jumlah_besar_baki_stok_bulan_lepas = $lastmonth_data->jumlah_besar_baki_stok_bulan_depan ?? 0;
                     $jumlah_baki_stok[$key] = $lastmonth_data->baki_stok_kehadapan ?? 0;
-                    $total_stok_kayu_balak[$key] = $lastmonth_data->total_kayu_dibawa_bulan_hadapan ?? 0;
-                    $total_kayu_dibawa_bulan_hadapan[$key] = $lastmonth_data->total_kayu_dibawa_bulan_hadapan ?? 0;
+                    $total_stok_kayu_balak[$key] = $baki_stok;
+                    $total_kayu_dibawa_bulan_hadapan[$key] = $baki_stok;
                 } else {
                     $baki_stok = 0;
                     $jumlah_baki_stok[$key] = 0;
@@ -325,6 +372,8 @@ class FormCController extends Controller
             }
         }
 
+        $this->refreshJumlahBesar($formc->id, $shuttle_id->id);
+
         if ($request->sebelumnya == 1) {
             return redirect()->route('user.shuttle-5-senaraiC', $year);
         }
@@ -388,8 +437,8 @@ class FormCController extends Controller
                     $baki_stok = $lastmonth_data->baki_stok_kehadapan;
                     $this->jumlah_besar_baki_stok_bulan_lepas = $lastmonth_data->jumlah_besar_baki_stok_bulan_depan ?? 0;
                     $jumlah_baki_stok[$key] = $lastmonth_data->baki_stok_kehadapan ?? 0;
-                    $total_stok_kayu_balak[$key] = $lastmonth_data->total_kayu_dibawa_bulan_hadapan ?? 0;
-                    $total_kayu_dibawa_bulan_hadapan[$key] = $lastmonth_data->total_kayu_dibawa_bulan_hadapan ?? 0;
+                    $total_stok_kayu_balak[$key] = $baki_stok;
+                    $total_kayu_dibawa_bulan_hadapan[$key] = $baki_stok;
                 } else {
                     $baki_stok = 0;
                     $jumlah_baki_stok[$key] = 0;
@@ -601,6 +650,8 @@ class FormCController extends Controller
             }
         }
 
+        $this->refreshJumlahBesar($formc->id, $shuttle_id->id);
+
         if ($request->sebelumnya == 1) {
             return redirect()->route('user.shuttle-5-formC.KKB', ['bulan' => $bulan_id, 'year' => $year]);
         }
@@ -664,8 +715,8 @@ class FormCController extends Controller
                     $baki_stok = $lastmonth_data->baki_stok_kehadapan;
                     $this->jumlah_besar_baki_stok_bulan_lepas = $lastmonth_data->jumlah_besar_baki_stok_bulan_depan ?? 0;
                     $jumlah_baki_stok[$key] = $lastmonth_data->baki_stok_kehadapan ?? 0;
-                    $total_stok_kayu_balak[$key] = $lastmonth_data->total_kayu_dibawa_bulan_hadapan ?? 0;
-                    $total_kayu_dibawa_bulan_hadapan[$key] = $lastmonth_data->total_kayu_dibawa_bulan_hadapan ?? 0;
+                    $total_stok_kayu_balak[$key] = $baki_stok;
+                    $total_kayu_dibawa_bulan_hadapan[$key] = $baki_stok;
                 } else {
                     $baki_stok = 0;
                     $jumlah_baki_stok[$key] = 0;
@@ -872,6 +923,8 @@ class FormCController extends Controller
             }
         }
 
+        $this->refreshJumlahBesar($formc->id, $shuttle_id->id);
+
         if ($request->sebelumnya == 1) {
             return redirect()->route('user.shuttle-5-formC.KKS', ['bulan' => $bulan_id, 'year' => $year]);
         }
@@ -933,8 +986,8 @@ class FormCController extends Controller
                     $baki_stok = $lastmonth_data->baki_stok_kehadapan;
                     $this->jumlah_besar_baki_stok_bulan_lepas = $lastmonth_data->jumlah_besar_baki_stok_bulan_depan ?? 0;
                     $jumlah_baki_stok[$key] = $lastmonth_data->baki_stok_kehadapan ?? 0;
-                    $total_stok_kayu_balak[$key] = $lastmonth_data->total_kayu_dibawa_bulan_hadapan ?? 0;
-                    $total_kayu_dibawa_bulan_hadapan[$key] = $lastmonth_data->total_kayu_dibawa_bulan_hadapan ?? 0;
+                    $total_stok_kayu_balak[$key] = $baki_stok;
+                    $total_kayu_dibawa_bulan_hadapan[$key] = $baki_stok;
                 } else {
                     $baki_stok = 0;
                     $jumlah_baki_stok[$key] = 0;
@@ -1141,6 +1194,8 @@ class FormCController extends Controller
             }
         }
 
+        $this->refreshJumlahBesar($formc->id, $shuttle_id->id);
+
         if ($request->sebelumnya == 1) {
             return redirect()->route('user.shuttle-5-formC.KKR', ['bulan' => $bulan_id, 'year' => $year]);
         }
@@ -1277,8 +1332,8 @@ class FormCController extends Controller
                     $baki_stok = $lastmonth_data->baki_stok_kehadapan;
                     $jumlah_besar_baki_stok_bulan_lepas = $lastmonth_data->jumlah_besar_baki_stok_bulan_depan ?? 0;
                     $jumlah_baki_stok[$key] = $lastmonth_data->baki_stok_kehadapan ?? 0;
-                    $total_stok_kayu_balak[$key] = $lastmonth_data->total_kayu_dibawa_bulan_hadapan ?? 0;
-                    $total_kayu_dibawa_bulan_hadapan[$key] = $lastmonth_data->total_kayu_dibawa_bulan_hadapan ?? 0;
+                    $total_stok_kayu_balak[$key] = $baki_stok;
+                    $total_kayu_dibawa_bulan_hadapan[$key] = $baki_stok;
                 } else {
                     $baki_stok = 0;
                     $jumlah_baki_stok[$key] = 0;
@@ -1543,6 +1598,8 @@ class FormCController extends Controller
                 $data->save();
             }
         }
+
+        $this->refreshJumlahBesar($formc->id, $shuttle_id->id);
 
         if ($request->sebelumnya == 1) {
             return redirect()->route('user.shuttle-5-formC.KayuLembut', ['bulan' => $bulan_id, 'year' => $year]);
