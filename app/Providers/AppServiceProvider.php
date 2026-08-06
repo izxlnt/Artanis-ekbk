@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Models\Shuttle;
+use App\Observers\ShuttleObserver;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -23,6 +25,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        Shuttle::observe(ShuttleObserver::class);
     }
 }
