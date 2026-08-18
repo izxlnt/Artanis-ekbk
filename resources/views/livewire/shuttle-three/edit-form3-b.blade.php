@@ -251,6 +251,7 @@
                                                                     <input readonly style="text-align:right" type="text"
                                                                         style="background-color: #f8dbee;" size="6"
                                                                         id="fb_jl_{{ $key }}"
+                                                                        value="{{ $jumlah_lelaki[$key] ?? '' }}"
                                                                         onkeypress="return onlyNumberKey(event)">
                                                                 </td>
                                                                 <td
@@ -259,6 +260,7 @@
                                                                         type="text" style="background-color: #f8dbee;"
                                                                         size="6"
                                                                         id="fb_jp_{{ $key }}"
+                                                                        value="{{ $jumlah_perempuan[$key] ?? '' }}"
                                                                         onkeypress="return onlyNumberKey(event)">
                                                                 </td>
                                                                 <td style="text-align:center;background-color:#f8dbee;">
@@ -266,6 +268,7 @@
                                                                         type="text" style="background-color: #f8dbee;"
                                                                         size="6"
                                                                         id="fb_j_{{ $key }}"
+                                                                        value="{{ $jumlah_pekerja[$key] ?? '' }}"
                                                                         onkeypress="return onlyNumberKey(event)">
                                                                 </td>
 
@@ -311,12 +314,14 @@
                                                                     <input readonly type="text" style="text-align:right"
                                                                         size="7" style="background-color: #f8dbee;"
                                                                         id="fb_glp_{{ $key }}"
+                                                                        value="{{ $gaji_lelaki_perempuan[$key] ?? '' }}"
                                                                         onkeypress="return isNumberKey(event)">
                                                                 </td>
                                                                 <td style="text-align:center;background-color:#f8dbee;">
                                                                     <input readonly style="text-align:right" type="text"
                                                                         style="background-color: #f8dbee;" size="7"
                                                                         id="fb_tgl_{{ $key }}"
+                                                                        value="{{ $total_gaji_lelaki[$key] ?? '' }}"
 
                                                                         onkeypress="return isNumberKey(event)">
                                                                 </td>
@@ -324,13 +329,15 @@
                                                                     <input readonly style="text-align:right" type="text"
                                                                         style="background-color: #f8dbee;" size="7"
                                                                         id="fb_tgp_{{ $key }}"
+                                                                        value="{{ $total_gaji_perempuan[$key] ?? '' }}"
 
                                                                         onkeypress="return isNumberKey(event)">
                                                                 </td>
                                                                 <td style="text-align:center;background-color:#f8dbee;">
                                                                     <input readonly style="text-align:right" type="text"
                                                                         style="background-color: #f8dbee;" size="7"
-                                                                        id="fb_tg_{{ $key }}">
+                                                                        id="fb_tg_{{ $key }}"
+                                                                        value="{{ $total_gaji[$key] ?? '' }}">
                                                                 </td>
 
                                                             </tr>
@@ -345,71 +352,71 @@
                                                             <td style="text-align:center;"><input readonly type="text"
                                                                     style="text-align:right;font-weight:bold"
                                                                     style="background-color: #f8dbee;" size="3"
-                                                                    id="fb_tot_wl"></td>
+                                                                    id="fb_tot_wl" value="{{ $total_bumi_lelaki ?? '' }}"></td>
                                                             <td style="text-align:center;"><input readonly type="text"
                                                                     style="text-align:right;font-weight:bold"
                                                                     style="background-color: #f8dbee;" size="3"
-                                                                    id="fb_tot_wp"></td>
+                                                                    id="fb_tot_wp" value="{{ $total_bumi_perempuan ?? '' }}"></td>
                                                             <td style="text-align:center;"><input readonly type="text"
                                                                     style="text-align:right;font-weight:bold"
                                                                     style="background-color: #f8dbee;" size="3"
-                                                                    id="fb_tot_bl"></td>
+                                                                    id="fb_tot_bl" value="{{ $total_bukanbumi_lelaki ?? '' }}"></td>
                                                             <td style="text-align:center;"><input readonly type="text"
                                                                     style="text-align:right;font-weight:bold"
                                                                     style="background-color: #f8dbee;" size="3"
-                                                                    id="fb_tot_bp"></td>
+                                                                    id="fb_tot_bp" value="{{ $total_bukanbumi_perempuan ?? '' }}"></td>
                                                             <td style="text-align:center;"><input readonly type="text"
                                                                     style="text-align:right;font-weight:bold"
                                                                     style="background-color: #f8dbee;" size="3"
-                                                                    id="fb_tot_al"></td>
+                                                                    id="fb_tot_al" value="{{ $total_asing_lelaki ?? '' }}"></td>
                                                             <td style="text-align:center;"><input readonly type="text"
                                                                     style="text-align:right;font-weight:bold"
                                                                     style="background-color: #f8dbee;" size="3"
-                                                                    id="fb_tot_ap"></td>
+                                                                    id="fb_tot_ap" value="{{ $total_asing_perempuan ?? '' }}"></td>
                                                             <td style="text-align:center ;background-color:#f8dbee;">
                                                                 <input readonly type="text" style="text-align:right;font-weight:bold"
                                                                     style="background-color: #f8dbee;" size="6"
-                                                                    id="fb_tot_jl">
+                                                                    id="fb_tot_jl" value="{{ $total_pekerja_lelaki ?? '' }}">
                                                             </td>
                                                             <td style="text-align:center;background-color:#f8dbee;">
                                                                 <input readonly type="text" style="text-align:right;font-weight:bold"
                                                                     style="background-color: #f8dbee;" size="6"
-                                                                    id="fb_tot_jp">
+                                                                    id="fb_tot_jp" value="{{ $total_pekerja_perempuan ?? '' }}">
                                                             </td>
                                                             <td style="text-align:center;background-color:#f8dbee;">
                                                                 <input readonly type="text" style="text-align:right;font-weight:bold"
                                                                     style="background-color: #f8dbee;" size="6"
-                                                                    id="fb_tot_j">
+                                                                    id="fb_tot_j" value="{{ $total_pekerja ?? '' }}">
                                                             </td>
                                                             <td style="text-align:center;"><input readonly type="text"
                                                                     style="text-align:right;font-weight:bold"
                                                                     style="background-color: #f8dbee;" size="6"
-                                                                    id="fb_tot_gl"></td>
+                                                                    id="fb_tot_gl" value="{{ $jumlah_gaji_lelaki ?? '' }}"></td>
                                                             <td style="text-align:center;"><input readonly type="text"
                                                                     style="text-align:right;font-weight:bold"
                                                                     style="background-color: #f8dbee;" size="6"
-                                                                    id="fb_tot_gp"></td>
+                                                                    id="fb_tot_gp" value="{{ $jumlah_gaji_perempuan ?? '' }}"></td>
 
                                                             <td style="text-align:center;background-color:#f8dbee;">
                                                                 <input readonly type="text" style="text-align:right;font-weight:bold"
                                                                     style="background-color: #f8dbee;" size="7"
-                                                                    id="fb_tot_glp">
+                                                                    id="fb_tot_glp" value="{{ $jumlah_lelaki_perempuan ?? '' }}">
                                                             </td>
 
                                                             <td style="text-align:center;background-color:#f8dbee;">
                                                                 <input readonly type="text" style="text-align:right;font-weight:bold"
                                                                     style="background-color: #f8dbee;" size="7"
-                                                                    id="fb_tot_tgl">
+                                                                    id="fb_tot_tgl" value="{{ $jumlah_total_lelaki ?? '' }}">
                                                             </td>
                                                             <td style="text-align:center;background-color:#f8dbee;">
                                                                 <input readonly type="text" style="text-align:right;font-weight:bold"
                                                                     style="background-color: #f8dbee;" size="7"
-                                                                    id="fb_tot_tgp">
+                                                                    id="fb_tot_tgp" value="{{ $jumlah_total_perempuan ?? '' }}">
                                                             </td>
                                                             <td style="text-align:center;background-color:#f8dbee;">
-                                                                <input readonlytype="text" style="text-align:right;font-weight:bold"
+                                                                <input readonly type="text" style="text-align:right;font-weight:bold"
                                                                     style="background-color: #f8dbee;" size="7"
-                                                                    id="fb_tot_tg">
+                                                                    id="fb_tot_tg" value="{{ $jumlah_total_gaji ?? '' }}">
                                                             </td>
                                                         </tr>
                                                     </table>
