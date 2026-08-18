@@ -6,8 +6,8 @@
 | **Sistem** | Sistem Pelaporan Industri Perkilangan Kayu (eShuttle) — EKBK |
 | **Jenis Dokumen** | Pelan & Panduan Pelaksanaan UAT/FAT |
 | **Disediakan oleh** | Muhammad Faiz Abdullah (Pembangun/Kontraktor) |
-| **Tarikh** | 2 Ogos 2026 |
-| **Versi** | 1.1 |
+| **Tarikh** | 18 Ogos 2026 |
+| **Versi** | 1.2 |
 | **Rujukan Skop Kerja** | `SKOP_KERJA_ESHUTTLE.md` (Mei–Julai 2026) |
 
 > **Nota tentang istilah**: Dalam dokumen ini, **UAT (User Acceptance Test)** merujuk kepada pengujian oleh pengguna akhir/pihak EKBK (IBK, PHD, JPN, IPJPSM) untuk mengesahkan sistem memenuhi keperluan bisnes. **FAT (Final Acceptance Test)** merujuk kepada pengujian penerimaan muktamad sebelum penyerahan rasmi sistem, biasanya dijalankan bersama pihak pembangun/kontraktor untuk mengesahkan aspek teknikal (persekitaran, konfigurasi, integrasi, keselamatan asas) sebelum UAT rasmi oleh pengguna. Kedua-dua peringkat berkongsi set kes ujian yang sama dalam dokumen ini — bezanya hanya siapa yang menjalankan dan bila (FAT dahulu di persekitaran staging, UAT kemudian selepas FAT lulus).
@@ -245,6 +245,8 @@ Seeder `database/seeders/UserSeeder.php` mencipta akaun berikut secara automatik
 | APP-06 | IPJPSM/PHD | Luluskan permohonan **kilang** (`Shuttle`) secara berasingan daripada permohonan pengguna | Status kilang bertukar aktif berasingan daripada status pengguna |  |  |
 | APP-07 | IPJPSM | Tolak/padam permohonan pengguna (`delete_user_application`) | Rekod `User` dan `Shuttle` **dipadam terus (hard delete)** — sahkan tiada ralat/rekod anak yatim (orphan) tertinggal pada `FormA/B/C/D/E` yang mungkin sudah dicipta |  |  |
 | APP-08 | PHD | Luluskan permohonan pengguna IBK melalui laluan PHD (`sahkan_permohonan_phd_ipjpsm`) | Sama seperti APP-03 tetapi dari peringkat PHD |  |  |
+| APP-09 | IPJPSM | **Fokus regresi** (18 Ogos 2026): ulang APP-03/APP-06/APP-08 beberapa kali dengan kombinasi data berbeza (cth kilang tanpa `daerah_id` sah, pengguna dengan `login_id` tidak sepadan rekod sedia ada) | Pengesahan berjaya **tanpa ralat 500 selepas klik sahkan**; jika e-mel gagal dihantar (cth SMTP tidak dikonfigurasi), pengesahan tetap berjaya disimpan dan ralat e-mel dicatat dalam log sahaja (dibaiki — dua laluan pengesahan tidak mempunyai semakan null pada rekod yang mungkin tiada, dan penghantaran e-mel tidak dilindungi try/catch; **keyakinan sederhana** — tiada jejak ralat sebenar daripada klien untuk mengesahkan punca tepat, jadi ini perlu pengesahan langsung semasa UAT) |  |  |
+| APP-10 | IPJPSM | Buka borang pengesahan Borang A untuk Shuttle 4/5 (`ipjpsm.shuttle-3-view-formA`, digunakan sama untuk 4A/5A) | Negeri kilang **dipaparkan** (bukan kosong) pada borang pengesahan |  |  |
 
 ### 7.4 Lupa Kata Laluan / Tukar Kata Laluan / Jana Kata Laluan oleh Admin
 
@@ -315,6 +317,7 @@ Seeder `database/seeders/UserSeeder.php` mencipta akaun berikut secara automatik
 | FB-02 | IBK | Cuba isi Borang B suku 2 sebelum suku 1 dihantar | Dihalang mengikut urutan |  |  |
 | FB-03 | PHD/IPJPSM | Ulang aliran Sahkan/Tolak sama seperti Borang A (FA-02–FA-04) untuk setiap suku | Sama seperti atas |  |  |
 | FB-04 | Semua | Sahkan tarikh buka/tutup suku (Q1: Mac–Apr, Q2: Jun–Jul, Q3: Sep–Okt, Q4: Dis) berfungsi mengikut jangkaan — **sahkan dengan EKBK sama ada logik "buka pada penghujung suku" ini betul mengikut keperluan sebenar**, kerana ia kelihatan berbeza daripada tanggapan biasa "suku bermula = borang dibuka" | Dokumen tingkah laku sebenar untuk pengesahan bisnes |  |  |
+| FB-05 | IBK | PHD tolak Borang B (`Tidak Lengkap`); IBK buka semula borang yang dipulangkan (Shuttle 3, 4, **dan** 5) | Jumlah/purata terkira (jantina, gaji, kumpulan bumiputera/bukan-bumiputera/asing) **dipaparkan semula** seperti dihantar asal, bukan kosong — IBK boleh sunting dan hantar semula dengan yakin (dibaiki 18 Ogos 2026 — medan jumlah terkira sebelum ini sentiasa kosong apabila borang dibuka semula) |  |  |
 
 **7.6.3 Borang C (Bulanan — Kemasukan Bahan Kayu)**
 
@@ -329,6 +332,7 @@ Seeder `database/seeders/UserSeeder.php` mencipta akaun berikut secara automatik
 | FC-07 | IBK | Isi Borang C untuk suku yang Borang B-nya belum dihantar (suku **sebelumnya**, bukan suku semasa) | Dihalang mengikut peraturan `FormFlowService` |  |  |
 | FC-08 | PHD | Sahkan/Tolak Borang C dengan ulasan | Sama corak seperti Borang A |  |  |
 | FC-09 | IBK/PHD | **Kes regresi penting**: PHD betulkan/tolak Borang C bulan lampau (cth bulan 3) selepas bulan-bulan kemudian (4, 5, 6) sudah diisi | Bulan 4, 5, 6 **kekal boleh diakses** — pembetulan bulan lampau tidak mengunci bulan yang sudah diisi kemudian |  |  |
+| FC-10 | PHD | Lihat senarai tugasan (`senarai-tugasan-{3,4,5}{B,C,D,E}`) merangkumi borang berstatus `Sedang Diisi` (IBK sedang isi, belum hantar) dan borang bulan/suku yang telah `Ditutup` | Borang `Sedang Diisi` memaparkan lencana/ikon "Sedang Diisi oleh IBK" (bukan kosong); borang `Ditutup` **tidak** disenaraikan langsung (dibaiki 18 Ogos 2026 — sebelum ini kedua-dua kes memaparkan lajur status/ikon tindakan kosong pada 3B/3C/4B/4C/4D/4E/5B/5C) |  |  |
 
 **7.6.4 Borang D & E (Bulanan)**
 
@@ -347,6 +351,7 @@ Seeder `database/seeders/UserSeeder.php` mencipta akaun berikut secara automatik
 | BATCH-02 | PHD | Klik "Hantar" untuk pakej yang **kelima-lima** borang (A–E berkenaan) sudah disahkan (`borang_x = "2"`) | Status pakej → `Dihantar ke IPJPSM` |  |  |
 | BATCH-03 | PHD | Klik "Hantar" untuk pakej yang **belum lengkap** | **Ditolak** — mesej menyatakan borang mana (A/B/C/D/E) yang belum disahkan; status pakej kekal `Sedang Diproses` |  |  |
 | BATCH-04 | PHD | Cuba akses URL "Hantar" secara terus tanpa klik butang (cth taip URL/guna sejarah pelayar) | Laluan hanya menerima kaedah `POST` — percubaan `GET` terus akan mengembalikan 405 Method Not Allowed, tidak tercetus tanpa pengesahan |  |  |
+| BATCH-05 | PHD | Klik "Hantar" untuk pakej bulan **bukan** penghujung suku (bulan selain 3/6/9/12) apabila Borang A/C/D/E sudah disahkan | Berjaya dihantar — Borang B **tidak** disyaratkan di luar bulan penghujung suku (dibaiki 18 Ogos 2026 — sebelum ini sentiasa ditolak kerana `borang_b` cuma pernah disahkan pada bulan 3/6/9/12) |  |  |
 
 **7.6.6 Kawalan Buffer (Tempoh Tangguh)**
 
@@ -364,6 +369,7 @@ Seeder `database/seeders/UserSeeder.php` mencipta akaun berikut secara automatik
 | JPN-02 | JPN | Cuba akses URL kemas kini status borang secara terus (jika tahu URL) | Ditolak/tiada laluan wujud untuk JPN |  |  |
 | JPN-03 | JPN | Hantar peringatan e-mel kepada kilang yang belum mengambil tindakan (`jpn.shuttle-list-jpn.email`) | E-mel `BorangTidakDiambilTindakanMail` diterima oleh kilang berkenaan |  |  |
 | JPN-04 | JPN | Lihat notifikasi (`jpn.notifikasi.list`) | Senarai notifikasi berkaitan negeri ditetapkan dipaparkan |  |  |
+| JPN-05 | JPN | Semak jumlah/kiraan pada kad papan pemuka "Senarai Borang Yang Belum Disahkan Pegawai Hutan Daerah" (Shuttle 3/4/5 + butiran A/B/C/D) untuk negeri dengan borang berstatus `Sedang Diproses` sedia ada | Kiraan **bukan sifar**, sepadan dengan bilangan sebenar borang belum disahkan bagi negeri berkenaan (dibaiki 18 Ogos 2026 — kiraan sebelum ini sentiasa 0 kerana carian `shuttle_type` tersalah tapis pada jadual Borang A) |  |  |
 
 ### 7.8 Cetak PDF Borang
 
@@ -403,6 +409,8 @@ Semua modul berikut mengikut corak **sama** (kebanyakannya Livewire dalam-halama
 | Taraf Syarikat | Pendaftaran kilang terjejas |
 | Pengurusan Pengguna (senarai & status aktif/nyahaktif ikut peranan) | Kawalan akses pengguna keseluruhan sistem |
 
+**PP-01** (tambahan 18 Ogos 2026): IPJPSM buka senarai kilang Shuttle 4 (`ipjpsm.senaraikilang4`) dan Shuttle 5 (`ipjpsm.senaraikilang5`) — sahkan lajur **Daerah Hutan** kini dipaparkan (dibaiki; sebelum ini lajur ini wujud untuk Shuttle 3 sahaja, tiada langsung pada paparan Shuttle 4/5).
+
 ### 7.10 Pengumuman (Papan Pengumuman Berperingkat)
 
 | ID | Peranan | Langkah | Hasil Dijangka | Keputusan (Lulus/Gagal/NA) | Catatan |
@@ -420,6 +428,7 @@ Semua modul berikut mengikut corak **sama** (kebanyakannya Livewire dalam-halama
 | NOTIF-02 | PHD | Hantar peringatan kepada satu kilang khusus | `BorangTidakDiisiNotification` diterima (dalam-aplikasi + e-mel jika `MAIL_FROM_ADDRESS` diisi) oleh semua pengguna kilang berkenaan |  |  |
 | NOTIF-03 | Semua | Klik notifikasi dalam-aplikasi (loceng) | Ditanda dibaca, dialihkan ke laluan berkaitan |  |  |
 | NOTIF-04 | Semua | Klik notifikasi yang data `route`-nya rosak/kosong (kes sempadan — mungkin perlu dicipta manual dalam DB untuk uji) | Mesej ralat mesra dipaparkan, **bukan** ralat sistem (500) |  |  |
+| NOTIF-05 | IBK → PHD | IBK hantar Borang B/C/D/E (Shuttle 3, 4, **dan** 5) — sahkan PHD daerah berkenaan terima notifikasi loceng dalam-aplikasi (dan e-mel jika `MAIL_FROM_ADDRESS` diisi) | Notifikasi diterima untuk **setiap** kombinasi borang×shuttle (dibaiki 18 Ogos 2026 — pepijat sistemik: kod perbandingan daerah kilang membandingkan nama daerah dengan ID daerah berangka, jadi PHD tidak pernah menerima sebarang notifikasi penghantaran borang, merentasi hampir semua jenis borang dan shuttle). Uji khusus Borang 3C dahulu (aduan asal), kemudian sampel sekurang-kurangnya satu borang lain (cth 4B, 5D) untuk sahkan pembaikan menyeluruh |  |  |
 
 ### 7.12 Modul Laporan
 
@@ -446,6 +455,16 @@ Untuk **setiap** laporan sampel di atas:
 | RPT-01 | IPJPSM buka halaman pemilihan laporan (`/admin/laporan`) | Senarai tahun & spesies dipaparkan (gabungan data semasa + legasi) |  |  |
 | RPT-02–06 | Jana 5 laporan sampel (jadual atas) × 3 jenis shuttle | Rujuk langkah 1–5 di atas untuk setiap satu |  |  |
 | RPT-07 | Uji laporan dengan nama spesies yang mengandungi aksara khas (cth tanda petik, "/") | Tiada ralat SQL/parameter |  |  |
+
+**Laporan tertentu yang telah dibaiki (18 Ogos 2026) — perlu diuji khusus, luar skop persampelan di atas kerana nombor laporan spesifik terlibat:**
+
+| ID | Laporan | Langkah | Hasil Dijangka | Keputusan (Lulus/Gagal/NA) | Catatan |
+|---|---|---|---|---|---|
+| RPT-08 | Shuttle 4/5, No. 15 | Jana laporan "Jumlah dan purata pendapatan guna tenaga mengikut kategori dan kewarganegeraan di kilang papan" | Setiap baris memaparkan purata pendapatannya **sendiri**, bukan purata terkumpul separa (dibaiki — sel dipaparkan sebelum ini tertimpa dengan pengiraan purata berjalan) |  |  |
+| RPT-09 | Shuttle 4/5, No. 1 | Jana laporan No. 1, bandingkan "Bil. Kilang" dengan bilangan baris dijana | Kedua-duanya sepadan untuk tahun dipilih (dibaiki — pertanyaan sebelum ini tidak ditapis ikut tahun, mengumpul kilang merentasi semua tahun) |  |  |
+| RPT-10 | Shuttle 4/5, No. 2 | Jana laporan No. 2 untuk Borang A yang telah disahkan PHD (status `Dihantar ke IPJPSM`, bukan `Lulus`) | Berjaya dijana, **tiada** mesej ralat "sila sahkan Borang A" (dibaiki — pertanyaan sebelum ini hanya menerima status `Lulus`, menolak borang yang sah disahkan tetapi belum diluluskan IPJPSM) |  |  |
+| RPT-11 | Shuttle 4, No. 5 & No. 6 | Jana kedua-dua laporan untuk kilang dengan dan tanpa rekod pengeluaran nipis/tebal (No.5) dan muka/teras (No.6) | Kedua-dua laporan dijana tanpa ralat (dibaiki dua pepijat berasingan: pertanyaan gabungan tanpa syarat penggabung menyebabkan nilai digandakan ~1293×, dan pembolehubah tidak diinisialisasi menyebabkan ralat "Undefined variable" untuk kilang tanpa rekod tertentu) |  |  |
+| RPT-12 | Shuttle 5, No. 3 (Kilang Kayu Kumai) | Jana laporan No. 3 untuk kilang dengan Borang A diluluskan pada lebih daripada satu tahun | Poskod dan daerah **tidak berganda** — setiap kilang muncul sekali sahaja (dibaiki — pertanyaan sebelum ini tiada tapisan tahun/warganegara, mengembalikan satu baris bagi setiap tahun Borang A diluluskan) |  |  |
 
 ### 7.13 Mod Penyelenggaraan
 
