@@ -79,6 +79,9 @@
 
                                             $export = 0;
                                             $domestik = 0;
+
+                                            $muka = 0;
+                                            $teras = 0;
                                         @endphp
 
                                             @foreach ($rekod_muka as $jenis)

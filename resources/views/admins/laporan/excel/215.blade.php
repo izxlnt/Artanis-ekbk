@@ -291,7 +291,7 @@
                                 $jumlah_purata_keseluruhan = $jumlah_purata_keseluruhan + $purata_keseluruhan;
                             @endphp
 
-                            {{ number_format(round($jumlah_purata_keseluruhan = $jumlah_pendapatan / max($jumlah_jumlah_jumlah, 1), 2)) }}
+                            {{ number_format(round($purata_keseluruhan, 2)) }}
                         @endif
                     </td>
                 </tr>
