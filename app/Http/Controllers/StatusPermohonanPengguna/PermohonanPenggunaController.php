@@ -18,6 +18,7 @@ use App\Models\Shuttle;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Session;
@@ -469,11 +470,14 @@ class PermohonanPenggunaController extends Controller
 
     public function sahkan_permohonan_phd_ipjpsm($id)
     {
-        $id = User::find($id);
+        $user = User::find($id);
+
+        if (!$user) {
+            return redirect()->back()->with('error', 'Pengguna tidak dijumpai.');
+        }
+
         $random = Str::random(8);
         // $random = "1234567890";
-
-        $user = User::where('id',$id->id)->first();
 
         $user->is_approved_ipjpsm = '1';
         $user->password =  Hash::make($random);
@@ -481,7 +485,11 @@ class PermohonanPenggunaController extends Controller
         $user->save();
 
         //notification registration
-        Mail::to($user)->send(new SendRegistrationMail($user, $random));
+        try {
+            Mail::to($user)->send(new SendRegistrationMail($user, $random));
+        } catch (\Throwable $e) {
+            Log::error('Gagal menghantar emel pendaftaran (PHD/JPN): ' . $e->getMessage(), ['user_id' => $user->id]);
+        }
 
         Session::flash('message', 'Permohonan PHD telah disahkan.');
 
@@ -524,7 +532,17 @@ class PermohonanPenggunaController extends Controller
     {
 
         $pengguna = PenggunaKilang::find($id);
+
+        if (!$pengguna) {
+            return redirect()->back()->with('error', 'Maklumat pengguna kilang tidak dijumpai.');
+        }
+
         $user = User::where('login_id',$pengguna->no_kad_pengenalan)->first();
+
+        if (!$user) {
+            return redirect()->back()->with('error', 'Akaun pengguna berkaitan tidak dijumpai. Sila hubungi pentadbir sistem.');
+        }
+
         $random = Str::random(8);
         // $random_2 = mt_rand();
 
@@ -1532,7 +1550,11 @@ $batch_checker = Batch::where('shuttle_id', $user->shuttle_id)->where('tahun', d
         // Session::flash('message', 'Permohonan Pengguna Telah Berjaya Disahkan.');
 
         //notification registration
-        Mail::to($user)->send(new SendRegistrationMail($user, $random));
+        try {
+            Mail::to($user)->send(new SendRegistrationMail($user, $random));
+        } catch (\Throwable $e) {
+            Log::error('Gagal menghantar emel pendaftaran (Pengguna Kilang): ' . $e->getMessage(), ['user_id' => $user->id]);
+        }
 
         if($pengguna->shuttle_type == 3){
             return redirect()->route('ipjpsm.status-permohonan-shuttle-3',$user->shuttle_id)->with('success','Permohonan Pengguna Telah Berjaya Disahkan.');
@@ -1546,13 +1568,24 @@ $batch_checker = Batch::where('shuttle_id', $user->shuttle_id)->where('tahun', d
             return redirect()->route('ipjpsm.status-permohonan-shuttle-5',$user->shuttle_id)->with('success','Permohonan Pengguna Telah Berjaya Disahkan.');
         }
 
+        return redirect()->route('home')->with('success','Permohonan Pengguna Telah Berjaya Disahkan.');
+
     }
 
     public function sahkan_permohonan_kilang_ipjpsm($id)
     {
         $kilang = Shuttle::find($id);
 
+        if (!$kilang) {
+            return redirect()->back()->with('error', 'Maklumat kilang tidak dijumpai.');
+        }
+
         $user = User::where('login_id', $kilang->no_ssm)->first();
+
+        if (!$user) {
+            return redirect()->back()->with('error', 'Akaun pengguna berkaitan tidak dijumpai. Sila hubungi pentadbir sistem.');
+        }
+
         $random = Str::random(8);
         // $random = "1234567890";
 
@@ -1567,7 +1600,11 @@ $batch_checker = Batch::where('shuttle_id', $user->shuttle_id)->where('tahun', d
         // Session::flash('message', 'Permohonan Kilang Telah Berjaya Disahkan.');
 
         //notification registration
-        Mail::to($user)->send(new SendRegistrationMail($user, $random));
+        try {
+            Mail::to($user)->send(new SendRegistrationMail($user, $random));
+        } catch (\Throwable $e) {
+            Log::error('Gagal menghantar emel pendaftaran (Kilang): ' . $e->getMessage(), ['user_id' => $user->id]);
+        }
 
         if($kilang->shuttle_type == 3){
             return redirect()->route('ipjpsm.status-permohonan-shuttle-3-kilang')->with('success','Permohonan Kilang Telah Berjaya Disahkan.');;
@@ -1580,6 +1617,8 @@ $batch_checker = Batch::where('shuttle_id', $user->shuttle_id)->where('tahun', d
         {
             return redirect()->route('ipjpsm.status-permohonan-shuttle-5-kilang')->with('success','Permohonan Kilang Telah Berjaya Disahkan.');;
         }
+
+        return redirect()->route('home')->with('success','Permohonan Kilang Telah Berjaya Disahkan.');
 
     }
 
