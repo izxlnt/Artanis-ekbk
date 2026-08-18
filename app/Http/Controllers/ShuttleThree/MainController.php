@@ -138,7 +138,7 @@ class MainController extends Controller
     public function senarai_tugasan_3B($year)
     {
 
-        $formB = FormB::where('status', '!=', 'Tidak Diisi')->where('tahun', $year)
+        $formB = FormB::whereNotIn('status', ['Tidak Diisi', 'Ditutup'])->where('tahun', $year)
             ->whereHas('shuttle', function ($q) {
                 $q->whereIn('daerah_id', auth()->user()->daerah_ids)->where('shuttle_type', '3');
             })
@@ -167,7 +167,7 @@ class MainController extends Controller
 
     public function senarai_tugasan_3C($year)
     {
-        $formC = FormC::where('status', '!=', 'Tidak Diisi')->where('tahun', $year)
+        $formC = FormC::whereNotIn('status', ['Tidak Diisi', 'Ditutup'])->where('tahun', $year)
             ->whereHas('shuttle', function ($q) {
                 $q->whereIn('daerah_id', auth()->user()->daerah_ids)->where('shuttle_type', '3');
             })

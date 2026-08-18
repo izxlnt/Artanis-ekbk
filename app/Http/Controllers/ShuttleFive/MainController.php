@@ -549,7 +549,7 @@ class MainController extends Controller
 
     public function senarai_tugasan_5B($year){
 
-        $formB = FormB::where('status', '!=', 'Tidak Diisi')->where('tahun', $year)
+        $formB = FormB::whereNotIn('status', ['Tidak Diisi', 'Ditutup'])->where('tahun', $year)
         ->whereHas('shuttle', function ($q) {
             $q->whereIn('daerah_id', auth()->user()->daerah_ids)->where('shuttle_type', '5');
         })
@@ -578,7 +578,7 @@ class MainController extends Controller
     }
 
     public function senarai_tugasan_5C($year){
-        $formC = FormC::where('status', '!=', 'Tidak Diisi')->where('tahun', $year)
+        $formC = FormC::whereNotIn('status', ['Tidak Diisi', 'Ditutup'])->where('tahun', $year)
         ->whereHas('shuttle', function ($q) {
             $q->whereIn('daerah_id', auth()->user()->daerah_ids)->where('shuttle_type', '5');
         })
