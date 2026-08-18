@@ -874,9 +874,9 @@ class UserController extends Controller
 
     public function ajax_count_tugasan_jpn_shuttle3()
     {
-        $count_form3A = FormA::where('status', 'Sedang Diproses')->where('shuttle_type','3')
+        $count_form3A = FormA::where('status', 'Sedang Diproses')
         ->whereHas('shuttle', function ($q) {
-            $q->where('negeri_id', auth()->user()->negeri);
+            $q->where('shuttle_type', '3')->where('negeri_id', auth()->user()->negeri);
         })->get();
         $form3A_count = $count_form3A->count();
 
@@ -923,9 +923,9 @@ class UserController extends Controller
     {
 
 
-        $count_form4A = FormA::where('status', 'Sedang Diproses')->where('shuttle_type', '4')
+        $count_form4A = FormA::where('status', 'Sedang Diproses')
             ->whereHas('shuttle', function ($q) {
-                $q->where('negeri_id', auth()->user()->negeri);
+                $q->where('shuttle_type', '4')->where('negeri_id', auth()->user()->negeri);
             })
             ->get();
         $form4A_count = $count_form4A->count();
@@ -984,9 +984,9 @@ class UserController extends Controller
     public function ajax_count_tugasan_jpn_shuttle5()
     {
 
-        $count_form5A = FormA::where('status', 'Sedang Diproses')->where('shuttle_type', '5')
+        $count_form5A = FormA::where('status', 'Sedang Diproses')
         ->whereHas('shuttle', function ($q) {
-            $q->where('negeri_id', auth()->user()->negeri);
+            $q->where('shuttle_type', '5')->where('negeri_id', auth()->user()->negeri);
         })->get();
         $form5A_count = $count_form5A->count();
 
@@ -1086,9 +1086,8 @@ class UserController extends Controller
         $shuttle_type = (int) ($request->shuttle_type ?? 3);
 
         $formA = FormA::where('status', 'Sedang Diproses')
-            ->where('shuttle_type', (string) $shuttle_type)
-            ->whereHas('shuttle', function ($q) {
-                $q->where('negeri_id', auth()->user()->negeri);
+            ->whereHas('shuttle', function ($q) use ($shuttle_type) {
+                $q->where('shuttle_type', (string) $shuttle_type)->where('negeri_id', auth()->user()->negeri);
             })->count();
 
         $formB = FormB::where('status', 'Sedang Diproses')
