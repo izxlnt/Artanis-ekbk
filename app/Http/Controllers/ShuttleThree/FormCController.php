@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 use App\Models\Batch;
+use App\Models\Daerah;
 use App\Models\FormA;
 use App\Models\FormB;
 use App\Models\FormC as ModelsFormC;
@@ -2099,8 +2100,13 @@ class FormCController extends Controller
         //notification hantar borang IBK to PHD
         $pengguna_kilang = auth()->user();
         $daerah_id = $pengguna_kilang->shuttle()->first('daerah_id');
+        // users.daerah stores the daerah_hutan name (not the numeric daerahs.id),
+        // so the shuttle's daerah_id FK must be resolved to that name first —
+        // comparing it directly against users.daerah never matched, which is why
+        // PHD never received a notification when a factory submitted Form 3C.
+        $daerah_hutan = $daerah_id ? Daerah::where('id', $daerah_id->daerah_id)->value('daerah_hutan') : null;
 
-        $pegawais = User::where('daerah', $daerah_id->daerah_id)->where(
+        $pegawais = User::where('daerah', $daerah_hutan)->where(
             'kategori_pengguna',
             'PHD'
         )->get();
@@ -2298,8 +2304,13 @@ class FormCController extends Controller
         //notification hantar borang IBK to PHD
         $pengguna_kilang = auth()->user();
         $daerah_id = $pengguna_kilang->shuttle()->first('daerah_id');
+        // users.daerah stores the daerah_hutan name (not the numeric daerahs.id),
+        // so the shuttle's daerah_id FK must be resolved to that name first —
+        // comparing it directly against users.daerah never matched, which is why
+        // PHD never received a notification when a factory submitted Form 3C.
+        $daerah_hutan = $daerah_id ? Daerah::where('id', $daerah_id->daerah_id)->value('daerah_hutan') : null;
 
-        $pegawais = User::where('daerah', $daerah_id->daerah_id)->where(
+        $pegawais = User::where('daerah', $daerah_hutan)->where(
             'kategori_pengguna',
             'PHD'
         )->get();

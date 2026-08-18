@@ -11,6 +11,7 @@ use App\Models\Pembeli;
 use App\Models\RecoveryRate;
 use App\Models\Shuttle;
 use App\Models\Spesis;
+use App\Models\Daerah;
 use App\Models\User;
 use App\Notifications\IBK\BorangDiHantar;
 use App\Services\FormFlowService;
@@ -599,11 +600,12 @@ class FormCKayuKKB extends Component
         //notification hantar borang IBK to PHD
         $pengguna_kilang = auth()->user();
         $daerah_id = $pengguna_kilang->shuttle()->first('daerah_id');
+        $daerah_hutan = $daerah_id ? Daerah::where('id', $daerah_id->daerah_id)->value('daerah_hutan') : null;
 
-        $pegawais = User::where('daerah', $daerah_id->daerah_id)->where(
+        $pegawais = $daerah_hutan ? User::where('daerah', $daerah_hutan)->where(
             'kategori_pengguna',
             'PHD'
-        )->get();
+        )->get() : collect();
 
         $delay = now()->addMinutes(1);
 

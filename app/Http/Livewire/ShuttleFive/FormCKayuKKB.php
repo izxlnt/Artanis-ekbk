@@ -9,6 +9,7 @@ use App\Models\KumpulanKayu;
 use App\Models\RecoveryRate;
 use App\Models\Shuttle;
 use App\Models\Spesis;
+use App\Models\Daerah;
 use App\Models\User;
 use App\Notifications\IBK\BorangDiHantar;
 use App\Services\FormFlowService;
@@ -466,7 +467,8 @@ class FormCKayuKKB extends Component
 
         $pengguna_kilang = auth()->user();
         $daerah_id = $pengguna_kilang->shuttle()->first('daerah_id');
-        $pegawais = User::where('daerah', $daerah_id->daerah_id)->where('kategori_pengguna', 'PHD')->get();
+        $daerah_hutan = $daerah_id ? Daerah::where('id', $daerah_id->daerah_id)->value('daerah_hutan') : null;
+        $pegawais = $daerah_hutan ? User::where('daerah', $daerah_hutan)->where('kategori_pengguna', 'PHD')->get() : collect();
         $delay = now()->addMinutes(1);
         foreach ($pegawais as $pegawai) {
             $pegawai->notify((new BorangDiHantar($pengguna_kilang, $pegawai, $formc))->delay($delay));
