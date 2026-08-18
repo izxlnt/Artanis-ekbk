@@ -174,7 +174,20 @@ class PhdController extends Controller
             'borang_e' => 'Borang E',
         ];
 
+        // Borang B is quarterly: only the quarter-end month's batch (bulan 3/6/9/12)
+        // ever gets borang_b confirmed to '2' (see ShuttleThree\MainController::
+        // update_status_phd_form3B()). Every other month's batch row is seeded with
+        // borang_b = '0' and nothing ever updates it, so requiring it outside the
+        // quarter-end months would make sending permanently impossible for 8 of
+        // every 12 months. The blade views already gate the "Hantar Pakej" button
+        // this same way — this mirrors that.
+        $isQuarterEndMonth = in_array((int) $batch->bulan, [3, 6, 9, 12], true);
+
         foreach ($fields as $field) {
+            if ($field === 'borang_b' && !$isQuarterEndMonth) {
+                continue;
+            }
+
             if ($batch->{$field} != '2') {
                 return $labels[$field];
             }
