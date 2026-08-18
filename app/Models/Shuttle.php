@@ -65,6 +65,20 @@ class Shuttle extends Model
         return $this->hasOne('App\Models\Negeri','id','negeri_id');
     }
 
+    /**
+     * shuttles.negeri_id stores the full state name as text (e.g. "Selangor"), not a
+     * negeris.id FK — the negeri() relation above can never match it (negeris is a
+     * postcode/town lookup keyed by state abbreviation, not a state list). Every view
+     * reads the state via `$shuttle->negeri->negeri`, so this accessor returns that
+     * text directly, keeping the same access pattern working without touching negeri_id
+     * itself (a prior attempt to normalize negeri_id to a numeric FK broke ~45 raw-SQL
+     * report queries and had to be reverted).
+     */
+    public function getNegeriAttribute()
+    {
+        return (object) ['negeri' => $this->attributes['negeri_id'] ?? null];
+    }
+
     public function kilang_daerah()
     {
         return $this->hasOne('App\Models\Negeri','id','alamat_kilang_daerah');

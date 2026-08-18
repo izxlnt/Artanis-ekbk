@@ -114,6 +114,7 @@
                                                 <tr>
                                                     <th>Bil</th>
                                                     <th>Nama Kilang</th>
+                                                    <th>Daerah Hutan</th>
                                                     <th>No. SSM</th>
                                                     <th>Jenis Kilang</th>
                                                     <th>Tarikh Permohonan</th>
@@ -129,6 +130,17 @@
                                                         <tr>
                                                             <td>{{ $loop->iteration }}</td>
                                                             <td style="text-align:left">{{ $data->name }}</td>
+                                                            <td>
+                                                                @if ($data->shuttle && $data->shuttle->daerah && $data->shuttle->daerah->daerah_hutan)
+                                                                    {{ $data->shuttle->daerah->daerah_hutan }}
+                                                                @elseif($data->shuttle && $data->shuttle->daerah_id && !is_numeric($data->shuttle->daerah_id))
+                                                                    {{ $data->shuttle->daerah_id }}
+                                                                @elseif($data->shuttle && $data->shuttle->daerah_id)
+                                                                    ID: {{ $data->shuttle->daerah_id }}
+                                                                @else
+                                                                    -
+                                                                @endif
+                                                            </td>
                                                             <td>{{ $data->login_id }}</td>
                                                             @if ($data->shuttle_type == '3')
                                                                 <td class="txt-oflo">Kilang Papan</td>

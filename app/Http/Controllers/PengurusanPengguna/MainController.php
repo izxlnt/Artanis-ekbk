@@ -40,14 +40,17 @@ class MainController extends Controller
         $kategori_pengguna = 'PHD';
         $hashed_random_password = Hash::make('1234567890');
 
+        $negeri_name = Daerah::where('id', $request->negeri_id)->first('negeri');
+        $daerah_name = Daerah::where('id', $request->daerah_id)->first('daerah_hutan');
+
         User::create([
             'login_id' => $request->kad_pengenalan,
             'peranan' => $request->peranan,
             'status' => $request->status,
             'name' => $request->name,
             'jawatan' => $request->jawatan,
-            'negeri' => $request->negeri,
-            'daerah' => $request->daerah_id,
+            'negeri' => $negeri_name->negeri ?? null,
+            'daerah' => $daerah_name->daerah_hutan ?? null,
             'bahagian' => $request->bahagian,
             'no_telefon' => $request->no_telefon,
             'email' => $request->email,
@@ -393,7 +396,7 @@ class MainController extends Controller
     }
     public function senarai_kilang4()
     {
-        $users = User::where('kategori_pengguna', 'IBK')->where('shuttle_type', 4)->where('is_approved', 1)->where('pengguna_kilang_id', null)->get();
+        $users = User::with(['shuttle', 'pengguna_kilang'])->where('kategori_pengguna', 'IBK')->where('shuttle_type', 4)->where('is_approved', 1)->where('pengguna_kilang_id', null)->get();
         // dd($users);
 
         $breadcrumbs = [['link' => route('home'), 'name' => 'Laman Utama'], ['link' => route('ipjpsm.senaraikilang4', date('Y')), 'name' => 'Profil Pengguna'], ['link' => route('ipjpsm.status-permohonan-shuttle-4', date('Y')), 'name' => 'Pengurusan Pengguna']];
@@ -409,7 +412,7 @@ class MainController extends Controller
     }
     public function senarai_kilang5()
     {
-        $users = User::where('kategori_pengguna', 'IBK')->where('shuttle_type', 5)->where('is_approved', 1)->where('pengguna_kilang_id', null)->get();
+        $users = User::with(['shuttle', 'pengguna_kilang'])->where('kategori_pengguna', 'IBK')->where('shuttle_type', 5)->where('is_approved', 1)->where('pengguna_kilang_id', null)->get();
         // dd($users);
 
         $breadcrumbs = [['link' => route('home'), 'name' => 'Laman Utama'], ['link' => route('ipjpsm.senaraikilang5', date('Y')), 'name' => 'Profil Pengguna'], ['link' => route('ipjpsm.status-permohonan-shuttle-4', date('Y')), 'name' => 'Pengurusan Pengguna']];

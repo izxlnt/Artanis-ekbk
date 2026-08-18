@@ -61,20 +61,19 @@
                 <div class="form-group row">
                     <label for="cono1" class="text-right col-sm-3 control-label col-form-label">Negeri</label>
                     <div class="col-sm-9">
-                        <select class="form-control" name='negeri'>
+                        <select class="form-control" id="negeri_id" name="negeri_id" onchange="ajax_daerah(this)">
                             <option disabled selected hidden value="">Pilih Negeri</option>
-                            <option>Johor</option>
-                            <option>Kedah</option>
-                            <option>Kelantan</option>
-                            <option>Melaka</option>
-                            <option>Negeri Sembilan</option>
-                            <option>Pahang</option>
-                            <option>Perak</option>
-                            <option>Perlis</option>
-                            <option>Pulau Pinang</option>
-                            <option>Selangor</option>
-                            <option>Terengganu</option>
-                            <option>Wilayah Persekutuan Kuala Lumpur</option>
+                            @foreach (App\Models\Daerah::select('negeri', 'id')->distinct()->orderBy('negeri')->get()->unique('negeri') as $data)
+                                <option value="{{ $data->id }}">{{ $data->negeri }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="cono1" class="text-right col-sm-3 control-label col-form-label">Daerah Hutan</label>
+                    <div class="col-sm-9">
+                        <select class="form-control" id="daerah_id" name='daerah_id'>
+                            <option value="" selected hidden disabled>Sila Pilih Daerah Hutan</option>
                         </select>
                     </div>
                 </div>
@@ -132,6 +131,30 @@
 
 
 
+
+    <script>
+        function ajax_daerah(select) {
+            negeri = select.value;
+
+            $("#daerah_id").empty();
+            $("#daerah_id").append('<option value="" selected disabled hidden>Sila Pilih Daerah</option>');
+
+            $.ajax({
+                type: "get",
+                url: "/register/ajax/fetch-daerah/" + negeri,
+                success: function(respond) {
+                    Object.entries(respond).forEach(([key, val]) => {
+                        $("#daerah_id").append('<option value="' + val.id + '">' +
+                            val.daerah_hutan + '</option>');
+                    });
+                },
+                error: function(XMLHttpRequest, textStatus, errorThrown) {
+                    console.log("Status: " + textStatus);
+                    console.log("Error: " + errorThrown);
+                }
+            });
+        }
+    </script>
 
     <script>
         $(document).ready(function() {
