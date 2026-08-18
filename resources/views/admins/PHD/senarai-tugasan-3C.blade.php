@@ -162,6 +162,9 @@
                                                             @elseif($data->status == 'Lulus')
                                                         <span class="label label-success label-rounded"
                                                             style="font-size: 11pt;">Borang telah diperaku</span>
+                                                    @elseif($data->status == 'Sedang Diisi')
+                                                        <span class="label label-other bg-secondary label-rounded"
+                                                            style="font-size: 11pt;">Sedang Diisi oleh IBK</span>
                                                     @endif
 
                                                 </td>
@@ -172,6 +175,10 @@
                                                             <img src="{{ asset('circle_times_yellow.png') }}" height='30px'
                                                             data-toggle="tooltip" data-placement="bottom"
                                                             title="Borang perlu disahkan PHD"></i></a>
+                                                    @elseif($data->status == 'Sedang Diisi')
+                                                        <img src="{{ asset('calendar.png') }}" height='30px'
+                                                            data-toggle="tooltip" data-placement="bottom"
+                                                            title="Borang sedang diisi oleh IBK, belum dihantar">
                                                             @elseif($data->status == 'Dihantar ke IPJPSM' && $packageSent)
                                                             <a href="{{ route('phd.shuttle-3-view-formC-phd', $data->id) }}">
                                                                 <img src="{{ asset('circle_check_yellow.png') }}" height='30px'
