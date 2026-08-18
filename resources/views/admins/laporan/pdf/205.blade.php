@@ -103,6 +103,9 @@ $shuttle = $results['shuttle'] ?? [];
 
                                             $export = 0;
                                             $domestik = 0;
+
+                                            $nipis = 0;
+                                            $tebal = 0;
                                         @endphp
 
                                             @foreach ($produk_pengeluaran as $produk)
