@@ -552,9 +552,12 @@ class FormCKayuKayuLainLain extends Component
         $kks = $this->kemasukan_bahan_calc_kks->jumlah_baki_stok ?? 0;
         $kkr = $this->kemasukan_bahan_calc_kkr->jumlah_baki_stok ?? 0;
         $kayu_lembut = $this->kemasukan_bahan_calc_kayu_lembut->jumlah_baki_stok ?? 0;
-        $lain_lain = $this->kemasukan_bahan_calc_lain_lain->jumlah_baki_stok ?? 0;
 
-        $besar_jumlah_baki_stok = (float)$kkb + (float)$kks + (float)$kkr + (float)$kayu_lembut + (float)$lain_lain;
+        // Lain-Lain's own contribution comes from $jumlah (live recalculation of the
+        // species currently being edited on this page), not from the persisted
+        // kemasukan_bahan_calc_lain_lain snapshot above — including both double-counts
+        // this group while the user is actively typing.
+        $besar_jumlah_baki_stok = (float)$kkb + (float)$kks + (float)$kkr + (float)$kayu_lembut;
         $this->jumlah_besar_baki_stok_bulan_lepas = (float)$besar_jumlah_baki_stok + (float)$jumlah;
     }
 
@@ -574,9 +577,8 @@ class FormCKayuKayuLainLain extends Component
         $kks = $this->kemasukan_bahan_calc_kks->jumlah_kayu_masuk ?? 0;
         $kkr = $this->kemasukan_bahan_calc_kkr->jumlah_kayu_masuk ?? 0;
         $kayu_lembut = $this->kemasukan_bahan_calc_kayu_lembut->jumlah_kayu_masuk ?? 0;
-        $lain_lain = $this->kemasukan_bahan_calc_lain_lain->jumlah_kayu_masuk ?? 0;
 
-        $besar_jumlah_kayu_masuk = (float)$kkb + (float)$kks + (float)$kkr + (float)$kayu_lembut + (float)$lain_lain;
+        $besar_jumlah_kayu_masuk = (float)$kkb + (float)$kks + (float)$kkr + (float)$kayu_lembut;
         $this->jumlah_besar_kemasukan_kayu_ke_kilang = (float)$besar_jumlah_kayu_masuk + (float)$jumlah;
     }
 
@@ -596,9 +598,8 @@ class FormCKayuKayuLainLain extends Component
         $kks = $this->kemasukan_bahan_calc_kks->total_stok_kayu_balak ?? 0;
         $kkr = $this->kemasukan_bahan_calc_kkr->total_stok_kayu_balak ?? 0;
         $kayu_lembut = $this->kemasukan_bahan_calc_kayu_lembut->total_stok_kayu_balak ?? 0;
-        $lain_lain = $this->kemasukan_bahan_calc_lain_lain->total_stok_kayu_balak ?? 0;
 
-        $besar_total_stok_kayu_balak = (float)$kkb + (float)$kks + (float)$kkr + (float)$kayu_lembut + (float)$lain_lain;
+        $besar_total_stok_kayu_balak = (float)$kkb + (float)$kks + (float)$kkr + (float)$kayu_lembut;
         $this->jumlah_besar_stok_kayu_balak = (float)$besar_total_stok_kayu_balak + (float)$jumlah;
     }
 
@@ -618,9 +619,8 @@ class FormCKayuKayuLainLain extends Component
         $kks = $this->kemasukan_bahan_calc_kks->total_kayu_masuk_jentera ?? 0;
         $kkr = $this->kemasukan_bahan_calc_kkr->total_kayu_masuk_jentera ?? 0;
         $kayu_lembut = $this->kemasukan_bahan_calc_kayu_lembut->total_kayu_masuk_jentera ?? 0;
-        $lain_lain = $this->kemasukan_bahan_calc_lain_lain->total_kayu_masuk_jentera ?? 0;
 
-        $besar_total_kayu_masuk_jentera = (float)$kkb + (float)$kks + (float)$kkr + (float)$kayu_lembut + (float)$lain_lain;
+        $besar_total_kayu_masuk_jentera = (float)$kkb + (float)$kks + (float)$kkr + (float)$kayu_lembut;
         $this->jumlah_besar_kayu_ke_dalam_jentera = (float)$besar_total_kayu_masuk_jentera + (float)$jumlah;
     }
 
@@ -640,9 +640,8 @@ class FormCKayuKayuLainLain extends Component
         $kks = $this->kemasukan_bahan_calc_kks->total_kayu_keluar_jentera ?? 0;
         $kkr = $this->kemasukan_bahan_calc_kkr->total_kayu_keluar_jentera ?? 0;
         $kayu_lembut = $this->kemasukan_bahan_calc_kayu_lembut->total_kayu_keluar_jentera ?? 0;
-        $lain_lain = $this->kemasukan_bahan_calc_lain_lain->total_kayu_keluar_jentera ?? 0;
 
-        $besar_total_kayu_keluar_jentera = (float)$kkb + (float)$kks + (float)$kkr + (float)$kayu_lembut + (float)$lain_lain;
+        $besar_total_kayu_keluar_jentera = (float)$kkb + (float)$kks + (float)$kkr + (float)$kayu_lembut;
         $this->jumlah_besar_pengeluaran_kayu_daripada_jentera = (float)$besar_total_kayu_keluar_jentera + (float)$jumlah;
     }
 
@@ -662,9 +661,8 @@ class FormCKayuKayuLainLain extends Component
         $kks = $this->kemasukan_bahan_calc_kks->total_kayu_dibawa_bulan_hadapan ?? 0;
         $kkr = $this->kemasukan_bahan_calc_kkr->total_kayu_dibawa_bulan_hadapan ?? 0;
         $kayu_lembut = $this->kemasukan_bahan_calc_kayu_lembut->total_kayu_dibawa_bulan_hadapan ?? 0;
-        $lain_lain = $this->kemasukan_bahan_calc_lain_lain->total_kayu_dibawa_bulan_hadapan ?? 0;
 
-        $besar_total_kayu_dibawa_bulan_hadapan = (float)$kkb + (float)$kks + (float)$kkr + (float)$kayu_lembut + (float)$lain_lain;
+        $besar_total_kayu_dibawa_bulan_hadapan = (float)$kkb + (float)$kks + (float)$kkr + (float)$kayu_lembut;
         $this->jumlah_besar_baki_stok_bulan_depan = (float)$besar_total_kayu_dibawa_bulan_hadapan + (float)$jumlah;
     }
 }
