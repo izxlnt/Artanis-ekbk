@@ -3194,10 +3194,12 @@ class ExcelController extends Controller
             }
 
             $data_shuttles = DB::select("SELECT
-            shuttles.*
+            shuttles.*,
+            daerahs.daerah_hutan as daerah_hutan_laporan
 
             FROM
-            shuttles,
+            shuttles
+            LEFT JOIN daerahs ON daerahs.id = shuttles.daerah_id,
             form_a_s
 
             WHERE shuttles.id = form_a_s.shuttle_id
@@ -3392,10 +3394,12 @@ class ExcelController extends Controller
             }
 
             $data_shuttles = DB::select("SELECT
-            shuttles.*
+            shuttles.*,
+            daerahs.daerah_hutan as daerah_hutan_laporan
 
             FROM
-            shuttles,
+            shuttles
+            LEFT JOIN daerahs ON daerahs.id = shuttles.daerah_id,
             form_a_s
 
             WHERE shuttles.id = form_a_s.shuttle_id
@@ -3565,10 +3569,12 @@ class ExcelController extends Controller
             }
 
             $data_shuttles = DB::select("SELECT
-                shuttles.*
+                shuttles.*,
+                daerahs.daerah_hutan as daerah_hutan_laporan
 
                 FROM
-                shuttles,
+                shuttles
+                LEFT JOIN daerahs ON daerahs.id = shuttles.daerah_id,
                 form_a_s
 
                 WHERE shuttles.id = form_a_s.shuttle_id
@@ -3736,10 +3742,12 @@ class ExcelController extends Controller
             }
 
             $data_shuttles = DB::select("SELECT
-                shuttles.*
+                shuttles.*,
+                daerahs.daerah_hutan as daerah_hutan_laporan
 
                 FROM
-                shuttles,
+                shuttles
+                LEFT JOIN daerahs ON daerahs.id = shuttles.daerah_id,
                 form_a_s
 
                 WHERE shuttles.id = form_a_s.shuttle_id
@@ -7526,10 +7534,12 @@ class ExcelController extends Controller
             }
 
             $data_shuttles = DB::select("SELECT
-            shuttles.*
+            shuttles.*,
+            daerahs.daerah_hutan as daerah_hutan_laporan
 
             FROM
-            shuttles,
+            shuttles
+            LEFT JOIN daerahs ON daerahs.id = shuttles.daerah_id,
             form_a_s
 
             WHERE shuttles.id = form_a_s.shuttle_id
@@ -7660,10 +7670,12 @@ class ExcelController extends Controller
             }
 
             $data_shuttles = DB::select("SELECT
-            shuttles.*
+            shuttles.*,
+            daerahs.daerah_hutan as daerah_hutan_laporan
 
             FROM
-            shuttles,
+            shuttles
+            LEFT JOIN daerahs ON daerahs.id = shuttles.daerah_id,
             form_a_s
 
             WHERE shuttles.id = form_a_s.shuttle_id
@@ -7760,7 +7772,7 @@ class ExcelController extends Controller
         } elseif ($title == "3") {
             $title_laporan = "3. Senarai Pemilik Kilang Kayu Kumai Bukan Bumiputera";
 
-            $shuttle = FormA::where('status', 'Lulus')->where('tahun', $tahun)
+            $shuttle = FormA::whereIn('status', ['Lulus', 'Dihantar ke IPJPSM'])->where('tahun', $tahun)
                 ->whereHas('shuttle', function ($q) {
                     $q->where('shuttle_type', '5')->where('status_warganegara', 'Bukan Bumiputera');
                 })
@@ -7771,16 +7783,18 @@ class ExcelController extends Controller
             }
 
             $data_shuttles = DB::select("SELECT
-            shuttles.*
+            shuttles.*,
+            daerahs.daerah_hutan as daerah_hutan_laporan
 
             FROM
-            shuttles,
+            shuttles
+            LEFT JOIN daerahs ON daerahs.id = shuttles.daerah_id,
             form_a_s
 
             WHERE shuttles.id = form_a_s.shuttle_id
             AND shuttles.shuttle_type = '5'
             AND shuttles.status_warganegara = 'Bukan Bumiputera'
-            AND form_a_s.status = 'Lulus'
+            AND form_a_s.status IN ('Lulus', 'Dihantar ke IPJPSM')
             AND form_a_s.tahun = '$tahun'
         ");
 
@@ -7882,10 +7896,12 @@ class ExcelController extends Controller
             }
 
             $data_shuttles = DB::select("SELECT
-            shuttles.*
+            shuttles.*,
+            daerahs.daerah_hutan as daerah_hutan_laporan
 
             FROM
-            shuttles,
+            shuttles
+            LEFT JOIN daerahs ON daerahs.id = shuttles.daerah_id,
             form_a_s
 
             WHERE shuttles.id = form_a_s.shuttle_id

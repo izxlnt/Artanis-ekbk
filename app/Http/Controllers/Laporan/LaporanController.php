@@ -4001,10 +4001,12 @@ $data_form_d_s[$data_shuttle->id] = !empty($fd_result) ? $fd_result[0] : (object
         }
 
         $data_shuttles = DB::select("SELECT
-            shuttles.*
+            shuttles.*,
+            daerahs.daerah_hutan as daerah_hutan_laporan
 
             FROM
-            shuttles,
+            shuttles
+            LEFT JOIN daerahs ON daerahs.id = shuttles.daerah_id,
             form_a_s
 
             WHERE shuttles.id = form_a_s.shuttle_id
@@ -4244,10 +4246,12 @@ $data_form_d_s[$data_shuttle->id] = !empty($fd_result) ? $fd_result[0] : (object
             }
 
             $data_shuttles = DB::select("SELECT
-                shuttles.*
+                shuttles.*,
+                daerahs.daerah_hutan as daerah_hutan_laporan
 
                 FROM
-                shuttles,
+                shuttles
+                LEFT JOIN daerahs ON daerahs.id = shuttles.daerah_id,
                 form_a_s
 
                 WHERE shuttles.id = form_a_s.shuttle_id
@@ -4486,10 +4490,12 @@ $data_form_d_s[$data_shuttle->id] = !empty($fd_result) ? $fd_result[0] : (object
             }
 
             $data_shuttles = DB::select("SELECT
-                shuttles.*
+                shuttles.*,
+                daerahs.daerah_hutan as daerah_hutan_laporan
 
                 FROM
-                shuttles,
+                shuttles
+                LEFT JOIN daerahs ON daerahs.id = shuttles.daerah_id,
                 form_a_s
 
                 WHERE shuttles.id = form_a_s.shuttle_id
@@ -8416,10 +8422,12 @@ $data_form_d_s[$data_shuttle->id] = !empty($fd_result) ? $fd_result[0] : (object
         }
 
         $data_shuttles = DB::select("SELECT
-            shuttles.*
+            shuttles.*,
+            daerahs.daerah_hutan as daerah_hutan_laporan
 
             FROM
-            shuttles,
+            shuttles
+            LEFT JOIN daerahs ON daerahs.id = shuttles.daerah_id,
             form_a_s
 
             WHERE shuttles.id = form_a_s.shuttle_id
@@ -8582,7 +8590,7 @@ $data_form_d_s[$data_shuttle->id] = !empty($fd_result) ? $fd_result[0] : (object
     public function laporan_shuttle_5_3($title, $tahun)
     {
 
-        $shuttle = FormA::where('status', 'Lulus')->where('tahun', $tahun)
+        $shuttle = FormA::whereIn('status', ['Lulus', 'Dihantar ke IPJPSM'])->where('tahun', $tahun)
             ->whereHas('shuttle', function ($q) {
                 $q->where('shuttle_type', '5')->where('status_warganegara', 'Bukan Bumiputera');
             })
@@ -8593,16 +8601,18 @@ $data_form_d_s[$data_shuttle->id] = !empty($fd_result) ? $fd_result[0] : (object
         }
 
         $data_shuttles = DB::select("SELECT
-            shuttles.*
+            shuttles.*,
+            daerahs.daerah_hutan as daerah_hutan_laporan
 
             FROM
-            shuttles,
+            shuttles
+            LEFT JOIN daerahs ON daerahs.id = shuttles.daerah_id,
             form_a_s
 
             WHERE shuttles.id = form_a_s.shuttle_id
             AND shuttles.shuttle_type = '5'
             AND shuttles.status_warganegara = 'Bukan Bumiputera'
-            AND form_a_s.status = 'Lulus'
+            AND form_a_s.status IN ('Lulus', 'Dihantar ke IPJPSM')
             AND form_a_s.tahun = $tahun
         ");
 
@@ -8767,10 +8777,12 @@ $data_form_d_s[$data_shuttle->id] = !empty($fd_result) ? $fd_result[0] : (object
         }
 
         $data_shuttles = DB::select("SELECT
-            shuttles.*
+            shuttles.*,
+            daerahs.daerah_hutan as daerah_hutan_laporan
 
             FROM
-            shuttles,
+            shuttles
+            LEFT JOIN daerahs ON daerahs.id = shuttles.daerah_id,
             form_a_s
 
             WHERE shuttles.id = form_a_s.shuttle_id
