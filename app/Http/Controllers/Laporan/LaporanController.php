@@ -556,8 +556,8 @@ class LaporanController extends LaporanDataLamaController
         $kemasukan_result = DB::select("SELECT
             shuttles.id as shuttle_id,
 
-            sum(kemasukan_bahans.total_kayu_masuk_jentera) as jumlah_penggunaan,
-            sum(kemasukan_bahans.total_kayu_keluar_jentera) as jumlah_pengeluaran
+            sum(kemasukan_bahans.proses_masuk) as jumlah_penggunaan,
+            sum(kemasukan_bahans.proses_keluar) as jumlah_pengeluaran
 
             FROM
             shuttles,
@@ -741,8 +741,8 @@ foreach ($data_shuttles as $data_shuttle) {
 $km_result = DB::select("SELECT
     shuttles.id as shuttle_id,
 
-    sum(kemasukan_bahans.total_kayu_masuk_jentera) as jumlah_penggunaan,
-    sum(kemasukan_bahans.total_kayu_keluar_jentera) as jumlah_pengeluaran
+    sum(kemasukan_bahans.proses_masuk) as jumlah_penggunaan,
+    sum(kemasukan_bahans.proses_keluar) as jumlah_pengeluaran
 
     FROM
     shuttles,
@@ -914,8 +914,8 @@ foreach ($data_shuttles as $data_shuttle) {
 $km_result = DB::select("SELECT
     shuttles.id as shuttle_id,
 
-    sum(kemasukan_bahans.total_kayu_masuk_jentera) as jumlah_penggunaan,
-    sum(kemasukan_bahans.total_kayu_keluar_jentera) as jumlah_pengeluaran
+    sum(kemasukan_bahans.proses_masuk) as jumlah_penggunaan,
+    sum(kemasukan_bahans.proses_keluar) as jumlah_pengeluaran
 
     FROM
     shuttles,
@@ -1084,8 +1084,8 @@ foreach ($data_shuttles as $data_shuttle) {
 $km_result = DB::select("SELECT
     shuttles.id as shuttle_id,
 
-    sum(kemasukan_bahans.total_kayu_masuk_jentera) as jumlah_penggunaan,
-    sum(kemasukan_bahans.total_kayu_keluar_jentera) as jumlah_pengeluaran
+    sum(kemasukan_bahans.proses_masuk) as jumlah_penggunaan,
+    sum(kemasukan_bahans.proses_keluar) as jumlah_pengeluaran
 
     FROM
     shuttles,
@@ -8302,8 +8302,8 @@ $data_form_d_s[$data_shuttle->id] = !empty($fd_result) ? $fd_result[0] : (object
         $km5_result = DB::select("SELECT
             shuttles.id as shuttle_id,
 
-            sum(kemasukan_bahans.total_kayu_masuk_jentera) as jumlah_penggunaan,
-            sum(kemasukan_bahans.total_kayu_keluar_jentera) as jumlah_pengeluaran
+            sum(kemasukan_bahans.proses_masuk) as jumlah_penggunaan,
+            sum(kemasukan_bahans.proses_keluar) as jumlah_pengeluaran
 
             FROM
             shuttles,
@@ -8478,8 +8478,8 @@ $data_form_d_s[$data_shuttle->id] = !empty($fd_result) ? $fd_result[0] : (object
         $km_result = DB::select("SELECT
             shuttles.id as shuttle_id,
 
-            sum(kemasukan_bahans.total_kayu_masuk_jentera) as jumlah_penggunaan,
-            sum(kemasukan_bahans.total_kayu_keluar_jentera) as jumlah_pengeluaran
+            sum(kemasukan_bahans.proses_masuk) as jumlah_penggunaan,
+            sum(kemasukan_bahans.proses_keluar) as jumlah_pengeluaran
 
             FROM
             shuttles,
@@ -8657,8 +8657,8 @@ $data_form_d_s[$data_shuttle->id] = !empty($fd_result) ? $fd_result[0] : (object
         $km_result = DB::select("SELECT
             shuttles.id as shuttle_id,
 
-            sum(kemasukan_bahans.total_kayu_masuk_jentera) as jumlah_penggunaan,
-            sum(kemasukan_bahans.total_kayu_keluar_jentera) as jumlah_pengeluaran
+            sum(kemasukan_bahans.proses_masuk) as jumlah_penggunaan,
+            sum(kemasukan_bahans.proses_keluar) as jumlah_pengeluaran
 
             FROM
             shuttles,
@@ -8833,8 +8833,8 @@ $data_form_d_s[$data_shuttle->id] = !empty($fd_result) ? $fd_result[0] : (object
         $km_result = DB::select("SELECT
             shuttles.id as shuttle_id,
 
-            sum(kemasukan_bahans.total_kayu_masuk_jentera) as jumlah_penggunaan,
-            sum(kemasukan_bahans.total_kayu_keluar_jentera) as jumlah_pengeluaran
+            sum(kemasukan_bahans.proses_masuk) as jumlah_penggunaan,
+            sum(kemasukan_bahans.proses_keluar) as jumlah_pengeluaran
 
             FROM
             shuttles,

@@ -108,8 +108,8 @@ class ExcelController extends Controller
                 $kb_result = DB::select("SELECT
             shuttles.id as shuttle_id,
 
-            sum(kemasukan_bahans.total_kayu_masuk_jentera) as jumlah_penggunaan,
-            sum(kemasukan_bahans.total_kayu_keluar_jentera) as jumlah_pengeluaran
+            sum(kemasukan_bahans.proses_masuk) as jumlah_penggunaan,
+            sum(kemasukan_bahans.proses_keluar) as jumlah_pengeluaran
 
             FROM
             shuttles,
@@ -214,8 +214,8 @@ class ExcelController extends Controller
                 $kb_result = DB::select("SELECT
             shuttles.id as shuttle_id,
 
-            sum(kemasukan_bahans.total_kayu_masuk_jentera) as jumlah_penggunaan,
-            sum(kemasukan_bahans.total_kayu_keluar_jentera) as jumlah_pengeluaran
+            sum(kemasukan_bahans.proses_masuk) as jumlah_penggunaan,
+            sum(kemasukan_bahans.proses_keluar) as jumlah_pengeluaran
 
             FROM
             shuttles,
@@ -320,8 +320,8 @@ class ExcelController extends Controller
                 $kb_result = DB::select("SELECT
             shuttles.id as shuttle_id,
 
-            sum(kemasukan_bahans.total_kayu_masuk_jentera) as jumlah_penggunaan,
-            sum(kemasukan_bahans.total_kayu_keluar_jentera) as jumlah_pengeluaran
+            sum(kemasukan_bahans.proses_masuk) as jumlah_penggunaan,
+            sum(kemasukan_bahans.proses_keluar) as jumlah_pengeluaran
 
             FROM
             shuttles,
@@ -426,8 +426,8 @@ class ExcelController extends Controller
                 $kb_result = DB::select("SELECT
             shuttles.id as shuttle_id,
 
-            sum(kemasukan_bahans.total_kayu_masuk_jentera) as jumlah_penggunaan,
-            sum(kemasukan_bahans.total_kayu_keluar_jentera) as jumlah_pengeluaran
+            sum(kemasukan_bahans.proses_masuk) as jumlah_penggunaan,
+            sum(kemasukan_bahans.proses_keluar) as jumlah_pengeluaran
 
             FROM
             shuttles,
@@ -7599,8 +7599,8 @@ class ExcelController extends Controller
                 $kemasukan_bahan_result = DB::select("SELECT
             shuttles.id as shuttle_id,
 
-            sum(kemasukan_bahans.total_kayu_masuk_jentera) as jumlah_penggunaan,
-            sum(kemasukan_bahans.total_kayu_keluar_jentera) as jumlah_pengeluaran
+            sum(kemasukan_bahans.proses_masuk) as jumlah_penggunaan,
+            sum(kemasukan_bahans.proses_keluar) as jumlah_pengeluaran
 
             FROM
             shuttles,
@@ -7727,8 +7727,8 @@ class ExcelController extends Controller
                 $kb_result = DB::select("SELECT
             shuttles.id as shuttle_id,
 
-            sum(kemasukan_bahans.total_kayu_masuk_jentera) as jumlah_penggunaan,
-            sum(kemasukan_bahans.total_kayu_keluar_jentera) as jumlah_pengeluaran
+            sum(kemasukan_bahans.proses_masuk) as jumlah_penggunaan,
+            sum(kemasukan_bahans.proses_keluar) as jumlah_pengeluaran
 
             FROM
             shuttles,
@@ -7840,8 +7840,8 @@ class ExcelController extends Controller
                 $kb_result = DB::select("SELECT
             shuttles.id as shuttle_id,
 
-            sum(kemasukan_bahans.total_kayu_masuk_jentera) as jumlah_penggunaan,
-            sum(kemasukan_bahans.total_kayu_keluar_jentera) as jumlah_pengeluaran
+            sum(kemasukan_bahans.proses_masuk) as jumlah_penggunaan,
+            sum(kemasukan_bahans.proses_keluar) as jumlah_pengeluaran
 
             FROM
             shuttles,
@@ -7951,8 +7951,8 @@ class ExcelController extends Controller
                 $kb_result = DB::select("SELECT
             shuttles.id as shuttle_id,
 
-            sum(kemasukan_bahans.total_kayu_masuk_jentera) as jumlah_penggunaan,
-            sum(kemasukan_bahans.total_kayu_keluar_jentera) as jumlah_pengeluaran
+            sum(kemasukan_bahans.proses_masuk) as jumlah_penggunaan,
+            sum(kemasukan_bahans.proses_keluar) as jumlah_pengeluaran
 
             FROM
             shuttles,
