@@ -1700,15 +1700,24 @@ class FormCController extends Controller
         }
 
         if ($kemasukan_bahans->isEmpty()) {
+            // Group-level "Jumlah" totals (jumlah_baki_stok, total_stok_kayu_balak,
+            // total_kayu_dibawa_bulan_hadapan) must be the SUM of each wood group's
+            // per-species carried-forward stock - not last month's already-summed
+            // group total copied onto every species row in this month, which is the
+            // same species-count inflation bug 473dd9e/42fe74f fixed for the normal
+            // KKB/KKS/KKR/KayuLembut/LainLain save paths. This Tiada Pengeluaran path
+            // was missed by that fix.
+            $groupBakiStok = [];
+            foreach ($species as $data) {
+                $lastmonth_data = $lastmonth_lookup_all[$data->id] ?? null;
+                $baki_stok = $lastmonth_data->baki_stok_kehadapan ?? 0;
+                $groupBakiStok[$data->kumpulan_kayu_id] = ($groupBakiStok[$data->kumpulan_kayu_id] ?? 0) + (float) $baki_stok;
+            }
+
             foreach ($species as $keySpecies => $data) {
                 $lastmonth_data = $lastmonth_lookup_all[$data->id] ?? null;
-                if ($lastmonth_data) {
-                    $baki_stok = $lastmonth_data->baki_stok_kehadapan;
-                    $jumlah_baki_stok = $lastmonth_data->total_kayu_dibawa_bulan_hadapan;
-                } else {
-                    $baki_stok = 0;
-                    $jumlah_baki_stok = 0;
-                }
+                $baki_stok = $lastmonth_data->baki_stok_kehadapan ?? 0;
+                $jumlah_baki_stok = $groupBakiStok[$data->kumpulan_kayu_id] ?? 0;
 
                 KemasukanBahan::create([
                     'spesis_id' => $data->id,
