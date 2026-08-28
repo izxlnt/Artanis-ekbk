@@ -124,9 +124,16 @@ class FormD extends Component
             return redirect()->route('user.shuttle-4-senaraiD', date('Y'));
         }
 
-        // Find the KemasukanBahan from whichever FormC record has data
+        // The Jumlah Besar grand total is only kept fresh on the Lain-Lain group's
+        // rows (FormCController::refreshJumlahBesar() only updates kumpulan_kayu_id
+        // 5) - other groups' own copies of jumlah_besar_* can go stale as soon as
+        // any other group is edited, so this must be scoped to Lain-Lain specifically
+        // rather than picking "whichever row was updated most recently".
         $this->kemasukan_bahan_calc_lain_lain = KemasukanBahan::where('shuttle_id', auth()->user()->shuttle_id)
             ->whereIn('formcs_id', $formc_ids)
+            ->whereHas('spesis_id', function ($q) {
+                $q->where('kumpulan_kayu_id', '5');
+            })
             ->latest('updated_at')
             ->first();
 
@@ -398,8 +405,13 @@ class FormD extends Component
             ->where('tahun', date("Y"))
             ->pluck('id');
 
+        // See mount() - must be scoped to the Lain-Lain group, the only one whose
+        // jumlah_besar_* copy is kept fresh by refreshJumlahBesar().
         $this->kemasukan_bahan_calc_lain_lain = KemasukanBahan::where('shuttle_id', auth()->user()->shuttle_id)
             ->whereIn('formcs_id', $formc_ids_store)
+            ->whereHas('spesis_id', function ($q) {
+                $q->where('kumpulan_kayu_id', '5');
+            })
             ->latest('updated_at')
             ->first();
 
