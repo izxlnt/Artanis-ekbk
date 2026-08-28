@@ -482,7 +482,7 @@ class LaporanController extends LaporanDataLamaController
     public function laporan_shuttle_3_1($title, $tahun)
     {
 
-        $shuttle = FormA::where('status', 'Lulus')->where('tahun', $tahun)
+        $shuttle = FormA::whereIn('status', ['Lulus', 'Dihantar ke IPJPSM'])->where('tahun', $tahun)
             ->whereHas('shuttle', function ($q) {
                 $q->where('shuttle_type', '3');
             })
@@ -503,7 +503,7 @@ class LaporanController extends LaporanDataLamaController
 
             WHERE shuttles.id = form_a_s.shuttle_id
             AND shuttles.shuttle_type = '3'
-            AND form_a_s.status = 'Lulus'
+            AND form_a_s.status IN ('Lulus', 'Dihantar ke IPJPSM')
             AND form_a_s.tahun = $tahun
         ");
 
@@ -676,7 +676,7 @@ class LaporanController extends LaporanDataLamaController
     public function laporan_shuttle_3_2($title, $tahun)
     {
 
-        $shuttle = FormA::where('status', 'Lulus')->where('tahun', $tahun)
+        $shuttle = FormA::whereIn('status', ['Lulus', 'Dihantar ke IPJPSM'])->where('tahun', $tahun)
             ->whereHas('shuttle', function ($q) {
                 $q->where('shuttle_type', '3')->where('status_warganegara', 'Bumiputera');
             })
@@ -696,7 +696,7 @@ class LaporanController extends LaporanDataLamaController
         WHERE shuttles.id = form_a_s.shuttle_id
         AND shuttles.shuttle_type = '3'
         AND shuttles.status_warganegara = 'Bumiputera'
-        AND form_a_s.status = 'Lulus'
+        AND form_a_s.status IN ('Lulus', 'Dihantar ke IPJPSM')
         AND form_a_s.tahun = $tahun
     ");
 
@@ -850,7 +850,7 @@ $data_form_d_s[$data_shuttle->id] = !empty($fd_result) ? $fd_result[0] : (object
 
     public function laporan_shuttle_3_3($title, $tahun)
     {
-        $shuttle = FormA::where('status', 'Lulus')->where('tahun', $tahun)
+        $shuttle = FormA::whereIn('status', ['Lulus', 'Dihantar ke IPJPSM'])->where('tahun', $tahun)
             ->whereHas('shuttle', function ($q) {
                 $q->where('shuttle_type', '3')->where('status_warganegara', 'Bukan Bumiputera');
             })
@@ -870,7 +870,7 @@ $data_form_d_s[$data_shuttle->id] = !empty($fd_result) ? $fd_result[0] : (object
         WHERE shuttles.id = form_a_s.shuttle_id
         AND shuttles.shuttle_type = '3'
         AND shuttles.status_warganegara = 'Bukan Bumiputera'
-        AND form_a_s.status = 'Lulus'
+        AND form_a_s.status IN ('Lulus', 'Dihantar ke IPJPSM')
         AND form_a_s.tahun = $tahun
     ");
 
@@ -1020,7 +1020,7 @@ $data_form_d_s[$data_shuttle->id] = !empty($fd_result) ? $fd_result[0] : (object
 
     public function laporan_shuttle_3_4($title, $tahun)
     {
-        $shuttle = FormA::where('status', 'Lulus')->where('tahun', $tahun)
+        $shuttle = FormA::whereIn('status', ['Lulus', 'Dihantar ke IPJPSM'])->where('tahun', $tahun)
             ->whereHas('shuttle', function ($q) {
                 $q->where('shuttle_type', '3')->where('status_warganegara', 'Bukan Warganegara');
             })
@@ -1040,7 +1040,7 @@ $data_form_d_s[$data_shuttle->id] = !empty($fd_result) ? $fd_result[0] : (object
             WHERE shuttles.id = form_a_s.shuttle_id
             AND shuttles.shuttle_type = '3'
             AND shuttles.status_warganegara = 'Bukan Warganegara'
-            AND form_a_s.status = 'Lulus'
+            AND form_a_s.status IN ('Lulus', 'Dihantar ke IPJPSM')
             AND form_a_s.tahun = $tahun
         ");
 
@@ -1194,7 +1194,7 @@ $data_form_d_s[$data_shuttle->id] = !empty($fd_result) ? $fd_result[0] : (object
 
     public function laporan_shuttle_3_5($title, $tahun)
     {
-        $shuttle = FormA::where('status', 'Lulus')->where('tahun', $tahun)
+        $shuttle = FormA::whereIn('status', ['Lulus', 'Dihantar ke IPJPSM'])->where('tahun', $tahun)
             ->whereHas('shuttle', function ($q) {
                 $q->where('shuttle_type', '3');
             })
@@ -1227,7 +1227,7 @@ $data_form_d_s[$data_shuttle->id] = !empty($fd_result) ? $fd_result[0] : (object
                                     AND form_c_s.status = 'Lulus'
                                     AND form_c_s.tahun = '$tahun'
 
-                                    AND form_a_s.status = 'Lulus'
+                                    AND form_a_s.status IN ('Lulus', 'Dihantar ke IPJPSM')
                                     AND form_a_s.tahun = '$tahun'
                                     AND form_a_s.shuttle_id = shuttles.id
 
@@ -1300,7 +1300,7 @@ $data_form_d_s[$data_shuttle->id] = !empty($fd_result) ? $fd_result[0] : (object
     {
         // dd("function laporan 6");
 
-        $shuttle = FormA::where('status', 'Lulus')->where('tahun', $tahun)
+        $shuttle = FormA::whereIn('status', ['Lulus', 'Dihantar ke IPJPSM'])->where('tahun', $tahun)
             ->whereHas('shuttle', function ($q) {
                 $q->where('shuttle_type', '3');
             })
@@ -1330,7 +1330,7 @@ $data_form_d_s[$data_shuttle->id] = !empty($fd_result) ? $fd_result[0] : (object
                                     AND form_c_s.tahun = '$tahun'
                                     AND spesis.id = '$spesies'
 
-                                    AND form_a_s.status = 'Lulus'
+                                    AND form_a_s.status IN ('Lulus', 'Dihantar ke IPJPSM')
                                     AND form_a_s.tahun = '$tahun'
                                     AND form_a_s.shuttle_id = shuttles.id
 
@@ -3746,7 +3746,7 @@ $data_form_d_s[$data_shuttle->id] = !empty($fd_result) ? $fd_result[0] : (object
     public function laporan_shuttle_4_1($title, $tahun)
     {
 
-        $shuttle = FormA::where('status', 'Lulus')->where('tahun', $tahun)
+        $shuttle = FormA::whereIn('status', ['Lulus', 'Dihantar ke IPJPSM'])->where('tahun', $tahun)
             ->whereHas('shuttle', function ($q) {
                 $q->where('shuttle_type', '4');
             })
@@ -3767,7 +3767,7 @@ $data_form_d_s[$data_shuttle->id] = !empty($fd_result) ? $fd_result[0] : (object
 
             WHERE shuttles.id = form_a_s.shuttle_id
             AND shuttles.shuttle_type = '4'
-            AND form_a_s.status = 'Lulus'
+            AND form_a_s.status IN ('Lulus', 'Dihantar ke IPJPSM')
             AND form_a_s.tahun = $tahun
         ");
 
@@ -4235,7 +4235,7 @@ $data_form_d_s[$data_shuttle->id] = !empty($fd_result) ? $fd_result[0] : (object
     public function laporan_shuttle_4_3($title, $tahun)
     {
 
-        $shuttle = FormA::where('status', 'Lulus')->where('tahun', $tahun)
+        $shuttle = FormA::whereIn('status', ['Lulus', 'Dihantar ke IPJPSM'])->where('tahun', $tahun)
             ->whereHas('shuttle', function ($q) {
                 $q->where('shuttle_type', '4')->where('status_warganegara', 'Bukan Bumiputera');
             })
@@ -4257,7 +4257,7 @@ $data_form_d_s[$data_shuttle->id] = !empty($fd_result) ? $fd_result[0] : (object
                 WHERE shuttles.id = form_a_s.shuttle_id
                 AND shuttles.shuttle_type = '4'
                 AND shuttles.status_warganegara = 'Bukan Bumiputera'
-                AND form_a_s.status = 'Lulus'
+                AND form_a_s.status IN ('Lulus', 'Dihantar ke IPJPSM')
                 AND form_a_s.tahun = $tahun
             ");
 
@@ -4479,7 +4479,7 @@ $data_form_d_s[$data_shuttle->id] = !empty($fd_result) ? $fd_result[0] : (object
     public function laporan_shuttle_4_4($title, $tahun)
     {
 
-        $shuttle = FormA::where('status', 'Lulus')->where('tahun', $tahun)
+        $shuttle = FormA::whereIn('status', ['Lulus', 'Dihantar ke IPJPSM'])->where('tahun', $tahun)
             ->whereHas('shuttle', function ($q) {
                 $q->where('shuttle_type', '4')->where('status_warganegara', 'Bukan Warganegara');
             })
@@ -4501,7 +4501,7 @@ $data_form_d_s[$data_shuttle->id] = !empty($fd_result) ? $fd_result[0] : (object
                 WHERE shuttles.id = form_a_s.shuttle_id
                 AND shuttles.shuttle_type = '4'
                 AND shuttles.status_warganegara = 'Bukan Warganegara'
-                AND form_a_s.status = 'Lulus'
+                AND form_a_s.status IN ('Lulus', 'Dihantar ke IPJPSM')
                 AND form_a_s.tahun = $tahun
             ");
 
@@ -4723,7 +4723,7 @@ $data_form_d_s[$data_shuttle->id] = !empty($fd_result) ? $fd_result[0] : (object
 
     public function laporan_shuttle_4_5($title, $tahun)
     {
-        $shuttle = FormA::where('status', 'Lulus')->where('tahun', $tahun)
+        $shuttle = FormA::whereIn('status', ['Lulus', 'Dihantar ke IPJPSM'])->where('tahun', $tahun)
             ->whereHas('shuttle', function ($q) {
                 $q->where('shuttle_type', '4');
             })
@@ -4887,7 +4887,7 @@ $data_form_d_s[$data_shuttle->id] = !empty($fd_result) ? $fd_result[0] : (object
 
     public function laporan_shuttle_4_6($title, $tahun)
     {
-        $shuttle = FormA::where('status', 'Lulus')->where('tahun', $tahun)
+        $shuttle = FormA::whereIn('status', ['Lulus', 'Dihantar ke IPJPSM'])->where('tahun', $tahun)
             ->whereHas('shuttle', function ($q) {
                 $q->where('shuttle_type', '4');
             })
@@ -5052,7 +5052,7 @@ $data_form_d_s[$data_shuttle->id] = !empty($fd_result) ? $fd_result[0] : (object
     {
         // dd( $spesies);
 
-        $shuttle = FormA::where('status', 'Lulus')->where('tahun', $tahun)
+        $shuttle = FormA::whereIn('status', ['Lulus', 'Dihantar ke IPJPSM'])->where('tahun', $tahun)
             ->whereHas('shuttle', function ($q) {
                 $q->where('shuttle_type', '4');
             })
@@ -5143,7 +5143,7 @@ $data_form_d_s[$data_shuttle->id] = !empty($fd_result) ? $fd_result[0] : (object
     public function laporan_shuttle_4_8($title, $tahun)
     {
 
-        $shuttle = FormA::where('status', 'Lulus')->where('tahun', $tahun)
+        $shuttle = FormA::whereIn('status', ['Lulus', 'Dihantar ke IPJPSM'])->where('tahun', $tahun)
             ->whereHas('shuttle', function ($q) {
                 $q->where('shuttle_type', '4');
             })
@@ -8236,7 +8236,7 @@ $data_form_d_s[$data_shuttle->id] = !empty($fd_result) ? $fd_result[0] : (object
     public function laporan_shuttle_5_1($title, $tahun)
     {
 
-        $shuttle = FormA::where('status', 'Lulus')->where('tahun', $tahun)
+        $shuttle = FormA::whereIn('status', ['Lulus', 'Dihantar ke IPJPSM'])->where('tahun', $tahun)
             ->whereHas('shuttle', function ($q) {
                 $q->where('shuttle_type', '5');
             })
@@ -8257,7 +8257,7 @@ $data_form_d_s[$data_shuttle->id] = !empty($fd_result) ? $fd_result[0] : (object
 
             WHERE shuttles.id = form_a_s.shuttle_id
             AND shuttles.shuttle_type = '5'
-            AND form_a_s.status = 'Lulus'
+            AND form_a_s.status IN ('Lulus', 'Dihantar ke IPJPSM')
             AND form_a_s.tahun = $tahun
         ");
 
@@ -8766,7 +8766,7 @@ $data_form_d_s[$data_shuttle->id] = !empty($fd_result) ? $fd_result[0] : (object
 
     public function laporan_shuttle_5_4($title, $tahun)
     {
-        $shuttle = FormA::where('status', 'Lulus')->where('tahun', $tahun)
+        $shuttle = FormA::whereIn('status', ['Lulus', 'Dihantar ke IPJPSM'])->where('tahun', $tahun)
             ->whereHas('shuttle', function ($q) {
                 $q->where('shuttle_type', '5')->where('status_warganegara', 'Bukan Warganegara');
             })
@@ -8788,7 +8788,7 @@ $data_form_d_s[$data_shuttle->id] = !empty($fd_result) ? $fd_result[0] : (object
             WHERE shuttles.id = form_a_s.shuttle_id
             AND shuttles.shuttle_type = '5'
             AND shuttles.status_warganegara = 'Bukan Warganegara'
-            AND form_a_s.status = 'Lulus'
+            AND form_a_s.status IN ('Lulus', 'Dihantar ke IPJPSM')
             AND form_a_s.tahun = $tahun
         ");
 
@@ -8942,7 +8942,7 @@ $data_form_d_s[$data_shuttle->id] = !empty($fd_result) ? $fd_result[0] : (object
     }
     public function laporan_shuttle_5_5($title, $tahun)
     {
-        $shuttle = FormA::where('status', 'Lulus')->where('tahun', $tahun)
+        $shuttle = FormA::whereIn('status', ['Lulus', 'Dihantar ke IPJPSM'])->where('tahun', $tahun)
             ->whereHas('shuttle', function ($q) {
                 $q->where('shuttle_type', '5');
             })
@@ -9042,7 +9042,7 @@ $data_form_d_s[$data_shuttle->id] = !empty($fd_result) ? $fd_result[0] : (object
 
     public function laporan_shuttle_5_6($title, $tahun, $spesies)
     {
-        $shuttle = FormA::where('status', 'Lulus')->where('tahun', $tahun)
+        $shuttle = FormA::whereIn('status', ['Lulus', 'Dihantar ke IPJPSM'])->where('tahun', $tahun)
             ->whereHas('shuttle', function ($q) {
                 $q->where('shuttle_type', '5');
             })

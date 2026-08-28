@@ -44,7 +44,7 @@ class ExcelController extends Controller
         if ($title == "1") {
             $title_laporan = "1. Maklumat Penuh Senarai Kilang Papan";
 
-            $shuttle = FormA::where('status', 'Lulus')->where('tahun', $tahun)
+            $shuttle = FormA::whereIn('status', ['Lulus', 'Dihantar ke IPJPSM'])->where('tahun', $tahun)
                 ->whereHas('shuttle', function ($q) {
                     $q->where('shuttle_type', '3');
                 })
@@ -63,7 +63,7 @@ class ExcelController extends Controller
 
             WHERE shuttles.id = form_a_s.shuttle_id
             AND shuttles.shuttle_type = '3'
-            AND form_a_s.status = 'Lulus'
+            AND form_a_s.status IN ('Lulus', 'Dihantar ke IPJPSM')
         ");
 
 
@@ -150,7 +150,7 @@ class ExcelController extends Controller
         } elseif ($title == "2") {
             $title_laporan = "2. Senarai Pemilik Kilang Papan Bumiputera";
 
-            $shuttle = FormA::where('status', 'Lulus')->where('tahun', $tahun)
+            $shuttle = FormA::whereIn('status', ['Lulus', 'Dihantar ke IPJPSM'])->where('tahun', $tahun)
                 ->whereHas('shuttle', function ($q) {
                     $q->where('shuttle_type', '3')->where('status_warganegara', 'Bumiputera');
                 })
@@ -169,7 +169,7 @@ class ExcelController extends Controller
 
             WHERE shuttles.id = form_a_s.shuttle_id
             AND shuttles.shuttle_type = '3'
-            AND form_a_s.status = 'Lulus'
+            AND form_a_s.status IN ('Lulus', 'Dihantar ke IPJPSM')
         ");
 
 
@@ -256,7 +256,7 @@ class ExcelController extends Controller
         } elseif ($title == "3") {
             $title_laporan = "3. Senarai Pemilik Kilang Papan Bukan Bumiputera";
 
-            $shuttle = FormA::where('status', 'Lulus')->where('tahun', $tahun)
+            $shuttle = FormA::whereIn('status', ['Lulus', 'Dihantar ke IPJPSM'])->where('tahun', $tahun)
                 ->whereHas('shuttle', function ($q) {
                     $q->where('shuttle_type', '3')->where('status_warganegara', 'Bukan Bumiputera');
                 })
@@ -275,7 +275,7 @@ class ExcelController extends Controller
 
             WHERE shuttles.id = form_a_s.shuttle_id
             AND shuttles.shuttle_type = '3'
-            AND form_a_s.status = 'Lulus'
+            AND form_a_s.status IN ('Lulus', 'Dihantar ke IPJPSM')
         ");
 
 
@@ -362,7 +362,7 @@ class ExcelController extends Controller
         } elseif ($title == "4") {
             $title_laporan = "4. Senarai Pemilik Kilang Papan Bukan Warganegara";
 
-            $shuttle = FormA::where('status', 'Lulus')->where('tahun', $tahun)
+            $shuttle = FormA::whereIn('status', ['Lulus', 'Dihantar ke IPJPSM'])->where('tahun', $tahun)
                 ->whereHas('shuttle', function ($q) {
                     $q->where('shuttle_type', '3')->where('status_warganegara', 'Bukan Warganegara');
                 })
@@ -381,7 +381,7 @@ class ExcelController extends Controller
 
             WHERE shuttles.id = form_a_s.shuttle_id
             AND shuttles.shuttle_type = '3'
-            AND form_a_s.status = 'Lulus'
+            AND form_a_s.status IN ('Lulus', 'Dihantar ke IPJPSM')
         ");
 
 
@@ -536,7 +536,7 @@ class ExcelController extends Controller
         if ($title == "5") {
             $title_laporan = "5. Top 10 Pengeluar Kayu Gergaji di Kilang Papan";
 
-            $shuttle = FormA::where('status', 'Lulus')->where('tahun', $tahun)
+            $shuttle = FormA::whereIn('status', ['Lulus', 'Dihantar ke IPJPSM'])->where('tahun', $tahun)
                 ->whereHas('shuttle', function ($q) {
                     $q->where('shuttle_type', '3');
                 })
@@ -569,7 +569,7 @@ class ExcelController extends Controller
                                     AND form_c_s.status = 'Lulus'
                                     AND form_c_s.tahun = '$tahun'
 
-                                    AND form_a_s.status = 'Lulus'
+                                    AND form_a_s.status IN ('Lulus', 'Dihantar ke IPJPSM')
                                     AND form_a_s.tahun = '$tahun'
                                     AND form_a_s.shuttle_id = shuttles.id
 
@@ -582,7 +582,7 @@ class ExcelController extends Controller
         } elseif ($title == "6") {
             $title_laporan = "6. Top 10 Kilang Papan Dalam Penggunaan Spesies Kayu Balak";
 
-            $shuttle = FormA::where('status', 'Lulus')->where('tahun', $tahun)
+            $shuttle = FormA::whereIn('status', ['Lulus', 'Dihantar ke IPJPSM'])->where('tahun', $tahun)
                 ->whereHas('shuttle', function ($q) {
                     $q->where('shuttle_type', '3');
                 })
@@ -612,7 +612,7 @@ class ExcelController extends Controller
                 AND form_c_s.tahun = '$tahun'
                 AND spesis.id = '$spesies'
 
-                AND form_a_s.status = 'Lulus'
+                AND form_a_s.status IN ('Lulus', 'Dihantar ke IPJPSM')
                 AND form_a_s.tahun = '$tahun'
                 AND form_a_s.shuttle_id = shuttles.id
 
@@ -3183,7 +3183,7 @@ class ExcelController extends Controller
         if ($title == "1") {
             $title_laporan = "1. Maklumat Penuh Senarai Kilang Papan Lapis/Venir";
 
-            $shuttle = FormA::where('status', 'Lulus')->where('tahun', $tahun)
+            $shuttle = FormA::whereIn('status', ['Lulus', 'Dihantar ke IPJPSM'])->where('tahun', $tahun)
                 ->whereHas('shuttle', function ($q) {
                     $q->where('shuttle_type', '4');
                 })
@@ -3204,7 +3204,7 @@ class ExcelController extends Controller
 
             WHERE shuttles.id = form_a_s.shuttle_id
             AND shuttles.shuttle_type = '4'
-            AND form_a_s.status = 'Lulus'
+            AND form_a_s.status IN ('Lulus', 'Dihantar ke IPJPSM')
             AND form_a_s.tahun = '$tahun'
         ");
 
@@ -3558,14 +3558,14 @@ class ExcelController extends Controller
         } elseif ($title == "3") {
             $title_laporan = "3. Senarai Pemilik Kilang Papan Lapis/Venir Bukan Bumiputera";
 
-            $shuttle = FormA::where('status', 'Lulus')->where('tahun', $tahun)
+            $shuttle = FormA::whereIn('status', ['Lulus', 'Dihantar ke IPJPSM'])->where('tahun', $tahun)
                 ->whereHas('shuttle', function ($q) {
-                    $q->where('shuttle_type', '3')->where('status_warganegara', 'Bukan Bumiputera');
+                    $q->where('shuttle_type', '4')->where('status_warganegara', 'Bukan Bumiputera');
                 })
                 ->get();
 
             if ($shuttle->count() == 0) {
-                return redirect()->back()->with('error', 'Sila pastikan sekurang-kurang 1 Borang A (Kilang berstatus "Bukan Bumiputera") diluluskan untuk Shuttle 3 untuk menjana laporan');
+                return redirect()->back()->with('error', 'Sila pastikan sekurang-kurang 1 Borang A (Kilang berstatus "Bukan Bumiputera") diluluskan untuk Shuttle 4 untuk menjana laporan');
             }
 
             $data_shuttles = DB::select("SELECT
@@ -3579,7 +3579,7 @@ class ExcelController extends Controller
 
                 WHERE shuttles.id = form_a_s.shuttle_id
                 AND shuttles.shuttle_type = '4'
-                AND form_a_s.status = 'Lulus'
+                AND form_a_s.status IN ('Lulus', 'Dihantar ke IPJPSM')
             ");
 
 
@@ -3731,7 +3731,7 @@ class ExcelController extends Controller
         } elseif ($title == "4") {
             $title_laporan = "4. Senarai Pemilik Kilang Papan Lapis/Venir Bukan Warganegara";
 
-            $shuttle = FormA::where('status', 'Lulus')->where('tahun', $tahun)
+            $shuttle = FormA::whereIn('status', ['Lulus', 'Dihantar ke IPJPSM'])->where('tahun', $tahun)
                 ->whereHas('shuttle', function ($q) {
                     $q->where('shuttle_type', '4')->where('status_warganegara', 'Bukan Warganegara');
                 })
@@ -3752,7 +3752,7 @@ class ExcelController extends Controller
 
                 WHERE shuttles.id = form_a_s.shuttle_id
                 AND shuttles.shuttle_type = '4'
-                AND form_a_s.status = 'Lulus'
+                AND form_a_s.status IN ('Lulus', 'Dihantar ke IPJPSM')
             ");
 
 
@@ -3978,7 +3978,7 @@ class ExcelController extends Controller
         if ($title == "5") {
             $title_laporan = "5. Top 10 Pengeluar Papan Lapis di Kilang Papan Lapis/Venir";
 
-            $shuttle = FormA::where('status', 'Lulus')->where('tahun', $tahun)
+            $shuttle = FormA::whereIn('status', ['Lulus', 'Dihantar ke IPJPSM'])->where('tahun', $tahun)
                 ->whereHas('shuttle', function ($q) {
                     $q->where('shuttle_type', '4');
                 })
@@ -4138,7 +4138,7 @@ class ExcelController extends Controller
         if ($title == "6") {
             $title_laporan = "6. Top 10 Pengeluar Venir di Kilang Papan Lapis/Venir";
 
-            $shuttle = FormA::where('status', 'Lulus')->where('tahun', $tahun)
+            $shuttle = FormA::whereIn('status', ['Lulus', 'Dihantar ke IPJPSM'])->where('tahun', $tahun)
                 ->whereHas('shuttle', function ($q) {
                     $q->where('shuttle_type', '4');
                 })
@@ -4282,7 +4282,7 @@ class ExcelController extends Controller
             $title_laporan = "7. Top 10 Kilang Papan Dalam Penggunaan Spesies Kayu Balak Di Kilang Papan Lapis/Venir";
 
 
-            $shuttle = FormA::where('status', 'Lulus')->where('tahun', $tahun)
+            $shuttle = FormA::whereIn('status', ['Lulus', 'Dihantar ke IPJPSM'])->where('tahun', $tahun)
                 ->whereHas('shuttle', function ($q) {
                     $q->where('shuttle_type', '4');
                 })
@@ -4378,7 +4378,7 @@ class ExcelController extends Controller
         if ($title == "8") {
             $title_laporan = "8. Jumlah Pelaburan (Harta Tetap) Bagi Kilang Papan Lapis/Venir";
 
-            $shuttle = FormA::where('status', 'Lulus')->where('tahun', $tahun)
+            $shuttle = FormA::whereIn('status', ['Lulus', 'Dihantar ke IPJPSM'])->where('tahun', $tahun)
                 ->whereHas('shuttle', function ($q) {
                     $q->where('shuttle_type', '4');
                 })
@@ -7523,7 +7523,7 @@ class ExcelController extends Controller
         if ($title == "1") {
             $title_laporan = "1. Maklumat Penuh Senarai Kilang Kayu Kumai";
 
-            $shuttle = FormA::where('status', 'Lulus')->where('tahun', $tahun)
+            $shuttle = FormA::whereIn('status', ['Lulus', 'Dihantar ke IPJPSM'])->where('tahun', $tahun)
                 ->whereHas('shuttle', function ($q) {
                     $q->where('shuttle_type', '5');
                 })
@@ -7544,7 +7544,7 @@ class ExcelController extends Controller
 
             WHERE shuttles.id = form_a_s.shuttle_id
             AND shuttles.shuttle_type = '5'
-            AND form_a_s.status = 'Lulus'
+            AND form_a_s.status IN ('Lulus', 'Dihantar ke IPJPSM')
             AND form_a_s.tahun = '$tahun'
         ");
 
@@ -7885,7 +7885,7 @@ class ExcelController extends Controller
         } elseif ($title == "4") {
             $title_laporan = "4. Senarai Pemilik Kilang Kayu Kumai Bukan Warganegara";
 
-            $shuttle = FormA::where('status', 'Lulus')->where('tahun', $tahun)
+            $shuttle = FormA::whereIn('status', ['Lulus', 'Dihantar ke IPJPSM'])->where('tahun', $tahun)
                 ->whereHas('shuttle', function ($q) {
                     $q->where('shuttle_type', '5')->where('status_warganegara', 'Bukan Warganegara');
                 })
@@ -7906,7 +7906,7 @@ class ExcelController extends Controller
 
             WHERE shuttles.id = form_a_s.shuttle_id
             AND shuttles.shuttle_type = '5'
-            AND form_a_s.status = 'Lulus'
+            AND form_a_s.status IN ('Lulus', 'Dihantar ke IPJPSM')
         ");
 
 
@@ -8061,7 +8061,7 @@ class ExcelController extends Controller
         if ($title == "5") {
             $title_laporan = "5. Top 10 Pengeluar Kayu Kumai di Kilang Kayu Kumai";
 
-            $shuttle = FormA::where('status', 'Lulus')->where('tahun', $tahun)
+            $shuttle = FormA::whereIn('status', ['Lulus', 'Dihantar ke IPJPSM'])->where('tahun', $tahun)
                 ->whereHas('shuttle', function ($q) {
                     $q->where('shuttle_type', '5');
                 })
@@ -8103,7 +8103,7 @@ class ExcelController extends Controller
         } elseif ($title == "6") {
             $title_laporan = "6. Top 10 Kilang Kayu Kumai Dalam Penggunaan Spesies Kayu Balak Di Kilang Kayu Kumai";
 
-            $shuttle = FormA::where('status', 'Lulus')->where('tahun', $tahun)
+            $shuttle = FormA::whereIn('status', ['Lulus', 'Dihantar ke IPJPSM'])->where('tahun', $tahun)
                 ->whereHas('shuttle', function ($q) {
                     $q->where('shuttle_type', '5');
                 })
