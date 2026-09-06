@@ -538,10 +538,15 @@ class FormB extends Component
         $batch->save();
         // dd($formb);
 
-        GunaTenaga::where('formbs_id', $formb->id)->delete();
-
         foreach ($kategori_pekerja as $key => $data) {
-            GunaTenaga::create([
+            // updateOrCreate (keyed on formbs_id + kategori_guna_tenaga_id) instead of a
+            // delete-then-create pass: a double-submit race on the old delete()+create()
+            // could leave duplicate rows per category since two concurrent requests could
+            // each pass the delete before either finished recreating rows.
+            GunaTenaga::updateOrCreate([
+                'formbs_id' => $formb->id,
+                'kategori_guna_tenaga_id' => $data->id,
+            ], [
                 'pekerja_wargabumi_lelaki' => $this->pekerja_wargabumi_lelaki[$key] ?? 0,
                 'pekerja_wargabumi_perempuan' => $this->pekerja_wargabumi_perempuan[$key] ?? 0,
                 'pekerja_bukan_wargabumi_lelaki' => $this->pekerja_bukan_wargabumi_lelaki[$key] ?? 0,
@@ -575,12 +580,8 @@ class FormB extends Component
                 'jumlah_total_gaji' => $this->jumlah_total_gaji ?? 0,
 
                 'shuttle_id' => $shuttle_id->id,
-                'kategori_guna_tenaga_id' => $data->id,
                 'bulan' => $bulan,
                 'tahun' => $this->year,
-                'formbs_id' => $formb->id,
-
-
             ]);
         }
         Session::flash('success', 'Maklumat berjaya dihantar. Sila tunggu untuk pengesahan PHD.');

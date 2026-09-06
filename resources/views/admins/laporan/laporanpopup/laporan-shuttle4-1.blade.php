@@ -233,7 +233,7 @@
                                         <td class="text-right">{{ number_format($data_guna_tenagas[$data->id]->pekerja_asing_lelaki_laporan, 0) }}</td>
                                         <td class="text-right">{{ number_format($data_guna_tenagas[$data->id]->pekerja_asing_perempuan_laporan, 0) }}</td>
 
-                                        <td class="text-right">{{ number_format($data_kemasukan_bahans[$data->id]->baki_stok_kehadapan, 0) }}</td>
+                                        <td class="text-right">{{ number_format($data_kemasukan_bahans[$data->id]->baki_stok_kehadapan, 2) }}</td>
                                         <td class="text-right">{{ number_format($data_kemasukan_bahans[$data->id]->jumlah_penggunaan, 0) }}</td>
 
                                         <td class="text-right">{{ number_format($produk_pengeluaran[$data->id]->jumlah_besar_mr, 0) }}</td>

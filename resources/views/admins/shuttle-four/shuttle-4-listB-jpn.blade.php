@@ -144,7 +144,7 @@
                                                                     $delay = '+' . $buffer->delay . ' month';
                                                                     $tarikh_tutup_terkini = date('Y-m-d', strtotime($delay, $time));
                                                                 @endphp
-                                                                @if (date('Y-m-d') >= $data->tarikh_buka_borang && date('Y-m-d') <= $tarikh_tutup_terkini)
+                                                                @if (date('Y-m-d') >= $data->tarikh_buka_borang && (!$buffer || !$buffer->aktif || date('Y-m-d') <= $tarikh_tutup_terkini))
                                                                     <img src="{{ asset('circle_times.png') }}"
                                                                             height='30px' alt=""
                                                                         style="color: red; font-size: 20pt;"
@@ -208,7 +208,7 @@
                                                             $tarikh_tutup_terkini = date('Y-m-d', strtotime($delay, $time));
                                                         @endphp
                                                         @if ($data->status == 'Tidak Diisi' && $data->suku_tahun == '2' && $shuttle->shuttle_id == $data->shuttle_id)
-                                                            @if (date('Y-m-d') >= $data->tarikh_buka_borang && date('Y-m-d') <= $tarikh_tutup_terkini)
+                                                            @if (date('Y-m-d') >= $data->tarikh_buka_borang && (!$buffer || !$buffer->aktif || date('Y-m-d') <= $tarikh_tutup_terkini))
                                                                 <img src="{{ asset('circle_times.png') }}"
                                                                             height='30px' alt=""
                                                                     style="color: red; font-size: 20pt;"
@@ -265,7 +265,7 @@
                                                             $tarikh_tutup_terkini = date('Y-m-d', strtotime($delay, $time));
                                                         @endphp
                                                         @if ($data->status == 'Tidak Diisi' && $data->suku_tahun == '3' && $shuttle->shuttle_id == $data->shuttle_id)
-                                                            @if (date('Y-m-d') >= $data->tarikh_buka_borang && date('Y-m-d') <= $tarikh_tutup_terkini)
+                                                            @if (date('Y-m-d') >= $data->tarikh_buka_borang && (!$buffer || !$buffer->aktif || date('Y-m-d') <= $tarikh_tutup_terkini))
                                                                 <img src="{{ asset('circle_times.png') }}"
                                                                             height='30px' alt=""
                                                                     style="color: red; font-size: 20pt;"
@@ -322,7 +322,7 @@
                                                             $tarikh_tutup_terkini = date('Y-m-d', strtotime($delay, $time));
                                                         @endphp
                                                         @if ($data->status == 'Tidak Diisi' && $data->suku_tahun == '4' && $shuttle->shuttle_id == $data->shuttle_id)
-                                                            @if (date('Y-m-d') >= $data->tarikh_buka_borang && date('Y-m-d') <= $tarikh_tutup_terkini)
+                                                            @if (date('Y-m-d') >= $data->tarikh_buka_borang && (!$buffer || !$buffer->aktif || date('Y-m-d') <= $tarikh_tutup_terkini))
                                                                 <img src="{{ asset('circle_times.png') }}"
                                                                             height='30px' alt=""
                                                                     style="color: red; font-size: 20pt;"

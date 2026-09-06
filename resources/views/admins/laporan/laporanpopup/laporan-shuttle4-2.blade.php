@@ -323,7 +323,7 @@
                                                     @endphp
                                                 @endif
                                             @endforeach
-                                            <td class="text-right">{{ number_format($baki_stok_kehadapan, 0) }}</td>
+                                            <td class="text-right">{{ number_format($baki_stok_kehadapan, 2) }}</td>
 
                                             <td class="text-right">{{ number_format($jumlah_penggunaan, 0) }}</td>
 

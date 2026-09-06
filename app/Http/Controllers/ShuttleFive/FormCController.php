@@ -97,7 +97,7 @@ class FormCController extends Controller
         $kayu_id = '1';
 
         $species_count = Spesis::orderBy('kumpulan_kayu_id')->where('kumpulan_kayu_id', $kayu_id)->count();
-        $species = Spesis::orderBy('kumpulan_kayu_id')->where('kumpulan_kayu_id', $kayu_id)->get();
+        $species = Spesis::orderBy('kumpulan_kayu_id')->orderBy('id')->where('kumpulan_kayu_id', $kayu_id)->get();
         $kumpulan_kayu = KumpulanKayu::where('id', $kayu_id)->get();
 
         $kilang_info = Shuttle::where('id', auth()->user()->shuttle_id)->first();
@@ -268,7 +268,7 @@ class FormCController extends Controller
         $shuttle_type = auth()->user()->shuttle->shuttle_type;
 
         $recovery_rate = RecoveryRate::where('shuttle_type', $shuttle_type)->first();
-        $species = Spesis::orderBy('kumpulan_kayu_id')->where('kumpulan_kayu_id', $kayu_id)->get();
+        $species = Spesis::orderBy('kumpulan_kayu_id')->orderBy('id')->where('kumpulan_kayu_id', $kayu_id)->get();
 
         $id = auth()->user();
         $kilang_info = Shuttle::where('id', $id->shuttle_id)->first();
@@ -315,7 +315,7 @@ class FormCController extends Controller
 
         if ($kemasukan_bahans->isEmpty()) {
             foreach ($species as $keySpecies => $data) {
-                KemasukanBahan::create([
+                KemasukanBahan::updateOrCreate(['formcs_id' => $formc->id, 'spesis_id' => $data->id], [
                     'spesis_id' => $data->id,
                     'baki_stok' => $request->baki_stoks[$keySpecies] ?? 0,
                     'kayu_masuk' => $request->kayu_masuk[$keySpecies] ?? 0,
@@ -404,7 +404,7 @@ class FormCController extends Controller
         $kayu_id = '2';
 
         $species_count = Spesis::orderBy('kumpulan_kayu_id')->where('kumpulan_kayu_id', $kayu_id)->count();
-        $species = Spesis::orderBy('kumpulan_kayu_id')->where('kumpulan_kayu_id', $kayu_id)->get();
+        $species = Spesis::orderBy('kumpulan_kayu_id')->orderBy('id')->where('kumpulan_kayu_id', $kayu_id)->get();
         $kumpulan_kayu = KumpulanKayu::where('id', $kayu_id)->get();
 
         $kilang_info = Shuttle::where('id', auth()->user()->shuttle_id)->first();
@@ -575,7 +575,7 @@ class FormCController extends Controller
         $shuttle_type = auth()->user()->shuttle->shuttle_type;
 
         $recovery_rate = RecoveryRate::where('shuttle_type', $shuttle_type)->first();
-        $species = Spesis::orderBy('kumpulan_kayu_id')->where('kumpulan_kayu_id', $kayu_id)->get();
+        $species = Spesis::orderBy('kumpulan_kayu_id')->orderBy('id')->where('kumpulan_kayu_id', $kayu_id)->get();
 
         $id = auth()->user();
         $shuttle_id = Shuttle::where('id', $id->shuttle_id)->first();
@@ -593,7 +593,7 @@ class FormCController extends Controller
 
         if ($kemasukan_bahans->isEmpty()) {
             foreach ($species as $keySpecies => $data) {
-                KemasukanBahan::create([
+                KemasukanBahan::updateOrCreate(['formcs_id' => $formc->id, 'spesis_id' => $data->id], [
                     'spesis_id' => $data->id,
                     'baki_stok' => $request->baki_stoks[$keySpecies] ?? 0,
                     'kayu_masuk' => $request->kayu_masuk[$keySpecies] ?? 0,
@@ -682,7 +682,7 @@ class FormCController extends Controller
         $kayu_id = '3';
 
         $species_count = Spesis::orderBy('kumpulan_kayu_id')->where('kumpulan_kayu_id', $kayu_id)->count();
-        $species = Spesis::orderBy('kumpulan_kayu_id')->where('kumpulan_kayu_id', $kayu_id)->get();
+        $species = Spesis::orderBy('kumpulan_kayu_id')->orderBy('id')->where('kumpulan_kayu_id', $kayu_id)->get();
         $kumpulan_kayu = KumpulanKayu::where('id', $kayu_id)->get();
 
         $kilang_info = Shuttle::where('id', auth()->user()->shuttle_id)->first();
@@ -848,7 +848,7 @@ class FormCController extends Controller
         $shuttle_type = auth()->user()->shuttle->shuttle_type;
 
         $recovery_rate = RecoveryRate::where('shuttle_type', $shuttle_type)->first();
-        $species = Spesis::orderBy('kumpulan_kayu_id')->where('kumpulan_kayu_id', $kayu_id)->get();
+        $species = Spesis::orderBy('kumpulan_kayu_id')->orderBy('id')->where('kumpulan_kayu_id', $kayu_id)->get();
 
         $id = auth()->user();
         $shuttle_id = Shuttle::where('id', $id->shuttle_id)->first();
@@ -866,7 +866,7 @@ class FormCController extends Controller
 
         if ($kemasukan_bahans->isEmpty()) {
             foreach ($species as $keySpecies => $data) {
-                KemasukanBahan::create([
+                KemasukanBahan::updateOrCreate(['formcs_id' => $formc->id, 'spesis_id' => $data->id], [
                     'spesis_id' => $data->id,
                     'baki_stok' => $request->baki_stoks[$keySpecies] ?? 0,
                     'kayu_masuk' => $request->kayu_masuk[$keySpecies] ?? 0,
@@ -953,7 +953,7 @@ class FormCController extends Controller
         $kayu_id = '4';
 
         $species_count = Spesis::orderBy('kumpulan_kayu_id')->where('kumpulan_kayu_id', $kayu_id)->count();
-        $species = Spesis::orderBy('kumpulan_kayu_id')->where('kumpulan_kayu_id', $kayu_id)->get();
+        $species = Spesis::orderBy('kumpulan_kayu_id')->orderBy('id')->where('kumpulan_kayu_id', $kayu_id)->get();
         $kumpulan_kayu = KumpulanKayu::where('id', $kayu_id)->get();
 
         $kilang_info = Shuttle::where('id', auth()->user()->shuttle_id)->first();
@@ -1119,7 +1119,7 @@ class FormCController extends Controller
         $shuttle_type = auth()->user()->shuttle->shuttle_type;
 
         $recovery_rate = RecoveryRate::where('shuttle_type', $shuttle_type)->first();
-        $species = Spesis::orderBy('kumpulan_kayu_id')->where('kumpulan_kayu_id', $kayu_id)->get();
+        $species = Spesis::orderBy('kumpulan_kayu_id')->orderBy('id')->where('kumpulan_kayu_id', $kayu_id)->get();
 
         $id = auth()->user();
         $shuttle_id = Shuttle::where('id', $id->shuttle_id)->first();
@@ -1137,7 +1137,7 @@ class FormCController extends Controller
 
         if ($kemasukan_bahans->isEmpty()) {
             foreach ($species as $keySpecies => $data) {
-                KemasukanBahan::create([
+                KemasukanBahan::updateOrCreate(['formcs_id' => $formc->id, 'spesis_id' => $data->id], [
                     'spesis_id' => $data->id,
                     'baki_stok' => $request->baki_stoks[$keySpecies] ?? 0,
                     'kayu_masuk' => $request->kayu_masuk[$keySpecies] ?? 0,
@@ -1224,7 +1224,7 @@ class FormCController extends Controller
         $kayu_id = '5';
 
         $species_count = Spesis::orderBy('kumpulan_kayu_id')->where('kumpulan_kayu_id', $kayu_id)->count();
-        $species = Spesis::orderBy('kumpulan_kayu_id')->where('kumpulan_kayu_id', $kayu_id)->get();
+        $species = Spesis::orderBy('kumpulan_kayu_id')->orderBy('id')->where('kumpulan_kayu_id', $kayu_id)->get();
         $kumpulan_kayu = KumpulanKayu::where('id', $kayu_id)->get();
 
         $kilang_info = Shuttle::where('id', auth()->user()->shuttle_id)->first();
@@ -1502,7 +1502,7 @@ class FormCController extends Controller
         $shuttle_type = auth()->user()->shuttle->shuttle_type;
 
         $recovery_rate = RecoveryRate::where('shuttle_type', $shuttle_type)->first();
-        $species = Spesis::orderBy('kumpulan_kayu_id')->where('kumpulan_kayu_id', $kayu_id)->get();
+        $species = Spesis::orderBy('kumpulan_kayu_id')->orderBy('id')->where('kumpulan_kayu_id', $kayu_id)->get();
 
         $id = auth()->user();
         $shuttle_id = Shuttle::where('id', $id->shuttle_id)->first();
@@ -1540,7 +1540,7 @@ class FormCController extends Controller
 
         if ($kemasukan_bahans->isEmpty()) {
             foreach ($species as $keySpecies => $data) {
-                KemasukanBahan::create([
+                KemasukanBahan::updateOrCreate(['formcs_id' => $formc->id, 'spesis_id' => $data->id], [
                     'spesis_id' => $data->id,
                     'baki_stok' => $request->baki_stoks[$keySpecies] ?? 0,
                     'kayu_masuk' => $request->kayu_masuk[$keySpecies] ?? 0,
@@ -1719,7 +1719,7 @@ class FormCController extends Controller
                 $baki_stok = $lastmonth_data->baki_stok_kehadapan ?? 0;
                 $jumlah_baki_stok = $groupBakiStok[$data->kumpulan_kayu_id] ?? 0;
 
-                KemasukanBahan::create([
+                KemasukanBahan::updateOrCreate(['formcs_id' => $formc->id, 'spesis_id' => $data->id], [
                     'spesis_id' => $data->id,
                     'baki_stok' => $baki_stok ?? 0,
                     'kayu_masuk' => 0,

@@ -27,7 +27,7 @@ class EditForm3B extends Component
     public function render()
     {
         // $id=auth()->user();
-        $kategori_pekerja = KategoriGunaTenaga::get();
+        $kategori_pekerja = KategoriGunaTenaga::orderBy('id')->get();
 
         $formb_id = FormB::findorfail($this->shuttle_id);
 
@@ -85,9 +85,15 @@ class EditForm3B extends Component
     }
 
     public function mount(){
-        $formB = GunaTenaga::where('formbs_id',$this->shuttle_id)->get();
-        // dd($formB);
-        foreach ($formB as $key => $value) {
+        $kategori_pekerja = KategoriGunaTenaga::orderBy('id')->get();
+        // Keyed by kategori_guna_tenaga_id (not row position) so a category's saved
+        // values can never load into a different category's input under the same $key.
+        $formB = GunaTenaga::where('formbs_id',$this->shuttle_id)->get()->keyBy('kategori_guna_tenaga_id');
+        foreach ($kategori_pekerja as $key => $kategori) {
+            $value = $formB->get($kategori->id);
+            if (!$value) {
+                continue;
+            }
             $this->pekerja_wargabumi_lelaki[$key] = $value->pekerja_wargabumi_lelaki;
             $this->pekerja_wargabumi_perempuan[$key] = $value->pekerja_wargabumi_perempuan;
             $this->pekerja_bukan_wargabumi_lelaki[$key] = $value->pekerja_bukan_wargabumi_lelaki;
@@ -397,7 +403,7 @@ class EditForm3B extends Component
 
     public function update()
     {
-        $kategori = KategoriGunaTenaga::get();
+        $kategori = KategoriGunaTenaga::orderBy('id')->get();
 
 
         foreach ($kategori as $key => $value) {
@@ -481,8 +487,15 @@ class EditForm3B extends Component
         // $batch->save();
 
         // dd($formb_id);
-        $guna_tenaga_update = GunaTenaga::where('formbs_id',$formb->id)->get();
-        foreach ($guna_tenaga_update as $key => $data) {
+        // Keyed by kategori_guna_tenaga_id (not row position) - see mount() - so
+        // values entered for one category can never be written to a different
+        // category's row.
+        $guna_tenaga_update = GunaTenaga::where('formbs_id',$formb->id)->get()->keyBy('kategori_guna_tenaga_id');
+        foreach ($kategori as $key => $kategoriRow) {
+            $data = $guna_tenaga_update->get($kategoriRow->id);
+            if (!$data) {
+                continue;
+            }
             $data->update([
                 'pekerja_wargabumi_lelaki' => $this->pekerja_wargabumi_lelaki[$key] ?? 0,
                 'pekerja_wargabumi_perempuan' => $this->pekerja_wargabumi_perempuan[$key] ?? 0,

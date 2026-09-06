@@ -422,7 +422,7 @@ class ViewFormBController extends Controller
         $formb = FormB::where('shuttle_id',$kilang_info->id)->first();
         $id =$formb->id;
 
-        $form_b = GunaTenaga::where('formbs_id',$formb->id)->get();
+        $form_b = GunaTenaga::where('formbs_id',$formb->id)->orderBy('id','desc')->get()->unique('kategori_guna_tenaga_id')->values();
 
         $layout = auth()->user()->kategori_pengguna == 'PHD' ? 'layouts.layout-phd-nicepage' : (auth()->user()->kategori_pengguna == 'BPM' ? 'layouts.layout-bpm-nicepage' : (auth()->user()->kategori_pengguna == 'BPE' ? 'layouts.layout-ipjpsm-nicepage' : ''));
         // dd(auth()->user()->kategori_pengguna);
@@ -578,7 +578,7 @@ class ViewFormBController extends Controller
 
 
 
-        $form_b = GunaTenaga::where('formbs_id',$formb->id)->get();
+        $form_b = GunaTenaga::where('formbs_id',$formb->id)->orderBy('id','desc')->get()->unique('kategori_guna_tenaga_id')->values();
 
         $layout = 'layouts.layout-ibk-nicepage';
         $ulasan_phd=UlasanPhd::where('formbs_id',$id)->get();
@@ -638,7 +638,7 @@ class ViewFormBController extends Controller
 
 
 
-        $form_b = GunaTenaga::where('formbs_id',$formb->id)->get();
+        $form_b = GunaTenaga::where('formbs_id',$formb->id)->orderBy('id','desc')->get()->unique('kategori_guna_tenaga_id')->values();
 
         $layout = 'layouts.layout-jpn-nicepage';
         $ulasan_phd=UlasanPhd::where('formbs_id',$id)->get();
@@ -815,7 +815,7 @@ class ViewFormBController extends Controller
         // $ulasan_phd=UlasanPhd::where('formbs_id',$id)->get();
         // // dd($ulasan_phd);
 
-        // $form_b = GunaTenaga::where('formbs_id',$formb->id)->get();
+        // $form_b = GunaTenaga::where('formbs_id',$formb->id)->orderBy('id','desc')->get()->unique('kategori_guna_tenaga_id')->values();
 
         // dd($form_b);
         // return view('livewire.view-form3b-Ipjpsm',compact('kilang_info','kategori_pekerja','form_b','id','ulasan_phd'));
@@ -896,7 +896,7 @@ class ViewFormBController extends Controller
         // $ulasan_phd = UlasanPhd::where('formbs_id', $formb->id)->get();
         // dd($ulasan_phd);
 
-        $form_b = GunaTenaga::where('formbs_id',$formb->id)->get();
+        $form_b = GunaTenaga::where('formbs_id',$formb->id)->orderBy('id','desc')->get()->unique('kategori_guna_tenaga_id')->values();
 
         $formb_year = $formb->created_at->format('Y');
 

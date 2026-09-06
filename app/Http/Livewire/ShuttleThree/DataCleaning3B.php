@@ -312,7 +312,7 @@ class DataCleaning3B extends Component
         $ulasan_phd = UlasanPhd::where('formbs_id', $formb->id)->get();
         // dd($ulasan_phd);
 
-        $form_b = GunaTenaga::where('formbs_id',$formb->id)->get();
+        $form_b = GunaTenaga::where('formbs_id',$formb->id)->orderBy('id','desc')->get()->unique('kategori_guna_tenaga_id')->values();
         // dd($form_b);
         return view('livewire.shuttle-three.data-cleaning3-b',compact('kilang_info','kategori_pekerja','form_b','ulasan_phd','formb'));
     }
@@ -340,7 +340,7 @@ class DataCleaning3B extends Component
             'formbs_id' => $formb->id,
         ]);
 
-        $formB = GunaTenaga::where('formbs_id', $formb->id)->get();
+        $formB = GunaTenaga::where('formbs_id', $formb->id)->orderBy('id','desc')->get()->unique('kategori_guna_tenaga_id')->values();
         foreach ($formB as $key => $data) {
             // dd($this->total_bumi_lelaki_cleaning);
            //ni baru tambah laporan
