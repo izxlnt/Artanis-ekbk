@@ -160,6 +160,11 @@ class ProdDataRealShuttleFillTest extends TestCase
 
         $users = User::where('kategori_pengguna', 'IBK')
             ->where('status', 1)->where('is_approved', 1)
+            // Owner (SSM-login) accounts have pengguna_kilang_id = null and are
+            // blocked from form-filling routes by RestrictKilangOwner middleware
+            // ("Akaun pemilik kilang ... hanya boleh menguruskan pengguna") - only
+            // a sub-user (IC-login) account can actually fill in forms.
+            ->whereNotNull('pengguna_kilang_id')
             ->whereHas('shuttle', fn ($q) => $q->where('shuttle_type', $shuttleType))
             ->get();
 

@@ -115,10 +115,17 @@ class RealMillPackageSendTest extends TestCase
         $this->assertSame(1, (int) $batch->borang_c);
         $this->assertSame(1, (int) $batch->borang_d);
 
-        // ── PHD approves Form C and Form D (Form A approval uses a
-        // different route param — shuttle id — and isn't required for the
-        // package-send gate itself, so we approve C+D which is enough to
-        // demonstrate "PHD-approved but package not yet sent"). ───────────
+        // ── PHD approves Form A, Form C and Form D. The package-send gate
+        // (Batch\PhdController::borangBelumLengkap) checks Form A's live
+        // status directly (not the batches.borang_a mirror, which is only
+        // ever synced by this same confirm action - see PhdController), so
+        // it must actually be confirmed here too, not just C+D. ───────────
+        $formA = FormA::where('shuttle_id', self::SHUTTLE_ID)->where('tahun', self::YEAR)->first();
+        $this->actingAs($phd)->post(route('update_status_form3A', $formA->id), [
+            'status' => 'Dihantar ke IPJPSM',
+            'ulasan_phd' => 'Data lengkap dan betul.',
+        ])->assertStatus(302)->assertSessionDoesntHaveErrors();
+
         $formC = FormC::where('shuttle_id', self::SHUTTLE_ID)->where('tahun', self::YEAR)->where('bulan', 1)->first();
         $cResp = $this->actingAs($phd)->post(route('update_status_form3C', $formC->id), [
             'status' => 'Dihantar ke IPJPSM',
@@ -153,7 +160,9 @@ class RealMillPackageSendTest extends TestCase
         $this->assertFalse($jpnVisibleBefore, 'Mill #2 must NOT be visible to JPN before the package is sent either.');
 
         // ── PHD sends the package ───────────────────────────────────────────
-        $this->actingAs($phd)->get(route('phd.batch.s3.hantar', $batch->id))
+        // Route is POST-only (Batch\PhdController::shuttle_3_phd_hantar) - a GET here
+        // always returned 405, so this assertion never actually ran until now.
+        $this->actingAs($phd)->post(route('phd.batch.s3.hantar', $batch->id))
             ->assertStatus(302)->assertSessionHas('success');
 
         $batch->refresh();
