@@ -39,12 +39,12 @@ class ViewFormCController extends Controller
 
             // dd( $form_c_checker);
         } else {
-            $lastmonth = $formc->bulan;
-            $form_c_checker = FormC::where('shuttle_id', $kilang_info->id)
-            ->where('bulan', $lastmonth)
-            ->where('tahun', $formc->tahun)
-            ->where('status', '!=','Dihantar ke IPJPSM')
-            ->count();
+            // Month 1 has no previous month to verify - the "previous month confirmed"
+            // gate below must never block it. (This branch used to re-query month 1's
+            // own record with an inverted status filter, which came back 0 - and so
+            // triggered a false "confirm the previous month first" error - precisely
+            // when month 1 itself was already confirmed/sent to IPJPSM.)
+            $form_c_checker = 1;
         }
 
         $form_a_checker = FormA::where('tahun', $formc->tahun)
@@ -180,12 +180,12 @@ class ViewFormCController extends Controller
 
             // dd( $form_c_checker);
         } else {
-            $lastmonth = $formc->bulan;
-            $form_c_checker = FormC::where('shuttle_id', $kilang_info->id)
-            ->where('bulan', $lastmonth)
-            ->where('tahun', $formc->tahun)
-            ->where('status', '!=','Dihantar ke IPJPSM')
-            ->count();
+            // Month 1 has no previous month to verify - the "previous month confirmed"
+            // gate below must never block it. (This branch used to re-query month 1's
+            // own record with an inverted status filter, which came back 0 - and so
+            // triggered a false "confirm the previous month first" error - precisely
+            // when month 1 itself was already confirmed/sent to IPJPSM.)
+            $form_c_checker = 1;
         }
 
         $form_a_checker = FormA::where('tahun', $formc->tahun)
@@ -322,12 +322,12 @@ class ViewFormCController extends Controller
 
             // dd( $form_c_checker);
         } else {
-            $lastmonth = $formc->bulan;
-            $form_c_checker = FormC::where('shuttle_id', $kilang_info->id)
-            ->where('bulan', $lastmonth)
-            ->where('tahun', $formc->tahun)
-            ->where('status', '!=','Dihantar ke IPJPSM')
-            ->count();
+            // Month 1 has no previous month to verify - the "previous month confirmed"
+            // gate below must never block it. (This branch used to re-query month 1's
+            // own record with an inverted status filter, which came back 0 - and so
+            // triggered a false "confirm the previous month first" error - precisely
+            // when month 1 itself was already confirmed/sent to IPJPSM.)
+            $form_c_checker = 1;
         }
 
         $form_a_checker = FormA::where('tahun', $formc->tahun)
@@ -453,12 +453,12 @@ class ViewFormCController extends Controller
 
             // dd( $form_c_checker);
         } else {
-            $lastmonth = $formc->bulan;
-            $form_c_checker = FormC::where('shuttle_id', $kilang_info->id)
-            ->where('bulan', $lastmonth)
-            ->where('tahun', $formc->tahun)
-            ->where('status', '!=','Dihantar ke IPJPSM')
-            ->count();
+            // Month 1 has no previous month to verify - the "previous month confirmed"
+            // gate below must never block it. (This branch used to re-query month 1's
+            // own record with an inverted status filter, which came back 0 - and so
+            // triggered a false "confirm the previous month first" error - precisely
+            // when month 1 itself was already confirmed/sent to IPJPSM.)
+            $form_c_checker = 1;
         }
 
         $form_a_checker = FormA::where('tahun', $formc->tahun)

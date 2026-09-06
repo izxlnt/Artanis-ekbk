@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Batch;
 
 use App\Http\Controllers\Controller;
 use App\Models\Batch;
+use App\Models\FormA;
 use Illuminate\Http\Request;
 
 class PhdController extends Controller
@@ -185,6 +186,26 @@ class PhdController extends Controller
 
         foreach ($fields as $field) {
             if ($field === 'borang_b' && !$isQuarterEndMonth) {
+                continue;
+            }
+
+            // Form A has no month dimension - it's confirmed once per shuttle/year -
+            // but `batches` is keyed per month, so `borang_a` on any given month's row
+            // is only as fresh as the last time something happened to cascade-update
+            // it (see update_status_phd_form3A()). A batch row created afterwards
+            // (e.g. Form B/D/E's first submission for a later month, via
+            // Batch::firstOrNew()) never sets borang_a, so it silently defaults to
+            // "0" even when Form A was already confirmed. Check the live FormA record
+            // instead of the stale mirror to avoid that false negative.
+            if ($field === 'borang_a') {
+                $formAStatus = FormA::where('shuttle_id', $batch->shuttle_id)
+                    ->where('tahun', $batch->tahun)
+                    ->value('status');
+
+                if (!in_array($formAStatus, ['Dihantar ke IPJPSM', 'Lulus'], true)) {
+                    return $labels[$field];
+                }
+
                 continue;
             }
 

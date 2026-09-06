@@ -34,6 +34,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class MainController extends Controller
 {
@@ -466,7 +467,7 @@ class MainController extends Controller
             ->get();
         // dd($formA);
 
-        $year_list = collect([(object)['tahun' => (int) date('Y')], (object)['tahun' => (int) date('Y') + 1]]);
+        $year_list = collect(range((int) config('app.data_start_year'), (int) date('Y') + 1))->map(fn ($y) => (object) ['tahun' => $y]);
 
         $breadcrumbs    = [
             ['link' => route('home'), 'name' => "Laman Utama"],
@@ -497,7 +498,7 @@ class MainController extends Controller
             })
             ->get();
 
-        $year_list = collect([(object)['tahun' => (int) date('Y')], (object)['tahun' => (int) date('Y') + 1]]);
+        $year_list = collect(range((int) config('app.data_start_year'), (int) date('Y') + 1))->map(fn ($y) => (object) ['tahun' => $y]);
 
         $breadcrumbs    = [
             ['link' => route('home'), 'name' => "Laman Utama"],
@@ -534,7 +535,7 @@ class MainController extends Controller
             ->orderBy('bulan')
             ->get();
 
-        $year_list = collect([(object)['tahun' => (int) date('Y')], (object)['tahun' => (int) date('Y') + 1]]);
+        $year_list = collect(range((int) config('app.data_start_year'), (int) date('Y') + 1))->map(fn ($y) => (object) ['tahun' => $y]);
 
         $breadcrumbs    = [
             ['link' => route('home'), 'name' => "Laman Utama"],
@@ -565,7 +566,7 @@ class MainController extends Controller
             })
             ->get();
 
-        $year_list = collect([(object)['tahun' => (int) date('Y')], (object)['tahun' => (int) date('Y') + 1]]);
+        $year_list = collect(range((int) config('app.data_start_year'), (int) date('Y') + 1))->map(fn ($y) => (object) ['tahun' => $y]);
 
         $breadcrumbs    = [
             ['link' => route('home'), 'name' => "Laman Utama"],
@@ -595,7 +596,7 @@ class MainController extends Controller
             })
             ->get();
 
-        $year_list = collect([(object)['tahun' => (int) date('Y')], (object)['tahun' => (int) date('Y') + 1]]);
+        $year_list = collect(range((int) config('app.data_start_year'), (int) date('Y') + 1))->map(fn ($y) => (object) ['tahun' => $y]);
 
         $breadcrumbs    = [
             ['link' => route('home'), 'name' => "Laman Utama"],
@@ -685,7 +686,13 @@ class MainController extends Controller
                 $pengguna_kilang_data = PenggunaKilang::where('shuttle_id', $form4E->shuttle->id)->first();
                 $pengguna_kilangs = $pengguna_kilang_data ? User::where('pengguna_kilang_id', $pengguna_kilang_data->id)->get() : collect();
                 foreach ($pengguna_kilangs as $pengguna_kilang) {
-                    $pengguna_kilang->notify(new BorangTidakLengkapNotification($user, $form4E, $request->status, $request->ulasan_phd, $pengguna_kilang));
+                    try {
+                        $pengguna_kilang->notify(new BorangTidakLengkapNotification($user, $form4E, $request->status, $request->ulasan_phd, $pengguna_kilang));
+                    } catch (\Throwable $e) {
+                        // Status is already saved above - a mail/queue outage here must not
+                        // block PHD's reject action with a raw error.
+                        Log::warning('BorangTidakLengkapNotification (Form 4E) failed to send: '.$e->getMessage());
+                    }
                 }
             }
             return redirect()->route('phd.shuttle-4-listE', date("Y"))->with('success', 'Borang Berjaya Dihantar Semula ke IBK.');

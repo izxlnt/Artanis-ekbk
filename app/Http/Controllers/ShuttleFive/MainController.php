@@ -526,7 +526,7 @@ class MainController extends Controller
             })
             ->get();
 
-        $year_list = collect([(object)['tahun' => (int) date('Y')], (object)['tahun' => (int) date('Y') + 1]]);
+        $year_list = collect(range((int) config('app.data_start_year'), (int) date('Y') + 1))->map(fn ($y) => (object) ['tahun' => $y]);
 
         $breadcrumbs    = [
             ['link' => route('home-phd'), 'name' => "Laman Utama"],
@@ -555,7 +555,7 @@ class MainController extends Controller
         })
         ->get();
 
-        $year_list = collect([(object)['tahun' => (int) date('Y')], (object)['tahun' => (int) date('Y') + 1]]);
+        $year_list = collect(range((int) config('app.data_start_year'), (int) date('Y') + 1))->map(fn ($y) => (object) ['tahun' => $y]);
 
         $breadcrumbs    = [
             ['link' => route('home-phd'), 'name' => "Laman Utama"],
@@ -592,7 +592,7 @@ class MainController extends Controller
         ->orderBy('bulan')
         ->get();
 
-        $year_list = collect([(object)['tahun' => (int) date('Y')], (object)['tahun' => (int) date('Y') + 1]]);
+        $year_list = collect(range((int) config('app.data_start_year'), (int) date('Y') + 1))->map(fn ($y) => (object) ['tahun' => $y]);
 
         $breadcrumbs    = [
             ['link' => route('home-phd'), 'name' => "Laman Utama"],
@@ -621,7 +621,7 @@ class MainController extends Controller
         })
         ->get();
 
-        $year_list = collect([(object)['tahun' => (int) date('Y')], (object)['tahun' => (int) date('Y') + 1]]);
+        $year_list = collect(range((int) config('app.data_start_year'), (int) date('Y') + 1))->map(fn ($y) => (object) ['tahun' => $y]);
 
         $breadcrumbs    = [
             ['link' => route('home-phd'), 'name' => "Laman Utama"],
@@ -650,7 +650,7 @@ class MainController extends Controller
         })
         ->get();
 
-        $year_list = collect([(object)['tahun' => (int) date('Y')], (object)['tahun' => (int) date('Y') + 1]]);
+        $year_list = collect(range((int) config('app.data_start_year'), (int) date('Y') + 1))->map(fn ($y) => (object) ['tahun' => $y]);
 
         $breadcrumbs    = [
             ['link' => route('home-phd'), 'name' => "Laman Utama"],

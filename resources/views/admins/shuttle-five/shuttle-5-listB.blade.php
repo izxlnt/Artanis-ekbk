@@ -180,7 +180,7 @@
                                                                         $delay = '+' . $buffer->delay . ' month';
                                                                         $tarikh_tutup_terkini = date('Y-m-d', strtotime($delay, $time));
                                                                     @endphp
-                                                                    @if (date('Y-m-d') >= $data->tarikh_buka_borang && date('Y-m-d') <= $tarikh_tutup_terkini)
+                                                                    @if (date('Y-m-d') >= $data->tarikh_buka_borang && (!$buffer || !$buffer->aktif || date('Y-m-d') <= $tarikh_tutup_terkini))
                                                                         <img src="{{ asset('circle_times.png') }}"
                                                                             height='30px' alt=""
                                                                             style="color: red; font-size: 25pt;"
@@ -241,7 +241,7 @@
                                                                         $delay = '+' . $buffer->delay . ' month';
                                                                         $tarikh_tutup_terkini = date('Y-m-d', strtotime($delay, $time));
                                                                     @endphp
-                                                                    @if (date('Y-m-d') >= $data->tarikh_buka_borang && date('Y-m-d') <= $tarikh_tutup_terkini)
+                                                                    @if (date('Y-m-d') >= $data->tarikh_buka_borang && (!$buffer || !$buffer->aktif || date('Y-m-d') <= $tarikh_tutup_terkini))
                                                                         <img src="{{ asset('circle_times.png') }}"
                                                                             height='30px' alt=""
                                                                             style="color: red; font-size: 25pt;"
@@ -303,7 +303,7 @@
                                                                         $delay = '+' . $buffer->delay . ' month';
                                                                         $tarikh_tutup_terkini = date('Y-m-d', strtotime($delay, $time));
                                                                     @endphp
-                                                                    @if (date('Y-m-d') >= $data->tarikh_buka_borang && date('Y-m-d') <= $tarikh_tutup_terkini)
+                                                                    @if (date('Y-m-d') >= $data->tarikh_buka_borang && (!$buffer || !$buffer->aktif || date('Y-m-d') <= $tarikh_tutup_terkini))
                                                                         <img src="{{ asset('circle_times.png') }}"
                                                                             height='30px' alt=""
                                                                             style="color: red; font-size: 25pt;"
@@ -365,7 +365,7 @@
                                                                         $delay = '+' . $buffer->delay . ' month';
                                                                         $tarikh_tutup_terkini = date('Y-m-d', strtotime($delay, $time));
                                                                     @endphp
-                                                                    @if (date('Y-m-d') >= $data->tarikh_buka_borang && date('Y-m-d') <= $tarikh_tutup_terkini)
+                                                                    @if (date('Y-m-d') >= $data->tarikh_buka_borang && (!$buffer || !$buffer->aktif || date('Y-m-d') <= $tarikh_tutup_terkini))
                                                                         <img src="{{ asset('circle_times.png') }}"
                                                                             height='30px' alt=""
                                                                             style="color: red; font-size: 25pt;"

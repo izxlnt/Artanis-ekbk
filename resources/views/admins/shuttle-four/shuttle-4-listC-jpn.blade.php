@@ -154,7 +154,7 @@
                                                                 $delay = '+' . $buffer->delay . ' month';
                                                                 $tarikh_tutup_terkini = date('Y-m-d', strtotime($delay, $time));
                                                             @endphp
-                                                            @if (date('Y-m-d') >= $data->tarikh_buka_borang && date('Y-m-d') <= $tarikh_tutup_terkini)
+                                                            @if (date('Y-m-d') >= $data->tarikh_buka_borang && (!$buffer || !$buffer->aktif || date('Y-m-d') <= $tarikh_tutup_terkini))
                                                                 <a href="{{ route('jpn.shuttle-4-view-formC', $data->id) }}">
                                                                     <img src="{{ asset('circle_times.png') }}"
                                                                             height='30px' alt=""
@@ -239,7 +239,7 @@
                                                                 $delay = '+' . $buffer->delay . ' month';
                                                                 $tarikh_tutup_terkini = date('Y-m-d', strtotime($delay, $time));
                                                             @endphp
-                                                            @if (date('Y-m-d') >= $data->tarikh_buka_borang && date('Y-m-d') <= $tarikh_tutup_terkini)
+                                                            @if (date('Y-m-d') >= $data->tarikh_buka_borang && (!$buffer || !$buffer->aktif || date('Y-m-d') <= $tarikh_tutup_terkini))
                                                                 <a href="{{ route('jpn.shuttle-4-view-formC', $data->id) }}">
                                                                     <img src="{{ asset('circle_times.png') }}"
                                                                             height='30px' alt=""
@@ -324,7 +324,7 @@
                                                                 $delay = '+' . $buffer->delay . ' month';
                                                                 $tarikh_tutup_terkini = date('Y-m-d', strtotime($delay, $time));
                                                             @endphp
-                                                            @if (date('Y-m-d') >= $data->tarikh_buka_borang && date('Y-m-d') <= $tarikh_tutup_terkini)
+                                                            @if (date('Y-m-d') >= $data->tarikh_buka_borang && (!$buffer || !$buffer->aktif || date('Y-m-d') <= $tarikh_tutup_terkini))
                                                                 <a href="{{ route('jpn.shuttle-4-view-formC', $data->id) }}">
                                                                     <img src="{{ asset('circle_times.png') }}"
                                                                             height='30px' alt=""
@@ -409,7 +409,7 @@
                                                                 $delay = '+' . $buffer->delay . ' month';
                                                                 $tarikh_tutup_terkini = date('Y-m-d', strtotime($delay, $time));
                                                             @endphp
-                                                            @if (date('Y-m-d') >= $data->tarikh_buka_borang && date('Y-m-d') <= $tarikh_tutup_terkini)
+                                                            @if (date('Y-m-d') >= $data->tarikh_buka_borang && (!$buffer || !$buffer->aktif || date('Y-m-d') <= $tarikh_tutup_terkini))
                                                                 <a href="{{ route('jpn.shuttle-4-view-formC', $data->id) }}">
                                                                     <img src="{{ asset('circle_times.png') }}"
                                                                             height='30px' alt=""
@@ -494,7 +494,7 @@
                                                                 $delay = '+' . $buffer->delay . ' month';
                                                                 $tarikh_tutup_terkini = date('Y-m-d', strtotime($delay, $time));
                                                             @endphp
-                                                            @if (date('Y-m-d') >= $data->tarikh_buka_borang && date('Y-m-d') <= $tarikh_tutup_terkini)
+                                                            @if (date('Y-m-d') >= $data->tarikh_buka_borang && (!$buffer || !$buffer->aktif || date('Y-m-d') <= $tarikh_tutup_terkini))
                                                                 <a href="{{ route('jpn.shuttle-4-view-formC', $data->id) }}">
                                                                     <img src="{{ asset('circle_times.png') }}"
                                                                             height='30px' alt=""
@@ -579,7 +579,7 @@
                                                                 $delay = '+' . $buffer->delay . ' month';
                                                                 $tarikh_tutup_terkini = date('Y-m-d', strtotime($delay, $time));
                                                             @endphp
-                                                            @if (date('Y-m-d') >= $data->tarikh_buka_borang && date('Y-m-d') <= $tarikh_tutup_terkini)
+                                                            @if (date('Y-m-d') >= $data->tarikh_buka_borang && (!$buffer || !$buffer->aktif || date('Y-m-d') <= $tarikh_tutup_terkini))
                                                                 <a href="{{ route('jpn.shuttle-4-view-formC', $data->id) }}">
                                                                     <img src="{{ asset('circle_times.png') }}"
                                                                             height='30px' alt=""
@@ -667,7 +667,7 @@
                                                                 $delay = '+' . $buffer->delay . ' month';
                                                                 $tarikh_tutup_terkini = date('Y-m-d', strtotime($delay, $time));
                                                             @endphp
-                                                            @if (date('Y-m-d') >= $data->tarikh_buka_borang && date('Y-m-d') <= $tarikh_tutup_terkini)
+                                                            @if (date('Y-m-d') >= $data->tarikh_buka_borang && (!$buffer || !$buffer->aktif || date('Y-m-d') <= $tarikh_tutup_terkini))
                                                                 <a href="{{ route('jpn.shuttle-4-view-formC', $data->id) }}">
                                                                     <img src="{{ asset('circle_times.png') }}"
                                                                             height='30px' alt=""
@@ -755,7 +755,7 @@
                                                                 $delay = '+' . $buffer->delay . ' month';
                                                                 $tarikh_tutup_terkini = date('Y-m-d', strtotime($delay, $time));
                                                             @endphp
-                                                            @if (date('Y-m-d') >= $data->tarikh_buka_borang && date('Y-m-d') <= $tarikh_tutup_terkini)
+                                                            @if (date('Y-m-d') >= $data->tarikh_buka_borang && (!$buffer || !$buffer->aktif || date('Y-m-d') <= $tarikh_tutup_terkini))
                                                                 <a href="{{ route('jpn.shuttle-4-view-formC', $data->id) }}">
                                                                     <img src="{{ asset('circle_times.png') }}"
                                                                             height='30px' alt=""
@@ -843,7 +843,7 @@
                                                                 $delay = '+' . $buffer->delay . ' month';
                                                                 $tarikh_tutup_terkini = date('Y-m-d', strtotime($delay, $time));
                                                             @endphp
-                                                            @if (date('Y-m-d') >= $data->tarikh_buka_borang && date('Y-m-d') <= $tarikh_tutup_terkini)
+                                                            @if (date('Y-m-d') >= $data->tarikh_buka_borang && (!$buffer || !$buffer->aktif || date('Y-m-d') <= $tarikh_tutup_terkini))
                                                                 <a href="{{ route('jpn.shuttle-4-view-formC', $data->id) }}">
                                                                     <img src="{{ asset('circle_times.png') }}"
                                                                             height='30px' alt=""
@@ -931,7 +931,7 @@
                                                                 $delay = '+' . $buffer->delay . ' month';
                                                                 $tarikh_tutup_terkini = date('Y-m-d', strtotime($delay, $time));
                                                             @endphp
-                                                            @if (date('Y-m-d') >= $data->tarikh_buka_borang && date('Y-m-d') <= $tarikh_tutup_terkini)
+                                                            @if (date('Y-m-d') >= $data->tarikh_buka_borang && (!$buffer || !$buffer->aktif || date('Y-m-d') <= $tarikh_tutup_terkini))
                                                                 <a href="{{ route('jpn.shuttle-4-view-formC', $data->id) }}">
                                                                     <img src="{{ asset('circle_times.png') }}"
                                                                             height='30px' alt=""
@@ -1019,7 +1019,7 @@
                                                                 $delay = '+' . $buffer->delay . ' month';
                                                                 $tarikh_tutup_terkini = date('Y-m-d', strtotime($delay, $time));
                                                             @endphp
-                                                            @if (date('Y-m-d') >= $data->tarikh_buka_borang && date('Y-m-d') <= $tarikh_tutup_terkini)
+                                                            @if (date('Y-m-d') >= $data->tarikh_buka_borang && (!$buffer || !$buffer->aktif || date('Y-m-d') <= $tarikh_tutup_terkini))
                                                                 <a href="{{ route('jpn.shuttle-4-view-formC', $data->id) }}">
                                                                     <img src="{{ asset('circle_times.png') }}"
                                                                             height='30px' alt=""
@@ -1107,7 +1107,7 @@
                                                                 $delay = '+' . $buffer->delay . ' month';
                                                                 $tarikh_tutup_terkini = date('Y-m-d', strtotime($delay, $time));
                                                             @endphp
-                                                            @if (date('Y-m-d') >= $data->tarikh_buka_borang && date('Y-m-d') <= $tarikh_tutup_terkini)
+                                                            @if (date('Y-m-d') >= $data->tarikh_buka_borang && (!$buffer || !$buffer->aktif || date('Y-m-d') <= $tarikh_tutup_terkini))
                                                                 <a href="{{ route('jpn.shuttle-4-view-formC', $data->id) }}">
                                                                     <img src="{{ asset('circle_times.png') }}"
                                                                             height='30px' alt=""

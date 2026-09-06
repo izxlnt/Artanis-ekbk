@@ -31,6 +31,7 @@ use App\Models\Warganegara;
 use App\Notifications\IBK\BorangDiHantar;
 use App\Notifications\PHD\BorangTidakLengkapNotification;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 
@@ -114,7 +115,7 @@ class MainController extends Controller
             })
             ->get();
 
-        $year_list = collect([(object)['tahun' => (int) date('Y')], (object)['tahun' => (int) date('Y') + 1]]);
+        $year_list = collect(range((int) config('app.data_start_year'), (int) date('Y') + 1))->map(fn ($y) => (object) ['tahun' => $y]);
 
         $breadcrumbs    = [
             ['link' => route('home-user'), 'name' => "Laman Utama"],
@@ -144,7 +145,7 @@ class MainController extends Controller
             })
             ->get();
 
-        $year_list = collect([(object)['tahun' => (int) date('Y')], (object)['tahun' => (int) date('Y') + 1]]);
+        $year_list = collect(range((int) config('app.data_start_year'), (int) date('Y') + 1))->map(fn ($y) => (object) ['tahun' => $y]);
 
         $breadcrumbs    = [
             ['link' => route('home-user'), 'name' => "Laman Utama"],
@@ -181,7 +182,7 @@ class MainController extends Controller
             ->orderBy('bulan')
             ->get();
 
-        $year_list = collect([(object)['tahun' => (int) date('Y')], (object)['tahun' => (int) date('Y') + 1]]);
+        $year_list = collect(range((int) config('app.data_start_year'), (int) date('Y') + 1))->map(fn ($y) => (object) ['tahun' => $y]);
 
         $breadcrumbs    = [
             ['link' => route('home-user'), 'name' => "Laman Utama"],
@@ -211,7 +212,7 @@ class MainController extends Controller
             })
             ->get();
 
-        $year_list = collect([(object)['tahun' => (int) date('Y')], (object)['tahun' => (int) date('Y') + 1]]);
+        $year_list = collect(range((int) config('app.data_start_year'), (int) date('Y') + 1))->map(fn ($y) => (object) ['tahun' => $y]);
 
         $breadcrumbs    = [
             ['link' => route('home-user'), 'name' => "Laman Utama"],
@@ -627,7 +628,13 @@ class MainController extends Controller
             $pengguna_kilang_data = PenggunaKilang::where('shuttle_id', $formA->shuttle->id)->first();
             $pengguna_kilangs = $pengguna_kilang_data ? User::where('pengguna_kilang_id', $pengguna_kilang_data->id)->get() : collect();
             foreach ($pengguna_kilangs as $key => $pengguna_kilang) {
-                $pengguna_kilang->notify(new BorangTidakLengkapNotification($user, $formA, $status, $request->ulasan_phd, $pengguna_kilang));
+                try {
+                    $pengguna_kilang->notify(new BorangTidakLengkapNotification($user, $formA, $status, $request->ulasan_phd, $pengguna_kilang));
+                } catch (\Throwable $e) {
+                    // Status is already saved above - a mail/queue outage here must not
+                    // block PHD's reject action with a raw error.
+                    Log::warning('BorangTidakLengkapNotification (Form A) failed to send: '.$e->getMessage());
+                }
             }
         } elseif ($status == "Dihantar ke IPJPSM") {
             Batch::where('tahun', $formA->tahun)->where('shuttle_id', $formA->shuttle_id)->update(['borang_a' => "2"]);
@@ -701,7 +708,11 @@ class MainController extends Controller
             $pengguna_kilangs = $pengguna_kilang_data ? User::where('pengguna_kilang_id', $pengguna_kilang_data->id)->get() : collect();
 
             foreach ($pengguna_kilangs as $pengguna_kilang) {
-                $pengguna_kilang->notify(new BorangTidakLengkapNotification($user, $formB, $request->status, $request->ulasan_phd, $pengguna_kilang));
+                try {
+                    $pengguna_kilang->notify(new BorangTidakLengkapNotification($user, $formB, $request->status, $request->ulasan_phd, $pengguna_kilang));
+                } catch (\Throwable $e) {
+                    Log::warning('BorangTidakLengkapNotification (Form B) failed to send: '.$e->getMessage());
+                }
             }
         } elseif ($request->status == "Dihantar ke IPJPSM") {
 
@@ -773,7 +784,11 @@ class MainController extends Controller
             $pengguna_kilang_data = PenggunaKilang::where('shuttle_id', $formC->shuttle->id)->first();
             $pengguna_kilangs = $pengguna_kilang_data ? User::where('pengguna_kilang_id', $pengguna_kilang_data->id)->get() : collect();
             foreach ($pengguna_kilangs as $pengguna_kilang) {
-                $pengguna_kilang->notify(new BorangTidakLengkapNotification($user, $formC, $request->status, $request->ulasan_phd, $pengguna_kilang));
+                try {
+                    $pengguna_kilang->notify(new BorangTidakLengkapNotification($user, $formC, $request->status, $request->ulasan_phd, $pengguna_kilang));
+                } catch (\Throwable $e) {
+                    Log::warning('BorangTidakLengkapNotification (Form C) failed to send: '.$e->getMessage());
+                }
             }
         } elseif ($request->status == "Dihantar ke IPJPSM") {
 
@@ -832,7 +847,11 @@ class MainController extends Controller
             $pengguna_kilangs = $pengguna_kilang_data ? User::where('pengguna_kilang_id', $pengguna_kilang_data->id)->get() : collect();
 
             foreach ($pengguna_kilangs as $pengguna_kilang) {
-                $pengguna_kilang->notify(new BorangTidakLengkapNotification($user, $formD, $request->status, $request->ulasan_phd, $pengguna_kilang));
+                try {
+                    $pengguna_kilang->notify(new BorangTidakLengkapNotification($user, $formD, $request->status, $request->ulasan_phd, $pengguna_kilang));
+                } catch (\Throwable $e) {
+                    Log::warning('BorangTidakLengkapNotification (Form D) failed to send: '.$e->getMessage());
+                }
             }
         } elseif ($request->status == "Dihantar ke IPJPSM") {
 

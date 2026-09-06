@@ -35,12 +35,10 @@ class ViewFormEController extends Controller
             })
             ->count();
         } else {
-            $lastmonth = $form4e->bulan;
-            $form_e_checker = Form4E::where('shuttle_id', $kilang_info->id)
-            ->where('bulan', $lastmonth)
-            ->where('tahun', $form4e->tahun)
-            ->where('status', '!=','Dihantar ke IPJPSM')
-            ->count();
+            // Month 1 has no previous month to verify - see ViewFormCController for why
+            // the old re-query-with-inverted-filter approach produced a false "confirm
+            // the previous month first" error.
+            $form_e_checker = 1;
         }
 
         $form_a_checker = FormA::where('tahun', $form4e->tahun)
@@ -101,12 +99,10 @@ class ViewFormEController extends Controller
             })
             ->count();
         } else {
-            $lastmonth = $form4e->bulan;
-            $form_e_checker = Form4E::where('shuttle_id', $kilang_info->id)
-            ->where('bulan', $lastmonth)
-            ->where('tahun', $form4e->tahun)
-            ->where('status', '!=','Dihantar ke IPJPSM')
-            ->count();
+            // Month 1 has no previous month to verify - see ViewFormCController for why
+            // the old re-query-with-inverted-filter approach produced a false "confirm
+            // the previous month first" error.
+            $form_e_checker = 1;
         }
 
         $form_a_checker = FormA::where('tahun', $form4e->tahun)
@@ -165,12 +161,10 @@ class ViewFormEController extends Controller
             })
             ->count();
         } else {
-            $lastmonth = $form5e->bulan;
-            $form_e_checker = Form5E::where('shuttle_id', $kilang_info->id)
-            ->where('bulan', $lastmonth)
-            ->where('tahun', $form5e->tahun)
-            ->where('status', '!=','Dihantar ke IPJPSM')
-            ->count();
+            // Month 1 has no previous month to verify - see ViewFormCController for why
+            // the old re-query-with-inverted-filter approach produced a false "confirm
+            // the previous month first" error.
+            $form_e_checker = 1;
         }
 
         $form_a_checker = FormA::where('tahun', $form5e->tahun)
@@ -225,12 +219,10 @@ class ViewFormEController extends Controller
             })
             ->count();
         } else {
-            $lastmonth = $form5e->bulan;
-            $form_e_checker = Form5E::where('shuttle_id', $kilang_info->id)
-            ->where('bulan', $lastmonth)
-            ->where('tahun', $form5e->tahun)
-            ->where('status', '!=','Dihantar ke IPJPSM')
-            ->count();
+            // Month 1 has no previous month to verify - see ViewFormCController for why
+            // the old re-query-with-inverted-filter approach produced a false "confirm
+            // the previous month first" error.
+            $form_e_checker = 1;
         }
 
         $form_a_checker = FormA::where('tahun', $form5e->tahun)
