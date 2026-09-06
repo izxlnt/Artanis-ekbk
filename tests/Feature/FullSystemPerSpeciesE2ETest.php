@@ -234,6 +234,17 @@ class FullSystemPerSpeciesE2ETest extends TestCase
                 $baki[$i] = $bakiBase > 0 ? $bakiBase + $s->id : 0;
             }
             $zeroFill = array_fill(0, $count, 0);
+            // total_kayu_masuk_jentera[0] is the per-group "wood into machine" scalar
+            // that FormCController::refreshJumlahBesar() sums across all 5 wood groups
+            // into jumlah_besar_kayu_ke_dalam_jentera - posting jumlah_besar_kayu_ke_dalam_jentera
+            // directly is silently overwritten by that refresh, so it must be set here
+            // instead. Only the Lain-Lain group (the last stage) sets it, so the summed
+            // total (500) stays proportional to shuttle 4's Form D fill (~104 total
+            // production) for the recovery-rate check below to pass.
+            $totalKayuMasukJentera = $zeroFill;
+            if ($count > 0 && $stage['route'] === 'LainLain') {
+                $totalKayuMasukJentera[0] = 500;
+            }
 
             $response = $this->actingAs($user)->post(route("user.view.{$prefix}.{$stage['route']}.store", [$bulan, self::YEAR]), [
                 'baki_stoks' => $baki,
@@ -245,14 +256,12 @@ class FullSystemPerSpeciesE2ETest extends TestCase
                 'jumlah_baki_stok' => $zeroFill,
                 'jumlah_kayu_masuk' => $zeroFill,
                 'total_stok_kayu_balak' => $zeroFill,
-                'total_kayu_masuk_jentera' => $zeroFill,
+                'total_kayu_masuk_jentera' => $totalKayuMasukJentera,
                 'total_kayu_keluar_jentera' => $zeroFill,
                 'total_kayu_dibawa_bulan_hadapan' => $zeroFill,
                 'jumlah_besar_baki_stok_bulan_lepas' => 0,
                 'jumlah_besar_kemasukan_kayu_ke_kilang' => 0,
                 'jumlah_besar_stok_kayu_balak' => 0,
-                // Non-zero so shuttle 4's Form D recovery-rate check has a
-                // valid production range to validate against.
                 'jumlah_besar_kayu_ke_dalam_jentera' => 500,
                 'jumlah_besar_pengeluaran_kayu_daripada_jentera' => 0,
                 'jumlah_besar_baki_stok_bulan_depan' => 0,

@@ -302,6 +302,18 @@ class FullFormChainTest extends TestCase
                 $kayuMasuk[$i] = 10 + $s->id;
             }
             $zeroFill = array_fill(0, $count, 0);
+            // total_kayu_masuk_jentera[0] is the per-group "wood into machine" scalar
+            // that FormCController::refreshJumlahBesar() sums across all 5 wood groups
+            // into jumlah_besar_kayu_ke_dalam_jentera - a value posted directly for
+            // jumlah_besar_kayu_ke_dalam_jentera itself is silently overwritten by that
+            // refresh, so it must be set here instead for Form D's downstream recovery
+            // -rate check to see a non-zero denominator. Only the Lain-Lain group (the
+            // last stage) sets it, so the summed total stays proportional to the small
+            // production figures this test's Form D fill actually uses.
+            $totalKayuMasukJentera = $zeroFill;
+            if ($count > 0 && $stage['route'] === 'LainLain') {
+                $totalKayuMasukJentera[0] = 500;
+            }
 
             $response = $this->post(route("user.view.{$prefix}.{$stage['route']}.store", [self::BULAN, self::YEAR]), [
                 'baki_stoks' => $zeroFill,
@@ -313,15 +325,12 @@ class FullFormChainTest extends TestCase
                 'jumlah_baki_stok' => $zeroFill,
                 'jumlah_kayu_masuk' => $zeroFill,
                 'total_stok_kayu_balak' => $zeroFill,
-                'total_kayu_masuk_jentera' => $zeroFill,
+                'total_kayu_masuk_jentera' => $totalKayuMasukJentera,
                 'total_kayu_keluar_jentera' => $zeroFill,
                 'total_kayu_dibawa_bulan_hadapan' => $zeroFill,
                 'jumlah_besar_baki_stok_bulan_lepas' => 0,
                 'jumlah_besar_kemasukan_kayu_ke_kilang' => 0,
                 'jumlah_besar_stok_kayu_balak' => 0,
-                // Form D (shuttle 4/5) validates its production output against
-                // this figure * the shuttle's recovery-rate range, so it must
-                // be non-zero for a downstream Form D fill to pass validation.
                 'jumlah_besar_kayu_ke_dalam_jentera' => 500,
                 'jumlah_besar_pengeluaran_kayu_daripada_jentera' => 0,
                 'jumlah_besar_baki_stok_bulan_depan' => 0,
