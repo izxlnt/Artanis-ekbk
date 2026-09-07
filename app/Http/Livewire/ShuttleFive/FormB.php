@@ -106,13 +106,22 @@ class FormB extends Component
             ->first();
 
         if ($formb) {
+            // Keyed by kategori_guna_tenaga_id (not row position) so a category's
+            // saved values can never load into a different category's input -
+            // $kategori_pekerja (used for labels/positions above and in the view)
+            // and this GunaTenaga query are independent queries with no
+            // guaranteed matching order.
             $existing = GunaTenaga::where('formbs_id', $formb->id)
                 ->orderBy('id', 'desc')
                 ->get()
                 ->unique('kategori_guna_tenaga_id')
-                ->values();
+                ->keyBy('kategori_guna_tenaga_id');
 
-            foreach ($existing as $key => $row) {
+            foreach ($kategori_pekerja as $key => $kategori) {
+                $row = $existing[$kategori->id] ?? null;
+                if (!$row) {
+                    continue;
+                }
                 $this->pekerja_wargabumi_lelaki[$key] = $row->pekerja_wargabumi_lelaki;
                 $this->pekerja_wargabumi_perempuan[$key] = $row->pekerja_wargabumi_perempuan;
                 $this->pekerja_bukan_wargabumi_lelaki[$key] = $row->pekerja_bukan_wargabumi_lelaki;
