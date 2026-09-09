@@ -10,6 +10,7 @@ use App\Models\FormB as FormBBaru;
 use App\Models\Daerah;
 use App\Models\User;
 use App\Notifications\IBK\BorangDiHantar;
+use App\Services\FormFlowService;
 use Illuminate\Support\Facades\Session;
 use Livewire\Component;
 
@@ -553,6 +554,16 @@ class FormB extends Component
             ->where('suku_tahun', $this->suku_id)
             ->where('tahun', $this->year)
             ->first();
+
+        // Belt-and-suspenders: the fill route now redirects away once a
+        // quarter is already submitted, but a stale page (opened before that
+        // redirect existed, or reopened via the back button) could still
+        // reach this far - re-check the live status here so it can never
+        // silently re-save over an already reviewed/approved quarter.
+        if (in_array($formb->status, FormFlowService::SUBMITTED, true)) {
+            $this->emit('alert', ['type' => 'error', 'message' => 'Borang ini telah pun dihantar. Sila muat semula halaman.']);
+            return back();
+        }
 
         $formb->status = 'Sedang Diproses';
         $formb->save();

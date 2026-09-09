@@ -371,6 +371,15 @@ class MainController extends Controller
             $formb->save();
         }
 
+        // Once IBK has actually submitted this quarter (anything past "Tidak
+        // Diisi"/"Tidak Lengkap"), send them to the read-only view instead of
+        // the fillable form - revisiting the fill route and pressing submit
+        // again should never be able to silently overwrite an already
+        // reviewed/approved quarter with a fresh save.
+        if (in_array($formb->status, FormFlowService::SUBMITTED, true)) {
+            return redirect()->route('pengguna.shuttle-3-view-formB', $formb->id);
+        }
+
         if ($id == 1) {
             return view('admins.shuttle-three.shuttle-3-formB', compact('id', 'year'));
         }
