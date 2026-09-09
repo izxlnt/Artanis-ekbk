@@ -36,7 +36,12 @@ class ViewFormBController extends Controller
         $kategori_pekerja = KategoriGunaTenaga::get();
         // dd($kilang_info);
 
-        $form_b = GunaTenaga::where('formbs_id',$formb->id)->orderBy('id','desc')->get()->unique('kategori_guna_tenaga_id')->values();
+        // orderBy('id','desc') above only picks the latest row per category
+        // when duplicates exist (see DedupeGunaTenaga) - it must not decide
+        // display order too, or rows render in reverse category order
+        // (Kontraktor first, Pemilik last) instead of matching the fill
+        // form's 1-8 sequence.
+        $form_b = GunaTenaga::where('formbs_id',$formb->id)->orderBy('id','desc')->get()->unique('kategori_guna_tenaga_id')->sortBy('kategori_guna_tenaga_id')->values();
 
 
         $layout = auth()->user()->kategori_pengguna == 'PHD' ? 'layouts.layout-phd-nicepage' : (auth()->user()->kategori_pengguna == 'BPM' ? 'layouts.layout-bpm-nicepage' : (auth()->user()->kategori_pengguna == 'BPE' ? 'layouts.layout-ipjpsm-nicepage' : ''));
@@ -148,7 +153,12 @@ class ViewFormBController extends Controller
         $kategori_pekerja = KategoriGunaTenaga::get();
         // dd($kilang_info);
 
-        $form_b = GunaTenaga::where('formbs_id',$formb->id)->orderBy('id','desc')->get()->unique('kategori_guna_tenaga_id')->values();
+        // orderBy('id','desc') above only picks the latest row per category
+        // when duplicates exist (see DedupeGunaTenaga) - it must not decide
+        // display order too, or rows render in reverse category order
+        // (Kontraktor first, Pemilik last) instead of matching the fill
+        // form's 1-8 sequence.
+        $form_b = GunaTenaga::where('formbs_id',$formb->id)->orderBy('id','desc')->get()->unique('kategori_guna_tenaga_id')->sortBy('kategori_guna_tenaga_id')->values();
 
 
         $layout = auth()->user()->kategori_pengguna == 'PHD' ? 'layouts.layout-phd-nicepage' : (auth()->user()->kategori_pengguna == 'BPM' ? 'layouts.layout-bpm-nicepage' : (auth()->user()->kategori_pengguna == 'BPE' ? 'layouts.layout-ipjpsm-nicepage' : ''));
@@ -422,7 +432,12 @@ class ViewFormBController extends Controller
         $formb = FormB::where('shuttle_id',$kilang_info->id)->first();
         $id =$formb->id;
 
-        $form_b = GunaTenaga::where('formbs_id',$formb->id)->orderBy('id','desc')->get()->unique('kategori_guna_tenaga_id')->values();
+        // orderBy('id','desc') above only picks the latest row per category
+        // when duplicates exist (see DedupeGunaTenaga) - it must not decide
+        // display order too, or rows render in reverse category order
+        // (Kontraktor first, Pemilik last) instead of matching the fill
+        // form's 1-8 sequence.
+        $form_b = GunaTenaga::where('formbs_id',$formb->id)->orderBy('id','desc')->get()->unique('kategori_guna_tenaga_id')->sortBy('kategori_guna_tenaga_id')->values();
 
         $layout = auth()->user()->kategori_pengguna == 'PHD' ? 'layouts.layout-phd-nicepage' : (auth()->user()->kategori_pengguna == 'BPM' ? 'layouts.layout-bpm-nicepage' : (auth()->user()->kategori_pengguna == 'BPE' ? 'layouts.layout-ipjpsm-nicepage' : ''));
         // dd(auth()->user()->kategori_pengguna);
@@ -578,7 +593,12 @@ class ViewFormBController extends Controller
 
 
 
-        $form_b = GunaTenaga::where('formbs_id',$formb->id)->orderBy('id','desc')->get()->unique('kategori_guna_tenaga_id')->values();
+        // orderBy('id','desc') above only picks the latest row per category
+        // when duplicates exist (see DedupeGunaTenaga) - it must not decide
+        // display order too, or rows render in reverse category order
+        // (Kontraktor first, Pemilik last) instead of matching the fill
+        // form's 1-8 sequence.
+        $form_b = GunaTenaga::where('formbs_id',$formb->id)->orderBy('id','desc')->get()->unique('kategori_guna_tenaga_id')->sortBy('kategori_guna_tenaga_id')->values();
 
         $layout = 'layouts.layout-ibk-nicepage';
         $ulasan_phd=UlasanPhd::where('formbs_id',$id)->get();
@@ -638,7 +658,12 @@ class ViewFormBController extends Controller
 
 
 
-        $form_b = GunaTenaga::where('formbs_id',$formb->id)->orderBy('id','desc')->get()->unique('kategori_guna_tenaga_id')->values();
+        // orderBy('id','desc') above only picks the latest row per category
+        // when duplicates exist (see DedupeGunaTenaga) - it must not decide
+        // display order too, or rows render in reverse category order
+        // (Kontraktor first, Pemilik last) instead of matching the fill
+        // form's 1-8 sequence.
+        $form_b = GunaTenaga::where('formbs_id',$formb->id)->orderBy('id','desc')->get()->unique('kategori_guna_tenaga_id')->sortBy('kategori_guna_tenaga_id')->values();
 
         $layout = 'layouts.layout-jpn-nicepage';
         $ulasan_phd=UlasanPhd::where('formbs_id',$id)->get();
@@ -801,26 +826,27 @@ class ViewFormBController extends Controller
 
     public function shuttle_3_form_view_form3B_ipjpsm($id)
     {
-        // dd($id);
+        // Read-only view + Sahkan/Tolak for IPJPSM - reuses the same
+        // admins.shuttle-three.view-form3b template already used for the
+        // generic/PHD read-only views (it already branches its action form
+        // on auth()->user()->kategori_pengguna == 'BPE'). This used to
+        // return livewire.view-form3b-Ipjpsm, which embedded the editable
+        // "Data Cleaning" tool as the primary verification screen - IPJPSM
+        // should only ever verify (Lulus/Gagal/Tidak Lengkap) here, never
+        // fill in figures.
+        $formb = FormB::where('id',$id)->first();
+        $kilang_info = Shuttle::where('id',$formb->shuttle_id)->first();
+        $kategori_pekerja = KategoriGunaTenaga::orderBy('id')->get();
+        // orderBy('id','desc') above only picks the latest row per category
+        // when duplicates exist (see DedupeGunaTenaga) - it must not decide
+        // display order too, or rows render in reverse category order
+        // (Kontraktor first, Pemilik last) instead of matching the fill
+        // form's 1-8 sequence.
+        $form_b = GunaTenaga::where('formbs_id',$formb->id)->orderBy('id','desc')->get()->unique('kategori_guna_tenaga_id')->sortBy('kategori_guna_tenaga_id')->values();
+        $ulasan_phd = UlasanPhd::where('formbs_id',$formb->id)->get();
+        $id = $formb->id;
 
-        $kilang_info = FormB::where('id',$id)->first();
-        // $kilang_info = Shuttle::where('id',$formb->shuttle_id)->first();
-        // dd($kilang_info);
-        // $kategori_pekerja = KategoriGunaTenaga::get();
-
-
-        // $formb = FormB::where('shuttle_id',$kilang_info->id)->where('status','Dihantar ke IPJPSM')->first();
-        // $id =$formb->shuttle_id;
-
-        // $ulasan_phd=UlasanPhd::where('formbs_id',$id)->get();
-        // // dd($ulasan_phd);
-
-        // $form_b = GunaTenaga::where('formbs_id',$formb->id)->orderBy('id','desc')->get()->unique('kategori_guna_tenaga_id')->values();
-
-        // dd($form_b);
-        // return view('livewire.view-form3b-Ipjpsm',compact('kilang_info','kategori_pekerja','form_b','id','ulasan_phd'));
-
-        $formb_year = $kilang_info->created_at->format('Y');
+        $formb_year = $formb->created_at->format('Y');
 
         // $breadcrumbs    = [
         //     ['link' => route('home'), 'name' => "Laman Utama"],
@@ -875,78 +901,12 @@ class ViewFormBController extends Controller
             'kembali'     => $kembali,
         ];
 
+        $layout = 'layouts.layout-ipjpsm-nicepage';
 
-        return view('livewire.view-form3b-Ipjpsm',compact('returnArr','kilang_info'));
+        return view('admins.shuttle-three.view-form3b', compact(
+            'returnArr', 'kilang_info', 'kategori_pekerja', 'formb', 'id', 'form_b', 'ulasan_phd', 'layout'
+        ));
     }
-
-    public function view_form3B_ipjpsm($id)
-    {
-        // dd($id);
-        $kilang_info = FormB::where('id',$id)->first();
-        // dd($kilang_info);
-
-        // $kilang_info = Shuttle::where('id',$formb->shuttle_id)->first();
-        // dd($kilang_info);
-        // $kategori_pekerja = KategoriGunaTenaga::get();
-
-
-        $formb = FormB::where('id',$id)->where('status','Lulus')->first();
-        $kategori_pekerja = KategoriGunaTenaga::get();
-
-        // $ulasan_phd = UlasanPhd::where('formbs_id', $formb->id)->get();
-        // dd($ulasan_phd);
-
-        $form_b = GunaTenaga::where('formbs_id',$formb->id)->orderBy('id','desc')->get()->unique('kategori_guna_tenaga_id')->values();
-
-        $formb_year = $formb->created_at->format('Y');
-
-        if($kilang_info->shuttle_type == '3' && $formb->status == 'Lulus'){
-            $breadcrumbs    = [
-                ['link' => route('home'), 'name' => "Laman Utama"],
-                ['link' => route('shuttle-3-listB', $formb_year), 'name' => "Menu Utama Modul"],
-                ['link' => route('ipjpsm.borang-keseluruhan.shuttle3.borangB', $formb_year), 'name' => "Senarai Penuh Maklumat Borang"],
-                ['link' => route('shuttle-3-listB', $formb_year), 'name' => "Shuttle 3 - Kilang Papan"],
-                ['link' => route('shuttle-3-listB', $formb_year), 'name' => "Senarai Borang 3B"],
-                ['link' => route('ipjpsm.shuttle-3-view-formB', $formb_year), 'name' => "Borang 3B"],
-            ];
-
-            $kembali = route('ipjpsm.borang-keseluruhan.shuttle3.borangB', $formb_year);
-        }
-
-        elseif($kilang_info->shuttle_type == '4' && $formb->status == 'Lulus'){
-            $breadcrumbs    = [
-                ['link' => route('home'), 'name' => "Laman Utama"],
-                ['link' => route('shuttle-4-listB', $formb_year), 'name' => "Menu Utama Modul"],
-                ['link' => route('shuttle-4-listB', $formb_year), 'name' => "Senarai Penuh Maklumat Borang"],
-                ['link' => route('shuttle-4-listB', $formb_year), 'name' => "Shuttle 4 - Kilang Papan Lapis/Venir"],
-                ['link' => route('shuttle-4-listB', $formb_year), 'name' => "Senarai Borang 4B"],
-                ['link' => route('ipjpsm.shuttle-3-view-formB', $formb_year), 'name' => "Borang 4B"],
-            ];
-
-            $kembali = route('ipjpsm.borang-keseluruhan.shuttle4.borangB', $formb_year);
-        }
-        elseif($kilang_info->shuttle_type == '5' && $formb->status == 'Lulus'){
-            $breadcrumbs    = [
-                ['link' => route('home'), 'name' => "Laman Utama"],
-                ['link' => route('shuttle-5-listB', $formb_year), 'name' => "Menu Utama Modul"],
-                ['link' => route('shuttle-5-listB', $formb_year), 'name' => "Senarai Penuh Maklumat Borang"],
-                ['link' => route('shuttle-5-listB', $formb_year), 'name' => "Shuttle 5 - Kilang Kayu Kumai"],
-                ['link' => route('shuttle-5-listB', $formb_year), 'name' => "Senarai Borang 5B"],
-                ['link' => route('ipjpsm.shuttle-3-view-formB', $formb_year), 'name' => "Borang 5B"],
-            ];
-
-            $kembali = route('ipjpsm.borang-keseluruhan.shuttle5.borangB', $formb_year);
-        }
-
-        $returnArr = [
-            'breadcrumbs' => $breadcrumbs,
-            'kembali'     => $kembali,
-        ];
-
-
-        return view('bpe.view-data-cleaning-b',compact('returnArr','kilang_info','formb','form_b'));
-    }
-
 
     public function shuttle_3_form_view_form3C_ipjpsm($id)
     {
