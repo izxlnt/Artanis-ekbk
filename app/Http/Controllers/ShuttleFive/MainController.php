@@ -340,6 +340,18 @@ class MainController extends Controller
             $formb->save();
         }
 
+        // Once IBK has actually submitted this quarter (anything past "Tidak
+        // Diisi"/"Tidak Lengkap"), send them to the read-only view instead of
+        // the fillable form. FormB's Livewire component only reloads existing
+        // saved values when status is exactly "Tidak Lengkap" - for any other
+        // submitted status it shows every field blank, so revisiting this
+        // route and pressing submit again would overwrite real data with
+        // zeros. (pengguna.shuttle-3-view-formB's controller already branches
+        // on shuttle_type internally, so it works for shuttle 4/5 too.)
+        if (in_array($formb->status, FormFlowService::SUBMITTED, true)) {
+            return redirect()->route('pengguna.shuttle-3-view-formB', $formb->id);
+        }
+
         if ($id == 1) {
             return view('admins.shuttle-five.shuttle-5-formB', compact('id', 'year'));
         }

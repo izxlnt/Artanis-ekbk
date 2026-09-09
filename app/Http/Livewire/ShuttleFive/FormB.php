@@ -10,6 +10,7 @@ use App\Models\FormB as FormBBaru;
 use App\Models\Daerah;
 use App\Models\User;
 use App\Notifications\IBK\BorangDiHantar;
+use App\Services\FormFlowService;
 use Illuminate\Support\Facades\Session;
 use Livewire\Component;
 
@@ -554,6 +555,17 @@ class FormB extends Component
         // dd($this->suku_id);
 
         $formb = FormBBaru::where('shuttle_id', $user->shuttle_id)->where('suku_tahun', $this->suku_id)->where('tahun', $this->year)->first();
+
+        // Belt-and-suspenders: the fill route now redirects away once a
+        // quarter is already submitted, but a stale page (opened before that
+        // redirect existed, or reopened via the back button) could still
+        // reach this far with every field blank - mount() only reloads saved
+        // values when status is exactly "Tidak Lengkap". Re-check the live
+        // status here so that case can never overwrite real data with zeros.
+        if (in_array($formb->status, FormFlowService::SUBMITTED, true)) {
+            $this->emit('alert', ['type' => 'error', 'message' => 'Borang ini telah pun dihantar. Sila muat semula halaman.']);
+            return back();
+        }
 
         $formb->status = 'Sedang Diproses';
         $formb->save();
