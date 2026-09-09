@@ -138,17 +138,17 @@
                                                             <th style="text-align:center;">(05)</th>
                                                             <th style="text-align:center;width:70px;">(06)</th>
                                                             <th style="text-align:center;width:70px;">(07)</th>
-                                                            <th style="text-align:center;">(08)=<br>(02)+(04)+(06)
+                                                            <th style="text-align:center;">(08) =<br>(02)+(04)+(06)
                                                             </th>
-                                                            <th style="text-align:center;">(09)=<br>(03)+(05)+(07)
+                                                            <th style="text-align:center;">(09) =<br>(03)+(05)+(07)
                                                             </th>
-                                                            <th style="text-align:center;width:100px;">(10)=<br>(08)+(09)</th>
+                                                            <th style="text-align:center;width:100px;">(10) =<br>(08)+(09)</th>
                                                             <th style="text-align:center;width:80px;">(11)</th>
                                                             <th style="text-align:center;width:80px;">(12)</th>
-                                                            <th style="text-align:center;width:90px;">(13)=<br>(11)+(12)</th>
-                                                            <th style="text-align:center;width:90px;">(14)=<br>(08)*(11)</th>
-                                                            <th style="text-align:center;width:90px;">(15)=<br>(09)*(12)</th>
-                                                            <th style="text-align:center;">(16)=<br>(14)+(15)</th>
+                                                            <th style="text-align:center;width:90px;">(13) =<br>(11)+(12)</th>
+                                                            <th style="text-align:center;width:90px;">(14) =<br>(08)*(11)</th>
+                                                            <th style="text-align:center;width:90px;">(15) =<br>(09)*(12)</th>
+                                                            <th style="text-align:center;">(16) =<br>(14)+(15)</th>
                                                         </tr>
 
                                                         @forelse($kategori_pekerja as $key=>$data)

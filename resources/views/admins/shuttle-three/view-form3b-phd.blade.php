@@ -172,17 +172,17 @@
                                                                     <th style="text-align:center;">P</th>
                                                                     <th style="text-align:center;">L</th>
                                                                     <th style="text-align:center;">P</th>
+                                                                    <th style="text-align:center;width:70px;">L</th>
+                                                                    <th style="text-align:center;width:70px;">P</th>
                                                                     <th style="text-align:center;">L</th>
                                                                     <th style="text-align:center;">P</th>
-                                                                    <th style="text-align:center;">L</th>
-                                                                    <th style="text-align:center;">P</th>
-                                                                    <th style="text-align:center;">L+P</th>
-                                                                    <th style="text-align:center;">L</th>
-                                                                    <th style="text-align:center;">P</th>
-                                                                    <th style="text-align:center;">L+P</th>
-                                                                    <th style="text-align:center;">L</th>
-                                                                    <th style="text-align:center;">P</th>
-                                                                    <th style="text-align:center;">L+P</th>
+                                                                    <th style="text-align:center;width:100px;">L+P</th>
+                                                                    <th style="text-align:center;width:80px;">L</th>
+                                                                    <th style="text-align:center;width:80px;">P</th>
+                                                                    <th style="text-align:center;width:90px;">L+P</th>
+                                                                    <th style="text-align:center;width:100px;">L</th>
+                                                                    <th style="text-align:center;width:100px;">P</th>
+                                                                    <th style="text-align:center;width:110px;">L+P</th>
                                                                 </tr>
 
                                                                 <tr style="height:50px;">
@@ -191,17 +191,17 @@
                                                                     <th style="text-align:center;">(03)</th>
                                                                     <th style="text-align:center;">(04)</th>
                                                                     <th style="text-align:center;">(05)</th>
-                                                                    <th style="text-align:center;">(06)</th>
-                                                                    <th style="text-align:center;">(07)</th>
-                                                                    <th style="text-align:center;">(08)=(02)+(04)+(06)</th>
-                                                                    <th style="text-align:center;">(09)=(03)+(05)+(07)</th>
-                                                                    <th style="text-align:center;">(10)=(08)+(09)</th>
-                                                                    <th style="text-align:center;">(11)</th>
-                                                                    <th style="text-align:center;">(12)</th>
-                                                                    <th style="text-align:center;">(13)=(11)+(12)</th>
-                                                                    <th style="text-align:center;">(14)</th>
-                                                                    <th style="text-align:center;">(15)</th>
-                                                                    <th style="text-align:center;">(16)=(14)+(15)</th>
+                                                                    <th style="text-align:center;width:70px;">(06)</th>
+                                                                    <th style="text-align:center;width:70px;">(07)</th>
+                                                                    <th style="text-align:center;">(08) =<br>(02)+(04)+(06)</th>
+                                                                    <th style="text-align:center;">(09) =<br>(03)+(05)+(07)</th>
+                                                                    <th style="text-align:center;width:100px;">(10) =<br>(08)+(09)</th>
+                                                                    <th style="text-align:center;width:80px;">(11)</th>
+                                                                    <th style="text-align:center;width:80px;">(12)</th>
+                                                                    <th style="text-align:center;width:90px;">(13) =<br>(11)+(12)</th>
+                                                                    <th style="text-align:center;width:100px;">(14)</th>
+                                                                    <th style="text-align:center;width:100px;">(15)</th>
+                                                                    <th style="text-align:center;width:110px;">(16) =<br>(14)+(15)</th>
                                                                 </tr>
 
                                                                 @php
@@ -257,14 +257,14 @@
                                                                                 wire:change="calcJumlahPekerjaPerempuan({{ $key }})"
                                                                                 onkeypress="return isNumberKey(event)">{{ $data->pekerja_bukan_wargabumi_perempuan }}</span>
                                                                         </td>
-                                                                        <td style="text-align:right;"><span type="text"
+                                                                        <td style="text-align:right;padding:5px;white-space:nowrap;"><span type="text"
                                                                                 size="3"
                                                                                 value="{{ $data->pekerja_asing_lelaki }}"
                                                                                 wire:model='pekerja_asing_lelaki.{{ $key }}'
                                                                                 wire:change="calcJumlahPekerjaLelaki({{ $key }})"
                                                                                 onkeypress="return isNumberKey(event)">{{ $data->pekerja_asing_lelaki }}</span>
                                                                         </td>
-                                                                        <td style="text-align:right;"><span type="text"
+                                                                        <td style="text-align:right;padding:5px;white-space:nowrap;"><span type="text"
                                                                                 size="3"
                                                                                 value="{{ $data->pekerja_asing_perempuan }}"
                                                                                 wire:model='pekerja_asing_perempuan.{{ $key }}'
@@ -272,7 +272,7 @@
                                                                                 onkeypress="return isNumberKey(event)">{{ $data->pekerja_asing_perempuan }}</span>
                                                                         </td>
                                                                         <td
-                                                                            style="text-align:right;background-color: #f8dbee;">
+                                                                            style="text-align:right;padding:5px;white-space:nowrap;background-color: #f8dbee;">
                                                                             <span readonly type="text"
                                                                                 value="{{ $data->jumlah_lelaki }}"
                                                                                 size="3"
@@ -280,7 +280,7 @@
                                                                                 onkeypress="return isNumberKey(event)">{{ $data->jumlah_lelaki }}</span>
                                                                         </td>
                                                                         <td
-                                                                            style="text-align:right;background-color: #f8dbee;">
+                                                                            style="text-align:right;padding:5px;white-space:nowrap;background-color: #f8dbee;">
                                                                             <span readonly type type="text"
                                                                                 value="{{ $data->jumlah_perempuan }}"
                                                                                 size="3"
@@ -288,20 +288,20 @@
                                                                                 onkeypress="return isNumberKey(event)">{{ $data->jumlah_perempuan }}</span>
                                                                         </td>
                                                                         <td
-                                                                            style="text-align:right;background-color: #f8dbee;">
+                                                                            style="text-align:right;padding:5px;white-space:nowrap;background-color: #f8dbee;">
                                                                             <span readonly type type="text"
                                                                                 value="{{ $data->jumlah_pekerja }}"
                                                                                 size="3"
                                                                                 wire:model='jumlah_pekerja.{{ $key }}'
                                                                                 onkeypress="return isNumberKey(event)">{{ $data->jumlah_pekerja }}</span>
                                                                         </td>
-                                                                        <td style="text-align:right;"><span type="text"
+                                                                        <td style="text-align:right;padding:5px;white-space:nowrap;"><span type="text"
                                                                                 size="3" value="{{ $data->gaji_lelaki }}"
                                                                                 wire:model='gaji_lelaki.{{ $key }}'
                                                                                 wire:change="calcTotalAllBayaranGajiPerPekerjaLelaki({{ $key }})"
                                                                                 onkeypress="return isNumberKey(event)">{{ number_format($data->gaji_lelaki, 2) }}</span>
                                                                         </td>
-                                                                        <td style="text-align:right;"><span type="text"
+                                                                        <td style="text-align:right;padding:5px;white-space:nowrap;"><span type="text"
                                                                                 size="3"
                                                                                 value="{{ $data->gaji_perempuan }}"
                                                                                 wire:model='gaji_perempuan.{{ $key }}'
@@ -310,41 +310,41 @@
                                                                         </td>
 
                                                                         <td
-                                                                            style="text-align:right;background-color: #f8dbee;">
+                                                                            style="text-align:right;padding:5px;white-space:nowrap;background-color: #f8dbee;">
                                                                             {{ number_format($data->gaji_lelaki + $data->gaji_perempuan, 2) }}
                                                                         </td>
 
-                                                                        <td style="text-align:right;">
+                                                                        <td style="text-align:right;padding:5px;white-space:nowrap;">
                                                                             {{ number_format($data->jumlah_lelaki * $data->gaji_lelaki, 2) }}
                                                                         </td>
-                                                                        <td style="text-align:right;">
+                                                                        <td style="text-align:right;padding:5px;white-space:nowrap;">
                                                                             {{ number_format($data->jumlah_perempuan * $data->gaji_perempuan, 2) }}
                                                                         </td>
                                                                         <td
-                                                                            style="text-align:right;background-color: #f8dbee;">
+                                                                            style="text-align:right;padding:5px;white-space:nowrap;background-color: #f8dbee;">
                                                                             {{ number_format(($data->jumlah_lelaki * $data->gaji_lelaki) + ($data->jumlah_perempuan * $data->gaji_perempuan), 2) }}
                                                                         </td>
 
                                                                     </tr>
                                                                     @if ($loop->last)
                                                                         <tr style="height:50px;background-color:#f8dbee;font-weight:bold;">
-                                                                            <td style="text-align:right;"><b>Jumlah</b></td>
-                                                                            <td style="text-align:center;"><b>{{ $i = $i + 1 }}</b></td>
-                                                                            <td style="text-align:right;">{{ $jml_bumi_l }}</td>
-                                                                            <td style="text-align:right;">{{ $jml_bumi_p }}</td>
-                                                                            <td style="text-align:right;">{{ $jml_bkbumi_l }}</td>
-                                                                            <td style="text-align:right;">{{ $jml_bkbumi_p }}</td>
-                                                                            <td style="text-align:right;">{{ $jml_asing_l }}</td>
-                                                                            <td style="text-align:right;">{{ $jml_asing_p }}</td>
-                                                                            <td style="text-align:right;">{{ $jml_l }}</td>
-                                                                            <td style="text-align:right;">{{ $jml_p }}</td>
-                                                                            <td style="text-align:right;">{{ $jml_lp }}</td>
-                                                                            <td style="text-align:right;">{{ number_format($jml_gaji_l, 2) }}</td>
-                                                                            <td style="text-align:right;">{{ number_format($jml_gaji_p, 2) }}</td>
-                                                                            <td style="text-align:right;">{{ number_format($jml_gaji_lp, 2) }}</td>
-                                                                            <td style="text-align:right;">{{ number_format($jml_tot_l, 2) }}</td>
-                                                                            <td style="text-align:right;">{{ number_format($jml_tot_p, 2) }}</td>
-                                                                            <td style="text-align:right;">{{ number_format($jml_tot_lp, 2) }}</td>
+                                                                            <td style="text-align:right;padding:5px;white-space:nowrap;"><b>Jumlah</b></td>
+                                                                            <td style="text-align:center;padding:5px;white-space:nowrap;"><b>{{ $i = $i + 1 }}</b></td>
+                                                                            <td style="text-align:right;padding:5px;white-space:nowrap;">{{ $jml_bumi_l }}</td>
+                                                                            <td style="text-align:right;padding:5px;white-space:nowrap;">{{ $jml_bumi_p }}</td>
+                                                                            <td style="text-align:right;padding:5px;white-space:nowrap;">{{ $jml_bkbumi_l }}</td>
+                                                                            <td style="text-align:right;padding:5px;white-space:nowrap;">{{ $jml_bkbumi_p }}</td>
+                                                                            <td style="text-align:right;padding:5px;white-space:nowrap;">{{ $jml_asing_l }}</td>
+                                                                            <td style="text-align:right;padding:5px;white-space:nowrap;">{{ $jml_asing_p }}</td>
+                                                                            <td style="text-align:right;padding:5px;white-space:nowrap;">{{ $jml_l }}</td>
+                                                                            <td style="text-align:right;padding:5px;white-space:nowrap;">{{ $jml_p }}</td>
+                                                                            <td style="text-align:right;padding:5px;white-space:nowrap;">{{ $jml_lp }}</td>
+                                                                            <td style="text-align:right;padding:5px;white-space:nowrap;">{{ number_format($jml_gaji_l, 2) }}</td>
+                                                                            <td style="text-align:right;padding:5px;white-space:nowrap;">{{ number_format($jml_gaji_p, 2) }}</td>
+                                                                            <td style="text-align:right;padding:5px;white-space:nowrap;">{{ number_format($jml_gaji_lp, 2) }}</td>
+                                                                            <td style="text-align:right;padding:5px;white-space:nowrap;">{{ number_format($jml_tot_l, 2) }}</td>
+                                                                            <td style="text-align:right;padding:5px;white-space:nowrap;">{{ number_format($jml_tot_p, 2) }}</td>
+                                                                            <td style="text-align:right;padding:5px;white-space:nowrap;">{{ number_format($jml_tot_lp, 2) }}</td>
                                                                         </tr>
                                                                     @endif
                                                                 @empty
