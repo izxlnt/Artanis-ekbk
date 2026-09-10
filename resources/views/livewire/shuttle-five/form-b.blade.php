@@ -161,57 +161,57 @@
                                                                     {{ $data->keterangan }}</td>
                                                                 <td style="text-align:center;width:30px;">
                                                                     {{ $i = $loop->iteration }}</td>
-                                                                <td style="text-align:center;padding:5px"><input style="text-align:right"
+                                                                <td style="text-align:center;padding:5px"><input style="text-align:center"
                                                                         type="text" size="3"
                                                                         id="fb_wl_{{ $key }}" wire:model.defer='pekerja_wargabumi_lelaki.{{ $key }}' oninput="fbCalcRow({{ $key }})"
                                                                         
                                                                        onkeypress="return onlyNumberKey(event)">
                                                                 </td>
-                                                                <td style="text-align:center;padding:5px"><input style="text-align:right"
+                                                                <td style="text-align:center;padding:5px"><input style="text-align:center"
                                                                         type="text" size="3"
                                                                         id="fb_wp_{{ $key }}" wire:model.defer='pekerja_wargabumi_perempuan.{{ $key }}' oninput="fbCalcRow({{ $key }})"
 
                                                                        onkeypress="return onlyNumberKey(event)">
                                                                 </td>
-                                                                <td style="text-align:center;padding:5px"><input style="text-align:right"
+                                                                <td style="text-align:center;padding:5px"><input style="text-align:center"
                                                                         type="text" size="3"
                                                                         id="fb_bl_{{ $key }}" wire:model.defer='pekerja_bukan_wargabumi_lelaki.{{ $key }}' oninput="fbCalcRow({{ $key }})"
                                                                         
                                                                        onkeypress="return onlyNumberKey(event)">
                                                                 </td>
-                                                                <td style="text-align:center;padding:5px"><input style="text-align:right"
+                                                                <td style="text-align:center;padding:5px"><input style="text-align:center"
                                                                         type="text" size="3"
                                                                         id="fb_bp_{{ $key }}" wire:model.defer='pekerja_bukan_wargabumi_perempuan.{{ $key }}' oninput="fbCalcRow({{ $key }})"
 
                                                                        onkeypress="return onlyNumberKey(event)">
                                                                 </td>
-                                                                <td style="text-align:center;"><input type="text" style="text-align:right"
+                                                                <td style="text-align:center;"><input type="text" style="text-align:center"
                                                                         size="3"
                                                                         id="fb_al_{{ $key }}" wire:model.defer='pekerja_asing_lelaki.{{ $key }}' oninput="fbCalcRow({{ $key }})"
                                                                         
                                                                        onkeypress="return onlyNumberKey(event)">
                                                                 </td>
-                                                                <td style="text-align:center;"><input type="text" style="text-align:right"
+                                                                <td style="text-align:center;"><input type="text" style="text-align:center"
                                                                         size="3"
                                                                         id="fb_ap_{{ $key }}" wire:model.defer='pekerja_asing_perempuan.{{ $key }}' oninput="fbCalcRow({{ $key }})"
 
                                                                        onkeypress="return onlyNumberKey(event)">
                                                                 </td>
-                                                                <td style="text-align:center; background-color:#f8dbee;"><input readonly style="text-align:right"
+                                                                <td style="text-align:center; background-color:#f8dbee;"><input readonly style="text-align:center"
                                                                         type="text" style="background-color: #f8dbee;"
                                                                         size="6"
                                                                         id="fb_jl_{{ $key }}"
                                                                         value="{{ $jumlah_lelaki[$key] ?? '' }}"
                                                                        onkeypress="return onlyNumberKey(event)">
                                                                 </td>
-                                                                <td style="text-align:center;width:100px;background-color:#f8dbee;"><input readonly type style="text-align:right"
+                                                                <td style="text-align:center;width:100px;background-color:#f8dbee;"><input readonly type style="text-align:center"
                                                                         type="text" style="background-color: #f8dbee;"
                                                                         size="6"
                                                                         id="fb_jp_{{ $key }}"
                                                                         value="{{ $jumlah_perempuan[$key] ?? '' }}"
                                                                        onkeypress="return onlyNumberKey(event)">
                                                                 </td>
-                                                                <td style="text-align:center;background-color:#f8dbee;"><input readonly type style="text-align:right"
+                                                                <td style="text-align:center;background-color:#f8dbee;"><input readonly type style="text-align:center"
                                                                         type="text" style="background-color: #f8dbee;"
                                                                         size="6"
                                                                         id="fb_j_{{ $key }}"
@@ -222,7 +222,7 @@
                                                                 {{-- column 11 --}}
                                                                 <td style="text-align:center; ">
 
-                                                                    <input type="text" size="6" style="text-align:right"
+                                                                    <input type="text" size="6" style="text-align:center"
                                                                         id="fb_gl_{{ $key }}"
                                                                         wire:model.defer='gaji_lelaki.{{ $key }}'
                                                                         @if($jumlah_lelaki[$key] == 0)
@@ -244,7 +244,7 @@
                                                                             @enderror --}}
                                                                 </td>
                                                                 <td style="text-align:center;">
-                                                                    <input type="text" size="6" style="text-align:right"
+                                                                    <input type="text" size="6" style="text-align:center"
                                                                         id="fb_gp_{{ $key }}"
                                                                         @if($jumlah_perempuan[$key] == 0)
                                                                             readonly
@@ -261,13 +261,13 @@
                                                                     @enderror
 
                                                                 </td>
-                                                                <td style="text-align:center;background-color:#f8dbee;"><input readonly type="text" style="text-align:right"
+                                                                <td style="text-align:center;background-color:#f8dbee;"><input readonly type="text" style="text-align:center"
                                                                         size="7" style="background-color: #f8dbee;"
                                                                         id="fb_glp_{{ $key }}"
                                                                         value="{{ $gaji_lelaki_perempuan[$key] ?? '' }}"
                                                                         onkeypress="return isNumberKey(event)">
                                                                 </td>
-                                                                <td style="text-align:center;background-color:#f8dbee;"><input readonly style="text-align:right"
+                                                                <td style="text-align:center;background-color:#f8dbee;"><input readonly style="text-align:center"
                                                                         type="text" style="background-color: #f8dbee;"
                                                                         size="7"
                                                                         id="fb_tgl_{{ $key }}"
@@ -275,7 +275,7 @@
 
                                                                         onkeypress="return isNumberKey(event)">
                                                                 </td>
-                                                                <td style="text-align:center;background-color:#f8dbee;"><input readonly style="text-align:right"
+                                                                <td style="text-align:center;background-color:#f8dbee;"><input readonly style="text-align:center"
                                                                         type="text" style="background-color: #f8dbee;"
                                                                         size="7"
                                                                         id="fb_tgp_{{ $key }}"
@@ -283,7 +283,7 @@
 
                                                                         onkeypress="return isNumberKey(event)">
                                                                 </td>
-                                                                <td style="text-align:center;background-color:#f8dbee;"><input readonly style="text-align:right"
+                                                                <td style="text-align:center;background-color:#f8dbee;"><input readonly style="text-align:center"
                                                                         type="text" style="background-color: #f8dbee;"
                                                                         size="7"
                                                                         id="fb_tg_{{ $key }}"
@@ -295,55 +295,55 @@
 
                                                         @endforelse
                                                         <tr style="height:50px;">
-                                                            <td style="text-align:right;"><b>Jumlah</b></td>
+                                                            <td style="text-align:center;"><b>Jumlah</b></td>
                                                             <td style="text-align:center;" style="width:20px">
                                                                 <b>{{ $i = $i + 1 }}</b>
                                                             </td>
-                                                            <td style="text-align:center;"><input readonly type="text" style="text-align:right"
+                                                            <td style="text-align:center;"><input readonly type="text" style="text-align:center"
                                                                     style="background-color: #f8dbee;" size="3"
                                                                     id="fb_tot_wl" value="{{ $total_bumi_lelaki ?? '' }}"></td>
-                                                            <td style="text-align:center;"><input readonly type="text" style="text-align:right"
+                                                            <td style="text-align:center;"><input readonly type="text" style="text-align:center"
                                                                     style="background-color: #f8dbee;" size="3"
                                                                     id="fb_tot_wp" value="{{ $total_bumi_perempuan ?? '' }}"></td>
-                                                            <td style="text-align:center;"><input readonly type="text" style="text-align:right"
+                                                            <td style="text-align:center;"><input readonly type="text" style="text-align:center"
                                                                     style="background-color: #f8dbee;" size="3"
                                                                     id="fb_tot_bl" value="{{ $total_bukanbumi_lelaki ?? '' }}"></td>
-                                                            <td style="text-align:center;"><input readonly type="text" style="text-align:right"
+                                                            <td style="text-align:center;"><input readonly type="text" style="text-align:center"
                                                                     style="background-color: #f8dbee;" size="3"
                                                                     id="fb_tot_bp" value="{{ $total_bukanbumi_perempuan ?? '' }}"></td>
-                                                            <td style="text-align:center;"><input readonly type="text" style="text-align:right"
+                                                            <td style="text-align:center;"><input readonly type="text" style="text-align:center"
                                                                     style="background-color: #f8dbee;" size="3"
                                                                     id="fb_tot_al" value="{{ $total_asing_lelaki ?? '' }}"></td>
-                                                            <td style="text-align:center;"><input readonly type="text" style="text-align:right"
+                                                            <td style="text-align:center;"><input readonly type="text" style="text-align:center"
                                                                     style="background-color: #f8dbee;" size="3"
                                                                     id="fb_tot_ap" value="{{ $total_asing_perempuan ?? '' }}"></td>
-                                                            <td style="text-align:center ;background-color:#f8dbee;"><input readonly type="text" style="text-align:right"
+                                                            <td style="text-align:center ;background-color:#f8dbee;"><input readonly type="text" style="text-align:center"
                                                                     style="background-color: #f8dbee;" size="6"
                                                                     id="fb_tot_jl" value="{{ $total_pekerja_lelaki ?? '' }}"></td>
-                                                            <td style="text-align:center;background-color:#f8dbee;"><input readonly type="text" style="text-align:right"
+                                                            <td style="text-align:center;background-color:#f8dbee;"><input readonly type="text" style="text-align:center"
                                                                     style="background-color: #f8dbee;" size="6"
                                                                     id="fb_tot_jp" value="{{ $total_pekerja_perempuan ?? '' }}"></td>
-                                                            <td style="text-align:center;background-color:#f8dbee;"><input readonly type="text" style="text-align:right"
+                                                            <td style="text-align:center;background-color:#f8dbee;"><input readonly type="text" style="text-align:center"
                                                                     style="background-color: #f8dbee;" size="6"
                                                                     id="fb_tot_j" value="{{ $total_pekerja ?? '' }}"></td>
-                                                            <td style="text-align:center;"><input readonly type="text" style="text-align:right"
+                                                            <td style="text-align:center;"><input readonly type="text" style="text-align:center"
                                                                     style="background-color: #f8dbee;" size="6"
                                                                     id="fb_tot_gl" value="{{ $jumlah_gaji_lelaki ?? '' }}"></td>
-                                                            <td style="text-align:center;"><input readonly type="text" style="text-align:right"
+                                                            <td style="text-align:center;"><input readonly type="text" style="text-align:center"
                                                                     style="background-color: #f8dbee;" size="6"
                                                                     id="fb_tot_gp" value="{{ $jumlah_gaji_perempuan ?? '' }}"></td>
 
-                                                            <td style="text-align:center;background-color:#f8dbee;"><input readonly type="text" style="text-align:right"
+                                                            <td style="text-align:center;background-color:#f8dbee;"><input readonly type="text" style="text-align:center"
                                                                     style="background-color: #f8dbee;" size="7"
                                                                     id="fb_tot_glp" value="{{ $jumlah_lelaki_perempuan ?? '' }}"></td>
 
-                                                            <td style="text-align:center;background-color:#f8dbee;"><input readonly type="text" style="text-align:right"
+                                                            <td style="text-align:center;background-color:#f8dbee;"><input readonly type="text" style="text-align:center"
                                                                     style="background-color: #f8dbee;" size="7"
                                                                     id="fb_tot_tgl" value="{{ $jumlah_total_lelaki ?? '' }}"></td>
-                                                            <td style="text-align:center;background-color:#f8dbee;"><input readonly type="text" style="text-align:right"
+                                                            <td style="text-align:center;background-color:#f8dbee;"><input readonly type="text" style="text-align:center"
                                                                     style="background-color: #f8dbee;" size="7"
                                                                     id="fb_tot_tgp" value="{{ $jumlah_total_perempuan ?? '' }}"></td>
-                                                            <td style="text-align:center;background-color:#f8dbee;"><input readonly type="text" style="text-align:right"
+                                                            <td style="text-align:center;background-color:#f8dbee;"><input readonly type="text" style="text-align:center"
                                                                     style="background-color: #f8dbee;" size="7"
                                                                     id="fb_tot_tg" value="{{ $jumlah_total_gaji ?? '' }}"></td>
                                                         </tr>

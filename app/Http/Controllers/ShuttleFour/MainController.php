@@ -476,6 +476,13 @@ class MainController extends Controller
             ->whereHas('shuttle', function ($q) {
                 $q->whereIn('daerah_id', auth()->user()->daerah_ids)->where('shuttle_type', '4');
             })
+            ->orderByRaw("CASE status
+                WHEN 'Sedang Diproses'    THEN 1
+                WHEN 'Tiada Pengeluaran'  THEN 2
+                WHEN 'Tidak Lengkap'      THEN 3
+                WHEN 'Dihantar ke IPJPSM' THEN 4
+                WHEN 'Lulus'              THEN 5
+                ELSE 6 END")
             ->get();
         // dd($formA);
 
@@ -508,6 +515,13 @@ class MainController extends Controller
             ->whereHas('shuttle', function ($q) {
                 $q->whereIn('daerah_id', auth()->user()->daerah_ids)->where('shuttle_type', '4');
             })
+            ->orderByRaw("CASE status
+                WHEN 'Sedang Diproses'    THEN 1
+                WHEN 'Tiada Pengeluaran'  THEN 2
+                WHEN 'Tidak Lengkap'      THEN 3
+                WHEN 'Dihantar ke IPJPSM' THEN 4
+                WHEN 'Lulus'              THEN 5
+                ELSE 6 END")
             ->get();
 
         $year_list = collect(range((int) config('app.data_start_year'), (int) date('Y') + 1))->map(fn ($y) => (object) ['tahun' => $y]);
@@ -576,6 +590,14 @@ class MainController extends Controller
             ->whereHas('shuttle', function ($q) {
                 $q->whereIn('daerah_id', auth()->user()->daerah_ids)->where('shuttle_type', '4');
             })
+            ->orderByRaw("CASE status
+                WHEN 'Sedang Diproses'    THEN 1
+                WHEN 'Tiada Pengeluaran'  THEN 2
+                WHEN 'Tidak Lengkap'      THEN 3
+                WHEN 'Dihantar ke IPJPSM' THEN 4
+                WHEN 'Lulus'              THEN 5
+                ELSE 6 END")
+            ->orderBy('bulan')
             ->get();
 
         $year_list = collect(range((int) config('app.data_start_year'), (int) date('Y') + 1))->map(fn ($y) => (object) ['tahun' => $y]);
@@ -606,6 +628,14 @@ class MainController extends Controller
             ->whereHas('shuttle', function ($q) {
                 $q->whereIn('daerah_id', auth()->user()->daerah_ids)->where('shuttle_type', '4');
             })
+            ->orderByRaw("CASE status
+                WHEN 'Sedang Diproses'    THEN 1
+                WHEN 'Tiada Pengeluaran'  THEN 2
+                WHEN 'Tidak Lengkap'      THEN 3
+                WHEN 'Dihantar ke IPJPSM' THEN 4
+                WHEN 'Lulus'              THEN 5
+                ELSE 6 END")
+            ->orderBy('bulan')
             ->get();
 
         $year_list = collect(range((int) config('app.data_start_year'), (int) date('Y') + 1))->map(fn ($y) => (object) ['tahun' => $y]);

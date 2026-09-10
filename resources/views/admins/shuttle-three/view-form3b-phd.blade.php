@@ -229,42 +229,42 @@
                                                                         </td>
                                                                         <td style="text-align:center;width:30px;">
                                                                             {{ $i = $loop->iteration }}</td>
-                                                                        <td style="text-align:right;padding:5px"><span
+                                                                        <td style="text-align:center;padding:5px"><span
                                                                                 type="text" size="3"
                                                                                 value="{{ $data->pekerja_wargabumi_lelaki }}"
                                                                                 wire:model='pekerja_wargabumi_lelaki.{{ $key }}'
                                                                                 wire:change="calcJumlahPekerjaLelaki({{ $key }});"
                                                                                 onkeypress="return isNumberKey(event)">{{ $data->pekerja_wargabumi_lelaki }}</span>
                                                                         </td>
-                                                                        <td style="text-align:right;padding:5px"><span
+                                                                        <td style="text-align:center;padding:5px"><span
                                                                                 type="text" size="3"
                                                                                 value="{{ $data->pekerja_wargabumi_perempuan }}"
                                                                                 wire:model='pekerja_wargabumi_perempuan.{{ $key }}'
                                                                                 wire:change="calcJumlahPekerjaPerempuan({{ $key }})"
                                                                                 onkeypress="return isNumberKey(event)">{{ $data->pekerja_wargabumi_perempuan }}</span>
                                                                         </td>
-                                                                        <td style="text-align:right;padding:5px"><span
+                                                                        <td style="text-align:center;padding:5px"><span
                                                                                 type="text" size="3"
                                                                                 value="{{ $data->pekerja_bukan_wargabumi_lelaki }}"
                                                                                 wire:model='pekerja_bukan_wargabumi_lelaki.{{ $key }}'
                                                                                 wire:change="calcJumlahPekerjaLelaki({{ $key }})"
                                                                                 onkeypress="return isNumberKey(event)">{{ $data->pekerja_bukan_wargabumi_lelaki }}</span>
                                                                         </td>
-                                                                        <td style="text-align:right;padding:5px"><span
+                                                                        <td style="text-align:center;padding:5px"><span
                                                                                 type="text" size="3"
                                                                                 value="{{ $data->pekerja_bukan_wargabumi_perempuan }}"
                                                                                 wire:model='pekerja_bukan_wargabumi_perempuan.{{ $key }}'
                                                                                 wire:change="calcJumlahPekerjaPerempuan({{ $key }})"
                                                                                 onkeypress="return isNumberKey(event)">{{ $data->pekerja_bukan_wargabumi_perempuan }}</span>
                                                                         </td>
-                                                                        <td style="text-align:right;padding:5px;white-space:nowrap;"><span type="text"
+                                                                        <td style="text-align:center;padding:5px;white-space:nowrap;"><span type="text"
                                                                                 size="3"
                                                                                 value="{{ $data->pekerja_asing_lelaki }}"
                                                                                 wire:model='pekerja_asing_lelaki.{{ $key }}'
                                                                                 wire:change="calcJumlahPekerjaLelaki({{ $key }})"
                                                                                 onkeypress="return isNumberKey(event)">{{ $data->pekerja_asing_lelaki }}</span>
                                                                         </td>
-                                                                        <td style="text-align:right;padding:5px;white-space:nowrap;"><span type="text"
+                                                                        <td style="text-align:center;padding:5px;white-space:nowrap;"><span type="text"
                                                                                 size="3"
                                                                                 value="{{ $data->pekerja_asing_perempuan }}"
                                                                                 wire:model='pekerja_asing_perempuan.{{ $key }}'
@@ -272,7 +272,7 @@
                                                                                 onkeypress="return isNumberKey(event)">{{ $data->pekerja_asing_perempuan }}</span>
                                                                         </td>
                                                                         <td
-                                                                            style="text-align:right;padding:5px;white-space:nowrap;background-color: #f8dbee;">
+                                                                            style="text-align:center;padding:5px;white-space:nowrap;background-color: #f8dbee;">
                                                                             <span readonly type="text"
                                                                                 value="{{ $data->jumlah_lelaki }}"
                                                                                 size="3"
@@ -280,7 +280,7 @@
                                                                                 onkeypress="return isNumberKey(event)">{{ $data->jumlah_lelaki }}</span>
                                                                         </td>
                                                                         <td
-                                                                            style="text-align:right;padding:5px;white-space:nowrap;background-color: #f8dbee;">
+                                                                            style="text-align:center;padding:5px;white-space:nowrap;background-color: #f8dbee;">
                                                                             <span readonly type type="text"
                                                                                 value="{{ $data->jumlah_perempuan }}"
                                                                                 size="3"
@@ -288,20 +288,20 @@
                                                                                 onkeypress="return isNumberKey(event)">{{ $data->jumlah_perempuan }}</span>
                                                                         </td>
                                                                         <td
-                                                                            style="text-align:right;padding:5px;white-space:nowrap;background-color: #f8dbee;">
+                                                                            style="text-align:center;padding:5px;white-space:nowrap;background-color: #f8dbee;">
                                                                             <span readonly type type="text"
                                                                                 value="{{ $data->jumlah_pekerja }}"
                                                                                 size="3"
                                                                                 wire:model='jumlah_pekerja.{{ $key }}'
                                                                                 onkeypress="return isNumberKey(event)">{{ $data->jumlah_pekerja }}</span>
                                                                         </td>
-                                                                        <td style="text-align:right;padding:5px;white-space:nowrap;"><span type="text"
+                                                                        <td style="text-align:center;padding:5px;white-space:nowrap;"><span type="text"
                                                                                 size="3" value="{{ $data->gaji_lelaki }}"
                                                                                 wire:model='gaji_lelaki.{{ $key }}'
                                                                                 wire:change="calcTotalAllBayaranGajiPerPekerjaLelaki({{ $key }})"
                                                                                 onkeypress="return isNumberKey(event)">{{ number_format($data->gaji_lelaki, 2) }}</span>
                                                                         </td>
-                                                                        <td style="text-align:right;padding:5px;white-space:nowrap;"><span type="text"
+                                                                        <td style="text-align:center;padding:5px;white-space:nowrap;"><span type="text"
                                                                                 size="3"
                                                                                 value="{{ $data->gaji_perempuan }}"
                                                                                 wire:model='gaji_perempuan.{{ $key }}'
@@ -310,41 +310,41 @@
                                                                         </td>
 
                                                                         <td
-                                                                            style="text-align:right;padding:5px;white-space:nowrap;background-color: #f8dbee;">
+                                                                            style="text-align:center;padding:5px;white-space:nowrap;background-color: #f8dbee;">
                                                                             {{ number_format($data->gaji_lelaki + $data->gaji_perempuan, 2) }}
                                                                         </td>
 
-                                                                        <td style="text-align:right;padding:5px;white-space:nowrap;">
+                                                                        <td style="text-align:center;padding:5px;white-space:nowrap;">
                                                                             {{ number_format($data->jumlah_lelaki * $data->gaji_lelaki, 2) }}
                                                                         </td>
-                                                                        <td style="text-align:right;padding:5px;white-space:nowrap;">
+                                                                        <td style="text-align:center;padding:5px;white-space:nowrap;">
                                                                             {{ number_format($data->jumlah_perempuan * $data->gaji_perempuan, 2) }}
                                                                         </td>
                                                                         <td
-                                                                            style="text-align:right;padding:5px;white-space:nowrap;background-color: #f8dbee;">
+                                                                            style="text-align:center;padding:5px;white-space:nowrap;background-color: #f8dbee;">
                                                                             {{ number_format(($data->jumlah_lelaki * $data->gaji_lelaki) + ($data->jumlah_perempuan * $data->gaji_perempuan), 2) }}
                                                                         </td>
 
                                                                     </tr>
                                                                     @if ($loop->last)
                                                                         <tr style="height:50px;background-color:#f8dbee;font-weight:bold;">
-                                                                            <td style="text-align:right;padding:5px;white-space:nowrap;"><b>Jumlah</b></td>
+                                                                            <td style="text-align:center;padding:5px;white-space:nowrap;"><b>Jumlah</b></td>
                                                                             <td style="text-align:center;padding:5px;white-space:nowrap;"><b>{{ $i = $i + 1 }}</b></td>
-                                                                            <td style="text-align:right;padding:5px;white-space:nowrap;">{{ $jml_bumi_l }}</td>
-                                                                            <td style="text-align:right;padding:5px;white-space:nowrap;">{{ $jml_bumi_p }}</td>
-                                                                            <td style="text-align:right;padding:5px;white-space:nowrap;">{{ $jml_bkbumi_l }}</td>
-                                                                            <td style="text-align:right;padding:5px;white-space:nowrap;">{{ $jml_bkbumi_p }}</td>
-                                                                            <td style="text-align:right;padding:5px;white-space:nowrap;">{{ $jml_asing_l }}</td>
-                                                                            <td style="text-align:right;padding:5px;white-space:nowrap;">{{ $jml_asing_p }}</td>
-                                                                            <td style="text-align:right;padding:5px;white-space:nowrap;">{{ $jml_l }}</td>
-                                                                            <td style="text-align:right;padding:5px;white-space:nowrap;">{{ $jml_p }}</td>
-                                                                            <td style="text-align:right;padding:5px;white-space:nowrap;">{{ $jml_lp }}</td>
-                                                                            <td style="text-align:right;padding:5px;white-space:nowrap;">{{ number_format($jml_gaji_l, 2) }}</td>
-                                                                            <td style="text-align:right;padding:5px;white-space:nowrap;">{{ number_format($jml_gaji_p, 2) }}</td>
-                                                                            <td style="text-align:right;padding:5px;white-space:nowrap;">{{ number_format($jml_gaji_lp, 2) }}</td>
-                                                                            <td style="text-align:right;padding:5px;white-space:nowrap;">{{ number_format($jml_tot_l, 2) }}</td>
-                                                                            <td style="text-align:right;padding:5px;white-space:nowrap;">{{ number_format($jml_tot_p, 2) }}</td>
-                                                                            <td style="text-align:right;padding:5px;white-space:nowrap;">{{ number_format($jml_tot_lp, 2) }}</td>
+                                                                            <td style="text-align:center;padding:5px;white-space:nowrap;">{{ $jml_bumi_l }}</td>
+                                                                            <td style="text-align:center;padding:5px;white-space:nowrap;">{{ $jml_bumi_p }}</td>
+                                                                            <td style="text-align:center;padding:5px;white-space:nowrap;">{{ $jml_bkbumi_l }}</td>
+                                                                            <td style="text-align:center;padding:5px;white-space:nowrap;">{{ $jml_bkbumi_p }}</td>
+                                                                            <td style="text-align:center;padding:5px;white-space:nowrap;">{{ $jml_asing_l }}</td>
+                                                                            <td style="text-align:center;padding:5px;white-space:nowrap;">{{ $jml_asing_p }}</td>
+                                                                            <td style="text-align:center;padding:5px;white-space:nowrap;">{{ $jml_l }}</td>
+                                                                            <td style="text-align:center;padding:5px;white-space:nowrap;">{{ $jml_p }}</td>
+                                                                            <td style="text-align:center;padding:5px;white-space:nowrap;">{{ $jml_lp }}</td>
+                                                                            <td style="text-align:center;padding:5px;white-space:nowrap;">{{ number_format($jml_gaji_l, 2) }}</td>
+                                                                            <td style="text-align:center;padding:5px;white-space:nowrap;">{{ number_format($jml_gaji_p, 2) }}</td>
+                                                                            <td style="text-align:center;padding:5px;white-space:nowrap;">{{ number_format($jml_gaji_lp, 2) }}</td>
+                                                                            <td style="text-align:center;padding:5px;white-space:nowrap;">{{ number_format($jml_tot_l, 2) }}</td>
+                                                                            <td style="text-align:center;padding:5px;white-space:nowrap;">{{ number_format($jml_tot_p, 2) }}</td>
+                                                                            <td style="text-align:center;padding:5px;white-space:nowrap;">{{ number_format($jml_tot_lp, 2) }}</td>
                                                                         </tr>
                                                                     @endif
                                                                 @empty
