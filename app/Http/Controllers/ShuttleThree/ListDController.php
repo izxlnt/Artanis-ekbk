@@ -17,6 +17,10 @@ class ListDController extends Controller
     {
         $user=auth()->user();
 
+        FormD::reopenDueMonths($year, function ($q) {
+            $q->whereIn('daerah_id', auth()->user()->daerah_ids)->where('shuttle_type', '3');
+        });
+
         $formD_kilang = FormD::select('shuttle_id')->
         whereHas('shuttle', function ($q) {
             $q->whereIn('daerah_id', auth()->user()->daerah_ids)->where('shuttle_type', '3');
@@ -58,6 +62,10 @@ class ListDController extends Controller
     {
         $user=auth()->user();
 
+        FormD::reopenDueMonths($year, function ($q) {
+            $q->where('negeri_id', auth()->user()->negeri)->where('shuttle_type', '3');
+        });
+
         $formD_kilang = FormD::select('shuttle_id')->
         whereHas('shuttle', function ($q) {
             $q->where('negeri_id', auth()->user()->negeri)->where('shuttle_type', '3');
@@ -97,6 +105,10 @@ class ListDController extends Controller
         if ($year < config('app.data_start_year')) return redirect()->route('shuttle-3-listD', config('app.data_start_year'));
         $user = auth()->user();
         // dd($user );
+
+        FormD::reopenDueMonths($year, function ($q) {
+            $q->where('shuttle_type', '3');
+        });
 
         // $formD_kilang = FormD::select('shuttle_id')
         // ->whereHas('shuttle', function ($q) {

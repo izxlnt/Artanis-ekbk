@@ -19,6 +19,10 @@ class ListEController extends Controller
         $user = auth()->user();
         // dd($user );
 
+        Form5E::reopenDueMonths($year, function ($q) {
+            $q->where('shuttle_type', '5');
+        });
+
         // $formD_kilang = FormD::select('shuttle_id')
         // ->whereHas('shuttle', function ($q) {
         //     $q->where('shuttle_type', '3');
@@ -82,6 +86,10 @@ class ListEController extends Controller
 
     public function shuttle_5_listE_jpn($year){
         $user=auth()->user();
+
+        Form5E::reopenDueMonths($year, function ($q) {
+            $q->where('negeri_id', auth()->user()->negeri)->where('shuttle_type', '5');
+        });
 
         $formE_kilang = Form5E::select('shuttle_id')->
         whereHas('shuttle', function ($q) {

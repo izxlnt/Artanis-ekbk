@@ -42,4 +42,16 @@ class Form4E extends Model implements Auditable
     {
         return $this->hasOne('App\Models\Shuttle','id','shuttle_id');
     }
+
+    /** @see \App\Models\FormC::reopenDueMonths() for why this always normalizes, not just once due. */
+    public static function reopenDueMonths($year, \Closure $shuttleScope = null): void
+    {
+        $query = static::where('tahun', $year)->where('status', 'Ditutup');
+
+        if ($shuttleScope) {
+            $query->whereHas('shuttle', $shuttleScope);
+        }
+
+        $query->update(['status' => 'Tidak Diisi']);
+    }
 }

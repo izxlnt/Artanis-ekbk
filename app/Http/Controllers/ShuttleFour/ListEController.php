@@ -20,6 +20,11 @@ class ListEController extends Controller
     {
         $user=auth()->user();
         // $shuttle_listC = Shuttle::where('shuttle_type', '3')->paginate(10);
+
+        Form4E::reopenDueMonths($year, function ($q) {
+            $q->whereIn('daerah_id', auth()->user()->daerah_ids)->where('shuttle_type', '4');
+        });
+
         $form4E_kilang = Form4E::select('shuttle_id')
         ->whereHas('shuttle', function ($q) {
             $q->whereIn('daerah_id', auth()->user()->daerah_ids)->where('shuttle_type', '4');
@@ -127,6 +132,10 @@ class ListEController extends Controller
         $user = auth()->user();
         // dd($user );
 
+        Form4E::reopenDueMonths($year, function ($q) {
+            $q->where('shuttle_type', '4');
+        });
+
         // $formD_kilang = FormD::select('shuttle_id')
         // ->whereHas('shuttle', function ($q) {
         //     $q->where('shuttle_type', '3');
@@ -191,6 +200,10 @@ class ListEController extends Controller
 
     public function shuttle_4_listE_jpn($year){
         $user=auth()->user();
+
+        Form4E::reopenDueMonths($year, function ($q) {
+            $q->where('negeri_id', auth()->user()->negeri)->where('shuttle_type', '4');
+        });
 
         $formE_kilang = Form4E::select('shuttle_id')->
         whereHas('shuttle', function ($q) {

@@ -33,6 +33,11 @@ class ListBController extends Controller
 
         $user = auth()->user();
         // dd($user );
+
+        ModelsFormB::reopenDueQuarters($year, function ($q) {
+            $q->where('shuttle_type', '5');
+        });
+
         $formB_kilang = DB::select(DB::raw("SELECT DISTINCT shuttles.*, COALESCE(d.daerah_hutan, shuttles.daerah_id) as daerah_display FROM formbs
             INNER JOIN shuttles ON formbs.shuttle_id = shuttles.id
             INNER JOIN batches ON shuttles.id = batches.shuttle_id
@@ -84,6 +89,9 @@ class ListBController extends Controller
     {
         $user = auth()->user();
 
+        ModelsFormB::reopenDueQuarters($year, function ($q) {
+            $q->where('negeri_id', auth()->user()->negeri)->where('shuttle_type', '5');
+        });
 
         $formB_kilang = ModelsFormB::select('shuttle_id')
             ->whereHas('shuttle', function ($q) {

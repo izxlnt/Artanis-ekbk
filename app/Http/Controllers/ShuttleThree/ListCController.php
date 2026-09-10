@@ -17,6 +17,11 @@ class ListCController extends Controller
     {
         $user=auth()->user();
         // $shuttle_listC = Shuttle::where('shuttle_type', '3')->paginate(10);
+
+        FormC::reopenDueMonths($year, function ($q) {
+            $q->whereIn('daerah_id', auth()->user()->daerah_ids)->where('shuttle_type', '3');
+        });
+
         $formC_kilang = FormC::select('shuttle_id')
         ->whereHas('shuttle', function ($q) {
             $q->whereIn('daerah_id', auth()->user()->daerah_ids)->where('shuttle_type', '3');
@@ -57,6 +62,11 @@ class ListCController extends Controller
     {
         $user=auth()->user();
         // $shuttle_listC = Shuttle::where('shuttle_type', '3')->paginate(10);
+
+        FormC::reopenDueMonths($year, function ($q) {
+            $q->where('negeri_id', auth()->user()->negeri)->where('shuttle_type', '3');
+        });
+
         $formC_kilang = FormC::select('shuttle_id')
         ->whereHas('shuttle', function ($q) {
             $q->where('negeri_id', auth()->user()->negeri)->where('shuttle_type', '3');
@@ -97,6 +107,10 @@ class ListCController extends Controller
         if ($year < config('app.data_start_year')) return redirect()->route('shuttle-3-listC', config('app.data_start_year'));
         $user = auth()->user();
         // dd($user );
+
+        FormC::reopenDueMonths($year, function ($q) {
+            $q->where('shuttle_type', '3');
+        });
 
         // $formC_kilang = FormC::select('shuttle_id')
         // ->whereHas('shuttle', function ($q) {

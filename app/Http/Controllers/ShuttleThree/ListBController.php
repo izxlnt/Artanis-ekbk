@@ -24,6 +24,10 @@ class ListBController extends Controller
 
         $user = auth()->user();
 
+        FormB::reopenDueQuarters($year, function ($q) {
+            $q->whereIn('daerah_id', auth()->user()->daerah_ids)->where('shuttle_type', '3');
+        });
+
         $formB_kilang = FormB::select('shuttle_id')
         ->whereHas('shuttle', function ($q) {
             $q->whereIn('daerah_id', auth()->user()->daerah_ids)->where('shuttle_type', '3');
@@ -62,6 +66,10 @@ class ListBController extends Controller
     public function shuttle_3_listB_jpn($year)
     {
         $user = auth()->user();
+
+        FormB::reopenDueQuarters($year, function ($q) {
+            $q->where('negeri_id', auth()->user()->negeri)->where('shuttle_type', '3');
+        });
 
         $formB_kilang = FormB::select('shuttle_id')
         ->whereHas('shuttle', function ($q) {
@@ -103,6 +111,11 @@ class ListBController extends Controller
         if ($year < config('app.data_start_year')) return redirect()->route('shuttle-3-listB', config('app.data_start_year'));
         $user = auth()->user();
         // dd($user );
+
+        FormB::reopenDueQuarters($year, function ($q) {
+            $q->where('shuttle_type', '3');
+        });
+
         $formB_kilang = DB::select(DB::raw("SELECT DISTINCT shuttles.*, COALESCE(d.daerah_hutan, shuttles.daerah_id) as daerah_display FROM formbs
         INNER JOIN shuttles ON formbs.shuttle_id = shuttles.id
         INNER JOIN batches ON shuttles.id = batches.shuttle_id
