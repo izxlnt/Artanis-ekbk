@@ -501,17 +501,17 @@
                                     Borang</span></a>
                             <ul aria-expanded="false" class="collapse first-level">
 
-                                <li class="sidebar-item"><a href="{{ route('phd.senarai-tugasan-3A', date('Y')) }}"
+                                <li class="sidebar-item"><a href="{{ route('phd.shuttle-3-listA', date('Y')) }}"
                                         class="sidebar-link"><i class="mdi mdi-adjust"></i><span
                                             class="hide-menu">&nbsp Shuttle 3 - Kilang Papan</span></a>
                                 </li>
 
-                                <li class="sidebar-item"><a href="{{ route('phd.senarai-tugasan-4A', date('Y')) }}"
+                                <li class="sidebar-item"><a href="{{ route('phd.shuttle-4-listA', date('Y')) }}"
                                         class="sidebar-link"><i class="mdi mdi-adjust"></i><span
                                             class="hide-menu">&nbsp
                                             Shuttle 4 - Kilang Papan Lapis/Venir</span></a>
                                 </li>
-                                <li class="sidebar-item"><a href="{{ route('phd.senarai-tugasan-5A', date('Y')) }}"
+                                <li class="sidebar-item"><a href="{{ route('phd.shuttle-5-listA', date('Y')) }}"
                                         class="sidebar-link"><i class="mdi mdi-adjust"></i><span
                                             class="hide-menu">&nbsp
                                             Shuttle 5 - Kilang Kayu Kumai</span></a>
