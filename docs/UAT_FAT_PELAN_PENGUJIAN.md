@@ -83,7 +83,7 @@ Memandangkan sistem sudah live di pelayan sedia ada (bukan persekitaran baharu y
 |---|---|---|
 | 1 | Kod terkini (termasuk semua pembaikan yang didokumenkan dalam pelan ini) telah digunakan (deployed) ke pelayan | Pembangun |
 | 2 | `php artisan migrate` dijalankan — tiada migrasi pangkalan data tertunggak | Pembangun |
-| 3 | Nilai `.env` diisi lengkap mengikut Bahagian 4 (terutama `MAIL_FROM_ADDRESS`, `LICENSE_SECRET`, `CONTROL_PANEL_TOKEN`) | Pembangun |
+| 3 | Nilai `.env` diisi lengkap mengikut Bahagian 4 (terutama `MAIL_FROM_ADDRESS`) | Pembangun |
 | 4 | `php artisan storage:link` wujud — muat naik/gambar boleh dipaparkan | Pembangun |
 | 5 | Cache lama dikosongkan selepas deploy terkini (`config:clear`, `route:clear`, `view:clear`, `cache:clear`) — rujuk `DEPLOY_ARTISAN_STEPS.md` untuk susunan penuh | Pembangun |
 | 6 | URL akses sistem dan kredensial akaun ujian (Bahagian 5) disediakan kepada pasukan pengujian EKBK | Pembangun |
@@ -109,8 +109,6 @@ Memandangkan sistem sudah live di pelayan sedia ada (bukan persekitaran baharu y
 | `APP_URL` | URL asas aplikasi | URL pelayan live/staging sebenar (disediakan oleh pembangun) | Pembangun | Rendah |
 | `DB_HOST/PORT/DATABASE/USERNAME/PASSWORD` | Sambungan DB utama | Diuruskan terus oleh pembangun (hosting sendiri) | Pembangun | **Tinggi** |
 | `DB_HOST2/PORT2/DATABASE2/USERNAME2/PASSWORD2` | Sambungan DB legasi (`mysql2`, data sebelum 2021) | Diuruskan terus oleh pembangun — **wajib untuk UAT modul Laporan** | Pembangun | **Tinggi** |
-| `LICENSE_SECRET` | Rahsia HMAC untuk sistem kunci/buka kunci sistem (`SystemLicenseController`) | Jana nilai rawak panjang: `php artisan key:generate --show` (pinjam penjana sedia ada) — **berasingan daripada `APP_KEY`, jangan kongsi nilai sama** | Pembangun | **Sangat Tinggi** |
-| `CONTROL_PANEL_TOKEN` | Token akses panel kawalan kunci sistem tanpa log masuk (`/system-control/{token}`) — wajib ditambah secara manual ke `.env` | Jana nilai rawak panjang serupa `LICENSE_SECRET`; simpan hanya dengan pembangun | Pembangun | **Sangat Tinggi** |
 | `MAIL_MAILER`, `MAIL_HOST`, `MAIL_PORT`, `MAIL_USERNAME`, `MAIL_PASSWORD`, `MAIL_ENCRYPTION` | Persediaan SMTP untuk semua e-mel sistem (kelulusan, reset kata laluan, notifikasi) | Guna penyedia SMTP rasmi EKBK jika alamat e-mel EKBK mahu digunakan sebagai penghantar, atau penyedia SMTP pembangun — sahkan dengan EKBK pilihan yang dikehendaki | EKBK/Pembangun | **Tinggi** |
 | `MAIL_AUTH_MODE` | Kaedah pengesahan SMTP paksa (`login`/`plain`) — hanya perlu jika pelayan SMTP guna NTLM dan gagal secara lalai | Tinggalkan kosong melainkan ralat "Undefined offset: 3" berlaku | Pembangun | Rendah |
 | `MAIL_FROM_ADDRESS` | Alamat penghantar e-mel — **wajib diisi, bukan `null`** (jika tidak, e-mel senyap gagal dihantar tanpa sebarang ralat dipaparkan) | Alamat e-mel rasmi EKBK (untuk kredibiliti penghantar kepada IBK/PHD/JPN) | EKBK | Sederhana |
@@ -323,24 +321,7 @@ Semua modul berikut mengikut corak **sama** (kebanyakannya Livewire dalam-halama
 | MAINT-04 | Sistem | Biarkan `end_date` berlalu (atau tetapkan tarikh lampau) tanpa tindakan manual | `is_active` bertukar `false` secara automatik pada permintaan seterusnya (cache 60 saat) |  |  |
 | MAINT-05 | IPJPSM | Nyahaktifkan mod penyelenggaraan secara manual sebelum `end_date` | Sistem kembali normal serta-merta untuk semua peranan |  |  |
 
-### 7.11 Kunci Sistem / Panel Kawalan (Sensitif — Uji di Staging Sahaja)
-
-> ⚠️ Ciri ini adalah **suis kunci mati (kill switch)** peringkat sistem — **jangan sekali-kali** uji langkah kunci pada persekitaran pengeluaran tanpa kelulusan eksplisit dan pelan pemulihan sedia. Uji hanya di persekitaran staging/ujian berasingan.
-
-| ID | Langkah | Hasil Dijangka | Keputusan (Lulus/Gagal/NA) | Catatan |
-|---|---|---|---|---|
-| LIC-01 | Jalankan `php artisan license:status` | Memaparkan status semasa (kunci kod vs kunci DB) dengan tepat |  |  |
-| LIC-02 | Jalankan `php artisan license:lock --reason="Ujian FAT"` | Sistem terkunci — **semua** pengguna (termasuk BPE) melihat halaman `system-locked`, tiada pengecualian |  |  |
-| LIC-03 | Cuba log masuk sebagai BPE semasa terkunci | **Mesti ditolak** — sahkan ini berbeza daripada Mod Penyelenggaraan (yang mengecualikan BPE) |  |  |
-| LIC-04 | Buka `/system-locked`, masukkan kunci buka kunci yang sah (dijana melalui `php artisan license:key`) | Sistem terbuka semula |  |  |
-| LIC-05 | Masukkan kunci buka kunci **salah** berulang kali | Disekat mengikut had kadar (`throttle:5,15`); tidak terbuka |  |  |
-| LIC-06 | Akses `/system-control/{token}` dengan token **salah** | **404** dipaparkan (bukan 403) — sengaja tidak mendedahkan kewujudan laluan |  |  |
-| LIC-07 | Akses `/system-control/{token}` dengan token **sah** (`CONTROL_PANEL_TOKEN`) | Panel kawalan dipaparkan tanpa perlu log masuk |  |  |
-| LIC-08 | Dari panel kawalan sah, kunci dan buka kunci sistem | Berfungsi tanpa perlu kunci HMAC berasingan (token panel sudah mencukupi sebagai pengesahan) |  |  |
-| LIC-09 | Sahkan fail `app/license-lock.php` (kunci berasaskan kod) — tukar `'locked' => true` secara manual dan muat naik semula | Sistem terkunci serta-merta walaupun `php artisan config:cache` telah dijalankan sebelumnya (fail dibaca terus, bukan melalui cache config) |  |  |
-| LIC-10 | Jalankan `php artisan license:unlock --force` semasa kunci berasaskan **kod** aktif (LIC-09) | **Sahkan tingkah laku sebenar** — kunci kod mungkin tidak boleh dibuka melalui DB/CLI, hanya melalui edit fail semula |  |  |
-
-### 7.12 Log Audit
+### 7.11 Log Audit
 
 | ID | Langkah | Hasil Dijangka | Keputusan (Lulus/Gagal/NA) | Catatan |
 |---|---|---|---|---|
@@ -872,9 +853,8 @@ Ikuti langkah persampelan (1)–(5) yang sama seperti Bahagian 8.4.
 | SEC-02 | Log masuk sebagai IBK, ulang SEC-01 | Sahkan sekatan peranan (jika laluan boleh dicapai tanpa `auth`, ia mungkin juga tidak menyekat mengikut peranan) |  |  |
 | SEC-03 | Cuba akses fail permohonan pengguna lain dengan menukar `{id}` pada URL lampiran secara manual (cth `/admin/lampiran-permohonan/5` → `/6`) | Sahkan sama ada kawalan akses berasaskan peranan mencukupi (IDOR check) |  |  |
 | SEC-04 | Sahkan `APP_DEBUG=false` pada `.env` persekitaran staging/pengeluaran sebelum FAT selesai | Wajib — amalan keselamatan standard |  |  |
-| SEC-05 | Sahkan `LICENSE_SECRET` dan `CONTROL_PANEL_TOKEN` ditetapkan kepada nilai rawak unik (bukan kosong, bukan nilai contoh) | Wajib |  |  |
-| SEC-06 | Cuba CSRF pada tindakan "Hantar" PHD — hantar permintaan `GET` terus tanpa melalui butang dalam aplikasi | Mesti **gagal** (405) — laluan hanya menerima `POST` dan dilindungi CSRF standard Laravel |  |  |
-| SEC-07 | Sahkan kata laluan lalai akaun terbenih (`1234567890`, rujuk 5.1) **ditukar atau akaun tersebut dilumpuhkan** sebelum sistem dianggap sedia untuk pengeluaran sebenar | Wajib sebelum go-live |  |  |
+| SEC-05 | Cuba CSRF pada tindakan "Hantar" PHD — hantar permintaan `GET` terus tanpa melalui butang dalam aplikasi | Mesti **gagal** (405) — laluan hanya menerima `POST` dan dilindungi CSRF standard Laravel |  |  |
+| SEC-06 | Sahkan kata laluan lalai akaun terbenih (`1234567890`, rujuk 5.1) **ditukar atau akaun tersebut dilumpuhkan** sebelum sistem dianggap sedia untuk pengeluaran sebenar | Wajib sebelum go-live |  |  |
 
 ---
 
@@ -953,7 +933,7 @@ Ikuti langkah persampelan (1)–(5) yang sama seperti Bahagian 8.4.
 ## 18. Senarai Semak Sebelum UAT Bermula
 
 - [ ] Kesediaan pelayan live disahkan mengikut Bahagian 3.3 (kod terkini digunakan, migrasi dijalankan, `storage:link` wujud)
-- [ ] Semua nilai `.env` dalam Bahagian 4 diisi (terutama `MAIL_FROM_ADDRESS`, `LICENSE_SECRET`, `CONTROL_PANEL_TOKEN`)
+- [ ] Semua nilai `.env` dalam Bahagian 4 diisi (terutama `MAIL_FROM_ADDRESS`)
 - [ ] `APP_DEBUG=false` disahkan pada persekitaran yang akan digunakan untuk FAT rasmi
 - [ ] `php artisan db:seed` dijalankan, data rujukan (Bahagian 6) disahkan lengkap
 - [ ] Akaun ujian (Bahagian 5) sedia — sekurang-kurangnya 1 IBK bagi setiap jenis shuttle telah melalui aliran pendaftaran + kelulusan penuh
@@ -973,7 +953,6 @@ Semua arahan berikut **dijalankan secara manual** (tiada penjadualan automatik �
 | `email:check-duplicates` | Diagnostik — imbas e-mel pendua merentasi jadual | Selamat, hanya baca |
 | `formc:fix-group-totals [--apply] [--shuttle-id=] [--formc-id=] [--year=]` | Baiki jumlah kumpulan kayu Borang C yang tersilap kira akibat pepijat lama | **Jangan** jalankan `--apply` pada data ujian yang sengaja dicipta untuk uji pepijat ini — ia akan "membetulkan" data ujian anda |
 | `daerah:fix-pulau-pinang [--apply]` | Betulkan ejaan "Seberang Prai" → "Seberang Perai" | Khusus data pengeluaran sedia ada; tidak relevan pada data ujian baharu |
-| `license:key` / `license:lock` / `license:unlock` / `license:status` | Rujuk Bahagian 11 | Uji di staging sahaja |
 | `formc:reopen-shuttle5 [--year=] [--apply]` | Buka semula Borang C Shuttle 5 yang sudah diisi untuk pembetulan lajur "Pengeluaran Kayu Kumai" yang hilang akibat pepijat lama | Khusus data pengeluaran sedia ada — mencetuskan notifikasi/mesej sebenar kepada kilang seolah-olah PHD menolak borang |
 | `formc:repair-tiada-pengeluaran [--apply]` | Betulkan baki stok "Tiada Pengeluaran" yang tersilap ditetapkan 0 | Sama seperti atas — khusus data sedia ada |
 
