@@ -51,6 +51,64 @@ class FormBCorrectionTest extends TestCase
         $this->runForShuttle('5', \App\Http\Livewire\ShuttleFive\FormB::class, 'user.shuttle-5-formB');
     }
 
+    /**
+     * Regression test for a real bug reported from a production screenshot:
+     * entering a value in the "Bukan Warganegara Malaysia - P" column (07)
+     * left the "Jumlah Pekerja - P" total (09) stuck at its pre-edit value
+     * (0) instead of picking up the new figure, even though the matching
+     * "L" column (06/08) calculated correctly. Root cause: the original
+     * inputs combined wire:model.defer with an explicit wire:change on the
+     * very same element - Livewire doesn't guarantee that pairing applies
+     * the just-typed value before the wire:change action runs, so the calc
+     * could run against the stale pre-edit value. Fixed by moving the
+     * recalculation into updated(), which Livewire only calls after a
+     * property already holds its new value - no such race is possible.
+     *
+     * @test
+     */
+    public function correcting_only_the_asing_columns_still_updates_both_totals()
+    {
+        $shuttleType = '3';
+        $user = User::factory()->create(['kategori_pengguna' => 'IBK', 'status' => 1, 'is_approved' => 1]);
+        $shuttle = $user->shuttle;
+        $shuttle->update(['shuttle_type' => $shuttleType]);
+        $user->shuttle_type = $shuttleType;
+        $user->save();
+        $user = $user->fresh();
+
+        $this->fillFormA($user, $shuttle);
+
+        $kategori = KategoriGunaTenaga::orderBy('id')->get();
+
+        // Only category 0 needs a non-zero headcount (FormB::store() only
+        // validates jumlah_pekerja[0] > 0) - every other category,
+        // including the target row below, starts genuinely empty so the
+        // "only touch the asing columns" scenario is exact, not off by
+        // whatever the fill step happened to pre-populate.
+        $this->actingAs($user)->get(route('user.shuttle-3-formB', [self::SUKU, self::YEAR]))->assertOk();
+        $fill = Livewire::actingAs($user)->test(\App\Http\Livewire\ShuttleThree\FormB::class, ['year' => self::YEAR, 'suku_id' => self::SUKU]);
+        $fill->set('pekerja_wargabumi_lelaki.0', 1)->set('gaji_lelaki.0', 5000);
+        $fill->call('store');
+
+        $formb = FormB::where('shuttle_id', $shuttle->id)->where('tahun', self::YEAR)->where('suku_tahun', self::SUKU)->first();
+        $phd = User::factory()->create(['kategori_pengguna' => 'PHD', 'status' => 1, 'is_approved' => 1]);
+        $correction = Livewire::actingAs($phd)->test(\App\Http\Livewire\ShuttleThree\FormBCorrection::class, ['formbId' => $formb->id]);
+
+        $lastCategoryKey = $kategori->count() - 1;
+
+        // Mirrors the screenshot exactly: only the two "asing" (foreign
+        // worker) columns get typed into for this row - (06) then (07) -
+        // each set() simulating one field's blur, with no other field in
+        // this row ever touched.
+        $correction->set("pekerja_asing_lelaki.{$lastCategoryKey}", 32);
+        $correction->set("pekerja_asing_perempuan.{$lastCategoryKey}", 22);
+
+        $correction->assertSet("jumlah_lelaki.{$lastCategoryKey}", 32);
+        $correction->assertSet("jumlah_perempuan.{$lastCategoryKey}", 22,
+            'Jumlah Pekerja (P) must reflect the just-entered (07) value, not stay stuck at its pre-edit total.');
+        $correction->assertSet("jumlah_pekerja.{$lastCategoryKey}", 54);
+    }
+
     private function runForShuttle(string $shuttleType, string $formBComponent, string $fillRouteName): void
     {
         $user = User::factory()->create(['kategori_pengguna' => 'IBK', 'status' => 1, 'is_approved' => 1]);
@@ -92,10 +150,10 @@ class FormBCorrectionTest extends TestCase
         }
 
         // PHD corrects category 1's headcount from 101 to 999 - no explicit
-        // "save" click involved, calcJumlahPekerjaLelaki() (bound to the
-        // field's wire:change, i.e. its blur) auto-persists on its own.
-        $correction->set('pekerja_wargabumi_lelaki.0', 999)
-            ->call('calcJumlahPekerjaLelaki', 0);
+        // "save" click or calc call involved: set() alone triggers
+        // Livewire's updated() hook, which recalculates the row and
+        // auto-persists on its own, exactly like a real blur in the browser.
+        $correction->set('pekerja_wargabumi_lelaki.0', 999);
 
         $formb->refresh();
         $this->assertSame('Sedang Diproses', $formb->status,
