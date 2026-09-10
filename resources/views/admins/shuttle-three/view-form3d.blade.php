@@ -250,6 +250,9 @@
                                                             <hr>
 
 
+                                                            {{-- PHD's decision buttons must only show while this form
+                                                            is still awaiting that decision. --}}
+                                                            @if ($formd->status == 'Sedang Diproses')
                                                             <div class="text-center form-group m-b-0">
                                                                 {{-- <button type="submit" class="btn btn-primary" >Simpan</button> --}}
                                                                 {{-- <button type="button" class="btn btn-primary">Kembali</button> --}}
@@ -338,6 +341,13 @@
                                                         </div>
                                                     </div>
                                                 </div>
+                                            @else
+                                                <div class="text-center form-group m-b-0">
+                                                    <span class="label label-info label-rounded" style="font-size:11pt;">
+                                                        Borang ini telah pun disahkan ({{ $formd->status }}).
+                                                    </span>
+                                                </div>
+                                            @endif
 
                                     </div>
                                 </div>

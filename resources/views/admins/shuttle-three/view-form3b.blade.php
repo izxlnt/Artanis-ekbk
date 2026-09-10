@@ -71,7 +71,14 @@
 
                                 <div class="tab-pane active" id="hotel" role="tabpanel" aria-labelledby="hotel-tab"><br>
                                     <div class="">
-                                        <table class="table table-striped table-bordered" id="" style="width: 100%;">
+                                        {{-- This used to be <table class="table table-striped table-bordered">,
+                                        wrapping plain <div>s with no <tr>/<td> anywhere inside it - invalid
+                                        HTML that browsers "fix" by relocating this whole subtree out of the
+                                        table during parsing. That silently broke Livewire's ability to bind
+                                        to the correction tool's inputs once it was embedded here (the DOM
+                                        the browser actually builds no longer matches what the server sent),
+                                        even though nothing else about the correction tool was wrong. --}}
+                                        <div style="width: 100%;">
                                             <div class="row">
                                                 <div class="col-12">
                                                     <div class="card">
@@ -373,6 +380,13 @@
                                                 </div>
 
                                                 <hr>
+                                                {{-- PHD's own decision (status still Sedang Diproses) and
+                                                BPE/IPJPSM's own decision (status already Dihantar ke IPJPSM)
+                                                share this section - each role's buttons must only show during
+                                                their own pending-decision window, not after they've already
+                                                decided (see $canCorrect above for the same principle applied
+                                                to the correction tool). --}}
+                                                @if ((auth()->user()->kategori_pengguna == 'PHD' && $formb->status == 'Sedang Diproses') || (auth()->user()->kategori_pengguna == 'BPE' && $formb->status == 'Dihantar ke IPJPSM'))
                                                 @if (auth()->user()->kategori_pengguna == 'PHD')
 
 
@@ -575,6 +589,13 @@
                                                         </div>
                                                     </form>
                                                 @endif
+                                                @else
+                                                    <div class="text-center form-group m-b-0">
+                                                        <span class="label label-info label-rounded" style="font-size:11pt;">
+                                                            Borang ini telah pun disahkan ({{ $formb->status }}).
+                                                        </span>
+                                                    </div>
+                                                @endif
                                                 <br>
                                                 {{-- <div class="text-right form-group m-b-0">
                                                     <button type="button" class="btn btn-primary">Kembali</button>
@@ -584,7 +605,7 @@
                                     </div>
                                 </div>
 
-                                </table>
+                                </div>
                             </div>
                         </div>
 

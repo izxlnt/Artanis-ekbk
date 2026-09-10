@@ -205,6 +205,10 @@
                                                                     </div>
                                                                 </div>
 
+                                                            {{-- This "-phd" view is what PHD lands on for an
+                                                            already-decided Form E - the decision buttons must not
+                                                            appear here at all. --}}
+                                                            @if ($form5e->status == 'Sedang Diproses')
                                                             <div class="text-center form-group m-b-0">
                                                                 <button type="button" class="btn btn-primary" alt="default"
                                                                     data-toggle="modal" data-target="#responsive-modal-tidaklengkap"
@@ -261,6 +265,13 @@
                                                                     </div>
                                                                 </div>
                                                             </div>
+                                                            @else
+                                                                <div class="text-center form-group m-b-0">
+                                                                    <span class="label label-info label-rounded" style="font-size:11pt;">
+                                                                        Borang ini telah pun disahkan ({{ $form5e->status }}).
+                                                                    </span>
+                                                                </div>
+                                                            @endif
 
                                                             </div>
                                                         </div>
