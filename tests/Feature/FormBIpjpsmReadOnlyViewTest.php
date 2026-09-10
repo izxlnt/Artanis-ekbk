@@ -16,11 +16,15 @@ use Tests\TestCase;
  * IPJPSM's "verify Form B" screen was rendering the editable "Data
  * Cleaning" Livewire component (shuttle-three.data-cleaning3-b) as the
  * primary view, showing each submitted figure immediately followed by a
- * blank editable input box. IPJPSM should only ever be able to certify
- * (Sahkan/Tolak) a submitted Form B, never re-enter its figures - only
- * IBK fills data. This confirms the IPJPSM view route now renders the
- * shared read-only admins.shuttle-three.view-form3b template instead,
- * with no editable inputs and a working Sahkan/Tolak form.
+ * separate blank editable input box next to it.
+ *
+ * IPJPSM (and PHD) were later given editing power back - see
+ * FormBCorrectionTest - but as a single pre-filled box per field (the
+ * shuttle-three.form-b-correction component), never that old side-by-side
+ * layout or its component name. This test now confirms the legacy
+ * component is gone for good and the Sahkan/Tolak form is still there,
+ * regardless of which of the two (read-only vs. correctable) the page
+ * renders for a given form status.
  */
 class FormBIpjpsmReadOnlyViewTest extends TestCase
 {
@@ -30,19 +34,19 @@ class FormBIpjpsmReadOnlyViewTest extends TestCase
     private const SUKU = 1;
 
     /** @test */
-    public function shuttle_3_ipjpsm_form_b_view_is_read_only()
+    public function shuttle_3_ipjpsm_form_b_view_has_no_legacy_data_cleaning_tool()
     {
         $this->runForShuttle('3', \App\Http\Livewire\ShuttleThree\FormB::class, 'user.shuttle-3-formB', 'ipjpsm.shuttle-3-view-formB');
     }
 
     /** @test */
-    public function shuttle_4_ipjpsm_form_b_view_is_read_only()
+    public function shuttle_4_ipjpsm_form_b_view_has_no_legacy_data_cleaning_tool()
     {
         $this->runForShuttle('4', \App\Http\Livewire\ShuttleFour\FormB::class, 'user.shuttle-4-formB', 'ipjpsm.shuttle-4-view-formB');
     }
 
     /** @test */
-    public function shuttle_5_ipjpsm_form_b_view_is_read_only()
+    public function shuttle_5_ipjpsm_form_b_view_has_no_legacy_data_cleaning_tool()
     {
         $this->runForShuttle('5', \App\Http\Livewire\ShuttleFive\FormB::class, 'user.shuttle-5-formB', 'ipjpsm.shuttle-5-view-formB');
     }
