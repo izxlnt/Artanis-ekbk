@@ -62,6 +62,10 @@ class ListOverallController extends Controller
     public function shuttle_5_listB($year){
         $user = auth()->user();
 
+        FormB::reopenDueQuarters($year, function ($q) {
+            $q->whereIn('daerah_id', auth()->user()->daerah_ids)->where('shuttle_type', '5');
+        });
+
         $formB_kilang = FormB::select('shuttle_id')
         ->whereHas('shuttle', function ($q) {
             $q->whereIn('daerah_id', auth()->user()->daerah_ids)->where('shuttle_type', '5');
@@ -100,6 +104,11 @@ class ListOverallController extends Controller
     public function shuttle_5_listC($year){
         $user=auth()->user();
         // $shuttle_listC = Shuttle::where('shuttle_type', '3')->paginate(10);
+
+        FormC::reopenDueMonths($year, function ($q) {
+            $q->whereIn('daerah_id', auth()->user()->daerah_ids)->where('shuttle_type', '5');
+        });
+
         $formC_kilang = FormC::select('shuttle_id')
         ->whereHas('shuttle', function ($q) {
             $q->whereIn('daerah_id', auth()->user()->daerah_ids)->where('shuttle_type', '5');
@@ -139,6 +148,10 @@ class ListOverallController extends Controller
     public function shuttle_5_listD($year){
         $user=auth()->user();
 
+        Form5D::reopenDueMonths($year, function ($q) {
+            $q->whereIn('daerah_id', auth()->user()->daerah_ids)->where('shuttle_type', '5');
+        });
+
         $formD_kilang = Form5D::select('shuttle_id')->
         whereHas('shuttle', function ($q) {
             $q->whereIn('daerah_id', auth()->user()->daerah_ids)->where('shuttle_type', '5');
@@ -177,6 +190,10 @@ class ListOverallController extends Controller
 
     public function shuttle_5_listE($year){
         $user=auth()->user();
+
+        Form5E::reopenDueMonths($year, function ($q) {
+            $q->whereIn('daerah_id', auth()->user()->daerah_ids)->where('shuttle_type', '5');
+        });
 
         $formD_kilang = Form5E::select('shuttle_id')->
         whereHas('shuttle', function ($q) {

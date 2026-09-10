@@ -19,6 +19,10 @@ class ListCController extends Controller
         $user = auth()->user();
         // dd($user );
 
+        FormC::reopenDueMonths($year, function ($q) {
+            $q->where('shuttle_type', '5');
+        });
+
         // $formC_kilang = FormC::select('shuttle_id')
         // ->whereHas('shuttle', function ($q) {
         //     $q->where('shuttle_type', '3');
@@ -93,6 +97,9 @@ $batch = Batch::where('tahun', $year)->get();
     public function shuttle_5_listC_jpn($year){
         $user=auth()->user();
 
+        FormC::reopenDueMonths($year, function ($q) {
+            $q->where('negeri_id', auth()->user()->negeri)->where('shuttle_type', '5');
+        });
 
         $formC_kilang = FormC::select('shuttle_id')
         ->whereHas('shuttle', function ($q) {

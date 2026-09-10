@@ -714,6 +714,7 @@ $batch_checker = Batch::where('shuttle_id', $user->shuttle_id)->where('tahun', d
 
             if ($formD_checker == '0') {
                 for ($i = 1; $i < 13; $i++) {
+                    $status = ($i <= $currentApprovalMonth) ? 'Tidak Diisi' : 'Ditutup';
 
                     if ($i == 1) {
 
@@ -881,6 +882,7 @@ $batch_checker = Batch::where('shuttle_id', $user->shuttle_id)->where('tahun', d
 
             if ($formD_checker == '0') {
                 for ($i = 1; $i < 13; $i++) {
+                    $status = ($i <= $currentApprovalMonth) ? 'Tidak Diisi' : 'Ditutup';
 
                     if ($i == 1) {
 
@@ -1048,6 +1050,7 @@ $batch_checker = Batch::where('shuttle_id', $user->shuttle_id)->where('tahun', d
 
             if ($formD_checker == '0') {
                 for ($i = 1; $i < 13; $i++) {
+                    $status = ($i <= $currentApprovalMonth) ? 'Tidak Diisi' : 'Ditutup';
 
                     if ($i == 1) {
 
@@ -1216,6 +1219,7 @@ $batch_checker = Batch::where('shuttle_id', $user->shuttle_id)->where('tahun', d
 
             if ($formE_checker == '0') {
                 for ($i = 1; $i < 13; $i++) {
+                    $status = ($i <= $currentApprovalMonth) ? 'Tidak Diisi' : 'Ditutup';
 
                     if ($i == 1) {
 
@@ -1382,6 +1386,7 @@ $batch_checker = Batch::where('shuttle_id', $user->shuttle_id)->where('tahun', d
 
             if ($formE_checker == '0') {
                 for ($i = 1; $i < 13; $i++) {
+                    $status = ($i <= $currentApprovalMonth) ? 'Tidak Diisi' : 'Ditutup';
 
                     if ($i == 1) {
 

@@ -19,6 +19,11 @@ class ListDController extends Controller
     {
         $user = auth()->user();
         // $shuttle_listC = Shuttle::where('shuttle_type', '3')->paginate(10);
+
+        Form4D::reopenDueMonths($year, function ($q) {
+            $q->whereIn('daerah_id', auth()->user()->daerah_ids)->where('shuttle_type', '4');
+        });
+
         $form4D_kilang = Form4D::select('shuttle_id')
             ->whereHas('shuttle', function ($q) {
                 $q->whereIn('daerah_id', auth()->user()->daerah_ids)->where('shuttle_type', '4');
@@ -138,6 +143,10 @@ class ListDController extends Controller
         $user = auth()->user();
         // dd($user );
 
+        Form4D::reopenDueMonths($year, function ($q) {
+            $q->where('shuttle_type', '4');
+        });
+
         // $formD_kilang = FormD::select('shuttle_id')
         // ->whereHas('shuttle', function ($q) {
         //     $q->where('shuttle_type', '3');
@@ -200,6 +209,10 @@ class ListDController extends Controller
     public function shuttle_4_listD_jpn($year)
     {
         $user = auth()->user();
+
+        Form4D::reopenDueMonths($year, function ($q) {
+            $q->where('negeri_id', auth()->user()->negeri)->where('shuttle_type', '4');
+        });
 
         $formD_kilang = Form4D::select('shuttle_id')->whereHas('shuttle', function ($q) {
             $q->where('negeri_id', auth()->user()->negeri)->where('shuttle_type', '4');
