@@ -555,7 +555,7 @@
                                                         Sila tunggu pengguna IBK menghantar semula borang ini sebelum tindakan lanjut boleh diambil.
                                                     </div>
 
-                                                    @elseif(auth()->user()->kategori_pengguna == 'PHD')
+                                                    @elseif(auth()->user()->kategori_pengguna == 'PHD' && $forma->status == 'Sedang Diproses')
                                                     <div class="text-center form-group m-b-0">
                                                         <button type="button" class="btn btn-primary" alt="default"
                                                             data-toggle="modal" data-target="#responsive-modal-tidaklengkap"
@@ -628,7 +628,7 @@
                                                 </div>
                                             </div></form>
 
-                                                    @elseif(auth()->user()->kategori_pengguna == 'BPE')
+                                                    @elseif(auth()->user()->kategori_pengguna == 'BPE' && $forma->status == 'Dihantar ke IPJPSM')
                                                     <div class="row" style="text-align:center">
                                                         <div class="col-md-12">
                                                             <p>
@@ -680,6 +680,15 @@
                                                         </div>
                                                     </div>
                                                 </form>
+                                                @elseif(auth()->user()->kategori_pengguna == 'PHD' || auth()->user()->kategori_pengguna == 'BPE')
+                                                    {{-- Falls through here once PHD/BPE has already made their own
+                                                    decision (or is viewing before their turn) - no decision
+                                                    buttons should render for an already-decided form. --}}
+                                                    <div class="text-center form-group m-b-0">
+                                                        <span class="label label-info label-rounded" style="font-size:11pt;">
+                                                            Borang ini telah pun disahkan ({{ $forma->status }}).
+                                                        </span>
+                                                    </div>
                                                 @endif
                                             <br>
                                             </div>

@@ -377,6 +377,10 @@
                                                         <hr>
 
                                                         <br>
+                                                        {{-- This "-phd" view is what PHD lands on for an
+                                                        already-decided Form C - the decision buttons must not
+                                                        appear here at all. --}}
+                                                        @if ($formc->status == 'Sedang Diproses')
                                                         <div class="text-center form-group m-b-0">
                                                             <button type="button" class="btn btn-primary" alt="default"
                                                                         data-toggle="modal" data-target="#responsive-modal-tidaklengkap"
@@ -466,6 +470,13 @@
                                                                 </div>
                                                             </div>
                                                         </div>
+                                                        @else
+                                                            <div class="text-center form-group m-b-0">
+                                                                <span class="label label-info label-rounded" style="font-size:11pt;">
+                                                                    Borang ini telah pun disahkan ({{ $formc->status }}).
+                                                                </span>
+                                                            </div>
+                                                        @endif
                                                         <br>
                                                     </div>
                                             </div>

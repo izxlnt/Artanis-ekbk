@@ -289,6 +289,11 @@
                                                             </div>
 
                                                             <hr>
+                                                            {{-- PHD's own decision (status still Sedang Diproses) and
+                                                            BPE/IPJPSM's own decision (status already Dihantar ke
+                                                            IPJPSM) share this block - each role's buttons must only
+                                                            show during their own pending-decision window. --}}
+                                                            @if ((auth()->user()->kategori_pengguna == 'BPE' && $form4d->status == 'Dihantar ke IPJPSM') || (auth()->user()->kategori_pengguna != 'BPE' && $form4d->status == 'Sedang Diproses'))
                                                             <div class="text-center form-group m-b-0">
                                                                 @if(auth()->user()->kategori_pengguna == 'PHD')
                                                                 <button type="button" class="btn btn-warning mr-2" data-toggle="modal" data-target="#modal-tidak-lengkap">
@@ -362,6 +367,13 @@
                                                                     </div>
                                                                 </div>
                                                             </form>
+                                                            @endif
+                                                            @else
+                                                                <div class="text-center form-group m-b-0">
+                                                                    <span class="label label-info label-rounded" style="font-size:11pt;">
+                                                                        Borang ini telah pun disahkan ({{ $form4d->status }}).
+                                                                    </span>
+                                                                </div>
                                                             @endif
 
 

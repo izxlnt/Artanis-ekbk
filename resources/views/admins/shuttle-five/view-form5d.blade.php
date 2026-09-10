@@ -221,6 +221,12 @@
                                                                 </div>
                                                             </div>
 
+                                                            {{-- PHD's decision buttons must only show while this form is
+                                                            still awaiting that decision (Sedang Diproses) - without this
+                                                            gate, PHD could re-submit Sahkan/Tidak Lengkap on a form
+                                                            they've already decided (even one already sent to IPJPSM),
+                                                            silently flipping its status back and forth. --}}
+                                                            @if ($form5d->status == 'Sedang Diproses')
                                                             <div class="text-center form-group m-b-0">
                                                                 {{-- <button type="submit" class="btn btn-primary" >Simpan</button> --}}
                                                                 {{-- <button type="button" class="btn btn-primary">Kembali</button> --}}
@@ -312,6 +318,13 @@
                                                     </div>
                                                 </div>
                                             </div>
+                                            @else
+                                                <div class="text-center form-group m-b-0">
+                                                    <span class="label label-info label-rounded" style="font-size:11pt;">
+                                                        Borang ini telah pun disahkan ({{ $form5d->status }}).
+                                                    </span>
+                                                </div>
+                                            @endif
 
                                             </table>
                                         </div>

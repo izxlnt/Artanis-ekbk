@@ -221,6 +221,13 @@
                                                                 </div>
                                                             </div>
 
+                                                            {{-- This "-phd" view is what PHD lands on for a form
+                                                            that's already Dihantar ke IPJPSM/Lulus (see the listing
+                                                            page's routing), so the decision buttons must not appear
+                                                            here at all - PHD already decided; without this gate they
+                                                            could re-submit Sahkan/Tidak Lengkap and silently flip an
+                                                            already-sent form's status back and forth. --}}
+                                                            @if ($form5d->status == 'Sedang Diproses')
                                                             <div class="text-center form-group m-b-0">
                                                                 <button type="button" class="btn btn-primary" alt="default"
                                                                     data-toggle="modal" data-target="#responsive-modal-tidaklengkap"
@@ -277,6 +284,13 @@
                                                                     </div>
                                                                 </div>
                                                             </div>
+                                                            @else
+                                                                <div class="text-center form-group m-b-0">
+                                                                    <span class="label label-info label-rounded" style="font-size:11pt;">
+                                                                        Borang ini telah pun disahkan ({{ $form5d->status }}).
+                                                                    </span>
+                                                                </div>
+                                                            @endif
 
                                             </div>
 

@@ -395,6 +395,11 @@
                                                         <hr>
 
                                                         <br>
+                                                        {{-- This same blade is used both while the form is still
+                                                        awaiting PHD's decision and after PHD has already decided
+                                                        (see shuttle_4_formC_view/shuttle_4_formC_view_phd) - the
+                                                        decision buttons must only render in the former case. --}}
+                                                        @if ($formc->status == 'Sedang Diproses')
                                                         <div class="text-center form-group m-b-0">
                                                             {{-- <button type="submit" class="btn btn-primary" >Simpan</button> --}}
                                                             {{-- <button type="button" class="btn btn-primary">Kembali</button> --}}
@@ -498,6 +503,13 @@
                                                                 </div>
                                                             </div>
                                                         </div>
+                                                        @else
+                                                            <div class="text-center form-group m-b-0">
+                                                                <span class="label label-info label-rounded" style="font-size:11pt;">
+                                                                    Borang ini telah pun disahkan ({{ $formc->status }}).
+                                                                </span>
+                                                            </div>
+                                                        @endif
                                                         <br>
                                                     </div>
                                             </div>

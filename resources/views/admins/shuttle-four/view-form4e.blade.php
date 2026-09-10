@@ -272,6 +272,12 @@
                                                             </div>
 
                                                             <hr>
+                                                            {{-- PHD's own decision (status still Sedang Diproses) and
+                                                            BPE/IPJPSM's own decision (status already Dihantar ke
+                                                            IPJPSM) share this block - each role's buttons must only
+                                                            show during their own pending-decision window, not after
+                                                            they've already decided. --}}
+                                                            @if ((auth()->user()->kategori_pengguna == 'BPE' && $form4e->status == 'Dihantar ke IPJPSM') || (auth()->user()->kategori_pengguna != 'BPE' && $form4e->status == 'Sedang Diproses'))
                                                             <div class="text-center form-group m-b-0">
                                                                 {{-- <button type="submit" class="btn btn-primary" >Simpan</button> --}}
                                                                 {{-- <button type="button" class="btn btn-primary">Kembali</button> --}}
@@ -369,6 +375,13 @@
                                                         </div>
                                                     </div>
                                                 </div>
+                                                @else
+                                                    <div class="text-center form-group m-b-0">
+                                                        <span class="label label-info label-rounded" style="font-size:11pt;">
+                                                            Borang ini telah pun disahkan ({{ $form4e->status }}).
+                                                        </span>
+                                                    </div>
+                                                @endif
 
                                         </div>
                                     </div>

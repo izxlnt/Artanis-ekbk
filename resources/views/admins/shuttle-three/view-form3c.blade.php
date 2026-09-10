@@ -377,6 +377,11 @@
                                                         <hr>
 
                                                         <br>
+                                                        {{-- PHD's decision buttons must only show while this form is
+                                                        still awaiting that decision - without this gate, PHD could
+                                                        re-submit Sahkan/Tidak Lengkap on a form they've already
+                                                        decided. --}}
+                                                        @if ($formc->status == 'Sedang Diproses')
                                                         <div class="text-center form-group m-b-0">
                                                             <button type="button" class="btn btn-primary" alt="default"
                                                                         data-toggle="modal" data-target="#responsive-modal-tidaklengkap"
@@ -466,6 +471,13 @@
                                                                 </div>
                                                             </div>
                                                         </div>
+                                                        @else
+                                                            <div class="text-center form-group m-b-0">
+                                                                <span class="label label-info label-rounded" style="font-size:11pt;">
+                                                                    Borang ini telah pun disahkan ({{ $formc->status }}).
+                                                                </span>
+                                                            </div>
+                                                        @endif
                                                         <br>
                                                     </div>
                                             </div>
