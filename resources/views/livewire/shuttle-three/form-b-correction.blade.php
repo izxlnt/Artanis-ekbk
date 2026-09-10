@@ -58,43 +58,37 @@
                 <td style="text-align:center;padding:5px;">
                     <input type="text" size="3" style="text-align:center;width:100%;"
                         value="{{ $pekerja_wargabumi_lelaki[$key] ?? '' }}"
-                        wire:model.defer='pekerja_wargabumi_lelaki.{{ $key }}'
-                        wire:change="calcJumlahPekerjaLelaki({{ $key }})"
+                        wire:model.lazy='pekerja_wargabumi_lelaki.{{ $key }}'
                         onkeypress="return isNumberKey(event)">
                 </td>
                 <td style="text-align:center;padding:5px;">
                     <input type="text" size="3" style="text-align:center;width:100%;"
                         value="{{ $pekerja_wargabumi_perempuan[$key] ?? '' }}"
-                        wire:model.defer='pekerja_wargabumi_perempuan.{{ $key }}'
-                        wire:change="calcJumlahPekerjaPerempuan({{ $key }})"
+                        wire:model.lazy='pekerja_wargabumi_perempuan.{{ $key }}'
                         onkeypress="return isNumberKey(event)">
                 </td>
                 <td style="text-align:center;padding:5px;">
                     <input type="text" size="3" style="text-align:center;width:100%;"
                         value="{{ $pekerja_bukan_wargabumi_lelaki[$key] ?? '' }}"
-                        wire:model.defer='pekerja_bukan_wargabumi_lelaki.{{ $key }}'
-                        wire:change="calcJumlahPekerjaLelaki({{ $key }})"
+                        wire:model.lazy='pekerja_bukan_wargabumi_lelaki.{{ $key }}'
                         onkeypress="return isNumberKey(event)">
                 </td>
                 <td style="text-align:center;padding:5px;">
                     <input type="text" size="3" style="text-align:center;width:100%;"
                         value="{{ $pekerja_bukan_wargabumi_perempuan[$key] ?? '' }}"
-                        wire:model.defer='pekerja_bukan_wargabumi_perempuan.{{ $key }}'
-                        wire:change="calcJumlahPekerjaPerempuan({{ $key }})"
+                        wire:model.lazy='pekerja_bukan_wargabumi_perempuan.{{ $key }}'
                         onkeypress="return isNumberKey(event)">
                 </td>
                 <td style="text-align:center;padding:5px;">
                     <input type="text" size="3" style="text-align:center;width:100%;"
                         value="{{ $pekerja_asing_lelaki[$key] ?? '' }}"
-                        wire:model.defer='pekerja_asing_lelaki.{{ $key }}'
-                        wire:change="calcJumlahPekerjaLelaki({{ $key }})"
+                        wire:model.lazy='pekerja_asing_lelaki.{{ $key }}'
                         onkeypress="return isNumberKey(event)">
                 </td>
                 <td style="text-align:center;padding:5px;">
                     <input type="text" size="3" style="text-align:center;width:100%;"
                         value="{{ $pekerja_asing_perempuan[$key] ?? '' }}"
-                        wire:model.defer='pekerja_asing_perempuan.{{ $key }}'
-                        wire:change="calcJumlahPekerjaPerempuan({{ $key }})"
+                        wire:model.lazy='pekerja_asing_perempuan.{{ $key }}'
                         onkeypress="return isNumberKey(event)">
                 </td>
                 <td style="text-align:center;padding:5px;background-color: #f8dbee;">
@@ -115,15 +109,13 @@
                 <td style="text-align:center;padding:5px;">
                     <input type="text" size="3" style="text-align:center;width:100%;"
                         value="{{ $gaji_lelaki[$key] ?? '' }}"
-                        wire:model.defer='gaji_lelaki.{{ $key }}'
-                        wire:change="calcJumlahPekerjaLelaki({{ $key }})"
+                        wire:model.lazy='gaji_lelaki.{{ $key }}'
                         onkeypress="return isNumberKey(event)">
                 </td>
                 <td style="text-align:center;padding:5px;">
                     <input type="text" size="3" style="text-align:center;width:100%;"
                         value="{{ $gaji_perempuan[$key] ?? '' }}"
-                        wire:model.defer='gaji_perempuan.{{ $key }}'
-                        wire:change="calcJumlahPekerjaPerempuan({{ $key }})"
+                        wire:model.lazy='gaji_perempuan.{{ $key }}'
                         onkeypress="return isNumberKey(event)">
                 </td>
                 <td style="text-align:center;padding:5px;background-color: #f8dbee;">

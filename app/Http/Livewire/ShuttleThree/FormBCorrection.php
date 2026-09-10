@@ -52,10 +52,39 @@ class FormBCorrection extends Component
         'jumlah_total_lelaki', 'jumlah_total_perempuan', 'jumlah_total_gaji',
     ];
 
+    private const LELAKI_FIELDS = ['pekerja_wargabumi_lelaki', 'pekerja_bukan_wargabumi_lelaki', 'pekerja_asing_lelaki', 'gaji_lelaki'];
+    private const PEREMPUAN_FIELDS = ['pekerja_wargabumi_perempuan', 'pekerja_bukan_wargabumi_perempuan', 'pekerja_asing_perempuan', 'gaji_perempuan'];
+
     public function mount($formbId)
     {
         $this->formb_id = $formbId;
         $this->loadEffectiveValues();
+    }
+
+    /**
+     * Recalculates the row a field belongs to once Livewire has actually
+     * applied its new value - unlike a wire:change attribute on the same
+     * input a wire:model.lazy is bound to, updated() is guaranteed to run
+     * only after the property already holds the value just typed, so
+     * there is no risk of recalculating against the pre-edit value (the
+     * bug a wire:model.defer + wire:change combo on the same element hit:
+     * typing into column (07) could leave (09) showing its stale
+     * pre-edit total instead of picking up the new figure).
+     */
+    public function updated($name, $value)
+    {
+        if (!str_contains($name, '.')) {
+            return;
+        }
+
+        [$field, $key] = explode('.', $name, 2);
+        $key = (int) $key;
+
+        if (in_array($field, self::LELAKI_FIELDS, true)) {
+            $this->calcJumlahPekerjaLelaki($key);
+        } elseif (in_array($field, self::PEREMPUAN_FIELDS, true)) {
+            $this->calcJumlahPekerjaPerempuan($key);
+        }
     }
 
     public function render()
