@@ -154,6 +154,18 @@
                                                                 $jml_tot_p     = $form_b->sum(fn($r) => $r->jumlah_perempuan * $r->gaji_perempuan);
                                                                 $jml_tot_lp    = $jml_tot_l + $jml_tot_p;
                                                             @endphp
+                                                            @php
+                                                                // PHD may correct Form B's figures before their own
+                                                                // Sahkan/Tolak decision (status still "Sedang Diproses"),
+                                                                // and IPJPSM/BPE may correct it before theirs (status
+                                                                // "Dihantar ke IPJPSM") - once either has decided, the
+                                                                // form goes back to being purely read-only here.
+                                                                $canCorrect = (auth()->user()->kategori_pengguna == 'PHD' && $formb->status == 'Sedang Diproses')
+                                                                    || (auth()->user()->kategori_pengguna == 'BPE' && $formb->status == 'Dihantar ke IPJPSM');
+                                                            @endphp
+                                                            @if ($canCorrect)
+                                                                @livewire('shuttle-three.form-b-correction', ['formbId' => $formb->id], key('formb-correction-' . $formb->id))
+                                                            @else
                                                             <div style="overflow-x: auto;">
                                                             <table>
 
@@ -352,6 +364,7 @@
 
                                                             </table>
                                                             </div>{{-- end overflow-x wrapper --}}
+                                                            @endif
                                                             <br>
 
                                                         </div>
