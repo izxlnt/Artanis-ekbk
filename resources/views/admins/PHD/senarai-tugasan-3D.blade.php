@@ -163,12 +163,12 @@
                                                 </td>
                                                 <td>
 
-                                                    @if ($data->status == 'Sedang Diproses' || ($data->status == 'Dihantar ke IPJPSM' && !$packageSent))
+                                                    @if ($data->status == 'Sedang Diproses')
                                                         <a href="{{ route('phd.shuttle-3-view-formD', $data->id) }}">
                                                             <img src="{{ asset('circle_times_yellow.png') }}" height='30px'
                                                             data-toggle="tooltip" data-placement="bottom"
                                                             title="Borang perlu disahkan PHD"></i></a>
-                                                            @elseif($data->status == 'Dihantar ke IPJPSM' && $packageSent)
+                                                            @elseif($data->status == 'Dihantar ke IPJPSM')
                                                             <a href="{{ route('phd.shuttle-3-view-formD-phd', $data->id) }}">
                                                             <img src="{{ asset('circle_check_yellow.png') }}" height='30px'
                                                                 data-toggle="tooltip" data-placement="bottom"

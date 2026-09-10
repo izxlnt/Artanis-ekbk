@@ -162,7 +162,7 @@
                                                 </td>
                                                 <td>
 
-                                                    @if ($data->status == 'Sedang Diproses' || ($data->status == 'Dihantar ke IPJPSM' && !$packageSent))
+                                                    @if ($data->status == 'Sedang Diproses')
                                                     <a href="{{ route('phd.shuttle-5-view-formE', $data->id) }}">
                                                         <img src="{{ asset('circle_times_yellow.png') }}" height='30px'
                                                             data-toggle="tooltip" data-placement="bottom"
@@ -171,7 +171,7 @@
                                                     <img src="{{ asset('history.png') }}" height='30px'
                                                         data-toggle="tooltip" data-placement="bottom"
                                                         title="Borang tidak lengkap"></i></a>
-                                                        @elseif($data->status == 'Dihantar ke IPJPSM' && $packageSent)
+                                                        @elseif($data->status == 'Dihantar ke IPJPSM')
                                                         <a href="{{ route('phd.shuttle-5-view-formE-phd', $data->id) }}">
                                                         <img src="{{ asset('circle_check_yellow.png') }}" height='30px'
                                                             data-toggle="tooltip" data-placement="bottom"
