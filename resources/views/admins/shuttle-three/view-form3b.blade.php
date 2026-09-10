@@ -84,8 +84,14 @@
                                                     <div class="card">
                                                         <div class="card-body" style="padding-top: 0%;">
 
+                                                            {{-- margin-bottom was -3% here, tuned for when this
+                                                            section sat inside the old invalid <table> wrapper (see
+                                                            the comment above) - now that the wrapper is a plain
+                                                            <div>, that negative margin pulls this row down over the
+                                                            table below it instead of just tightening space above the
+                                                            old table's own spacing, so it's dropped here. --}}
                                                             <div class="row"
-                                                                style="justify-content: center;margin-bottom:-3%;">
+                                                                style="justify-content: center;">
                                                                 <div class="col-md-2">
                                                                     <label><b>Tahun:</b></label>
                                                                     <input type="text" class="form-control"

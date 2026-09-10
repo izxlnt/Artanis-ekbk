@@ -756,31 +756,34 @@ class MainController extends Controller
 
 
         // dd($formB);
+        // PHD lands back on their Senarai Tugasan (task list) page after
+        // deciding, not the general shuttle list - that's the page they
+        // actually came from to review this form.
         if ($formB->shuttle_type == '3') {
 
             if ($request->status == "Tidak Lengkap") {
                 // Session::flash('message', 'Borang Berjaya Dihantar Semula ke IBK.');
-                return redirect()->route('phd.shuttle-3-listB', date("Y"))->with('success', 'Borang Berjaya Dihantar Semula ke IBK.');
+                return redirect()->route('phd.senarai-tugasan-3B', date("Y"))->with('success', 'Borang Berjaya Dihantar Semula ke IBK.');
             } elseif ($request->status == "Dihantar ke IPJPSM") {
                 // Session::flash('message', 'Borang Berjaya Disahkan.');
-                return redirect()->route('phd.shuttle-3-listB', date("Y"))->with('success', 'Borang Berjaya Disahkan.');
+                return redirect()->route('phd.senarai-tugasan-3B', date("Y"))->with('success', 'Borang Berjaya Disahkan.');
             }
         } elseif ($formB->shuttle_type == '4') {
             if ($request->status == "Tidak Lengkap") {
                 // Session::flash('message', 'Borang Berjaya Dihantar Semula ke IBK.');
-                return redirect()->route('phd.shuttle-4-listB', date("Y"))->with('success', 'Borang Berjaya Dihantar Semula ke IBK.');
+                return redirect()->route('phd.senarai-tugasan-4B', date("Y"))->with('success', 'Borang Berjaya Dihantar Semula ke IBK.');
             } elseif ($request->status == "Dihantar ke IPJPSM") {
                 // Session::flash('message', 'Borang Berjaya Disahkan.');
-                return redirect()->route('phd.shuttle-4-listB', date("Y"))->with('success', 'Borang Berjaya Disahkan.');
+                return redirect()->route('phd.senarai-tugasan-4B', date("Y"))->with('success', 'Borang Berjaya Disahkan.');
             }
         }
         elseif ($formB->shuttle_type == '5') {
             if ($request->status == "Tidak Lengkap") {
                 // Session::flash('message', 'Borang Berjaya Dihantar Semula ke IBK.');
-                return redirect()->route('phd.shuttle-5-listB', date("Y"))->with('success', 'Borang Berjaya Dihantar Semula ke IBK.');
+                return redirect()->route('phd.senarai-tugasan-5B', date("Y"))->with('success', 'Borang Berjaya Dihantar Semula ke IBK.');
             } elseif ($request->status == "Dihantar ke IPJPSM") {
                 // Session::flash('message', 'Borang Berjaya Disahkan.');
-                return redirect()->route('phd.shuttle-5-listB', date("Y"))->with('success', 'Borang Berjaya Disahkan.');
+                return redirect()->route('phd.senarai-tugasan-5B', date("Y"))->with('success', 'Borang Berjaya Disahkan.');
             }
         }
     }
