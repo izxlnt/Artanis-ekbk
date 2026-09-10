@@ -102,13 +102,26 @@ class EditForm3C extends Component
             $record = $formC[$data->id] ?? null;
             if (!$record) continue;
 
+            // jumlah_stok_kayu_balak (04) and baki_stok_kehadapan (07) must be
+            // derived from whatever baki_stok/kayu_masuk/proses_masuk were
+            // just edited to, not trusted from $this->jumlah_stok_kayu_balak/
+            // $this->baki_stok_kehadapan - those are only ever set once, by
+            // loadData() from the ORIGINAL pre-edit record, since nothing in
+            // this component's blade view calls the calc*() methods that
+            // would otherwise keep them in sync with an edit. Without this,
+            // correcting baki_stok/kayu_masuk/proses_masuk on a form PHD
+            // returned silently re-saves (04) and (07) at their stale,
+            // pre-correction values.
+            $jumlahStokKayuBalak = (float) ($this->baki_stok[$keySpecies] ?? 0) + (float) ($this->kayu_masuk[$keySpecies] ?? 0);
+            $bakiStokKehadapan = $jumlahStokKayuBalak - (float) ($this->proses_masuk[$keySpecies] ?? 0);
+
             $record->update([
                 'baki_stok' => $this->baki_stok[$keySpecies],
                 'kayu_masuk' => $this->kayu_masuk[$keySpecies],
-                'jumlah_stok_kayu_balak' => $this->jumlah_stok_kayu_balak[$keySpecies],
+                'jumlah_stok_kayu_balak' => $jumlahStokKayuBalak,
                 'proses_masuk' => $this->proses_masuk[$keySpecies],
                 'proses_keluar' => $this->proses_keluar[$keySpecies],
-                'baki_stok_kehadapan' => $this->baki_stok_kehadapan[$keySpecies],
+                'baki_stok_kehadapan' => $bakiStokKehadapan,
 
                 'jumlah_baki_stok' => $this->jumlah_baki_stok[$keySpecies] ?? 0,
                 'jumlah_kayu_masuk' => $this->jumlah_kayu_masuk[$keySpecies] ?? 0,

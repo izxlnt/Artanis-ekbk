@@ -21,7 +21,7 @@
                                     <div class="tab-pane active" id="hotel" role="tabpanel" aria-labelledby="hotel-tab">
                                         <br>
                                         <div class="">
-                                            <table class="table table-striped table-bordered" id="" style="width: 100%;">
+                                            <div style="width: 100%;">
                                                 <form class="form-horizontal" wire:submit.prevent='update'>
                                                     <div class="row">
                                                         <div class="col-12">
@@ -396,7 +396,7 @@
                                     </div>
                                 </div>
 
-                                </table>
+                                </div>
                             </div>
                         </div>
 
@@ -472,9 +472,27 @@
     function fcCalcRow(ks) {
         var jumlah = fcN('fc_baki_' + ks) + fcN('fc_masuk_' + ks);
         fcS('fc_jumlah_' + ks, jumlah);
-        fcS('fc_kehadapan_' + ks, jumlah - fcN('fc_pmasuk_' + ks) - fcN('fc_pkeluar_' + ks));
+        // (07) = (04) - (05) per the column header and the server-side
+        // calcBakiStok() formula - proses_keluar (06, finished output) does
+        // not reduce the raw-material balance carried forward.
+        fcS('fc_kehadapan_' + ks, jumlah - fcN('fc_pmasuk_' + ks));
         fcCalcAll();
     }
+
+    // wire:init="loadData" (see the component root above) populates the
+    // wire:model.defer-bound inputs via an AJAX round-trip AFTER the initial
+    // page render - so on first load, and again after that round-trip
+    // completes, the readonly fc_jumlah_*/fc_kehadapan_* cells (which have
+    // no wire:model of their own and are only ever filled in by fcCalcRow,
+    // itself only wired to each field's own oninput) render blank until the
+    // user happens to retype something. Recomputing every row once the
+    // loaded data actually lands fixes that without waiting for a keystroke.
+    document.addEventListener('livewire:load', function() {
+        Object.keys(fcGroups).forEach(function(kg) { fcGroups[kg].forEach(function(ks) { fcCalcRow(ks); }); });
+    });
+    document.addEventListener('livewire:update', function() {
+        Object.keys(fcGroups).forEach(function(kg) { fcGroups[kg].forEach(function(ks) { fcCalcRow(ks); }); });
+    });
     function fcCalcAll() {
         var jbB=0,jbM=0,jbJ=0,jbPM=0,jbPK=0,jbK=0;
         Object.keys(fcGroups).forEach(function(kg) {
