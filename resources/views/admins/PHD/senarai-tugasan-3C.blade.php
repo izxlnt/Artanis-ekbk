@@ -157,7 +157,7 @@
                                                             style="font-size: 11pt;">{{ $data->status }}</span>
 
                                                     @elseif($data->status =="Tidak Lengkap")
-                                                        <span class="label label-warning label-rounded"
+                                                        <span class="label label-danger label-rounded"
                                                             style="font-size: 11pt;">{{ $data->status }}</span>
                                                             @elseif($data->status == 'Lulus')
                                                         <span class="label label-success label-rounded"
