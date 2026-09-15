@@ -163,16 +163,21 @@
                                             </td>
                                             <td>
                                                 @if($data->status =="Sedang Diproses")
-                                                <a href="" class="mr-1 btn btn-dark disabled"><i
-                                                    class="fas fa-pencil-alt"></i></a>
-                                                @elseif($data->status =="Dihantar ke IPJPSM")
-                                                <a href="" class="mr-1 btn btn-dark disabled"><i
-                                                    class="fas fa-pencil-alt"></i></a>
+                                                <img src="{{ asset('circle_check_yellow.png') }}" height='30px' alt=""
+                                                    data-toggle="tooltip" data-placement="bottom" title="Borang telah dihantar">
+                                                @elseif(in_array($data->status, ['Lulus', 'Dihantar ke IPJPSM']))
+                                                <img src="{{ asset('circle_check.png') }}" height='30px' alt=""
+                                                    data-toggle="tooltip" data-placement="bottom" title="Borang telah disahkan">
                                                 @elseif($data->status =="Tidak Lengkap")
                                                 <a href="{{ route('edit-form3d',$data->id) }}" >
                                                     <img src="{{ asset('history.png') }}" height='30px' alt="" style="font-size: 15pt;"
                                                             data-toggle="tooltip" data-placement="bottom"
                                                             title="Borang Tidak Lengkap"></i></a>
+                                                @elseif($data->status =="Sedang Diisi")
+                                                {{-- Per the official status spec, IBK sees "belum diisi" and "sedang diisi" as the same icon. --}}
+                                                <img src="{{ asset('circle_times.png') }}" height='30px' alt=""
+                                                    style="color:red;font-size:25pt"
+                                                    data-toggle="tooltip" data-placement="bottom" title="Borang sedang diisi">
                                                 @else
                                                 <a href="" class="mr-1 btn btn-dark disabled"><i
                                                     class="fas fa-pencil-alt"></i></a>

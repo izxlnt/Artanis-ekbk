@@ -153,7 +153,7 @@
                                                             href="{{ route('pengguna.shuttle-3-view-formB', $data->id) }}">
                                                             <img src="{{ asset('circle_check.png') }}" height='30px'
                                                                 alt="" data-toggle="tooltip" data-placement="bottom"
-                                                                title="Borang telah disahkan PHD"
+                                                                title="Borang telah disahkan"
                                                                 style="color: green; font-size: 20pt;"></i></a>
                                                     @elseif($data->status == 'Tidak Lengkap' && $data->suku_tahun == '1')
                                                         <a href="{{ route('edit-form3b', $data->id) }}"
@@ -166,7 +166,7 @@
                                                             href="{{ route('pengguna.shuttle-3-view-formB', $data->id) }}">
                                                             <img src="{{ asset('circle_check.png') }}" height='30px'
                                                                 alt="" data-toggle="tooltip" data-placement="bottom"
-                                                                title="Borang telah diperaku"
+                                                                title="Borang telah disahkan"
                                                                 style="color: green; font-size: 20pt;"></i></a>
                                                     @elseif($data->status == 'Ditutup' && $data->suku_tahun == '1')
                                                         @if ($flow['formB'][1]['can_fill'])
@@ -210,7 +210,7 @@
                                                             href="{{ route('pengguna.shuttle-3-view-formB', $data->id) }}"><img
                                                                 src="{{ asset('circle_check.png') }}" height='30px'
                                                                 alt="" data-toggle="tooltip" data-placement="bottom"
-                                                                title="Borang telah disahkan PHD"
+                                                                title="Borang telah disahkan"
                                                                 style="color: green; font-size: 20pt;"></i></a>
                                                     @elseif($data->status == 'Tidak Lengkap' && $data->suku_tahun == '2')
                                                         <a href="{{ route('edit-form3b', $data->id) }}"
@@ -223,7 +223,7 @@
                                                             href="{{ route('pengguna.shuttle-3-view-formB', $data->id) }}"><img
                                                                 src="{{ asset('circle_check.png') }}" height='30px'
                                                                 alt="" data-toggle="tooltip" data-placement="bottom"
-                                                                title="Borang telah diperaku"
+                                                                title="Borang telah disahkan"
                                                                 style="color: green; font-size: 20pt;"></i></a>
                                                     @elseif($data->status == 'Ditutup' && $data->suku_tahun == '2')
                                                         @if ($flow['formB'][2]['can_fill'])
@@ -267,7 +267,7 @@
                                                             href="{{ route('pengguna.shuttle-3-view-formB', $data->id) }}"><img
                                                                 src="{{ asset('circle_check.png') }}" height='30px'
                                                                 alt="" data-toggle="tooltip" data-placement="bottom"
-                                                                title="Borang telah disahkan PHD"
+                                                                title="Borang telah disahkan"
                                                                 style="color: green; font-size: 20pt;"></i></a>
                                                     @elseif($data->status == 'Tidak Lengkap' && $data->suku_tahun == '3')
                                                         <a href="{{ route('edit-form3b', $data->id) }}"
@@ -280,7 +280,7 @@
                                                             href="{{ route('pengguna.shuttle-3-view-formB', $data->id) }}">
                                                             <img src="{{ asset('circle_check.png') }}" height='30px'
                                                                 alt="" data-toggle="tooltip" data-placement="bottom"
-                                                                title="Borang telah diperaku"
+                                                                title="Borang telah disahkan"
                                                                 style="color: green; font-size: 20pt;"></i></a>
                                                     @elseif($data->status == 'Ditutup' && $data->suku_tahun == '3')
                                                         @if ($flow['formB'][3]['can_fill'])
@@ -324,7 +324,7 @@
                                                             href="{{ route('pengguna.shuttle-3-view-formB', $data->id) }}">
                                                             <img src="{{ asset('circle_check.png') }}" height='30px'
                                                                 alt="" data-toggle="tooltip" data-placement="bottom"
-                                                                title="Borang telah disahkan PHD"
+                                                                title="Borang telah disahkan"
                                                                 style="color: green; font-size: 20pt;"></i></a>
                                                     @elseif($data->status == 'Tidak Lengkap' && $data->suku_tahun == '4')
                                                         <a href="{{ route('edit-form3b', $data->id) }}"
@@ -337,7 +337,7 @@
                                                             href="{{ route('pengguna.shuttle-3-view-formB', $data->id) }}">
                                                             <img src="{{ asset('circle_check.png') }}" height='30px'
                                                                 alt="" data-toggle="tooltip" data-placement="bottom"
-                                                                title="Borang telah diperaku"
+                                                                title="Borang telah disahkan"
                                                                 style="color: green; font-size: 20pt;"></i></a>
                                                     @elseif($data->status == 'Ditutup' && $data->suku_tahun == '4')
                                                         @if ($flow['formB'][4]['can_fill'])

@@ -162,7 +162,7 @@
                                                                 <img src="{{ asset('circle_check.png') }}" height='30px'
                                                                     alt="" style="color: green; font-size: 20pt;"
                                                                     data-toggle="tooltip" data-placement="bottom"
-                                                                    title="Borang telah disahkan PHD"></i></a>
+                                                                    title="Borang telah disahkan"></i></a>
                                                         @endif
                                                     @elseif($data->status == 'Tiada Pengeluaran' && $data->bulan == '1')
                                                         <a
@@ -181,11 +181,11 @@
                                                             href="{{ route('pengguna.shuttle-3-view-formC', $data->id) }}">
                                                             <img src="{{ asset('circle_check.png') }}" height='30px'
                                                                 alt="" data-toggle="tooltip" data-placement="bottom"
-                                                                title="Borang telah diperaku"
+                                                                title="Borang telah disahkan"
                                                                 style="color: green; font-size: 20pt;"></i></a>
                                                     @elseif($data->status == 'Sedang Diisi' && $data->bulan == '1')
                                                         <a href="{{ route('user.shuttle-3-formC.KKB', [$id = 1, $year]) }}">
-                                                            <img src="{{ asset('sync.png') }}" height='30px'
+                                                            <img src="{{ asset('circle_times.png') }}" height='30px'
                                                                     alt="" data-toggle="tooltip"
                                                             data-placement="bottom" title="Borang sedang diisi">
                                                     @elseif($data->status == 'Ditutup' && $data->bulan == '1')
@@ -236,7 +236,7 @@
                                                                 <img src="{{ asset('circle_check.png') }}" height='30px'
                                                                     alt="" style="color: green; font-size: 20pt;"
                                                                     data-toggle="tooltip" data-placement="bottom"
-                                                                    title="Borang telah disahkan PHD"></i></a>
+                                                                    title="Borang telah disahkan"></i></a>
                                                         @endif
                                                     @elseif($data->status == 'Tiada Pengeluaran' && $data->bulan == '2')
                                                         <a
@@ -255,11 +255,11 @@
                                                             href="{{ route('pengguna.shuttle-3-view-formC', $data->id) }}">
                                                             <img src="{{ asset('circle_check.png') }}" height='30px'
                                                                 alt="" data-toggle="tooltip" data-placement="bottom"
-                                                                title="Borang telah diperaku"
+                                                                title="Borang telah disahkan"
                                                                 style="color: green; font-size: 20pt;"></i></a>
                                                     @elseif($data->status == 'Sedang Diisi' && $data->bulan == '2')
                                                         <a href="{{ route('user.shuttle-3-formC.KKB', [$id = 2, $year]) }}">
-                                                            <img src="{{ asset('sync.png') }}" height='30px'
+                                                            <img src="{{ asset('circle_times.png') }}" height='30px'
                                                                     alt="" data-toggle="tooltip"
                                                             data-placement="bottom" title="Borang sedang diisi">
                                                     @elseif($data->status == 'Ditutup' && $data->bulan == '2')
@@ -310,7 +310,7 @@
                                                                 <img src="{{ asset('circle_check.png') }}" height='30px'
                                                                     alt="" style="color: green; font-size: 20pt;"
                                                                     data-toggle="tooltip" data-placement="bottom"
-                                                                    title="Borang telah disahkan PHD"></i></a>
+                                                                    title="Borang telah disahkan"></i></a>
                                                         @endif
                                                     @elseif($data->status == 'Tiada Pengeluaran' && $data->bulan == '3')
                                                         <a
@@ -329,11 +329,11 @@
                                                             href="{{ route('pengguna.shuttle-3-view-formC', $data->id) }}">
                                                             <img src="{{ asset('circle_check.png') }}" height='30px'
                                                                 alt="" data-toggle="tooltip" data-placement="bottom"
-                                                                title="Borang telah diperaku"
+                                                                title="Borang telah disahkan"
                                                                 style="color: green; font-size: 20pt;"></i></a>
                                                     @elseif($data->status == 'Sedang Diisi' && $data->bulan == '3')
                                                     <a href="{{ route('user.shuttle-3-formC.KKB', [$id = 3, $year]) }}">
-                                                        <img src="{{ asset('sync.png') }}" height='30px'
+                                                        <img src="{{ asset('circle_times.png') }}" height='30px'
                                                                 alt="" data-toggle="tooltip"
                                                         data-placement="bottom" title="Borang sedang diisi">
                                                     @elseif($data->status == 'Ditutup' && $data->bulan == '3')
@@ -384,7 +384,7 @@
                                                                 <img src="{{ asset('circle_check.png') }}" height='30px'
                                                                     alt="" style="color: green; font-size: 20pt;"
                                                                     data-toggle="tooltip" data-placement="bottom"
-                                                                    title="Borang telah disahkan PHD"></i></a>
+                                                                    title="Borang telah disahkan"></i></a>
                                                         @endif
                                                     @elseif($data->status == 'Tiada Pengeluaran' && $data->bulan == '4')
                                                         <a
@@ -403,11 +403,11 @@
                                                             href="{{ route('pengguna.shuttle-3-view-formC', $data->id) }}">
                                                             <img src="{{ asset('circle_check.png') }}" height='30px'
                                                                 alt="" data-toggle="tooltip" data-placement="bottom"
-                                                                title="Borang telah diperaku"
+                                                                title="Borang telah disahkan"
                                                                 style="color: green; font-size: 20pt;"></i></a>
                                                     @elseif($data->status == 'Sedang Diisi' && $data->bulan == '4')
                                                     <a href="{{ route('user.shuttle-3-formC.KKB', [$id = 4, $year]) }}">
-                                                        <img src="{{ asset('sync.png') }}" height='30px'
+                                                        <img src="{{ asset('circle_times.png') }}" height='30px'
                                                                 alt="" data-toggle="tooltip"
                                                         data-placement="bottom" title="Borang sedang diisi">
                                                     @elseif($data->status == 'Ditutup' && $data->bulan == '4')
@@ -458,7 +458,7 @@
                                                                 <img src="{{ asset('circle_check.png') }}" height='30px'
                                                                     alt="" style="color: green; font-size: 20pt;"
                                                                     data-toggle="tooltip" data-placement="bottom"
-                                                                    title="Borang telah disahkan PHD"></i></a>
+                                                                    title="Borang telah disahkan"></i></a>
                                                         @endif
                                                     @elseif($data->status == 'Tiada Pengeluaran' && $data->bulan == '5')
                                                         <a
@@ -477,11 +477,11 @@
                                                             href="{{ route('pengguna.shuttle-3-view-formC', $data->id) }}">
                                                             <img src="{{ asset('circle_check.png') }}" height='30px'
                                                                 alt="" data-toggle="tooltip" data-placement="bottom"
-                                                                title="Borang telah diperaku"
+                                                                title="Borang telah disahkan"
                                                                 style="color: green; font-size: 20pt;"></i></a>
                                                     @elseif($data->status == 'Sedang Diisi' && $data->bulan == '5')
                                                     <a href="{{ route('user.shuttle-3-formC.KKB', [$id = 5, $year]) }}">
-                                                        <img src="{{ asset('sync.png') }}" height='30px'
+                                                        <img src="{{ asset('circle_times.png') }}" height='30px'
                                                                 alt="" data-toggle="tooltip"
                                                         data-placement="bottom" title="Borang sedang diisi">
                                                     @elseif($data->status == 'Ditutup' && $data->bulan == '5')
@@ -532,7 +532,7 @@
                                                                 <img src="{{ asset('circle_check.png') }}" height='30px'
                                                                     alt="" style="color: green; font-size: 20pt;"
                                                                     data-toggle="tooltip" data-placement="bottom"
-                                                                    title="Borang telah disahkan PHD"></i></a>
+                                                                    title="Borang telah disahkan"></i></a>
                                                         @endif
                                                     @elseif($data->status == 'Tiada Pengeluaran' && $data->bulan == '6')
                                                         <a
@@ -551,11 +551,11 @@
                                                             href="{{ route('pengguna.shuttle-3-view-formC', $data->id) }}">
                                                             <img src="{{ asset('circle_check.png') }}" height='30px'
                                                                 alt="" data-toggle="tooltip" data-placement="bottom"
-                                                                title="Borang telah diperaku"
+                                                                title="Borang telah disahkan"
                                                                 style="color: green; font-size: 20pt;"></i></a>
                                                     @elseif($data->status == 'Sedang Diisi' && $data->bulan == '6')
                                                     <a href="{{ route('user.shuttle-3-formC.KKB', [$id = 6, $year]) }}">
-                                                        <img src="{{ asset('sync.png') }}" height='30px'
+                                                        <img src="{{ asset('circle_times.png') }}" height='30px'
                                                                 alt="" data-toggle="tooltip"
                                                         data-placement="bottom" title="Borang sedang diisi">
                                                     @elseif($data->status == 'Ditutup' && $data->bulan == '6')
@@ -606,7 +606,7 @@
                                                                 <img src="{{ asset('circle_check.png') }}" height='30px'
                                                                     alt="" style="color: green; font-size: 20pt;"
                                                                     data-toggle="tooltip" data-placement="bottom"
-                                                                    title="Borang telah disahkan PHD"></i></a>
+                                                                    title="Borang telah disahkan"></i></a>
                                                         @endif
                                                     @elseif($data->status == 'Tiada Pengeluaran' && $data->bulan == '7')
                                                         <a
@@ -627,11 +627,11 @@
                                                                 href="{{ route('pengguna.shuttle-3-view-formC', $data->id) }}">
                                                                 <img src="{{ asset('circle_check.png') }}" height='30px'
                                                                     alt="" data-toggle="tooltip" data-placement="bottom"
-                                                                    title="Borang telah diperaku"
+                                                                    title="Borang telah disahkan"
                                                                     style="color: green; font-size: 20pt;"></i></a>
                                                         @elseif($data->status == 'Sedang Diisi' && $data->bulan == '7')
                                                         <a href="{{ route('user.shuttle-3-formC.KKB', [$id = 7, $year]) }}">
-                                                            <img src="{{ asset('sync.png') }}" height='30px'
+                                                            <img src="{{ asset('circle_times.png') }}" height='30px'
                                                                     alt="" data-toggle="tooltip"
                                                             data-placement="bottom" title="Borang sedang diisi">
                                                     @elseif($data->status == 'Ditutup' && $data->bulan == '7')
@@ -682,7 +682,7 @@
                                                                 <img src="{{ asset('circle_check.png') }}" height='30px'
                                                                     alt="" style="color: green; font-size: 20pt;"
                                                                     data-toggle="tooltip" data-placement="bottom"
-                                                                    title="Borang telah disahkan PHD"></i></a>
+                                                                    title="Borang telah disahkan"></i></a>
                                                         @endif
                                                     @elseif($data->status == 'Tiada Pengeluaran' && $data->bulan == '8')
                                                         <a
@@ -701,11 +701,11 @@
                                                             href="{{ route('pengguna.shuttle-3-view-formC', $data->id) }}">
                                                             <img src="{{ asset('circle_check.png') }}" height='30px'
                                                                 alt="" data-toggle="tooltip" data-placement="bottom"
-                                                                title="Borang telah diperaku"
+                                                                title="Borang telah disahkan"
                                                                 style="color: green; font-size: 20pt;"></i></a>
                                                     @elseif($data->status == 'Sedang Diisi' && $data->bulan == '8')
                                                     <a href="{{ route('user.shuttle-3-formC.KKB', [$id = 8, $year]) }}">
-                                                        <img src="{{ asset('sync.png') }}" height='30px'
+                                                        <img src="{{ asset('circle_times.png') }}" height='30px'
                                                                 alt="" data-toggle="tooltip"
                                                         data-placement="bottom" title="Borang sedang diisi">
                                                     @elseif($data->status == 'Ditutup' && $data->bulan == '8')
@@ -756,7 +756,7 @@
                                                                 <img src="{{ asset('circle_check.png') }}" height='30px'
                                                                     alt="" style="color: green; font-size: 20pt;"
                                                                     data-toggle="tooltip" data-placement="bottom"
-                                                                    title="Borang telah disahkan PHD"></i></a>
+                                                                    title="Borang telah disahkan"></i></a>
                                                         @endif
                                                     @elseif($data->status == 'Tiada Pengeluaran' && $data->bulan == '9')
                                                         <a
@@ -775,11 +775,11 @@
                                                             href="{{ route('pengguna.shuttle-3-view-formC', $data->id) }}">
                                                             <img src="{{ asset('circle_check.png') }}" height='30px'
                                                                 alt="" data-toggle="tooltip" data-placement="bottom"
-                                                                title="Borang telah diperaku"
+                                                                title="Borang telah disahkan"
                                                                 style="color: green; font-size: 20pt;"></i></a>
                                                     @elseif($data->status == 'Sedang Diisi' && $data->bulan == '9')
                                                     <a href="{{ route('user.shuttle-3-formC.KKB', [$id = 9, $year]) }}">
-                                                        <img src="{{ asset('sync.png') }}" height='30px'
+                                                        <img src="{{ asset('circle_times.png') }}" height='30px'
                                                                 alt="" data-toggle="tooltip"
                                                         data-placement="bottom" title="Borang sedang diisi">
                                                     @elseif($data->status == 'Ditutup' && $data->bulan == '9')
@@ -830,7 +830,7 @@
                                                                 <img src="{{ asset('circle_check.png') }}" height='30px'
                                                                     alt="" style="color: green; font-size: 20pt;"
                                                                     data-toggle="tooltip" data-placement="bottom"
-                                                                    title="Borang telah disahkan PHD"></i></a>
+                                                                    title="Borang telah disahkan"></i></a>
                                                         @endif
                                                     @elseif($data->status == 'Tiada Pengeluaran' && $data->bulan == '10')
                                                         <a
@@ -849,11 +849,11 @@
                                                             href="{{ route('pengguna.shuttle-3-view-formC', $data->id) }}">
                                                             <img src="{{ asset('circle_check.png') }}" height='30px'
                                                                 alt="" data-toggle="tooltip" data-placement="bottom"
-                                                                title="Borang telah diperaku"
+                                                                title="Borang telah disahkan"
                                                                 style="color: green; font-size: 20pt;"></i></a>
                                                     @elseif($data->status == 'Sedang Diisi' && $data->bulan == '10')
                                                     <a href="{{ route('user.shuttle-3-formC.KKB', [$id = 10, $year]) }}">
-                                                        <img src="{{ asset('sync.png') }}" height='30px'
+                                                        <img src="{{ asset('circle_times.png') }}" height='30px'
                                                                 alt="" data-toggle="tooltip"
                                                         data-placement="bottom" title="Borang sedang diisi">
                                                     @elseif($data->status == 'Ditutup' && $data->bulan == '10')
@@ -904,7 +904,7 @@
                                                                 <img src="{{ asset('circle_check.png') }}" height='30px'
                                                                     alt="" style="color: green; font-size: 20pt;"
                                                                     data-toggle="tooltip" data-placement="bottom"
-                                                                    title="Borang telah disahkan PHD"></i></a>
+                                                                    title="Borang telah disahkan"></i></a>
                                                         @endif
                                                     @elseif($data->status == 'Tiada Pengeluaran' && $data->bulan == '11')
                                                         <a
@@ -923,11 +923,11 @@
                                                             href="{{ route('pengguna.shuttle-3-view-formC', $data->id) }}">
                                                             <img src="{{ asset('circle_check.png') }}" height='30px'
                                                                 alt="" data-toggle="tooltip" data-placement="bottom"
-                                                                title="Borang telah diperaku"
+                                                                title="Borang telah disahkan"
                                                                 style="color: green; font-size: 20pt;"></i></a>
                                                     @elseif($data->status == 'Sedang Diisi' && $data->bulan == '11')
                                                     <a href="{{ route('user.shuttle-3-formC.KKB', [$id = 11, $year]) }}">
-                                                        <img src="{{ asset('sync.png') }}" height='30px'
+                                                        <img src="{{ asset('circle_times.png') }}" height='30px'
                                                                 alt="" data-toggle="tooltip"
                                                         data-placement="bottom" title="Borang sedang diisi">
                                                     @elseif($data->status == 'Ditutup' && $data->bulan == '11')
@@ -978,7 +978,7 @@
                                                                 <img src="{{ asset('circle_check.png') }}" height='30px'
                                                                     alt="" style="color: green; font-size: 20pt;"
                                                                     data-toggle="tooltip" data-placement="bottom"
-                                                                    title="Borang telah disahkan PHD"></i></a>
+                                                                    title="Borang telah disahkan"></i></a>
                                                         @endif
                                                     @elseif($data->status == 'Tiada Pengeluaran' && $data->bulan == '12')
                                                         <a
@@ -997,11 +997,11 @@
                                                             href="{{ route('pengguna.shuttle-3-view-formC', $data->id) }}">
                                                             <img src="{{ asset('circle_check.png') }}" height='30px'
                                                                 alt="" data-toggle="tooltip" data-placement="bottom"
-                                                                title="Borang telah diperaku"
+                                                                title="Borang telah disahkan"
                                                                 style="color: green; font-size: 20pt;"></i></a>
                                                     @elseif($data->status == 'Sedang Diisi' && $data->bulan == '12')
                                                     <a href="{{ route('user.shuttle-3-formC.KKB', [$id = 12, $year]) }}">
-                                                        <img src="{{ asset('sync.png') }}" height='30px'
+                                                        <img src="{{ asset('circle_times.png') }}" height='30px'
                                                                 alt="" data-toggle="tooltip"
                                                         data-placement="bottom" title="Borang sedang diisi">
                                                     @elseif($data->status == 'Ditutup' && $data->bulan == '12')

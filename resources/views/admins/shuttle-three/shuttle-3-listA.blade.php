@@ -102,6 +102,7 @@
                                             <th>No. Lesen</th>
 
                                             <th>Tahun</th>
+                                            <th>Status</th>
                                             <th>Tindakan</th>
 
                                         </tr>
@@ -118,6 +119,21 @@
                                                 <td>{{ $data->shuttle->no_lesen ?? 'Tiada' }}</td>
 
                                                 <td>{{ $data->tahun }}</td>
+                                                <td>
+                                                    @if ($data->status == 'Sedang Diproses')
+                                                        <span class="label label-primary label-rounded"
+                                                            style="font-size: 11pt;">Borang Perlu Disahkan</span>
+                                                    @elseif($data->status == 'Tidak Lengkap')
+                                                        <span class="label label-danger label-rounded"
+                                                            style="font-size: 11pt;">Tidak Lengkap</span>
+                                                    @elseif($data->status == 'Dihantar ke IPJPSM')
+                                                        <span class="label label-success label-rounded"
+                                                            style="font-size: 11pt;">Dihantar ke IPJPSM</span>
+                                                    @elseif($data->status == 'Lulus')
+                                                        <span class="label label-success label-rounded"
+                                                            style="font-size: 11pt;">Borang telah diperaku</span>
+                                                    @endif
+                                                </td>
                                                 <td>
                                                     @if ($data->status == 'Tidak Diisi')
                                                         <img src="{{ asset('circle_times.png') }}" height='30px' alt=""
