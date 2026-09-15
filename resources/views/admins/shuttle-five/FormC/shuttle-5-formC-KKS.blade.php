@@ -409,6 +409,11 @@
                     }
                 </script>
                 <script>
+                    // Corrects binary floating-point drift (e.g. (1.005).toFixed(2) === "1.00")
+                    // before formatting, so accumulated totals don't lose their last decimal digit.
+                    function round2(num) {
+                        return Math.round((num + Number.EPSILON) * 100) / 100;
+                    }
                     function calculateTotal(key) {
                         var species_count = {{ $species_count }};
                         var jumlah_kayu_masuk = 0, total_stok_kayu_balak = 0, total_kayu_masuk_jentera = 0, total_kayu_dibawa_bulan_hadapan = 0, total_kayu_keluar_jentera = 0;
@@ -420,20 +425,20 @@
                             var jumlah_stok_kayu_balak = 0;
                             var baki_stok_kehadapan = 0;
                             jumlah_stok_kayu_balak = kayu_masuk + baki_stoks || 0;
-                            document.getElementById("jumlah_stok_kayu_balak." + index).value = parseFloat(jumlah_stok_kayu_balak).toFixed(2);
+                            document.getElementById("jumlah_stok_kayu_balak." + index).value = round2(jumlah_stok_kayu_balak).toFixed(2);
                             baki_stok_kehadapan = jumlah_stok_kayu_balak - proses_masuk || 0;
-                            document.getElementById("baki_stok_kehadapan." + index).value = parseFloat(baki_stok_kehadapan).toFixed(2);
+                            document.getElementById("baki_stok_kehadapan." + index).value = round2(baki_stok_kehadapan).toFixed(2);
                             jumlah_kayu_masuk += kayu_masuk || 0;
                             total_stok_kayu_balak += kayu_masuk + baki_stoks || 0;
                             total_kayu_masuk_jentera += proses_masuk || 0;
                             total_kayu_keluar_jentera += proses_keluar || 0;
                             total_kayu_dibawa_bulan_hadapan += baki_stok_kehadapan || 0;
                         }
-                        document.getElementById("jumlah_kayu_masuk.0").value = parseFloat(jumlah_kayu_masuk).toFixed(2);
-                        document.getElementById("total_stok_kayu_balak.0").value = parseFloat(total_stok_kayu_balak).toFixed(2);
-                        document.getElementById("total_kayu_masuk_jentera.0").value = parseFloat(total_kayu_masuk_jentera).toFixed(2);
-                        document.getElementById("total_kayu_keluar_jentera.0").value = parseFloat(total_kayu_keluar_jentera).toFixed(2);
-                        document.getElementById("total_kayu_dibawa_bulan_hadapan.0").value = parseFloat(total_kayu_dibawa_bulan_hadapan).toFixed(2);
+                        document.getElementById("jumlah_kayu_masuk.0").value = round2(jumlah_kayu_masuk).toFixed(2);
+                        document.getElementById("total_stok_kayu_balak.0").value = round2(total_stok_kayu_balak).toFixed(2);
+                        document.getElementById("total_kayu_masuk_jentera.0").value = round2(total_kayu_masuk_jentera).toFixed(2);
+                        document.getElementById("total_kayu_keluar_jentera.0").value = round2(total_kayu_keluar_jentera).toFixed(2);
+                        document.getElementById("total_kayu_dibawa_bulan_hadapan.0").value = round2(total_kayu_dibawa_bulan_hadapan).toFixed(2);
                     }
                     function checkValidationMasuk(key) {
                         var jumlah_stok_kayu_balak = document.getElementById("jumlah_stok_kayu_balak." + key).value;

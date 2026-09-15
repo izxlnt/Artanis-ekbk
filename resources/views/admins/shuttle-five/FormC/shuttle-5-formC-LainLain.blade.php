@@ -648,6 +648,11 @@
 
             <script>
 
+                // Corrects binary floating-point drift (e.g. (1.005).toFixed(2) === "1.00")
+                // before formatting, so accumulated totals don't lose their last decimal digit.
+                function round2(num) {
+                    return Math.round((num + Number.EPSILON) * 100) / 100;
+                }
                 function calculateTotal(key) {
                     var species_count = {{ $species_count }};
                     var jumlah_kayu_masuk = 0, total_stok_kayu_balak = 0, total_kayu_masuk_jentera = 0, total_kayu_dibawa_bulan_hadapan = 0, total_kayu_keluar_jentera = 0;
@@ -664,10 +669,10 @@
                         var baki_stok_kehadapan = 0;
 
                         jumlah_stok_kayu_balak = kayu_masuk + baki_stoks || 0;
-                        document.getElementById("jumlah_stok_kayu_balak." + index).value  = parseFloat(jumlah_stok_kayu_balak).toFixed(2);
+                        document.getElementById("jumlah_stok_kayu_balak." + index).value  = round2(jumlah_stok_kayu_balak).toFixed(2);
 
                         baki_stok_kehadapan = jumlah_stok_kayu_balak - proses_masuk || 0;
-                        document.getElementById("baki_stok_kehadapan." + index).value  = parseFloat(baki_stok_kehadapan).toFixed(2);
+                        document.getElementById("baki_stok_kehadapan." + index).value  = round2(baki_stok_kehadapan).toFixed(2);
 
                         jumlah_kayu_masuk += kayu_masuk || 0;
                         total_stok_kayu_balak += kayu_masuk + baki_stoks  || 0;
@@ -683,17 +688,17 @@
                     jumlah_besar_baki_stok_bulan_depan += total_kayu_dibawa_bulan_hadapan;
                     // console.log(jumlah_besar_kemasukan_kayu_ke_kilang);
 
-                    document.getElementById("jumlah_kayu_masuk.0").value =  parseFloat(jumlah_kayu_masuk).toFixed(2);
-                    document.getElementById("total_stok_kayu_balak.0").value = parseFloat(total_stok_kayu_balak).toFixed(2);
-                    document.getElementById("total_kayu_masuk_jentera.0").value = parseFloat(total_kayu_masuk_jentera).toFixed(2);
-                    document.getElementById("total_kayu_keluar_jentera.0").value = parseFloat(total_kayu_keluar_jentera).toFixed(2);
-                    document.getElementById("total_kayu_dibawa_bulan_hadapan.0").value = parseFloat(total_kayu_dibawa_bulan_hadapan).toFixed(2);
+                    document.getElementById("jumlah_kayu_masuk.0").value =  round2(jumlah_kayu_masuk).toFixed(2);
+                    document.getElementById("total_stok_kayu_balak.0").value = round2(total_stok_kayu_balak).toFixed(2);
+                    document.getElementById("total_kayu_masuk_jentera.0").value = round2(total_kayu_masuk_jentera).toFixed(2);
+                    document.getElementById("total_kayu_keluar_jentera.0").value = round2(total_kayu_keluar_jentera).toFixed(2);
+                    document.getElementById("total_kayu_dibawa_bulan_hadapan.0").value = round2(total_kayu_dibawa_bulan_hadapan).toFixed(2);
 
-                    document.getElementById("jumlah_besar_kemasukan_kayu_ke_kilang").value =  parseFloat(jumlah_besar_kemasukan_kayu_ke_kilang).toFixed(2);
-                    document.getElementById("jumlah_besar_stok_kayu_balak").value =  parseFloat(jumlah_besar_stok_kayu_balak).toFixed(2);
-                    document.getElementById("jumlah_besar_kayu_ke_dalam_jentera").value =  parseFloat(jumlah_besar_kayu_ke_dalam_jentera).toFixed(2);
-                    document.getElementById("jumlah_besar_pengeluaran_kayu_daripada_jentera").value =  parseFloat(jumlah_besar_pengeluaran_kayu_daripada_jentera).toFixed(2);
-                    document.getElementById("jumlah_besar_baki_stok_bulan_depan").value =  parseFloat(jumlah_besar_baki_stok_bulan_depan).toFixed(2);
+                    document.getElementById("jumlah_besar_kemasukan_kayu_ke_kilang").value =  round2(jumlah_besar_kemasukan_kayu_ke_kilang).toFixed(2);
+                    document.getElementById("jumlah_besar_stok_kayu_balak").value =  round2(jumlah_besar_stok_kayu_balak).toFixed(2);
+                    document.getElementById("jumlah_besar_kayu_ke_dalam_jentera").value =  round2(jumlah_besar_kayu_ke_dalam_jentera).toFixed(2);
+                    document.getElementById("jumlah_besar_pengeluaran_kayu_daripada_jentera").value =  round2(jumlah_besar_pengeluaran_kayu_daripada_jentera).toFixed(2);
+                    document.getElementById("jumlah_besar_baki_stok_bulan_depan").value =  round2(jumlah_besar_baki_stok_bulan_depan).toFixed(2);
 
                     console.log(jumlah_besar_kemasukan_kayu_ke_kilang);
                     if(jumlah_besar_kemasukan_kayu_ke_kilang > 0){
