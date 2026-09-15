@@ -53,11 +53,15 @@
             </a>
         @endif
     @elseif($status === 'Sedang Diisi')
+        {{-- Per the official status spec, IBK sees "belum diisi" and "sedang diisi"
+             as the same red-X icon (one combined row on that reference), so this
+             intentionally matches the Tidak Diisi branch above rather than using a
+             distinct icon. --}}
         @if($isOwner)
-            <img src="{{ asset('pencil.png') }}" height="28" data-toggle="tooltip" data-placement="bottom" title="Borang sedang diisi">
+            <img src="{{ asset('circle_times.png') }}" height="28" data-toggle="tooltip" data-placement="bottom" title="Borang sedang diisi">
         @else
             <a href="{{ $fillLink }}" data-toggle="tooltip" data-placement="bottom" title="Borang sedang diisi">
-                <img src="{{ asset('pencil.png') }}" height="28">
+                <img src="{{ asset('circle_times.png') }}" height="28">
             </a>
         @endif
     @elseif($status === 'Tiada Pengeluaran')

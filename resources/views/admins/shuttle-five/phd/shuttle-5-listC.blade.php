@@ -172,7 +172,7 @@
                                                             @endif
                                                         @elseif($data->status == 'Sedang Diisi' && $data->bulan == '1' && $shuttle->shuttle_id == $data->shuttle_id)
 
-                                                            <img src="{{ asset('pencil.png') }}"
+                                                            <img src="{{ asset('sync.png') }}"
                                                                             height='30px' alt="" 
                                                                 data-toggle="tooltip" data-placement="bottom"
                                                                 title="Borang sedang diisi"></i>
@@ -251,7 +251,7 @@
                                                             @endif
                                                         @elseif($data->status == 'Sedang Diisi' && $data->bulan == '2' && $shuttle->shuttle_id == $data->shuttle_id)
 
-                                                            <img src="{{ asset('pencil.png') }}"
+                                                            <img src="{{ asset('sync.png') }}"
                                                                             height='30px' alt="" 
                                                                 data-toggle="tooltip" data-placement="bottom"
                                                                 title="Borang sedang diisi"></i>
@@ -329,7 +329,7 @@
                                                             @endif
                                                         @elseif($data->status == 'Sedang Diisi' && $data->bulan == '3' && $shuttle->shuttle_id == $data->shuttle_id)
 
-                                                            <img src="{{ asset('pencil.png') }}"
+                                                            <img src="{{ asset('sync.png') }}"
                                                                             height='30px' alt="" 
                                                                 data-toggle="tooltip" data-placement="bottom"
                                                                 title="Borang sedang diisi"></i>
@@ -407,7 +407,7 @@
                                                             @endif
                                                         @elseif($data->status == 'Sedang Diisi' && $data->bulan == '4' && $shuttle->shuttle_id == $data->shuttle_id)
 
-                                                            <img src="{{ asset('pencil.png') }}"
+                                                            <img src="{{ asset('sync.png') }}"
                                                                             height='30px' alt="" 
                                                                 data-toggle="tooltip" data-placement="bottom"
                                                                 title="Borang sedang diisi"></i>
@@ -485,7 +485,7 @@
                                                             @endif
                                                         @elseif($data->status == 'Sedang Diisi' && $data->bulan == '5' && $shuttle->shuttle_id == $data->shuttle_id)
 
-                                                            <img src="{{ asset('pencil.png') }}"
+                                                            <img src="{{ asset('sync.png') }}"
                                                                             height='30px' alt="" 
                                                                 data-toggle="tooltip" data-placement="bottom"
                                                                 title="Borang sedang diisi"></i>
@@ -563,7 +563,7 @@
                                                             @endif
                                                         @elseif($data->status == 'Sedang Diisi' && $data->bulan == '6' && $shuttle->shuttle_id == $data->shuttle_id)
 
-                                                            <img src="{{ asset('pencil.png') }}"
+                                                            <img src="{{ asset('sync.png') }}"
                                                                             height='30px' alt="" 
                                                                 data-toggle="tooltip" data-placement="bottom"
                                                                 title="Borang sedang diisi"></i>
@@ -642,7 +642,7 @@
                                                             @endif
                                                         @elseif($data->status == 'Sedang Diisi' && $data->bulan == '7' && $shuttle->shuttle_id == $data->shuttle_id)
 
-                                                            <img src="{{ asset('pencil.png') }}"
+                                                            <img src="{{ asset('sync.png') }}"
                                                                             height='30px' alt="" 
                                                                 data-toggle="tooltip" data-placement="bottom"
                                                                 title="Borang sedang diisi"></i>
@@ -720,7 +720,7 @@
                                                             @endif
                                                         @elseif($data->status == 'Sedang Diisi' && $data->bulan == '8' && $shuttle->shuttle_id == $data->shuttle_id)
 
-                                                            <img src="{{ asset('pencil.png') }}"
+                                                            <img src="{{ asset('sync.png') }}"
                                                                             height='30px' alt="" 
                                                                 data-toggle="tooltip" data-placement="bottom"
                                                                 title="Borang sedang diisi"></i>
@@ -798,7 +798,7 @@
                                                             @endif
                                                         @elseif($data->status == 'Sedang Diisi' && $data->bulan == '9' && $shuttle->shuttle_id == $data->shuttle_id)
 
-                                                            <img src="{{ asset('pencil.png') }}"
+                                                            <img src="{{ asset('sync.png') }}"
                                                                             height='30px' alt="" 
                                                                 data-toggle="tooltip" data-placement="bottom"
                                                                 title="Borang sedang diisi"></i>
@@ -876,7 +876,7 @@
                                                             @endif
                                                         @elseif($data->status == 'Sedang Diisi' && $data->bulan == '10' && $shuttle->shuttle_id == $data->shuttle_id)
 
-                                                            <img src="{{ asset('pencil.png') }}"
+                                                            <img src="{{ asset('sync.png') }}"
                                                                             height='30px' alt="" 
                                                                 data-toggle="tooltip" data-placement="bottom"
                                                                 title="Borang sedang diisi"></i>
@@ -956,7 +956,7 @@
                                                             @endif
                                                         @elseif($data->status == 'Sedang Diisi' && $data->bulan == '11' && $shuttle->shuttle_id == $data->shuttle_id)
 
-                                                            <img src="{{ asset('pencil.png') }}"
+                                                            <img src="{{ asset('sync.png') }}"
                                                                             height='30px' alt="" 
                                                                 data-toggle="tooltip" data-placement="bottom"
                                                                 title="Borang sedang diisi"></i>
@@ -1035,7 +1035,7 @@
                                                             @endif
                                                         @elseif($data->status == 'Sedang Diisi' && $data->bulan == '12' && $shuttle->shuttle_id == $data->shuttle_id)
 
-                                                            <img src="{{ asset('pencil.png') }}"
+                                                            <img src="{{ asset('sync.png') }}"
                                                                             height='30px' alt="" 
                                                                 data-toggle="tooltip" data-placement="bottom"
                                                                 title="Borang sedang diisi"></i>
