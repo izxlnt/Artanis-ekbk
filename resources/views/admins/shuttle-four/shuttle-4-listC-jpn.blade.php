@@ -158,7 +158,7 @@
                                                                 <a href="{{ route('jpn.shuttle-4-view-formC', $data->id) }}">
                                                                     <img src="{{ asset('circle_times.png') }}"
                                                                             height='30px' alt=""
-                                                                    style="color: red; font-size: 20pt;"
+                                                                    style="color: grey; font-size: 20pt;"
                                                                     data-toggle="tooltip" data-placement="bottom"
                                                                     title="Borang belum diisi"></i>
                                                                 @else
@@ -175,11 +175,11 @@
                                                                     title="Borang perlu disahkan PHD"></i></a>
                                                         @elseif($data->status == 'Sedang Diproses' && $data->bulan == '1' && $shuttle->shuttle_id == $data->shuttle_id)
                                                             <a href="{{ route('jpn.shuttle-4-view-formC', $data->id) }}"><img
-                                                                    src="{{ asset('circle_times_yellow.png') }}"
+                                                                    src="{{ asset('circle_check_yellow.png') }}"
                                                                     height='30px' alt=""
                                                                     style="color: white; font-size: 18pt;"
                                                                     data-toggle="tooltip" data-placement="bottom"
-                                                                    title="Borang perlu disahkan PHD"></i></a>
+                                                                    title="Borang telah dihantar"></i></a>
                                                         @elseif($data->status == 'Tiada Pengeluaran' && $data->bulan == '1' && $shuttle->shuttle_id == $data->shuttle_id)
                                                             <a href="{{ route('jpn.shuttle-4-view-formC', $data->id) }}">
                                                                 <img src="{{ asset('tp_logo2.png') }}" height='30px'
@@ -243,7 +243,7 @@
                                                                 <a href="{{ route('jpn.shuttle-4-view-formC', $data->id) }}">
                                                                     <img src="{{ asset('circle_times.png') }}"
                                                                             height='30px' alt=""
-                                                                    style="color: red; font-size: 20pt;"
+                                                                    style="color: grey; font-size: 20pt;"
                                                                     data-toggle="tooltip" data-placement="bottom"
                                                                     title="Borang belum diisi"></i>
                                                                 @else
@@ -260,11 +260,11 @@
                                                                     title="Borang perlu disahkan PHD"></i></a>
                                                         @elseif($data->status == 'Sedang Diproses' && $data->bulan == '2' && $shuttle->shuttle_id == $data->shuttle_id)
                                                             <a href="{{ route('jpn.shuttle-4-view-formC', $data->id) }}"><img
-                                                                    src="{{ asset('circle_times_yellow.png') }}"
+                                                                    src="{{ asset('circle_check_yellow.png') }}"
                                                                     height='30px' alt=""
                                                                     style="color: white; font-size: 18pt;"
                                                                     data-toggle="tooltip" data-placement="bottom"
-                                                                    title="Borang perlu disahkan PHD"></i></a>
+                                                                    title="Borang telah dihantar"></i></a>
                                                         @elseif($data->status == 'Tiada Pengeluaran' && $data->bulan == '2' && $shuttle->shuttle_id == $data->shuttle_id)
                                                             <a href="{{ route('jpn.shuttle-4-view-formC', $data->id) }}">
                                                                 <img src="{{ asset('tp_logo2.png') }}" height='30px'
@@ -328,7 +328,7 @@
                                                                 <a href="{{ route('jpn.shuttle-4-view-formC', $data->id) }}">
                                                                     <img src="{{ asset('circle_times.png') }}"
                                                                             height='30px' alt=""
-                                                                    style="color: red; font-size: 20pt;"
+                                                                    style="color: grey; font-size: 20pt;"
                                                                     data-toggle="tooltip" data-placement="bottom"
                                                                     title="Borang belum diisi"></i>
                                                                 @else
@@ -345,11 +345,11 @@
                                                                     title="Borang perlu disahkan PHD"></i></a>
                                                         @elseif($data->status == 'Sedang Diproses' && $data->bulan == '3' && $shuttle->shuttle_id == $data->shuttle_id)
                                                             <a href="{{ route('jpn.shuttle-4-view-formC', $data->id) }}"><img
-                                                                    src="{{ asset('circle_times_yellow.png') }}"
+                                                                    src="{{ asset('circle_check_yellow.png') }}"
                                                                     height='30px' alt=""
                                                                     style="color: white; font-size: 18pt;"
                                                                     data-toggle="tooltip" data-placement="bottom"
-                                                                    title="Borang perlu disahkan PHD"></i></a>
+                                                                    title="Borang telah dihantar"></i></a>
                                                         @elseif($data->status == 'Tiada Pengeluaran' && $data->bulan == '3' && $shuttle->shuttle_id == $data->shuttle_id)
                                                             <a href="{{ route('jpn.shuttle-4-view-formC', $data->id) }}">
                                                                 <img src="{{ asset('tp_logo2.png') }}" height='30px'
@@ -413,7 +413,7 @@
                                                                 <a href="{{ route('jpn.shuttle-4-view-formC', $data->id) }}">
                                                                     <img src="{{ asset('circle_times.png') }}"
                                                                             height='30px' alt=""
-                                                                    style="color: red; font-size: 20pt;"
+                                                                    style="color: grey; font-size: 20pt;"
                                                                     data-toggle="tooltip" data-placement="bottom"
                                                                     title="Borang belum diisi"></i>
                                                                 @else
@@ -430,11 +430,11 @@
                                                                     title="Borang perlu disahkan PHD"></i></a>
                                                         @elseif($data->status == 'Sedang Diproses' && $data->bulan == '4' && $shuttle->shuttle_id == $data->shuttle_id)
                                                             <a href="{{ route('jpn.shuttle-4-view-formC', $data->id) }}"><img
-                                                                    src="{{ asset('circle_times_yellow.png') }}"
+                                                                    src="{{ asset('circle_check_yellow.png') }}"
                                                                     height='30px' alt=""
                                                                     style="color: white; font-size: 18pt;"
                                                                     data-toggle="tooltip" data-placement="bottom"
-                                                                    title="Borang perlu disahkan PHD"></i></a>
+                                                                    title="Borang telah dihantar"></i></a>
                                                         @elseif($data->status == 'Tiada Pengeluaran' && $data->bulan == '4' && $shuttle->shuttle_id == $data->shuttle_id)
                                                             <a href="{{ route('jpn.shuttle-4-view-formC', $data->id) }}">
                                                                 <img src="{{ asset('tp_logo2.png') }}" height='30px'
@@ -498,7 +498,7 @@
                                                                 <a href="{{ route('jpn.shuttle-4-view-formC', $data->id) }}">
                                                                     <img src="{{ asset('circle_times.png') }}"
                                                                             height='30px' alt=""
-                                                                    style="color: red; font-size: 20pt;"
+                                                                    style="color: grey; font-size: 20pt;"
                                                                     data-toggle="tooltip" data-placement="bottom"
                                                                     title="Borang belum diisi"></i>
                                                                 @else
@@ -515,11 +515,11 @@
                                                                     title="Borang perlu disahkan PHD"></i></a>
                                                         @elseif($data->status == 'Sedang Diproses' && $data->bulan == '5' && $shuttle->shuttle_id == $data->shuttle_id)
                                                             <a href="{{ route('jpn.shuttle-4-view-formC', $data->id) }}"><img
-                                                                    src="{{ asset('circle_times_yellow.png') }}"
+                                                                    src="{{ asset('circle_check_yellow.png') }}"
                                                                     height='30px' alt=""
                                                                     style="color: white; font-size: 18pt;"
                                                                     data-toggle="tooltip" data-placement="bottom"
-                                                                    title="Borang perlu disahkan PHD"></i></a>
+                                                                    title="Borang telah dihantar"></i></a>
                                                         @elseif($data->status == 'Tiada Pengeluaran' && $data->bulan == '5' && $shuttle->shuttle_id == $data->shuttle_id)
                                                             <a href="{{ route('jpn.shuttle-4-view-formC', $data->id) }}">
                                                                 <img src="{{ asset('tp_logo2.png') }}" height='30px'
@@ -583,7 +583,7 @@
                                                                 <a href="{{ route('jpn.shuttle-4-view-formC', $data->id) }}">
                                                                     <img src="{{ asset('circle_times.png') }}"
                                                                             height='30px' alt=""
-                                                                    style="color: red; font-size: 20pt;"
+                                                                    style="color: grey; font-size: 20pt;"
                                                                     data-toggle="tooltip" data-placement="bottom"
                                                                     title="Borang belum diisi"></i>
                                                                 @else
@@ -601,11 +601,11 @@
                                                         @elseif($data->status == 'Sedang Diproses' && $data->bulan == '6' && $shuttle->shuttle_id == $data->shuttle_id)
                                                             <a
                                                                 href="{{ route('jpn.shuttle-4-view-formC', $data->id) }}"><img
-                                                                    src="{{ asset('circle_times_yellow.png') }}"
+                                                                    src="{{ asset('circle_check_yellow.png') }}"
                                                                     height='30px' alt=""
                                                                     style="color: white; font-size: 18pt;"
                                                                     data-toggle="tooltip" data-placement="bottom"
-                                                                    title="Borang perlu disahkan PHD"></i></a>
+                                                                    title="Borang telah dihantar"></i></a>
                                                         @elseif($data->status == 'Tiada Pengeluaran' && $data->bulan == '6' && $shuttle->shuttle_id == $data->shuttle_id)
                                                             <a
                                                                 href="{{ route('jpn.shuttle-4-view-formC', $data->id) }}">
@@ -671,7 +671,7 @@
                                                                 <a href="{{ route('jpn.shuttle-4-view-formC', $data->id) }}">
                                                                     <img src="{{ asset('circle_times.png') }}"
                                                                             height='30px' alt=""
-                                                                    style="color: red; font-size: 20pt;"
+                                                                    style="color: grey; font-size: 20pt;"
                                                                     data-toggle="tooltip" data-placement="bottom"
                                                                     title="Borang belum diisi"></i>
                                                                 @else
@@ -689,11 +689,11 @@
                                                         @elseif($data->status == 'Sedang Diproses' && $data->bulan == '7' && $shuttle->shuttle_id == $data->shuttle_id)
                                                             <a
                                                                 href="{{ route('jpn.shuttle-4-view-formC', $data->id) }}"><img
-                                                                    src="{{ asset('circle_times_yellow.png') }}"
+                                                                    src="{{ asset('circle_check_yellow.png') }}"
                                                                     height='30px' alt=""
                                                                     style="color: white; font-size: 18pt;"
                                                                     data-toggle="tooltip" data-placement="bottom"
-                                                                    title="Borang perlu disahkan PHD"></i></a>
+                                                                    title="Borang telah dihantar"></i></a>
                                                         @elseif($data->status == 'Tiada Pengeluaran' && $data->bulan == '7' && $shuttle->shuttle_id == $data->shuttle_id)
                                                             <a
                                                                 href="{{ route('jpn.shuttle-4-view-formC', $data->id) }}">
@@ -759,7 +759,7 @@
                                                                 <a href="{{ route('jpn.shuttle-4-view-formC', $data->id) }}">
                                                                     <img src="{{ asset('circle_times.png') }}"
                                                                             height='30px' alt=""
-                                                                    style="color: red; font-size: 20pt;"
+                                                                    style="color: grey; font-size: 20pt;"
                                                                     data-toggle="tooltip" data-placement="bottom"
                                                                     title="Borang belum diisi"></i>
                                                                 @else
@@ -777,11 +777,11 @@
                                                         @elseif($data->status == 'Sedang Diproses' && $data->bulan == '8' && $shuttle->shuttle_id == $data->shuttle_id)
                                                             <a
                                                                 href="{{ route('jpn.shuttle-4-view-formC', $data->id) }}"><img
-                                                                    src="{{ asset('circle_times_yellow.png') }}"
+                                                                    src="{{ asset('circle_check_yellow.png') }}"
                                                                     height='30px' alt=""
                                                                     style="color: white; font-size: 18pt;"
                                                                     data-toggle="tooltip" data-placement="bottom"
-                                                                    title="Borang perlu disahkan PHD"></i></a>
+                                                                    title="Borang telah dihantar"></i></a>
                                                         @elseif($data->status == 'Tiada Pengeluaran' && $data->bulan == '8' && $shuttle->shuttle_id == $data->shuttle_id)
                                                             <a
                                                                 href="{{ route('jpn.shuttle-4-view-formC', $data->id) }}">
@@ -847,7 +847,7 @@
                                                                 <a href="{{ route('jpn.shuttle-4-view-formC', $data->id) }}">
                                                                     <img src="{{ asset('circle_times.png') }}"
                                                                             height='30px' alt=""
-                                                                    style="color: red; font-size: 20pt;"
+                                                                    style="color: grey; font-size: 20pt;"
                                                                     data-toggle="tooltip" data-placement="bottom"
                                                                     title="Borang belum diisi"></i>
                                                                 @else
@@ -865,11 +865,11 @@
                                                         @elseif($data->status == 'Sedang Diproses' && $data->bulan == '9' && $shuttle->shuttle_id == $data->shuttle_id)
                                                             <a
                                                                 href="{{ route('jpn.shuttle-4-view-formC', $data->id) }}"><img
-                                                                    src="{{ asset('circle_times_yellow.png') }}"
+                                                                    src="{{ asset('circle_check_yellow.png') }}"
                                                                     height='30px' alt=""
                                                                     style="color: white; font-size: 18pt;"
                                                                     data-toggle="tooltip" data-placement="bottom"
-                                                                    title="Borang perlu disahkan PHD"></i></a>
+                                                                    title="Borang telah dihantar"></i></a>
                                                         @elseif($data->status == 'Tiada Pengeluaran' && $data->bulan == '9' && $shuttle->shuttle_id == $data->shuttle_id)
                                                             <a
                                                                 href="{{ route('jpn.shuttle-4-view-formC', $data->id) }}">
@@ -935,7 +935,7 @@
                                                                 <a href="{{ route('jpn.shuttle-4-view-formC', $data->id) }}">
                                                                     <img src="{{ asset('circle_times.png') }}"
                                                                             height='30px' alt=""
-                                                                    style="color: red; font-size: 20pt;"
+                                                                    style="color: grey; font-size: 20pt;"
                                                                     data-toggle="tooltip" data-placement="bottom"
                                                                     title="Borang belum diisi"></i>
                                                                 @else
@@ -953,11 +953,11 @@
                                                         @elseif($data->status == 'Sedang Diproses' && $data->bulan == '10' && $shuttle->shuttle_id == $data->shuttle_id)
                                                             <a
                                                                 href="{{ route('jpn.shuttle-4-view-formC', $data->id) }}"><img
-                                                                    src="{{ asset('circle_times_yellow.png') }}"
+                                                                    src="{{ asset('circle_check_yellow.png') }}"
                                                                     height='30px' alt=""
                                                                     style="color: white; font-size: 18pt;"
                                                                     data-toggle="tooltip" data-placement="bottom"
-                                                                    title="Borang perlu disahkan PHD"></i></a>
+                                                                    title="Borang telah dihantar"></i></a>
                                                         @elseif($data->status == 'Tiada Pengeluaran' && $data->bulan == '10' && $shuttle->shuttle_id == $data->shuttle_id)
                                                             <a
                                                                 href="{{ route('jpn.shuttle-4-view-formC', $data->id) }}">
@@ -1023,7 +1023,7 @@
                                                                 <a href="{{ route('jpn.shuttle-4-view-formC', $data->id) }}">
                                                                     <img src="{{ asset('circle_times.png') }}"
                                                                             height='30px' alt=""
-                                                                    style="color: red; font-size: 20pt;"
+                                                                    style="color: grey; font-size: 20pt;"
                                                                     data-toggle="tooltip" data-placement="bottom"
                                                                     title="Borang belum diisi"></i>
                                                                 @else
@@ -1041,11 +1041,11 @@
                                                         @elseif($data->status == 'Sedang Diproses' && $data->bulan == '11' && $shuttle->shuttle_id == $data->shuttle_id)
                                                             <a
                                                                 href="{{ route('jpn.shuttle-4-view-formC', $data->id) }}"><img
-                                                                    src="{{ asset('circle_times_yellow.png') }}"
+                                                                    src="{{ asset('circle_check_yellow.png') }}"
                                                                     height='30px' alt=""
                                                                     style="color: white; font-size: 18pt;"
                                                                     data-toggle="tooltip" data-placement="bottom"
-                                                                    title="Borang perlu disahkan PHD"></i></a>
+                                                                    title="Borang telah dihantar"></i></a>
                                                         @elseif($data->status == 'Tiada Pengeluaran' && $data->bulan == '11' && $shuttle->shuttle_id == $data->shuttle_id)
                                                             <a
                                                                 href="{{ route('jpn.shuttle-4-view-formC', $data->id) }}">
@@ -1111,7 +1111,7 @@
                                                                 <a href="{{ route('jpn.shuttle-4-view-formC', $data->id) }}">
                                                                     <img src="{{ asset('circle_times.png') }}"
                                                                             height='30px' alt=""
-                                                                    style="color: red; font-size: 20pt;"
+                                                                    style="color: grey; font-size: 20pt;"
                                                                     data-toggle="tooltip" data-placement="bottom"
                                                                     title="Borang belum diisi"></i>
                                                                 @else
@@ -1129,11 +1129,11 @@
                                                         @elseif($data->status == 'Sedang Diproses' && $data->bulan == '12' && $shuttle->shuttle_id == $data->shuttle_id)
                                                             <a
                                                                 href="{{ route('jpn.shuttle-4-view-formC', $data->id) }}"><img
-                                                                    src="{{ asset('circle_times_yellow.png') }}"
+                                                                    src="{{ asset('circle_check_yellow.png') }}"
                                                                     height='30px' alt=""
                                                                     style="color: white; font-size: 18pt;"
                                                                     data-toggle="tooltip" data-placement="bottom"
-                                                                    title="Borang perlu disahkan PHD"></i></a>
+                                                                    title="Borang telah dihantar"></i></a>
                                                         @elseif($data->status == 'Tiada Pengeluaran' && $data->bulan == '12' && $shuttle->shuttle_id == $data->shuttle_id)
                                                             <a
                                                                 href="{{ route('jpn.shuttle-4-view-formC', $data->id) }}">

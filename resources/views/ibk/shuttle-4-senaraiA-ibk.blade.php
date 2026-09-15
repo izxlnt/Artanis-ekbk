@@ -152,6 +152,11 @@
                                                        <img src="{{ asset('history.png') }}" height='30px' alt="" style="font-size: 15pt;"
                                                             data-toggle="tooltip" data-placement="bottom"
                                                             title="Borang Tidak Lengkap"></i></a>
+                                                @elseif ($list && $list->status == 'Sedang Diisi')
+                                                    <a href="{{ url('/pengguna/shuttle-4-formA/' . $year) }}"><img
+                                                            src="{{ asset('circle_times.png') }}" height='30px'
+                                                            alt="" style=" font-size: 15pt;" data-toggle="tooltip"
+                                                            data-placement="bottom" title="Borang sedang diisi"></i></a>
                                                 @else
                                                     <a href="{{ url('/pengguna/shuttle-4-formA/' . $year) }}"><img
                                                             src="{{ asset('circle_times.png') }}" height='30px'
