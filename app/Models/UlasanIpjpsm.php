@@ -13,6 +13,7 @@ class UlasanIpjpsm extends Model
         'ulasan',
         'user_id',
         'formas_id',
+        'formbs_id',
         'formcs_id',
         'formds_id',
         'form4ds_id',
