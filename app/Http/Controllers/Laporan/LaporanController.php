@@ -3997,6 +3997,20 @@ $data_form_d_s[$data_shuttle->id] = !empty($fd_result) ? $fd_result[0] : (object
             ->get();
 
         if ($shuttle->count() == 0) {
+            // An empty result here can mean either "no Borang A confirmed yet" or
+            // "confirmed, but none are Bumiputera-owned" - those need different
+            // messages, otherwise a JPN/IPJPSM user sees "please confirm Borang A"
+            // for a factory that is already confirmed.
+            $anyConfirmed = FormA::whereIn('status', ['Lulus', 'Dihantar ke IPJPSM'])->where('tahun', $tahun)
+                ->whereHas('shuttle', function ($q) {
+                    $q->where('shuttle_type', '4');
+                })
+                ->exists();
+
+            if ($anyConfirmed) {
+                return redirect()->back()->with('error', 'Tiada kilang Bumiputera yang diluluskan untuk Shuttle 4 pada tahun ini untuk menjana laporan ini.');
+            }
+
             return redirect()->back()->with('error', 'Sila pastikan sekurang-kurang 1 Borang A diluluskan untuk Shuttle 4 untuk menjana laporan');
         }
 
@@ -8418,6 +8432,20 @@ $data_form_d_s[$data_shuttle->id] = !empty($fd_result) ? $fd_result[0] : (object
             ->get();
 
         if ($shuttle->count() == 0) {
+            // An empty result here can mean either "no Borang A confirmed yet" or
+            // "confirmed, but none are Bumiputera-owned" - those need different
+            // messages, otherwise a JPN/IPJPSM user sees "please confirm Borang A"
+            // for a factory that is already confirmed.
+            $anyConfirmed = FormA::whereIn('status', ['Lulus', 'Dihantar ke IPJPSM'])->where('tahun', $tahun)
+                ->whereHas('shuttle', function ($q) {
+                    $q->where('shuttle_type', '5');
+                })
+                ->exists();
+
+            if ($anyConfirmed) {
+                return redirect()->back()->with('error', 'Tiada kilang Bumiputera yang diluluskan untuk Shuttle 5 pada tahun ini untuk menjana laporan ini.');
+            }
+
             return redirect()->back()->with('error', 'Sila pastikan sekurang-kurang 1 Borang A diluluskan untuk Shuttle 5 untuk menjana laporan');
         }
 
