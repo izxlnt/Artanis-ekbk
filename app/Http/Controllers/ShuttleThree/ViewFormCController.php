@@ -20,7 +20,7 @@ class ViewFormCController extends Controller
             return redirect()->back()->with('error', 'Rekod Borang C tidak dijumpai.');
         }
         $species = Spesis::orderBy('kumpulan_kayu_id')->orderBy('nama_tempatan')->get();
-        $kumpulan_kayu = KumpulanKayu::get();
+        $kumpulan_kayu = KumpulanKayu::orderBy('id')->get();
 
         $kilang_info = Shuttle::where('id', $formc->shuttle_id)->first();
 
@@ -161,7 +161,7 @@ class ViewFormCController extends Controller
             return redirect()->back()->with('error', 'Rekod Borang C tidak dijumpai.');
         }
         $species = Spesis::orderBy('kumpulan_kayu_id')->orderBy('id')->get();
-        $kumpulan_kayu = KumpulanKayu::get();
+        $kumpulan_kayu = KumpulanKayu::orderBy('id')->get();
 
         $kilang_info = Shuttle::where('id', $formc->shuttle_id)->first();
 
@@ -304,7 +304,7 @@ class ViewFormCController extends Controller
             return redirect()->back()->with('error', 'Rekod Borang C tidak dijumpai.');
         }
         $species = Spesis::orderBy('kumpulan_kayu_id')->orderBy('nama_tempatan')->get();
-        $kumpulan_kayu = KumpulanKayu::get();
+        $kumpulan_kayu = KumpulanKayu::orderBy('id')->get();
 
         $kilang_info = Shuttle::where('id', $formc->shuttle_id)->first();
 
@@ -435,7 +435,7 @@ class ViewFormCController extends Controller
             return redirect()->back()->with('error', 'Rekod Borang C tidak dijumpai.');
         }
         $species = Spesis::orderBy('kumpulan_kayu_id')->orderBy('id')->get();
-        $kumpulan_kayu = KumpulanKayu::get();
+        $kumpulan_kayu = KumpulanKayu::orderBy('id')->get();
 
         $kilang_info = Shuttle::where('id', $formc->shuttle_id)->first();
 
@@ -566,7 +566,7 @@ class ViewFormCController extends Controller
             return redirect()->back()->with('error', 'Rekod Borang C tidak dijumpai.');
         }
         $species = Spesis::orderBy('kumpulan_kayu_id')->orderBy('nama_tempatan')->get();
-        $kumpulan_kayu = KumpulanKayu::get();
+        $kumpulan_kayu = KumpulanKayu::orderBy('id')->get();
 
         $kilang_info = Shuttle::where('id', $formc->shuttle_id)->first();
 
@@ -654,7 +654,7 @@ class ViewFormCController extends Controller
             return redirect()->back()->with('error', 'Rekod Borang C tidak dijumpai.');
         }
         $species = Spesis::orderBy('kumpulan_kayu_id')->orderBy('nama_tempatan')->get();
-        $kumpulan_kayu = KumpulanKayu::get();
+        $kumpulan_kayu = KumpulanKayu::orderBy('id')->get();
 
         $kilang_info = Shuttle::where('id', $formc->shuttle_id)->first();
 
@@ -750,7 +750,7 @@ class ViewFormCController extends Controller
         }
 
         $species = Spesis::orderBy('kumpulan_kayu_id')->orderBy('nama_tempatan')->get();
-        $kumpulan_kayu = KumpulanKayu::get();
+        $kumpulan_kayu = KumpulanKayu::orderBy('id')->get();
 
         $kilang_info = Shuttle::where('id', $formc->shuttle_id)->first();
 
@@ -841,7 +841,7 @@ class ViewFormCController extends Controller
         }
 
         $species = Spesis::orderBy('kumpulan_kayu_id')->orderBy('nama_tempatan')->get();
-        $kumpulan_kayu = KumpulanKayu::get();
+        $kumpulan_kayu = KumpulanKayu::orderBy('id')->get();
 
         $kilang_info = Shuttle::where('id', $formc->shuttle_id)->first();
 
@@ -914,7 +914,7 @@ class ViewFormCController extends Controller
             return redirect()->back()->with('error', 'Rekod Borang C tidak dijumpai.');
         }
         $species = Spesis::orderBy('kumpulan_kayu_id')->orderBy('nama_tempatan')->get();
-        $kumpulan_kayu = KumpulanKayu::get();
+        $kumpulan_kayu = KumpulanKayu::orderBy('id')->get();
 
         $kilang_info = Shuttle::where('id', $formc->shuttle_id)->first();
 
