@@ -175,6 +175,10 @@
                                                         <img src="{{ asset('circle_times_yellow.png') }}" height='30px'
                                                             data-toggle="tooltip" data-placement="bottom"
                                                             title="Borang perlu disahkan PHD"></i></a>
+                                                    @elseif($data->status == 'Tidak Lengkap')
+                                                        <img src="{{ asset('history.png') }}" height='30px'
+                                                            data-toggle="tooltip" data-placement="bottom"
+                                                            title="Borang tidak lengkap, belum dihantar oleh IBK">
                                                     @elseif($data->status == 'Sedang Diisi')
                                                         <img src="{{ asset('calendar.png') }}" height='30px'
                                                             data-toggle="tooltip" data-placement="bottom"
