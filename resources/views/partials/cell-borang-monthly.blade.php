@@ -24,7 +24,12 @@
                 data-toggle="tooltip" data-placement="bottom" title="Borang ditutup">
         @endif
     @elseif ($data->status == 'Sedang Diisi')
-        <img src="{{ asset('pencil.png') }}" height='30px' alt=""
+        {{-- Per the official status spec, IBK sees "belum diisi" and "sedang diisi"
+             as the same red-X icon (one combined row on that reference), so this
+             intentionally matches the Tidak Diisi branch above rather than using a
+             distinct icon. --}}
+        <img src="{{ asset('circle_times.png') }}" height='30px' alt=""
+            style="color:red;font-size:25pt"
             data-toggle="tooltip" data-placement="bottom" title="Borang sedang diisi">
     @elseif ($data->status == 'Tidak Lengkap')
         <img src="{{ asset('history.png') }}" height='30px' alt=""
