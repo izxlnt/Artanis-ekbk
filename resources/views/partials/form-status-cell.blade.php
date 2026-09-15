@@ -54,10 +54,10 @@
         @endif
     @elseif($status === 'Sedang Diisi')
         @if($isOwner)
-            <img src="{{ asset('circle_times.png') }}" height="28" data-toggle="tooltip" data-placement="bottom" title="Borang sedang diisi">
+            <img src="{{ asset('pencil.png') }}" height="28" data-toggle="tooltip" data-placement="bottom" title="Borang sedang diisi">
         @else
             <a href="{{ $fillLink }}" data-toggle="tooltip" data-placement="bottom" title="Borang sedang diisi">
-                <img src="{{ asset('circle_times.png') }}" height="28">
+                <img src="{{ asset('pencil.png') }}" height="28">
             </a>
         @endif
     @elseif($status === 'Tiada Pengeluaran')

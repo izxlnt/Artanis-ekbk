@@ -24,8 +24,7 @@
                 data-toggle="tooltip" data-placement="bottom" title="Borang ditutup">
         @endif
     @elseif ($data->status == 'Sedang Diisi')
-        <img src="{{ asset('circle_times.png') }}" height='30px' alt=""
-            style="color:yellow;font-size:25pt"
+        <img src="{{ asset('pencil.png') }}" height='30px' alt=""
             data-toggle="tooltip" data-placement="bottom" title="Borang sedang diisi">
     @elseif ($data->status == 'Tidak Lengkap')
         <img src="{{ asset('history.png') }}" height='30px' alt=""
