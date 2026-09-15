@@ -947,6 +947,9 @@ class MainController extends Controller
         // dd($id);
         $user = auth()->user();
         $formB = FormB::find($id);
+        if (!$formB) {
+            return redirect()->route('shuttle-3-listB', date('Y'))->with('error', 'Borang B tidak dijumpai.');
+        }
         $formB->status = $request->status;
         $formB->save();
 
@@ -957,6 +960,16 @@ class MainController extends Controller
         ]);
 
         // Session::flash('message', 'Borang Berjaya Diperaku.');
+
+        // This route also serves shuttle_type 4/5 Form B confirmations
+        // (view-form3b.blade.php is shared across shuttle types), so the
+        // redirect must follow the form's own shuttle_type rather than
+        // always going back to shuttle-3-listB.
+        if ($formB->shuttle_type == 4) {
+            return redirect()->route('shuttle-4-listB', date('Y'))->with('success', 'Borang Berjaya Diperaku.');
+        } elseif ($formB->shuttle_type == 5) {
+            return redirect()->route('shuttle-5-listB', date('Y'))->with('success', 'Borang Berjaya Diperaku.');
+        }
 
         return redirect()->route('shuttle-3-listB', date('Y'))->with('success', 'Borang Berjaya Diperaku.');
     }
@@ -992,6 +1005,9 @@ class MainController extends Controller
         // dd($request->all());
         $user = auth()->user();
         $formD = FormD::find($id);
+        if (!$formD) {
+            return redirect()->route('shuttle-3-listD', date('Y'))->with('error', 'Borang D tidak dijumpai.');
+        }
         $formD->status = $request->status;
         $formD->total_export_cleaning = $request->total_export_cleaning ?? 0;
         $formD->jumlah_pasaran_tempatan_cleaning = $request->jumlah_pasaran_tempatan_cleaning ?? 0;
