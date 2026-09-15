@@ -205,9 +205,9 @@
                                                                 style="color: green; font-size: 20pt;"></i></a>
                                                     @elseif($data->status == 'Sedang Diisi' && $data->bulan == '1')
                                                         <a href="{{ route('user.shuttle-5-formC.KKB', ['bulan' => 1, 'year' => $year]) }}">
-                                                            <img src="{{ asset('sync.png') }}" height='30px' alt=""
+                                                            <img src="{{ asset('circle_times.png') }}" height='30px' alt="" style="font-size: 15pt;"
                                                                 data-toggle="tooltip" data-placement="bottom"
-                                                                title="Borang sedang diisi">
+                                                                title="Borang sedang diisi"></i></a>
                                                     @elseif($data->status == 'Ditutup' && $data->bulan == '1')
                                                     @if ($flow['formC'][$data->bulan]['can_fill'])
                                                         <a href="{{ route('user.shuttle-5-formC.KKB', [$data->bulan, $year]) }}" data-toggle="tooltip" data-placement="bottom" title="Borang belum diisi">
@@ -271,9 +271,9 @@
                                                                 style="color: green; font-size: 20pt;"></i></a>
                                                     @elseif($data->status == 'Sedang Diisi' && $data->bulan == '2')
                                                         <a href="{{ route('user.shuttle-5-formC.KKB', ['bulan' => 2, 'year' => $year]) }}">
-                                                            <img src="{{ asset('sync.png') }}" height='30px' alt=""
+                                                            <img src="{{ asset('circle_times.png') }}" height='30px' alt="" style="font-size: 15pt;"
                                                                 data-toggle="tooltip" data-placement="bottom"
-                                                                title="Borang sedang diisi">
+                                                                title="Borang sedang diisi"></i></a>
                                                     
                                                     @elseif($data->status == 'Ditutup' && $data->bulan == '2')
                                                     @if ($flow['formC'][$data->bulan]['can_fill'])
@@ -338,9 +338,9 @@
                                                                 style="color: green; font-size: 20pt;"></i></a>
                                                     @elseif($data->status == 'Sedang Diisi' && $data->bulan == '3')
                                                         <a href="{{ route('user.shuttle-5-formC.KKB', ['bulan' => 3, 'year' => $year]) }}">
-                                                            <img src="{{ asset('sync.png') }}" height='30px' alt=""
+                                                            <img src="{{ asset('circle_times.png') }}" height='30px' alt="" style="font-size: 15pt;"
                                                                 data-toggle="tooltip" data-placement="bottom"
-                                                                title="Borang sedang diisi">
+                                                                title="Borang sedang diisi"></i></a>
                                                     
                                                     @elseif($data->status == 'Ditutup' && $data->bulan == '3')
                                                     @if ($flow['formC'][$data->bulan]['can_fill'])
@@ -405,9 +405,9 @@
                                                                 style="color: green; font-size: 20pt;"></i></a>
                                                     @elseif($data->status == 'Sedang Diisi' && $data->bulan == '4')
                                                         <a href="{{ route('user.shuttle-5-formC.KKB', ['bulan' => 4, 'year' => $year]) }}">
-                                                            <img src="{{ asset('sync.png') }}" height='30px' alt=""
+                                                            <img src="{{ asset('circle_times.png') }}" height='30px' alt="" style="font-size: 15pt;"
                                                                 data-toggle="tooltip" data-placement="bottom"
-                                                                title="Borang sedang diisi">
+                                                                title="Borang sedang diisi"></i></a>
                                                     
                                                     @elseif($data->status == 'Ditutup' && $data->bulan == '4')
                                                     @if ($flow['formC'][$data->bulan]['can_fill'])
@@ -472,9 +472,9 @@
                                                                 style="color: green; font-size: 20pt;"></i></a>
                                                     @elseif($data->status == 'Sedang Diisi' && $data->bulan == '5')
                                                         <a href="{{ route('user.shuttle-5-formC.KKB', ['bulan' => 5, 'year' => $year]) }}">
-                                                            <img src="{{ asset('sync.png') }}" height='30px' alt=""
+                                                            <img src="{{ asset('circle_times.png') }}" height='30px' alt="" style="font-size: 15pt;"
                                                                 data-toggle="tooltip" data-placement="bottom"
-                                                                title="Borang sedang diisi">
+                                                                title="Borang sedang diisi"></i></a>
                                                     
                                                     @elseif($data->status == 'Ditutup' && $data->bulan == '5')
                                                     @if ($flow['formC'][$data->bulan]['can_fill'])
@@ -539,9 +539,9 @@
                                                                 style="color: green; font-size: 20pt;"></i></a>
                                                     @elseif($data->status == 'Sedang Diisi' && $data->bulan == '6')
                                                         <a href="{{ route('user.shuttle-5-formC.KKB', ['bulan' => 6, 'year' => $year]) }}">
-                                                            <img src="{{ asset('sync.png') }}" height='30px' alt=""
+                                                            <img src="{{ asset('circle_times.png') }}" height='30px' alt="" style="font-size: 15pt;"
                                                                 data-toggle="tooltip" data-placement="bottom"
-                                                                title="Borang sedang diisi">
+                                                                title="Borang sedang diisi"></i></a>
                                                     
                                                     @elseif($data->status == 'Ditutup' && $data->bulan == '6')
                                                     @if ($flow['formC'][$data->bulan]['can_fill'])
@@ -606,9 +606,9 @@
                                                                 style="color: green; font-size: 20pt;"></i></a>
                                                     @elseif($data->status == 'Sedang Diisi' && $data->bulan == '7')
                                                         <a href="{{ route('user.shuttle-5-formC.KKB', ['bulan' => 7, 'year' => $year]) }}">
-                                                            <img src="{{ asset('sync.png') }}" height='30px' alt=""
+                                                            <img src="{{ asset('circle_times.png') }}" height='30px' alt="" style="font-size: 15pt;"
                                                                 data-toggle="tooltip" data-placement="bottom"
-                                                                title="Borang sedang diisi">
+                                                                title="Borang sedang diisi"></i></a>
                                                     
                                                     @elseif($data->status == 'Ditutup' && $data->bulan == '7')
                                                     @if ($flow['formC'][$data->bulan]['can_fill'])
@@ -673,9 +673,9 @@
                                                                 style="color: green; font-size: 20pt;"></i></a>
                                                     @elseif($data->status == 'Sedang Diisi' && $data->bulan == '8')
                                                         <a href="{{ route('user.shuttle-5-formC.KKB', ['bulan' => 8, 'year' => $year]) }}">
-                                                            <img src="{{ asset('sync.png') }}" height='30px' alt=""
+                                                            <img src="{{ asset('circle_times.png') }}" height='30px' alt="" style="font-size: 15pt;"
                                                                 data-toggle="tooltip" data-placement="bottom"
-                                                                title="Borang sedang diisi">
+                                                                title="Borang sedang diisi"></i></a>
                                                     
                                                     @elseif($data->status == 'Ditutup' && $data->bulan == '8')
                                                     @if ($flow['formC'][$data->bulan]['can_fill'])
@@ -740,9 +740,9 @@
                                                                 style="color: green; font-size: 20pt;"></i></a>
                                                     @elseif($data->status == 'Sedang Diisi' && $data->bulan == '9')
                                                         <a href="{{ route('user.shuttle-5-formC.KKB', ['bulan' => 9, 'year' => $year]) }}">
-                                                            <img src="{{ asset('sync.png') }}" height='30px' alt=""
+                                                            <img src="{{ asset('circle_times.png') }}" height='30px' alt="" style="font-size: 15pt;"
                                                                 data-toggle="tooltip" data-placement="bottom"
-                                                                title="Borang sedang diisi">
+                                                                title="Borang sedang diisi"></i></a>
                                                     
                                                     @elseif($data->status == 'Ditutup' && $data->bulan == '9')
                                                     @if ($flow['formC'][$data->bulan]['can_fill'])
@@ -807,9 +807,9 @@
                                                                 style="color: green; font-size: 20pt;"></i></a>
                                                     @elseif($data->status == 'Sedang Diisi' && $data->bulan == '10')
                                                         <a href="{{ route('user.shuttle-5-formC.KKB', ['bulan' => 10, 'year' => $year]) }}">
-                                                            <img src="{{ asset('sync.png') }}" height='30px' alt=""
+                                                            <img src="{{ asset('circle_times.png') }}" height='30px' alt="" style="font-size: 15pt;"
                                                                 data-toggle="tooltip" data-placement="bottom"
-                                                                title="Borang sedang diisi">
+                                                                title="Borang sedang diisi"></i></a>
                                                     
                                                     @elseif($data->status == 'Ditutup' && $data->bulan == '10')
                                                     @if ($flow['formC'][$data->bulan]['can_fill'])
@@ -874,9 +874,9 @@
                                                                 style="color: green; font-size: 20pt;"></i></a>
                                                     @elseif($data->status == 'Sedang Diisi' && $data->bulan == '11')
                                                         <a href="{{ route('user.shuttle-5-formC.KKB', ['bulan' => 11, 'year' => $year]) }}">
-                                                            <img src="{{ asset('sync.png') }}" height='30px' alt=""
+                                                            <img src="{{ asset('circle_times.png') }}" height='30px' alt="" style="font-size: 15pt;"
                                                                 data-toggle="tooltip" data-placement="bottom"
-                                                                title="Borang sedang diisi">
+                                                                title="Borang sedang diisi"></i></a>
                                                     
                                                     @elseif($data->status == 'Ditutup' && $data->bulan == '11')
                                                     @if ($flow['formC'][$data->bulan]['can_fill'])
@@ -941,9 +941,9 @@
                                                                 style="color: green; font-size: 20pt;"></i></a>
                                                     @elseif($data->status == 'Sedang Diisi' && $data->bulan == '12')
                                                         <a href="{{ route('user.shuttle-5-formC.KKB', ['bulan' => 12, 'year' => $year]) }}">
-                                                            <img src="{{ asset('sync.png') }}" height='30px' alt=""
+                                                            <img src="{{ asset('circle_times.png') }}" height='30px' alt="" style="font-size: 15pt;"
                                                                 data-toggle="tooltip" data-placement="bottom"
-                                                                title="Borang sedang diisi">
+                                                                title="Borang sedang diisi"></i></a>
                                                     
                                                     @elseif($data->status == 'Ditutup' && $data->bulan == '12')
                                                     @if ($flow['formC'][$data->bulan]['can_fill'])

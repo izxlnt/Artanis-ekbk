@@ -121,6 +121,7 @@
                                             <th>No. Lesen</th>
 
                                             <th>Tahun</th>
+                                            <th>Status</th>
                                             <th>Tindakan</th>
 
                                         </tr>
@@ -137,6 +138,22 @@
                                                 <td>{{ $data->shuttle->no_lesen ?? 'Tiada' }}</td>
 
                                                 <td>{{ $data->tahun }}</td>
+                                                <td>
+                                                    {{-- Note: this controller (ListOverallController::shuttle_5_listA) does not pass a
+                                                         $batch collection, so unlike the senarai-tugasan-5A reference we cannot compute
+                                                         $current_batch/$packageSent to distinguish "Pakej Belum Dihantar" from
+                                                         "Dihantar ke IPJPSM" sent-onward state. Showing the sent-onward pill for all
+                                                         "Dihantar ke IPJPSM" rows as a safe approximation. --}}
+                                                    @if($data->status == "Sedang Diproses")
+                                                        <span class="label label-primary label-rounded" style="font-size: 11pt;">Borang Perlu Disahkan</span>
+                                                    @elseif($data->status == "Tidak Lengkap")
+                                                        <span class="label label-danger label-rounded" style="font-size: 11pt;">{{ $data->status }}</span>
+                                                    @elseif($data->status == 'Lulus')
+                                                        <span class="label label-success label-rounded" style="font-size: 11pt;">Borang telah diperaku</span>
+                                                    @elseif($data->status == 'Dihantar ke IPJPSM')
+                                                        <span class="label label-success label-rounded" style="font-size: 11pt;">Dihantar ke IPJPSM</span>
+                                                    @endif
+                                                </td>
                                                 <td>
                                                     @if ($data->status == 'Sedang Diproses')
                                                     <a href="{{ route('phd.shuttle-3-view-formA', $data->id) }}">

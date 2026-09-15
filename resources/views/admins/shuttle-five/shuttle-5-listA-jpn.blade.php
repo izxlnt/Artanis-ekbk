@@ -138,10 +138,10 @@
                                                 <td>
                                                     @if ($data->status == 'Sedang Diproses')
                                                         <a href="{{ route('jpn.shuttle-3-view-formA', $data->id) }}"><img
-                                                                src="{{ asset('circle_times_yellow.png') }}"
+                                                                src="{{ asset('circle_check_yellow.png') }}"
                                                                 height='30px' alt="" style="color: white; font-size: 20pt;"
                                                                 data-toggle="tooltip" data-placement="bottom"
-                                                                data-original-title="Borang perlu disahkan PHD "></i>
+                                                                data-original-title="Borang telah dihantar"></i>
                                                         </a>
                                                     @elseif($data->status == 'Tidak Lengkap')
                                                         <a href="{{ route('jpn.shuttle-3-view-formA', $data->id) }}">
@@ -151,7 +151,7 @@
                                                                 data-original-title="Borang tidak lengkap "></i></a>
                                                     @elseif($data->status == 'Tidak Diisi')
                                                         <img src="{{ asset('circle_times.png') }}"
-                                                                            height='30px' alt="" style="color: red; font-size: 20pt;"
+                                                                            height='30px' alt="" style="color: grey; font-size: 20pt;"
                                                             data-toggle="tooltip" data-placement="bottom"
                                                             data-original-title="Borang belum disii "></i>
                                                     @elseif($data->status == 'Dihantar ke IPJPSM')
