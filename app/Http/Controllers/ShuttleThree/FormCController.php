@@ -207,7 +207,18 @@ class FormCController extends Controller
                 $baki_stok_kehadapan[$key] = $baki_stok;
             }
         } else {
-            foreach ($kemasukan_bahans as $key => $data) {
+            // Key by spesis_id first: $kemasukan_bahans' own row order is not guaranteed to
+            // match $species' id/name order, so indexing by the raw collection position could
+            // attach one species' entered figures to a different (untouched) species' row.
+            $kemasukan_lookup = [];
+            foreach ($kemasukan_bahans as $km) {
+                $kemasukan_lookup[$km->getAttributes()['spesis_id']] = $km;
+            }
+            foreach ($species as $key => $value) {
+                $data = $kemasukan_lookup[$value->id] ?? null;
+                if (!$data) {
+                    continue;
+                }
                 $species_id = $data->getAttributes()['spesis_id'];
                 $lastmonth_data = $lastmonth_lookup[$species_id] ?? null;
                 if ($lastmonth_data) {
@@ -585,7 +596,18 @@ class FormCController extends Controller
                 $baki_stok_kehadapan[$key] = $baki_stok;
             }
         } else {
-            foreach ($kemasukan_bahans as $key => $data) {
+            // Key by spesis_id first: $kemasukan_bahans' own row order is not guaranteed to
+            // match $species' id/name order, so indexing by the raw collection position could
+            // attach one species' entered figures to a different (untouched) species' row.
+            $kemasukan_lookup = [];
+            foreach ($kemasukan_bahans as $km) {
+                $kemasukan_lookup[$km->getAttributes()['spesis_id']] = $km;
+            }
+            foreach ($species as $key => $value) {
+                $data = $kemasukan_lookup[$value->id] ?? null;
+                if (!$data) {
+                    continue;
+                }
                 $species_id = $data->getAttributes()['spesis_id'];
                 $lastmonth_data = $lastmonth_lookup[$species_id] ?? null;
                 if ($lastmonth_data) {
@@ -961,7 +983,18 @@ class FormCController extends Controller
                 $baki_stok_kehadapan[$key] = $baki_stok;
             }
         } else {
-            foreach ($kemasukan_bahans as $key => $data) {
+            // Key by spesis_id first: $kemasukan_bahans' own row order is not guaranteed to
+            // match $species' id/name order, so indexing by the raw collection position could
+            // attach one species' entered figures to a different (untouched) species' row.
+            $kemasukan_lookup = [];
+            foreach ($kemasukan_bahans as $km) {
+                $kemasukan_lookup[$km->getAttributes()['spesis_id']] = $km;
+            }
+            foreach ($species as $key => $value) {
+                $data = $kemasukan_lookup[$value->id] ?? null;
+                if (!$data) {
+                    continue;
+                }
                 $species_id = $data->getAttributes()['spesis_id'];
                 $lastmonth_data = $lastmonth_lookup[$species_id] ?? null;
                 if ($lastmonth_data) {
@@ -1339,7 +1372,18 @@ class FormCController extends Controller
                 $baki_stok_kehadapan[$key] = $baki_stok;
             }
         } else {
-            foreach ($kemasukan_bahans as $key => $data) {
+            // Key by spesis_id first: $kemasukan_bahans' own row order is not guaranteed to
+            // match $species' id/name order, so indexing by the raw collection position could
+            // attach one species' entered figures to a different (untouched) species' row.
+            $kemasukan_lookup = [];
+            foreach ($kemasukan_bahans as $km) {
+                $kemasukan_lookup[$km->getAttributes()['spesis_id']] = $km;
+            }
+            foreach ($species as $key => $value) {
+                $data = $kemasukan_lookup[$value->id] ?? null;
+                if (!$data) {
+                    continue;
+                }
                 $species_id = $data->getAttributes()['spesis_id'];
                 $lastmonth_data = $lastmonth_lookup[$species_id] ?? null;
                 if ($lastmonth_data) {
@@ -1782,7 +1826,18 @@ class FormCController extends Controller
                 $baki_stok_kehadapan[$key] = $baki_stok;
             }
         } else {
-            foreach ($kemasukan_bahans as $key => $data) {
+            // Key by spesis_id first: $kemasukan_bahans' own row order is not guaranteed to
+            // match $species' id/name order, so indexing by the raw collection position could
+            // attach one species' entered figures to a different (untouched) species' row.
+            $kemasukan_lookup = [];
+            foreach ($kemasukan_bahans as $km) {
+                $kemasukan_lookup[$km->getAttributes()['spesis_id']] = $km;
+            }
+            foreach ($species as $key => $value) {
+                $data = $kemasukan_lookup[$value->id] ?? null;
+                if (!$data) {
+                    continue;
+                }
                 $species_id = $data->getAttributes()['spesis_id'];
                 $lastmonth_data = $lastmonth_lookup[$species_id] ?? null;
                 if ($lastmonth_data) {
