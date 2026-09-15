@@ -1179,7 +1179,7 @@ class UserController extends Controller
 
     public function list_kilang_aktif()
     {
-        $user3 = User::where('shuttle_type', 3)->where('is_approved', 1)->where('pengguna_kilang_id', null)->whereHas('shuttle', function ($q) {
+        $user3 = User::where('shuttle_type', 3)->where('is_approved', 1)->where('status', 1)->where('pengguna_kilang_id', null)->whereHas('shuttle', function ($q) {
             $q->whereIn('daerah_id', auth()->user()->daerah_ids);
         })->get();
 
@@ -1212,7 +1212,7 @@ class UserController extends Controller
 
     public function list_kilang_aktif_jpn()
     {
-        $user3 = User::where('shuttle_type', 3)->where('is_approved', 1)->where('pengguna_kilang_id', null)->whereHas('shuttle', function ($q) {
+        $user3 = User::where('shuttle_type', 3)->where('is_approved', 1)->where('status', 1)->where('pengguna_kilang_id', null)->whereHas('shuttle', function ($q) {
             $q->where('negeri_id', auth()->user()->negeri);
         })->get();
 
@@ -1233,7 +1233,7 @@ class UserController extends Controller
 
     public function list_kilang_aktif_bpm()
     {
-        $user3 = User::where('shuttle_type', 3)->where('is_approved', 1)->where('pengguna_kilang_id', null)->whereHas('shuttle', function ($q) {
+        $user3 = User::where('shuttle_type', 3)->where('is_approved', 1)->where('status', 1)->where('pengguna_kilang_id', null)->whereHas('shuttle', function ($q) {
             $q->where('negeri_id', auth()->user()->negeri);
         })->get();
 
@@ -1254,7 +1254,7 @@ class UserController extends Controller
 
     public function list_kilang_aktif_ipjpsm()
     {
-        $user3 = User::where('shuttle_type', 3)->where('is_approved', 1)->where('pengguna_kilang_id', null)->get();
+        $user3 = User::where('shuttle_type', 3)->where('is_approved', 1)->where('status', 1)->where('pengguna_kilang_id', null)->get();
 
         $breadcrumbs    = [
             ['link' => route('home'), 'name' => "Laman Utama"],
@@ -1283,7 +1283,7 @@ class UserController extends Controller
 
     public function list_kilang_papan_lapis_aktif_ipjpsm()
     {
-        $user4 = User::where('shuttle_type', 4)->where('is_approved', 1)->where('pengguna_kilang_id', null)->get();
+        $user4 = User::where('shuttle_type', 4)->where('is_approved', 1)->where('status', 1)->where('pengguna_kilang_id', null)->get();
 
         $breadcrumbs    = [
             ['link' => route('home'), 'name' => "Laman Utama"],
@@ -1311,7 +1311,7 @@ class UserController extends Controller
 
     public function list_kilang_kumai_aktif_ipjpsm()
     {
-        $user5 = User::where('shuttle_type', 5)->where('is_approved', 1)->where('pengguna_kilang_id', null)->get();
+        $user5 = User::where('shuttle_type', 5)->where('is_approved', 1)->where('status', 1)->where('pengguna_kilang_id', null)->get();
         // dd($user5);
         $breadcrumbs    = [
             ['link' => route('home'), 'name' => "Laman Utama"],
