@@ -139,11 +139,17 @@
 
                                                 <td>{{ $data->tahun }}</td>
                                                 <td>
-                                                    {{-- Note: this controller (ListOverallController::shuttle_5_listA) does not pass a
-                                                         $batch collection, so unlike the senarai-tugasan-5A reference we cannot compute
-                                                         $current_batch/$packageSent to distinguish "Pakej Belum Dihantar" from
-                                                         "Dihantar ke IPJPSM" sent-onward state. Showing the sent-onward pill for all
-                                                         "Dihantar ke IPJPSM" rows as a safe approximation. --}}
+                                                    @php
+                                                        $current_batch = null;
+                                                        if (isset($batch) && $data->shuttle->id == $data->shuttle_id && $data->tahun == date('Y')) {
+                                                            foreach ($batch as $checker) {
+                                                                if ($checker->tahun == $year && $checker->shuttle_id == $data->shuttle->id && $checker->bulan == $data->created_at->format('m')) {
+                                                                    $current_batch = $checker;
+                                                                }
+                                                            }
+                                                        }
+                                                        $packageSent = $current_batch && $current_batch->status == 'Dihantar ke IPJPSM' && $current_batch->borang_a == 2;
+                                                    @endphp
                                                     @if($data->status == "Sedang Diproses")
                                                         <span class="label label-primary label-rounded" style="font-size: 11pt;">Borang Perlu Disahkan</span>
                                                     @elseif($data->status == "Tidak Lengkap")
@@ -151,7 +157,11 @@
                                                     @elseif($data->status == 'Lulus')
                                                         <span class="label label-success label-rounded" style="font-size: 11pt;">Borang telah diperaku</span>
                                                     @elseif($data->status == 'Dihantar ke IPJPSM')
-                                                        <span class="label label-success label-rounded" style="font-size: 11pt;">Dihantar ke IPJPSM</span>
+                                                        @if ($packageSent)
+                                                            <span class="label label-success label-rounded" style="font-size: 11pt;">Dihantar ke IPJPSM</span>
+                                                        @else
+                                                            <span class="label label-warning label-rounded" style="font-size: 11pt;">Pakej Belum Dihantar</span>
+                                                        @endif
                                                     @endif
                                                 </td>
                                                 <td>

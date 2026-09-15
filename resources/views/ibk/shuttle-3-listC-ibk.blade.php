@@ -153,8 +153,8 @@
                                                         <span
                                                             class="label label-warning label-rounded">{{ $data->status }}</span>
                                                     @elseif($data->status =="Dihantar ke IPJPSM")
-                                                        <span class="label label-warning label-rounded">Sedang
-                                                            Diproses</span>
+                                                        <span class="label label-warning label-rounded">Dihantar ke
+                                                            IPJPSM</span>
                                                     @elseif($data->status =="Tidak Lengkap")
                                                         <span
                                                             class="label label-danger label-rounded">{{ $data->status }}</span>
@@ -168,16 +168,26 @@
                                                 </td>
 
                                                 <td>
-                                                    @if ($data->status == 'Sedang Diproses')
-                                                        <a href="" class="mr-1 btn btn-dark disabled"><i
-                                                                class="fas fa-pencil-alt"></i></a>
-                                                    @elseif($data->status =="Dihantar ke IPJPSM")
-                                                        <a href="" class="mr-1 btn btn-dark disabled"><i
-                                                                class="fas fa-pencil-alt"></i></a>
-                                                    @elseif($data->status =="Tidak Lengkap")
+                                                    @if ($data->status == 'Tidak Lengkap')
                                                         <a href="{{ route('edit-form3c', $data->id) }}"
-                                                            class="mr-1 btn btn-success"><i
-                                                                class="fas fa-pencil-alt"></i></a>
+                                                            data-toggle="tooltip" data-placement="bottom"
+                                                            title="Borang Tidak Lengkap">
+                                                            <img src="{{ asset('history.png') }}" height='30px' alt=""></a>
+                                                    @elseif($data->status == 'Tidak Diisi')
+                                                        <img src="{{ asset('circle_times.png') }}" height='30px' alt=""
+                                                            style="color:red;font-size:25pt"
+                                                            data-toggle="tooltip" data-placement="bottom" title="Borang belum diisi">
+                                                    @elseif($data->status == 'Sedang Diisi')
+                                                        {{-- Per the official status spec, IBK sees "belum diisi" and "sedang diisi" as the same icon. --}}
+                                                        <img src="{{ asset('circle_times.png') }}" height='30px' alt=""
+                                                            style="color:red;font-size:25pt"
+                                                            data-toggle="tooltip" data-placement="bottom" title="Borang sedang diisi">
+                                                    @elseif($data->status == 'Sedang Diproses')
+                                                        <img src="{{ asset('circle_check_yellow.png') }}" height='30px' alt=""
+                                                            data-toggle="tooltip" data-placement="bottom" title="Borang telah dihantar">
+                                                    @elseif(in_array($data->status, ['Lulus', 'Dihantar ke IPJPSM']))
+                                                        <img src="{{ asset('circle_check.png') }}" height='30px' alt=""
+                                                            data-toggle="tooltip" data-placement="bottom" title="Borang telah disahkan">
                                                     @else
                                                         <a href="" class="mr-1 btn btn-dark disabled"><i
                                                                 class="fas fa-pencil-alt"></i></a>
