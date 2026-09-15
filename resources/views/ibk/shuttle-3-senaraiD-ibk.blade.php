@@ -153,14 +153,14 @@
                                                             href="{{ route('pengguna.shuttle-3-view-formD', $data->id) }}">
                                                             <img src="{{ asset('circle_check.png') }}" height='30px'
                                                                 alt="" data-toggle="tooltip" data-placement="bottom"
-                                                                title="Borang telah diperaku"
+                                                                title="Borang telah disahkan"
                                                                 style="color: green; font-size: 20pt;"></i></a>
                                                     @elseif($data->status == 'Dihantar ke IPJPSM' && $data->bulan == '1')
                                                         <a
                                                             href="{{ route('pengguna.shuttle-3-view-formD', $data->id) }}">
                                                             <img src="{{ asset('circle_check.png') }}" height='30px'
                                                                 alt="" data-toggle="tooltip" data-placement="bottom"
-                                                                title="Borang telah disahkan PHD"
+                                                                title="Borang telah disahkan"
                                                                 style="color: green; font-size: 20pt;"></i>
                                                         </a>
                                                     @elseif($data->status == 'Tidak Lengkap' && $data->bulan == '1')
@@ -205,14 +205,14 @@
                                                             href="{{ route('pengguna.shuttle-3-view-formD', $data->id) }}">
                                                             <img src="{{ asset('circle_check.png') }}" height='30px'
                                                                 alt="" data-toggle="tooltip" data-placement="bottom"
-                                                                title="Borang telah diperaku"
+                                                                title="Borang telah disahkan"
                                                                 style="color: green; font-size: 20pt;"></i></a>
                                                     @elseif($data->status == 'Dihantar ke IPJPSM' && $data->bulan == '2')
                                                         <a
                                                             href="{{ route('pengguna.shuttle-3-view-formD', $data->id) }}">
                                                             <img src="{{ asset('circle_check.png') }}" height='30px'
                                                                 alt="" data-toggle="tooltip" data-placement="bottom"
-                                                                title="Borang telah disahkan PHD"
+                                                                title="Borang telah disahkan"
                                                                 style="color: green; font-size: 20pt;"></i>
                                                         </a>
                                                     @elseif($data->status == 'Tidak Lengkap' && $data->bulan == '2')
@@ -258,14 +258,14 @@
                                                             href="{{ route('pengguna.shuttle-3-view-formD', $data->id) }}">
                                                             <img src="{{ asset('circle_check.png') }}" height='30px'
                                                                 alt="" data-toggle="tooltip" data-placement="bottom"
-                                                                title="Borang telah diperaku"
+                                                                title="Borang telah disahkan"
                                                                 style="color: green; font-size: 20pt;"></i></a>
                                                     @elseif($data->status == 'Dihantar ke IPJPSM' && $data->bulan == '3')
                                                         <a
                                                             href="{{ route('pengguna.shuttle-3-view-formD', $data->id) }}">
                                                             <img src="{{ asset('circle_check.png') }}" height='30px'
                                                                 alt="" data-toggle="tooltip" data-placement="bottom"
-                                                                title="Borang telah disahkan PHD"
+                                                                title="Borang telah disahkan"
                                                                 style="color: green; font-size: 20pt;"></i>
                                                         </a>
                                                     @elseif($data->status == 'Tidak Lengkap' && $data->bulan == '3')
@@ -311,14 +311,14 @@
                                                             href="{{ route('pengguna.shuttle-3-view-formD', $data->id) }}">
                                                             <img src="{{ asset('circle_check.png') }}" height='30px'
                                                                 alt="" data-toggle="tooltip" data-placement="bottom"
-                                                                title="Borang telah diperaku"
+                                                                title="Borang telah disahkan"
                                                                 style="color: green; font-size: 20pt;"></i></a>
                                                     @elseif($data->status == 'Dihantar ke IPJPSM' && $data->bulan == '4')
                                                         <a
                                                             href="{{ route('pengguna.shuttle-3-view-formD', $data->id) }}">
                                                             <img src="{{ asset('circle_check.png') }}" height='30px'
                                                                 alt="" data-toggle="tooltip" data-placement="bottom"
-                                                                title="Borang telah disahkan PHD"
+                                                                title="Borang telah disahkan"
                                                                 style="color: green; font-size: 20pt;"></i>
                                                         </a>
                                                     @elseif($data->status == 'Tidak Lengkap' && $data->bulan == '4')
@@ -364,14 +364,14 @@
                                                             href="{{ route('pengguna.shuttle-3-view-formD', $data->id) }}">
                                                             <img src="{{ asset('circle_check.png') }}" height='30px'
                                                                 alt="" data-toggle="tooltip" data-placement="bottom"
-                                                                title="Borang telah diperaku"
+                                                                title="Borang telah disahkan"
                                                                 style="color: green; font-size: 20pt;"></i></a>
                                                     @elseif($data->status == 'Dihantar ke IPJPSM' && $data->bulan == '5')
                                                         <a
                                                             href="{{ route('pengguna.shuttle-3-view-formD', $data->id) }}">
                                                             <img src="{{ asset('circle_check.png') }}" height='30px'
                                                                 alt="" data-toggle="tooltip" data-placement="bottom"
-                                                                title="Borang telah disahkan PHD"
+                                                                title="Borang telah disahkan"
                                                                 style="color: green; font-size: 20pt;"></i>
                                                         </a>
                                                     @elseif($data->status == 'Tidak Lengkap' && $data->bulan == '5')
@@ -417,14 +417,14 @@
                                                             href="{{ route('pengguna.shuttle-3-view-formD', $data->id) }}">
                                                             <img src="{{ asset('circle_check.png') }}" height='30px'
                                                                 alt="" data-toggle="tooltip" data-placement="bottom"
-                                                                title="Borang telah diperaku"
+                                                                title="Borang telah disahkan"
                                                                 style="color: green; font-size: 20pt;"></i></a>
                                                     @elseif($data->status == 'Dihantar ke IPJPSM' && $data->bulan == '6')
                                                         <a
                                                             href="{{ route('pengguna.shuttle-3-view-formD', $data->id) }}">
                                                             <img src="{{ asset('circle_check.png') }}" height='30px'
                                                                 alt="" data-toggle="tooltip" data-placement="bottom"
-                                                                title="Borang telah disahkan PHD"
+                                                                title="Borang telah disahkan"
                                                                 style="color: green; font-size: 20pt;"></i>
                                                         </a>
                                                     @elseif($data->status == 'Tidak Lengkap' && $data->bulan == '6')
@@ -470,14 +470,14 @@
                                                             href="{{ route('pengguna.shuttle-3-view-formD', $data->id) }}">
                                                             <img src="{{ asset('circle_check.png') }}" height='30px'
                                                                 alt="" data-toggle="tooltip" data-placement="bottom"
-                                                                title="Borang telah diperaku"
+                                                                title="Borang telah disahkan"
                                                                 style="color: green; font-size: 20pt;"></i></a>
                                                     @elseif($data->status == 'Dihantar ke IPJPSM' && $data->bulan == '7')
                                                         <a
                                                             href="{{ route('pengguna.shuttle-3-view-formD', $data->id) }}">
                                                             <img src="{{ asset('circle_check.png') }}" height='30px'
                                                                 alt="" data-toggle="tooltip" data-placement="bottom"
-                                                                title="Borang telah disahkan PHD"
+                                                                title="Borang telah disahkan"
                                                                 style="color: green; font-size: 20pt;"></i>
                                                         </a>
                                                     @elseif($data->status == 'Tidak Lengkap' && $data->bulan == '7')
@@ -523,14 +523,14 @@
                                                             href="{{ route('pengguna.shuttle-3-view-formD', $data->id) }}">
                                                             <img src="{{ asset('circle_check.png') }}" height='30px'
                                                                 alt="" data-toggle="tooltip" data-placement="bottom"
-                                                                title="Borang telah diperaku"
+                                                                title="Borang telah disahkan"
                                                                 style="color: green; font-size: 20pt;"></i></a>
                                                     @elseif($data->status == 'Dihantar ke IPJPSM' && $data->bulan == '8')
                                                         <a
                                                             href="{{ route('pengguna.shuttle-3-view-formD', $data->id) }}">
                                                             <img src="{{ asset('circle_check.png') }}" height='30px'
                                                                 alt="" data-toggle="tooltip" data-placement="bottom"
-                                                                title="Borang telah disahkan PHD"
+                                                                title="Borang telah disahkan"
                                                                 style="color: green; font-size: 20pt;"></i>
                                                         </a>
                                                     @elseif($data->status == 'Tidak Lengkap' && $data->bulan == '8')
@@ -576,14 +576,14 @@
                                                             href="{{ route('pengguna.shuttle-3-view-formD', $data->id) }}">
                                                             <img src="{{ asset('circle_check.png') }}" height='30px'
                                                                 alt="" data-toggle="tooltip" data-placement="bottom"
-                                                                title="Borang telah diperaku"
+                                                                title="Borang telah disahkan"
                                                                 style="color: green; font-size: 20pt;"></i></a>
                                                     @elseif($data->status == 'Dihantar ke IPJPSM' && $data->bulan == '9')
                                                         <a
                                                             href="{{ route('pengguna.shuttle-3-view-formD', $data->id) }}">
                                                             <img src="{{ asset('circle_check.png') }}" height='30px'
                                                                 alt="" data-toggle="tooltip" data-placement="bottom"
-                                                                title="Borang telah disahkan PHD"
+                                                                title="Borang telah disahkan"
                                                                 style="color: green; font-size: 20pt;"></i>
                                                         </a>
                                                     @elseif($data->status == 'Tidak Lengkap' && $data->bulan == '9')
@@ -629,14 +629,14 @@
                                                             href="{{ route('pengguna.shuttle-3-view-formD', $data->id) }}">
                                                             <img src="{{ asset('circle_check.png') }}" height='30px'
                                                                 alt="" data-toggle="tooltip" data-placement="bottom"
-                                                                title="Borang telah diperaku"
+                                                                title="Borang telah disahkan"
                                                                 style="color: green; font-size: 20pt;"></i></a>
                                                     @elseif($data->status == 'Dihantar ke IPJPSM' && $data->bulan == '10')
                                                         <a
                                                             href="{{ route('pengguna.shuttle-3-view-formD', $data->id) }}">
                                                             <img src="{{ asset('circle_check.png') }}" height='30px'
                                                                 alt="" data-toggle="tooltip" data-placement="bottom"
-                                                                title="Borang telah disahkan PHD"
+                                                                title="Borang telah disahkan"
                                                                 style="color: green; font-size: 20pt;"></i>
                                                         </a>
                                                     @elseif($data->status == 'Tidak Lengkap' && $data->bulan == '10')
@@ -682,14 +682,14 @@
                                                             href="{{ route('pengguna.shuttle-3-view-formD', $data->id) }}">
                                                             <img src="{{ asset('circle_check.png') }}" height='30px'
                                                                 alt="" data-toggle="tooltip" data-placement="bottom"
-                                                                title="Borang telah diperaku"
+                                                                title="Borang telah disahkan"
                                                                 style="color: green; font-size: 20pt;"></i></a>
                                                     @elseif($data->status == 'Dihantar ke IPJPSM' && $data->bulan == '11')
                                                         <a
                                                             href="{{ route('pengguna.shuttle-3-view-formD', $data->id) }}">
                                                             <img src="{{ asset('circle_check.png') }}" height='30px'
                                                                 alt="" data-toggle="tooltip" data-placement="bottom"
-                                                                title="Borang telah disahkan PHD"
+                                                                title="Borang telah disahkan"
                                                                 style="color: green; font-size: 20pt;"></i>
                                                         </a>
                                                     @elseif($data->status == 'Tidak Lengkap' && $data->bulan == '11')
@@ -735,14 +735,14 @@
                                                             href="{{ route('pengguna.shuttle-3-view-formD', $data->id) }}">
                                                             <img src="{{ asset('circle_check.png') }}" height='30px'
                                                                 alt="" data-toggle="tooltip" data-placement="bottom"
-                                                                title="Borang telah diperaku"
+                                                                title="Borang telah disahkan"
                                                                 style="color: green; font-size: 20pt;"></i></a>
                                                     @elseif($data->status == 'Dihantar ke IPJPSM' && $data->bulan == '12')
                                                         <a
                                                             href="{{ route('pengguna.shuttle-3-view-formD', $data->id) }}">
                                                             <img src="{{ asset('circle_check.png') }}" height='30px'
                                                                 alt="" data-toggle="tooltip" data-placement="bottom"
-                                                                title="Borang telah disahkan PHD"
+                                                                title="Borang telah disahkan"
                                                                 style="color: green; font-size: 20pt;"></i>
                                                         </a>
                                                     @elseif($data->status == 'Tidak Lengkap' && $data->bulan == '12')

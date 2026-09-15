@@ -136,11 +136,11 @@
                                                         @elseif ($list->status == 'Lulus')
                                                 <a href="{{ route('pengguna.shuttle-3-view-formA',$list->id) }}"><img src="{{ asset('circle_check.png') }}" height='30px' alt=""
                                                         style="color: green; font-size: 20pt;"  data-toggle="tooltip" data-placement="bottom"
-                                                        title="Borang telah diperaku"></i></a>
+                                                        title="Borang telah disahkan"></i></a>
                                                         @elseif ($list->status == 'Dihantar ke IPJPSM')
                                                 <a href="{{ route('pengguna.shuttle-3-view-formA',$list->id) }}"><img src="{{ asset('circle_check.png') }}" height='30px' alt=""
                                                         style="color: green; font-size: 20pt;"  data-toggle="tooltip" data-placement="bottom"
-                                                        title="Borang telah disahkan PHD"></i></a>
+                                                        title="Borang telah disahkan"></i></a>
                                                 @elseif($list->status == 'Tidak Diisi')
                                                     @php
                                                         $isRequired = $isPreviousYear || \App\Services\FormRequirementService::isFormARequired(auth()->user()->created_at, $year);

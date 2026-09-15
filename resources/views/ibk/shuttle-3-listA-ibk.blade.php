@@ -155,7 +155,16 @@
                                                     @elseif($data->status == 'Tidak Diisi')
                                                         <a href="{{ url('/pengguna/shuttle-3-formA/' . $year) }}"
                                                             class="mr-1 btn btn-danger"><img src="{{ asset('circle_times.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang belum diisi"></a>
-
+                                                    @elseif($data->status == 'Sedang Diisi')
+                                                        {{-- Per the official status spec, IBK sees "belum diisi" and "sedang diisi" as the same icon. --}}
+                                                        <a href="{{ url('/pengguna/shuttle-3-formA/' . $year) }}"
+                                                            class="mr-1 btn btn-danger"><img src="{{ asset('circle_times.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang sedang diisi"></a>
+                                                    @elseif($data->status == 'Sedang Diproses')
+                                                        <img src="{{ asset('circle_check_yellow.png') }}" height='30px' alt=""
+                                                            data-toggle="tooltip" data-placement="bottom" title="Borang telah dihantar">
+                                                    @elseif(in_array($data->status, ['Lulus', 'Dihantar ke IPJPSM']))
+                                                        <img src="{{ asset('circle_check.png') }}" height='30px' alt=""
+                                                            data-toggle="tooltip" data-placement="bottom" title="Borang telah disahkan">
                                                     @else
                                                         <a href="" class="mr-1 btn btn-dark disabled"><i
                                                                 class="fas fa-pencil-alt"></i></a>
