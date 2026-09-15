@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\ShuttleFive;
 
 use App\Http\Controllers\Controller;
+use App\Models\Batch;
 use App\Models\Buffer;
 use App\Models\Form5D;
 use App\Models\Form5E;
@@ -30,6 +31,7 @@ class ListOverallController extends Controller
         })->where('tahun', '>=', config('app.data_start_year'))->distinct()->orderBy('tahun')->get('tahun');
 
         $buffer = Buffer::where('borang', 'a')->where('shuttle', '5')->first();
+        $batch = Batch::where('tahun', $year)->get();
 
         $breadcrumbs    = [
             ['link' => route('home-phd'), 'name' => "Laman Utama"],
@@ -55,6 +57,7 @@ class ListOverallController extends Controller
             'year_list',
             'year',
             'buffer',
+            'batch',
             'returnArr'
         ));
     }

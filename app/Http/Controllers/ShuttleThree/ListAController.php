@@ -51,6 +51,7 @@ class ListAController extends Controller
             $q->whereIn('daerah_id', auth()->user()->daerah_ids);
         })->distinct()->pluck('tahun')->unique()->sort()->values();
         $buffer = Buffer::where('borang', 'b')->where('shuttle', '3')->first();
+        $batch = Batch::where('tahun', $year)->get();
 
         $breadcrumbs    = [
             ['link' => route('home-phd'), 'name' => "Laman Utama"],
@@ -74,6 +75,7 @@ class ListAController extends Controller
             'year_list',
             'year',
             'buffer',
+            'batch',
             'returnArr'
         ));
     }
