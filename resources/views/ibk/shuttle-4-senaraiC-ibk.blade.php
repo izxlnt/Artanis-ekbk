@@ -205,7 +205,7 @@
                                                         <a href="{{ route('user.shuttle-4-formC.KKB', ['bulan' => 1, 'year' => $year]) }}"
                                                             class="" data-toggle="tooltip"
                                                             data-placement="bottom" title="Borang sedang diisi">
-                                                            <img src="{{ asset('sync.png') }}" height='30px'
+                                                            <img src="{{ asset('circle_times.png') }}" height='30px'
                                                                 alt="" style="font-size: 15pt;"></i></a>
                                                     @elseif($data->status == 'Ditutup' && $data->bulan == '1')
                                                     @if ($flow['formC'][$data->bulan]['can_fill'])
@@ -272,7 +272,7 @@
                                                         <a href="{{ route('user.shuttle-4-formC.KKB', ['bulan' => 2, 'year' => $year]) }}"
                                                             class="" data-toggle="tooltip"
                                                             data-placement="bottom" title="Borang sedang diisi">
-                                                            <img src="{{ asset('sync.png') }}" height='30px'
+                                                            <img src="{{ asset('circle_times.png') }}" height='30px'
                                                                 alt="" style="font-size: 15pt;"></i></a>
                                                     
                                                     @elseif($data->status == 'Ditutup' && $data->bulan == '2')
@@ -340,7 +340,7 @@
                                                         <a href="{{ route('user.shuttle-4-formC.KKB', ['bulan' => 3, 'year' => $year]) }}"
                                                             class="" data-toggle="tooltip"
                                                             data-placement="bottom" title="Borang sedang diisi">
-                                                            <img src="{{ asset('sync.png') }}" height='30px'
+                                                            <img src="{{ asset('circle_times.png') }}" height='30px'
                                                                 alt="" style="font-size: 15pt;"></i></a>
                                                     
                                                     @elseif($data->status == 'Ditutup' && $data->bulan == '3')
@@ -408,7 +408,7 @@
                                                         <a href="{{ route('user.shuttle-4-formC.KKB', ['bulan' => 4, 'year' => $year]) }}"
                                                             class="" data-toggle="tooltip"
                                                             data-placement="bottom" title="Borang sedang diisi">
-                                                            <img src="{{ asset('sync.png') }}" height='30px'
+                                                            <img src="{{ asset('circle_times.png') }}" height='30px'
                                                                 alt="" style="font-size: 15pt;"></i></a>
                                                     
                                                     @elseif($data->status == 'Ditutup' && $data->bulan == '4')
@@ -476,7 +476,7 @@
                                                         <a href="{{ route('user.shuttle-4-formC.KKB', ['bulan' => 5, 'year' => $year]) }}"
                                                             class="" data-toggle="tooltip"
                                                             data-placement="bottom" title="Borang sedang diisi">
-                                                            <img src="{{ asset('sync.png') }}" height='30px'
+                                                            <img src="{{ asset('circle_times.png') }}" height='30px'
                                                                 alt="" style="font-size: 15pt;"></i></a>
                                                     
                                                     @elseif($data->status == 'Ditutup' && $data->bulan == '5')
@@ -544,7 +544,7 @@
                                                         <a href="{{ route('user.shuttle-4-formC.KKB', ['bulan' => 6, 'year' => $year]) }}"
                                                             class="" data-toggle="tooltip"
                                                             data-placement="bottom" title="Borang sedang diisi">
-                                                            <img src="{{ asset('sync.png') }}" height='30px'
+                                                            <img src="{{ asset('circle_times.png') }}" height='30px'
                                                                 alt="" style="font-size: 15pt;"></i></a>
                                                     
                                                     @elseif($data->status == 'Ditutup' && $data->bulan == '6')
@@ -612,7 +612,7 @@
                                                         <a href="{{ route('user.shuttle-4-formC.KKB', ['bulan' => 7, 'year' => $year]) }}"
                                                             class="" data-toggle="tooltip"
                                                             data-placement="bottom" title="Borang sedang diisi">
-                                                            <img src="{{ asset('sync.png') }}" height='30px'
+                                                            <img src="{{ asset('circle_times.png') }}" height='30px'
                                                                 alt="" style="font-size: 15pt;"></i></a>
                                                     
                                                     @elseif($data->status == 'Ditutup' && $data->bulan == '7')
@@ -680,7 +680,7 @@
                                                         <a href="{{ route('user.shuttle-4-formC.KKB', ['bulan' => 8, 'year' => $year]) }}"
                                                             class="" data-toggle="tooltip"
                                                             data-placement="bottom" title="Borang sedang diisi">
-                                                            <img src="{{ asset('sync.png') }}" height='30px'
+                                                            <img src="{{ asset('circle_times.png') }}" height='30px'
                                                                 alt="" style="font-size: 15pt;"></i></a>
                                                     
                                                     @elseif($data->status == 'Ditutup' && $data->bulan == '8')
@@ -748,7 +748,7 @@
                                                         <a href="{{ route('user.shuttle-4-formC.KKB', ['bulan' => 9, 'year' => $year]) }}"
                                                             class="" data-toggle="tooltip"
                                                             data-placement="bottom" title="Borang sedang diisi">
-                                                            <img src="{{ asset('sync.png') }}" height='30px'
+                                                            <img src="{{ asset('circle_times.png') }}" height='30px'
                                                                 alt="" style="font-size: 15pt;"></i></a>
                                                     
                                                     @elseif($data->status == 'Ditutup' && $data->bulan == '9')
@@ -816,7 +816,7 @@
                                                         <a href="{{ route('user.shuttle-4-formC.KKB', ['bulan' => 10, 'year' => $year]) }}"
                                                             class="" data-toggle="tooltip"
                                                             data-placement="bottom" title="Borang sedang diisi">
-                                                            <img src="{{ asset('sync.png') }}" height='30px'
+                                                            <img src="{{ asset('circle_times.png') }}" height='30px'
                                                                 alt="" style="font-size: 15pt;"></i></a>
                                                     
                                                     @elseif($data->status == 'Ditutup' && $data->bulan == '10')
@@ -884,7 +884,7 @@
                                                         <a href="{{ route('user.shuttle-4-formC.KKB', ['bulan' => 11, 'year' => $year]) }}"
                                                             class="" data-toggle="tooltip"
                                                             data-placement="bottom" title="Borang sedang diisi">
-                                                            <img src="{{ asset('sync.png') }}" height='30px'
+                                                            <img src="{{ asset('circle_times.png') }}" height='30px'
                                                                 alt="" style="font-size: 15pt;"></i></a>
                                                     
                                                     @elseif($data->status == 'Ditutup' && $data->bulan == '11')
@@ -952,7 +952,7 @@
                                                         <a href="{{ route('user.shuttle-4-formC.KKB', ['bulan' => 12, 'year' => $year]) }}"
                                                             class="" data-toggle="tooltip"
                                                             data-placement="bottom" title="Borang sedang diisi">
-                                                            <img src="{{ asset('sync.png') }}" height='30px'
+                                                            <img src="{{ asset('circle_times.png') }}" height='30px'
                                                                 alt="" style="font-size: 15pt;"></i></a>
                                                     
                                                     @elseif($data->status == 'Ditutup' && $data->bulan == '12')

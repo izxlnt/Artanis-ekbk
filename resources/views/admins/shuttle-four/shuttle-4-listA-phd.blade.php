@@ -113,6 +113,7 @@
                                             <th>No. SSM</th>
                                             <th>No. Lesen</th>
                                             <th>Tahun</th>
+                                            <th>Status</th>
                                             <th>Tindakan</th>
 
                                         </tr>
@@ -129,6 +130,40 @@
                                                 <td>{{ $data->shuttle->no_lesen ?? 'Tiada' }}</td>
 
                                                 <td>{{ $data->tahun }}</td>
+                                                <td>
+                                                    @php
+                                                        $current_batch = null;
+                                                        if ($data->shuttle->id == $data->shuttle_id && $data->tahun == date('Y')) {
+                                                            foreach ($batch as $checker) {
+                                                                if ($checker->tahun == $year && $checker->shuttle_id == $data->shuttle->id && $checker->bulan == $data->created_at->format('m')) {
+                                                                    $current_batch = $checker;
+                                                                }
+                                                            }
+                                                        }
+                                                        $packageSent = $current_batch && $current_batch->status == 'Dihantar ke IPJPSM' && $current_batch->borang_a == 2;
+                                                    @endphp
+                                                    @if ($data->shuttle->id == $data->shuttle_id && $data->tahun == date('Y'))
+                                                        @if ($data->status == 'Dihantar ke IPJPSM')
+                                                            @if ($packageSent)
+                                                                <span class="label label-success label-rounded"
+                                                                    style="font-size: 11pt;">Dihantar ke IPJPSM</span>
+                                                            @else
+                                                                <span class="label label-warning label-rounded"
+                                                                    style="font-size: 11pt;">Pakej Belum Dihantar</span>
+                                                            @endif
+                                                        @endif
+                                                    @endif
+                                                    @if ($data->status == 'Sedang Diproses')
+                                                        <span class="label label-primary label-rounded"
+                                                            style="font-size: 11pt;">Borang Perlu Disahkan</span>
+                                                    @elseif($data->status == 'Tidak Lengkap')
+                                                        <span class="label label-danger label-rounded"
+                                                            style="font-size: 11pt;">{{ $data->status }}</span>
+                                                    @elseif($data->status == 'Lulus')
+                                                        <span class="label label-success label-rounded"
+                                                            style="font-size: 11pt;">Borang telah diperaku</span>
+                                                    @endif
+                                                </td>
                                                 <td>
                                                     @if ($data->status == 'Sedang Diproses')
                                                         <a href="{{ route('phd.shuttle-3-view-formA', $data->id) }}">

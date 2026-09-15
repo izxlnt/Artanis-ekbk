@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\ShuttleFour;
 
 use App\Http\Controllers\Controller;
+use App\Models\Batch;
 use App\Models\Buffer;
 use App\Models\FormA;
 use Illuminate\Http\Request;
@@ -26,6 +27,7 @@ class ListAController extends Controller
         })->where('tahun', '>=', config('app.data_start_year'))->distinct()->orderBy('tahun')->get('tahun');
 
         $buffer = Buffer::where('borang', 'b')->where('shuttle', '4')->first();
+        $batch = Batch::where('tahun', $year)->get();
 
 
         $breadcrumbs    = [
@@ -52,6 +54,7 @@ class ListAController extends Controller
             'year_list',
             'year',
             'buffer',
+            'batch',
             // 'returnArr'
         ));
     }

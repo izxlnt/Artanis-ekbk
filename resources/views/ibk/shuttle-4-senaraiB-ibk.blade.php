@@ -166,6 +166,9 @@
                                                         @else
                                                             <img src="{{ asset('circle_times.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="{{ $flow['formB'][$data->suku_tahun]['reason'] }}" style="opacity: 0.5;">
                                                         @endif
+                                                    @elseif ($data->status == 'Sedang Diisi' && $data->suku_tahun == '1')
+                                                            <a href="{{ route('user.shuttle-4-formB', [$data->suku_tahun, $data->tahun]) }}" data-toggle="tooltip" data-placement="bottom" title="Borang sedang diisi">
+                                                                <img src="{{ asset('circle_times.png') }}" height='30px' alt="" style="font-size: 15pt;"></i></a>
                                                     @elseif($data->status == 'Sedang Diproses' && $data->suku_tahun == '1')
                                                         <a
                                                             href="{{ route('pengguna.shuttle-3-view-formB', $data->id) }}">
@@ -223,6 +226,9 @@
                                                         @else
                                                             <img src="{{ asset('circle_times.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="{{ $flow['formB'][$data->suku_tahun]['reason'] }}" style="opacity: 0.5;">
                                                         @endif
+                                                    @elseif ($data->status == 'Sedang Diisi' && $data->suku_tahun == '2')
+                                                            <a href="{{ route('user.shuttle-4-formB', [$data->suku_tahun, $data->tahun]) }}" data-toggle="tooltip" data-placement="bottom" title="Borang sedang diisi">
+                                                                <img src="{{ asset('circle_times.png') }}" height='30px' alt="" style="font-size: 15pt;"></i></a>
                                                     @elseif($data->status == 'Sedang Diproses' && $data->suku_tahun == '2')
                                                         <a
                                                             href="{{ route('pengguna.shuttle-3-view-formB', $data->id) }}">
@@ -281,6 +287,9 @@
                                                         @else
                                                             <img src="{{ asset('circle_times.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="{{ $flow['formB'][$data->suku_tahun]['reason'] }}" style="opacity: 0.5;">
                                                         @endif
+                                                    @elseif ($data->status == 'Sedang Diisi' && $data->suku_tahun == '3')
+                                                            <a href="{{ route('user.shuttle-4-formB', [$data->suku_tahun, $data->tahun]) }}" data-toggle="tooltip" data-placement="bottom" title="Borang sedang diisi">
+                                                                <img src="{{ asset('circle_times.png') }}" height='30px' alt="" style="font-size: 15pt;"></i></a>
                                                     @elseif($data->status == 'Sedang Diproses' && $data->suku_tahun == '3')
                                                         <a
                                                             href="{{ route('pengguna.shuttle-3-view-formB', $data->id) }}">
@@ -339,6 +348,9 @@
                                                         @else
                                                             <img src="{{ asset('circle_times.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="{{ $flow['formB'][$data->suku_tahun]['reason'] }}" style="opacity: 0.5;">
                                                         @endif
+                                                    @elseif ($data->status == 'Sedang Diisi' && $data->suku_tahun == '4')
+                                                            <a href="{{ route('user.shuttle-4-formB', [$data->suku_tahun, $data->tahun]) }}" data-toggle="tooltip" data-placement="bottom" title="Borang sedang diisi">
+                                                                <img src="{{ asset('circle_times.png') }}" height='30px' alt="" style="font-size: 15pt;"></i></a>
                                                     @elseif($data->status == 'Sedang Diproses' && $data->suku_tahun == '4')
                                                         <a
                                                             href="{{ route('pengguna.shuttle-3-view-formB', $data->id) }}">
