@@ -171,7 +171,7 @@
                                                                 @if (date('Y-m-d') >= $data->tarikh_buka_borang && (!$buffer || !$buffer->aktif || date('Y-m-d') <= $tarikh_tutup_terkini))
                                                                     <img src="{{ asset('circle_times.png') }}"
                                                                             height='30px' alt=""
-                                                                        style="color: grey; font-size: 20pt;"
+                                                                        style="filter: grayscale(1) brightness(1.8); font-size: 20pt;"
                                                                         data-toggle="tooltip" data-placement="bottom"
                                                                         title="Borang belum diisi"></i>
                                                                 @else
@@ -232,7 +232,7 @@
                                                             @if (date('Y-m-d') >= $data->tarikh_buka_borang && (!$buffer || !$buffer->aktif || date('Y-m-d') <= $tarikh_tutup_terkini))
                                                                 <img src="{{ asset('circle_times.png') }}"
                                                                             height='30px' alt=""
-                                                                    style="color: grey; font-size: 20pt;"
+                                                                    style="filter: grayscale(1) brightness(1.8); font-size: 20pt;"
                                                                     data-toggle="tooltip" data-placement="bottom"
                                                                     title="Borang belum diisi"></i>
                                                             @else
@@ -287,7 +287,7 @@
                                                             @if (date('Y-m-d') >= $data->tarikh_buka_borang && (!$buffer || !$buffer->aktif || date('Y-m-d') <= $tarikh_tutup_terkini))
                                                                 <img src="{{ asset('circle_times.png') }}"
                                                                             height='30px' alt=""
-                                                                    style="color: grey; font-size: 20pt;"
+                                                                    style="filter: grayscale(1) brightness(1.8); font-size: 20pt;"
                                                                     data-toggle="tooltip" data-placement="bottom"
                                                                     title="Borang belum diisi"></i>
                                                             @else
@@ -342,7 +342,7 @@
                                                             @if (date('Y-m-d') >= $data->tarikh_buka_borang && (!$buffer || !$buffer->aktif || date('Y-m-d') <= $tarikh_tutup_terkini))
                                                                 <img src="{{ asset('circle_times.png') }}"
                                                                             height='30px' alt=""
-                                                                    style="color: grey; font-size: 20pt;"
+                                                                    style="filter: grayscale(1) brightness(1.8); font-size: 20pt;"
                                                                     data-toggle="tooltip" data-placement="bottom"
                                                                     title="Borang belum diisi"></i>
                                                             @else

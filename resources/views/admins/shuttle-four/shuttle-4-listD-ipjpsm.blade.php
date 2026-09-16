@@ -185,7 +185,7 @@
                                                                         data-toggle="tooltip" data-placement="bottom"
                                                                         title="Borang telah dihantar"></i>
                                                                 @elseif($data->status == 'Tidak Lengkap')
-                                                                    <img src="{{ asset('history.png') }}" height='30px' alt="" style="color: grey; font-size: 20pt;" data-toggle="tooltip" data-placement="bottom" title="Borang tidak lengkap">
+                                                                    <img src="{{ asset('history.png') }}" height='30px' alt="" style="filter: grayscale(1) brightness(1.8); font-size: 20pt;" data-toggle="tooltip" data-placement="bottom" title="Borang tidak lengkap">
                                                                 @elseif($data->status == 'Tiada Pengeluaran')
                                                                     <img src="{{ asset('circle_check_yellow.png') }}" height='30px' alt=""
                                                                         data-toggle="tooltip" data-placement="bottom"
@@ -277,7 +277,7 @@
                                                                         data-toggle="tooltip" data-placement="bottom"
                                                                         title="Borang telah dihantar"></i>
                                                                 @elseif($data->status == 'Tidak Lengkap')
-                                                                    <img src="{{ asset('history.png') }}" height='30px' alt="" style="color: grey; font-size: 20pt;" data-toggle="tooltip" data-placement="bottom" title="Borang tidak lengkap">
+                                                                    <img src="{{ asset('history.png') }}" height='30px' alt="" style="filter: grayscale(1) brightness(1.8); font-size: 20pt;" data-toggle="tooltip" data-placement="bottom" title="Borang tidak lengkap">
                                                                 @elseif($data->status == 'Tiada Pengeluaran')
                                                                     <img src="{{ asset('circle_check_yellow.png') }}" height='30px' alt=""
                                                                         data-toggle="tooltip" data-placement="bottom"
@@ -369,7 +369,7 @@
                                                                         data-toggle="tooltip" data-placement="bottom"
                                                                         title="Borang telah dihantar"></i>
                                                                 @elseif($data->status == 'Tidak Lengkap')
-                                                                    <img src="{{ asset('history.png') }}" height='30px' alt="" style="color: grey; font-size: 20pt;" data-toggle="tooltip" data-placement="bottom" title="Borang tidak lengkap">
+                                                                    <img src="{{ asset('history.png') }}" height='30px' alt="" style="filter: grayscale(1) brightness(1.8); font-size: 20pt;" data-toggle="tooltip" data-placement="bottom" title="Borang tidak lengkap">
                                                                 @elseif($data->status == 'Tiada Pengeluaran')
                                                                     <img src="{{ asset('circle_check_yellow.png') }}" height='30px' alt=""
                                                                         data-toggle="tooltip" data-placement="bottom"
@@ -461,7 +461,7 @@
                                                                         data-toggle="tooltip" data-placement="bottom"
                                                                         title="Borang telah dihantar"></i>
                                                                 @elseif($data->status == 'Tidak Lengkap')
-                                                                    <img src="{{ asset('history.png') }}" height='30px' alt="" style="color: grey; font-size: 20pt;" data-toggle="tooltip" data-placement="bottom" title="Borang tidak lengkap">
+                                                                    <img src="{{ asset('history.png') }}" height='30px' alt="" style="filter: grayscale(1) brightness(1.8); font-size: 20pt;" data-toggle="tooltip" data-placement="bottom" title="Borang tidak lengkap">
                                                                 @elseif($data->status == 'Tiada Pengeluaran')
                                                                     <img src="{{ asset('circle_check_yellow.png') }}" height='30px' alt=""
                                                                         data-toggle="tooltip" data-placement="bottom"
@@ -553,7 +553,7 @@
                                                                         data-toggle="tooltip" data-placement="bottom"
                                                                         title="Borang telah dihantar"></i>
                                                                 @elseif($data->status == 'Tidak Lengkap')
-                                                                    <img src="{{ asset('history.png') }}" height='30px' alt="" style="color: grey; font-size: 20pt;" data-toggle="tooltip" data-placement="bottom" title="Borang tidak lengkap">
+                                                                    <img src="{{ asset('history.png') }}" height='30px' alt="" style="filter: grayscale(1) brightness(1.8); font-size: 20pt;" data-toggle="tooltip" data-placement="bottom" title="Borang tidak lengkap">
                                                                 @elseif($data->status == 'Tiada Pengeluaran')
                                                                     <img src="{{ asset('circle_check_yellow.png') }}" height='30px' alt=""
                                                                         data-toggle="tooltip" data-placement="bottom"
@@ -645,7 +645,7 @@
                                                                         data-toggle="tooltip" data-placement="bottom"
                                                                         title="Borang telah dihantar"></i>
                                                                 @elseif($data->status == 'Tidak Lengkap')
-                                                                    <img src="{{ asset('history.png') }}" height='30px' alt="" style="color: grey; font-size: 20pt;" data-toggle="tooltip" data-placement="bottom" title="Borang tidak lengkap">
+                                                                    <img src="{{ asset('history.png') }}" height='30px' alt="" style="filter: grayscale(1) brightness(1.8); font-size: 20pt;" data-toggle="tooltip" data-placement="bottom" title="Borang tidak lengkap">
                                                                 @elseif($data->status == 'Tiada Pengeluaran')
                                                                     <img src="{{ asset('circle_check_yellow.png') }}" height='30px' alt=""
                                                                         data-toggle="tooltip" data-placement="bottom"
@@ -737,7 +737,7 @@
                                                                         data-toggle="tooltip" data-placement="bottom"
                                                                         title="Borang telah dihantar"></i>
                                                                 @elseif($data->status == 'Tidak Lengkap')
-                                                                    <img src="{{ asset('history.png') }}" height='30px' alt="" style="color: grey; font-size: 20pt;" data-toggle="tooltip" data-placement="bottom" title="Borang tidak lengkap">
+                                                                    <img src="{{ asset('history.png') }}" height='30px' alt="" style="filter: grayscale(1) brightness(1.8); font-size: 20pt;" data-toggle="tooltip" data-placement="bottom" title="Borang tidak lengkap">
                                                                 @elseif($data->status == 'Tiada Pengeluaran')
                                                                     <img src="{{ asset('circle_check_yellow.png') }}" height='30px' alt=""
                                                                         data-toggle="tooltip" data-placement="bottom"
@@ -829,7 +829,7 @@
                                                                         data-toggle="tooltip" data-placement="bottom"
                                                                         title="Borang telah dihantar"></i>
                                                                 @elseif($data->status == 'Tidak Lengkap')
-                                                                    <img src="{{ asset('history.png') }}" height='30px' alt="" style="color: grey; font-size: 20pt;" data-toggle="tooltip" data-placement="bottom" title="Borang tidak lengkap">
+                                                                    <img src="{{ asset('history.png') }}" height='30px' alt="" style="filter: grayscale(1) brightness(1.8); font-size: 20pt;" data-toggle="tooltip" data-placement="bottom" title="Borang tidak lengkap">
                                                                 @elseif($data->status == 'Tiada Pengeluaran')
                                                                     <img src="{{ asset('circle_check_yellow.png') }}" height='30px' alt=""
                                                                         data-toggle="tooltip" data-placement="bottom"
@@ -921,7 +921,7 @@
                                                                         data-toggle="tooltip" data-placement="bottom"
                                                                         title="Borang telah dihantar"></i>
                                                                 @elseif($data->status == 'Tidak Lengkap')
-                                                                    <img src="{{ asset('history.png') }}" height='30px' alt="" style="color: grey; font-size: 20pt;" data-toggle="tooltip" data-placement="bottom" title="Borang tidak lengkap">
+                                                                    <img src="{{ asset('history.png') }}" height='30px' alt="" style="filter: grayscale(1) brightness(1.8); font-size: 20pt;" data-toggle="tooltip" data-placement="bottom" title="Borang tidak lengkap">
                                                                 @elseif($data->status == 'Tiada Pengeluaran')
                                                                     <img src="{{ asset('circle_check_yellow.png') }}" height='30px' alt=""
                                                                         data-toggle="tooltip" data-placement="bottom"
@@ -1013,7 +1013,7 @@
                                                                         data-toggle="tooltip" data-placement="bottom"
                                                                         title="Borang telah dihantar"></i>
                                                                 @elseif($data->status == 'Tidak Lengkap')
-                                                                    <img src="{{ asset('history.png') }}" height='30px' alt="" style="color: grey; font-size: 20pt;" data-toggle="tooltip" data-placement="bottom" title="Borang tidak lengkap">
+                                                                    <img src="{{ asset('history.png') }}" height='30px' alt="" style="filter: grayscale(1) brightness(1.8); font-size: 20pt;" data-toggle="tooltip" data-placement="bottom" title="Borang tidak lengkap">
                                                                 @elseif($data->status == 'Tiada Pengeluaran')
                                                                     <img src="{{ asset('circle_check_yellow.png') }}" height='30px' alt=""
                                                                         data-toggle="tooltip" data-placement="bottom"
@@ -1105,7 +1105,7 @@
                                                                         data-toggle="tooltip" data-placement="bottom"
                                                                         title="Borang telah dihantar"></i>
                                                                 @elseif($data->status == 'Tidak Lengkap')
-                                                                    <img src="{{ asset('history.png') }}" height='30px' alt="" style="color: grey; font-size: 20pt;" data-toggle="tooltip" data-placement="bottom" title="Borang tidak lengkap">
+                                                                    <img src="{{ asset('history.png') }}" height='30px' alt="" style="filter: grayscale(1) brightness(1.8); font-size: 20pt;" data-toggle="tooltip" data-placement="bottom" title="Borang tidak lengkap">
                                                                 @elseif($data->status == 'Tiada Pengeluaran')
                                                                     <img src="{{ asset('circle_check_yellow.png') }}" height='30px' alt=""
                                                                         data-toggle="tooltip" data-placement="bottom"
@@ -1197,7 +1197,7 @@
                                                                         data-toggle="tooltip" data-placement="bottom"
                                                                         title="Borang telah dihantar"></i>
                                                                 @elseif($data->status == 'Tidak Lengkap')
-                                                                    <img src="{{ asset('history.png') }}" height='30px' alt="" style="color: grey; font-size: 20pt;" data-toggle="tooltip" data-placement="bottom" title="Borang tidak lengkap">
+                                                                    <img src="{{ asset('history.png') }}" height='30px' alt="" style="filter: grayscale(1) brightness(1.8); font-size: 20pt;" data-toggle="tooltip" data-placement="bottom" title="Borang tidak lengkap">
                                                                 @elseif($data->status == 'Tiada Pengeluaran')
                                                                     <img src="{{ asset('circle_check_yellow.png') }}" height='30px' alt=""
                                                                         data-toggle="tooltip" data-placement="bottom"
