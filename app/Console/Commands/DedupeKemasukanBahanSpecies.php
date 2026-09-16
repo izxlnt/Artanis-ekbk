@@ -14,7 +14,8 @@ class DedupeKemasukanBahanSpecies extends Command
      */
     protected $signature = 'formc:dedupe-species
         {--apply : Actually delete the redundant duplicate rows. Without this flag, only a preview/summary is shown.}
-        {--formc-id= : Limit to a single form_c_s id.}';
+        {--formc-id= : Limit to a single form_c_s id.}
+        {--tahun= : Limit to rows for a single tahun (year), e.g. --tahun=2026.}';
 
     /**
      * The console command description.
@@ -40,6 +41,9 @@ class DedupeKemasukanBahanSpecies extends Command
         $query = DB::table('kemasukan_bahans')->select('formcs_id', 'spesis_id');
         if ($formcId = $this->option('formc-id')) {
             $query->where('formcs_id', $formcId);
+        }
+        if ($tahun = $this->option('tahun')) {
+            $query->where('tahun', $tahun);
         }
 
         $dupGroups = $query->groupBy('formcs_id', 'spesis_id')
