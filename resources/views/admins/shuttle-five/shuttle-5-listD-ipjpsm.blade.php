@@ -169,7 +169,7 @@
 
                                                             @elseif($data->status =="Tidak Lengkap")
                                                                <img src="{{ asset('history.png') }}" height='30px' alt=""
-                                                                    style="color: grey; font-size: 20pt;"
+                                                                    style="filter: grayscale(1) brightness(1.8); font-size: 20pt;"
                                                                     data-toggle="tooltip" data-placement="bottom"
                                                                     title="Borang tidak lengkap "></i>
                                                             @elseif($data->status =="Sedang Diproses")
@@ -258,7 +258,7 @@
                                                         @endif
 
                                                     @elseif($data->status =="Tidak Lengkap")
-                                                       <img src="{{ asset('history.png') }}" height='30px' alt="" style="color: grey; font-size: 20pt;"
+                                                       <img src="{{ asset('history.png') }}" height='30px' alt="" style="filter: grayscale(1) brightness(1.8); font-size: 20pt;"
                                                             data-toggle="tooltip" data-placement="bottom"
                                                             title="Borang tidak lengkap "></i>
                                                     @elseif($data->status =="Sedang Diproses")
@@ -341,7 +341,7 @@
                                                         @endif
 
                                                     @elseif($data->status =="Tidak Lengkap")
-                                                       <img src="{{ asset('history.png') }}" height='30px' alt="" style="color: grey; font-size: 20pt;"
+                                                       <img src="{{ asset('history.png') }}" height='30px' alt="" style="filter: grayscale(1) brightness(1.8); font-size: 20pt;"
                                                             data-toggle="tooltip" data-placement="bottom"
                                                             title="Borang tidak lengkap "></i>
                                                     @elseif($data->status =="Sedang Diproses")
@@ -424,7 +424,7 @@
                                                         @endif
 
                                                     @elseif($data->status =="Tidak Lengkap")
-                                                       <img src="{{ asset('history.png') }}" height='30px' alt="" style="color: grey; font-size: 20pt;"
+                                                       <img src="{{ asset('history.png') }}" height='30px' alt="" style="filter: grayscale(1) brightness(1.8); font-size: 20pt;"
                                                             data-toggle="tooltip" data-placement="bottom"
                                                             title="Borang tidak lengkap "></i>
                                                     @elseif($data->status =="Sedang Diproses")
@@ -507,7 +507,7 @@
                                                         @endif
 
                                                     @elseif($data->status =="Tidak Lengkap")
-                                                       <img src="{{ asset('history.png') }}" height='30px' alt="" style="color: grey; font-size: 20pt;"
+                                                       <img src="{{ asset('history.png') }}" height='30px' alt="" style="filter: grayscale(1) brightness(1.8); font-size: 20pt;"
                                                             data-toggle="tooltip" data-placement="bottom"
                                                             title="Borang tidak lengkap "></i>
                                                     @elseif($data->status =="Sedang Diproses")
@@ -590,7 +590,7 @@
                                                         @endif
 
                                                     @elseif($data->status =="Tidak Lengkap")
-                                                       <img src="{{ asset('history.png') }}" height='30px' alt="" style="color: grey; font-size: 20pt;"
+                                                       <img src="{{ asset('history.png') }}" height='30px' alt="" style="filter: grayscale(1) brightness(1.8); font-size: 20pt;"
                                                             data-toggle="tooltip" data-placement="bottom"
                                                             title="Borang tidak lengkap "></i>
                                                     @elseif($data->status =="Sedang Diproses")
@@ -673,7 +673,7 @@
                                                         @endif
 
                                                     @elseif($data->status =="Tidak Lengkap")
-                                                       <img src="{{ asset('history.png') }}" height='30px' alt="" style="color: grey; font-size: 20pt;"
+                                                       <img src="{{ asset('history.png') }}" height='30px' alt="" style="filter: grayscale(1) brightness(1.8); font-size: 20pt;"
                                                             data-toggle="tooltip" data-placement="bottom"
                                                             title="Borang tidak lengkap "></i>
                                                     @elseif($data->status =="Sedang Diproses")
@@ -756,7 +756,7 @@
                                                         @endif
 
                                                     @elseif($data->status =="Tidak Lengkap")
-                                                       <img src="{{ asset('history.png') }}" height='30px' alt="" style="color: grey; font-size: 20pt;"
+                                                       <img src="{{ asset('history.png') }}" height='30px' alt="" style="filter: grayscale(1) brightness(1.8); font-size: 20pt;"
                                                             data-toggle="tooltip" data-placement="bottom"
                                                             title="Borang tidak lengkap "></i>
                                                     @elseif($data->status =="Sedang Diproses")
@@ -839,7 +839,7 @@
                                                         @endif
 
                                                     @elseif($data->status =="Tidak Lengkap")
-                                                       <img src="{{ asset('history.png') }}" height='30px' alt="" style="color: grey; font-size: 20pt;"
+                                                       <img src="{{ asset('history.png') }}" height='30px' alt="" style="filter: grayscale(1) brightness(1.8); font-size: 20pt;"
                                                             data-toggle="tooltip" data-placement="bottom"
                                                             title="Borang tidak lengkap "></i>
                                                     @elseif($data->status =="Sedang Diproses")
@@ -922,7 +922,7 @@
                                                         @endif
 
                                                     @elseif($data->status =="Tidak Lengkap")
-                                                       <img src="{{ asset('history.png') }}" height='30px' alt="" style="color: grey; font-size: 20pt;"
+                                                       <img src="{{ asset('history.png') }}" height='30px' alt="" style="filter: grayscale(1) brightness(1.8); font-size: 20pt;"
                                                             data-toggle="tooltip" data-placement="bottom"
                                                             title="Borang tidak lengkap "></i>
                                                     @elseif($data->status =="Sedang Diproses")
@@ -1005,7 +1005,7 @@
                                                         @endif
 
                                                     @elseif($data->status =="Tidak Lengkap")
-                                                       <img src="{{ asset('history.png') }}" height='30px' alt="" style="color: grey; font-size: 20pt;"
+                                                       <img src="{{ asset('history.png') }}" height='30px' alt="" style="filter: grayscale(1) brightness(1.8); font-size: 20pt;"
                                                             data-toggle="tooltip" data-placement="bottom"
                                                             title="Borang tidak lengkap "></i>
                                                     @elseif($data->status =="Sedang Diproses")
@@ -1089,7 +1089,7 @@
                                                         @endif
 
                                                     @elseif($data->status =="Tidak Lengkap")
-                                                       <img src="{{ asset('history.png') }}" height='30px' alt="" style="color: grey; font-size: 20pt;"
+                                                       <img src="{{ asset('history.png') }}" height='30px' alt="" style="filter: grayscale(1) brightness(1.8); font-size: 20pt;"
                                                             data-toggle="tooltip" data-placement="bottom"
                                                             title="Borang tidak lengkap "></i>
                                                     @elseif($data->status =="Sedang Diproses")

@@ -158,7 +158,7 @@
                                                                 <a href="{{ route('jpn.shuttle-4-view-formC', $data->id) }}">
                                                                     <img src="{{ asset('circle_times.png') }}"
                                                                             height='30px' alt=""
-                                                                    style="color: grey; font-size: 20pt;"
+                                                                    style="filter: grayscale(1) brightness(1.8); font-size: 20pt;"
                                                                     data-toggle="tooltip" data-placement="bottom"
                                                                     title="Borang belum diisi"></i>
                                                                 @else
@@ -243,7 +243,7 @@
                                                                 <a href="{{ route('jpn.shuttle-4-view-formC', $data->id) }}">
                                                                     <img src="{{ asset('circle_times.png') }}"
                                                                             height='30px' alt=""
-                                                                    style="color: grey; font-size: 20pt;"
+                                                                    style="filter: grayscale(1) brightness(1.8); font-size: 20pt;"
                                                                     data-toggle="tooltip" data-placement="bottom"
                                                                     title="Borang belum diisi"></i>
                                                                 @else
@@ -328,7 +328,7 @@
                                                                 <a href="{{ route('jpn.shuttle-4-view-formC', $data->id) }}">
                                                                     <img src="{{ asset('circle_times.png') }}"
                                                                             height='30px' alt=""
-                                                                    style="color: grey; font-size: 20pt;"
+                                                                    style="filter: grayscale(1) brightness(1.8); font-size: 20pt;"
                                                                     data-toggle="tooltip" data-placement="bottom"
                                                                     title="Borang belum diisi"></i>
                                                                 @else
@@ -413,7 +413,7 @@
                                                                 <a href="{{ route('jpn.shuttle-4-view-formC', $data->id) }}">
                                                                     <img src="{{ asset('circle_times.png') }}"
                                                                             height='30px' alt=""
-                                                                    style="color: grey; font-size: 20pt;"
+                                                                    style="filter: grayscale(1) brightness(1.8); font-size: 20pt;"
                                                                     data-toggle="tooltip" data-placement="bottom"
                                                                     title="Borang belum diisi"></i>
                                                                 @else
@@ -498,7 +498,7 @@
                                                                 <a href="{{ route('jpn.shuttle-4-view-formC', $data->id) }}">
                                                                     <img src="{{ asset('circle_times.png') }}"
                                                                             height='30px' alt=""
-                                                                    style="color: grey; font-size: 20pt;"
+                                                                    style="filter: grayscale(1) brightness(1.8); font-size: 20pt;"
                                                                     data-toggle="tooltip" data-placement="bottom"
                                                                     title="Borang belum diisi"></i>
                                                                 @else
@@ -583,7 +583,7 @@
                                                                 <a href="{{ route('jpn.shuttle-4-view-formC', $data->id) }}">
                                                                     <img src="{{ asset('circle_times.png') }}"
                                                                             height='30px' alt=""
-                                                                    style="color: grey; font-size: 20pt;"
+                                                                    style="filter: grayscale(1) brightness(1.8); font-size: 20pt;"
                                                                     data-toggle="tooltip" data-placement="bottom"
                                                                     title="Borang belum diisi"></i>
                                                                 @else
@@ -671,7 +671,7 @@
                                                                 <a href="{{ route('jpn.shuttle-4-view-formC', $data->id) }}">
                                                                     <img src="{{ asset('circle_times.png') }}"
                                                                             height='30px' alt=""
-                                                                    style="color: grey; font-size: 20pt;"
+                                                                    style="filter: grayscale(1) brightness(1.8); font-size: 20pt;"
                                                                     data-toggle="tooltip" data-placement="bottom"
                                                                     title="Borang belum diisi"></i>
                                                                 @else
@@ -759,7 +759,7 @@
                                                                 <a href="{{ route('jpn.shuttle-4-view-formC', $data->id) }}">
                                                                     <img src="{{ asset('circle_times.png') }}"
                                                                             height='30px' alt=""
-                                                                    style="color: grey; font-size: 20pt;"
+                                                                    style="filter: grayscale(1) brightness(1.8); font-size: 20pt;"
                                                                     data-toggle="tooltip" data-placement="bottom"
                                                                     title="Borang belum diisi"></i>
                                                                 @else
@@ -847,7 +847,7 @@
                                                                 <a href="{{ route('jpn.shuttle-4-view-formC', $data->id) }}">
                                                                     <img src="{{ asset('circle_times.png') }}"
                                                                             height='30px' alt=""
-                                                                    style="color: grey; font-size: 20pt;"
+                                                                    style="filter: grayscale(1) brightness(1.8); font-size: 20pt;"
                                                                     data-toggle="tooltip" data-placement="bottom"
                                                                     title="Borang belum diisi"></i>
                                                                 @else
@@ -935,7 +935,7 @@
                                                                 <a href="{{ route('jpn.shuttle-4-view-formC', $data->id) }}">
                                                                     <img src="{{ asset('circle_times.png') }}"
                                                                             height='30px' alt=""
-                                                                    style="color: grey; font-size: 20pt;"
+                                                                    style="filter: grayscale(1) brightness(1.8); font-size: 20pt;"
                                                                     data-toggle="tooltip" data-placement="bottom"
                                                                     title="Borang belum diisi"></i>
                                                                 @else
@@ -1023,7 +1023,7 @@
                                                                 <a href="{{ route('jpn.shuttle-4-view-formC', $data->id) }}">
                                                                     <img src="{{ asset('circle_times.png') }}"
                                                                             height='30px' alt=""
-                                                                    style="color: grey; font-size: 20pt;"
+                                                                    style="filter: grayscale(1) brightness(1.8); font-size: 20pt;"
                                                                     data-toggle="tooltip" data-placement="bottom"
                                                                     title="Borang belum diisi"></i>
                                                                 @else
@@ -1111,7 +1111,7 @@
                                                                 <a href="{{ route('jpn.shuttle-4-view-formC', $data->id) }}">
                                                                     <img src="{{ asset('circle_times.png') }}"
                                                                             height='30px' alt=""
-                                                                    style="color: grey; font-size: 20pt;"
+                                                                    style="filter: grayscale(1) brightness(1.8); font-size: 20pt;"
                                                                     data-toggle="tooltip" data-placement="bottom"
                                                                     title="Borang belum diisi"></i>
                                                                 @else

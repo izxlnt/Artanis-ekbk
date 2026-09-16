@@ -186,7 +186,7 @@
 
                                                                     <img src="{{ asset('circle_times.png') }}"
                                                                             height='30px' alt=""
-                                                                        style="color: grey; font-size: 25pt;"
+                                                                        style="filter: grayscale(1) brightness(1.8); font-size: 25pt;"
                                                                         data-toggle="tooltip" data-placement="bottom"
                                                                         title="Borang tidak diisi"></i>
 
@@ -269,7 +269,7 @@
 
                                                             <img src="{{ asset('circle_times.png') }}"
                                                                             height='30px' alt=""
-                                                                style="color: grey; font-size: 25pt;" data-toggle="tooltip"
+                                                                style="filter: grayscale(1) brightness(1.8); font-size: 25pt;" data-toggle="tooltip"
                                                                 data-placement="bottom" title="Borang tidak diisi"></i>
 
                                                         @else
@@ -343,7 +343,7 @@
 
                                                             <img src="{{ asset('circle_times.png') }}"
                                                                             height='30px' alt=""
-                                                                style="color: grey; font-size: 25pt;" data-toggle="tooltip"
+                                                                style="filter: grayscale(1) brightness(1.8); font-size: 25pt;" data-toggle="tooltip"
                                                                 data-placement="bottom" title="Borang tidak diisi"></i>
 
                                                         @else
@@ -417,7 +417,7 @@
 
                                                             <img src="{{ asset('circle_times.png') }}"
                                                                             height='30px' alt=""
-                                                                style="color: grey; font-size: 25pt;" data-toggle="tooltip"
+                                                                style="filter: grayscale(1) brightness(1.8); font-size: 25pt;" data-toggle="tooltip"
                                                                 data-placement="bottom" title="Borang tidak diisi"></i>
 
                                                         @else
@@ -491,7 +491,7 @@
 
                                                             <img src="{{ asset('circle_times.png') }}"
                                                                             height='30px' alt=""
-                                                                style="color: grey; font-size: 25pt;" data-toggle="tooltip"
+                                                                style="filter: grayscale(1) brightness(1.8); font-size: 25pt;" data-toggle="tooltip"
                                                                 data-placement="bottom" title="Borang tidak diisi"></i>
 
                                                         @else
@@ -565,7 +565,7 @@
 
                                                             <img src="{{ asset('circle_times.png') }}"
                                                                             height='30px' alt=""
-                                                                style="color: grey; font-size: 25pt;" data-toggle="tooltip"
+                                                                style="filter: grayscale(1) brightness(1.8); font-size: 25pt;" data-toggle="tooltip"
                                                                 data-placement="bottom" title="Borang tidak diisi"></i>
 
                                                         @else
@@ -639,7 +639,7 @@
 
                                                             <img src="{{ asset('circle_times.png') }}"
                                                                             height='30px' alt=""
-                                                                style="color: grey; font-size: 25pt;" data-toggle="tooltip"
+                                                                style="filter: grayscale(1) brightness(1.8); font-size: 25pt;" data-toggle="tooltip"
                                                                 data-placement="bottom" title="Borang tidak diisi"></i>
 
                                                         @else
@@ -713,7 +713,7 @@
 
                                                             <img src="{{ asset('circle_times.png') }}"
                                                                             height='30px' alt=""
-                                                                style="color: grey; font-size: 25pt;" data-toggle="tooltip"
+                                                                style="filter: grayscale(1) brightness(1.8); font-size: 25pt;" data-toggle="tooltip"
                                                                 data-placement="bottom" title="Borang tidak diisi"></i>
 
                                                         @else
@@ -787,7 +787,7 @@
 
                                                             <img src="{{ asset('circle_times.png') }}"
                                                                             height='30px' alt=""
-                                                                style="color: grey; font-size: 25pt;" data-toggle="tooltip"
+                                                                style="filter: grayscale(1) brightness(1.8); font-size: 25pt;" data-toggle="tooltip"
                                                                 data-placement="bottom" title="Borang tidak diisi"></i>
 
                                                         @else
@@ -861,7 +861,7 @@
 
                                                             <img src="{{ asset('circle_times.png') }}"
                                                                             height='30px' alt=""
-                                                                style="color: grey; font-size: 25pt;" data-toggle="tooltip"
+                                                                style="filter: grayscale(1) brightness(1.8); font-size: 25pt;" data-toggle="tooltip"
                                                                 data-placement="bottom" title="Borang tidak diisi"></i>
 
                                                         @else
@@ -935,7 +935,7 @@
 
                                                             <img src="{{ asset('circle_times.png') }}"
                                                                             height='30px' alt=""
-                                                                style="color: grey; font-size: 25pt;" data-toggle="tooltip"
+                                                                style="filter: grayscale(1) brightness(1.8); font-size: 25pt;" data-toggle="tooltip"
                                                                 data-placement="bottom" title="Borang tidak diisi"></i>
 
                                                         @else
@@ -1011,7 +1011,7 @@
 
                                                             <img src="{{ asset('circle_times.png') }}"
                                                                             height='30px' alt=""
-                                                                style="color: grey; font-size: 25pt;" data-toggle="tooltip"
+                                                                style="filter: grayscale(1) brightness(1.8); font-size: 25pt;" data-toggle="tooltip"
                                                                 data-placement="bottom" title="Borang tidak diisi"></i>
 
                                                         @else
