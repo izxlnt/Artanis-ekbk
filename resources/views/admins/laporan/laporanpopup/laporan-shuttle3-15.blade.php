@@ -316,7 +316,12 @@
                                                                     $purata_perempuan = $value[0]->jumlah_gaji_perempuan / $papar_jumlah_jumlah_perempuan;
                                                                 }
 
-                                                                $purata_keseluruhan = $purata_lelaki + $purata_perempuan;
+                                                                // Combined average must be pooled (total salary / total headcount),
+                                                                // matching the totals row below - not a sum of the two per-gender
+                                                                // averages, which double counts and inflates the figure.
+                                                                $jumlah_pekerja_keseluruhan_baris = $papar_jumlah_jumlah_lelaki + $papar_jumlah_jumlah_perempuan;
+                                                                $jumlah_gaji_keseluruhan_baris = $value[0]->jumlah_gaji_lelaki + $value[0]->jumlah_gaji_perempuan;
+                                                                $purata_keseluruhan = $jumlah_pekerja_keseluruhan_baris == 0 ? 0 : $jumlah_gaji_keseluruhan_baris / $jumlah_pekerja_keseluruhan_baris;
                                                             @endphp
 
                                                             {{ number_format(round($purata_keseluruhan, 2)) }}
