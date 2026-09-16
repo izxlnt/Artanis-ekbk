@@ -169,14 +169,14 @@
 
                                                             @elseif($data->status =="Tidak Lengkap")
                                                                <img src="{{ asset('history.png') }}" height='30px' alt=""
-                                                                    style="color: #dbd400; font-size: 20pt;"
+                                                                    style="color: grey; font-size: 20pt;"
                                                                     data-toggle="tooltip" data-placement="bottom"
                                                                     title="Borang tidak lengkap "></i>
                                                             @elseif($data->status =="Sedang Diproses")
-                                                                <i class="fas fa-times"
-                                                                    style="color: #dbd400; font-size: 20pt;"
+                                                                <img src="{{ asset('circle_check_yellow.png') }}" height='30px' alt=""
+                                                                    style="color: white; font-size: 18pt;"
                                                                     data-toggle="tooltip" data-placement="bottom"
-                                                                    title="Borang perlu disahkan PHD "></i>
+                                                                    title="Borang telah dihantar"></i>
 
                                                             @elseif($data->status =="Dihantar ke IPJPSM")
 
@@ -199,7 +199,7 @@
                                                                         </a>
                                                                     @else
                                                                         <a href="{{ route('ipjpsm.shuttle-5-view-formD', $data->id) }}"
-                                                                            ><img src="{{ asset('circle_check_yellow.png') }}" height='30px' alt=""
+                                                                            ><img src="{{ asset('circle_times_yellow.png') }}" height='30px' alt=""
                                                                                 style="color: white; font-size: 18pt;"
                                                                                 data-toggle="tooltip"
                                                                                 data-placement="bottom"
@@ -258,13 +258,13 @@
                                                         @endif
 
                                                     @elseif($data->status =="Tidak Lengkap")
-                                                       <img src="{{ asset('history.png') }}" height='30px' alt="" style="color: #dbd400; font-size: 20pt;"
+                                                       <img src="{{ asset('history.png') }}" height='30px' alt="" style="color: grey; font-size: 20pt;"
                                                             data-toggle="tooltip" data-placement="bottom"
                                                             title="Borang tidak lengkap "></i>
                                                     @elseif($data->status =="Sedang Diproses")
-                                                        <i class="fas fa-times" style="color: #dbd400; font-size: 20pt;"
+                                                        <img src="{{ asset('circle_check_yellow.png') }}" height='30px' alt="" style="color: white; font-size: 18pt;"
                                                             data-toggle="tooltip" data-placement="bottom"
-                                                            title="Borang perlu disahkan PHD "></i>
+                                                            title="Borang telah dihantar"></i>
 
                                                     @elseif($data->status =="Dihantar ke IPJPSM")
                                                         @php
@@ -285,7 +285,7 @@
                                                                 </a>
                                                             @else
                                                                 <a href="{{ route('ipjpsm.shuttle-5-view-formD', $data->id) }}">
-                                                                     <img src="{{ asset('circle_check_yellow.png') }}" height='30px' alt=""
+                                                                     <img src="{{ asset('circle_times_yellow.png') }}" height='30px' alt=""
                                                                         style="color: white; font-size: 18pt;"
                                                                         data-toggle="tooltip" data-placement="bottom"
                                                                         title="Borang perlu diperaku"></i></a>
@@ -341,13 +341,13 @@
                                                         @endif
 
                                                     @elseif($data->status =="Tidak Lengkap")
-                                                       <img src="{{ asset('history.png') }}" height='30px' alt="" style="color: #dbd400; font-size: 20pt;"
+                                                       <img src="{{ asset('history.png') }}" height='30px' alt="" style="color: grey; font-size: 20pt;"
                                                             data-toggle="tooltip" data-placement="bottom"
                                                             title="Borang tidak lengkap "></i>
                                                     @elseif($data->status =="Sedang Diproses")
-                                                        <i class="fas fa-times" style="color: #dbd400; font-size: 20pt;"
+                                                        <img src="{{ asset('circle_check_yellow.png') }}" height='30px' alt="" style="color: white; font-size: 18pt;"
                                                             data-toggle="tooltip" data-placement="bottom"
-                                                            title="Borang perlu disahkan PHD "></i>
+                                                            title="Borang telah dihantar"></i>
 
                                                     @elseif($data->status =="Dihantar ke IPJPSM")
                                                         @php
@@ -368,7 +368,7 @@
                                                                 </a>
                                                             @else
                                                             <a href="{{ route('ipjpsm.shuttle-5-view-formD', $data->id) }}">
-                                                                <img src="{{ asset('circle_check_yellow.png') }}" height='30px' alt=""
+                                                                <img src="{{ asset('circle_times_yellow.png') }}" height='30px' alt=""
                                                                    style="color: white; font-size: 18pt;"
                                                                    data-toggle="tooltip" data-placement="bottom"
                                                                    title="Borang perlu diperaku"></i></a>
@@ -424,13 +424,13 @@
                                                         @endif
 
                                                     @elseif($data->status =="Tidak Lengkap")
-                                                       <img src="{{ asset('history.png') }}" height='30px' alt="" style="color: #dbd400; font-size: 20pt;"
+                                                       <img src="{{ asset('history.png') }}" height='30px' alt="" style="color: grey; font-size: 20pt;"
                                                             data-toggle="tooltip" data-placement="bottom"
                                                             title="Borang tidak lengkap "></i>
                                                     @elseif($data->status =="Sedang Diproses")
-                                                        <i class="fas fa-times" style="color: #dbd400; font-size: 20pt;"
+                                                        <img src="{{ asset('circle_check_yellow.png') }}" height='30px' alt="" style="color: white; font-size: 18pt;"
                                                             data-toggle="tooltip" data-placement="bottom"
-                                                            title="Borang perlu disahkan PHD "></i>
+                                                            title="Borang telah dihantar"></i>
 
                                                     @elseif($data->status =="Dihantar ke IPJPSM")
                                                         @php
@@ -451,7 +451,7 @@
                                                                 </a>
                                                             @else
                                                             <a href="{{ route('ipjpsm.shuttle-5-view-formD', $data->id) }}">
-                                                                <img src="{{ asset('circle_check_yellow.png') }}" height='30px' alt=""
+                                                                <img src="{{ asset('circle_times_yellow.png') }}" height='30px' alt=""
                                                                    style="color: white; font-size: 18pt;"
                                                                    data-toggle="tooltip" data-placement="bottom"
                                                                    title="Borang perlu diperaku"></i></a>
@@ -507,13 +507,13 @@
                                                         @endif
 
                                                     @elseif($data->status =="Tidak Lengkap")
-                                                       <img src="{{ asset('history.png') }}" height='30px' alt="" style="color: #dbd400; font-size: 20pt;"
+                                                       <img src="{{ asset('history.png') }}" height='30px' alt="" style="color: grey; font-size: 20pt;"
                                                             data-toggle="tooltip" data-placement="bottom"
                                                             title="Borang tidak lengkap "></i>
                                                     @elseif($data->status =="Sedang Diproses")
-                                                        <i class="fas fa-times" style="color: #dbd400; font-size: 20pt;"
+                                                        <img src="{{ asset('circle_check_yellow.png') }}" height='30px' alt="" style="color: white; font-size: 18pt;"
                                                             data-toggle="tooltip" data-placement="bottom"
-                                                            title="Borang perlu disahkan PHD "></i>
+                                                            title="Borang telah dihantar"></i>
 
                                                     @elseif($data->status =="Dihantar ke IPJPSM")
                                                         @php
@@ -534,7 +534,7 @@
                                                                 </a>
                                                             @else
                                                             <a href="{{ route('ipjpsm.shuttle-5-view-formD', $data->id) }}">
-                                                                <img src="{{ asset('circle_check_yellow.png') }}" height='30px' alt=""
+                                                                <img src="{{ asset('circle_times_yellow.png') }}" height='30px' alt=""
                                                                    style="color: white; font-size: 18pt;"
                                                                    data-toggle="tooltip" data-placement="bottom"
                                                                    title="Borang perlu diperaku"></i></a>
@@ -590,13 +590,13 @@
                                                         @endif
 
                                                     @elseif($data->status =="Tidak Lengkap")
-                                                       <img src="{{ asset('history.png') }}" height='30px' alt="" style="color: #dbd400; font-size: 20pt;"
+                                                       <img src="{{ asset('history.png') }}" height='30px' alt="" style="color: grey; font-size: 20pt;"
                                                             data-toggle="tooltip" data-placement="bottom"
                                                             title="Borang tidak lengkap "></i>
                                                     @elseif($data->status =="Sedang Diproses")
-                                                        <i class="fas fa-times" style="color: #dbd400; font-size: 20pt;"
+                                                        <img src="{{ asset('circle_check_yellow.png') }}" height='30px' alt="" style="color: white; font-size: 18pt;"
                                                             data-toggle="tooltip" data-placement="bottom"
-                                                            title="Borang perlu disahkan PHD "></i>
+                                                            title="Borang telah dihantar"></i>
 
                                                     @elseif($data->status =="Dihantar ke IPJPSM")
                                                         @php
@@ -617,7 +617,7 @@
                                                                 </a>
                                                             @else
                                                             <a href="{{ route('ipjpsm.shuttle-5-view-formD', $data->id) }}">
-                                                                <img src="{{ asset('circle_check_yellow.png') }}" height='30px' alt=""
+                                                                <img src="{{ asset('circle_times_yellow.png') }}" height='30px' alt=""
                                                                    style="color: white; font-size: 18pt;"
                                                                    data-toggle="tooltip" data-placement="bottom"
                                                                    title="Borang perlu diperaku"></i></a>
@@ -673,13 +673,13 @@
                                                         @endif
 
                                                     @elseif($data->status =="Tidak Lengkap")
-                                                       <img src="{{ asset('history.png') }}" height='30px' alt="" style="color: #dbd400; font-size: 20pt;"
+                                                       <img src="{{ asset('history.png') }}" height='30px' alt="" style="color: grey; font-size: 20pt;"
                                                             data-toggle="tooltip" data-placement="bottom"
                                                             title="Borang tidak lengkap "></i>
                                                     @elseif($data->status =="Sedang Diproses")
-                                                        <i class="fas fa-times" style="color: #dbd400; font-size: 20pt;"
+                                                        <img src="{{ asset('circle_check_yellow.png') }}" height='30px' alt="" style="color: white; font-size: 18pt;"
                                                             data-toggle="tooltip" data-placement="bottom"
-                                                            title="Borang perlu disahkan PHD "></i>
+                                                            title="Borang telah dihantar"></i>
 
                                                     @elseif($data->status =="Dihantar ke IPJPSM")
                                                         @php
@@ -700,7 +700,7 @@
                                                                 </a>
                                                             @else
                                                             <a href="{{ route('ipjpsm.shuttle-5-view-formD', $data->id) }}">
-                                                                <img src="{{ asset('circle_check_yellow.png') }}" height='30px' alt=""
+                                                                <img src="{{ asset('circle_times_yellow.png') }}" height='30px' alt=""
                                                                    style="color: white; font-size: 18pt;"
                                                                    data-toggle="tooltip" data-placement="bottom"
                                                                    title="Borang perlu diperaku"></i></a>
@@ -756,13 +756,13 @@
                                                         @endif
 
                                                     @elseif($data->status =="Tidak Lengkap")
-                                                       <img src="{{ asset('history.png') }}" height='30px' alt="" style="color: #dbd400; font-size: 20pt;"
+                                                       <img src="{{ asset('history.png') }}" height='30px' alt="" style="color: grey; font-size: 20pt;"
                                                             data-toggle="tooltip" data-placement="bottom"
                                                             title="Borang tidak lengkap "></i>
                                                     @elseif($data->status =="Sedang Diproses")
-                                                        <i class="fas fa-times" style="color: #dbd400; font-size: 20pt;"
+                                                        <img src="{{ asset('circle_check_yellow.png') }}" height='30px' alt="" style="color: white; font-size: 18pt;"
                                                             data-toggle="tooltip" data-placement="bottom"
-                                                            title="Borang perlu disahkan PHD "></i>
+                                                            title="Borang telah dihantar"></i>
 
                                                     @elseif($data->status =="Dihantar ke IPJPSM")
                                                         @php
@@ -783,7 +783,7 @@
                                                                 </a>
                                                             @else
                                                             <a href="{{ route('ipjpsm.shuttle-5-view-formD', $data->id) }}">
-                                                                <img src="{{ asset('circle_check_yellow.png') }}" height='30px' alt=""
+                                                                <img src="{{ asset('circle_times_yellow.png') }}" height='30px' alt=""
                                                                    style="color: white; font-size: 18pt;"
                                                                    data-toggle="tooltip" data-placement="bottom"
                                                                    title="Borang perlu diperaku"></i></a>
@@ -839,13 +839,13 @@
                                                         @endif
 
                                                     @elseif($data->status =="Tidak Lengkap")
-                                                       <img src="{{ asset('history.png') }}" height='30px' alt="" style="color: #dbd400; font-size: 20pt;"
+                                                       <img src="{{ asset('history.png') }}" height='30px' alt="" style="color: grey; font-size: 20pt;"
                                                             data-toggle="tooltip" data-placement="bottom"
                                                             title="Borang tidak lengkap "></i>
                                                     @elseif($data->status =="Sedang Diproses")
-                                                        <i class="fas fa-times" style="color: #dbd400; font-size: 20pt;"
+                                                        <img src="{{ asset('circle_check_yellow.png') }}" height='30px' alt="" style="color: white; font-size: 18pt;"
                                                             data-toggle="tooltip" data-placement="bottom"
-                                                            title="Borang perlu disahkan PHD "></i>
+                                                            title="Borang telah dihantar"></i>
 
                                                     @elseif($data->status =="Dihantar ke IPJPSM")
                                                         @php
@@ -866,7 +866,7 @@
                                                                 </a>
                                                             @else
                                                             <a href="{{ route('ipjpsm.shuttle-5-view-formD', $data->id) }}">
-                                                                <img src="{{ asset('circle_check_yellow.png') }}" height='30px' alt=""
+                                                                <img src="{{ asset('circle_times_yellow.png') }}" height='30px' alt=""
                                                                    style="color: white; font-size: 18pt;"
                                                                    data-toggle="tooltip" data-placement="bottom"
                                                                    title="Borang perlu diperaku"></i></a>
@@ -922,13 +922,13 @@
                                                         @endif
 
                                                     @elseif($data->status =="Tidak Lengkap")
-                                                       <img src="{{ asset('history.png') }}" height='30px' alt="" style="color: #dbd400; font-size: 20pt;"
+                                                       <img src="{{ asset('history.png') }}" height='30px' alt="" style="color: grey; font-size: 20pt;"
                                                             data-toggle="tooltip" data-placement="bottom"
                                                             title="Borang tidak lengkap "></i>
                                                     @elseif($data->status =="Sedang Diproses")
-                                                        <i class="fas fa-times" style="color: #dbd400; font-size: 20pt;"
+                                                        <img src="{{ asset('circle_check_yellow.png') }}" height='30px' alt="" style="color: white; font-size: 18pt;"
                                                             data-toggle="tooltip" data-placement="bottom"
-                                                            title="Borang perlu disahkan PHD "></i>
+                                                            title="Borang telah dihantar"></i>
 
                                                     @elseif($data->status =="Dihantar ke IPJPSM")
                                                         @php
@@ -949,7 +949,7 @@
                                                                 </a>
                                                             @else
                                                             <a href="{{ route('ipjpsm.shuttle-5-view-formD', $data->id) }}">
-                                                                <img src="{{ asset('circle_check_yellow.png') }}" height='30px' alt=""
+                                                                <img src="{{ asset('circle_times_yellow.png') }}" height='30px' alt=""
                                                                    style="color: white; font-size: 18pt;"
                                                                    data-toggle="tooltip" data-placement="bottom"
                                                                    title="Borang perlu diperaku"></i></a>
@@ -1005,13 +1005,13 @@
                                                         @endif
 
                                                     @elseif($data->status =="Tidak Lengkap")
-                                                       <img src="{{ asset('history.png') }}" height='30px' alt="" style="color: #dbd400; font-size: 20pt;"
+                                                       <img src="{{ asset('history.png') }}" height='30px' alt="" style="color: grey; font-size: 20pt;"
                                                             data-toggle="tooltip" data-placement="bottom"
                                                             title="Borang tidak lengkap "></i>
                                                     @elseif($data->status =="Sedang Diproses")
-                                                        <i class="fas fa-times" style="color: #dbd400; font-size: 20pt;"
+                                                        <img src="{{ asset('circle_check_yellow.png') }}" height='30px' alt="" style="color: white; font-size: 18pt;"
                                                             data-toggle="tooltip" data-placement="bottom"
-                                                            title="Borang perlu disahkan PHD "></i>
+                                                            title="Borang telah dihantar"></i>
 
                                                     @elseif($data->status =="Dihantar ke IPJPSM")
                                                         @php
@@ -1032,7 +1032,7 @@
                                                                 </a>
                                                             @else
                                                             <a href="{{ route('ipjpsm.shuttle-5-view-formD', $data->id) }}">
-                                                                <img src="{{ asset('circle_check_yellow.png') }}" height='30px' alt=""
+                                                                <img src="{{ asset('circle_times_yellow.png') }}" height='30px' alt=""
                                                                    style="color: white; font-size: 18pt;"
                                                                    data-toggle="tooltip" data-placement="bottom"
                                                                    title="Borang perlu diperaku"></i></a>
@@ -1089,13 +1089,13 @@
                                                         @endif
 
                                                     @elseif($data->status =="Tidak Lengkap")
-                                                       <img src="{{ asset('history.png') }}" height='30px' alt="" style="color: #dbd400; font-size: 20pt;"
+                                                       <img src="{{ asset('history.png') }}" height='30px' alt="" style="color: grey; font-size: 20pt;"
                                                             data-toggle="tooltip" data-placement="bottom"
                                                             title="Borang tidak lengkap "></i>
                                                     @elseif($data->status =="Sedang Diproses")
-                                                        <i class="fas fa-times" style="color: #dbd400; font-size: 20pt;"
+                                                        <img src="{{ asset('circle_check_yellow.png') }}" height='30px' alt="" style="color: white; font-size: 18pt;"
                                                             data-toggle="tooltip" data-placement="bottom"
-                                                            title="Borang perlu disahkan PHD "></i>
+                                                            title="Borang telah dihantar"></i>
 
                                                     @elseif($data->status =="Dihantar ke IPJPSM")
                                                         @php
@@ -1116,7 +1116,7 @@
                                                                 </a>
                                                             @else
                                                             <a href="{{ route('ipjpsm.shuttle-5-view-formD', $data->id) }}">
-                                                                <img src="{{ asset('circle_check_yellow.png') }}" height='30px' alt=""
+                                                                <img src="{{ asset('circle_times_yellow.png') }}" height='30px' alt=""
                                                                    style="color: white; font-size: 18pt;"
                                                                    data-toggle="tooltip" data-placement="bottom"
                                                                    title="Borang perlu diperaku"></i></a>

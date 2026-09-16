@@ -147,19 +147,19 @@
                                                     @foreach ($formA as $form)
                                                         @if ($data->id == $form->shuttle_id)
                                                             @if ($form->status == 'Sedang Diproses')
-                                                                <i class="fas fa-tasks"
-                                                                    style="color: #dbd400; font-size: 20pt;"
+                                                                <img src="{{ asset('circle_check_yellow.png') }}" height='30px' alt=""
+                                                                    style="color: white; font-size: 18pt;"
                                                                     data-toggle="tooltip" data-placement="bottom"
-                                                                    title="Borang telah disahkan PHD "></i>
+                                                                    title="Borang telah dihantar"></i>
                                                             @elseif($form->status == 'Tidak Lengkap')
                                                                <img src="{{ asset('history.png') }}" height='30px' alt=""
-                                                                    style="color: #dbd400; font-size: 20pt;"
+                                                                    style="color: grey; font-size: 20pt;"
                                                                     data-toggle="tooltip" data-placement="bottom"
                                                                     title="Borang tidak lengkap "></i>
                                                             @elseif($form->status == 'Dihantar ke IPJPSM')
                                                                 <a
                                                                     href="{{ route('ipjpsm.shuttle-3-view-formA', $data->id) }}?year={{ $year }}">
-                                                                    <img src="{{ asset('circle_check_yellow.png') }}"
+                                                                    <img src="{{ asset('circle_times_yellow.png') }}"
                                                                         height='30px' alt=""
                                                                         style="color: white; font-size: 18pt;"
                                                                         data-toggle="tooltip" data-placement="bottom"
