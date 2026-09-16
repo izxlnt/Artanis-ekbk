@@ -162,7 +162,7 @@
 
                                                                     @if ($current_batch->status == 'Dihantar ke IPJPSM' && $current_batch->borang_b == 2)
                                                                         <a href="{{ route('ipjpsm.shuttle-3-view-formB', $data->id) }}"
-                                                                            ><img src="{{ asset('circle_check_yellow.png') }}" height='30px' alt=""
+                                                                            ><img src="{{ asset('circle_times_yellow.png') }}" height='30px' alt=""
                                                                                 style="color: white; font-size: 18pt;"
                                                                                 data-toggle="tooltip"
                                                                                 data-placement="bottom"
@@ -179,12 +179,12 @@
                                                                         data-toggle="tooltip" data-placement="bottom"
                                                                         title="Borang telah diperaku"></i>
                                                                 @elseif($data->status == 'Tidak Lengkap')
-                                                                    <img src="{{ asset('history.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang tidak lengkap">
+                                                                    <img src="{{ asset('history.png') }}" height='30px' alt="" style="color: grey; font-size: 20pt;" data-toggle="tooltip" data-placement="bottom" title="Borang tidak lengkap">
                                                                 @elseif($data->status == 'Sedang Diproses')
-                                                                    <i class="fas fa-times"
-                                                                        style="color: #dbd400;font-size: 25pt;"
+                                                                    <img src="{{ asset('circle_check_yellow.png') }}" height='30px' alt=""
+                                                                        style="color: white; font-size: 18pt;"
                                                                         data-toggle="tooltip" data-placement="bottom"
-                                                                        title="Borang perlu disahkan PHD"></i>
+                                                                        title="Borang telah dihantar"></i>
                                                                 @elseif($data->status == 'Tidak Diisi')
                                                                     @php
                                                                         $time = strtotime($data->tarikh_tutup_borang);
@@ -245,7 +245,7 @@
 
                                                                     @if ($current_batch->status == 'Dihantar ke IPJPSM' && $current_batch->borang_b == 2)
                                                                         <a href="{{ route('ipjpsm.shuttle-3-view-formB', $data->id) }}"
-                                                                            ><img src="{{ asset('circle_check_yellow.png') }}" height='30px' alt=""
+                                                                            ><img src="{{ asset('circle_times_yellow.png') }}" height='30px' alt=""
                                                                                 style="color: white; font-size: 18pt;"
                                                                                 data-toggle="tooltip"
                                                                                 data-placement="bottom"
@@ -262,12 +262,12 @@
                                                                         data-toggle="tooltip" data-placement="bottom"
                                                                         title="Borang telah diperaku"></i>
                                                                 @elseif($data->status == 'Tidak Lengkap')
-                                                                    <img src="{{ asset('history.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang tidak lengkap">
+                                                                    <img src="{{ asset('history.png') }}" height='30px' alt="" style="color: grey; font-size: 20pt;" data-toggle="tooltip" data-placement="bottom" title="Borang tidak lengkap">
                                                                 @elseif($data->status == 'Sedang Diproses')
-                                                                    <i class="fas fa-times"
-                                                                        style="color: #dbd400;font-size: 25pt;"
+                                                                    <img src="{{ asset('circle_check_yellow.png') }}" height='30px' alt=""
+                                                                        style="color: white; font-size: 18pt;"
                                                                         data-toggle="tooltip" data-placement="bottom"
-                                                                        title="Borang perlu disahkan PHD"></i>
+                                                                        title="Borang telah dihantar"></i>
                                                                 @elseif($data->status == 'Tidak Diisi')
                                                                     @php
                                                                         $time = strtotime($data->tarikh_tutup_borang);
@@ -328,7 +328,7 @@
 
                                                                     @if ($current_batch->status == 'Dihantar ke IPJPSM' && $current_batch->borang_b == 2)
                                                                         <a href="{{ route('ipjpsm.shuttle-3-view-formB', $data->id) }}"
-                                                                            ><img src="{{ asset('circle_check_yellow.png') }}" height='30px' alt=""
+                                                                            ><img src="{{ asset('circle_times_yellow.png') }}" height='30px' alt=""
                                                                                 style="color: white; font-size: 18pt;"
                                                                                 data-toggle="tooltip"
                                                                                 data-placement="bottom"
@@ -345,12 +345,12 @@
                                                                         data-toggle="tooltip" data-placement="bottom"
                                                                         title="Borang telah diperaku"></i>
                                                                 @elseif($data->status == 'Tidak Lengkap')
-                                                                    <img src="{{ asset('history.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang tidak lengkap">
+                                                                    <img src="{{ asset('history.png') }}" height='30px' alt="" style="color: grey; font-size: 20pt;" data-toggle="tooltip" data-placement="bottom" title="Borang tidak lengkap">
                                                                 @elseif($data->status == 'Sedang Diproses')
-                                                                    <i class="fas fa-times"
-                                                                        style="color: #dbd400;font-size: 25pt;"
+                                                                    <img src="{{ asset('circle_check_yellow.png') }}" height='30px' alt=""
+                                                                        style="color: white; font-size: 18pt;"
                                                                         data-toggle="tooltip" data-placement="bottom"
-                                                                        title="Borang perlu disahkan PHD"></i>
+                                                                        title="Borang telah dihantar"></i>
                                                                 @elseif($data->status == 'Tidak Diisi')
                                                                     @php
                                                                         $time = strtotime($data->tarikh_tutup_borang);
@@ -411,7 +411,7 @@
 
                                                                     @if ($current_batch->status == 'Dihantar ke IPJPSM' && $current_batch->borang_b == 2)
                                                                         <a href="{{ route('ipjpsm.shuttle-3-view-formB', $data->id) }}"
-                                                                            ><img src="{{ asset('circle_check_yellow.png') }}" height='30px' alt=""
+                                                                            ><img src="{{ asset('circle_times_yellow.png') }}" height='30px' alt=""
                                                                                 style="color: white; font-size: 18pt;"
                                                                                 data-toggle="tooltip"
                                                                                 data-placement="bottom"
@@ -428,12 +428,12 @@
                                                                         data-toggle="tooltip" data-placement="bottom"
                                                                         title="Borang telah diperaku"></i>
                                                                 @elseif($data->status == 'Tidak Lengkap')
-                                                                    <img src="{{ asset('history.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang tidak lengkap">
+                                                                    <img src="{{ asset('history.png') }}" height='30px' alt="" style="color: grey; font-size: 20pt;" data-toggle="tooltip" data-placement="bottom" title="Borang tidak lengkap">
                                                                 @elseif($data->status == 'Sedang Diproses')
-                                                                    <i class="fas fa-times"
-                                                                        style="color: #dbd400;font-size: 25pt;"
+                                                                    <img src="{{ asset('circle_check_yellow.png') }}" height='30px' alt=""
+                                                                        style="color: white; font-size: 18pt;"
                                                                         data-toggle="tooltip" data-placement="bottom"
-                                                                        title="Borang perlu disahkan PHD"></i>
+                                                                        title="Borang telah dihantar"></i>
                                                                 @elseif($data->status == 'Tidak Diisi')
                                                                     @php
                                                                         $time = strtotime($data->tarikh_tutup_borang);
