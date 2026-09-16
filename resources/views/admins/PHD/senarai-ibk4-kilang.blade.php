@@ -151,11 +151,17 @@
                                                             <td>{{ $data->created_at }}</td>
 
                                                             @if ($data->status == 1)
-                                                                <td><span
+                                                                <td>
+                                                                    <img src="{{ asset('circle_check.png') }}" height="20px" alt=""
+                                                                        data-toggle="tooltip" data-placement="bottom" title="Kilang aktif">
+                                                                    <span
                                                                         class="label label-success label-rounded">Aktif</span>
                                                                 </td>
                                                             @elseif($data->status == 0)
-                                                                <td><span class="label label-danger label-rounded">Tidak
+                                                                <td>
+                                                                    <img src="{{ asset('circle_times.png') }}" height="20px" alt=""
+                                                                        data-toggle="tooltip" data-placement="bottom" title="Kilang tidak aktif">
+                                                                    <span class="label label-danger label-rounded">Tidak
                                                                         Aktif</span> </td>
                                                             @endif
                                                             <td><a
