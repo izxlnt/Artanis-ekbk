@@ -1269,7 +1269,7 @@ class UserController extends Controller
             $layout = 'layouts.layout-bpm-nicepage';
         }
         else if(auth()->user()->kategori_pengguna == "PHD"){
-            $layout = 'layouts.layout-bpm-nicepage';
+            $layout = 'layouts.layout-phd-nicepage';
         }
 
 
@@ -1298,7 +1298,7 @@ class UserController extends Controller
             $layout = 'layouts.layout-bpm-nicepage';
         }
         else if(auth()->user()->kategori_pengguna == "PHD"){
-            $layout = 'layouts.layout-bpm-nicepage';
+            $layout = 'layouts.layout-phd-nicepage';
         }
 
         $returnArr = [

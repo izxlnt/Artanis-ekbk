@@ -1,4 +1,4 @@
-@extends('layouts.layout-phd-nicepage')
+@extends('layouts.layout-ipjpsm-nicepage')
 
 @section('content')
 
