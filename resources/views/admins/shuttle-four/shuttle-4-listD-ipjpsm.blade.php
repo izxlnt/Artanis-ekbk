@@ -187,10 +187,9 @@
                                                                 @elseif($data->status == 'Tidak Lengkap')
                                                                     <img src="{{ asset('history.png') }}" height='30px' alt="" style="color: grey; font-size: 20pt;" data-toggle="tooltip" data-placement="bottom" title="Borang tidak lengkap">
                                                                 @elseif($data->status == 'Tiada Pengeluaran')
-                                                                    <i class="fas fa-times"
-                                                                        style="color: #dbd400; font-size: 20pt;"
+                                                                    <img src="{{ asset('circle_check_yellow.png') }}" height='30px' alt=""
                                                                         data-toggle="tooltip" data-placement="bottom"
-                                                                        title="Borang perlu disahkan PHD "></i>
+                                                                        title="Borang telah dihantar">
                                                                 @elseif($data->status == 'Tidak Diisi')
                                                                     @php
                                                                         $time = strtotime($data->tarikh_tutup_borang);
@@ -280,10 +279,9 @@
                                                                 @elseif($data->status == 'Tidak Lengkap')
                                                                     <img src="{{ asset('history.png') }}" height='30px' alt="" style="color: grey; font-size: 20pt;" data-toggle="tooltip" data-placement="bottom" title="Borang tidak lengkap">
                                                                 @elseif($data->status == 'Tiada Pengeluaran')
-                                                                    <i class="fas fa-times"
-                                                                        style="color: #dbd400; font-size: 20pt;"
+                                                                    <img src="{{ asset('circle_check_yellow.png') }}" height='30px' alt=""
                                                                         data-toggle="tooltip" data-placement="bottom"
-                                                                        title="Borang perlu disahkan PHD "></i>
+                                                                        title="Borang telah dihantar">
                                                                 @elseif($data->status == 'Tidak Diisi')
                                                                     @php
                                                                         $time = strtotime($data->tarikh_tutup_borang);
@@ -373,10 +371,9 @@
                                                                 @elseif($data->status == 'Tidak Lengkap')
                                                                     <img src="{{ asset('history.png') }}" height='30px' alt="" style="color: grey; font-size: 20pt;" data-toggle="tooltip" data-placement="bottom" title="Borang tidak lengkap">
                                                                 @elseif($data->status == 'Tiada Pengeluaran')
-                                                                    <i class="fas fa-times"
-                                                                        style="color: #dbd400; font-size: 20pt;"
+                                                                    <img src="{{ asset('circle_check_yellow.png') }}" height='30px' alt=""
                                                                         data-toggle="tooltip" data-placement="bottom"
-                                                                        title="Borang perlu disahkan PHD "></i>
+                                                                        title="Borang telah dihantar">
                                                                 @elseif($data->status == 'Tidak Diisi')
                                                                     @php
                                                                         $time = strtotime($data->tarikh_tutup_borang);
@@ -466,10 +463,9 @@
                                                                 @elseif($data->status == 'Tidak Lengkap')
                                                                     <img src="{{ asset('history.png') }}" height='30px' alt="" style="color: grey; font-size: 20pt;" data-toggle="tooltip" data-placement="bottom" title="Borang tidak lengkap">
                                                                 @elseif($data->status == 'Tiada Pengeluaran')
-                                                                    <i class="fas fa-times"
-                                                                        style="color: #dbd400; font-size: 20pt;"
+                                                                    <img src="{{ asset('circle_check_yellow.png') }}" height='30px' alt=""
                                                                         data-toggle="tooltip" data-placement="bottom"
-                                                                        title="Borang perlu disahkan PHD "></i>
+                                                                        title="Borang telah dihantar">
                                                                 @elseif($data->status == 'Tidak Diisi')
                                                                     @php
                                                                         $time = strtotime($data->tarikh_tutup_borang);
@@ -559,10 +555,9 @@
                                                                 @elseif($data->status == 'Tidak Lengkap')
                                                                     <img src="{{ asset('history.png') }}" height='30px' alt="" style="color: grey; font-size: 20pt;" data-toggle="tooltip" data-placement="bottom" title="Borang tidak lengkap">
                                                                 @elseif($data->status == 'Tiada Pengeluaran')
-                                                                    <i class="fas fa-times"
-                                                                        style="color: #dbd400; font-size: 20pt;"
+                                                                    <img src="{{ asset('circle_check_yellow.png') }}" height='30px' alt=""
                                                                         data-toggle="tooltip" data-placement="bottom"
-                                                                        title="Borang perlu disahkan PHD "></i>
+                                                                        title="Borang telah dihantar">
                                                                 @elseif($data->status == 'Tidak Diisi')
                                                                     @php
                                                                         $time = strtotime($data->tarikh_tutup_borang);
@@ -652,10 +647,9 @@
                                                                 @elseif($data->status == 'Tidak Lengkap')
                                                                     <img src="{{ asset('history.png') }}" height='30px' alt="" style="color: grey; font-size: 20pt;" data-toggle="tooltip" data-placement="bottom" title="Borang tidak lengkap">
                                                                 @elseif($data->status == 'Tiada Pengeluaran')
-                                                                    <i class="fas fa-times"
-                                                                        style="color: #dbd400; font-size: 20pt;"
+                                                                    <img src="{{ asset('circle_check_yellow.png') }}" height='30px' alt=""
                                                                         data-toggle="tooltip" data-placement="bottom"
-                                                                        title="Borang perlu disahkan PHD "></i>
+                                                                        title="Borang telah dihantar">
                                                                 @elseif($data->status == 'Tidak Diisi')
                                                                     @php
                                                                         $time = strtotime($data->tarikh_tutup_borang);
@@ -745,10 +739,9 @@
                                                                 @elseif($data->status == 'Tidak Lengkap')
                                                                     <img src="{{ asset('history.png') }}" height='30px' alt="" style="color: grey; font-size: 20pt;" data-toggle="tooltip" data-placement="bottom" title="Borang tidak lengkap">
                                                                 @elseif($data->status == 'Tiada Pengeluaran')
-                                                                    <i class="fas fa-times"
-                                                                        style="color: #dbd400; font-size: 20pt;"
+                                                                    <img src="{{ asset('circle_check_yellow.png') }}" height='30px' alt=""
                                                                         data-toggle="tooltip" data-placement="bottom"
-                                                                        title="Borang perlu disahkan PHD "></i>
+                                                                        title="Borang telah dihantar">
                                                                 @elseif($data->status == 'Tidak Diisi')
                                                                     @php
                                                                         $time = strtotime($data->tarikh_tutup_borang);
@@ -838,10 +831,9 @@
                                                                 @elseif($data->status == 'Tidak Lengkap')
                                                                     <img src="{{ asset('history.png') }}" height='30px' alt="" style="color: grey; font-size: 20pt;" data-toggle="tooltip" data-placement="bottom" title="Borang tidak lengkap">
                                                                 @elseif($data->status == 'Tiada Pengeluaran')
-                                                                    <i class="fas fa-times"
-                                                                        style="color: #dbd400; font-size: 20pt;"
+                                                                    <img src="{{ asset('circle_check_yellow.png') }}" height='30px' alt=""
                                                                         data-toggle="tooltip" data-placement="bottom"
-                                                                        title="Borang perlu disahkan PHD "></i>
+                                                                        title="Borang telah dihantar">
                                                                 @elseif($data->status == 'Tidak Diisi')
                                                                     @php
                                                                         $time = strtotime($data->tarikh_tutup_borang);
@@ -931,10 +923,9 @@
                                                                 @elseif($data->status == 'Tidak Lengkap')
                                                                     <img src="{{ asset('history.png') }}" height='30px' alt="" style="color: grey; font-size: 20pt;" data-toggle="tooltip" data-placement="bottom" title="Borang tidak lengkap">
                                                                 @elseif($data->status == 'Tiada Pengeluaran')
-                                                                    <i class="fas fa-times"
-                                                                        style="color: #dbd400; font-size: 20pt;"
+                                                                    <img src="{{ asset('circle_check_yellow.png') }}" height='30px' alt=""
                                                                         data-toggle="tooltip" data-placement="bottom"
-                                                                        title="Borang perlu disahkan PHD "></i>
+                                                                        title="Borang telah dihantar">
                                                                 @elseif($data->status == 'Tidak Diisi')
                                                                     @php
                                                                         $time = strtotime($data->tarikh_tutup_borang);
@@ -1024,10 +1015,9 @@
                                                                 @elseif($data->status == 'Tidak Lengkap')
                                                                     <img src="{{ asset('history.png') }}" height='30px' alt="" style="color: grey; font-size: 20pt;" data-toggle="tooltip" data-placement="bottom" title="Borang tidak lengkap">
                                                                 @elseif($data->status == 'Tiada Pengeluaran')
-                                                                    <i class="fas fa-times"
-                                                                        style="color: #dbd400; font-size: 20pt;"
+                                                                    <img src="{{ asset('circle_check_yellow.png') }}" height='30px' alt=""
                                                                         data-toggle="tooltip" data-placement="bottom"
-                                                                        title="Borang perlu disahkan PHD "></i>
+                                                                        title="Borang telah dihantar">
                                                                 @elseif($data->status == 'Tidak Diisi')
                                                                     @php
                                                                         $time = strtotime($data->tarikh_tutup_borang);
@@ -1117,10 +1107,9 @@
                                                                 @elseif($data->status == 'Tidak Lengkap')
                                                                     <img src="{{ asset('history.png') }}" height='30px' alt="" style="color: grey; font-size: 20pt;" data-toggle="tooltip" data-placement="bottom" title="Borang tidak lengkap">
                                                                 @elseif($data->status == 'Tiada Pengeluaran')
-                                                                    <i class="fas fa-times"
-                                                                        style="color: #dbd400; font-size: 20pt;"
+                                                                    <img src="{{ asset('circle_check_yellow.png') }}" height='30px' alt=""
                                                                         data-toggle="tooltip" data-placement="bottom"
-                                                                        title="Borang perlu disahkan PHD "></i>
+                                                                        title="Borang telah dihantar">
                                                                 @elseif($data->status == 'Tidak Diisi')
                                                                     @php
                                                                         $time = strtotime($data->tarikh_tutup_borang);
@@ -1210,10 +1199,9 @@
                                                                 @elseif($data->status == 'Tidak Lengkap')
                                                                     <img src="{{ asset('history.png') }}" height='30px' alt="" style="color: grey; font-size: 20pt;" data-toggle="tooltip" data-placement="bottom" title="Borang tidak lengkap">
                                                                 @elseif($data->status == 'Tiada Pengeluaran')
-                                                                    <i class="fas fa-times"
-                                                                        style="color: #dbd400; font-size: 20pt;"
+                                                                    <img src="{{ asset('circle_check_yellow.png') }}" height='30px' alt=""
                                                                         data-toggle="tooltip" data-placement="bottom"
-                                                                        title="Borang perlu disahkan PHD "></i>
+                                                                        title="Borang telah dihantar">
                                                                 @elseif($data->status == 'Tidak Diisi')
                                                                     @php
                                                                         $time = strtotime($data->tarikh_tutup_borang);
