@@ -670,6 +670,8 @@ class MainController extends Controller
         $form4D->save();
         // dd($form4D);
 
+        $this->clearBorangDiHantarNotification($id, 'shuttle-4-listD');
+
         UlasanPhd::create([
             'ulasan' => $request->ulasan_phd,
             'user_id' => $user->id,
@@ -704,6 +706,8 @@ class MainController extends Controller
         $form4E = Form4E::find($id);
         $form4E->status = $request->status;
         $form4E->save();
+
+        $this->clearBorangDiHantarNotification($id, 'shuttle-4-listE');
 
         UlasanPhd::create([
             'ulasan' => $request->ulasan_phd,

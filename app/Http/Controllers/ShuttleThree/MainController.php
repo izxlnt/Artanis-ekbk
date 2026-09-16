@@ -639,7 +639,7 @@ class MainController extends Controller
         $formA->status = $status;
         $formA->save();
 
-
+        $this->clearBorangDiHantarNotification($id, 'shuttle-' . $shuttle->shuttle_type . '-listA');
 
         UlasanPhd::create([
             'ulasan' => $request->ulasan_phd,
@@ -706,6 +706,8 @@ class MainController extends Controller
 
         $formB->status = $request->status;
         $formB->save();
+
+        $this->clearBorangDiHantarNotification($id, 'shuttle-' . $formB->shuttle_type . '-listB');
 
         UlasanPhd::create([
             'ulasan' => $request->ulasan_phd,
@@ -797,6 +799,8 @@ class MainController extends Controller
         $formC->status = $request->status;
         $formC->save();
 
+        $this->clearBorangDiHantarNotification($id, 'shuttle-' . $formC->shuttle_type . '-listC');
+
         UlasanPhd::create([                                 //tidak lengkap -> ibk -> list dengan status ->tidak lengkap
             'ulasan' => $request->ulasan_phd,
             'user_id' => $user->id,
@@ -859,6 +863,8 @@ class MainController extends Controller
         $formD = FormD::find($id);
         $formD->status = $request->status;
         $formD->save();
+
+        $this->clearBorangDiHantarNotification($id, 'shuttle-3-listD');
 
         UlasanPhd::create([
             'ulasan' => $request->ulasan_phd,
