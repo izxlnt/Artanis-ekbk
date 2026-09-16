@@ -579,6 +579,11 @@ class ExcelController extends Controller
                                     ORDER BY
                                     jumlah_pengeluaran DESC;
         ");
+
+            // The on-screen report (LaporanController::laporan_shuttle_3_5) keeps only
+            // the top 10 kilang after this same query; this PDF/Excel export never had
+            // that limit, so it listed every approved kilang instead.
+            $datas_formc = array_slice($datas_formc, 0, 10);
         } elseif ($title == "6") {
             $title_laporan = "6. Top 10 Kilang Papan Dalam Penggunaan Spesies Kayu Balak";
 
@@ -3985,7 +3990,7 @@ class ExcelController extends Controller
                 ->get();
 
             if ($shuttle->count() == 0) {
-                return redirect()->back()->with('error', 'Sila pastikan sekurang-kurang 1 Borang A diluluskan untuk Shuttle 5 untuk menjana laporan');
+                return redirect()->back()->with('error', 'Sila pastikan sekurang-kurang 1 Borang A diluluskan untuk Shuttle 4 untuk menjana laporan');
             }
 
             $datas_formc = DB::select("SELECT
@@ -4071,6 +4076,23 @@ class ExcelController extends Controller
                                     jumlah_pengeluaran DESC;
 
         ");
+
+            // The on-screen report (LaporanController::laporan_shuttle_4_5) ranks
+            // kilang by actual plywood output and keeps only the top 10 - this PDF/
+            // Excel export was never given the same step, so it fell back to the raw
+            // query order (a processing-log metric, not plywood output) with no
+            // limit at all.
+            $jumlah_papan_lapis_by_shuttle = [];
+            foreach ($produk_pengeluaran as $produk) {
+                $jumlah_papan_lapis_by_shuttle[$produk->shuttle_id] = ($jumlah_papan_lapis_by_shuttle[$produk->shuttle_id] ?? 0)
+                    + (float) $produk->jumlah_besar_mr + (float) $produk->jumlah_besar_wbp;
+            }
+
+            $datas_formc = collect($datas_formc)
+                ->sortByDesc(fn ($kilang) => $jumlah_papan_lapis_by_shuttle[$kilang->id] ?? 0)
+                ->take(10)
+                ->values()
+                ->all();
         }
 
         $columns = [
@@ -4144,13 +4166,20 @@ class ExcelController extends Controller
                 })
                 ->get();
 
+            // This query used to select only shuttle_id/jumlah_penggunaan/jumlah_pengeluaran -
+            // missing form_a_s.*/shuttles.* entirely, so the PDF/Excel table below (which
+            // expects Nama Kilang, SSM no., address, etc. per $columns) rendered those
+            // columns blank. Matches the on-screen report's query
+            // (LaporanController::laporan_shuttle_4_6) now.
             $datas_formc = DB::select("SELECT
-                                shuttles.id as shuttle_id,
+                                form_a_s.*,
+                                    shuttles.*,
                                 sum(kemasukan_bahans.proses_masuk) as jumlah_penggunaan,
                                 sum(kemasukan_bahans.proses_keluar) as jumlah_pengeluaran
 
                                 FROM
                                 shuttles,
+                                form_a_s,
                                 form_c_s,
                                 kemasukan_bahans,
                                 spesis,
@@ -4160,13 +4189,18 @@ class ExcelController extends Controller
                                 AND form_c_s.id = kemasukan_bahans.formcs_id
                                 AND kemasukan_bahans.spesis_id = spesis.id
                                 AND spesis.kumpulan_kayu_id = kumpulan_kayus.id
+                                AND form_a_s.shuttle_id = shuttles.id
+                                AND form_a_s.tahun = '$tahun'
 
                                 AND shuttles.shuttle_type = '4'
                                 AND form_c_s.status = 'Lulus'
                                 AND form_c_s.tahun = '$tahun'
 
                                 GROUP BY
-                                shuttles.id;
+                                shuttles.id
+
+                                ORDER BY
+                                jumlah_pengeluaran DESC;
     ");
 
             $produk_pengeluaran = DB::select("SELECT
@@ -4214,6 +4248,20 @@ class ExcelController extends Controller
                                     shuttles.id;
 
         ");
+
+            // Same missing step as report #5: rank by actual venir output and keep
+            // only the top 10, matching the on-screen report exactly.
+            $jumlah_venir_by_shuttle = [];
+            foreach ($rekod_muka as $jenis) {
+                $jumlah_venir_by_shuttle[$jenis->shuttle_id] = ($jumlah_venir_by_shuttle[$jenis->shuttle_id] ?? 0)
+                    + (float) $jenis->rekod_veniermuka + (float) $jenis->rekod_venierteras;
+            }
+
+            $datas_formc = collect($datas_formc)
+                ->sortByDesc(fn ($kilang) => $jumlah_venir_by_shuttle[$kilang->id] ?? 0)
+                ->take(10)
+                ->values()
+                ->all();
         }
 
         $columns = [
