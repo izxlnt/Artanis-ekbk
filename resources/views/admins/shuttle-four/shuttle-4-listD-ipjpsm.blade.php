@@ -166,9 +166,9 @@
                                                                         @else
                                                                             <a
                                                                                 href="{{ route('ipjpsm.shuttle-4-view-formD', $data->id) }}"><img
-                                                                                    src="{{ asset('circle_times_yellow.png') }}"
+                                                                                    src="{{ asset('circle_times.png') }}"
                                                                                     height='30px' alt=""
-                                                                                    style="color: white; font-size: 18pt;"
+                                                                                    style="filter: hue-rotate(200deg); font-size: 18pt;"
                                                                                     data-toggle="tooltip"
                                                                                     data-placement="bottom"
                                                                                     title="Borang perlu diperaku"></i></a>
@@ -258,9 +258,9 @@
                                                                         @else
                                                                             <a
                                                                                 href="{{ route('ipjpsm.shuttle-4-view-formD', $data->id) }}"><img
-                                                                                    src="{{ asset('circle_times_yellow.png') }}"
+                                                                                    src="{{ asset('circle_times.png') }}"
                                                                                     height='30px' alt=""
-                                                                                    style="color: white; font-size: 18pt;"
+                                                                                    style="filter: hue-rotate(200deg); font-size: 18pt;"
                                                                                     data-toggle="tooltip"
                                                                                     data-placement="bottom"
                                                                                     title="Borang perlu diperaku"></i></a>
@@ -350,9 +350,9 @@
                                                                         @else
                                                                             <a
                                                                                 href="{{ route('ipjpsm.shuttle-4-view-formD', $data->id) }}"><img
-                                                                                    src="{{ asset('circle_times_yellow.png') }}"
+                                                                                    src="{{ asset('circle_times.png') }}"
                                                                                     height='30px' alt=""
-                                                                                    style="color: white; font-size: 18pt;"
+                                                                                    style="filter: hue-rotate(200deg); font-size: 18pt;"
                                                                                     data-toggle="tooltip"
                                                                                     data-placement="bottom"
                                                                                     title="Borang perlu diperaku"></i></a>
@@ -442,9 +442,9 @@
                                                                         @else
                                                                             <a
                                                                                 href="{{ route('ipjpsm.shuttle-4-view-formD', $data->id) }}"><img
-                                                                                    src="{{ asset('circle_times_yellow.png') }}"
+                                                                                    src="{{ asset('circle_times.png') }}"
                                                                                     height='30px' alt=""
-                                                                                    style="color: white; font-size: 18pt;"
+                                                                                    style="filter: hue-rotate(200deg); font-size: 18pt;"
                                                                                     data-toggle="tooltip"
                                                                                     data-placement="bottom"
                                                                                     title="Borang perlu diperaku"></i></a>
@@ -534,9 +534,9 @@
                                                                         @else
                                                                             <a
                                                                                 href="{{ route('ipjpsm.shuttle-4-view-formD', $data->id) }}"><img
-                                                                                    src="{{ asset('circle_times_yellow.png') }}"
+                                                                                    src="{{ asset('circle_times.png') }}"
                                                                                     height='30px' alt=""
-                                                                                    style="color: white; font-size: 18pt;"
+                                                                                    style="filter: hue-rotate(200deg); font-size: 18pt;"
                                                                                     data-toggle="tooltip"
                                                                                     data-placement="bottom"
                                                                                     title="Borang perlu diperaku"></i></a>
@@ -626,9 +626,9 @@
                                                                         @else
                                                                             <a
                                                                                 href="{{ route('ipjpsm.shuttle-4-view-formD', $data->id) }}"><img
-                                                                                    src="{{ asset('circle_times_yellow.png') }}"
+                                                                                    src="{{ asset('circle_times.png') }}"
                                                                                     height='30px' alt=""
-                                                                                    style="color: white; font-size: 18pt;"
+                                                                                    style="filter: hue-rotate(200deg); font-size: 18pt;"
                                                                                     data-toggle="tooltip"
                                                                                     data-placement="bottom"
                                                                                     title="Borang perlu diperaku"></i></a>
@@ -718,9 +718,9 @@
                                                                         @else
                                                                             <a
                                                                                 href="{{ route('ipjpsm.shuttle-4-view-formD', $data->id) }}"><img
-                                                                                    src="{{ asset('circle_times_yellow.png') }}"
+                                                                                    src="{{ asset('circle_times.png') }}"
                                                                                     height='30px' alt=""
-                                                                                    style="color: white; font-size: 18pt;"
+                                                                                    style="filter: hue-rotate(200deg); font-size: 18pt;"
                                                                                     data-toggle="tooltip"
                                                                                     data-placement="bottom"
                                                                                     title="Borang perlu diperaku"></i></a>
@@ -810,9 +810,9 @@
                                                                         @else
                                                                             <a
                                                                                 href="{{ route('ipjpsm.shuttle-4-view-formD', $data->id) }}"><img
-                                                                                    src="{{ asset('circle_times_yellow.png') }}"
+                                                                                    src="{{ asset('circle_times.png') }}"
                                                                                     height='30px' alt=""
-                                                                                    style="color: white; font-size: 18pt;"
+                                                                                    style="filter: hue-rotate(200deg); font-size: 18pt;"
                                                                                     data-toggle="tooltip"
                                                                                     data-placement="bottom"
                                                                                     title="Borang perlu diperaku"></i></a>
@@ -902,9 +902,9 @@
                                                                         @else
                                                                             <a
                                                                                 href="{{ route('ipjpsm.shuttle-4-view-formD', $data->id) }}"><img
-                                                                                    src="{{ asset('circle_times_yellow.png') }}"
+                                                                                    src="{{ asset('circle_times.png') }}"
                                                                                     height='30px' alt=""
-                                                                                    style="color: white; font-size: 18pt;"
+                                                                                    style="filter: hue-rotate(200deg); font-size: 18pt;"
                                                                                     data-toggle="tooltip"
                                                                                     data-placement="bottom"
                                                                                     title="Borang perlu diperaku"></i></a>
@@ -994,9 +994,9 @@
                                                                         @else
                                                                             <a
                                                                                 href="{{ route('ipjpsm.shuttle-4-view-formD', $data->id) }}"><img
-                                                                                    src="{{ asset('circle_times_yellow.png') }}"
+                                                                                    src="{{ asset('circle_times.png') }}"
                                                                                     height='30px' alt=""
-                                                                                    style="color: white; font-size: 18pt;"
+                                                                                    style="filter: hue-rotate(200deg); font-size: 18pt;"
                                                                                     data-toggle="tooltip"
                                                                                     data-placement="bottom"
                                                                                     title="Borang perlu diperaku"></i></a>
@@ -1086,9 +1086,9 @@
                                                                         @else
                                                                             <a
                                                                                 href="{{ route('ipjpsm.shuttle-4-view-formD', $data->id) }}"><img
-                                                                                    src="{{ asset('circle_times_yellow.png') }}"
+                                                                                    src="{{ asset('circle_times.png') }}"
                                                                                     height='30px' alt=""
-                                                                                    style="color: white; font-size: 18pt;"
+                                                                                    style="filter: hue-rotate(200deg); font-size: 18pt;"
                                                                                     data-toggle="tooltip"
                                                                                     data-placement="bottom"
                                                                                     title="Borang perlu diperaku"></i></a>
@@ -1178,9 +1178,9 @@
                                                                         @else
                                                                             <a
                                                                                 href="{{ route('ipjpsm.shuttle-4-view-formD', $data->id) }}"><img
-                                                                                    src="{{ asset('circle_times_yellow.png') }}"
+                                                                                    src="{{ asset('circle_times.png') }}"
                                                                                     height='30px' alt=""
-                                                                                    style="color: white; font-size: 18pt;"
+                                                                                    style="filter: hue-rotate(200deg); font-size: 18pt;"
                                                                                     data-toggle="tooltip"
                                                                                     data-placement="bottom"
                                                                                     title="Borang perlu diperaku"></i></a>
