@@ -138,9 +138,9 @@
                                                             @elseif($form->status == 'Dihantar ke IPJPSM')
                                                                 <a
                                                                     href="{{ route('ipjpsm.shuttle-3-view-formA', $data->id) }}?year={{ $year }}">
-                                                                    <img src="{{ asset('circle_times_yellow.png') }}"
+                                                                    <img src="{{ asset('circle_times.png') }}"
                                                                         height='30px' alt=""
-                                                                        style="color: white; font-size: 18pt;"
+                                                                        style="filter: hue-rotate(200deg); font-size: 18pt;"
                                                                         data-toggle="tooltip" data-placement="bottom"
                                                                         title="Borang perlu diperaku"></i></a>
                                                             @elseif($form->status == 'Lulus')
