@@ -180,11 +180,17 @@
                                                             data-toggle="tooltip" data-placement="bottom"
                                                             title="Borang tidak lengkap"></i></a>
                                                     @elseif($data->status == 'Dihantar ke IPJPSM')
-                                                    <a href="{{ route('phd.shuttle-3-view-formB-phd', $data->id) }}">
-                                                        <img src="{{ asset('circle_check_yellow.png') }}" height='30px'
-                                                            data-toggle="tooltip" data-placement="bottom"
-                                                            title="Borang telah disahkan PHD">
-                                                    </a>
+                                                        @if ($packageSent)
+                                                            <a href="{{ route('phd.shuttle-3-view-formB-phd', $data->id) }}">
+                                                                <img src="{{ asset('circle_check.png') }}" height='30px'
+                                                                    data-toggle="tooltip" data-placement="bottom"
+                                                                    title="Borang telah disahkan PHD">
+                                                            </a>
+                                                        @else
+                                                            <img src="{{ asset('package.png') }}" height='40px'
+                                                                data-toggle="tooltip" data-placement="bottom"
+                                                                title="Pakej belum dihantar">
+                                                        @endif
                                                     @elseif($data->status == 'Lulus')
                                                     <a href="{{ route('phd.shuttle-3-view-formB-phd', $data->id) }}">
                                                         <img src="{{ asset('double_check.png') }}" height='30px'
