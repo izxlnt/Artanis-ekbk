@@ -141,7 +141,7 @@
                                                                 data-original-title="Borang tidak lengkap "></i></a>
                                                     @elseif($data->status == 'Tidak Diisi')
                                                         <img src="{{ asset('circle_times.png') }}"
-                                                                            height='30px' alt="" style="filter: grayscale(1) brightness(1.8); font-size: 20pt;"
+                                                                            height='30px' alt="" style="color: red; font-size: 20pt;"
                                                             data-toggle="tooltip" data-placement="bottom"
                                                             data-original-title="Borang belum disii "></i>
                                                     @elseif($data->status == 'Dihantar ke IPJPSM')
