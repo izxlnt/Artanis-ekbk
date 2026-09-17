@@ -183,11 +183,19 @@
                                                             title="Borang sedang diisi oleh IBK, belum dihantar">
                                                             @elseif($data->status == 'Dihantar ke IPJPSM')
                                                                 @if ($packageSent)
-                                                                    <a href="{{ route('phd.shuttle-3-view-formC-phd', $data->id) }}">
-                                                                        <img src="{{ asset('circle_check.png') }}" height='30px'
-                                                                            data-toggle="tooltip" data-placement="bottom"
-                                                                            title="Borang telah disahkan PHD">
-                                                                    </a>
+                                                                    @if ($data->tiada_pengeluaran == 1)
+                                                                        <a href="{{ route('phd.shuttle-3-view-formC-phd', $data->id) }}">
+                                                                            <img src="{{ asset('tpbiru.png') }}" height='30px'
+                                                                                data-toggle="tooltip" data-placement="bottom"
+                                                                                title="Borang telah disahkan PHD - Tiada Pengeluaran">
+                                                                        </a>
+                                                                    @else
+                                                                        <a href="{{ route('phd.shuttle-3-view-formC-phd', $data->id) }}">
+                                                                            <img src="{{ asset('circle_check.png') }}" height='30px'
+                                                                                data-toggle="tooltip" data-placement="bottom"
+                                                                                title="Borang telah disahkan PHD">
+                                                                        </a>
+                                                                    @endif
                                                                 @else
                                                                     <img src="{{ asset('package.png') }}" height='40px'
                                                                         data-toggle="tooltip" data-placement="bottom"
