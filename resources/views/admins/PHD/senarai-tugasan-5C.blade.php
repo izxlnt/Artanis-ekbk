@@ -163,10 +163,8 @@
                                                             @elseif($data->status == 'Lulus')
                                                         <span class="label label-success label-rounded"
                                                             style="font-size: 11pt;">Borang telah diperaku</span>
-                                                    @elseif($data->status == 'Sedang Diisi')
-                                                        <span class="label label-other bg-secondary label-rounded"
-                                                            style="font-size: 11pt;">Sedang Diisi oleh IBK</span>
                                                     @endif
+                                                    {{-- No pill for Sedang Diisi per the status spec - only the icon shows for this state. --}}
                                                 </td>
 
                                                 <td>
@@ -180,7 +178,7 @@
                                                             data-toggle="tooltip" data-placement="bottom"
                                                             title="Borang tidak lengkap, belum dihantar oleh IBK">
                                                     @elseif($data->status == 'Sedang Diisi')
-                                                        <img src="{{ asset('calendar.png') }}" height='30px'
+                                                        <img src="{{ asset('circle_times.png') }}" height='30px'
                                                             data-toggle="tooltip" data-placement="bottom"
                                                             title="Borang sedang diisi oleh IBK, belum dihantar">
                                                             @elseif($data->status == 'Dihantar ke IPJPSM')
