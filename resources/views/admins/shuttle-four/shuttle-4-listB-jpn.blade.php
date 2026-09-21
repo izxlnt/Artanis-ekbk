@@ -177,12 +177,30 @@
                                                                         data-toggle="tooltip" data-placement="bottom"
                                                                         title="Borang tidak lengkap "></i></a>
                                                             @elseif($data->status == 'Dihantar ke IPJPSM' && $data->suku_tahun == '1')
+                                                            @php
+                                                                $current_batch = null;
+                                                                $bulan = 3;
+                                                                if ($data->tahun == date('Y')) {
+                                                                    foreach ($batch as $checker) {
+                                                                        if ($checker->tahun == $year && $checker->bulan == $bulan && $checker->shuttle_id == $data->shuttle_id) {
+                                                                            $current_batch = $checker;
+                                                                        }
+                                                                    }
+                                                                }
+                                                                $packageSent = $current_batch && $current_batch->status == 'Dihantar ke IPJPSM' && $current_batch->borang_b == 2;
+                                                            @endphp
+                                                                @if ($packageSent)
                                                                 <a
                                                                     href="{{ route('jpn.shuttle-3-view-formB', $data->id) }}">
                                                                     <img src="{{ asset('circle_check.png') }}" height='30px' alt=""
                                                                         style="color: green; font-size: 20pt;"
                                                                         data-toggle="tooltip" data-placement="bottom"
                                                                         title="Borang telah disahkan PHD"></i></a>
+                                                                @else
+                                                                    <img src="{{ asset('package.png') }}" height='40px'
+                                                                        data-toggle="tooltip" data-placement="bottom"
+                                                                        title="Pakej belum dihantar">
+                                                                @endif
                                                             @elseif($data->status == 'Lulus' && $data->suku_tahun == '1' && $shuttle->shuttle_id == $data->shuttle_id)
                                                                 <a
                                                                     href="{{ route('jpn.shuttle-3-view-formB', $data->id) }}">
@@ -240,11 +258,29 @@
                                                                     data-toggle="tooltip" data-placement="bottom"
                                                                     title="Borang tidak lengkap "></i></a>
                                                         @elseif($data->status == 'Dihantar ke IPJPSM' && $data->suku_tahun == '2' && $shuttle->shuttle_id == $data->shuttle_id)
+                                                        @php
+                                                            $current_batch = null;
+                                                            $bulan = 6;
+                                                            if ($data->tahun == date('Y')) {
+                                                                foreach ($batch as $checker) {
+                                                                    if ($checker->tahun == $year && $checker->bulan == $bulan && $checker->shuttle_id == $data->shuttle_id) {
+                                                                        $current_batch = $checker;
+                                                                    }
+                                                                }
+                                                            }
+                                                            $packageSent = $current_batch && $current_batch->status == 'Dihantar ke IPJPSM' && $current_batch->borang_b == 2;
+                                                        @endphp
+                                                            @if ($packageSent)
                                                             <a href="{{ route('jpn.shuttle-3-view-formB', $data->id) }}">
                                                                 <img src="{{ asset('circle_check.png') }}" height='30px' alt=""
                                                                     style="color: green; font-size: 20pt;"
                                                                     data-toggle="tooltip" data-placement="bottom"
                                                                     title="Borang telah disahkan PHD"></i></a>
+                                                            @else
+                                                                <img src="{{ asset('package.png') }}" height='40px'
+                                                                    data-toggle="tooltip" data-placement="bottom"
+                                                                    title="Pakej belum dihantar">
+                                                            @endif
                                                         @elseif($data->status == 'Lulus' && $data->suku_tahun == '2' && $shuttle->shuttle_id == $data->shuttle_id)
                                                             <a href="{{ route('jpn.shuttle-3-view-formB', $data->id) }}">
                                                                 <img src="{{ asset('double_check.png') }}" height='30px' alt=""
@@ -299,11 +335,29 @@
                                                                     data-toggle="tooltip" data-placement="bottom"
                                                                     title="Borang tidak lengkap "></i></a>
                                                         @elseif($data->status == 'Dihantar ke IPJPSM' && $data->suku_tahun == '3' && $shuttle->shuttle_id == $data->shuttle_id)
+                                                        @php
+                                                            $current_batch = null;
+                                                            $bulan = 9;
+                                                            if ($data->tahun == date('Y')) {
+                                                                foreach ($batch as $checker) {
+                                                                    if ($checker->tahun == $year && $checker->bulan == $bulan && $checker->shuttle_id == $data->shuttle_id) {
+                                                                        $current_batch = $checker;
+                                                                    }
+                                                                }
+                                                            }
+                                                            $packageSent = $current_batch && $current_batch->status == 'Dihantar ke IPJPSM' && $current_batch->borang_b == 2;
+                                                        @endphp
+                                                            @if ($packageSent)
                                                             <a href="{{ route('jpn.shuttle-3-view-formB', $data->id) }}">
                                                                 <img src="{{ asset('circle_check.png') }}" height='30px' alt=""
                                                                     style="color: green; font-size: 20pt;"
                                                                     data-toggle="tooltip" data-placement="bottom"
                                                                     title="Borang telah disahkan PHD"></i></a>
+                                                            @else
+                                                                <img src="{{ asset('package.png') }}" height='40px'
+                                                                    data-toggle="tooltip" data-placement="bottom"
+                                                                    title="Pakej belum dihantar">
+                                                            @endif
                                                         @elseif($data->status == 'Lulus' && $data->suku_tahun == '3' && $shuttle->shuttle_id == $data->shuttle_id)
                                                             <a href="{{ route('jpn.shuttle-3-view-formB', $data->id) }}">
                                                                 <img src="{{ asset('double_check.png') }}" height='30px' alt=""
@@ -348,11 +402,29 @@
                                                                     data-toggle="tooltip" data-placement="bottom"
                                                                     title="Borang tidak lengkap "></i></a>
                                                         @elseif($data->status == 'Dihantar ke IPJPSM' && $data->suku_tahun == '4' && $shuttle->shuttle_id == $data->shuttle_id)
+                                                        @php
+                                                            $current_batch = null;
+                                                            $bulan = 12;
+                                                            if ($data->tahun == date('Y')) {
+                                                                foreach ($batch as $checker) {
+                                                                    if ($checker->tahun == $year && $checker->bulan == $bulan && $checker->shuttle_id == $data->shuttle_id) {
+                                                                        $current_batch = $checker;
+                                                                    }
+                                                                }
+                                                            }
+                                                            $packageSent = $current_batch && $current_batch->status == 'Dihantar ke IPJPSM' && $current_batch->borang_b == 2;
+                                                        @endphp
+                                                            @if ($packageSent)
                                                             <a href="{{ route('jpn.shuttle-3-view-formB', $data->id) }}">
                                                                 <img src="{{ asset('circle_check.png') }}" height='30px' alt=""
                                                                     style="color: green; font-size: 20pt;"
                                                                     data-toggle="tooltip" data-placement="bottom"
                                                                     title="Borang telah disahkan PHD"></i></a>
+                                                            @else
+                                                                <img src="{{ asset('package.png') }}" height='40px'
+                                                                    data-toggle="tooltip" data-placement="bottom"
+                                                                    title="Pakej belum dihantar">
+                                                            @endif
                                                         @elseif($data->status == 'Lulus' && $data->suku_tahun == '4' && $shuttle->shuttle_id == $data->shuttle_id)
                                                             <a href="{{ route('jpn.shuttle-3-view-formB', $data->id) }}">
                                                                 <img src="{{ asset('double_check.png') }}" height='30px' alt=""

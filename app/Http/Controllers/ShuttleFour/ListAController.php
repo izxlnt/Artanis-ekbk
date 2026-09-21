@@ -85,6 +85,7 @@ class ListAController extends Controller
         //     ->distinct()->where('tahun', $year)->orderBy('tahun')->get('tahun');
 
         $buffer = Buffer::where('borang', 'b')->where('shuttle', '4')->first();
+        $batch = Batch::where('tahun', $year)->get();
 
         $breadcrumbs    = [
             ['link' => route('home-jpn'), 'name' => "Laman Utama"],
@@ -110,6 +111,7 @@ class ListAController extends Controller
             'year_list',
             'year',
             'buffer',
+            'batch',
             'formA_kilang',
             'returnArr'
         ));

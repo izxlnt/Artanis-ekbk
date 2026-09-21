@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\ShuttleFive;
 
 use App\Http\Controllers\Controller;
+use App\Models\Batch;
 use App\Models\Buffer;
 use App\Models\FormA;
 use Illuminate\Http\Request;
@@ -34,6 +35,7 @@ class ListAController extends Controller
         //     })
         //     ->distinct()->where('tahun', $year)->orderBy('tahun')->get('tahun');
 
+        $batch = Batch::where('tahun', $year)->get();
 
         $breadcrumbs    = [
             ['link' => route('home-jpn'), 'name' => "Laman Utama"],
@@ -59,6 +61,7 @@ class ListAController extends Controller
             'year_list',
             'year',
             // 'buffer',
+            'batch',
             'formA_kilang',
             'returnArr'
         ));

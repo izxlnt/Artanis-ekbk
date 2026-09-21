@@ -155,11 +155,28 @@
                                                             data-toggle="tooltip" data-placement="bottom"
                                                             data-original-title="Borang belum disii "></i>
                                                     @elseif($data->status == 'Dihantar ke IPJPSM')
+                                                    @php
+                                                        $current_batch = null;
+                                                        if ($data->tahun == date('Y')) {
+                                                            foreach ($batch as $checker) {
+                                                                if ($checker->tahun == $year && $checker->shuttle_id == $data->shuttle_id && $checker->bulan == $data->created_at->format('m')) {
+                                                                    $current_batch = $checker;
+                                                                }
+                                                            }
+                                                        }
+                                                        $packageSent = $current_batch && $current_batch->status == 'Dihantar ke IPJPSM' && $current_batch->borang_a == 2;
+                                                    @endphp
+                                                        @if ($packageSent)
                                                         <a href="{{ route('jpn.shuttle-3-view-formA', $data->id) }}">
                                                             <img src="{{ asset('circle_check.png') }}" height='30px' alt=""
                                                                 style="color: green; font-size: 20pt;" data-toggle="tooltip"
                                                                 data-placement="bottom"
                                                                 data-original-title="Borang telah disahkan PHD"></i></a>
+                                                        @else
+                                                            <img src="{{ asset('package.png') }}" height='40px'
+                                                                data-toggle="tooltip" data-placement="bottom"
+                                                                title="Pakej belum dihantar">
+                                                        @endif
                                                     @elseif($data->status == 'Lulus')
                                                         <a href="{{ route('jpn.shuttle-3-view-formA', $data->id) }}">
                                                             <img src="{{ asset('double_check.png') }}" height='30px'

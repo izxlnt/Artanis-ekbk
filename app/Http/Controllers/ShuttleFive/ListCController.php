@@ -116,6 +116,7 @@ $batch = Batch::where('tahun', $year)->get();
          })->where('tahun', '>=', config('app.data_start_year'))->distinct()->orderBy('tahun')->get('tahun');
 
          $buffer = Buffer::where('borang', 'c')->where('shuttle', '5')->first();
+         $batch = Batch::where('tahun', $year)->get();
 
          $breadcrumbs    = [
             ['link' => route('home-jpn'), 'name' => "Laman Utama"],
@@ -132,6 +133,6 @@ $batch = Batch::where('tahun', $year)->get();
             'kembali'     => $kembali,
         ];
 
-        return view('admins.shuttle-five.shuttle-5-listC-jpn',compact('returnArr','formC','user','year_list','year','buffer','formC_kilang'));
+        return view('admins.shuttle-five.shuttle-5-listC-jpn',compact('returnArr','formC','user','year_list','year','buffer','formC_kilang','batch'));
     }
 }
