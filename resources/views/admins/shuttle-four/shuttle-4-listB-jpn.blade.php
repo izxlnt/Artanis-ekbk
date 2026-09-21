@@ -179,7 +179,7 @@
                                                             @elseif($data->status == 'Dihantar ke IPJPSM' && $data->suku_tahun == '1')
                                                                 <a
                                                                     href="{{ route('jpn.shuttle-3-view-formB', $data->id) }}">
-                                                                    <img src="{{ asset('circle_check_yellow.png') }}" height='30px' alt=""
+                                                                    <img src="{{ asset('circle_check.png') }}" height='30px' alt=""
                                                                         style="color: green; font-size: 20pt;"
                                                                         data-toggle="tooltip" data-placement="bottom"
                                                                         title="Borang telah disahkan PHD"></i></a>
@@ -241,7 +241,7 @@
                                                                     title="Borang tidak lengkap "></i></a>
                                                         @elseif($data->status == 'Dihantar ke IPJPSM' && $data->suku_tahun == '2' && $shuttle->shuttle_id == $data->shuttle_id)
                                                             <a href="{{ route('jpn.shuttle-3-view-formB', $data->id) }}">
-                                                                <img src="{{ asset('circle_check_yellow.png') }}" height='30px' alt=""
+                                                                <img src="{{ asset('circle_check.png') }}" height='30px' alt=""
                                                                     style="color: green; font-size: 20pt;"
                                                                     data-toggle="tooltip" data-placement="bottom"
                                                                     title="Borang telah disahkan PHD"></i></a>
@@ -300,7 +300,7 @@
                                                                     title="Borang tidak lengkap "></i></a>
                                                         @elseif($data->status == 'Dihantar ke IPJPSM' && $data->suku_tahun == '3' && $shuttle->shuttle_id == $data->shuttle_id)
                                                             <a href="{{ route('jpn.shuttle-3-view-formB', $data->id) }}">
-                                                                <img src="{{ asset('circle_check_yellow.png') }}" height='30px' alt=""
+                                                                <img src="{{ asset('circle_check.png') }}" height='30px' alt=""
                                                                     style="color: green; font-size: 20pt;"
                                                                     data-toggle="tooltip" data-placement="bottom"
                                                                     title="Borang telah disahkan PHD"></i></a>
@@ -349,7 +349,7 @@
                                                                     title="Borang tidak lengkap "></i></a>
                                                         @elseif($data->status == 'Dihantar ke IPJPSM' && $data->suku_tahun == '4' && $shuttle->shuttle_id == $data->shuttle_id)
                                                             <a href="{{ route('jpn.shuttle-3-view-formB', $data->id) }}">
-                                                                <img src="{{ asset('circle_check_yellow.png') }}" height='30px' alt=""
+                                                                <img src="{{ asset('circle_check.png') }}" height='30px' alt=""
                                                                     style="color: green; font-size: 20pt;"
                                                                     data-toggle="tooltip" data-placement="bottom"
                                                                     title="Borang telah disahkan PHD"></i></a>
