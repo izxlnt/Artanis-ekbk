@@ -158,6 +158,7 @@ class ListCController extends Controller
         })->where('tahun', '>=', config('app.data_start_year'))->distinct()->orderBy('tahun')->get('tahun');
 
         $buffer = Buffer::where('borang', 'c')->where('shuttle', '4')->first();
+        $batch = Batch::where('tahun', $year)->get();
 
         $breadcrumbs    = [
             ['link' => route('home-jpn'), 'name' => "Laman Utama"],
@@ -174,6 +175,6 @@ class ListCController extends Controller
             'kembali'     => $kembali,
         ];
 
-        return view('admins.shuttle-four.shuttle-4-listC-jpn', compact('returnArr', 'formC', 'user', 'year_list', 'year', 'buffer', 'formC_kilang'));
+        return view('admins.shuttle-four.shuttle-4-listC-jpn', compact('returnArr', 'formC', 'user', 'year_list', 'year', 'buffer', 'formC_kilang', 'batch'));
     }
 }

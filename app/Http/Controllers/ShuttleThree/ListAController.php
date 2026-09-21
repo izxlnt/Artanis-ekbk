@@ -116,6 +116,7 @@ class ListAController extends Controller
         //     })->where('tahun', $year)->get();
 
         $buffer = Buffer::where('borang', 'b')->where('shuttle', '3')->first();
+        $batch = Batch::where('tahun', $year)->get();
         // dd($formA);
 
         $breadcrumbs    = [
@@ -142,6 +143,7 @@ class ListAController extends Controller
             'year_list',
             'year',
             'buffer',
+            'batch',
             'formA_kilang',
             'returnArr'
         ));

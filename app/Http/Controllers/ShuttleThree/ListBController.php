@@ -86,6 +86,7 @@ class ListBController extends Controller
          })->where('tahun', '>=', config('app.data_start_year'))->distinct()->orderBy('tahun')->get('tahun');
 
          $buffer = Buffer::where('borang', 'b')->where('shuttle', '3')->first();
+         $batch = Batch::where('tahun', $year)->get();
 
 
          $breadcrumbs    = [
@@ -103,7 +104,7 @@ class ListBController extends Controller
             'kembali'     => $kembali,
         ];
 
-        return view('admins.shuttle-three.shuttle-3-listB-jpn',compact('returnArr','user','formB', 'formB_kilang', 'year_list','year','buffer'));
+        return view('admins.shuttle-three.shuttle-3-listB-jpn',compact('returnArr','user','formB', 'formB_kilang', 'year_list','year','buffer','batch'));
     }
 
     public function shuttle_3_listB_ipjpsm($year)

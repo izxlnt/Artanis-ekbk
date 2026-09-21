@@ -108,6 +108,7 @@ class ListBController extends Controller
         })->where('tahun', '>=', config('app.data_start_year'))->distinct()->orderBy('tahun')->get('tahun');
 
         $buffer = Buffer::where('borang', 'b')->where('shuttle', '5')->first();
+        $batch = Batch::where('tahun', $year)->get();
 
         // dd($formB_kilang);
         $breadcrumbs    = [
@@ -125,6 +126,6 @@ class ListBController extends Controller
             'kembali'     => $kembali,
         ];
 
-        return view('admins.shuttle-five.shuttle-5-listB-jpn', compact('returnArr', 'user', 'formB', 'formB_kilang', 'year_list', 'year', 'buffer'));
+        return view('admins.shuttle-five.shuttle-5-listB-jpn', compact('returnArr', 'user', 'formB', 'formB_kilang', 'year_list', 'year', 'buffer', 'batch'));
     }
 }

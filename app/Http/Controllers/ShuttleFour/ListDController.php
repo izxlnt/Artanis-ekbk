@@ -228,6 +228,7 @@ class ListDController extends Controller
             $q->where('negeri_id', auth()->user()->negeri);
         })->where('tahun', '>=', config('app.data_start_year'))->distinct()->orderBy('tahun')->get('tahun');
         $buffer = Buffer::where('borang', 'd')->where('shuttle', '4')->first();
+        $batch = Batch::where('tahun', $year)->get();
 
 
         $breadcrumbs    = [
@@ -245,6 +246,6 @@ class ListDController extends Controller
             'kembali'     => $kembali,
         ];
 
-        return view('admins.shuttle-four.shuttle-4-listD-jpn', compact('returnArr', 'formD', 'user', 'year_list', 'year', 'buffer', 'formD_kilang'));
+        return view('admins.shuttle-four.shuttle-4-listD-jpn', compact('returnArr', 'formD', 'user', 'year_list', 'year', 'buffer', 'formD_kilang', 'batch'));
     }
 }
