@@ -36,24 +36,24 @@
             style="color:#dbd400;font-size:20pt"
             data-toggle="tooltip" data-placement="bottom" title="Borang tidak lengkap">
     @elseif ($data->status == 'Sedang Diproses')
-        <img src="{{ asset('circle_times_yellow.png') }}" height='30px' alt=""
+        <img src="{{ asset('circle_check_yellow.png') }}" height='30px' alt=""
             style="color:#dbd400;font-size:25pt"
-            data-toggle="tooltip" data-placement="bottom" title="Borang perlu disahkan PHD">
+            data-toggle="tooltip" data-placement="bottom" title="Borang telah dihantar">
     @elseif ($data->status == 'Tiada Pengeluaran')
-        <img src="{{ asset('tp_logo2.png') }}" height='30px' alt=""
+        <img src="{{ asset('circle_check_yellow.png') }}" height='30px' alt=""
             style="color:#dbd400;font-size:20pt"
-            data-toggle="tooltip" data-placement="bottom" title="Borang perlu disahkan PHD - Tiada Pengeluaran">
+            data-toggle="tooltip" data-placement="bottom" title="Borang telah dihantar - Tiada Pengeluaran">
     @elseif ($data->status == 'Dihantar ke IPJPSM')
         @if ($current_batch && $current_batch->status == 'Dihantar ke IPJPSM' && $current_batch->$batchField == 2)
             @if (isset($data->tiada_pengeluaran) && $data->tiada_pengeluaran == 1)
                 <a href="{{ route($viewRoute, $data->id) . (isset($from) && $from ? '?from=' . $from : '') }}">
-                    <img src="{{ asset('tpbiru.png') }}" height='30px' alt=""
+                    <img src="{{ asset('circle_times_blue.png') }}" height='30px' alt=""
                         data-toggle="tooltip" data-placement="bottom"
                         title="Borang perlu diperaku - Tiada Pengeluaran">
                 </a>
             @else
                 <a href="{{ route($viewRoute, $data->id) . (isset($from) && $from ? '?from=' . $from : '') }}">
-                    <img src="{{ asset('circle_check_yellow.png') }}" height='30px' alt=""
+                    <img src="{{ asset('circle_times_blue.png') }}" height='30px' alt=""
                         style="color:white;font-size:18pt"
                         data-toggle="tooltip" data-placement="bottom" title="Borang perlu diperaku">
                 </a>

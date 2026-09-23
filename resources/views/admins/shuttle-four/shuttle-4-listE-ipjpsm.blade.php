@@ -178,9 +178,9 @@
                                                                 @if ($current_batch->status == 'Dihantar ke IPJPSM' && $current_batch->borang_e == 2)
                                                                     <a
                                                                         href="{{ route('ipjpsm.shuttle-4-view-formE', $data->id) }}"><img
-                                                                            src="{{ asset('circle_times.png') }}"
+                                                                            src="{{ asset('circle_times_blue.png') }}"
                                                                             height='30px' alt=""
-                                                                            style="filter: hue-rotate(200deg); font-size: 18pt;"
+                                                                            style="font-size: 18pt;"
                                                                             data-toggle="tooltip" data-placement="bottom"
                                                                             title="Borang perlu diperaku"></i></a>
                                                                 @else
@@ -245,9 +245,9 @@
                                                             @if ($current_batch->status == 'Dihantar ke IPJPSM' && $current_batch->borang_e == 2)
                                                                 <a
                                                                     href="{{ route('ipjpsm.shuttle-4-view-formE', $data->id) }}"><img
-                                                                        src="{{ asset('circle_times.png') }}"
+                                                                        src="{{ asset('circle_times_blue.png') }}"
                                                                         height='30px' alt=""
-                                                                        style="filter: hue-rotate(200deg); font-size: 18pt;"
+                                                                        style="font-size: 18pt;"
                                                                         data-toggle="tooltip" data-placement="bottom"
                                                                         title="Borang perlu diperaku"></i></a>
                                                             @else
@@ -311,9 +311,9 @@
                                                         @if ($current_batch->status == 'Dihantar ke IPJPSM' && $current_batch->borang_e == 2)
                                                             <a
                                                                 href="{{ route('ipjpsm.shuttle-4-view-formE', $data->id) }}"><img
-                                                                    src="{{ asset('circle_times.png') }}"
+                                                                    src="{{ asset('circle_times_blue.png') }}"
                                                                     height='30px' alt=""
-                                                                    style="filter: hue-rotate(200deg); font-size: 18pt;"
+                                                                    style="font-size: 18pt;"
                                                                     data-toggle="tooltip" data-placement="bottom"
                                                                     title="Borang perlu diperaku"></i></a>
                                                         @else
@@ -377,9 +377,9 @@
                                                     @if ($current_batch->status == 'Dihantar ke IPJPSM' && $current_batch->borang_e == 2)
                                                         <a
                                                             href="{{ route('ipjpsm.shuttle-4-view-formE', $data->id) }}"><img
-                                                                src="{{ asset('circle_times.png') }}"
+                                                                src="{{ asset('circle_times_blue.png') }}"
                                                                 height='30px' alt=""
-                                                                style="filter: hue-rotate(200deg); font-size: 18pt;"
+                                                                style="font-size: 18pt;"
                                                                 data-toggle="tooltip" data-placement="bottom"
                                                                 title="Borang perlu diperaku"></i></a>
                                                     @else
@@ -443,9 +443,9 @@
                                                 @if ($current_batch->status == 'Dihantar ke IPJPSM' && $current_batch->borang_e == 2)
                                                     <a
                                                         href="{{ route('ipjpsm.shuttle-4-view-formE', $data->id) }}"><img
-                                                            src="{{ asset('circle_times.png') }}"
+                                                            src="{{ asset('circle_times_blue.png') }}"
                                                             height='30px' alt=""
-                                                            style="filter: hue-rotate(200deg); font-size: 18pt;"
+                                                            style="font-size: 18pt;"
                                                             data-toggle="tooltip" data-placement="bottom"
                                                             title="Borang perlu diperaku"></i></a>
                                                 @else
@@ -509,9 +509,9 @@
                                             @if ($current_batch->status == 'Dihantar ke IPJPSM' && $current_batch->borang_e == 2)
                                                 <a
                                                     href="{{ route('ipjpsm.shuttle-4-view-formE', $data->id) }}"><img
-                                                        src="{{ asset('circle_times.png') }}"
+                                                        src="{{ asset('circle_times_blue.png') }}"
                                                         height='30px' alt=""
-                                                        style="filter: hue-rotate(200deg); font-size: 18pt;"
+                                                        style="font-size: 18pt;"
                                                         data-toggle="tooltip" data-placement="bottom"
                                                         title="Borang perlu diperaku"></i></a>
                                             @else
@@ -575,9 +575,9 @@
                                         @if ($current_batch->status == 'Dihantar ke IPJPSM' && $current_batch->borang_e == 2)
                                             <a
                                                 href="{{ route('ipjpsm.shuttle-4-view-formE', $data->id) }}"><img
-                                                    src="{{ asset('circle_times.png') }}"
+                                                    src="{{ asset('circle_times_blue.png') }}"
                                                     height='30px' alt=""
-                                                    style="filter: hue-rotate(200deg); font-size: 18pt;"
+                                                    style="font-size: 18pt;"
                                                     data-toggle="tooltip" data-placement="bottom"
                                                     title="Borang perlu diperaku"></i></a>
                                         @else
@@ -641,9 +641,9 @@
                                     @if ($current_batch->status == 'Dihantar ke IPJPSM' && $current_batch->borang_e == 2)
                                         <a
                                             href="{{ route('ipjpsm.shuttle-4-view-formE', $data->id) }}"><img
-                                                src="{{ asset('circle_times.png') }}"
+                                                src="{{ asset('circle_times_blue.png') }}"
                                                 height='30px' alt=""
-                                                style="filter: hue-rotate(200deg); font-size: 18pt;"
+                                                style="font-size: 18pt;"
                                                 data-toggle="tooltip" data-placement="bottom"
                                                 title="Borang perlu diperaku"></i></a>
                                     @else
@@ -707,9 +707,9 @@
                                 @if ($current_batch->status == 'Dihantar ke IPJPSM' && $current_batch->borang_e == 2)
                                     <a
                                         href="{{ route('ipjpsm.shuttle-4-view-formE', $data->id) }}"><img
-                                            src="{{ asset('circle_times.png') }}"
+                                            src="{{ asset('circle_times_blue.png') }}"
                                             height='30px' alt=""
-                                            style="filter: hue-rotate(200deg); font-size: 18pt;"
+                                            style="font-size: 18pt;"
                                             data-toggle="tooltip" data-placement="bottom"
                                             title="Borang perlu diperaku"></i></a>
                                 @else
@@ -773,9 +773,9 @@
                             @if ($current_batch->status == 'Dihantar ke IPJPSM' && $current_batch->borang_e == 2)
                                 <a
                                     href="{{ route('ipjpsm.shuttle-4-view-formE', $data->id) }}"><img
-                                        src="{{ asset('circle_times.png') }}"
+                                        src="{{ asset('circle_times_blue.png') }}"
                                         height='30px' alt=""
-                                        style="filter: hue-rotate(200deg); font-size: 18pt;"
+                                        style="font-size: 18pt;"
                                         data-toggle="tooltip" data-placement="bottom"
                                         title="Borang perlu diperaku"></i></a>
                             @else
@@ -839,9 +839,9 @@
                         @if ($current_batch->status == 'Dihantar ke IPJPSM' && $current_batch->borang_e == 2)
                             <a
                                 href="{{ route('ipjpsm.shuttle-4-view-formE', $data->id) }}"><img
-                                    src="{{ asset('circle_times.png') }}"
+                                    src="{{ asset('circle_times_blue.png') }}"
                                     height='30px' alt=""
-                                    style="filter: hue-rotate(200deg); font-size: 18pt;"
+                                    style="font-size: 18pt;"
                                     data-toggle="tooltip" data-placement="bottom"
                                     title="Borang perlu diperaku"></i></a>
                         @else
@@ -906,9 +906,9 @@
                     @if ($current_batch->status == 'Dihantar ke IPJPSM' && $current_batch->borang_e == 2)
                         <a
                             href="{{ route('ipjpsm.shuttle-4-view-formE', $data->id) }}"><img
-                                src="{{ asset('circle_times.png') }}"
+                                src="{{ asset('circle_times_blue.png') }}"
                                 height='30px' alt=""
-                                style="filter: hue-rotate(200deg); font-size: 18pt;"
+                                style="font-size: 18pt;"
                                 data-toggle="tooltip" data-placement="bottom"
                                 title="Borang perlu diperaku"></i></a>
                     @else

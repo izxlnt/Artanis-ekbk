@@ -160,7 +160,7 @@
                                                             href="{{ route('pengguna.shuttle-5-view-form5E', $data->id) }}">
                                                             <img src="{{ asset('circle_check.png') }}" height='30px'
                                                                 alt="" data-toggle="tooltip" data-placement="bottom"
-                                                                title="Borang telah dihantar"
+                                                                title="Borang telah disahkan oleh PHD"
                                                                 style="color: green; font-size: 20pt;"></i></a>
                                                     @elseif($data->status == 'Tidak Lengkap' && $data->bulan == '1')
                                                         <a href="{{ route('user.shuttle-5-edit-formE', $data->id) }}"
@@ -210,7 +210,7 @@
                                                             href="{{ route('pengguna.shuttle-5-view-form5E', $data->id) }}">
                                                             <img src="{{ asset('circle_check.png') }}" height='30px'
                                                                 alt="" data-toggle="tooltip" data-placement="bottom"
-                                                                title="Borang telah dihantar"
+                                                                title="Borang telah disahkan oleh PHD"
                                                                 style="color: green; font-size: 20pt;"></i></a>
                                                     @elseif($data->status == 'Tidak Lengkap' && $data->bulan == '2')
                                                         <a href="{{ route('user.shuttle-5-edit-formE', $data->id) }}"
@@ -261,7 +261,7 @@
                                                             href="{{ route('pengguna.shuttle-5-view-form5E', $data->id) }}">
                                                             <img src="{{ asset('circle_check.png') }}" height='30px'
                                                                 alt="" data-toggle="tooltip" data-placement="bottom"
-                                                                title="Borang telah dihantar"
+                                                                title="Borang telah disahkan oleh PHD"
                                                                 style="color: green; font-size: 20pt;"></i></a>
                                                     @elseif($data->status == 'Tidak Lengkap' && $data->bulan == '3')
                                                         <a href="{{ route('user.shuttle-5-edit-formE', $data->id) }}"
@@ -312,7 +312,7 @@
                                                             href="{{ route('pengguna.shuttle-5-view-form5E', $data->id) }}">
                                                             <img src="{{ asset('circle_check.png') }}" height='30px'
                                                                 alt="" data-toggle="tooltip" data-placement="bottom"
-                                                                title="Borang telah dihantar"
+                                                                title="Borang telah disahkan oleh PHD"
                                                                 style="color: green; font-size: 20pt;"></i></a>
                                                     @elseif($data->status == 'Tidak Lengkap' && $data->bulan == '4')
                                                         <a href="{{ route('user.shuttle-5-edit-formE', $data->id) }}"
@@ -363,7 +363,7 @@
                                                             href="{{ route('pengguna.shuttle-5-view-form5E', $data->id) }}">
                                                             <img src="{{ asset('circle_check.png') }}" height='30px'
                                                                 alt="" data-toggle="tooltip" data-placement="bottom"
-                                                                title="Borang telah dihantar"
+                                                                title="Borang telah disahkan oleh PHD"
                                                                 style="color: green; font-size: 20pt;"></i></a>
                                                     @elseif($data->status == 'Tidak Lengkap' && $data->bulan == '5')
                                                         <a href="{{ route('user.shuttle-5-edit-formE', $data->id) }}"
@@ -414,7 +414,7 @@
                                                             href="{{ route('pengguna.shuttle-5-view-form5E', $data->id) }}">
                                                             <img src="{{ asset('circle_check.png') }}" height='30px'
                                                                 alt="" data-toggle="tooltip" data-placement="bottom"
-                                                                title="Borang telah dihantar"
+                                                                title="Borang telah disahkan oleh PHD"
                                                                 style="color: green; font-size: 20pt;"></i></a>
                                                     @elseif($data->status == 'Tidak Lengkap' && $data->bulan == '6')
                                                         <a href="{{ route('user.shuttle-5-edit-formE', $data->id) }}"
@@ -465,7 +465,7 @@
                                                             href="{{ route('pengguna.shuttle-5-view-form5E', $data->id) }}">
                                                             <img src="{{ asset('circle_check.png') }}" height='30px'
                                                                 alt="" data-toggle="tooltip" data-placement="bottom"
-                                                                title="Borang telah dihantar"
+                                                                title="Borang telah disahkan oleh PHD"
                                                                 style="color: green; font-size: 20pt;"></i></a>
                                                     @elseif($data->status == 'Tidak Lengkap' && $data->bulan == '7')
                                                         <a href="{{ route('user.shuttle-5-edit-formE', $data->id) }}"
@@ -516,7 +516,7 @@
                                                             href="{{ route('pengguna.shuttle-5-view-form5E', $data->id) }}">
                                                             <img src="{{ asset('circle_check.png') }}" height='30px'
                                                                 alt="" data-toggle="tooltip" data-placement="bottom"
-                                                                title="Borang telah dihantar"
+                                                                title="Borang telah disahkan oleh PHD"
                                                                 style="color: green; font-size: 20pt;"></i></a>
                                                     @elseif($data->status == 'Tidak Lengkap' && $data->bulan == '8')
                                                         <a href="{{ route('user.shuttle-5-edit-formE', $data->id) }}"
@@ -567,7 +567,7 @@
                                                             href="{{ route('pengguna.shuttle-5-view-form5E', $data->id) }}">
                                                             <img src="{{ asset('circle_check.png') }}" height='30px'
                                                                 alt="" data-toggle="tooltip" data-placement="bottom"
-                                                                title="Borang telah dihantar"
+                                                                title="Borang telah disahkan oleh PHD"
                                                                 style="color: green; font-size: 20pt;"></i></a>
                                                     @elseif($data->status == 'Tidak Lengkap' && $data->bulan == '9')
                                                         <a href="{{ route('user.shuttle-5-edit-formE', $data->id) }}"
@@ -618,7 +618,7 @@
                                                             href="{{ route('pengguna.shuttle-5-view-form5E', $data->id) }}">
                                                             <img src="{{ asset('circle_check.png') }}" height='30px'
                                                                 alt="" data-toggle="tooltip" data-placement="bottom"
-                                                                title="Borang telah dihantar"
+                                                                title="Borang telah disahkan oleh PHD"
                                                                 style="color: green; font-size: 20pt;"></i></a>
                                                     @elseif($data->status == 'Tidak Lengkap' && $data->bulan == '10')
                                                         <a href="{{ route('user.shuttle-5-edit-formE', $data->id) }}"
@@ -669,7 +669,7 @@
                                                             href="{{ route('pengguna.shuttle-5-view-form5E', $data->id) }}">
                                                             <img src="{{ asset('circle_check.png') }}" height='30px'
                                                                 alt="" data-toggle="tooltip" data-placement="bottom"
-                                                                title="Borang telah dihantar"
+                                                                title="Borang telah disahkan oleh PHD"
                                                                 style="color: green; font-size: 20pt;"></i></a>
                                                     @elseif($data->status == 'Tidak Lengkap' && $data->bulan == '11')
                                                         <a href="{{ route('user.shuttle-5-edit-formE', $data->id) }}"
@@ -720,7 +720,7 @@
                                                             href="{{ route('pengguna.shuttle-5-view-form5E', $data->id) }}">
                                                             <img src="{{ asset('circle_check.png') }}" height='30px'
                                                                 alt="" data-toggle="tooltip" data-placement="bottom"
-                                                                title="Borang telah dihantar"
+                                                                title="Borang telah disahkan oleh PHD"
                                                                 style="color: green; font-size: 20pt;"></i></a>
                                                     @elseif($data->status == 'Tidak Lengkap' && $data->bulan == '12')
                                                         <a href="{{ route('user.shuttle-5-edit-formE', $data->id) }}"

@@ -153,7 +153,7 @@
                                                         <img src="{{ asset('circle_times.png') }}"
                                                                             height='30px' alt="" style="color: red; font-size: 20pt;"
                                                             data-toggle="tooltip" data-placement="bottom"
-                                                            data-original-title="Borang belum disii "></i>
+                                                            data-original-title="Borang belum diisi"></i>
                                                     @elseif($data->status == 'Dihantar ke IPJPSM')
                                                     @php
                                                         $current_batch = null;

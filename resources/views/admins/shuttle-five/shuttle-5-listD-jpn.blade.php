@@ -210,9 +210,9 @@
                                                             @elseif($data->status == 'Tiada Pengeluaran' && $data->bulan == '1' && $shuttle->shuttle_id == $data->shuttle_id)
                                                                 <a
                                                                     href="{{ route('jpn.shuttle-5-view-form5D', $data->id) }}">
-                                                                    <img src="{{ asset('tp_logo2.png') }}" height='30px'
+                                                                    <img src="{{ asset('circle_check_yellow.png') }}" height='30px'
                                                                         alt="" data-toggle="tooltip" data-placement="bottom"
-                                                                        title="Borang perlu disahkan PHD - Tiada Pengeluaran"></a>
+                                                                        title="Borang telah dihantar - Tiada Pengeluaran"></a>
                                                             @elseif($data->status == 'Tidak Lengkap' && $data->bulan == '1' && $shuttle->shuttle_id == $data->shuttle_id)
                                                                 <a
                                                                     href="{{ route('jpn.shuttle-5-view-form5D', $data->id) }}">
@@ -249,7 +249,7 @@
                                                                     <a
                                                                         href="{{ route('jpn.shuttle-5-view-form5D', $data->id) }}">
 
-                                                                        <img src="{{ asset('tpcoklat.png') }}"
+                                                                        <img src="{{ asset('double_check.png') }}"
                                                                             height='30px' alt="" data-toggle="tooltip"
                                                                             data-placement="bottom"
                                                                             title="Borang telah diperaku"></a>
@@ -307,9 +307,9 @@
 
                                                     @elseif($data->status == 'Tiada Pengeluaran' && $data->bulan == '2' && $shuttle->shuttle_id == $data->shuttle_id)
                                                         <a href="{{ route('jpn.shuttle-5-view-form5D', $data->id) }}">
-                                                            <img src="{{ asset('tp_logo2.png') }}" height='30px' alt=""
+                                                            <img src="{{ asset('circle_check_yellow.png') }}" height='30px' alt=""
                                                                 data-toggle="tooltip" data-placement="bottom"
-                                                                title="Borang perlu disahkan PHD - Tiada Pengeluaran"></a>
+                                                                title="Borang telah dihantar - Tiada Pengeluaran"></a>
                                                     @elseif($data->status == 'Tidak Lengkap' && $data->bulan == '2' && $shuttle->shuttle_id == $data->shuttle_id)
                                                         <a href="{{ route('jpn.shuttle-5-view-form5D', $data->id) }}">
                                                            <img src="{{ asset('history.png') }}" height='30px' alt=""
@@ -343,7 +343,7 @@
                                                             <a
                                                                 href="{{ route('jpn.shuttle-5-view-form5D', $data->id) }}">
 
-                                                                <img src="{{ asset('tpcoklat.png') }}" height='30px'
+                                                                <img src="{{ asset('double_check.png') }}" height='30px'
                                                                     alt="" data-toggle="tooltip" data-placement="bottom"
                                                                     title="Borang telah diperaku"></a>
                                                         @else
@@ -398,9 +398,9 @@
 
                                                     @elseif($data->status == 'Tiada Pengeluaran' && $data->bulan == '3' && $shuttle->shuttle_id == $data->shuttle_id)
                                                         <a href="{{ route('jpn.shuttle-5-view-form5D', $data->id) }}">
-                                                            <img src="{{ asset('tp_logo2.png') }}" height='30px' alt=""
+                                                            <img src="{{ asset('circle_check_yellow.png') }}" height='30px' alt=""
                                                                 data-toggle="tooltip" data-placement="bottom"
-                                                                title="Borang perlu disahkan PHD - Tiada Pengeluaran"></a>
+                                                                title="Borang telah dihantar - Tiada Pengeluaran"></a>
                                                     @elseif($data->status == 'Tidak Lengkap' && $data->bulan == '3' && $shuttle->shuttle_id == $data->shuttle_id)
                                                         <a href="{{ route('jpn.shuttle-5-view-form5D', $data->id) }}">
                                                            <img src="{{ asset('history.png') }}" height='30px' alt=""
@@ -434,7 +434,7 @@
                                                             <a
                                                                 href="{{ route('jpn.shuttle-5-view-form5D', $data->id) }}">
 
-                                                                <img src="{{ asset('tpcoklat.png') }}" height='30px'
+                                                                <img src="{{ asset('double_check.png') }}" height='30px'
                                                                     alt="" data-toggle="tooltip" data-placement="bottom"
                                                                     title="Borang telah diperaku"></a>
                                                         @else
@@ -489,9 +489,9 @@
 
                                                     @elseif($data->status == 'Tiada Pengeluaran' && $data->bulan == '4' && $shuttle->shuttle_id == $data->shuttle_id)
                                                         <a href="{{ route('jpn.shuttle-5-view-form5D', $data->id) }}">
-                                                            <img src="{{ asset('tp_logo2.png') }}" height='30px' alt=""
+                                                            <img src="{{ asset('circle_check_yellow.png') }}" height='30px' alt=""
                                                                 data-toggle="tooltip" data-placement="bottom"
-                                                                title="Borang perlu disahkan PHD - Tiada Pengeluaran"></a>
+                                                                title="Borang telah dihantar - Tiada Pengeluaran"></a>
                                                     @elseif($data->status == 'Tidak Lengkap' && $data->bulan == '4' && $shuttle->shuttle_id == $data->shuttle_id)
                                                         <a href="{{ route('jpn.shuttle-5-view-form5D', $data->id) }}">
                                                            <img src="{{ asset('history.png') }}" height='30px' alt=""
@@ -525,7 +525,7 @@
                                                             <a
                                                                 href="{{ route('jpn.shuttle-5-view-form5D', $data->id) }}">
 
-                                                                <img src="{{ asset('tpcoklat.png') }}" height='30px'
+                                                                <img src="{{ asset('double_check.png') }}" height='30px'
                                                                     alt="" data-toggle="tooltip" data-placement="bottom"
                                                                     title="Borang telah diperaku"></a>
                                                         @else
@@ -580,9 +580,9 @@
 
                                                     @elseif($data->status == 'Tiada Pengeluaran' && $data->bulan == '5' && $shuttle->shuttle_id == $data->shuttle_id)
                                                         <a href="{{ route('jpn.shuttle-5-view-form5D', $data->id) }}">
-                                                            <img src="{{ asset('tp_logo2.png') }}" height='30px' alt=""
+                                                            <img src="{{ asset('circle_check_yellow.png') }}" height='30px' alt=""
                                                                 data-toggle="tooltip" data-placement="bottom"
-                                                                title="Borang perlu disahkan PHD - Tiada Pengeluaran"></a>
+                                                                title="Borang telah dihantar - Tiada Pengeluaran"></a>
                                                     @elseif($data->status == 'Tidak Lengkap' && $data->bulan == '5' && $shuttle->shuttle_id == $data->shuttle_id)
                                                         <a href="{{ route('jpn.shuttle-5-view-form5D', $data->id) }}">
                                                            <img src="{{ asset('history.png') }}" height='30px' alt=""
@@ -616,7 +616,7 @@
                                                             <a
                                                                 href="{{ route('jpn.shuttle-5-view-form5D', $data->id) }}">
 
-                                                                <img src="{{ asset('tpcoklat.png') }}" height='30px'
+                                                                <img src="{{ asset('double_check.png') }}" height='30px'
                                                                     alt="" data-toggle="tooltip" data-placement="bottom"
                                                                     title="Borang telah diperaku"></a>
                                                         @else
@@ -671,9 +671,9 @@
 
                                                     @elseif($data->status == 'Tiada Pengeluaran' && $data->bulan == '6' && $shuttle->shuttle_id == $data->shuttle_id)
                                                         <a href="{{ route('jpn.shuttle-5-view-form5D', $data->id) }}">
-                                                            <img src="{{ asset('tp_logo2.png') }}" height='30px' alt=""
+                                                            <img src="{{ asset('circle_check_yellow.png') }}" height='30px' alt=""
                                                                 data-toggle="tooltip" data-placement="bottom"
-                                                                title="Borang perlu disahkan PHD - Tiada Pengeluaran"></a>
+                                                                title="Borang telah dihantar - Tiada Pengeluaran"></a>
                                                     @elseif($data->status == 'Tidak Lengkap' && $data->bulan == '6' && $shuttle->shuttle_id == $data->shuttle_id)
                                                         <a href="{{ route('jpn.shuttle-5-view-form5D', $data->id) }}">
                                                            <img src="{{ asset('history.png') }}" height='30px' alt=""
@@ -707,7 +707,7 @@
                                                             <a
                                                                 href="{{ route('jpn.shuttle-5-view-form5D', $data->id) }}">
 
-                                                                <img src="{{ asset('tpcoklat.png') }}" height='30px'
+                                                                <img src="{{ asset('double_check.png') }}" height='30px'
                                                                     alt="" data-toggle="tooltip" data-placement="bottom"
                                                                     title="Borang telah diperaku"></a>
                                                         @else
@@ -762,9 +762,9 @@
 
                                                     @elseif($data->status == 'Tiada Pengeluaran' && $data->bulan == '7' && $shuttle->shuttle_id == $data->shuttle_id)
                                                         <a href="{{ route('jpn.shuttle-5-view-form5D', $data->id) }}">
-                                                            <img src="{{ asset('tp_logo2.png') }}" height='30px' alt=""
+                                                            <img src="{{ asset('circle_check_yellow.png') }}" height='30px' alt=""
                                                                 data-toggle="tooltip" data-placement="bottom"
-                                                                title="Borang perlu disahkan PHD - Tiada Pengeluaran"></a>
+                                                                title="Borang telah dihantar - Tiada Pengeluaran"></a>
                                                     @elseif($data->status == 'Tidak Lengkap' && $data->bulan == '7' && $shuttle->shuttle_id == $data->shuttle_id)
                                                         <a href="{{ route('jpn.shuttle-5-view-form5D', $data->id) }}">
                                                            <img src="{{ asset('history.png') }}" height='30px' alt=""
@@ -798,7 +798,7 @@
                                                             <a
                                                                 href="{{ route('jpn.shuttle-5-view-form5D', $data->id) }}">
 
-                                                                <img src="{{ asset('tpcoklat.png') }}" height='30px'
+                                                                <img src="{{ asset('double_check.png') }}" height='30px'
                                                                     alt="" data-toggle="tooltip" data-placement="bottom"
                                                                     title="Borang telah diperaku"></a>
                                                         @else
@@ -853,9 +853,9 @@
 
                                                     @elseif($data->status == 'Tiada Pengeluaran' && $data->bulan == '8' && $shuttle->shuttle_id == $data->shuttle_id)
                                                         <a href="{{ route('jpn.shuttle-5-view-form5D', $data->id) }}">
-                                                            <img src="{{ asset('tp_logo2.png') }}" height='30px' alt=""
+                                                            <img src="{{ asset('circle_check_yellow.png') }}" height='30px' alt=""
                                                                 data-toggle="tooltip" data-placement="bottom"
-                                                                title="Borang perlu disahkan PHD - Tiada Pengeluaran"></a>
+                                                                title="Borang telah dihantar - Tiada Pengeluaran"></a>
                                                     @elseif($data->status == 'Tidak Lengkap' && $data->bulan == '8' && $shuttle->shuttle_id == $data->shuttle_id)
                                                         <a href="{{ route('jpn.shuttle-5-view-form5D', $data->id) }}">
                                                            <img src="{{ asset('history.png') }}" height='30px' alt=""
@@ -889,7 +889,7 @@
                                                             <a
                                                                 href="{{ route('jpn.shuttle-5-view-form5D', $data->id) }}">
 
-                                                                <img src="{{ asset('tpcoklat.png') }}" height='30px'
+                                                                <img src="{{ asset('double_check.png') }}" height='30px'
                                                                     alt="" data-toggle="tooltip" data-placement="bottom"
                                                                     title="Borang telah diperaku"></a>
                                                         @else
@@ -944,9 +944,9 @@
 
                                                     @elseif($data->status == 'Tiada Pengeluaran' && $data->bulan == '9' && $shuttle->shuttle_id == $data->shuttle_id)
                                                         <a href="{{ route('jpn.shuttle-5-view-form5D', $data->id) }}">
-                                                            <img src="{{ asset('tp_logo2.png') }}" height='30px' alt=""
+                                                            <img src="{{ asset('circle_check_yellow.png') }}" height='30px' alt=""
                                                                 data-toggle="tooltip" data-placement="bottom"
-                                                                title="Borang perlu disahkan PHD - Tiada Pengeluaran"></a>
+                                                                title="Borang telah dihantar - Tiada Pengeluaran"></a>
                                                     @elseif($data->status == 'Tidak Lengkap' && $data->bulan == '9' && $shuttle->shuttle_id == $data->shuttle_id)
                                                         <a href="{{ route('jpn.shuttle-5-view-form5D', $data->id) }}">
                                                            <img src="{{ asset('history.png') }}" height='30px' alt=""
@@ -980,7 +980,7 @@
                                                             <a
                                                                 href="{{ route('jpn.shuttle-5-view-form5D', $data->id) }}">
 
-                                                                <img src="{{ asset('tpcoklat.png') }}" height='30px'
+                                                                <img src="{{ asset('double_check.png') }}" height='30px'
                                                                     alt="" data-toggle="tooltip" data-placement="bottom"
                                                                     title="Borang telah diperaku"></a>
                                                         @else
@@ -1035,9 +1035,9 @@
 
                                                     @elseif($data->status == 'Tiada Pengeluaran' && $data->bulan == '10' && $shuttle->shuttle_id == $data->shuttle_id)
                                                         <a href="{{ route('jpn.shuttle-5-view-form5D', $data->id) }}">
-                                                            <img src="{{ asset('tp_logo2.png') }}" height='30px' alt=""
+                                                            <img src="{{ asset('circle_check_yellow.png') }}" height='30px' alt=""
                                                                 data-toggle="tooltip" data-placement="bottom"
-                                                                title="Borang perlu disahkan PHD - Tiada Pengeluaran"></a>
+                                                                title="Borang telah dihantar - Tiada Pengeluaran"></a>
                                                     @elseif($data->status == 'Tidak Lengkap' && $data->bulan == '10' && $shuttle->shuttle_id == $data->shuttle_id)
                                                         <a href="{{ route('jpn.shuttle-5-view-form5D', $data->id) }}">
                                                            <img src="{{ asset('history.png') }}" height='30px' alt=""
@@ -1071,7 +1071,7 @@
                                                             <a
                                                                 href="{{ route('jpn.shuttle-5-view-form5D', $data->id) }}">
 
-                                                                <img src="{{ asset('tpcoklat.png') }}" height='30px'
+                                                                <img src="{{ asset('double_check.png') }}" height='30px'
                                                                     alt="" data-toggle="tooltip" data-placement="bottom"
                                                                     title="Borang telah diperaku"></a>
                                                         @else
@@ -1126,9 +1126,9 @@
 
                                                     @elseif($data->status == 'Tiada Pengeluaran' && $data->bulan == '11' && $shuttle->shuttle_id == $data->shuttle_id)
                                                         <a href="{{ route('jpn.shuttle-5-view-form5D', $data->id) }}">
-                                                            <img src="{{ asset('tp_logo2.png') }}" height='30px' alt=""
+                                                            <img src="{{ asset('circle_check_yellow.png') }}" height='30px' alt=""
                                                                 data-toggle="tooltip" data-placement="bottom"
-                                                                title="Borang perlu disahkan PHD - Tiada Pengeluaran"></a>
+                                                                title="Borang telah dihantar - Tiada Pengeluaran"></a>
                                                     @elseif($data->status == 'Tidak Lengkap' && $data->bulan == '11' && $shuttle->shuttle_id == $data->shuttle_id)
                                                         <a href="{{ route('jpn.shuttle-5-view-form5D', $data->id) }}">
                                                            <img src="{{ asset('history.png') }}" height='30px' alt=""
@@ -1163,7 +1163,7 @@
                                                             <a
                                                                 href="{{ route('jpn.shuttle-5-view-form5D', $data->id) }}">
 
-                                                                <img src="{{ asset('tpcoklat.png') }}" height='30px'
+                                                                <img src="{{ asset('double_check.png') }}" height='30px'
                                                                     alt="" data-toggle="tooltip" data-placement="bottom"
                                                                     title="Borang telah diperaku"></a>
                                                         @else
@@ -1219,9 +1219,9 @@
 
                                                     @elseif($data->status == 'Tiada Pengeluaran' && $data->bulan == '12' && $shuttle->shuttle_id == $data->shuttle_id)
                                                         <a href="{{ route('jpn.shuttle-5-view-form5D', $data->id) }}">
-                                                            <img src="{{ asset('tp_logo2.png') }}" height='30px' alt=""
+                                                            <img src="{{ asset('circle_check_yellow.png') }}" height='30px' alt=""
                                                                 data-toggle="tooltip" data-placement="bottom"
-                                                                title="Borang perlu disahkan PHD - Tiada Pengeluaran"></a>
+                                                                title="Borang telah dihantar - Tiada Pengeluaran"></a>
                                                     @elseif($data->status == 'Tidak Lengkap' && $data->bulan == '12' && $shuttle->shuttle_id == $data->shuttle_id)
                                                         <a href="{{ route('jpn.shuttle-5-view-form5D', $data->id) }}">
                                                            <img src="{{ asset('history.png') }}" height='30px' alt=""
@@ -1256,7 +1256,7 @@
                                                             <a
                                                                 href="{{ route('jpn.shuttle-5-view-form5D', $data->id) }}">
 
-                                                                <img src="{{ asset('tpcoklat.png') }}" height='30px'
+                                                                <img src="{{ asset('double_check.png') }}" height='30px'
                                                                     alt="" data-toggle="tooltip" data-placement="bottom"
                                                                     title="Borang telah diperaku"></a>
                                                         @else

@@ -235,18 +235,10 @@
                                                                 title="Borang telah dihantar"></i></a>
 
                                                     @elseif($data->status == 'Dihantar ke IPJPSM')
-                                                        <a href="{{ route('jpn.shuttle-5-view-form5E', $data->id) }}"> <i
-                                                                class="fas fa-check"
-                                                                style="color: green; font-size: 18pt;" data-toggle="tooltip"
-                                                                data-placement="bottom"
-                                                                title="Borang telah disahkan PHD"></i></a>
+                                                        <a href="{{ route('jpn.shuttle-5-view-form5E', $data->id) }}"><img src="{{ asset('circle_check.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang telah disahkan PHD"></a>
 
                                                     @elseif($data->status == 'Lulus')
-                                                        <a href="{{ route('jpn.shuttle-5-view-form5E', $data->id) }}"> <i
-                                                                class="fas fa-check-double"
-                                                                style="color: green; font-size: 18pt;" data-toggle="tooltip"
-                                                                data-placement="bottom"
-                                                                title="Borang telah diperaku"></i></a>
+                                                        <a href="{{ route('jpn.shuttle-5-view-form5E', $data->id) }}"><img src="{{ asset('double_check.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang telah diperaku"></a>
                                                     @break
                                                 @endif
                                             @endif
@@ -289,18 +281,10 @@
                                                                 title="Borang telah dihantar"></i></a>
 
                                                     @elseif($data->status == 'Dihantar ke IPJPSM')
-                                                        <a href="{{ route('jpn.shuttle-5-view-form5E', $data->id) }}"> <i
-                                                                class="fas fa-check"
-                                                                style="color: green; font-size: 18pt;" data-toggle="tooltip"
-                                                                data-placement="bottom"
-                                                                title="Borang telah disahkan PHD"></i></a>
+                                                        <a href="{{ route('jpn.shuttle-5-view-form5E', $data->id) }}"><img src="{{ asset('circle_check.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang telah disahkan PHD"></a>
 
                                                     @elseif($data->status == 'Lulus')
-                                                        <a href="{{ route('jpn.shuttle-5-view-form5E', $data->id) }}"> <i
-                                                                class="fas fa-check-double"
-                                                                style="color: green; font-size: 18pt;" data-toggle="tooltip"
-                                                                data-placement="bottom"
-                                                                title="Borang telah diperaku"></i></a>
+                                                        <a href="{{ route('jpn.shuttle-5-view-form5E', $data->id) }}"><img src="{{ asset('double_check.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang telah diperaku"></a>
                                                     @break
                                                 @endif
                                             @endif
@@ -343,18 +327,10 @@
                                                                 title="Borang telah dihantar"></i></a>
 
                                                     @elseif($data->status == 'Dihantar ke IPJPSM')
-                                                        <a href="{{ route('jpn.shuttle-5-view-form5E', $data->id) }}"> <i
-                                                                class="fas fa-check"
-                                                                style="color: green; font-size: 18pt;" data-toggle="tooltip"
-                                                                data-placement="bottom"
-                                                                title="Borang telah disahkan PHD"></i></a>
+                                                        <a href="{{ route('jpn.shuttle-5-view-form5E', $data->id) }}"><img src="{{ asset('circle_check.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang telah disahkan PHD"></a>
 
                                                     @elseif($data->status == 'Lulus')
-                                                        <a href="{{ route('jpn.shuttle-5-view-form5E', $data->id) }}"> <i
-                                                                class="fas fa-check-double"
-                                                                style="color: green; font-size: 18pt;" data-toggle="tooltip"
-                                                                data-placement="bottom"
-                                                                title="Borang telah diperaku"></i></a>
+                                                        <a href="{{ route('jpn.shuttle-5-view-form5E', $data->id) }}"><img src="{{ asset('double_check.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang telah diperaku"></a>
                                                     @break
                                                 @endif
                                             @endif
@@ -397,18 +373,10 @@
                                                                 title="Borang telah dihantar"></i></a>
 
                                                     @elseif($data->status == 'Dihantar ke IPJPSM')
-                                                        <a href="{{ route('jpn.shuttle-5-view-form5E', $data->id) }}"> <i
-                                                                class="fas fa-check"
-                                                                style="color: green; font-size: 18pt;" data-toggle="tooltip"
-                                                                data-placement="bottom"
-                                                                title="Borang telah disahkan PHD"></i></a>
+                                                        <a href="{{ route('jpn.shuttle-5-view-form5E', $data->id) }}"><img src="{{ asset('circle_check.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang telah disahkan PHD"></a>
 
                                                     @elseif($data->status == 'Lulus')
-                                                        <a href="{{ route('jpn.shuttle-5-view-form5E', $data->id) }}"> <i
-                                                                class="fas fa-check-double"
-                                                                style="color: green; font-size: 18pt;" data-toggle="tooltip"
-                                                                data-placement="bottom"
-                                                                title="Borang telah diperaku"></i></a>
+                                                        <a href="{{ route('jpn.shuttle-5-view-form5E', $data->id) }}"><img src="{{ asset('double_check.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang telah diperaku"></a>
                                                     @break
                                                 @endif
                                             @endif
@@ -451,18 +419,10 @@
                                                                 title="Borang telah dihantar"></i></a>
 
                                                     @elseif($data->status == 'Dihantar ke IPJPSM')
-                                                        <a href="{{ route('jpn.shuttle-5-view-form5E', $data->id) }}"> <i
-                                                                class="fas fa-check"
-                                                                style="color: green; font-size: 18pt;" data-toggle="tooltip"
-                                                                data-placement="bottom"
-                                                                title="Borang telah disahkan PHD"></i></a>
+                                                        <a href="{{ route('jpn.shuttle-5-view-form5E', $data->id) }}"><img src="{{ asset('circle_check.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang telah disahkan PHD"></a>
 
                                                     @elseif($data->status == 'Lulus')
-                                                        <a href="{{ route('jpn.shuttle-5-view-form5E', $data->id) }}"> <i
-                                                                class="fas fa-check-double"
-                                                                style="color: green; font-size: 18pt;" data-toggle="tooltip"
-                                                                data-placement="bottom"
-                                                                title="Borang telah diperaku"></i></a>
+                                                        <a href="{{ route('jpn.shuttle-5-view-form5E', $data->id) }}"><img src="{{ asset('double_check.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang telah diperaku"></a>
                                                     @break
                                                 @endif
                                             @endif
@@ -505,18 +465,10 @@
                                                                 title="Borang telah dihantar"></i></a>
 
                                                     @elseif($data->status == 'Dihantar ke IPJPSM')
-                                                        <a href="{{ route('jpn.shuttle-5-view-form5E', $data->id) }}"> <i
-                                                                class="fas fa-check"
-                                                                style="color: green; font-size: 18pt;" data-toggle="tooltip"
-                                                                data-placement="bottom"
-                                                                title="Borang telah disahkan PHD"></i></a>
+                                                        <a href="{{ route('jpn.shuttle-5-view-form5E', $data->id) }}"><img src="{{ asset('circle_check.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang telah disahkan PHD"></a>
 
                                                     @elseif($data->status == 'Lulus')
-                                                        <a href="{{ route('jpn.shuttle-5-view-form5E', $data->id) }}"> <i
-                                                                class="fas fa-check-double"
-                                                                style="color: green; font-size: 18pt;" data-toggle="tooltip"
-                                                                data-placement="bottom"
-                                                                title="Borang telah diperaku"></i></a>
+                                                        <a href="{{ route('jpn.shuttle-5-view-form5E', $data->id) }}"><img src="{{ asset('double_check.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang telah diperaku"></a>
                                                     @break
                                                 @endif
                                             @endif
@@ -559,18 +511,10 @@
                                                                 title="Borang telah dihantar"></i></a>
 
                                                     @elseif($data->status == 'Dihantar ke IPJPSM')
-                                                        <a href="{{ route('jpn.shuttle-5-view-form5E', $data->id) }}"> <i
-                                                                class="fas fa-check"
-                                                                style="color: green; font-size: 18pt;" data-toggle="tooltip"
-                                                                data-placement="bottom"
-                                                                title="Borang telah disahkan PHD"></i></a>
+                                                        <a href="{{ route('jpn.shuttle-5-view-form5E', $data->id) }}"><img src="{{ asset('circle_check.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang telah disahkan PHD"></a>
 
                                                     @elseif($data->status == 'Lulus')
-                                                        <a href="{{ route('jpn.shuttle-5-view-form5E', $data->id) }}"> <i
-                                                                class="fas fa-check-double"
-                                                                style="color: green; font-size: 18pt;" data-toggle="tooltip"
-                                                                data-placement="bottom"
-                                                                title="Borang telah diperaku"></i></a>
+                                                        <a href="{{ route('jpn.shuttle-5-view-form5E', $data->id) }}"><img src="{{ asset('double_check.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang telah diperaku"></a>
                                                     @break
                                                 @endif
                                             @endif
@@ -613,18 +557,10 @@
                                                                 title="Borang telah dihantar"></i></a>
 
                                                     @elseif($data->status == 'Dihantar ke IPJPSM')
-                                                        <a href="{{ route('jpn.shuttle-5-view-form5E', $data->id) }}"> <i
-                                                                class="fas fa-check"
-                                                                style="color: green; font-size: 18pt;" data-toggle="tooltip"
-                                                                data-placement="bottom"
-                                                                title="Borang telah disahkan PHD"></i></a>
+                                                        <a href="{{ route('jpn.shuttle-5-view-form5E', $data->id) }}"><img src="{{ asset('circle_check.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang telah disahkan PHD"></a>
 
                                                     @elseif($data->status == 'Lulus')
-                                                        <a href="{{ route('jpn.shuttle-5-view-form5E', $data->id) }}"> <i
-                                                                class="fas fa-check-double"
-                                                                style="color: green; font-size: 18pt;" data-toggle="tooltip"
-                                                                data-placement="bottom"
-                                                                title="Borang telah diperaku"></i></a>
+                                                        <a href="{{ route('jpn.shuttle-5-view-form5E', $data->id) }}"><img src="{{ asset('double_check.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang telah diperaku"></a>
                                                     @break
                                                 @endif
                                             @endif
@@ -667,18 +603,10 @@
                                                                 title="Borang telah dihantar"></i></a>
 
                                                     @elseif($data->status == 'Dihantar ke IPJPSM')
-                                                        <a href="{{ route('jpn.shuttle-5-view-form5E', $data->id) }}"> <i
-                                                                class="fas fa-check"
-                                                                style="color: green; font-size: 18pt;" data-toggle="tooltip"
-                                                                data-placement="bottom"
-                                                                title="Borang telah disahkan PHD"></i></a>
+                                                        <a href="{{ route('jpn.shuttle-5-view-form5E', $data->id) }}"><img src="{{ asset('circle_check.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang telah disahkan PHD"></a>
 
                                                     @elseif($data->status == 'Lulus')
-                                                        <a href="{{ route('jpn.shuttle-5-view-form5E', $data->id) }}"> <i
-                                                                class="fas fa-check-double"
-                                                                style="color: green; font-size: 18pt;" data-toggle="tooltip"
-                                                                data-placement="bottom"
-                                                                title="Borang telah diperaku"></i></a>
+                                                        <a href="{{ route('jpn.shuttle-5-view-form5E', $data->id) }}"><img src="{{ asset('double_check.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang telah diperaku"></a>
                                                     @break
                                                 @endif
                                             @endif
@@ -721,18 +649,10 @@
                                                                 title="Borang telah dihantar"></i></a>
 
                                                     @elseif($data->status == 'Dihantar ke IPJPSM')
-                                                        <a href="{{ route('jpn.shuttle-5-view-form5E', $data->id) }}"> <i
-                                                                class="fas fa-check"
-                                                                style="color: green; font-size: 18pt;" data-toggle="tooltip"
-                                                                data-placement="bottom"
-                                                                title="Borang telah disahkan PHD"></i></a>
+                                                        <a href="{{ route('jpn.shuttle-5-view-form5E', $data->id) }}"><img src="{{ asset('circle_check.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang telah disahkan PHD"></a>
 
                                                     @elseif($data->status == 'Lulus')
-                                                        <a href="{{ route('jpn.shuttle-5-view-form5E', $data->id) }}"> <i
-                                                                class="fas fa-check-double"
-                                                                style="color: green; font-size: 18pt;" data-toggle="tooltip"
-                                                                data-placement="bottom"
-                                                                title="Borang telah diperaku"></i></a>
+                                                        <a href="{{ route('jpn.shuttle-5-view-form5E', $data->id) }}"><img src="{{ asset('double_check.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang telah diperaku"></a>
                                                     @break
                                                 @endif
                                             @endif
@@ -776,18 +696,10 @@
                                                                 title="Borang telah dihantar"></i></a>
 
                                                     @elseif($data->status == 'Dihantar ke IPJPSM')
-                                                        <a href="{{ route('jpn.shuttle-5-view-form5E', $data->id) }}"> <i
-                                                                class="fas fa-check"
-                                                                style="color: green; font-size: 18pt;" data-toggle="tooltip"
-                                                                data-placement="bottom"
-                                                                title="Borang telah disahkan PHD"></i></a>
+                                                        <a href="{{ route('jpn.shuttle-5-view-form5E', $data->id) }}"><img src="{{ asset('circle_check.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang telah disahkan PHD"></a>
 
                                                     @elseif($data->status == 'Lulus')
-                                                        <a href="{{ route('jpn.shuttle-5-view-form5E', $data->id) }}"> <i
-                                                                class="fas fa-check-double"
-                                                                style="color: green; font-size: 18pt;" data-toggle="tooltip"
-                                                                data-placement="bottom"
-                                                                title="Borang telah diperaku"></i></a>
+                                                        <a href="{{ route('jpn.shuttle-5-view-form5E', $data->id) }}"><img src="{{ asset('double_check.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang telah diperaku"></a>
                                                     @break
                                                 @endif
                                             @endif

@@ -118,16 +118,14 @@
                                                 </td>
                                                 <td>
                                                     @if ($data->status == 'Sedang Diproses')
-                                                        <a href="#" class="mr-1 btn btn-warning"><i class="fas fa-eye"
-                                                                data-toggle="tooltip" data-placement="bottom"
-                                                                title="Borang perlu disahkan PHD"></i></a>
+                                                        <a href="#"><img src="{{ asset('circle_check_yellow.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang telah dihantar"></a>
                                                     @elseif($data->status == 'Tidak Lengkap')
                                                        <img src="{{ asset('history.png') }}" height='30px' alt="" style="color: #dbd400; font-size: 20pt;"
                                                             data-toggle="tooltip" data-placement="bottom"
                                                             title="Borang tidak lengkap "></i>
                                                     @elseif($data->status == 'Dihantar ke IPJPSM')
                                                         <a href="{{ route('ipjpsm.shuttle-3-view-formA', $data->shuttle_id) }}?year={{ $year }}">
-                                                            <img src="{{ asset('circle_check_yellow.png') }}"
+                                                            <img src="{{ asset('circle_times_blue.png') }}"
                                                                 height='30px' alt="" style="color: white; font-size: 18pt;"
                                                                 data-toggle="tooltip" data-placement="bottom"
                                                                 title="Borang perlu diperaku"></i></a>

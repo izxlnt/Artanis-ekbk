@@ -165,8 +165,8 @@
 
                                                                     @if ($current_batch->status == 'Dihantar ke IPJPSM' && $current_batch->borang_b == 2)
                                                                         <a href="{{ route('ipjpsm.shuttle-3-view-formB', $data->id) }}"
-                                                                            ><img src="{{ asset('circle_times.png') }}" height='30px' alt=""
-                                                                                style="filter: hue-rotate(200deg); font-size: 18pt;"
+                                                                            ><img src="{{ asset('circle_times_blue.png') }}" height='30px' alt=""
+                                                                                style="font-size: 18pt;"
                                                                                 data-toggle="tooltip"
                                                                                 data-placement="bottom"
                                                                                 title="Borang perlu diperaku"></i></a>
@@ -253,7 +253,7 @@
                                                                     @endphp
                                                                     @if ($current_batch->status == 'Dihantar ke IPJPSM' && $current_batch->borang_b == 2)
                                                                         <a href="{{ route('ipjpsm.shuttle-3-view-formB', $data->id) }}"
-                                                                            ><img src="{{ asset('circle_check_yellow.png') }}" height='30px' alt=""
+                                                                            ><img src="{{ asset('circle_times_blue.png') }}" height='30px' alt=""
                                                                                 style="color: white; font-size: 18pt;"
                                                                                 data-toggle="tooltip"
                                                                                 data-placement="bottom"
@@ -272,10 +272,7 @@
                                                                 @elseif($data->status == 'Tidak Lengkap')
                                                                     <img src="{{ asset('history.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang tidak lengkap">
                                                                 @elseif($data->status == 'Sedang Diproses')
-                                                                    <i class="fas fa-times"
-                                                                        style="color: yellow;font-size: 25pt;"
-                                                                        data-toggle="tooltip" data-placement="bottom"
-                                                                        title="Borang perlu disahkan PHD"></i>
+                                                                    <img src="{{ asset('circle_check_yellow.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang telah dihantar">
                                                                 @elseif($data->status == 'Tidak Diisi')
                                                                     @php
                                                                         $time = strtotime($data->tarikh_tutup_borang);
@@ -341,7 +338,7 @@
                                                                     @endphp
                                                                     @if ($current_batch->status == 'Dihantar ke IPJPSM' && $current_batch->borang_b == 2)
                                                                         <a href="{{ route('ipjpsm.shuttle-3-view-formB', $data->id) }}"
-                                                                            ><img src="{{ asset('circle_check_yellow.png') }}" height='30px' alt=""
+                                                                            ><img src="{{ asset('circle_times_blue.png') }}" height='30px' alt=""
                                                                                 style="color: white; font-size: 18pt;"
                                                                                 data-toggle="tooltip"
                                                                                 data-placement="bottom"
@@ -360,10 +357,7 @@
                                                                 @elseif($data->status == 'Tidak Lengkap')
                                                                     <img src="{{ asset('history.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang tidak lengkap">
                                                                 @elseif($data->status == 'Sedang Diproses')
-                                                                    <i class="fas fa-times"
-                                                                        style="color: yellow;font-size: 25pt;"
-                                                                        data-toggle="tooltip" data-placement="bottom"
-                                                                        title="Borang perlu disahkan PHD"></i>
+                                                                    <img src="{{ asset('circle_check_yellow.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang telah dihantar">
                                                                 @elseif($data->status == 'Tidak Diisi')
                                                                     @php
                                                                         $time = strtotime($data->tarikh_tutup_borang);
@@ -430,7 +424,7 @@
 
                                                                     @if ($current_batch->status == 'Dihantar ke IPJPSM' && $current_batch->borang_b == 2)
                                                                         <a href="{{ route('ipjpsm.shuttle-3-view-formB', $data->id) }}"
-                                                                            ><img src="{{ asset('circle_check_yellow.png') }}" height='30px' alt=""
+                                                                            ><img src="{{ asset('circle_times_blue.png') }}" height='30px' alt=""
                                                                                 style="color: white; font-size: 18pt;"
                                                                                 data-toggle="tooltip"
                                                                                 data-placement="bottom"
@@ -449,10 +443,7 @@
                                                                 @elseif($data->status == 'Tidak Lengkap')
                                                                     <img src="{{ asset('history.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang tidak lengkap">
                                                                 @elseif($data->status == 'Sedang Diproses')
-                                                                    <i class="fas fa-times"
-                                                                        style="color: yellow;font-size: 25pt;"
-                                                                        data-toggle="tooltip" data-placement="bottom"
-                                                                        title="Borang perlu disahkan PHD"></i>
+                                                                    <img src="{{ asset('circle_check_yellow.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang telah dihantar">
                                                                 @elseif($data->status == 'Tidak Diisi')
                                                                     @php
                                                                         $time = strtotime($data->tarikh_tutup_borang);

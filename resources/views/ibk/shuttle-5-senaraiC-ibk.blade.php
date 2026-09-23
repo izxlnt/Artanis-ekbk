@@ -194,12 +194,11 @@
                                                     @elseif($data->status == 'Tidak Lengkap' && $data->bulan == '1')
                                                         <a href="{{ route('user.shuttle-5-formC.KKB', ['bulan' => 1, 'year' => $year]) }}"
                                                             data-toggle="tooltip" data-placement="bottom"
-                                                            title="Borang tidak lengkap" class="mr-1 btn btn-warning"><i
-                                                                class="fas fa-pencil-alt"></i></a>
+                                                            title="Borang tidak lengkap"><img src="{{ asset('history.png') }}" height='30px' alt=""></a>
                                                     @elseif($data->status == 'Lulus' && $data->bulan == '1')
                                                         <a
                                                             href="{{ route('pengguna.shuttle-5-view-formC', $data->id) }}">
-                                                            <img src="{{ asset('double_check.png') }}" height='30px'
+                                                            <img src="{{ asset('circle_check.png') }}" height='30px'
                                                                 alt="" data-toggle="tooltip" data-placement="bottom"
                                                                 title="Borang telah diluluskan oleh IPJPSM"
                                                                 style="color: green; font-size: 20pt;"></i></a>
@@ -260,12 +259,11 @@
                                                     @elseif($data->status == 'Tidak Lengkap' && $data->bulan == '2')
                                                         <a href="{{ route('user.shuttle-5-formC.KKB', ['bulan' => 2, 'year' => $year]) }}"
                                                             data-toggle="tooltip" data-placement="bottom"
-                                                            title="Borang tidak lengkap" class="mr-1 btn btn-warning"><i
-                                                                class="fas fa-pencil-alt"></i></a>
+                                                            title="Borang tidak lengkap"><img src="{{ asset('history.png') }}" height='30px' alt=""></a>
                                                     @elseif($data->status == 'Lulus' && $data->bulan == '2')
                                                         <a
                                                             href="{{ route('pengguna.shuttle-5-view-formC', $data->id) }}">
-                                                            <img src="{{ asset('double_check.png') }}" height='30px'
+                                                            <img src="{{ asset('circle_check.png') }}" height='30px'
                                                                 alt="" data-toggle="tooltip" data-placement="bottom"
                                                                 title="Borang telah diluluskan oleh IPJPSM"
                                                                 style="color: green; font-size: 20pt;"></i></a>
@@ -327,12 +325,11 @@
                                                     @elseif($data->status == 'Tidak Lengkap' && $data->bulan == '3')
                                                         <a href="{{ route('user.shuttle-5-formC.KKB', ['bulan' => 3, 'year' => $year]) }}"
                                                             data-toggle="tooltip" data-placement="bottom"
-                                                            title="Borang tidak lengkap" class="mr-1 btn btn-warning"><i
-                                                                class="fas fa-pencil-alt"></i></a>
+                                                            title="Borang tidak lengkap"><img src="{{ asset('history.png') }}" height='30px' alt=""></a>
                                                     @elseif($data->status == 'Lulus' && $data->bulan == '3')
                                                         <a
                                                             href="{{ route('pengguna.shuttle-5-view-formC', $data->id) }}">
-                                                            <img src="{{ asset('double_check.png') }}" height='30px'
+                                                            <img src="{{ asset('circle_check.png') }}" height='30px'
                                                                 alt="" data-toggle="tooltip" data-placement="bottom"
                                                                 title="Borang telah diluluskan oleh IPJPSM"
                                                                 style="color: green; font-size: 20pt;"></i></a>
@@ -394,12 +391,11 @@
                                                     @elseif($data->status == 'Tidak Lengkap' && $data->bulan == '4')
                                                         <a href="{{ route('user.shuttle-5-formC.KKB', ['bulan' => 4, 'year' => $year]) }}"
                                                             data-toggle="tooltip" data-placement="bottom"
-                                                            title="Borang tidak lengkap" class="mr-1 btn btn-warning"><i
-                                                                class="fas fa-pencil-alt"></i></a>
+                                                            title="Borang tidak lengkap"><img src="{{ asset('history.png') }}" height='30px' alt=""></a>
                                                     @elseif($data->status == 'Lulus' && $data->bulan == '4')
                                                         <a
                                                             href="{{ route('pengguna.shuttle-5-view-formC', $data->id) }}">
-                                                            <img src="{{ asset('double_check.png') }}" height='30px'
+                                                            <img src="{{ asset('circle_check.png') }}" height='30px'
                                                                 alt="" data-toggle="tooltip" data-placement="bottom"
                                                                 title="Borang telah diluluskan oleh IPJPSM"
                                                                 style="color: green; font-size: 20pt;"></i></a>
@@ -461,12 +457,11 @@
                                                     @elseif($data->status == 'Tidak Lengkap' && $data->bulan == '5')
                                                         <a href="{{ route('user.shuttle-5-formC.KKB', ['bulan' => 5, 'year' => $year]) }}"
                                                             data-toggle="tooltip" data-placement="bottom"
-                                                            title="Borang tidak lengkap" class="mr-1 btn btn-warning"><i
-                                                                class="fas fa-pencil-alt"></i></a>
+                                                            title="Borang tidak lengkap"><img src="{{ asset('history.png') }}" height='30px' alt=""></a>
                                                     @elseif($data->status == 'Lulus' && $data->bulan == '5')
                                                         <a
                                                             href="{{ route('pengguna.shuttle-5-view-formC', $data->id) }}">
-                                                            <img src="{{ asset('double_check.png') }}" height='30px'
+                                                            <img src="{{ asset('circle_check.png') }}" height='30px'
                                                                 alt="" data-toggle="tooltip" data-placement="bottom"
                                                                 title="Borang telah diluluskan oleh IPJPSM"
                                                                 style="color: green; font-size: 20pt;"></i></a>
@@ -528,12 +523,11 @@
                                                     @elseif($data->status == 'Tidak Lengkap' && $data->bulan == '6')
                                                         <a href="{{ route('user.shuttle-5-formC.KKB', ['bulan' => 6, 'year' => $year]) }}"
                                                             data-toggle="tooltip" data-placement="bottom"
-                                                            title="Borang tidak lengkap" class="mr-1 btn btn-warning"><i
-                                                                class="fas fa-pencil-alt"></i></a>
+                                                            title="Borang tidak lengkap"><img src="{{ asset('history.png') }}" height='30px' alt=""></a>
                                                     @elseif($data->status == 'Lulus' && $data->bulan == '6')
                                                         <a
                                                             href="{{ route('pengguna.shuttle-5-view-formC', $data->id) }}">
-                                                            <img src="{{ asset('double_check.png') }}" height='30px'
+                                                            <img src="{{ asset('circle_check.png') }}" height='30px'
                                                                 alt="" data-toggle="tooltip" data-placement="bottom"
                                                                 title="Borang telah diluluskan oleh IPJPSM"
                                                                 style="color: green; font-size: 20pt;"></i></a>
@@ -595,12 +589,11 @@
                                                     @elseif($data->status == 'Tidak Lengkap' && $data->bulan == '7')
                                                         <a href="{{ route('user.shuttle-5-formC.KKB', ['bulan' => 7, 'year' => $year]) }}"
                                                             data-toggle="tooltip" data-placement="bottom"
-                                                            title="Borang tidak lengkap" class="mr-1 btn btn-warning"><i
-                                                                class="fas fa-pencil-alt"></i></a>
+                                                            title="Borang tidak lengkap"><img src="{{ asset('history.png') }}" height='30px' alt=""></a>
                                                     @elseif($data->status == 'Lulus' && $data->bulan == '7')
                                                         <a
                                                             href="{{ route('pengguna.shuttle-5-view-formC', $data->id) }}">
-                                                            <img src="{{ asset('double_check.png') }}" height='30px'
+                                                            <img src="{{ asset('circle_check.png') }}" height='30px'
                                                                 alt="" data-toggle="tooltip" data-placement="bottom"
                                                                 title="Borang telah diluluskan oleh IPJPSM"
                                                                 style="color: green; font-size: 20pt;"></i></a>
@@ -662,12 +655,11 @@
                                                     @elseif($data->status == 'Tidak Lengkap' && $data->bulan == '8')
                                                         <a href="{{ route('user.shuttle-5-formC.KKB', ['bulan' => 8, 'year' => $year]) }}"
                                                             data-toggle="tooltip" data-placement="bottom"
-                                                            title="Borang tidak lengkap" class="mr-1 btn btn-warning"><i
-                                                                class="fas fa-pencil-alt"></i></a>
+                                                            title="Borang tidak lengkap"><img src="{{ asset('history.png') }}" height='30px' alt=""></a>
                                                     @elseif($data->status == 'Lulus' && $data->bulan == '8')
                                                         <a
                                                             href="{{ route('pengguna.shuttle-5-view-formC', $data->id) }}">
-                                                            <img src="{{ asset('double_check.png') }}" height='30px'
+                                                            <img src="{{ asset('circle_check.png') }}" height='30px'
                                                                 alt="" data-toggle="tooltip" data-placement="bottom"
                                                                 title="Borang telah diluluskan oleh IPJPSM"
                                                                 style="color: green; font-size: 20pt;"></i></a>
@@ -729,12 +721,11 @@
                                                     @elseif($data->status == 'Tidak Lengkap' && $data->bulan == '9')
                                                         <a href="{{ route('user.shuttle-5-formC.KKB', ['bulan' => 9, 'year' => $year]) }}"
                                                             data-toggle="tooltip" data-placement="bottom"
-                                                            title="Borang tidak lengkap" class="mr-1 btn btn-warning"><i
-                                                                class="fas fa-pencil-alt"></i></a>
+                                                            title="Borang tidak lengkap"><img src="{{ asset('history.png') }}" height='30px' alt=""></a>
                                                     @elseif($data->status == 'Lulus' && $data->bulan == '9')
                                                         <a
                                                             href="{{ route('pengguna.shuttle-5-view-formC', $data->id) }}">
-                                                            <img src="{{ asset('double_check.png') }}" height='30px'
+                                                            <img src="{{ asset('circle_check.png') }}" height='30px'
                                                                 alt="" data-toggle="tooltip" data-placement="bottom"
                                                                 title="Borang telah diluluskan oleh IPJPSM"
                                                                 style="color: green; font-size: 20pt;"></i></a>
@@ -796,12 +787,11 @@
                                                     @elseif($data->status == 'Tidak Lengkap' && $data->bulan == '10')
                                                         <a href="{{ route('user.shuttle-5-formC.KKB', ['bulan' => 10, 'year' => $year]) }}"
                                                             data-toggle="tooltip" data-placement="bottom"
-                                                            title="Borang tidak lengkap" class="mr-1 btn btn-warning"><i
-                                                                class="fas fa-pencil-alt"></i></a>
+                                                            title="Borang tidak lengkap"><img src="{{ asset('history.png') }}" height='30px' alt=""></a>
                                                     @elseif($data->status == 'Lulus' && $data->bulan == '10')
                                                         <a
                                                             href="{{ route('pengguna.shuttle-5-view-formC', $data->id) }}">
-                                                            <img src="{{ asset('double_check.png') }}" height='30px'
+                                                            <img src="{{ asset('circle_check.png') }}" height='30px'
                                                                 alt="" data-toggle="tooltip" data-placement="bottom"
                                                                 title="Borang telah diluluskan oleh IPJPSM"
                                                                 style="color: green; font-size: 20pt;"></i></a>
@@ -863,12 +853,11 @@
                                                     @elseif($data->status == 'Tidak Lengkap' && $data->bulan == '11')
                                                         <a href="{{ route('user.shuttle-5-formC.KKB', ['bulan' => 11, 'year' => $year]) }}"
                                                             data-toggle="tooltip" data-placement="bottom"
-                                                            title="Borang tidak lengkap" class="mr-1 btn btn-warning"><i
-                                                                class="fas fa-pencil-alt"></i></a>
+                                                            title="Borang tidak lengkap"><img src="{{ asset('history.png') }}" height='30px' alt=""></a>
                                                     @elseif($data->status == 'Lulus' && $data->bulan == '11')
                                                         <a
                                                             href="{{ route('pengguna.shuttle-5-view-formC', $data->id) }}">
-                                                            <img src="{{ asset('double_check.png') }}" height='30px'
+                                                            <img src="{{ asset('circle_check.png') }}" height='30px'
                                                                 alt="" data-toggle="tooltip" data-placement="bottom"
                                                                 title="Borang telah diluluskan oleh IPJPSM"
                                                                 style="color: green; font-size: 20pt;"></i></a>
@@ -930,12 +919,11 @@
                                                     @elseif($data->status == 'Tidak Lengkap' && $data->bulan == '12')
                                                         <a href="{{ route('user.shuttle-5-formC.KKB', ['bulan' => 12, 'year' => $year]) }}"
                                                             data-toggle="tooltip" data-placement="bottom"
-                                                            title="Borang tidak lengkap" class="mr-1 btn btn-warning"><i
-                                                                class="fas fa-pencil-alt"></i></a>
+                                                            title="Borang tidak lengkap"><img src="{{ asset('history.png') }}" height='30px' alt=""></a>
                                                     @elseif($data->status == 'Lulus' && $data->bulan == '12')
                                                         <a
                                                             href="{{ route('pengguna.shuttle-5-view-formC', $data->id) }}">
-                                                            <img src="{{ asset('double_check.png') }}" height='30px'
+                                                            <img src="{{ asset('circle_check.png') }}" height='30px'
                                                                 alt="" data-toggle="tooltip" data-placement="bottom"
                                                                 title="Borang telah diluluskan oleh IPJPSM"
                                                                 style="color: green; font-size: 20pt;"></i></a>

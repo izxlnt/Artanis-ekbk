@@ -153,7 +153,7 @@
                                                         @if ($data->tiada_pengeluaran == 1)
                                                             <a
                                                                 href="{{ route('pengguna.shuttle-3-view-formC', $data->id) }}">
-                                                                <img src="{{ asset('tpbiru.png') }}" height='30px' alt=""
+                                                                <img src="{{ asset('circle_check.png') }}" height='30px' alt=""
                                                                     data-toggle="tooltip" data-placement="bottom"
                                                                     title="Borang telah disahkan PHD - Tiada Pengeluaran"></a>
                                                         @else
@@ -174,8 +174,7 @@
                                                     @elseif($data->status == 'Tidak Lengkap' && $data->bulan == '1')
                                                         <a href="{{ route('user.shuttle-3-formC.KKB', [$id = 1, $year]) }}"
                                                             data-toggle="tooltip" data-placement="bottom"
-                                                            title="Borang tidak lengkap" class="mr-1 btn btn-warning"><i
-                                                                class="fas fa-pencil-alt"></i></a>
+                                                            title="Borang tidak lengkap"><img src="{{ asset('history.png') }}" height='30px' alt=""></a>
                                                     @elseif($data->status == 'Lulus' && $data->bulan == '1')
                                                         <a
                                                             href="{{ route('pengguna.shuttle-3-view-formC', $data->id) }}">
@@ -227,7 +226,7 @@
                                                         @if ($data->tiada_pengeluaran == 1)
                                                             <a
                                                                 href="{{ route('pengguna.shuttle-3-view-formC', $data->id) }}">
-                                                                <img src="{{ asset('tpbiru.png') }}" height='30px' alt=""
+                                                                <img src="{{ asset('circle_check.png') }}" height='30px' alt=""
                                                                     data-toggle="tooltip" data-placement="bottom"
                                                                     title="Borang telah disahkan PHD - Tiada Pengeluaran"></a>
                                                         @else
@@ -248,8 +247,7 @@
                                                     @elseif($data->status == 'Tidak Lengkap' && $data->bulan == '2')
                                                         <a href="{{ route('user.shuttle-3-formC.KKB', [$id = 2, $year]) }}"
                                                             data-toggle="tooltip" data-placement="bottom"
-                                                            title="Borang tidak lengkap" class="mr-1 btn btn-warning"><i
-                                                                class="fas fa-pencil-alt"></i></a>
+                                                            title="Borang tidak lengkap"><img src="{{ asset('history.png') }}" height='30px' alt=""></a>
                                                     @elseif($data->status == 'Lulus' && $data->bulan == '2')
                                                         <a
                                                             href="{{ route('pengguna.shuttle-3-view-formC', $data->id) }}">
@@ -301,7 +299,7 @@
                                                         @if ($data->tiada_pengeluaran == 1)
                                                             <a
                                                                 href="{{ route('pengguna.shuttle-3-view-formC', $data->id) }}">
-                                                                <img src="{{ asset('tpbiru.png') }}" height='30px' alt=""
+                                                                <img src="{{ asset('circle_check.png') }}" height='30px' alt=""
                                                                     data-toggle="tooltip" data-placement="bottom"
                                                                     title="Borang telah disahkan PHD - Tiada Pengeluaran"></a>
                                                         @else
@@ -322,8 +320,7 @@
                                                     @elseif($data->status == 'Tidak Lengkap' && $data->bulan == '3')
                                                         <a href="{{ route('user.shuttle-3-formC.KKB', [$id = 3, $year]) }}"
                                                             data-toggle="tooltip" data-placement="bottom"
-                                                            title="Borang tidak lengkap" class="mr-1 btn btn-warning"><i
-                                                                class="fas fa-pencil-alt"></i></a>
+                                                            title="Borang tidak lengkap"><img src="{{ asset('history.png') }}" height='30px' alt=""></a>
                                                     @elseif($data->status == 'Lulus' && $data->bulan == '3')
                                                         <a
                                                             href="{{ route('pengguna.shuttle-3-view-formC', $data->id) }}">
@@ -375,7 +372,7 @@
                                                         @if ($data->tiada_pengeluaran == 1)
                                                             <a
                                                                 href="{{ route('pengguna.shuttle-3-view-formC', $data->id) }}">
-                                                                <img src="{{ asset('tpbiru.png') }}" height='30px' alt=""
+                                                                <img src="{{ asset('circle_check.png') }}" height='30px' alt=""
                                                                     data-toggle="tooltip" data-placement="bottom"
                                                                     title="Borang telah disahkan PHD - Tiada Pengeluaran"></a>
                                                         @else
@@ -396,8 +393,7 @@
                                                     @elseif($data->status == 'Tidak Lengkap' && $data->bulan == '4')
                                                         <a href="{{ route('user.shuttle-3-formC.KKB', [$id = 4, $year]) }}"
                                                             data-toggle="tooltip" data-placement="bottom"
-                                                            title="Borang tidak lengkap" class="mr-1 btn btn-warning"><i
-                                                                class="fas fa-pencil-alt"></i></a>
+                                                            title="Borang tidak lengkap"><img src="{{ asset('history.png') }}" height='30px' alt=""></a>
                                                     @elseif($data->status == 'Lulus' && $data->bulan == '4')
                                                         <a
                                                             href="{{ route('pengguna.shuttle-3-view-formC', $data->id) }}">
@@ -449,7 +445,7 @@
                                                         @if ($data->tiada_pengeluaran == 1)
                                                             <a
                                                                 href="{{ route('pengguna.shuttle-3-view-formC', $data->id) }}">
-                                                                <img src="{{ asset('tpbiru.png') }}" height='30px' alt=""
+                                                                <img src="{{ asset('circle_check.png') }}" height='30px' alt=""
                                                                     data-toggle="tooltip" data-placement="bottom"
                                                                     title="Borang telah disahkan PHD - Tiada Pengeluaran"></a>
                                                         @else
@@ -470,8 +466,7 @@
                                                     @elseif($data->status == 'Tidak Lengkap' && $data->bulan == '5')
                                                         <a href="{{ route('user.shuttle-3-formC.KKB', [$id = 5, $year]) }}"
                                                             data-toggle="tooltip" data-placement="bottom"
-                                                            title="Borang tidak lengkap" class="mr-1 btn btn-warning"><i
-                                                                class="fas fa-pencil-alt"></i></a>
+                                                            title="Borang tidak lengkap"><img src="{{ asset('history.png') }}" height='30px' alt=""></a>
                                                     @elseif($data->status == 'Lulus' && $data->bulan == '5')
                                                         <a
                                                             href="{{ route('pengguna.shuttle-3-view-formC', $data->id) }}">
@@ -523,7 +518,7 @@
                                                         @if ($data->tiada_pengeluaran == 1)
                                                             <a
                                                                 href="{{ route('pengguna.shuttle-3-view-formC', $data->id) }}">
-                                                                <img src="{{ asset('tpbiru.png') }}" height='30px' alt=""
+                                                                <img src="{{ asset('circle_check.png') }}" height='30px' alt=""
                                                                     data-toggle="tooltip" data-placement="bottom"
                                                                     title="Borang telah disahkan PHD - Tiada Pengeluaran"></a>
                                                         @else
@@ -544,8 +539,7 @@
                                                     @elseif($data->status == 'Tidak Lengkap' && $data->bulan == '6')
                                                         <a href="{{ route('user.shuttle-3-formC.KKB', [$id = 6, $year]) }}"
                                                             data-toggle="tooltip" data-placement="bottom"
-                                                            title="Borang tidak lengkap" class="mr-1 btn btn-warning"><i
-                                                                class="fas fa-pencil-alt"></i></a>
+                                                            title="Borang tidak lengkap"><img src="{{ asset('history.png') }}" height='30px' alt=""></a>
                                                     @elseif($data->status == 'Lulus' && $data->bulan == '6')
                                                         <a
                                                             href="{{ route('pengguna.shuttle-3-view-formC', $data->id) }}">
@@ -597,7 +591,7 @@
                                                         @if ($data->tiada_pengeluaran == 1)
                                                             <a
                                                                 href="{{ route('pengguna.shuttle-3-view-formC', $data->id) }}">
-                                                                <img src="{{ asset('tpbiru.png') }}" height='30px'
+                                                                <img src="{{ asset('circle_check.png') }}" height='30px'
                                                                     alt="" data-toggle="tooltip" data-placement="bottom"
                                                                     title="Borang telah disahkan PHD - Tiada Pengeluaran"></a>
                                                         @else
@@ -620,8 +614,7 @@
                                                             href="{{ route('pengguna.shuttle-3-view-formC', $data->id) }}"><a
                                                                 href="{{ route('user.shuttle-3-formC.KKB', [$id = 7, $year]) }}"
                                                                 data-toggle="tooltip" data-placement="bottom"
-                                                                title="Borang tidak lengkap" class="mr-1 btn btn-warning"><i
-                                                                    class="fas fa-pencil-alt"></i></a>
+                                                                title="Borang tidak lengkap"><img src="{{ asset('history.png') }}" height='30px' alt=""></a>
                                                         @elseif($data->status == 'Lulus' && $data->bulan == '7')
                                                             <a
                                                                 href="{{ route('pengguna.shuttle-3-view-formC', $data->id) }}">
@@ -673,7 +666,7 @@
                                                         @if ($data->tiada_pengeluaran == 1)
                                                             <a
                                                                 href="{{ route('pengguna.shuttle-3-view-formC', $data->id) }}">
-                                                                <img src="{{ asset('tpbiru.png') }}" height='30px'
+                                                                <img src="{{ asset('circle_check.png') }}" height='30px'
                                                                     alt="" data-toggle="tooltip" data-placement="bottom"
                                                                     title="Borang telah disahkan PHD - Tiada Pengeluaran"></a>
                                                         @else
@@ -694,8 +687,7 @@
                                                     @elseif($data->status == 'Tidak Lengkap' && $data->bulan == '8')
                                                         <a href="{{ route('user.shuttle-3-formC.KKB', [$id = 8, $year]) }}"
                                                             data-toggle="tooltip" data-placement="bottom"
-                                                            title="Borang tidak lengkap" class="mr-1 btn btn-warning"><i
-                                                                class="fas fa-pencil-alt"></i></a>
+                                                            title="Borang tidak lengkap"><img src="{{ asset('history.png') }}" height='30px' alt=""></a>
                                                     @elseif($data->status == 'Lulus' && $data->bulan == '8')
                                                         <a
                                                             href="{{ route('pengguna.shuttle-3-view-formC', $data->id) }}">
@@ -747,7 +739,7 @@
                                                         @if ($data->tiada_pengeluaran == 1)
                                                             <a
                                                                 href="{{ route('pengguna.shuttle-3-view-formC', $data->id) }}">
-                                                                <img src="{{ asset('tpbiru.png') }}" height='30px'
+                                                                <img src="{{ asset('circle_check.png') }}" height='30px'
                                                                     alt="" data-toggle="tooltip" data-placement="bottom"
                                                                     title="Borang telah disahkan PHD - Tiada Pengeluaran"></a>
                                                         @else
@@ -768,8 +760,7 @@
                                                     @elseif($data->status == 'Tidak Lengkap' && $data->bulan == '9')
                                                         <a href="{{ route('user.shuttle-3-formC.KKB', [$id = 9, $year]) }}"
                                                             data-toggle="tooltip" data-placement="bottom"
-                                                            title="Borang tidak lengkap" class="mr-1 btn btn-warning"><i
-                                                                class="fas fa-pencil-alt"></i></a>
+                                                            title="Borang tidak lengkap"><img src="{{ asset('history.png') }}" height='30px' alt=""></a>
                                                     @elseif($data->status == 'Lulus' && $data->bulan == '9')
                                                         <a
                                                             href="{{ route('pengguna.shuttle-3-view-formC', $data->id) }}">
@@ -821,7 +812,7 @@
                                                         @if ($data->tiada_pengeluaran == 1)
                                                             <a
                                                                 href="{{ route('pengguna.shuttle-3-view-formC', $data->id) }}">
-                                                                <img src="{{ asset('tpbiru.png') }}" height='30px'
+                                                                <img src="{{ asset('circle_check.png') }}" height='30px'
                                                                     alt="" data-toggle="tooltip" data-placement="bottom"
                                                                     title="Borang telah disahkan PHD - Tiada Pengeluaran"></a>
                                                         @else
@@ -842,8 +833,7 @@
                                                     @elseif($data->status == 'Tidak Lengkap' && $data->bulan == '10')
                                                         <a href="{{ route('user.shuttle-3-formC.KKB', [$id = 10, $year]) }}"
                                                             data-toggle="tooltip" data-placement="bottom"
-                                                            title="Borang tidak lengkap" class="mr-1 btn btn-warning"><i
-                                                                class="fas fa-pencil-alt"></i></a>
+                                                            title="Borang tidak lengkap"><img src="{{ asset('history.png') }}" height='30px' alt=""></a>
                                                     @elseif($data->status == 'Lulus' && $data->bulan == '10')
                                                         <a
                                                             href="{{ route('pengguna.shuttle-3-view-formC', $data->id) }}">
@@ -895,7 +885,7 @@
                                                         @if ($data->tiada_pengeluaran == 1)
                                                             <a
                                                                 href="{{ route('pengguna.shuttle-3-view-formC', $data->id) }}">
-                                                                <img src="{{ asset('tpbiru.png') }}" height='30px'
+                                                                <img src="{{ asset('circle_check.png') }}" height='30px'
                                                                     alt="" data-toggle="tooltip" data-placement="bottom"
                                                                     title="Borang telah disahkan PHD - Tiada Pengeluaran"></a>
                                                         @else
@@ -916,8 +906,7 @@
                                                     @elseif($data->status == 'Tidak Lengkap' && $data->bulan == '11')
                                                         <a href="{{ route('user.shuttle-3-formC.KKB', [$id = 11, $year]) }}"
                                                             data-toggle="tooltip" data-placement="bottom"
-                                                            title="Borang tidak lengkap" class="mr-1 btn btn-warning"><i
-                                                                class="fas fa-pencil-alt"></i></a>
+                                                            title="Borang tidak lengkap"><img src="{{ asset('history.png') }}" height='30px' alt=""></a>
                                                     @elseif($data->status == 'Lulus' && $data->bulan == '11')
                                                         <a
                                                             href="{{ route('pengguna.shuttle-3-view-formC', $data->id) }}">
@@ -969,7 +958,7 @@
                                                         @if ($data->tiada_pengeluaran == 1)
                                                             <a
                                                                 href="{{ route('pengguna.shuttle-3-view-formC', $data->id) }}">
-                                                                <img src="{{ asset('tpbiru.png') }}" height='30px'
+                                                                <img src="{{ asset('circle_check.png') }}" height='30px'
                                                                     alt="" data-toggle="tooltip" data-placement="bottom"
                                                                     title="Borang telah disahkan PHD - Tiada Pengeluaran"></a>
                                                         @else
@@ -990,8 +979,7 @@
                                                     @elseif($data->status == 'Tidak Lengkap' && $data->bulan == '12')
                                                         <a href="{{ route('user.shuttle-3-formC.KKB', [$id = 12, $year]) }}"
                                                             data-toggle="tooltip" data-placement="bottom"
-                                                            title="Borang tidak lengkap" class="mr-1 btn btn-warning"><i
-                                                                class="fas fa-pencil-alt"></i></a>
+                                                            title="Borang tidak lengkap"><img src="{{ asset('history.png') }}" height='30px' alt=""></a>
                                                     @elseif($data->status == 'Lulus' && $data->bulan == '12')
                                                         <a
                                                             href="{{ route('pengguna.shuttle-3-view-formC', $data->id) }}">

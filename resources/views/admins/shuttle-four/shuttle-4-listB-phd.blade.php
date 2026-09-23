@@ -266,10 +266,7 @@
                                                                     data-toggle="tooltip" data-placement="bottom"
                                                                     title="Borang perlu disahkan PHD"></i></a>
                                                         @elseif($data->status == 'Tiada Pengeluaran' && $data->suku_tahun == '3' && $shuttle->shuttle_id == $data->shuttle_id)
-                                                            <a href="{{ route('phd.shuttle-3-view-formB', $data->id) }}"
-                                                                class="mr-1 btn btn-warning"><i class="fas fa-eye"
-                                                                    data-toggle="tooltip" data-placement="bottom"
-                                                                    title="Borang perlu disahkan PHD"></i></a>
+                                                            <a href="{{ route('phd.shuttle-3-view-formB', $data->id) }}"><img src="{{ asset('circle_times_yellow.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang perlu disahkan PHD"></a>
                                                         @elseif($data->status == 'Tidak Lengkap' && $data->suku_tahun == '3' && $shuttle->shuttle_id == $data->shuttle_id)
                                                            <img src="{{ asset('history.png') }}" height='30px' alt=""
                                                                 style="color: #dbd400; font-size: 20pt;"

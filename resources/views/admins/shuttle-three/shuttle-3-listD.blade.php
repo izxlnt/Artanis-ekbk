@@ -164,11 +164,7 @@
                                                                     title="Borang ditutup"></i>
                                                             @endif
                                                         @elseif($data->status == 'Tiada Pengeluaran' && $data->bulan == '1' && $shuttle->shuttle_id == $data->shuttle_id)
-                                                            <a href="{{ route('phd.shuttle-3-view-formD', $data->id) }}"
-                                                                class="btn btn-primary"><i class="fas fa-eye"
-                                                                    style="color: white; font-size: 18pt;"
-                                                                    data-toggle="tooltip" data-placement="bottom"
-                                                                    title="Borang perlu disahkan PHD"></i></a>
+                                                            <a href="{{ route('phd.shuttle-3-view-formD', $data->id) }}"><img src="{{ asset('circle_times_yellow.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang perlu disahkan PHD"></a>
                                                         @elseif($data->status == 'Sedang Diproses' && $data->bulan == '1' && $shuttle->shuttle_id == $data->shuttle_id)
                                                             <a href="{{ route('phd.shuttle-3-view-formD', $data->id) }}"
                                                                 ><img src="{{ asset('circle_times_yellow.png') }}"
@@ -219,11 +215,7 @@
                                                                     title="Borang ditutup"></i>
                                                             @endif
                                                         @elseif($data->status == 'Tiada Pengeluaran' && $data->bulan == '2' && $shuttle->shuttle_id == $data->shuttle_id)
-                                                            <a href="{{ route('phd.shuttle-3-view-formD', $data->id) }}"
-                                                                class="btn btn-primary"><i class="fas fa-eye"
-                                                                    style="color: white; font-size: 18pt;"
-                                                                    data-toggle="tooltip" data-placement="bottom"
-                                                                    title="Borang perlu disahkan PHD"></i></a>
+                                                            <a href="{{ route('phd.shuttle-3-view-formD', $data->id) }}"><img src="{{ asset('circle_times_yellow.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang perlu disahkan PHD"></a>
                                                         @elseif($data->status == 'Sedang Diproses' && $data->bulan == '2' && $shuttle->shuttle_id == $data->shuttle_id)
                                                             <a href="{{ route('phd.shuttle-3-view-formD', $data->id) }}"
                                                                 ><img src="{{ asset('circle_times_yellow.png') }}"
@@ -274,11 +266,7 @@
                                                                     title="Borang ditutup"></i>
                                                             @endif
                                                         @elseif($data->status == 'Tiada Pengeluaran' && $data->bulan == '3' && $shuttle->shuttle_id == $data->shuttle_id)
-                                                            <a href="{{ route('phd.shuttle-3-view-formD', $data->id) }}"
-                                                                class="btn btn-primary"><i class="fas fa-eye"
-                                                                    style="color: white; font-size: 18pt;"
-                                                                    data-toggle="tooltip" data-placement="bottom"
-                                                                    title="Borang perlu disahkan PHD"></i></a>
+                                                            <a href="{{ route('phd.shuttle-3-view-formD', $data->id) }}"><img src="{{ asset('circle_times_yellow.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang perlu disahkan PHD"></a>
                                                         @elseif($data->status == 'Sedang Diproses' && $data->bulan == '3' && $shuttle->shuttle_id == $data->shuttle_id)
                                                             <a href="{{ route('phd.shuttle-3-view-formD', $data->id) }}"
                                                                 ><img src="{{ asset('circle_times_yellow.png') }}"
@@ -329,11 +317,7 @@
                                                                     title="Borang ditutup"></i>
                                                             @endif
                                                         @elseif($data->status == 'Tiada Pengeluaran' && $data->bulan == '4' && $shuttle->shuttle_id == $data->shuttle_id)
-                                                            <a href="{{ route('phd.shuttle-3-view-formD', $data->id) }}"
-                                                                class="btn btn-primary"><i class="fas fa-eye"
-                                                                    style="color: white; font-size: 18pt;"
-                                                                    data-toggle="tooltip" data-placement="bottom"
-                                                                    title="Borang perlu disahkan PHD"></i></a>
+                                                            <a href="{{ route('phd.shuttle-3-view-formD', $data->id) }}"><img src="{{ asset('circle_times_yellow.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang perlu disahkan PHD"></a>
                                                         @elseif($data->status == 'Sedang Diproses' && $data->bulan == '4' && $shuttle->shuttle_id == $data->shuttle_id)
                                                             <a href="{{ route('phd.shuttle-3-view-formD', $data->id) }}"
                                                                 ><img src="{{ asset('circle_times_yellow.png') }}"
@@ -384,11 +368,7 @@
                                                                     title="Borang ditutup"></i>
                                                             @endif
                                                         @elseif($data->status == 'Tiada Pengeluaran' && $data->bulan == '5' && $shuttle->shuttle_id == $data->shuttle_id)
-                                                            <a href="{{ route('phd.shuttle-3-view-formD', $data->id) }}"
-                                                                class="btn btn-primary"><i class="fas fa-eye"
-                                                                    style="color: white; font-size: 18pt;"
-                                                                    data-toggle="tooltip" data-placement="bottom"
-                                                                    title="Borang perlu disahkan PHD"></i></a>
+                                                            <a href="{{ route('phd.shuttle-3-view-formD', $data->id) }}"><img src="{{ asset('circle_times_yellow.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang perlu disahkan PHD"></a>
                                                         @elseif($data->status == 'Sedang Diproses' && $data->bulan == '5' && $shuttle->shuttle_id == $data->shuttle_id)
                                                             <a href="{{ route('phd.shuttle-3-view-formD', $data->id) }}"
                                                                 ><img src="{{ asset('circle_times_yellow.png') }}"
@@ -439,11 +419,7 @@
                                                                     title="Borang ditutup"></i>
                                                             @endif
                                                         @elseif($data->status == 'Tiada Pengeluaran' && $data->bulan == '6' && $shuttle->shuttle_id == $data->shuttle_id)
-                                                            <a href="{{ route('phd.shuttle-3-view-formD', $data->id) }}"
-                                                                class="btn btn-primary"><i class="fas fa-eye"
-                                                                    style="color: white; font-size: 18pt;"
-                                                                    data-toggle="tooltip" data-placement="bottom"
-                                                                    title="Borang perlu disahkan PHD"></i></a>
+                                                            <a href="{{ route('phd.shuttle-3-view-formD', $data->id) }}"><img src="{{ asset('circle_times_yellow.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang perlu disahkan PHD"></a>
                                                         @elseif($data->status == 'Sedang Diproses' && $data->bulan == '6' && $shuttle->shuttle_id == $data->shuttle_id)
                                                             <a href="{{ route('phd.shuttle-3-view-formD', $data->id) }}"
                                                                 ><img src="{{ asset('circle_times_yellow.png') }}"
@@ -494,11 +470,7 @@
                                                                     title="Borang ditutup"></i>
                                                             @endif
                                                         @elseif($data->status == 'Tiada Pengeluaran' && $data->bulan == '7' && $shuttle->shuttle_id == $data->shuttle_id)
-                                                            <a href="{{ route('phd.shuttle-3-view-formD', $data->id) }}"
-                                                                class="btn btn-primary"><i class="fas fa-eye"
-                                                                    style="color: white; font-size: 18pt;"
-                                                                    data-toggle="tooltip" data-placement="bottom"
-                                                                    title="Borang perlu disahkan PHD"></i></a>
+                                                            <a href="{{ route('phd.shuttle-3-view-formD', $data->id) }}"><img src="{{ asset('circle_times_yellow.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang perlu disahkan PHD"></a>
                                                         @elseif($data->status == 'Sedang Diproses' && $data->bulan == '7' && $shuttle->shuttle_id == $data->shuttle_id)
                                                             <a href="{{ route('phd.shuttle-3-view-formD', $data->id) }}"
                                                                 ><img src="{{ asset('circle_times_yellow.png') }}"
@@ -549,11 +521,7 @@
                                                                     title="Borang ditutup"></i>
                                                             @endif
                                                         @elseif($data->status == 'Tiada Pengeluaran' && $data->bulan == '8' && $shuttle->shuttle_id == $data->shuttle_id)
-                                                            <a href="{{ route('phd.shuttle-3-view-formD', $data->id) }}"
-                                                                class="btn btn-primary"><i class="fas fa-eye"
-                                                                    style="color: white; font-size: 18pt;"
-                                                                    data-toggle="tooltip" data-placement="bottom"
-                                                                    title="Borang perlu disahkan PHD"></i></a>
+                                                            <a href="{{ route('phd.shuttle-3-view-formD', $data->id) }}"><img src="{{ asset('circle_times_yellow.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang perlu disahkan PHD"></a>
                                                         @elseif($data->status == 'Sedang Diproses' && $data->bulan == '8' && $shuttle->shuttle_id == $data->shuttle_id)
                                                             <a href="{{ route('phd.shuttle-3-view-formD', $data->id) }}"
                                                                 ><img src="{{ asset('circle_times_yellow.png') }}"
@@ -604,11 +572,7 @@
                                                                     title="Borang ditutup"></i>
                                                             @endif
                                                         @elseif($data->status == 'Tiada Pengeluaran' && $data->bulan == '9' && $shuttle->shuttle_id == $data->shuttle_id)
-                                                            <a href="{{ route('phd.shuttle-3-view-formD', $data->id) }}"
-                                                                class="btn btn-primary"><i class="fas fa-eye"
-                                                                    style="color: white; font-size: 18pt;"
-                                                                    data-toggle="tooltip" data-placement="bottom"
-                                                                    title="Borang perlu disahkan PHD"></i></a>
+                                                            <a href="{{ route('phd.shuttle-3-view-formD', $data->id) }}"><img src="{{ asset('circle_times_yellow.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang perlu disahkan PHD"></a>
                                                         @elseif($data->status == 'Sedang Diproses' && $data->bulan == '9' && $shuttle->shuttle_id == $data->shuttle_id)
                                                             <a href="{{ route('phd.shuttle-3-view-formD', $data->id) }}"
                                                                 ><img src="{{ asset('circle_times_yellow.png') }}"
@@ -659,11 +623,7 @@
                                                                     title="Borang ditutup"></i>
                                                             @endif
                                                         @elseif($data->status == 'Tiada Pengeluaran' && $data->bulan == '10' && $shuttle->shuttle_id == $data->shuttle_id)
-                                                            <a href="{{ route('phd.shuttle-3-view-formD', $data->id) }}"
-                                                                class="btn btn-primary"><i class="fas fa-eye"
-                                                                    style="color: white; font-size: 18pt;"
-                                                                    data-toggle="tooltip" data-placement="bottom"
-                                                                    title="Borang perlu disahkan PHD"></i></a>
+                                                            <a href="{{ route('phd.shuttle-3-view-formD', $data->id) }}"><img src="{{ asset('circle_times_yellow.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang perlu disahkan PHD"></a>
                                                         @elseif($data->status == 'Sedang Diproses' && $data->bulan == '10' && $shuttle->shuttle_id == $data->shuttle_id)
                                                             <a href="{{ route('phd.shuttle-3-view-formD', $data->id) }}"
                                                                 ><img src="{{ asset('circle_times_yellow.png') }}"
@@ -714,11 +674,7 @@
                                                                     title="Borang ditutup"></i>
                                                             @endif
                                                         @elseif($data->status == 'Tiada Pengeluaran' && $data->bulan == '11' && $shuttle->shuttle_id == $data->shuttle_id)
-                                                            <a href="{{ route('phd.shuttle-3-view-formD', $data->id) }}"
-                                                                class="btn btn-primary"><i class="fas fa-eye"
-                                                                    style="color: white; font-size: 18pt;"
-                                                                    data-toggle="tooltip" data-placement="bottom"
-                                                                    title="Borang perlu disahkan PHD"></i></a>
+                                                            <a href="{{ route('phd.shuttle-3-view-formD', $data->id) }}"><img src="{{ asset('circle_times_yellow.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang perlu disahkan PHD"></a>
                                                         @elseif($data->status == 'Sedang Diproses' && $data->bulan == '11' && $shuttle->shuttle_id == $data->shuttle_id)
                                                             <a href="{{ route('phd.shuttle-3-view-formD', $data->id) }}"
                                                                 ><img src="{{ asset('circle_times_yellow.png') }}"
@@ -770,11 +726,7 @@
                                                                     title="Borang ditutup"></i>
                                                             @endif
                                                         @elseif($data->status == 'Tiada Pengeluaran' && $data->bulan == '12' && $shuttle->shuttle_id == $data->shuttle_id)
-                                                            <a href="{{ route('phd.shuttle-3-view-formD', $data->id) }}"
-                                                                class="btn btn-primary"><i class="fas fa-eye"
-                                                                    style="color: white; font-size: 18pt;"
-                                                                    data-toggle="tooltip" data-placement="bottom"
-                                                                    title="Borang perlu disahkan PHD"></i></a>
+                                                            <a href="{{ route('phd.shuttle-3-view-formD', $data->id) }}"><img src="{{ asset('circle_times_yellow.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang perlu disahkan PHD"></a>
                                                         @elseif($data->status == 'Sedang Diproses' && $data->bulan == '12' && $shuttle->shuttle_id == $data->shuttle_id)
                                                             <a href="{{ route('phd.shuttle-3-view-formD', $data->id) }}"
                                                                 ><img src="{{ asset('circle_times_yellow.png') }}"

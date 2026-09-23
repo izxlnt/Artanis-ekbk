@@ -119,7 +119,7 @@
 
                                                 <td>
                                                     @if ($data->borang_a == 1)
-                                                        <img src="{{ asset('warning.png') }}" height='30px' alt=""
+                                                        <img src="{{ asset('circle_times_yellow.png') }}" height='30px' alt=""
                                                             style="color: green; font-size: 18pt;" data-toggle="tooltip"
                                                             data-placement="bottom" title="Borang perlu disahkan"></i>
                                                     @elseif($data->borang_a == 2)
@@ -134,7 +134,7 @@
 
                                                 <td>
                                                     @if ($data->borang_b == 1)
-                                                        <img src="{{ asset('warning.png') }}" height='30px' alt=""
+                                                        <img src="{{ asset('circle_times_yellow.png') }}" height='30px' alt=""
                                                             style="color: green; font-size: 18pt;" data-toggle="tooltip"
                                                             data-placement="bottom" title="Borang perlu disahkan"></i>
                                                     @elseif($data->borang_b == 2)
@@ -156,7 +156,7 @@
 
                                                 <td>
                                                     @if ($data->borang_c == 1)
-                                                        <img src="{{ asset('warning.png') }}" height='30px' alt=""
+                                                        <img src="{{ asset('circle_times_yellow.png') }}" height='30px' alt=""
                                                             style="color: green; font-size: 18pt;" data-toggle="tooltip"
                                                             data-placement="bottom" title="Borang perlu disahkan"></i>
                                                     @elseif($data->borang_c == 2)
@@ -174,7 +174,7 @@
 
                                                 <td>
                                                     @if ($data->borang_d == 1)
-                                                        <img src="{{ asset('warning.png') }}" height='30px'
+                                                        <img src="{{ asset('circle_times_yellow.png') }}" height='30px'
                                                             alt="" style="color: green; font-size: 18pt;"
                                                             data-toggle="tooltip" data-placement="bottom"
                                                             title="Borang perlu disahkan"></i>
@@ -193,7 +193,7 @@
 
                                                 <td>
                                                     @if ($data->borang_e == 1)
-                                                        <img src="{{ asset('warning.png') }}" height='30px'
+                                                        <img src="{{ asset('circle_times_yellow.png') }}" height='30px'
                                                             alt="" style="color: green; font-size: 18pt;"
                                                             data-toggle="tooltip" data-placement="bottom"
                                                             title="Borang perlu disahkan"></i>

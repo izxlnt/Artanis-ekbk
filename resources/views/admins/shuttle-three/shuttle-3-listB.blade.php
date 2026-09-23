@@ -289,7 +289,7 @@
                                                             =='3' && $shuttle->shuttle_id == $data->shuttle_id)
 
                                                             <a href="{{ route('phd.shuttle-3-view-formB', $data->id) }}"
-                                                                ><img src="{{ asset('tp_logo2.png') }}"
+                                                                ><img src="{{ asset('circle_times_yellow.png') }}"
                                                                 height='30px'
                                                                     style="color: white; font-size: 18pt;"
                                                                     data-toggle="tooltip" data-placement="bottom"
