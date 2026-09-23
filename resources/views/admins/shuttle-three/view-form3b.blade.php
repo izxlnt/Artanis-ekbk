@@ -529,67 +529,46 @@
                                             </div>
                                         </form> --}}
                                                 @elseif(auth()->user()->kategori_pengguna == 'BPE')
-                                                    <div class="row" style="text-align:center">
-                                                        <div class="col-md-12">
-                                                            <p>
-                                                                <button style="width:300px;" class="btn btn-success"
-                                                                    type="button" data-toggle="collapse"
-                                                                    data-target="#collapseExample1" aria-expanded="false"
-                                                                    aria-controls="collapseExample">
-                                                                    Ulasan PHD
-                                                                </button>
-                                                            </p>
-                                                            <div class="collapse" id="collapseExample1">
-                                                                @foreach ($ulasan_phd as $data)
-                                                                    <div class="card card-body">
-                                                                        <textarea name="ulasan_phd" value="" cols="30"
-                                                                            rows="10" readonly
-                                                                            disabled>{{ $data->ulasan }}</textarea>
-                                                                    </div>
-                                                                @endforeach
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <br>
+                                                    {{-- IPJPSM only certifies Form B here: a single DIPERAKU
+                                                    button with a confirmation, as in the original design. --}}
                                                     <form action="{{ route('update_status_form3B_ipjpsm', $id) }}"
                                                         method="post">
                                                         @csrf
+                                                        <input type="hidden" name="status" value="Lulus">
                                                         <div class="row" style="text-align:center">
                                                             <div class="col-md-12">
-                                                                <p>
-                                                                    <button style="width:300px;" class="btn btn-success"
-                                                                        type="button" data-toggle="collapse"
-                                                                        data-target="#collapseExample" aria-expanded="false"
-                                                                        aria-controls="collapseExample">
-                                                                        Ulasan IPJPSM
-                                                                    </button>
-                                                                </p>
-                                                                <div class="collapse" id="collapseExample">
-                                                                    <div class="card card-body">
-                                                                        <textarea name="ulasan_ipjpsm" cols="30"
-                                                                            rows="10"></textarea>
+                                                                <button type="button" class="btn btn-primary" alt="default"
+                                                                    data-toggle="modal" data-target="#confirmation_peraku_b">
+                                                                    DIPERAKU</button>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="modal fade" id="confirmation_peraku_b" tabindex="-1"
+                                                            role="dialog" aria-labelledby="confirmation_peraku_bTitle"
+                                                            aria-hidden="true">
+                                                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                                                <div class="modal-content">
+                                                                    <div class="modal-header"
+                                                                        style="background-color:#f3ce8f  !important">
+                                                                        <h5 class="modal-title" id="confirmation_peraku_bTitle"><i
+                                                                                style="color:rgb(255, 255, 0)"
+                                                                                class="fas fa-exclamation-triangle"></i>&nbspPENGESAHAN
+                                                                        </h5>
+                                                                        <button type="button" class="close"
+                                                                            data-dismiss="modal" aria-label="Close">
+                                                                            <span aria-hidden="true">&times;</span>
+                                                                        </button>
                                                                     </div>
-                                                                    <fieldset class="radio">
-                                                                        <label for="radio1">
-                                                                            <input type="radio" id="radio1" name="status"
-                                                                                value="Tidak Lengkap">&nbsp Tidak Lengkap
-                                                                        </label>
-                                                                    </fieldset>
-                                                                    <fieldset class="radio">
-                                                                        <label>
-                                                                            <input type="radio" name="status"
-                                                                                value="Lulus">&nbsp Diterima
-                                                                        </label>
-                                                                    </fieldset>
-                                                                    <fieldset class="radio">
-                                                                        <label>
-                                                                            <input type="radio" name="status"
-                                                                                value="Gagal">&nbsp Tidak Diterima
-                                                                        </label>
-                                                                    </fieldset>
-                                                                    <br>
-                                                                    <button type="submit"
-                                                                        class="btb btn-primary">SIMPAN</button>
+                                                                    <div class="modal-body">
+                                                                        <span class="text-center"><b>Adakah anda pasti ingin
+                                                                            memperaku borang ini?</b></span>
+                                                                    </div>
+                                                                    <div class="modal-footer">
+                                                                        <button type="button" class="btn btn-danger"
+                                                                            data-dismiss="modal">Batal</button>
+                                                                        <button type="submit"
+                                                                            class="btn btn-success">PERAKU</button>
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                         </div>
