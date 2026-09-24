@@ -16,7 +16,7 @@
         @if($dateBlocked || $canFill === null)
             <img src="{{ asset('calendar.png') }}" height='28' alt=""
                 style="color:grey;font-size:20pt"
-                data-toggle="tooltip" data-placement="bottom" title="{{ $reason ?? 'Borang belum dibuka' }}">
+                data-toggle="tooltip" data-placement="bottom" title="Borang ditutup">
         @else
             <img src="{{ asset('circle_times.png') }}" height='28' alt=""
                 data-toggle="tooltip" data-placement="bottom"
@@ -28,7 +28,7 @@
         @if($dateBlocked)
             <img src="{{ asset('calendar.png') }}" height='28' alt=""
                 data-toggle="tooltip" data-placement="bottom"
-                title="{{ $reason ?? 'Tempoh pengisian belum dibuka.' }}"
+                title="Borang ditutup"
                 style="color:black;font-size:20pt">
         @else
             <img src="{{ asset('circle_times.png') }}" height='28' alt=""
@@ -82,15 +82,15 @@
         @endif
     @else
         @if($isOwner)
-            <img src="{{ asset((!empty($form->tiada_pengeluaran) && $form->tiada_pengeluaran == 1) ? 'tp_logo2.png' : 'circle_check_yellow.png') }}" height="28" data-toggle="tooltip" data-placement="bottom" title="{{ (!empty($form->tiada_pengeluaran) && $form->tiada_pengeluaran == 1) ? 'Borang telah dihantar - Tiada Pengeluaran' : 'Borang telah dihantar' }}">
+            <img src="{{ asset((!empty($form->tiada_pengeluaran) && $form->tiada_pengeluaran == 1) ? 'tpbiru.png' : 'circle_check.png') }}" height="28" data-toggle="tooltip" data-placement="bottom" title="{{ (!empty($form->tiada_pengeluaran) && $form->tiada_pengeluaran == 1) ? 'Borang telah disahkan PHD - Tiada Pengeluaran' : 'Borang telah disahkan PHD' }}">
         @else
-            <a href="{{ $viewLink }}" data-toggle="tooltip" data-placement="bottom" title="{{ (!empty($form->tiada_pengeluaran) && $form->tiada_pengeluaran == 1) ? 'Borang telah dihantar - Tiada Pengeluaran' : 'Borang telah dihantar' }}">
-                <img src="{{ asset((!empty($form->tiada_pengeluaran) && $form->tiada_pengeluaran == 1) ? 'tp_logo2.png' : 'circle_check_yellow.png') }}" height="28">
+            <a href="{{ $viewLink }}" data-toggle="tooltip" data-placement="bottom" title="{{ (!empty($form->tiada_pengeluaran) && $form->tiada_pengeluaran == 1) ? 'Borang telah disahkan PHD - Tiada Pengeluaran' : 'Borang telah disahkan PHD' }}">
+                <img src="{{ asset((!empty($form->tiada_pengeluaran) && $form->tiada_pengeluaran == 1) ? 'tpbiru.png' : 'circle_check.png') }}" height="28">
             </a>
         @endif
     @endif
 @else
     <img src="{{ asset('calendar.png') }}" height='28' alt=""
         style="color:grey;font-size:20pt"
-        data-toggle="tooltip" data-placement="bottom" title="Borang belum dibuka">
+        data-toggle="tooltip" data-placement="bottom" title="Borang ditutup">
 @endif

@@ -184,11 +184,7 @@
                                                                             data-toggle="tooltip" data-placement="bottom"
                                                                             title="Borang perlu diperaku"></i></a>
                                                                 @else
-                                                                    @if (!empty($data->tiada_pengeluaran) && $data->tiada_pengeluaran == 1)
-                                                                        <img src="{{ asset('tpbiru.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang telah disahkan oleh PHD - Tiada Pengeluaran">
-                                                                    @else
-                                                                        <img src="{{ asset('circle_check.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang telah disahkan oleh PHD">
-                                                                    @endif
+                                                                    <img src="{{ asset('package.png') }}" height='40px' alt="" data-toggle="tooltip" data-placement="bottom" title="Pakej belum dihantar">
                                                                 @endif
                                                             @elseif($data->status == 'Lulus')
                                                                 <img src="{{ asset('double_check.png') }}" height='30px'
@@ -253,11 +249,7 @@
                                                                         data-toggle="tooltip" data-placement="bottom"
                                                                         title="Borang perlu diperaku"></i></a>
                                                             @else
-                                                                @if (!empty($data->tiada_pengeluaran) && $data->tiada_pengeluaran == 1)
-                                                                    <img src="{{ asset('tpbiru.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang telah disahkan oleh PHD - Tiada Pengeluaran">
-                                                                @else
-                                                                    <img src="{{ asset('circle_check.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang telah disahkan oleh PHD">
-                                                                @endif
+                                                                <img src="{{ asset('package.png') }}" height='40px' alt="" data-toggle="tooltip" data-placement="bottom" title="Pakej belum dihantar">
                                                             @endif
                                                         @elseif($data->status == 'Lulus')
                                                             <img src="{{ asset('double_check.png') }}" height='30px'
@@ -321,11 +313,7 @@
                                                                     data-toggle="tooltip" data-placement="bottom"
                                                                     title="Borang perlu diperaku"></i></a>
                                                         @else
-                                                            @if (!empty($data->tiada_pengeluaran) && $data->tiada_pengeluaran == 1)
-                                                                <img src="{{ asset('tpbiru.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang telah disahkan oleh PHD - Tiada Pengeluaran">
-                                                            @else
-                                                                <img src="{{ asset('circle_check.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang telah disahkan oleh PHD">
-                                                            @endif
+                                                            <img src="{{ asset('package.png') }}" height='40px' alt="" data-toggle="tooltip" data-placement="bottom" title="Pakej belum dihantar">
                                                         @endif
                                                     @elseif($data->status == 'Lulus')
                                                         <img src="{{ asset('double_check.png') }}" height='30px'
@@ -389,11 +377,7 @@
                                                                 data-toggle="tooltip" data-placement="bottom"
                                                                 title="Borang perlu diperaku"></i></a>
                                                     @else
-                                                        @if (!empty($data->tiada_pengeluaran) && $data->tiada_pengeluaran == 1)
-                                                            <img src="{{ asset('tpbiru.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang telah disahkan oleh PHD - Tiada Pengeluaran">
-                                                        @else
-                                                            <img src="{{ asset('circle_check.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang telah disahkan oleh PHD">
-                                                        @endif
+                                                        <img src="{{ asset('package.png') }}" height='40px' alt="" data-toggle="tooltip" data-placement="bottom" title="Pakej belum dihantar">
                                                     @endif
                                                 @elseif($data->status == 'Lulus')
                                                     <img src="{{ asset('double_check.png') }}" height='30px'
@@ -457,11 +441,7 @@
                                                             data-toggle="tooltip" data-placement="bottom"
                                                             title="Borang perlu diperaku"></i></a>
                                                 @else
-                                                    @if (!empty($data->tiada_pengeluaran) && $data->tiada_pengeluaran == 1)
-                                                        <img src="{{ asset('tpbiru.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang telah disahkan oleh PHD - Tiada Pengeluaran">
-                                                    @else
-                                                        <img src="{{ asset('circle_check.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang telah disahkan oleh PHD">
-                                                    @endif
+                                                    <img src="{{ asset('package.png') }}" height='40px' alt="" data-toggle="tooltip" data-placement="bottom" title="Pakej belum dihantar">
                                                 @endif
                                             @elseif($data->status == 'Lulus')
                                                 <img src="{{ asset('double_check.png') }}" height='30px'
@@ -525,11 +505,7 @@
                                                         data-toggle="tooltip" data-placement="bottom"
                                                         title="Borang perlu diperaku"></i></a>
                                             @else
-                                                @if (!empty($data->tiada_pengeluaran) && $data->tiada_pengeluaran == 1)
-                                                    <img src="{{ asset('tpbiru.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang telah disahkan oleh PHD - Tiada Pengeluaran">
-                                                @else
-                                                    <img src="{{ asset('circle_check.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang telah disahkan oleh PHD">
-                                                @endif
+                                                <img src="{{ asset('package.png') }}" height='40px' alt="" data-toggle="tooltip" data-placement="bottom" title="Pakej belum dihantar">
                                             @endif
                                         @elseif($data->status == 'Lulus')
                                             <img src="{{ asset('double_check.png') }}" height='30px'
@@ -593,11 +569,7 @@
                                                     data-toggle="tooltip" data-placement="bottom"
                                                     title="Borang perlu diperaku"></i></a>
                                         @else
-                                            @if (!empty($data->tiada_pengeluaran) && $data->tiada_pengeluaran == 1)
-                                                <img src="{{ asset('tpbiru.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang telah disahkan oleh PHD - Tiada Pengeluaran">
-                                            @else
-                                                <img src="{{ asset('circle_check.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang telah disahkan oleh PHD">
-                                            @endif
+                                            <img src="{{ asset('package.png') }}" height='40px' alt="" data-toggle="tooltip" data-placement="bottom" title="Pakej belum dihantar">
                                         @endif
                                     @elseif($data->status == 'Lulus')
                                         <img src="{{ asset('double_check.png') }}" height='30px'
@@ -661,11 +633,7 @@
                                                 data-toggle="tooltip" data-placement="bottom"
                                                 title="Borang perlu diperaku"></i></a>
                                     @else
-                                        @if (!empty($data->tiada_pengeluaran) && $data->tiada_pengeluaran == 1)
-                                            <img src="{{ asset('tpbiru.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang telah disahkan oleh PHD - Tiada Pengeluaran">
-                                        @else
-                                            <img src="{{ asset('circle_check.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang telah disahkan oleh PHD">
-                                        @endif
+                                        <img src="{{ asset('package.png') }}" height='40px' alt="" data-toggle="tooltip" data-placement="bottom" title="Pakej belum dihantar">
                                     @endif
                                 @elseif($data->status == 'Lulus')
                                     <img src="{{ asset('double_check.png') }}" height='30px'
@@ -729,11 +697,7 @@
                                             data-toggle="tooltip" data-placement="bottom"
                                             title="Borang perlu diperaku"></i></a>
                                 @else
-                                    @if (!empty($data->tiada_pengeluaran) && $data->tiada_pengeluaran == 1)
-                                        <img src="{{ asset('tpbiru.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang telah disahkan oleh PHD - Tiada Pengeluaran">
-                                    @else
-                                        <img src="{{ asset('circle_check.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang telah disahkan oleh PHD">
-                                    @endif
+                                    <img src="{{ asset('package.png') }}" height='40px' alt="" data-toggle="tooltip" data-placement="bottom" title="Pakej belum dihantar">
                                 @endif
                             @elseif($data->status == 'Lulus')
                                 <img src="{{ asset('double_check.png') }}" height='30px'
@@ -797,11 +761,7 @@
                                         data-toggle="tooltip" data-placement="bottom"
                                         title="Borang perlu diperaku"></i></a>
                             @else
-                                @if (!empty($data->tiada_pengeluaran) && $data->tiada_pengeluaran == 1)
-                                    <img src="{{ asset('tpbiru.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang telah disahkan oleh PHD - Tiada Pengeluaran">
-                                @else
-                                    <img src="{{ asset('circle_check.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang telah disahkan oleh PHD">
-                                @endif
+                                <img src="{{ asset('package.png') }}" height='40px' alt="" data-toggle="tooltip" data-placement="bottom" title="Pakej belum dihantar">
                             @endif
                         @elseif($data->status == 'Lulus')
                             <img src="{{ asset('double_check.png') }}" height='30px'
@@ -865,11 +825,7 @@
                                     data-toggle="tooltip" data-placement="bottom"
                                     title="Borang perlu diperaku"></i></a>
                         @else
-                            @if (!empty($data->tiada_pengeluaran) && $data->tiada_pengeluaran == 1)
-                                <img src="{{ asset('tpbiru.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang telah disahkan oleh PHD - Tiada Pengeluaran">
-                            @else
-                                <img src="{{ asset('circle_check.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang telah disahkan oleh PHD">
-                            @endif
+                            <img src="{{ asset('package.png') }}" height='40px' alt="" data-toggle="tooltip" data-placement="bottom" title="Pakej belum dihantar">
                         @endif
                     @elseif($data->status == 'Lulus')
                         <img src="{{ asset('double_check.png') }}" height='30px'
@@ -934,11 +890,7 @@
                                 data-toggle="tooltip" data-placement="bottom"
                                 title="Borang perlu diperaku"></i></a>
                     @else
-                        @if (!empty($data->tiada_pengeluaran) && $data->tiada_pengeluaran == 1)
-                            <img src="{{ asset('tpbiru.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang telah disahkan oleh PHD - Tiada Pengeluaran">
-                        @else
-                            <img src="{{ asset('circle_check.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang telah disahkan oleh PHD">
-                        @endif
+                        <img src="{{ asset('package.png') }}" height='40px' alt="" data-toggle="tooltip" data-placement="bottom" title="Pakej belum dihantar">
                     @endif
                 @elseif($data->status == 'Lulus')
                     <img src="{{ asset('double_check.png') }}" height='30px'

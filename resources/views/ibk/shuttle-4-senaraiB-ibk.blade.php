@@ -151,7 +151,7 @@
                                             <td>
                                                 @if ($list->where('suku_tahun', 1)->isEmpty())
                                                     @if ((int)date('n') < 1)
-                                                        <img src="{{ asset('calendar.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang belum dibuka" style="color: black; font-size: 20pt;">
+                                                        <img src="{{ asset('calendar.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang ditutup" style="color: black; font-size: 20pt;">
                                                     @else
                                                         <img src="{{ asset('circle_times.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang belum diisi">
                                                     @endif
@@ -179,9 +179,9 @@
                                                     @elseif($data->status == 'Dihantar ke IPJPSM' && $data->suku_tahun == '1')
                                                         <a
                                                             href="{{ route('pengguna.shuttle-3-view-formB', $data->id) }}">
-                                                            <img src="{{ asset((!empty($data->tiada_pengeluaran) && $data->tiada_pengeluaran == 1) ? 'tp_logo2.png' : 'circle_check_yellow.png') }}" height='30px'
+                                                            <img src="{{ asset((!empty($data->tiada_pengeluaran) && $data->tiada_pengeluaran == 1) ? 'tpbiru.png' : 'circle_check.png') }}" height='30px'
                                                                 alt="" data-toggle="tooltip" data-placement="bottom"
-                                                                title="{{ (!empty($data->tiada_pengeluaran) && $data->tiada_pengeluaran == 1) ? 'Borang telah dihantar - Tiada Pengeluaran' : 'Borang telah dihantar' }}"
+                                                                title="{{ (!empty($data->tiada_pengeluaran) && $data->tiada_pengeluaran == 1) ? 'Borang telah disahkan PHD - Tiada Pengeluaran' : 'Borang telah disahkan PHD' }}"
                                                                 style="color: green; font-size: 20pt;"></i></a>
                                                     @elseif($data->status == 'Tidak Lengkap' && $data->suku_tahun == '1')
                                                         <a href="{{ route('edit-form3b', $data->id) }}"
@@ -192,16 +192,16 @@
                                                     @elseif($data->status == 'Lulus' && $data->suku_tahun == '1')
                                                         <a
                                                             href="{{ route('pengguna.shuttle-3-view-formB', $data->id) }}">
-                                                            <img src="{{ asset((!empty($data->tiada_pengeluaran) && $data->tiada_pengeluaran == 1) ? 'tp_logo2.png' : 'circle_check_yellow.png') }}" height='30px'
+                                                            <img src="{{ asset((!empty($data->tiada_pengeluaran) && $data->tiada_pengeluaran == 1) ? 'tpbiru.png' : 'circle_check.png') }}" height='30px'
                                                                 alt="" data-toggle="tooltip" data-placement="bottom"
-                                                                title="{{ (!empty($data->tiada_pengeluaran) && $data->tiada_pengeluaran == 1) ? 'Borang telah dihantar - Tiada Pengeluaran' : 'Borang telah dihantar' }}"
+                                                                title="{{ (!empty($data->tiada_pengeluaran) && $data->tiada_pengeluaran == 1) ? 'Borang telah disahkan PHD - Tiada Pengeluaran' : 'Borang telah disahkan PHD' }}"
                                                                 style="color: green; font-size: 20pt;"></i></a>
                                                     @elseif($data->status == 'Ditutup' && $data->suku_tahun == '1')
                                                         @if ($flow['formB'][$data->suku_tahun]['can_fill'])
                                                             <a href="{{ route('user.shuttle-4-formB', [$data->suku_tahun, $data->tahun]) }}" data-toggle="tooltip" data-placement="bottom" title="Borang belum diisi">
                                                                 <img src="{{ asset('circle_times.png') }}" height='30px' alt="" style="font-size: 15pt;"></a>
                                                         @else
-                                                            <img src="{{ asset('calendar.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang belum dibuka" style="color: black; font-size: 20pt;">
+                                                            <img src="{{ asset('calendar.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang ditutup" style="color: black; font-size: 20pt;">
                                                         @endif
                                                     @endif
                                                 @endforeach
@@ -211,7 +211,7 @@
                                             <td>
                                                 @if ($list->where('suku_tahun', 2)->isEmpty())
                                                     @if ((int)date('n') < 4)
-                                                        <img src="{{ asset('calendar.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang belum dibuka" style="color: black; font-size: 20pt;">
+                                                        <img src="{{ asset('calendar.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang ditutup" style="color: black; font-size: 20pt;">
                                                     @else
                                                         <img src="{{ asset('circle_times.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang belum diisi">
                                                     @endif
@@ -239,9 +239,9 @@
                                                     @elseif($data->status == 'Dihantar ke IPJPSM' && $data->suku_tahun == '2')
                                                         <a
                                                             href="{{ route('pengguna.shuttle-3-view-formB', $data->id) }}">
-                                                            <img src="{{ asset((!empty($data->tiada_pengeluaran) && $data->tiada_pengeluaran == 1) ? 'tp_logo2.png' : 'circle_check_yellow.png') }}" height='30px'
+                                                            <img src="{{ asset((!empty($data->tiada_pengeluaran) && $data->tiada_pengeluaran == 1) ? 'tpbiru.png' : 'circle_check.png') }}" height='30px'
                                                                 alt="" data-toggle="tooltip" data-placement="bottom"
-                                                                title="{{ (!empty($data->tiada_pengeluaran) && $data->tiada_pengeluaran == 1) ? 'Borang telah dihantar - Tiada Pengeluaran' : 'Borang telah dihantar' }}"
+                                                                title="{{ (!empty($data->tiada_pengeluaran) && $data->tiada_pengeluaran == 1) ? 'Borang telah disahkan PHD - Tiada Pengeluaran' : 'Borang telah disahkan PHD' }}"
                                                                 style="color: green; font-size: 20pt;"></i></a>
                                                     @elseif($data->status == 'Tidak Lengkap' && $data->suku_tahun == '2')
                                                         <a href="{{ route('edit-form3b', $data->id) }}"
@@ -252,9 +252,9 @@
                                                     @elseif($data->status == 'Lulus' && $data->suku_tahun == '2')
                                                         <a
                                                             href="{{ route('pengguna.shuttle-3-view-formB', $data->id) }}">
-                                                            <img src="{{ asset((!empty($data->tiada_pengeluaran) && $data->tiada_pengeluaran == 1) ? 'tp_logo2.png' : 'circle_check_yellow.png') }}" height='30px'
+                                                            <img src="{{ asset((!empty($data->tiada_pengeluaran) && $data->tiada_pengeluaran == 1) ? 'tpbiru.png' : 'circle_check.png') }}" height='30px'
                                                                 alt="" data-toggle="tooltip" data-placement="bottom"
-                                                                title="{{ (!empty($data->tiada_pengeluaran) && $data->tiada_pengeluaran == 1) ? 'Borang telah dihantar - Tiada Pengeluaran' : 'Borang telah dihantar' }}"
+                                                                title="{{ (!empty($data->tiada_pengeluaran) && $data->tiada_pengeluaran == 1) ? 'Borang telah disahkan PHD - Tiada Pengeluaran' : 'Borang telah disahkan PHD' }}"
                                                                 style="color: green; font-size: 20pt;"></i></a>
                                                     
                                                     @elseif($data->status == 'Ditutup' && $data->suku_tahun == '2')
@@ -262,7 +262,7 @@
                                                             <a href="{{ route('user.shuttle-4-formB', [$data->suku_tahun, $data->tahun]) }}" data-toggle="tooltip" data-placement="bottom" title="Borang belum diisi">
                                                                 <img src="{{ asset('circle_times.png') }}" height='30px' alt="" style="font-size: 15pt;"></a>
                                                         @else
-                                                            <img src="{{ asset('calendar.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang belum dibuka" style="color: black; font-size: 20pt;">
+                                                            <img src="{{ asset('calendar.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang ditutup" style="color: black; font-size: 20pt;">
                                                         @endif
 @endif
                                                 @endforeach
@@ -272,7 +272,7 @@
                                             <td>
                                                 @if ($list->where('suku_tahun', 3)->isEmpty())
                                                     @if ((int)date('n') < 7)
-                                                        <img src="{{ asset('calendar.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang belum dibuka" style="color: black; font-size: 20pt;">
+                                                        <img src="{{ asset('calendar.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang ditutup" style="color: black; font-size: 20pt;">
                                                     @else
                                                         <img src="{{ asset('circle_times.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang belum diisi">
                                                     @endif
@@ -300,9 +300,9 @@
                                                     @elseif($data->status == 'Dihantar ke IPJPSM' && $data->suku_tahun == '3')
                                                         <a
                                                             href="{{ route('pengguna.shuttle-3-view-formB', $data->id) }}">
-                                                            <img src="{{ asset((!empty($data->tiada_pengeluaran) && $data->tiada_pengeluaran == 1) ? 'tp_logo2.png' : 'circle_check_yellow.png') }}" height='30px'
+                                                            <img src="{{ asset((!empty($data->tiada_pengeluaran) && $data->tiada_pengeluaran == 1) ? 'tpbiru.png' : 'circle_check.png') }}" height='30px'
                                                                 alt="" data-toggle="tooltip" data-placement="bottom"
-                                                                title="{{ (!empty($data->tiada_pengeluaran) && $data->tiada_pengeluaran == 1) ? 'Borang telah dihantar - Tiada Pengeluaran' : 'Borang telah dihantar' }}"
+                                                                title="{{ (!empty($data->tiada_pengeluaran) && $data->tiada_pengeluaran == 1) ? 'Borang telah disahkan PHD - Tiada Pengeluaran' : 'Borang telah disahkan PHD' }}"
                                                                 style="color: green; font-size: 20pt;"></i></a>
                                                     @elseif($data->status == 'Tidak Lengkap' && $data->suku_tahun == '3')
                                                         <a href="{{ route('edit-form3b', $data->id) }}"
@@ -313,9 +313,9 @@
                                                     @elseif($data->status == 'Lulus' && $data->suku_tahun == '3')
                                                         <a
                                                             href="{{ route('pengguna.shuttle-3-view-formB', $data->id) }}">
-                                                            <img src="{{ asset((!empty($data->tiada_pengeluaran) && $data->tiada_pengeluaran == 1) ? 'tp_logo2.png' : 'circle_check_yellow.png') }}" height='30px'
+                                                            <img src="{{ asset((!empty($data->tiada_pengeluaran) && $data->tiada_pengeluaran == 1) ? 'tpbiru.png' : 'circle_check.png') }}" height='30px'
                                                                 alt="" data-toggle="tooltip" data-placement="bottom"
-                                                                title="{{ (!empty($data->tiada_pengeluaran) && $data->tiada_pengeluaran == 1) ? 'Borang telah dihantar - Tiada Pengeluaran' : 'Borang telah dihantar' }}"
+                                                                title="{{ (!empty($data->tiada_pengeluaran) && $data->tiada_pengeluaran == 1) ? 'Borang telah disahkan PHD - Tiada Pengeluaran' : 'Borang telah disahkan PHD' }}"
                                                                 style="color: green; font-size: 20pt;"></i></a>
                                                     
                                                     @elseif($data->status == 'Ditutup' && $data->suku_tahun == '3')
@@ -323,7 +323,7 @@
                                                             <a href="{{ route('user.shuttle-4-formB', [$data->suku_tahun, $data->tahun]) }}" data-toggle="tooltip" data-placement="bottom" title="Borang belum diisi">
                                                                 <img src="{{ asset('circle_times.png') }}" height='30px' alt="" style="font-size: 15pt;"></a>
                                                         @else
-                                                            <img src="{{ asset('calendar.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang belum dibuka" style="color: black; font-size: 20pt;">
+                                                            <img src="{{ asset('calendar.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang ditutup" style="color: black; font-size: 20pt;">
                                                         @endif
 @endif
                                                 @endforeach
@@ -333,7 +333,7 @@
                                             <td>
                                                 @if ($list->where('suku_tahun', 4)->isEmpty())
                                                     @if ((int)date('n') < 10)
-                                                        <img src="{{ asset('calendar.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang belum dibuka" style="color: black; font-size: 20pt;">
+                                                        <img src="{{ asset('calendar.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang ditutup" style="color: black; font-size: 20pt;">
                                                     @else
                                                         <img src="{{ asset('circle_times.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang belum diisi">
                                                     @endif
@@ -361,9 +361,9 @@
                                                     @elseif($data->status == 'Dihantar ke IPJPSM' && $data->suku_tahun == '4')
                                                         <a
                                                             href="{{ route('pengguna.shuttle-3-view-formB', $data->id) }}">
-                                                            <img src="{{ asset((!empty($data->tiada_pengeluaran) && $data->tiada_pengeluaran == 1) ? 'tp_logo2.png' : 'circle_check_yellow.png') }}" height='30px'
+                                                            <img src="{{ asset((!empty($data->tiada_pengeluaran) && $data->tiada_pengeluaran == 1) ? 'tpbiru.png' : 'circle_check.png') }}" height='30px'
                                                                 alt="" data-toggle="tooltip" data-placement="bottom"
-                                                                title="{{ (!empty($data->tiada_pengeluaran) && $data->tiada_pengeluaran == 1) ? 'Borang telah dihantar - Tiada Pengeluaran' : 'Borang telah dihantar' }}"
+                                                                title="{{ (!empty($data->tiada_pengeluaran) && $data->tiada_pengeluaran == 1) ? 'Borang telah disahkan PHD - Tiada Pengeluaran' : 'Borang telah disahkan PHD' }}"
                                                                 style="color: green; font-size: 20pt;"></i></a>
                                                     @elseif($data->status == 'Tidak Lengkap' && $data->suku_tahun == '4')
                                                         <a href="{{ route('edit-form3b', $data->id) }}"
@@ -374,9 +374,9 @@
                                                     @elseif($data->status == 'Lulus' && $data->suku_tahun == '4')
                                                         <a
                                                             href="{{ route('pengguna.shuttle-3-view-formB', $data->id) }}">
-                                                            <img src="{{ asset((!empty($data->tiada_pengeluaran) && $data->tiada_pengeluaran == 1) ? 'tp_logo2.png' : 'circle_check_yellow.png') }}" height='30px'
+                                                            <img src="{{ asset((!empty($data->tiada_pengeluaran) && $data->tiada_pengeluaran == 1) ? 'tpbiru.png' : 'circle_check.png') }}" height='30px'
                                                                 alt="" data-toggle="tooltip" data-placement="bottom"
-                                                                title="{{ (!empty($data->tiada_pengeluaran) && $data->tiada_pengeluaran == 1) ? 'Borang telah dihantar - Tiada Pengeluaran' : 'Borang telah dihantar' }}"
+                                                                title="{{ (!empty($data->tiada_pengeluaran) && $data->tiada_pengeluaran == 1) ? 'Borang telah disahkan PHD - Tiada Pengeluaran' : 'Borang telah disahkan PHD' }}"
                                                                 style="color: green; font-size: 20pt;"></i></a>
                                                     
                                                     @elseif($data->status == 'Ditutup' && $data->suku_tahun == '4')
@@ -384,7 +384,7 @@
                                                             <a href="{{ route('user.shuttle-4-formB', [$data->suku_tahun, $data->tahun]) }}" data-toggle="tooltip" data-placement="bottom" title="Borang belum diisi">
                                                                 <img src="{{ asset('circle_times.png') }}" height='30px' alt="" style="font-size: 15pt;"></a>
                                                         @else
-                                                            <img src="{{ asset('calendar.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang belum dibuka" style="color: black; font-size: 20pt;">
+                                                            <img src="{{ asset('calendar.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang ditutup" style="color: black; font-size: 20pt;">
                                                         @endif
 @endif
                                                 @endforeach
