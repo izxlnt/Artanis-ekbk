@@ -174,22 +174,23 @@
                                                                                     title="Borang perlu diperaku"></i></a>
                                                                         @endif
                                                                     @else
-                                                                        <img src="{{ asset('package.png') }}"
-                                                                            height='40px' alt="" data-toggle="tooltip"
-                                                                            data-placement="bottom"
-                                                                            title="Pakej belum dihantar">
+                                                                        @if (!empty($data->tiada_pengeluaran) && $data->tiada_pengeluaran == 1)
+                                                                            <img src="{{ asset('tpbiru.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang telah disahkan oleh PHD - Tiada Pengeluaran">
+                                                                        @else
+                                                                            <img src="{{ asset('circle_check.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang telah disahkan oleh PHD">
+                                                                        @endif
                                                                     @endif
                                                                 @elseif($data->status == 'Sedang Diproses')
-                                                                    <img src="{{ asset('circle_check_yellow.png') }}" height='30px' alt=""
+                                                                    <img src="{{ asset('circle_times_yellow.png') }}" height='30px' alt=""
                                                                         style="color: white; font-size: 18pt;"
                                                                         data-toggle="tooltip" data-placement="bottom"
-                                                                        title="Borang telah dihantar"></i>
+                                                                        title="Borang perlu disahkan PHD"></i>
                                                                 @elseif($data->status == 'Tidak Lengkap')
                                                                     <img src="{{ asset('history.png') }}" height='30px' alt="" style="color: red; font-size: 20pt;" data-toggle="tooltip" data-placement="bottom" title="Borang tidak lengkap">
                                                                 @elseif($data->status == 'Tiada Pengeluaran')
-                                                                    <img src="{{ asset('circle_check_yellow.png') }}" height='30px' alt=""
+                                                                    <img src="{{ asset('circle_times_yellow.png') }}" height='30px' alt=""
                                                                         data-toggle="tooltip" data-placement="bottom"
-                                                                        title="Borang telah dihantar">
+                                                                        title="Borang perlu disahkan PHD">
                                                                 @elseif($data->status == 'Tidak Diisi')
                                                                     @php
                                                                         $time = strtotime($data->tarikh_tutup_borang);
@@ -266,22 +267,23 @@
                                                                                     title="Borang perlu diperaku"></i></a>
                                                                         @endif
                                                                     @else
-                                                                        <img src="{{ asset('package.png') }}"
-                                                                            height='40px' alt="" data-toggle="tooltip"
-                                                                            data-placement="bottom"
-                                                                            title="Pakej belum dihantar">
+                                                                        @if (!empty($data->tiada_pengeluaran) && $data->tiada_pengeluaran == 1)
+                                                                            <img src="{{ asset('tpbiru.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang telah disahkan oleh PHD - Tiada Pengeluaran">
+                                                                        @else
+                                                                            <img src="{{ asset('circle_check.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang telah disahkan oleh PHD">
+                                                                        @endif
                                                                     @endif
                                                                 @elseif($data->status == 'Sedang Diproses')
-                                                                    <img src="{{ asset('circle_check_yellow.png') }}" height='30px' alt=""
+                                                                    <img src="{{ asset('circle_times_yellow.png') }}" height='30px' alt=""
                                                                         style="color: white; font-size: 18pt;"
                                                                         data-toggle="tooltip" data-placement="bottom"
-                                                                        title="Borang telah dihantar"></i>
+                                                                        title="Borang perlu disahkan PHD"></i>
                                                                 @elseif($data->status == 'Tidak Lengkap')
                                                                     <img src="{{ asset('history.png') }}" height='30px' alt="" style="color: red; font-size: 20pt;" data-toggle="tooltip" data-placement="bottom" title="Borang tidak lengkap">
                                                                 @elseif($data->status == 'Tiada Pengeluaran')
-                                                                    <img src="{{ asset('circle_check_yellow.png') }}" height='30px' alt=""
+                                                                    <img src="{{ asset('circle_times_yellow.png') }}" height='30px' alt=""
                                                                         data-toggle="tooltip" data-placement="bottom"
-                                                                        title="Borang telah dihantar">
+                                                                        title="Borang perlu disahkan PHD">
                                                                 @elseif($data->status == 'Tidak Diisi')
                                                                     @php
                                                                         $time = strtotime($data->tarikh_tutup_borang);
@@ -358,22 +360,23 @@
                                                                                     title="Borang perlu diperaku"></i></a>
                                                                         @endif
                                                                     @else
-                                                                        <img src="{{ asset('package.png') }}"
-                                                                            height='40px' alt="" data-toggle="tooltip"
-                                                                            data-placement="bottom"
-                                                                            title="Pakej belum dihantar">
+                                                                        @if (!empty($data->tiada_pengeluaran) && $data->tiada_pengeluaran == 1)
+                                                                            <img src="{{ asset('tpbiru.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang telah disahkan oleh PHD - Tiada Pengeluaran">
+                                                                        @else
+                                                                            <img src="{{ asset('circle_check.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang telah disahkan oleh PHD">
+                                                                        @endif
                                                                     @endif
                                                                 @elseif($data->status == 'Sedang Diproses')
-                                                                    <img src="{{ asset('circle_check_yellow.png') }}" height='30px' alt=""
+                                                                    <img src="{{ asset('circle_times_yellow.png') }}" height='30px' alt=""
                                                                         style="color: white; font-size: 18pt;"
                                                                         data-toggle="tooltip" data-placement="bottom"
-                                                                        title="Borang telah dihantar"></i>
+                                                                        title="Borang perlu disahkan PHD"></i>
                                                                 @elseif($data->status == 'Tidak Lengkap')
                                                                     <img src="{{ asset('history.png') }}" height='30px' alt="" style="color: red; font-size: 20pt;" data-toggle="tooltip" data-placement="bottom" title="Borang tidak lengkap">
                                                                 @elseif($data->status == 'Tiada Pengeluaran')
-                                                                    <img src="{{ asset('circle_check_yellow.png') }}" height='30px' alt=""
+                                                                    <img src="{{ asset('circle_times_yellow.png') }}" height='30px' alt=""
                                                                         data-toggle="tooltip" data-placement="bottom"
-                                                                        title="Borang telah dihantar">
+                                                                        title="Borang perlu disahkan PHD">
                                                                 @elseif($data->status == 'Tidak Diisi')
                                                                     @php
                                                                         $time = strtotime($data->tarikh_tutup_borang);
@@ -450,22 +453,23 @@
                                                                                     title="Borang perlu diperaku"></i></a>
                                                                         @endif
                                                                     @else
-                                                                        <img src="{{ asset('package.png') }}"
-                                                                            height='40px' alt="" data-toggle="tooltip"
-                                                                            data-placement="bottom"
-                                                                            title="Pakej belum dihantar">
+                                                                        @if (!empty($data->tiada_pengeluaran) && $data->tiada_pengeluaran == 1)
+                                                                            <img src="{{ asset('tpbiru.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang telah disahkan oleh PHD - Tiada Pengeluaran">
+                                                                        @else
+                                                                            <img src="{{ asset('circle_check.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang telah disahkan oleh PHD">
+                                                                        @endif
                                                                     @endif
                                                                 @elseif($data->status == 'Sedang Diproses')
-                                                                    <img src="{{ asset('circle_check_yellow.png') }}" height='30px' alt=""
+                                                                    <img src="{{ asset('circle_times_yellow.png') }}" height='30px' alt=""
                                                                         style="color: white; font-size: 18pt;"
                                                                         data-toggle="tooltip" data-placement="bottom"
-                                                                        title="Borang telah dihantar"></i>
+                                                                        title="Borang perlu disahkan PHD"></i>
                                                                 @elseif($data->status == 'Tidak Lengkap')
                                                                     <img src="{{ asset('history.png') }}" height='30px' alt="" style="color: red; font-size: 20pt;" data-toggle="tooltip" data-placement="bottom" title="Borang tidak lengkap">
                                                                 @elseif($data->status == 'Tiada Pengeluaran')
-                                                                    <img src="{{ asset('circle_check_yellow.png') }}" height='30px' alt=""
+                                                                    <img src="{{ asset('circle_times_yellow.png') }}" height='30px' alt=""
                                                                         data-toggle="tooltip" data-placement="bottom"
-                                                                        title="Borang telah dihantar">
+                                                                        title="Borang perlu disahkan PHD">
                                                                 @elseif($data->status == 'Tidak Diisi')
                                                                     @php
                                                                         $time = strtotime($data->tarikh_tutup_borang);
@@ -542,22 +546,23 @@
                                                                                     title="Borang perlu diperaku"></i></a>
                                                                         @endif
                                                                     @else
-                                                                        <img src="{{ asset('package.png') }}"
-                                                                            height='40px' alt="" data-toggle="tooltip"
-                                                                            data-placement="bottom"
-                                                                            title="Pakej belum dihantar">
+                                                                        @if (!empty($data->tiada_pengeluaran) && $data->tiada_pengeluaran == 1)
+                                                                            <img src="{{ asset('tpbiru.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang telah disahkan oleh PHD - Tiada Pengeluaran">
+                                                                        @else
+                                                                            <img src="{{ asset('circle_check.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang telah disahkan oleh PHD">
+                                                                        @endif
                                                                     @endif
                                                                 @elseif($data->status == 'Sedang Diproses')
-                                                                    <img src="{{ asset('circle_check_yellow.png') }}" height='30px' alt=""
+                                                                    <img src="{{ asset('circle_times_yellow.png') }}" height='30px' alt=""
                                                                         style="color: white; font-size: 18pt;"
                                                                         data-toggle="tooltip" data-placement="bottom"
-                                                                        title="Borang telah dihantar"></i>
+                                                                        title="Borang perlu disahkan PHD"></i>
                                                                 @elseif($data->status == 'Tidak Lengkap')
                                                                     <img src="{{ asset('history.png') }}" height='30px' alt="" style="color: red; font-size: 20pt;" data-toggle="tooltip" data-placement="bottom" title="Borang tidak lengkap">
                                                                 @elseif($data->status == 'Tiada Pengeluaran')
-                                                                    <img src="{{ asset('circle_check_yellow.png') }}" height='30px' alt=""
+                                                                    <img src="{{ asset('circle_times_yellow.png') }}" height='30px' alt=""
                                                                         data-toggle="tooltip" data-placement="bottom"
-                                                                        title="Borang telah dihantar">
+                                                                        title="Borang perlu disahkan PHD">
                                                                 @elseif($data->status == 'Tidak Diisi')
                                                                     @php
                                                                         $time = strtotime($data->tarikh_tutup_borang);
@@ -634,22 +639,23 @@
                                                                                     title="Borang perlu diperaku"></i></a>
                                                                         @endif
                                                                     @else
-                                                                        <img src="{{ asset('package.png') }}"
-                                                                            height='40px' alt="" data-toggle="tooltip"
-                                                                            data-placement="bottom"
-                                                                            title="Pakej belum dihantar">
+                                                                        @if (!empty($data->tiada_pengeluaran) && $data->tiada_pengeluaran == 1)
+                                                                            <img src="{{ asset('tpbiru.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang telah disahkan oleh PHD - Tiada Pengeluaran">
+                                                                        @else
+                                                                            <img src="{{ asset('circle_check.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang telah disahkan oleh PHD">
+                                                                        @endif
                                                                     @endif
                                                                 @elseif($data->status == 'Sedang Diproses')
-                                                                    <img src="{{ asset('circle_check_yellow.png') }}" height='30px' alt=""
+                                                                    <img src="{{ asset('circle_times_yellow.png') }}" height='30px' alt=""
                                                                         style="color: white; font-size: 18pt;"
                                                                         data-toggle="tooltip" data-placement="bottom"
-                                                                        title="Borang telah dihantar"></i>
+                                                                        title="Borang perlu disahkan PHD"></i>
                                                                 @elseif($data->status == 'Tidak Lengkap')
                                                                     <img src="{{ asset('history.png') }}" height='30px' alt="" style="color: red; font-size: 20pt;" data-toggle="tooltip" data-placement="bottom" title="Borang tidak lengkap">
                                                                 @elseif($data->status == 'Tiada Pengeluaran')
-                                                                    <img src="{{ asset('circle_check_yellow.png') }}" height='30px' alt=""
+                                                                    <img src="{{ asset('circle_times_yellow.png') }}" height='30px' alt=""
                                                                         data-toggle="tooltip" data-placement="bottom"
-                                                                        title="Borang telah dihantar">
+                                                                        title="Borang perlu disahkan PHD">
                                                                 @elseif($data->status == 'Tidak Diisi')
                                                                     @php
                                                                         $time = strtotime($data->tarikh_tutup_borang);
@@ -726,22 +732,23 @@
                                                                                     title="Borang perlu diperaku"></i></a>
                                                                         @endif
                                                                     @else
-                                                                        <img src="{{ asset('package.png') }}"
-                                                                            height='40px' alt="" data-toggle="tooltip"
-                                                                            data-placement="bottom"
-                                                                            title="Pakej belum dihantar">
+                                                                        @if (!empty($data->tiada_pengeluaran) && $data->tiada_pengeluaran == 1)
+                                                                            <img src="{{ asset('tpbiru.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang telah disahkan oleh PHD - Tiada Pengeluaran">
+                                                                        @else
+                                                                            <img src="{{ asset('circle_check.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang telah disahkan oleh PHD">
+                                                                        @endif
                                                                     @endif
                                                                 @elseif($data->status == 'Sedang Diproses')
-                                                                    <img src="{{ asset('circle_check_yellow.png') }}" height='30px' alt=""
+                                                                    <img src="{{ asset('circle_times_yellow.png') }}" height='30px' alt=""
                                                                         style="color: white; font-size: 18pt;"
                                                                         data-toggle="tooltip" data-placement="bottom"
-                                                                        title="Borang telah dihantar"></i>
+                                                                        title="Borang perlu disahkan PHD"></i>
                                                                 @elseif($data->status == 'Tidak Lengkap')
                                                                     <img src="{{ asset('history.png') }}" height='30px' alt="" style="color: red; font-size: 20pt;" data-toggle="tooltip" data-placement="bottom" title="Borang tidak lengkap">
                                                                 @elseif($data->status == 'Tiada Pengeluaran')
-                                                                    <img src="{{ asset('circle_check_yellow.png') }}" height='30px' alt=""
+                                                                    <img src="{{ asset('circle_times_yellow.png') }}" height='30px' alt=""
                                                                         data-toggle="tooltip" data-placement="bottom"
-                                                                        title="Borang telah dihantar">
+                                                                        title="Borang perlu disahkan PHD">
                                                                 @elseif($data->status == 'Tidak Diisi')
                                                                     @php
                                                                         $time = strtotime($data->tarikh_tutup_borang);
@@ -818,22 +825,23 @@
                                                                                     title="Borang perlu diperaku"></i></a>
                                                                         @endif
                                                                     @else
-                                                                        <img src="{{ asset('package.png') }}"
-                                                                            height='40px' alt="" data-toggle="tooltip"
-                                                                            data-placement="bottom"
-                                                                            title="Pakej belum dihantar">
+                                                                        @if (!empty($data->tiada_pengeluaran) && $data->tiada_pengeluaran == 1)
+                                                                            <img src="{{ asset('tpbiru.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang telah disahkan oleh PHD - Tiada Pengeluaran">
+                                                                        @else
+                                                                            <img src="{{ asset('circle_check.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang telah disahkan oleh PHD">
+                                                                        @endif
                                                                     @endif
                                                                 @elseif($data->status == 'Sedang Diproses')
-                                                                    <img src="{{ asset('circle_check_yellow.png') }}" height='30px' alt=""
+                                                                    <img src="{{ asset('circle_times_yellow.png') }}" height='30px' alt=""
                                                                         style="color: white; font-size: 18pt;"
                                                                         data-toggle="tooltip" data-placement="bottom"
-                                                                        title="Borang telah dihantar"></i>
+                                                                        title="Borang perlu disahkan PHD"></i>
                                                                 @elseif($data->status == 'Tidak Lengkap')
                                                                     <img src="{{ asset('history.png') }}" height='30px' alt="" style="color: red; font-size: 20pt;" data-toggle="tooltip" data-placement="bottom" title="Borang tidak lengkap">
                                                                 @elseif($data->status == 'Tiada Pengeluaran')
-                                                                    <img src="{{ asset('circle_check_yellow.png') }}" height='30px' alt=""
+                                                                    <img src="{{ asset('circle_times_yellow.png') }}" height='30px' alt=""
                                                                         data-toggle="tooltip" data-placement="bottom"
-                                                                        title="Borang telah dihantar">
+                                                                        title="Borang perlu disahkan PHD">
                                                                 @elseif($data->status == 'Tidak Diisi')
                                                                     @php
                                                                         $time = strtotime($data->tarikh_tutup_borang);
@@ -910,22 +918,23 @@
                                                                                     title="Borang perlu diperaku"></i></a>
                                                                         @endif
                                                                     @else
-                                                                        <img src="{{ asset('package.png') }}"
-                                                                            height='40px' alt="" data-toggle="tooltip"
-                                                                            data-placement="bottom"
-                                                                            title="Pakej belum dihantar">
+                                                                        @if (!empty($data->tiada_pengeluaran) && $data->tiada_pengeluaran == 1)
+                                                                            <img src="{{ asset('tpbiru.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang telah disahkan oleh PHD - Tiada Pengeluaran">
+                                                                        @else
+                                                                            <img src="{{ asset('circle_check.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang telah disahkan oleh PHD">
+                                                                        @endif
                                                                     @endif
                                                                 @elseif($data->status == 'Sedang Diproses')
-                                                                    <img src="{{ asset('circle_check_yellow.png') }}" height='30px' alt=""
+                                                                    <img src="{{ asset('circle_times_yellow.png') }}" height='30px' alt=""
                                                                         style="color: white; font-size: 18pt;"
                                                                         data-toggle="tooltip" data-placement="bottom"
-                                                                        title="Borang telah dihantar"></i>
+                                                                        title="Borang perlu disahkan PHD"></i>
                                                                 @elseif($data->status == 'Tidak Lengkap')
                                                                     <img src="{{ asset('history.png') }}" height='30px' alt="" style="color: red; font-size: 20pt;" data-toggle="tooltip" data-placement="bottom" title="Borang tidak lengkap">
                                                                 @elseif($data->status == 'Tiada Pengeluaran')
-                                                                    <img src="{{ asset('circle_check_yellow.png') }}" height='30px' alt=""
+                                                                    <img src="{{ asset('circle_times_yellow.png') }}" height='30px' alt=""
                                                                         data-toggle="tooltip" data-placement="bottom"
-                                                                        title="Borang telah dihantar">
+                                                                        title="Borang perlu disahkan PHD">
                                                                 @elseif($data->status == 'Tidak Diisi')
                                                                     @php
                                                                         $time = strtotime($data->tarikh_tutup_borang);
@@ -1002,22 +1011,23 @@
                                                                                     title="Borang perlu diperaku"></i></a>
                                                                         @endif
                                                                     @else
-                                                                        <img src="{{ asset('package.png') }}"
-                                                                            height='40px' alt="" data-toggle="tooltip"
-                                                                            data-placement="bottom"
-                                                                            title="Pakej belum dihantar">
+                                                                        @if (!empty($data->tiada_pengeluaran) && $data->tiada_pengeluaran == 1)
+                                                                            <img src="{{ asset('tpbiru.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang telah disahkan oleh PHD - Tiada Pengeluaran">
+                                                                        @else
+                                                                            <img src="{{ asset('circle_check.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang telah disahkan oleh PHD">
+                                                                        @endif
                                                                     @endif
                                                                 @elseif($data->status == 'Sedang Diproses')
-                                                                    <img src="{{ asset('circle_check_yellow.png') }}" height='30px' alt=""
+                                                                    <img src="{{ asset('circle_times_yellow.png') }}" height='30px' alt=""
                                                                         style="color: white; font-size: 18pt;"
                                                                         data-toggle="tooltip" data-placement="bottom"
-                                                                        title="Borang telah dihantar"></i>
+                                                                        title="Borang perlu disahkan PHD"></i>
                                                                 @elseif($data->status == 'Tidak Lengkap')
                                                                     <img src="{{ asset('history.png') }}" height='30px' alt="" style="color: red; font-size: 20pt;" data-toggle="tooltip" data-placement="bottom" title="Borang tidak lengkap">
                                                                 @elseif($data->status == 'Tiada Pengeluaran')
-                                                                    <img src="{{ asset('circle_check_yellow.png') }}" height='30px' alt=""
+                                                                    <img src="{{ asset('circle_times_yellow.png') }}" height='30px' alt=""
                                                                         data-toggle="tooltip" data-placement="bottom"
-                                                                        title="Borang telah dihantar">
+                                                                        title="Borang perlu disahkan PHD">
                                                                 @elseif($data->status == 'Tidak Diisi')
                                                                     @php
                                                                         $time = strtotime($data->tarikh_tutup_borang);
@@ -1094,22 +1104,23 @@
                                                                                     title="Borang perlu diperaku"></i></a>
                                                                         @endif
                                                                     @else
-                                                                        <img src="{{ asset('package.png') }}"
-                                                                            height='40px' alt="" data-toggle="tooltip"
-                                                                            data-placement="bottom"
-                                                                            title="Pakej belum dihantar">
+                                                                        @if (!empty($data->tiada_pengeluaran) && $data->tiada_pengeluaran == 1)
+                                                                            <img src="{{ asset('tpbiru.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang telah disahkan oleh PHD - Tiada Pengeluaran">
+                                                                        @else
+                                                                            <img src="{{ asset('circle_check.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang telah disahkan oleh PHD">
+                                                                        @endif
                                                                     @endif
                                                                 @elseif($data->status == 'Sedang Diproses')
-                                                                    <img src="{{ asset('circle_check_yellow.png') }}" height='30px' alt=""
+                                                                    <img src="{{ asset('circle_times_yellow.png') }}" height='30px' alt=""
                                                                         style="color: white; font-size: 18pt;"
                                                                         data-toggle="tooltip" data-placement="bottom"
-                                                                        title="Borang telah dihantar"></i>
+                                                                        title="Borang perlu disahkan PHD"></i>
                                                                 @elseif($data->status == 'Tidak Lengkap')
                                                                     <img src="{{ asset('history.png') }}" height='30px' alt="" style="color: red; font-size: 20pt;" data-toggle="tooltip" data-placement="bottom" title="Borang tidak lengkap">
                                                                 @elseif($data->status == 'Tiada Pengeluaran')
-                                                                    <img src="{{ asset('circle_check_yellow.png') }}" height='30px' alt=""
+                                                                    <img src="{{ asset('circle_times_yellow.png') }}" height='30px' alt=""
                                                                         data-toggle="tooltip" data-placement="bottom"
-                                                                        title="Borang telah dihantar">
+                                                                        title="Borang perlu disahkan PHD">
                                                                 @elseif($data->status == 'Tidak Diisi')
                                                                     @php
                                                                         $time = strtotime($data->tarikh_tutup_borang);
@@ -1186,22 +1197,23 @@
                                                                                     title="Borang perlu diperaku"></i></a>
                                                                         @endif
                                                                     @else
-                                                                        <img src="{{ asset('package.png') }}"
-                                                                            height='40px' alt="" data-toggle="tooltip"
-                                                                            data-placement="bottom"
-                                                                            title="Pakej belum dihantar">
+                                                                        @if (!empty($data->tiada_pengeluaran) && $data->tiada_pengeluaran == 1)
+                                                                            <img src="{{ asset('tpbiru.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang telah disahkan oleh PHD - Tiada Pengeluaran">
+                                                                        @else
+                                                                            <img src="{{ asset('circle_check.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang telah disahkan oleh PHD">
+                                                                        @endif
                                                                     @endif
                                                                 @elseif($data->status == 'Sedang Diproses')
-                                                                    <img src="{{ asset('circle_check_yellow.png') }}" height='30px' alt=""
+                                                                    <img src="{{ asset('circle_times_yellow.png') }}" height='30px' alt=""
                                                                         style="color: white; font-size: 18pt;"
                                                                         data-toggle="tooltip" data-placement="bottom"
-                                                                        title="Borang telah dihantar"></i>
+                                                                        title="Borang perlu disahkan PHD"></i>
                                                                 @elseif($data->status == 'Tidak Lengkap')
                                                                     <img src="{{ asset('history.png') }}" height='30px' alt="" style="color: red; font-size: 20pt;" data-toggle="tooltip" data-placement="bottom" title="Borang tidak lengkap">
                                                                 @elseif($data->status == 'Tiada Pengeluaran')
-                                                                    <img src="{{ asset('circle_check_yellow.png') }}" height='30px' alt=""
+                                                                    <img src="{{ asset('circle_times_yellow.png') }}" height='30px' alt=""
                                                                         data-toggle="tooltip" data-placement="bottom"
-                                                                        title="Borang telah dihantar">
+                                                                        title="Borang perlu disahkan PHD">
                                                                 @elseif($data->status == 'Tidak Diisi')
                                                                     @php
                                                                         $time = strtotime($data->tarikh_tutup_borang);

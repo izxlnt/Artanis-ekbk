@@ -120,7 +120,7 @@
                                                     @if ($data->borang_a == 1)
                                                     <img src="{{ asset('circle_times_yellow.png') }}" height='30px' alt=""
                                                     style="color: green; font-size: 18pt;" data-toggle="tooltip"
-                                                    data-placement="bottom" title="Borang perlu disahkan"></i>
+                                                    data-placement="bottom" title="Borang perlu disahkan PHD"></i>
                                                     @elseif($data->borang_a == 2)
                                                         <img src="{{ asset('circle_check.png') }}" height='30px' alt=""
                                                             style="color: green; font-size: 18pt;" data-toggle="tooltip"
@@ -134,7 +134,7 @@
                                                     @if ($data->borang_b == 1)
                                                     <img src="{{ asset('circle_times_yellow.png') }}" height='30px' alt=""
                                                     style="color: green; font-size: 18pt;" data-toggle="tooltip"
-                                                    data-placement="bottom" title="Borang perlu disahkan"></i>
+                                                    data-placement="bottom" title="Borang perlu disahkan PHD"></i>
                                                     @elseif($data->borang_b == 2)
                                                         <img src="{{ asset('circle_check.png') }}" height='30px' alt=""
                                                             style="color: green; font-size: 18pt;" data-toggle="tooltip"
@@ -155,7 +155,7 @@
                                                     @if ($data->borang_c == 1)
                                                     <img src="{{ asset('circle_times_yellow.png') }}" height='30px' alt=""
                                                     style="color: green; font-size: 18pt;" data-toggle="tooltip"
-                                                    data-placement="bottom" title="Borang perlu disahkan"></i>
+                                                    data-placement="bottom" title="Borang perlu disahkan PHD"></i>
                                                     @elseif($data->borang_c == 2)
                                                         <img src="{{ asset('circle_check.png') }}" height='30px' alt=""
                                                             style="color: green; font-size: 18pt;" data-toggle="tooltip"
@@ -172,7 +172,7 @@
                                                     @if ($data->borang_d == 1)
                                                     <img src="{{ asset('circle_times_yellow.png') }}" height='30px' alt=""
                                                     style="color: green; font-size: 18pt;" data-toggle="tooltip"
-                                                    data-placement="bottom" title="Borang perlu disahkan"></i>
+                                                    data-placement="bottom" title="Borang perlu disahkan PHD"></i>
                                                     @elseif($data->borang_d == 2)
                                                         <img src="{{ asset('circle_check.png') }}" height='30px' alt=""
                                                             style="color: green; font-size: 18pt;" data-toggle="tooltip"

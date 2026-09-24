@@ -127,13 +127,13 @@
                                                         title="Borang telah dihantar"></i></a>
 
                                                         @elseif ($list && $list->status == 'Lulus')
-                                                <a href="{{ route('pengguna.shuttle-3-view-formA',$list->id) }}"><img src="{{ asset('circle_check.png') }}" height='30px' alt=""
+                                                <a href="{{ route('pengguna.shuttle-3-view-formA',$list->id) }}"><img src="{{ asset((!empty($list->tiada_pengeluaran) && $list->tiada_pengeluaran == 1) ? 'tp_logo2.png' : 'circle_check_yellow.png') }}" height='30px' alt=""
                                                         style="color: green; font-size: 20pt;"  data-toggle="tooltip" data-placement="bottom"
-                                                        title="Borang telah diperaku"></i></a>
+                                                        title="{{ (!empty($list->tiada_pengeluaran) && $list->tiada_pengeluaran == 1) ? 'Borang telah dihantar - Tiada Pengeluaran' : 'Borang telah dihantar' }}"></i></a>
                                                         @elseif ($list && $list->status == 'Dihantar ke IPJPSM')
-                                                <a href="{{ route('pengguna.shuttle-3-view-formA',$list->id) }}"><img src="{{ asset('circle_check.png') }}" height='30px' alt=""
+                                                <a href="{{ route('pengguna.shuttle-3-view-formA',$list->id) }}"><img src="{{ asset((!empty($list->tiada_pengeluaran) && $list->tiada_pengeluaran == 1) ? 'tp_logo2.png' : 'circle_check_yellow.png') }}" height='30px' alt=""
                                                         style="color: green; font-size: 20pt;"  data-toggle="tooltip" data-placement="bottom"
-                                                        title="Borang telah disahkan PHD"></i></a>
+                                                        title="{{ (!empty($list->tiada_pengeluaran) && $list->tiada_pengeluaran == 1) ? 'Borang telah dihantar - Tiada Pengeluaran' : 'Borang telah dihantar' }}"></i></a>
                                                 @elseif ($list && $list->status == 'Tidak Lengkap')
                                                     <a href="{{ url('/pengguna/shuttle-5-formA/' . $year) }}">
                                                        <img src="{{ asset('history.png') }}" height='30px' alt="" style="font-size: 15pt;"

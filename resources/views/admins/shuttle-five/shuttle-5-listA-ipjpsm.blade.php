@@ -126,10 +126,10 @@
                                                     @foreach ($formA as $form)
                                                         @if ($data->id == $form->shuttle_id)
                                                             @if ($form->status == 'Sedang Diproses')
-                                                                <img src="{{ asset('circle_check_yellow.png') }}" height='30px' alt=""
+                                                                <img src="{{ asset('circle_times_yellow.png') }}" height='30px' alt=""
                                                                     style="color: white; font-size: 18pt;"
                                                                     data-toggle="tooltip" data-placement="bottom"
-                                                                    title="Borang telah dihantar"></i>
+                                                                    title="Borang perlu disahkan PHD"></i>
                                                             @elseif($form->status == 'Tidak Lengkap')
                                                                <img src="{{ asset('history.png') }}" height='30px' alt=""
                                                                     style="color: red; font-size: 20pt;"

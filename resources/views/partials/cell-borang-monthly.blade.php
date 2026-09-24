@@ -36,13 +36,13 @@
             style="color:#dbd400;font-size:20pt"
             data-toggle="tooltip" data-placement="bottom" title="Borang tidak lengkap">
     @elseif ($data->status == 'Sedang Diproses')
-        <img src="{{ asset('circle_check_yellow.png') }}" height='30px' alt=""
+        <img src="{{ asset('circle_times_yellow.png') }}" height='30px' alt=""
             style="color:#dbd400;font-size:25pt"
-            data-toggle="tooltip" data-placement="bottom" title="Borang telah dihantar">
+            data-toggle="tooltip" data-placement="bottom" title="Borang perlu disahkan PHD">
     @elseif ($data->status == 'Tiada Pengeluaran')
-        <img src="{{ asset('circle_check_yellow.png') }}" height='30px' alt=""
+        <img src="{{ asset('circle_times_yellow.png') }}" height='30px' alt=""
             style="color:#dbd400;font-size:20pt"
-            data-toggle="tooltip" data-placement="bottom" title="Borang telah dihantar - Tiada Pengeluaran">
+            data-toggle="tooltip" data-placement="bottom" title="Borang perlu disahkan PHD - Tiada Pengeluaran">
     @elseif ($data->status == 'Dihantar ke IPJPSM')
         @if ($current_batch && $current_batch->status == 'Dihantar ke IPJPSM' && $current_batch->$batchField == 2)
             @if (isset($data->tiada_pengeluaran) && $data->tiada_pengeluaran == 1)
@@ -59,8 +59,11 @@
                 </a>
             @endif
         @else
-            <img src="{{ asset('package.png') }}" height='40px' alt=""
-                data-toggle="tooltip" data-placement="bottom" title="Pakej belum dihantar">
+            @if (!empty($data->tiada_pengeluaran) && $data->tiada_pengeluaran == 1)
+                <img src="{{ asset('tpbiru.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang telah disahkan oleh PHD - Tiada Pengeluaran">
+            @else
+                <img src="{{ asset('circle_check.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang telah disahkan oleh PHD">
+            @endif
         @endif
     @elseif ($data->status == 'Lulus')
         @if (isset($data->tiada_pengeluaran) && $data->tiada_pengeluaran == 1)

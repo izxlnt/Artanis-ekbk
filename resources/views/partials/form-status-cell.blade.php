@@ -82,10 +82,10 @@
         @endif
     @else
         @if($isOwner)
-            <img src="{{ asset('circle_check.png') }}" height="28" data-toggle="tooltip" data-placement="bottom" title="Borang telah disahkan">
+            <img src="{{ asset((!empty($form->tiada_pengeluaran) && $form->tiada_pengeluaran == 1) ? 'tp_logo2.png' : 'circle_check_yellow.png') }}" height="28" data-toggle="tooltip" data-placement="bottom" title="{{ (!empty($form->tiada_pengeluaran) && $form->tiada_pengeluaran == 1) ? 'Borang telah dihantar - Tiada Pengeluaran' : 'Borang telah dihantar' }}">
         @else
-            <a href="{{ $viewLink }}" data-toggle="tooltip" data-placement="bottom" title="Borang telah disahkan">
-                <img src="{{ asset('circle_check.png') }}" height="28">
+            <a href="{{ $viewLink }}" data-toggle="tooltip" data-placement="bottom" title="{{ (!empty($form->tiada_pengeluaran) && $form->tiada_pengeluaran == 1) ? 'Borang telah dihantar - Tiada Pengeluaran' : 'Borang telah dihantar' }}">
+                <img src="{{ asset((!empty($form->tiada_pengeluaran) && $form->tiada_pengeluaran == 1) ? 'tp_logo2.png' : 'circle_check_yellow.png') }}" height="28">
             </a>
         @endif
     @endif

@@ -154,8 +154,8 @@
                                                         <img src="{{ asset('circle_check_yellow.png') }}" height='30px' alt=""
                                                             data-toggle="tooltip" data-placement="bottom" title="Borang telah dihantar">
                                                     @elseif(in_array($data->status, ['Lulus', 'Dihantar ke IPJPSM']))
-                                                        <img src="{{ asset('circle_check.png') }}" height='30px' alt=""
-                                                            data-toggle="tooltip" data-placement="bottom" title="Borang telah disahkan">
+                                                        <img src="{{ asset((!empty($data->tiada_pengeluaran) && $data->tiada_pengeluaran == 1) ? 'tp_logo2.png' : 'circle_check_yellow.png') }}" height='30px' alt=""
+                                                            data-toggle="tooltip" data-placement="bottom" title="{{ (!empty($data->tiada_pengeluaran) && $data->tiada_pengeluaran == 1) ? 'Borang telah dihantar - Tiada Pengeluaran' : 'Borang telah dihantar' }}">
                                                     @else
                                                         <a href="" class="mr-1 btn btn-dark disabled"><i
                                                                 class="fas fa-pencil-alt"></i></a>

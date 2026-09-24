@@ -118,7 +118,7 @@
                                                 </td>
                                                 <td>
                                                     @if ($data->status == 'Sedang Diproses')
-                                                        <a href="#"><img src="{{ asset('circle_check_yellow.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang telah dihantar"></a>
+                                                        <a href="#"><img src="{{ asset('circle_times_yellow.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang perlu disahkan PHD"></a>
                                                     @elseif($data->status == 'Tidak Lengkap')
                                                        <img src="{{ asset('history.png') }}" height='30px' alt="" style="color: #dbd400; font-size: 20pt;"
                                                             data-toggle="tooltip" data-placement="bottom"

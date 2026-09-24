@@ -132,9 +132,9 @@
 
                                                 <td>
                                                     @if ($data->status == 'Sedang Diproses')
-                                                    <a href="{{ route('jpn.shuttle-3-view-formA',$data->id) }}" ><img src="{{ asset('circle_check_yellow.png') }}" height='30px' alt="" style="color: white; font-size: 20pt;"
+                                                    <a href="{{ route('jpn.shuttle-3-view-formA',$data->id) }}" ><img src="{{ asset('circle_times_yellow.png') }}" height='30px' alt="" style="color: white; font-size: 20pt;"
                                                         data-toggle="tooltip" data-placement="bottom"
-                                                        data-original-title="Borang telah dihantar"></i>
+                                                        data-original-title="Borang perlu disahkan PHD"></i>
                                                     </a>
                                                     @elseif($data->status == "Tidak Lengkap")
                                                     <a href="{{ route('jpn.shuttle-3-view-formA',$data->id) }}">

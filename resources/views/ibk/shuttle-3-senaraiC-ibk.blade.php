@@ -153,16 +153,16 @@
                                                         @if ($data->tiada_pengeluaran == 1)
                                                             <a
                                                                 href="{{ route('pengguna.shuttle-3-view-formC', $data->id) }}">
-                                                                <img src="{{ asset('circle_check.png') }}" height='30px' alt=""
+                                                                <img src="{{ asset('tp_logo2.png') }}" height='30px' alt=""
                                                                     data-toggle="tooltip" data-placement="bottom"
-                                                                    title="Borang telah disahkan PHD - Tiada Pengeluaran"></a>
+                                                                    title="Borang telah dihantar - Tiada Pengeluaran"></a>
                                                         @else
                                                             <a
                                                                 href="{{ route('pengguna.shuttle-3-view-formC', $data->id) }}">
-                                                                <img src="{{ asset('circle_check.png') }}" height='30px'
+                                                                <img src="{{ asset((!empty($data->tiada_pengeluaran) && $data->tiada_pengeluaran == 1) ? 'tp_logo2.png' : 'circle_check_yellow.png') }}" height='30px'
                                                                     alt="" style="color: green; font-size: 20pt;"
                                                                     data-toggle="tooltip" data-placement="bottom"
-                                                                    title="Borang telah disahkan"></i></a>
+                                                                    title="{{ (!empty($data->tiada_pengeluaran) && $data->tiada_pengeluaran == 1) ? 'Borang telah dihantar - Tiada Pengeluaran' : 'Borang telah dihantar' }}"></i></a>
                                                         @endif
                                                     @elseif($data->status == 'Tiada Pengeluaran' && $data->bulan == '1')
                                                         <a
@@ -178,9 +178,9 @@
                                                     @elseif($data->status == 'Lulus' && $data->bulan == '1')
                                                         <a
                                                             href="{{ route('pengguna.shuttle-3-view-formC', $data->id) }}">
-                                                            <img src="{{ asset('circle_check.png') }}" height='30px'
+                                                            <img src="{{ asset((!empty($data->tiada_pengeluaran) && $data->tiada_pengeluaran == 1) ? 'tp_logo2.png' : 'circle_check_yellow.png') }}" height='30px'
                                                                 alt="" data-toggle="tooltip" data-placement="bottom"
-                                                                title="Borang telah disahkan"
+                                                                title="{{ (!empty($data->tiada_pengeluaran) && $data->tiada_pengeluaran == 1) ? 'Borang telah dihantar - Tiada Pengeluaran' : 'Borang telah dihantar' }}"
                                                                 style="color: green; font-size: 20pt;"></i></a>
                                                     @elseif($data->status == 'Sedang Diisi' && $data->bulan == '1')
                                                         <a href="{{ route('user.shuttle-3-formC.KKB', [$id = 1, $year]) }}">
@@ -226,16 +226,16 @@
                                                         @if ($data->tiada_pengeluaran == 1)
                                                             <a
                                                                 href="{{ route('pengguna.shuttle-3-view-formC', $data->id) }}">
-                                                                <img src="{{ asset('circle_check.png') }}" height='30px' alt=""
+                                                                <img src="{{ asset('tp_logo2.png') }}" height='30px' alt=""
                                                                     data-toggle="tooltip" data-placement="bottom"
-                                                                    title="Borang telah disahkan PHD - Tiada Pengeluaran"></a>
+                                                                    title="Borang telah dihantar - Tiada Pengeluaran"></a>
                                                         @else
                                                             <a
                                                                 href="{{ route('pengguna.shuttle-3-view-formC', $data->id) }}">
-                                                                <img src="{{ asset('circle_check.png') }}" height='30px'
+                                                                <img src="{{ asset((!empty($data->tiada_pengeluaran) && $data->tiada_pengeluaran == 1) ? 'tp_logo2.png' : 'circle_check_yellow.png') }}" height='30px'
                                                                     alt="" style="color: green; font-size: 20pt;"
                                                                     data-toggle="tooltip" data-placement="bottom"
-                                                                    title="Borang telah disahkan"></i></a>
+                                                                    title="{{ (!empty($data->tiada_pengeluaran) && $data->tiada_pengeluaran == 1) ? 'Borang telah dihantar - Tiada Pengeluaran' : 'Borang telah dihantar' }}"></i></a>
                                                         @endif
                                                     @elseif($data->status == 'Tiada Pengeluaran' && $data->bulan == '2')
                                                         <a
@@ -251,9 +251,9 @@
                                                     @elseif($data->status == 'Lulus' && $data->bulan == '2')
                                                         <a
                                                             href="{{ route('pengguna.shuttle-3-view-formC', $data->id) }}">
-                                                            <img src="{{ asset('circle_check.png') }}" height='30px'
+                                                            <img src="{{ asset((!empty($data->tiada_pengeluaran) && $data->tiada_pengeluaran == 1) ? 'tp_logo2.png' : 'circle_check_yellow.png') }}" height='30px'
                                                                 alt="" data-toggle="tooltip" data-placement="bottom"
-                                                                title="Borang telah disahkan"
+                                                                title="{{ (!empty($data->tiada_pengeluaran) && $data->tiada_pengeluaran == 1) ? 'Borang telah dihantar - Tiada Pengeluaran' : 'Borang telah dihantar' }}"
                                                                 style="color: green; font-size: 20pt;"></i></a>
                                                     @elseif($data->status == 'Sedang Diisi' && $data->bulan == '2')
                                                         <a href="{{ route('user.shuttle-3-formC.KKB', [$id = 2, $year]) }}">
@@ -299,16 +299,16 @@
                                                         @if ($data->tiada_pengeluaran == 1)
                                                             <a
                                                                 href="{{ route('pengguna.shuttle-3-view-formC', $data->id) }}">
-                                                                <img src="{{ asset('circle_check.png') }}" height='30px' alt=""
+                                                                <img src="{{ asset('tp_logo2.png') }}" height='30px' alt=""
                                                                     data-toggle="tooltip" data-placement="bottom"
-                                                                    title="Borang telah disahkan PHD - Tiada Pengeluaran"></a>
+                                                                    title="Borang telah dihantar - Tiada Pengeluaran"></a>
                                                         @else
                                                             <a
                                                                 href="{{ route('pengguna.shuttle-3-view-formC', $data->id) }}">
-                                                                <img src="{{ asset('circle_check.png') }}" height='30px'
+                                                                <img src="{{ asset((!empty($data->tiada_pengeluaran) && $data->tiada_pengeluaran == 1) ? 'tp_logo2.png' : 'circle_check_yellow.png') }}" height='30px'
                                                                     alt="" style="color: green; font-size: 20pt;"
                                                                     data-toggle="tooltip" data-placement="bottom"
-                                                                    title="Borang telah disahkan"></i></a>
+                                                                    title="{{ (!empty($data->tiada_pengeluaran) && $data->tiada_pengeluaran == 1) ? 'Borang telah dihantar - Tiada Pengeluaran' : 'Borang telah dihantar' }}"></i></a>
                                                         @endif
                                                     @elseif($data->status == 'Tiada Pengeluaran' && $data->bulan == '3')
                                                         <a
@@ -324,9 +324,9 @@
                                                     @elseif($data->status == 'Lulus' && $data->bulan == '3')
                                                         <a
                                                             href="{{ route('pengguna.shuttle-3-view-formC', $data->id) }}">
-                                                            <img src="{{ asset('circle_check.png') }}" height='30px'
+                                                            <img src="{{ asset((!empty($data->tiada_pengeluaran) && $data->tiada_pengeluaran == 1) ? 'tp_logo2.png' : 'circle_check_yellow.png') }}" height='30px'
                                                                 alt="" data-toggle="tooltip" data-placement="bottom"
-                                                                title="Borang telah disahkan"
+                                                                title="{{ (!empty($data->tiada_pengeluaran) && $data->tiada_pengeluaran == 1) ? 'Borang telah dihantar - Tiada Pengeluaran' : 'Borang telah dihantar' }}"
                                                                 style="color: green; font-size: 20pt;"></i></a>
                                                     @elseif($data->status == 'Sedang Diisi' && $data->bulan == '3')
                                                     <a href="{{ route('user.shuttle-3-formC.KKB', [$id = 3, $year]) }}">
@@ -372,16 +372,16 @@
                                                         @if ($data->tiada_pengeluaran == 1)
                                                             <a
                                                                 href="{{ route('pengguna.shuttle-3-view-formC', $data->id) }}">
-                                                                <img src="{{ asset('circle_check.png') }}" height='30px' alt=""
+                                                                <img src="{{ asset('tp_logo2.png') }}" height='30px' alt=""
                                                                     data-toggle="tooltip" data-placement="bottom"
-                                                                    title="Borang telah disahkan PHD - Tiada Pengeluaran"></a>
+                                                                    title="Borang telah dihantar - Tiada Pengeluaran"></a>
                                                         @else
                                                             <a
                                                                 href="{{ route('pengguna.shuttle-3-view-formC', $data->id) }}">
-                                                                <img src="{{ asset('circle_check.png') }}" height='30px'
+                                                                <img src="{{ asset((!empty($data->tiada_pengeluaran) && $data->tiada_pengeluaran == 1) ? 'tp_logo2.png' : 'circle_check_yellow.png') }}" height='30px'
                                                                     alt="" style="color: green; font-size: 20pt;"
                                                                     data-toggle="tooltip" data-placement="bottom"
-                                                                    title="Borang telah disahkan"></i></a>
+                                                                    title="{{ (!empty($data->tiada_pengeluaran) && $data->tiada_pengeluaran == 1) ? 'Borang telah dihantar - Tiada Pengeluaran' : 'Borang telah dihantar' }}"></i></a>
                                                         @endif
                                                     @elseif($data->status == 'Tiada Pengeluaran' && $data->bulan == '4')
                                                         <a
@@ -397,9 +397,9 @@
                                                     @elseif($data->status == 'Lulus' && $data->bulan == '4')
                                                         <a
                                                             href="{{ route('pengguna.shuttle-3-view-formC', $data->id) }}">
-                                                            <img src="{{ asset('circle_check.png') }}" height='30px'
+                                                            <img src="{{ asset((!empty($data->tiada_pengeluaran) && $data->tiada_pengeluaran == 1) ? 'tp_logo2.png' : 'circle_check_yellow.png') }}" height='30px'
                                                                 alt="" data-toggle="tooltip" data-placement="bottom"
-                                                                title="Borang telah disahkan"
+                                                                title="{{ (!empty($data->tiada_pengeluaran) && $data->tiada_pengeluaran == 1) ? 'Borang telah dihantar - Tiada Pengeluaran' : 'Borang telah dihantar' }}"
                                                                 style="color: green; font-size: 20pt;"></i></a>
                                                     @elseif($data->status == 'Sedang Diisi' && $data->bulan == '4')
                                                     <a href="{{ route('user.shuttle-3-formC.KKB', [$id = 4, $year]) }}">
@@ -445,16 +445,16 @@
                                                         @if ($data->tiada_pengeluaran == 1)
                                                             <a
                                                                 href="{{ route('pengguna.shuttle-3-view-formC', $data->id) }}">
-                                                                <img src="{{ asset('circle_check.png') }}" height='30px' alt=""
+                                                                <img src="{{ asset('tp_logo2.png') }}" height='30px' alt=""
                                                                     data-toggle="tooltip" data-placement="bottom"
-                                                                    title="Borang telah disahkan PHD - Tiada Pengeluaran"></a>
+                                                                    title="Borang telah dihantar - Tiada Pengeluaran"></a>
                                                         @else
                                                             <a
                                                                 href="{{ route('pengguna.shuttle-3-view-formC', $data->id) }}">
-                                                                <img src="{{ asset('circle_check.png') }}" height='30px'
+                                                                <img src="{{ asset((!empty($data->tiada_pengeluaran) && $data->tiada_pengeluaran == 1) ? 'tp_logo2.png' : 'circle_check_yellow.png') }}" height='30px'
                                                                     alt="" style="color: green; font-size: 20pt;"
                                                                     data-toggle="tooltip" data-placement="bottom"
-                                                                    title="Borang telah disahkan"></i></a>
+                                                                    title="{{ (!empty($data->tiada_pengeluaran) && $data->tiada_pengeluaran == 1) ? 'Borang telah dihantar - Tiada Pengeluaran' : 'Borang telah dihantar' }}"></i></a>
                                                         @endif
                                                     @elseif($data->status == 'Tiada Pengeluaran' && $data->bulan == '5')
                                                         <a
@@ -470,9 +470,9 @@
                                                     @elseif($data->status == 'Lulus' && $data->bulan == '5')
                                                         <a
                                                             href="{{ route('pengguna.shuttle-3-view-formC', $data->id) }}">
-                                                            <img src="{{ asset('circle_check.png') }}" height='30px'
+                                                            <img src="{{ asset((!empty($data->tiada_pengeluaran) && $data->tiada_pengeluaran == 1) ? 'tp_logo2.png' : 'circle_check_yellow.png') }}" height='30px'
                                                                 alt="" data-toggle="tooltip" data-placement="bottom"
-                                                                title="Borang telah disahkan"
+                                                                title="{{ (!empty($data->tiada_pengeluaran) && $data->tiada_pengeluaran == 1) ? 'Borang telah dihantar - Tiada Pengeluaran' : 'Borang telah dihantar' }}"
                                                                 style="color: green; font-size: 20pt;"></i></a>
                                                     @elseif($data->status == 'Sedang Diisi' && $data->bulan == '5')
                                                     <a href="{{ route('user.shuttle-3-formC.KKB', [$id = 5, $year]) }}">
@@ -518,16 +518,16 @@
                                                         @if ($data->tiada_pengeluaran == 1)
                                                             <a
                                                                 href="{{ route('pengguna.shuttle-3-view-formC', $data->id) }}">
-                                                                <img src="{{ asset('circle_check.png') }}" height='30px' alt=""
+                                                                <img src="{{ asset('tp_logo2.png') }}" height='30px' alt=""
                                                                     data-toggle="tooltip" data-placement="bottom"
-                                                                    title="Borang telah disahkan PHD - Tiada Pengeluaran"></a>
+                                                                    title="Borang telah dihantar - Tiada Pengeluaran"></a>
                                                         @else
                                                             <a
                                                                 href="{{ route('pengguna.shuttle-3-view-formC', $data->id) }}">
-                                                                <img src="{{ asset('circle_check.png') }}" height='30px'
+                                                                <img src="{{ asset((!empty($data->tiada_pengeluaran) && $data->tiada_pengeluaran == 1) ? 'tp_logo2.png' : 'circle_check_yellow.png') }}" height='30px'
                                                                     alt="" style="color: green; font-size: 20pt;"
                                                                     data-toggle="tooltip" data-placement="bottom"
-                                                                    title="Borang telah disahkan"></i></a>
+                                                                    title="{{ (!empty($data->tiada_pengeluaran) && $data->tiada_pengeluaran == 1) ? 'Borang telah dihantar - Tiada Pengeluaran' : 'Borang telah dihantar' }}"></i></a>
                                                         @endif
                                                     @elseif($data->status == 'Tiada Pengeluaran' && $data->bulan == '6')
                                                         <a
@@ -543,9 +543,9 @@
                                                     @elseif($data->status == 'Lulus' && $data->bulan == '6')
                                                         <a
                                                             href="{{ route('pengguna.shuttle-3-view-formC', $data->id) }}">
-                                                            <img src="{{ asset('circle_check.png') }}" height='30px'
+                                                            <img src="{{ asset((!empty($data->tiada_pengeluaran) && $data->tiada_pengeluaran == 1) ? 'tp_logo2.png' : 'circle_check_yellow.png') }}" height='30px'
                                                                 alt="" data-toggle="tooltip" data-placement="bottom"
-                                                                title="Borang telah disahkan"
+                                                                title="{{ (!empty($data->tiada_pengeluaran) && $data->tiada_pengeluaran == 1) ? 'Borang telah dihantar - Tiada Pengeluaran' : 'Borang telah dihantar' }}"
                                                                 style="color: green; font-size: 20pt;"></i></a>
                                                     @elseif($data->status == 'Sedang Diisi' && $data->bulan == '6')
                                                     <a href="{{ route('user.shuttle-3-formC.KKB', [$id = 6, $year]) }}">
@@ -591,16 +591,16 @@
                                                         @if ($data->tiada_pengeluaran == 1)
                                                             <a
                                                                 href="{{ route('pengguna.shuttle-3-view-formC', $data->id) }}">
-                                                                <img src="{{ asset('circle_check.png') }}" height='30px'
+                                                                <img src="{{ asset('tp_logo2.png') }}" height='30px'
                                                                     alt="" data-toggle="tooltip" data-placement="bottom"
-                                                                    title="Borang telah disahkan PHD - Tiada Pengeluaran"></a>
+                                                                    title="Borang telah dihantar - Tiada Pengeluaran"></a>
                                                         @else
                                                             <a
                                                                 href="{{ route('pengguna.shuttle-3-view-formC', $data->id) }}">
-                                                                <img src="{{ asset('circle_check.png') }}" height='30px'
+                                                                <img src="{{ asset((!empty($data->tiada_pengeluaran) && $data->tiada_pengeluaran == 1) ? 'tp_logo2.png' : 'circle_check_yellow.png') }}" height='30px'
                                                                     alt="" style="color: green; font-size: 20pt;"
                                                                     data-toggle="tooltip" data-placement="bottom"
-                                                                    title="Borang telah disahkan"></i></a>
+                                                                    title="{{ (!empty($data->tiada_pengeluaran) && $data->tiada_pengeluaran == 1) ? 'Borang telah dihantar - Tiada Pengeluaran' : 'Borang telah dihantar' }}"></i></a>
                                                         @endif
                                                     @elseif($data->status == 'Tiada Pengeluaran' && $data->bulan == '7')
                                                         <a
@@ -618,9 +618,9 @@
                                                         @elseif($data->status == 'Lulus' && $data->bulan == '7')
                                                             <a
                                                                 href="{{ route('pengguna.shuttle-3-view-formC', $data->id) }}">
-                                                                <img src="{{ asset('circle_check.png') }}" height='30px'
+                                                                <img src="{{ asset((!empty($data->tiada_pengeluaran) && $data->tiada_pengeluaran == 1) ? 'tp_logo2.png' : 'circle_check_yellow.png') }}" height='30px'
                                                                     alt="" data-toggle="tooltip" data-placement="bottom"
-                                                                    title="Borang telah disahkan"
+                                                                    title="{{ (!empty($data->tiada_pengeluaran) && $data->tiada_pengeluaran == 1) ? 'Borang telah dihantar - Tiada Pengeluaran' : 'Borang telah dihantar' }}"
                                                                     style="color: green; font-size: 20pt;"></i></a>
                                                         @elseif($data->status == 'Sedang Diisi' && $data->bulan == '7')
                                                         <a href="{{ route('user.shuttle-3-formC.KKB', [$id = 7, $year]) }}">
@@ -666,16 +666,16 @@
                                                         @if ($data->tiada_pengeluaran == 1)
                                                             <a
                                                                 href="{{ route('pengguna.shuttle-3-view-formC', $data->id) }}">
-                                                                <img src="{{ asset('circle_check.png') }}" height='30px'
+                                                                <img src="{{ asset('tp_logo2.png') }}" height='30px'
                                                                     alt="" data-toggle="tooltip" data-placement="bottom"
-                                                                    title="Borang telah disahkan PHD - Tiada Pengeluaran"></a>
+                                                                    title="Borang telah dihantar - Tiada Pengeluaran"></a>
                                                         @else
                                                             <a
                                                                 href="{{ route('pengguna.shuttle-3-view-formC', $data->id) }}">
-                                                                <img src="{{ asset('circle_check.png') }}" height='30px'
+                                                                <img src="{{ asset((!empty($data->tiada_pengeluaran) && $data->tiada_pengeluaran == 1) ? 'tp_logo2.png' : 'circle_check_yellow.png') }}" height='30px'
                                                                     alt="" style="color: green; font-size: 20pt;"
                                                                     data-toggle="tooltip" data-placement="bottom"
-                                                                    title="Borang telah disahkan"></i></a>
+                                                                    title="{{ (!empty($data->tiada_pengeluaran) && $data->tiada_pengeluaran == 1) ? 'Borang telah dihantar - Tiada Pengeluaran' : 'Borang telah dihantar' }}"></i></a>
                                                         @endif
                                                     @elseif($data->status == 'Tiada Pengeluaran' && $data->bulan == '8')
                                                         <a
@@ -691,9 +691,9 @@
                                                     @elseif($data->status == 'Lulus' && $data->bulan == '8')
                                                         <a
                                                             href="{{ route('pengguna.shuttle-3-view-formC', $data->id) }}">
-                                                            <img src="{{ asset('circle_check.png') }}" height='30px'
+                                                            <img src="{{ asset((!empty($data->tiada_pengeluaran) && $data->tiada_pengeluaran == 1) ? 'tp_logo2.png' : 'circle_check_yellow.png') }}" height='30px'
                                                                 alt="" data-toggle="tooltip" data-placement="bottom"
-                                                                title="Borang telah disahkan"
+                                                                title="{{ (!empty($data->tiada_pengeluaran) && $data->tiada_pengeluaran == 1) ? 'Borang telah dihantar - Tiada Pengeluaran' : 'Borang telah dihantar' }}"
                                                                 style="color: green; font-size: 20pt;"></i></a>
                                                     @elseif($data->status == 'Sedang Diisi' && $data->bulan == '8')
                                                     <a href="{{ route('user.shuttle-3-formC.KKB', [$id = 8, $year]) }}">
@@ -739,16 +739,16 @@
                                                         @if ($data->tiada_pengeluaran == 1)
                                                             <a
                                                                 href="{{ route('pengguna.shuttle-3-view-formC', $data->id) }}">
-                                                                <img src="{{ asset('circle_check.png') }}" height='30px'
+                                                                <img src="{{ asset('tp_logo2.png') }}" height='30px'
                                                                     alt="" data-toggle="tooltip" data-placement="bottom"
-                                                                    title="Borang telah disahkan PHD - Tiada Pengeluaran"></a>
+                                                                    title="Borang telah dihantar - Tiada Pengeluaran"></a>
                                                         @else
                                                             <a
                                                                 href="{{ route('pengguna.shuttle-3-view-formC', $data->id) }}">
-                                                                <img src="{{ asset('circle_check.png') }}" height='30px'
+                                                                <img src="{{ asset((!empty($data->tiada_pengeluaran) && $data->tiada_pengeluaran == 1) ? 'tp_logo2.png' : 'circle_check_yellow.png') }}" height='30px'
                                                                     alt="" style="color: green; font-size: 20pt;"
                                                                     data-toggle="tooltip" data-placement="bottom"
-                                                                    title="Borang telah disahkan"></i></a>
+                                                                    title="{{ (!empty($data->tiada_pengeluaran) && $data->tiada_pengeluaran == 1) ? 'Borang telah dihantar - Tiada Pengeluaran' : 'Borang telah dihantar' }}"></i></a>
                                                         @endif
                                                     @elseif($data->status == 'Tiada Pengeluaran' && $data->bulan == '9')
                                                         <a
@@ -764,9 +764,9 @@
                                                     @elseif($data->status == 'Lulus' && $data->bulan == '9')
                                                         <a
                                                             href="{{ route('pengguna.shuttle-3-view-formC', $data->id) }}">
-                                                            <img src="{{ asset('circle_check.png') }}" height='30px'
+                                                            <img src="{{ asset((!empty($data->tiada_pengeluaran) && $data->tiada_pengeluaran == 1) ? 'tp_logo2.png' : 'circle_check_yellow.png') }}" height='30px'
                                                                 alt="" data-toggle="tooltip" data-placement="bottom"
-                                                                title="Borang telah disahkan"
+                                                                title="{{ (!empty($data->tiada_pengeluaran) && $data->tiada_pengeluaran == 1) ? 'Borang telah dihantar - Tiada Pengeluaran' : 'Borang telah dihantar' }}"
                                                                 style="color: green; font-size: 20pt;"></i></a>
                                                     @elseif($data->status == 'Sedang Diisi' && $data->bulan == '9')
                                                     <a href="{{ route('user.shuttle-3-formC.KKB', [$id = 9, $year]) }}">
@@ -812,16 +812,16 @@
                                                         @if ($data->tiada_pengeluaran == 1)
                                                             <a
                                                                 href="{{ route('pengguna.shuttle-3-view-formC', $data->id) }}">
-                                                                <img src="{{ asset('circle_check.png') }}" height='30px'
+                                                                <img src="{{ asset('tp_logo2.png') }}" height='30px'
                                                                     alt="" data-toggle="tooltip" data-placement="bottom"
-                                                                    title="Borang telah disahkan PHD - Tiada Pengeluaran"></a>
+                                                                    title="Borang telah dihantar - Tiada Pengeluaran"></a>
                                                         @else
                                                             <a
                                                                 href="{{ route('pengguna.shuttle-3-view-formC', $data->id) }}">
-                                                                <img src="{{ asset('circle_check.png') }}" height='30px'
+                                                                <img src="{{ asset((!empty($data->tiada_pengeluaran) && $data->tiada_pengeluaran == 1) ? 'tp_logo2.png' : 'circle_check_yellow.png') }}" height='30px'
                                                                     alt="" style="color: green; font-size: 20pt;"
                                                                     data-toggle="tooltip" data-placement="bottom"
-                                                                    title="Borang telah disahkan"></i></a>
+                                                                    title="{{ (!empty($data->tiada_pengeluaran) && $data->tiada_pengeluaran == 1) ? 'Borang telah dihantar - Tiada Pengeluaran' : 'Borang telah dihantar' }}"></i></a>
                                                         @endif
                                                     @elseif($data->status == 'Tiada Pengeluaran' && $data->bulan == '10')
                                                         <a
@@ -837,9 +837,9 @@
                                                     @elseif($data->status == 'Lulus' && $data->bulan == '10')
                                                         <a
                                                             href="{{ route('pengguna.shuttle-3-view-formC', $data->id) }}">
-                                                            <img src="{{ asset('circle_check.png') }}" height='30px'
+                                                            <img src="{{ asset((!empty($data->tiada_pengeluaran) && $data->tiada_pengeluaran == 1) ? 'tp_logo2.png' : 'circle_check_yellow.png') }}" height='30px'
                                                                 alt="" data-toggle="tooltip" data-placement="bottom"
-                                                                title="Borang telah disahkan"
+                                                                title="{{ (!empty($data->tiada_pengeluaran) && $data->tiada_pengeluaran == 1) ? 'Borang telah dihantar - Tiada Pengeluaran' : 'Borang telah dihantar' }}"
                                                                 style="color: green; font-size: 20pt;"></i></a>
                                                     @elseif($data->status == 'Sedang Diisi' && $data->bulan == '10')
                                                     <a href="{{ route('user.shuttle-3-formC.KKB', [$id = 10, $year]) }}">
@@ -885,16 +885,16 @@
                                                         @if ($data->tiada_pengeluaran == 1)
                                                             <a
                                                                 href="{{ route('pengguna.shuttle-3-view-formC', $data->id) }}">
-                                                                <img src="{{ asset('circle_check.png') }}" height='30px'
+                                                                <img src="{{ asset('tp_logo2.png') }}" height='30px'
                                                                     alt="" data-toggle="tooltip" data-placement="bottom"
-                                                                    title="Borang telah disahkan PHD - Tiada Pengeluaran"></a>
+                                                                    title="Borang telah dihantar - Tiada Pengeluaran"></a>
                                                         @else
                                                             <a
                                                                 href="{{ route('pengguna.shuttle-3-view-formC', $data->id) }}">
-                                                                <img src="{{ asset('circle_check.png') }}" height='30px'
+                                                                <img src="{{ asset((!empty($data->tiada_pengeluaran) && $data->tiada_pengeluaran == 1) ? 'tp_logo2.png' : 'circle_check_yellow.png') }}" height='30px'
                                                                     alt="" style="color: green; font-size: 20pt;"
                                                                     data-toggle="tooltip" data-placement="bottom"
-                                                                    title="Borang telah disahkan"></i></a>
+                                                                    title="{{ (!empty($data->tiada_pengeluaran) && $data->tiada_pengeluaran == 1) ? 'Borang telah dihantar - Tiada Pengeluaran' : 'Borang telah dihantar' }}"></i></a>
                                                         @endif
                                                     @elseif($data->status == 'Tiada Pengeluaran' && $data->bulan == '11')
                                                         <a
@@ -910,9 +910,9 @@
                                                     @elseif($data->status == 'Lulus' && $data->bulan == '11')
                                                         <a
                                                             href="{{ route('pengguna.shuttle-3-view-formC', $data->id) }}">
-                                                            <img src="{{ asset('circle_check.png') }}" height='30px'
+                                                            <img src="{{ asset((!empty($data->tiada_pengeluaran) && $data->tiada_pengeluaran == 1) ? 'tp_logo2.png' : 'circle_check_yellow.png') }}" height='30px'
                                                                 alt="" data-toggle="tooltip" data-placement="bottom"
-                                                                title="Borang telah disahkan"
+                                                                title="{{ (!empty($data->tiada_pengeluaran) && $data->tiada_pengeluaran == 1) ? 'Borang telah dihantar - Tiada Pengeluaran' : 'Borang telah dihantar' }}"
                                                                 style="color: green; font-size: 20pt;"></i></a>
                                                     @elseif($data->status == 'Sedang Diisi' && $data->bulan == '11')
                                                     <a href="{{ route('user.shuttle-3-formC.KKB', [$id = 11, $year]) }}">
@@ -958,16 +958,16 @@
                                                         @if ($data->tiada_pengeluaran == 1)
                                                             <a
                                                                 href="{{ route('pengguna.shuttle-3-view-formC', $data->id) }}">
-                                                                <img src="{{ asset('circle_check.png') }}" height='30px'
+                                                                <img src="{{ asset('tp_logo2.png') }}" height='30px'
                                                                     alt="" data-toggle="tooltip" data-placement="bottom"
-                                                                    title="Borang telah disahkan PHD - Tiada Pengeluaran"></a>
+                                                                    title="Borang telah dihantar - Tiada Pengeluaran"></a>
                                                         @else
                                                             <a
                                                                 href="{{ route('pengguna.shuttle-3-view-formC', $data->id) }}">
-                                                                <img src="{{ asset('circle_check.png') }}" height='30px'
+                                                                <img src="{{ asset((!empty($data->tiada_pengeluaran) && $data->tiada_pengeluaran == 1) ? 'tp_logo2.png' : 'circle_check_yellow.png') }}" height='30px'
                                                                     alt="" style="color: green; font-size: 20pt;"
                                                                     data-toggle="tooltip" data-placement="bottom"
-                                                                    title="Borang telah disahkan"></i></a>
+                                                                    title="{{ (!empty($data->tiada_pengeluaran) && $data->tiada_pengeluaran == 1) ? 'Borang telah dihantar - Tiada Pengeluaran' : 'Borang telah dihantar' }}"></i></a>
                                                         @endif
                                                     @elseif($data->status == 'Tiada Pengeluaran' && $data->bulan == '12')
                                                         <a
@@ -983,9 +983,9 @@
                                                     @elseif($data->status == 'Lulus' && $data->bulan == '12')
                                                         <a
                                                             href="{{ route('pengguna.shuttle-3-view-formC', $data->id) }}">
-                                                            <img src="{{ asset('circle_check.png') }}" height='30px'
+                                                            <img src="{{ asset((!empty($data->tiada_pengeluaran) && $data->tiada_pengeluaran == 1) ? 'tp_logo2.png' : 'circle_check_yellow.png') }}" height='30px'
                                                                 alt="" data-toggle="tooltip" data-placement="bottom"
-                                                                title="Borang telah disahkan"
+                                                                title="{{ (!empty($data->tiada_pengeluaran) && $data->tiada_pengeluaran == 1) ? 'Borang telah dihantar - Tiada Pengeluaran' : 'Borang telah dihantar' }}"
                                                                 style="color: green; font-size: 20pt;"></i></a>
                                                     @elseif($data->status == 'Sedang Diisi' && $data->bulan == '12')
                                                     <a href="{{ route('user.shuttle-3-formC.KKB', [$id = 12, $year]) }}">

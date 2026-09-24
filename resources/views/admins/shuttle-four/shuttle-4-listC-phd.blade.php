@@ -236,9 +236,9 @@
                                                             =='1' && $shuttle->shuttle_id == $data->shuttle_id)
                                                             @if ($data->tiada_pengeluaran == 1)
                                                             <a href="{{ route('phd.shuttle-4-view-formC-phd', $data->id) }}">
-                                                                <img src="{{ asset('double_check.png') }}" height='30px'
+                                                                <img src="{{ asset('tpcoklat.png') }}" height='30px'
                                                                     alt="" data-toggle="tooltip" data-placement="bottom"
-                                                                    title="Borang telah diperaku">
+                                                                    title="Borang telah diperaku IPJPSM - Tiada Pengeluaran">
                                                             </a>
                                                             @else
                                                             <a href="{{ route('phd.shuttle-4-view-formC-phd', $data->id) }}">
@@ -322,9 +322,9 @@
                                                             =='2' && $shuttle->shuttle_id == $data->shuttle_id)
                                                            @if ($data->tiada_pengeluaran == 1)
                                                            <a href="{{ route('phd.shuttle-4-view-formC-phd', $data->id) }}">
-                                                               <img src="{{ asset('double_check.png') }}" height='30px'
+                                                               <img src="{{ asset('tpcoklat.png') }}" height='30px'
                                                                    alt="" data-toggle="tooltip" data-placement="bottom"
-                                                                   title="Borang telah diperaku">
+                                                                   title="Borang telah diperaku IPJPSM - Tiada Pengeluaran">
                                                            </a>
                                                            @else
                                                            <a href="{{ route('phd.shuttle-4-view-formC-phd', $data->id) }}">
@@ -408,9 +408,9 @@
                                                             =='3' && $shuttle->shuttle_id == $data->shuttle_id)
                                                             @if ($data->tiada_pengeluaran == 1)
                                                             <a href="{{ route('phd.shuttle-4-view-formC-phd', $data->id) }}">
-                                                                <img src="{{ asset('double_check.png') }}" height='30px'
+                                                                <img src="{{ asset('tpcoklat.png') }}" height='30px'
                                                                     alt="" data-toggle="tooltip" data-placement="bottom"
-                                                                    title="Borang telah diperaku">
+                                                                    title="Borang telah diperaku IPJPSM - Tiada Pengeluaran">
                                                             </a>
                                                             @else
                                                             <a href="{{ route('phd.shuttle-4-view-formC-phd', $data->id) }}">
@@ -494,9 +494,9 @@
                                                             =='4' && $shuttle->shuttle_id == $data->shuttle_id)
                                                             @if ($data->tiada_pengeluaran == 1)
                                                             <a href="{{ route('phd.shuttle-4-view-formC-phd', $data->id) }}">
-                                                                <img src="{{ asset('double_check.png') }}" height='30px'
+                                                                <img src="{{ asset('tpcoklat.png') }}" height='30px'
                                                                     alt="" data-toggle="tooltip" data-placement="bottom"
-                                                                    title="Borang telah diperaku">
+                                                                    title="Borang telah diperaku IPJPSM - Tiada Pengeluaran">
                                                             </a>
                                                             @else
                                                             <a href="{{ route('phd.shuttle-4-view-formC-phd', $data->id) }}">
@@ -580,9 +580,9 @@
                                                             =='5' && $shuttle->shuttle_id == $data->shuttle_id)
                                                             @if ($data->tiada_pengeluaran == 1)
                                                             <a href="{{ route('phd.shuttle-4-view-formC-phd', $data->id) }}">
-                                                                <img src="{{ asset('double_check.png') }}" height='30px'
+                                                                <img src="{{ asset('tpcoklat.png') }}" height='30px'
                                                                     alt="" data-toggle="tooltip" data-placement="bottom"
-                                                                    title="Borang telah diperaku">
+                                                                    title="Borang telah diperaku IPJPSM - Tiada Pengeluaran">
                                                             </a>
                                                             @else
                                                             <a href="{{ route('phd.shuttle-4-view-formC-phd', $data->id) }}">
@@ -666,9 +666,9 @@
                                                             =='6' && $shuttle->shuttle_id == $data->shuttle_id)
                                                             @if ($data->tiada_pengeluaran == 1)
                                                             <a href="{{ route('phd.shuttle-4-view-formC-phd', $data->id) }}">
-                                                                <img src="{{ asset('double_check.png') }}" height='30px'
+                                                                <img src="{{ asset('tpcoklat.png') }}" height='30px'
                                                                     alt="" data-toggle="tooltip" data-placement="bottom"
-                                                                    title="Borang telah diperaku">
+                                                                    title="Borang telah diperaku IPJPSM - Tiada Pengeluaran">
                                                             </a>
                                                             @else
                                                             <a href="{{ route('phd.shuttle-4-view-formC-phd', $data->id) }}">
@@ -752,9 +752,9 @@
                                                             =='7' && $shuttle->shuttle_id == $data->shuttle_id)
                                                             @if ($data->tiada_pengeluaran == 1)
                                                             <a href="{{ route('phd.shuttle-4-view-formC-phd', $data->id) }}">
-                                                                <img src="{{ asset('double_check.png') }}" height='30px'
+                                                                <img src="{{ asset('tpcoklat.png') }}" height='30px'
                                                                     alt="" data-toggle="tooltip" data-placement="bottom"
-                                                                    title="Borang telah diperaku">
+                                                                    title="Borang telah diperaku IPJPSM - Tiada Pengeluaran">
                                                             </a>
                                                             @else
                                                             <a href="{{ route('phd.shuttle-4-view-formC-phd', $data->id) }}">
@@ -838,9 +838,9 @@
                                                             =='8' && $shuttle->shuttle_id == $data->shuttle_id)
                                                             @if ($data->tiada_pengeluaran == 1)
                                                             <a href="{{ route('phd.shuttle-4-view-formC-phd', $data->id) }}">
-                                                                <img src="{{ asset('double_check.png') }}" height='30px'
+                                                                <img src="{{ asset('tpcoklat.png') }}" height='30px'
                                                                     alt="" data-toggle="tooltip" data-placement="bottom"
-                                                                    title="Borang telah diperaku">
+                                                                    title="Borang telah diperaku IPJPSM - Tiada Pengeluaran">
                                                             </a>
                                                             @else
                                                             <a href="{{ route('phd.shuttle-4-view-formC-phd', $data->id) }}">
@@ -924,9 +924,9 @@
                                                             =='9' && $shuttle->shuttle_id == $data->shuttle_id)
                                                             @if ($data->tiada_pengeluaran == 1)
                                                             <a href="{{ route('phd.shuttle-4-view-formC-phd', $data->id) }}">
-                                                                <img src="{{ asset('double_check.png') }}" height='30px'
+                                                                <img src="{{ asset('tpcoklat.png') }}" height='30px'
                                                                     alt="" data-toggle="tooltip" data-placement="bottom"
-                                                                    title="Borang telah diperaku">
+                                                                    title="Borang telah diperaku IPJPSM - Tiada Pengeluaran">
                                                             </a>
                                                             @else
                                                             <a href="{{ route('phd.shuttle-4-view-formC-phd', $data->id) }}">
@@ -1011,9 +1011,9 @@
                                                             =='10' && $shuttle->shuttle_id == $data->shuttle_id)
                                                             @if ($data->tiada_pengeluaran == 1)
                                                             <a href="{{ route('phd.shuttle-4-view-formC-phd', $data->id) }}">
-                                                                <img src="{{ asset('double_check.png') }}" height='30px'
+                                                                <img src="{{ asset('tpcoklat.png') }}" height='30px'
                                                                     alt="" data-toggle="tooltip" data-placement="bottom"
-                                                                    title="Borang telah diperaku">
+                                                                    title="Borang telah diperaku IPJPSM - Tiada Pengeluaran">
                                                             </a>
                                                             @else
                                                             <a href="{{ route('phd.shuttle-4-view-formC-phd', $data->id) }}">
@@ -1101,9 +1101,9 @@
                                                             =='11' && $shuttle->shuttle_id == $data->shuttle_id)
                                                             @if ($data->tiada_pengeluaran == 1)
                                                             <a href="{{ route('phd.shuttle-4-view-formC-phd', $data->id) }}">
-                                                                <img src="{{ asset('double_check.png') }}" height='30px'
+                                                                <img src="{{ asset('tpcoklat.png') }}" height='30px'
                                                                     alt="" data-toggle="tooltip" data-placement="bottom"
-                                                                    title="Borang telah diperaku">
+                                                                    title="Borang telah diperaku IPJPSM - Tiada Pengeluaran">
                                                             </a>
                                                             @else
                                                             <a href="{{ route('phd.shuttle-4-view-formC-phd', $data->id) }}">
@@ -1189,9 +1189,9 @@
                                                             =='12' && $shuttle->shuttle_id == $data->shuttle_id)
                                                             @if ($data->tiada_pengeluaran == 1)
                                                             <a href="{{ route('phd.shuttle-4-view-formC-phd', $data->id) }}">
-                                                                <img src="{{ asset('double_check.png') }}" height='30px'
+                                                                <img src="{{ asset('tpcoklat.png') }}" height='30px'
                                                                     alt="" data-toggle="tooltip" data-placement="bottom"
-                                                                    title="Borang telah diperaku">
+                                                                    title="Borang telah diperaku IPJPSM - Tiada Pengeluaran">
                                                             </a>
                                                             @else
                                                             <a href="{{ route('phd.shuttle-4-view-formC-phd', $data->id) }}">

@@ -185,9 +185,9 @@
                                                     @elseif($data->status == 'Dihantar ke IPJPSM' && $data->bulan == '1')
                                                         <a
                                                             href="{{ route('pengguna.shuttle-4-view-formC', $data->id) }}">
-                                                            <img src="{{ asset('circle_check.png') }}" height='30px'
+                                                            <img src="{{ asset((!empty($data->tiada_pengeluaran) && $data->tiada_pengeluaran == 1) ? 'tp_logo2.png' : 'circle_check_yellow.png') }}" height='30px'
                                                                 alt="" data-toggle="tooltip" data-placement="bottom"
-                                                                title="Borang telah disahkan oleh PHD"
+                                                                title="{{ (!empty($data->tiada_pengeluaran) && $data->tiada_pengeluaran == 1) ? 'Borang telah dihantar - Tiada Pengeluaran' : 'Borang telah dihantar' }}"
                                                                 style="color: green; font-size: 20pt;"></i></a>
                                                     @elseif($data->status == 'Tidak Lengkap' && $data->bulan == '1')
                                                         <a href="{{ route('user.shuttle-4-formC.KKB', ['bulan' => 1, 'year' => $year]) }}"
@@ -196,9 +196,9 @@
                                                     @elseif($data->status == 'Lulus' && $data->bulan == '1')
                                                         <a
                                                             href="{{ route('pengguna.shuttle-4-view-formC', $data->id) }}">
-                                                            <img src="{{ asset('circle_check.png') }}" height='30px'
+                                                            <img src="{{ asset((!empty($data->tiada_pengeluaran) && $data->tiada_pengeluaran == 1) ? 'tp_logo2.png' : 'circle_check_yellow.png') }}" height='30px'
                                                                 alt="" data-toggle="tooltip" data-placement="bottom"
-                                                                title="Borang telah diluluskan oleh IPJPSM"
+                                                                title="{{ (!empty($data->tiada_pengeluaran) && $data->tiada_pengeluaran == 1) ? 'Borang telah dihantar - Tiada Pengeluaran' : 'Borang telah dihantar' }}"
                                                                 style="color: green; font-size: 20pt;"></i></a>
                                                     @elseif($data->status == 'Sedang Diisi' && $data->bulan == '1')
                                                         <a href="{{ route('user.shuttle-4-formC.KKB', ['bulan' => 1, 'year' => $year]) }}"
@@ -251,9 +251,9 @@
                                                     @elseif($data->status == 'Dihantar ke IPJPSM' && $data->bulan == '2')
                                                         <a
                                                             href="{{ route('pengguna.shuttle-4-view-formC', $data->id) }}">
-                                                            <img src="{{ asset('circle_check.png') }}" height='30px'
+                                                            <img src="{{ asset((!empty($data->tiada_pengeluaran) && $data->tiada_pengeluaran == 1) ? 'tp_logo2.png' : 'circle_check_yellow.png') }}" height='30px'
                                                                 alt="" data-toggle="tooltip" data-placement="bottom"
-                                                                title="Borang telah disahkan oleh PHD"
+                                                                title="{{ (!empty($data->tiada_pengeluaran) && $data->tiada_pengeluaran == 1) ? 'Borang telah dihantar - Tiada Pengeluaran' : 'Borang telah dihantar' }}"
                                                                 style="color: green; font-size: 20pt;"></i></a>
                                                     @elseif($data->status == 'Tidak Lengkap' && $data->bulan == '2')
                                                         <a href="{{ route('user.shuttle-4-formC.KKB', ['bulan' => 2, 'year' => $year]) }}"
@@ -262,9 +262,9 @@
                                                     @elseif($data->status == 'Lulus' && $data->bulan == '2')
                                                         <a
                                                             href="{{ route('pengguna.shuttle-4-view-formC', $data->id) }}">
-                                                            <img src="{{ asset('circle_check.png') }}" height='30px'
+                                                            <img src="{{ asset((!empty($data->tiada_pengeluaran) && $data->tiada_pengeluaran == 1) ? 'tp_logo2.png' : 'circle_check_yellow.png') }}" height='30px'
                                                                 alt="" data-toggle="tooltip" data-placement="bottom"
-                                                                title="Borang telah diluluskan oleh IPJPSM"
+                                                                title="{{ (!empty($data->tiada_pengeluaran) && $data->tiada_pengeluaran == 1) ? 'Borang telah dihantar - Tiada Pengeluaran' : 'Borang telah dihantar' }}"
                                                                 style="color: green; font-size: 20pt;"></i></a>
                                                     @elseif($data->status == 'Sedang Diisi' && $data->bulan == '2')
                                                         <a href="{{ route('user.shuttle-4-formC.KKB', ['bulan' => 2, 'year' => $year]) }}"
@@ -318,9 +318,9 @@
                                                     @elseif($data->status == 'Dihantar ke IPJPSM' && $data->bulan == '3')
                                                         <a
                                                             href="{{ route('pengguna.shuttle-4-view-formC', $data->id) }}">
-                                                            <img src="{{ asset('circle_check.png') }}" height='30px'
+                                                            <img src="{{ asset((!empty($data->tiada_pengeluaran) && $data->tiada_pengeluaran == 1) ? 'tp_logo2.png' : 'circle_check_yellow.png') }}" height='30px'
                                                                 alt="" data-toggle="tooltip" data-placement="bottom"
-                                                                title="Borang telah disahkan oleh PHD"
+                                                                title="{{ (!empty($data->tiada_pengeluaran) && $data->tiada_pengeluaran == 1) ? 'Borang telah dihantar - Tiada Pengeluaran' : 'Borang telah dihantar' }}"
                                                                 style="color: green; font-size: 20pt;"></i></a>
                                                     @elseif($data->status == 'Tidak Lengkap' && $data->bulan == '3')
                                                         <a href="{{ route('user.shuttle-4-formC.KKB', ['bulan' => 3, 'year' => $year]) }}"
@@ -329,9 +329,9 @@
                                                     @elseif($data->status == 'Lulus' && $data->bulan == '3')
                                                         <a
                                                             href="{{ route('pengguna.shuttle-4-view-formC', $data->id) }}">
-                                                            <img src="{{ asset('circle_check.png') }}" height='30px'
+                                                            <img src="{{ asset((!empty($data->tiada_pengeluaran) && $data->tiada_pengeluaran == 1) ? 'tp_logo2.png' : 'circle_check_yellow.png') }}" height='30px'
                                                                 alt="" data-toggle="tooltip" data-placement="bottom"
-                                                                title="Borang telah diluluskan oleh IPJPSM"
+                                                                title="{{ (!empty($data->tiada_pengeluaran) && $data->tiada_pengeluaran == 1) ? 'Borang telah dihantar - Tiada Pengeluaran' : 'Borang telah dihantar' }}"
                                                                 style="color: green; font-size: 20pt;"></i></a>
                                                     @elseif($data->status == 'Sedang Diisi' && $data->bulan == '3')
                                                         <a href="{{ route('user.shuttle-4-formC.KKB', ['bulan' => 3, 'year' => $year]) }}"
@@ -385,9 +385,9 @@
                                                     @elseif($data->status == 'Dihantar ke IPJPSM' && $data->bulan == '4')
                                                         <a
                                                             href="{{ route('pengguna.shuttle-4-view-formC', $data->id) }}">
-                                                            <img src="{{ asset('circle_check.png') }}" height='30px'
+                                                            <img src="{{ asset((!empty($data->tiada_pengeluaran) && $data->tiada_pengeluaran == 1) ? 'tp_logo2.png' : 'circle_check_yellow.png') }}" height='30px'
                                                                 alt="" data-toggle="tooltip" data-placement="bottom"
-                                                                title="Borang telah disahkan oleh PHD"
+                                                                title="{{ (!empty($data->tiada_pengeluaran) && $data->tiada_pengeluaran == 1) ? 'Borang telah dihantar - Tiada Pengeluaran' : 'Borang telah dihantar' }}"
                                                                 style="color: green; font-size: 20pt;"></i></a>
                                                     @elseif($data->status == 'Tidak Lengkap' && $data->bulan == '4')
                                                         <a href="{{ route('user.shuttle-4-formC.KKB', ['bulan' => 4, 'year' => $year]) }}"
@@ -396,9 +396,9 @@
                                                     @elseif($data->status == 'Lulus' && $data->bulan == '4')
                                                         <a
                                                             href="{{ route('pengguna.shuttle-4-view-formC', $data->id) }}">
-                                                            <img src="{{ asset('circle_check.png') }}" height='30px'
+                                                            <img src="{{ asset((!empty($data->tiada_pengeluaran) && $data->tiada_pengeluaran == 1) ? 'tp_logo2.png' : 'circle_check_yellow.png') }}" height='30px'
                                                                 alt="" data-toggle="tooltip" data-placement="bottom"
-                                                                title="Borang telah diluluskan oleh IPJPSM"
+                                                                title="{{ (!empty($data->tiada_pengeluaran) && $data->tiada_pengeluaran == 1) ? 'Borang telah dihantar - Tiada Pengeluaran' : 'Borang telah dihantar' }}"
                                                                 style="color: green; font-size: 20pt;"></i></a>
                                                     @elseif($data->status == 'Sedang Diisi' && $data->bulan == '4')
                                                         <a href="{{ route('user.shuttle-4-formC.KKB', ['bulan' => 4, 'year' => $year]) }}"
@@ -452,9 +452,9 @@
                                                     @elseif($data->status == 'Dihantar ke IPJPSM' && $data->bulan == '5')
                                                         <a
                                                             href="{{ route('pengguna.shuttle-4-view-formC', $data->id) }}">
-                                                            <img src="{{ asset('circle_check.png') }}" height='30px'
+                                                            <img src="{{ asset((!empty($data->tiada_pengeluaran) && $data->tiada_pengeluaran == 1) ? 'tp_logo2.png' : 'circle_check_yellow.png') }}" height='30px'
                                                                 alt="" data-toggle="tooltip" data-placement="bottom"
-                                                                title="Borang telah disahkan oleh PHD"
+                                                                title="{{ (!empty($data->tiada_pengeluaran) && $data->tiada_pengeluaran == 1) ? 'Borang telah dihantar - Tiada Pengeluaran' : 'Borang telah dihantar' }}"
                                                                 style="color: green; font-size: 20pt;"></i></a>
                                                     @elseif($data->status == 'Tidak Lengkap' && $data->bulan == '5')
                                                         <a href="{{ route('user.shuttle-4-formC.KKB', ['bulan' => 5, 'year' => $year]) }}"
@@ -463,9 +463,9 @@
                                                     @elseif($data->status == 'Lulus' && $data->bulan == '5')
                                                         <a
                                                             href="{{ route('pengguna.shuttle-4-view-formC', $data->id) }}">
-                                                            <img src="{{ asset('circle_check.png') }}" height='30px'
+                                                            <img src="{{ asset((!empty($data->tiada_pengeluaran) && $data->tiada_pengeluaran == 1) ? 'tp_logo2.png' : 'circle_check_yellow.png') }}" height='30px'
                                                                 alt="" data-toggle="tooltip" data-placement="bottom"
-                                                                title="Borang telah diluluskan oleh IPJPSM"
+                                                                title="{{ (!empty($data->tiada_pengeluaran) && $data->tiada_pengeluaran == 1) ? 'Borang telah dihantar - Tiada Pengeluaran' : 'Borang telah dihantar' }}"
                                                                 style="color: green; font-size: 20pt;"></i></a>
                                                     @elseif($data->status == 'Sedang Diisi' && $data->bulan == '5')
                                                         <a href="{{ route('user.shuttle-4-formC.KKB', ['bulan' => 5, 'year' => $year]) }}"
@@ -519,9 +519,9 @@
                                                     @elseif($data->status == 'Dihantar ke IPJPSM' && $data->bulan == '6')
                                                         <a
                                                             href="{{ route('pengguna.shuttle-4-view-formC', $data->id) }}">
-                                                            <img src="{{ asset('circle_check.png') }}" height='30px'
+                                                            <img src="{{ asset((!empty($data->tiada_pengeluaran) && $data->tiada_pengeluaran == 1) ? 'tp_logo2.png' : 'circle_check_yellow.png') }}" height='30px'
                                                                 alt="" data-toggle="tooltip" data-placement="bottom"
-                                                                title="Borang telah disahkan oleh PHD"
+                                                                title="{{ (!empty($data->tiada_pengeluaran) && $data->tiada_pengeluaran == 1) ? 'Borang telah dihantar - Tiada Pengeluaran' : 'Borang telah dihantar' }}"
                                                                 style="color: green; font-size: 20pt;"></i></a>
                                                     @elseif($data->status == 'Tidak Lengkap' && $data->bulan == '6')
                                                         <a href="{{ route('user.shuttle-4-formC.KKB', ['bulan' => 6, 'year' => $year]) }}"
@@ -530,9 +530,9 @@
                                                     @elseif($data->status == 'Lulus' && $data->bulan == '6')
                                                         <a
                                                             href="{{ route('pengguna.shuttle-4-view-formC', $data->id) }}">
-                                                            <img src="{{ asset('circle_check.png') }}" height='30px'
+                                                            <img src="{{ asset((!empty($data->tiada_pengeluaran) && $data->tiada_pengeluaran == 1) ? 'tp_logo2.png' : 'circle_check_yellow.png') }}" height='30px'
                                                                 alt="" data-toggle="tooltip" data-placement="bottom"
-                                                                title="Borang telah diluluskan oleh IPJPSM"
+                                                                title="{{ (!empty($data->tiada_pengeluaran) && $data->tiada_pengeluaran == 1) ? 'Borang telah dihantar - Tiada Pengeluaran' : 'Borang telah dihantar' }}"
                                                                 style="color: green; font-size: 20pt;"></i></a>
                                                     @elseif($data->status == 'Sedang Diisi' && $data->bulan == '6')
                                                         <a href="{{ route('user.shuttle-4-formC.KKB', ['bulan' => 6, 'year' => $year]) }}"
@@ -586,9 +586,9 @@
                                                     @elseif($data->status == 'Dihantar ke IPJPSM' && $data->bulan == '7')
                                                         <a
                                                             href="{{ route('pengguna.shuttle-4-view-formC', $data->id) }}">
-                                                            <img src="{{ asset('circle_check.png') }}" height='30px'
+                                                            <img src="{{ asset((!empty($data->tiada_pengeluaran) && $data->tiada_pengeluaran == 1) ? 'tp_logo2.png' : 'circle_check_yellow.png') }}" height='30px'
                                                                 alt="" data-toggle="tooltip" data-placement="bottom"
-                                                                title="Borang telah disahkan oleh PHD"
+                                                                title="{{ (!empty($data->tiada_pengeluaran) && $data->tiada_pengeluaran == 1) ? 'Borang telah dihantar - Tiada Pengeluaran' : 'Borang telah dihantar' }}"
                                                                 style="color: green; font-size: 20pt;"></i></a>
                                                     @elseif($data->status == 'Tidak Lengkap' && $data->bulan == '7')
                                                         <a href="{{ route('user.shuttle-4-formC.KKB', ['bulan' => 7, 'year' => $year]) }}"
@@ -597,9 +597,9 @@
                                                     @elseif($data->status == 'Lulus' && $data->bulan == '7')
                                                         <a
                                                             href="{{ route('pengguna.shuttle-4-view-formC', $data->id) }}">
-                                                            <img src="{{ asset('circle_check.png') }}" height='30px'
+                                                            <img src="{{ asset((!empty($data->tiada_pengeluaran) && $data->tiada_pengeluaran == 1) ? 'tp_logo2.png' : 'circle_check_yellow.png') }}" height='30px'
                                                                 alt="" data-toggle="tooltip" data-placement="bottom"
-                                                                title="Borang telah diluluskan oleh IPJPSM"
+                                                                title="{{ (!empty($data->tiada_pengeluaran) && $data->tiada_pengeluaran == 1) ? 'Borang telah dihantar - Tiada Pengeluaran' : 'Borang telah dihantar' }}"
                                                                 style="color: green; font-size: 20pt;"></i></a>
                                                     @elseif($data->status == 'Sedang Diisi' && $data->bulan == '7')
                                                         <a href="{{ route('user.shuttle-4-formC.KKB', ['bulan' => 7, 'year' => $year]) }}"
@@ -653,9 +653,9 @@
                                                     @elseif($data->status == 'Dihantar ke IPJPSM' && $data->bulan == '8')
                                                         <a
                                                             href="{{ route('pengguna.shuttle-4-view-formC', $data->id) }}">
-                                                            <img src="{{ asset('circle_check.png') }}" height='30px'
+                                                            <img src="{{ asset((!empty($data->tiada_pengeluaran) && $data->tiada_pengeluaran == 1) ? 'tp_logo2.png' : 'circle_check_yellow.png') }}" height='30px'
                                                                 alt="" data-toggle="tooltip" data-placement="bottom"
-                                                                title="Borang telah disahkan oleh PHD"
+                                                                title="{{ (!empty($data->tiada_pengeluaran) && $data->tiada_pengeluaran == 1) ? 'Borang telah dihantar - Tiada Pengeluaran' : 'Borang telah dihantar' }}"
                                                                 style="color: green; font-size: 20pt;"></i></a>
                                                     @elseif($data->status == 'Tidak Lengkap' && $data->bulan == '8')
                                                         <a href="{{ route('user.shuttle-4-formC.KKB', ['bulan' => 8, 'year' => $year]) }}"
@@ -664,9 +664,9 @@
                                                     @elseif($data->status == 'Lulus' && $data->bulan == '8')
                                                         <a
                                                             href="{{ route('pengguna.shuttle-4-view-formC', $data->id) }}">
-                                                            <img src="{{ asset('circle_check.png') }}" height='30px'
+                                                            <img src="{{ asset((!empty($data->tiada_pengeluaran) && $data->tiada_pengeluaran == 1) ? 'tp_logo2.png' : 'circle_check_yellow.png') }}" height='30px'
                                                                 alt="" data-toggle="tooltip" data-placement="bottom"
-                                                                title="Borang telah diluluskan oleh IPJPSM"
+                                                                title="{{ (!empty($data->tiada_pengeluaran) && $data->tiada_pengeluaran == 1) ? 'Borang telah dihantar - Tiada Pengeluaran' : 'Borang telah dihantar' }}"
                                                                 style="color: green; font-size: 20pt;"></i></a>
                                                     @elseif($data->status == 'Sedang Diisi' && $data->bulan == '8')
                                                         <a href="{{ route('user.shuttle-4-formC.KKB', ['bulan' => 8, 'year' => $year]) }}"
@@ -720,9 +720,9 @@
                                                     @elseif($data->status == 'Dihantar ke IPJPSM' && $data->bulan == '9')
                                                         <a
                                                             href="{{ route('pengguna.shuttle-4-view-formC', $data->id) }}">
-                                                            <img src="{{ asset('circle_check.png') }}" height='30px'
+                                                            <img src="{{ asset((!empty($data->tiada_pengeluaran) && $data->tiada_pengeluaran == 1) ? 'tp_logo2.png' : 'circle_check_yellow.png') }}" height='30px'
                                                                 alt="" data-toggle="tooltip" data-placement="bottom"
-                                                                title="Borang telah disahkan oleh PHD"
+                                                                title="{{ (!empty($data->tiada_pengeluaran) && $data->tiada_pengeluaran == 1) ? 'Borang telah dihantar - Tiada Pengeluaran' : 'Borang telah dihantar' }}"
                                                                 style="color: green; font-size: 20pt;"></i></a>
                                                     @elseif($data->status == 'Tidak Lengkap' && $data->bulan == '9')
                                                         <a href="{{ route('user.shuttle-4-formC.KKB', ['bulan' => 9, 'year' => $year]) }}"
@@ -731,9 +731,9 @@
                                                     @elseif($data->status == 'Lulus' && $data->bulan == '9')
                                                         <a
                                                             href="{{ route('pengguna.shuttle-4-view-formC', $data->id) }}">
-                                                            <img src="{{ asset('circle_check.png') }}" height='30px'
+                                                            <img src="{{ asset((!empty($data->tiada_pengeluaran) && $data->tiada_pengeluaran == 1) ? 'tp_logo2.png' : 'circle_check_yellow.png') }}" height='30px'
                                                                 alt="" data-toggle="tooltip" data-placement="bottom"
-                                                                title="Borang telah diluluskan oleh IPJPSM"
+                                                                title="{{ (!empty($data->tiada_pengeluaran) && $data->tiada_pengeluaran == 1) ? 'Borang telah dihantar - Tiada Pengeluaran' : 'Borang telah dihantar' }}"
                                                                 style="color: green; font-size: 20pt;"></i></a>
                                                     @elseif($data->status == 'Sedang Diisi' && $data->bulan == '9')
                                                         <a href="{{ route('user.shuttle-4-formC.KKB', ['bulan' => 9, 'year' => $year]) }}"
@@ -787,9 +787,9 @@
                                                     @elseif($data->status == 'Dihantar ke IPJPSM' && $data->bulan == '10')
                                                         <a
                                                             href="{{ route('pengguna.shuttle-4-view-formC', $data->id) }}">
-                                                            <img src="{{ asset('circle_check.png') }}" height='30px'
+                                                            <img src="{{ asset((!empty($data->tiada_pengeluaran) && $data->tiada_pengeluaran == 1) ? 'tp_logo2.png' : 'circle_check_yellow.png') }}" height='30px'
                                                                 alt="" data-toggle="tooltip" data-placement="bottom"
-                                                                title="Borang telah disahkan oleh PHD"
+                                                                title="{{ (!empty($data->tiada_pengeluaran) && $data->tiada_pengeluaran == 1) ? 'Borang telah dihantar - Tiada Pengeluaran' : 'Borang telah dihantar' }}"
                                                                 style="color: green; font-size: 20pt;"></i></a>
                                                     @elseif($data->status == 'Tidak Lengkap' && $data->bulan == '10')
                                                         <a href="{{ route('user.shuttle-4-formC.KKB', ['bulan' => 10, 'year' => $year]) }}"
@@ -798,9 +798,9 @@
                                                     @elseif($data->status == 'Lulus' && $data->bulan == '10')
                                                         <a
                                                             href="{{ route('pengguna.shuttle-4-view-formC', $data->id) }}">
-                                                            <img src="{{ asset('circle_check.png') }}" height='30px'
+                                                            <img src="{{ asset((!empty($data->tiada_pengeluaran) && $data->tiada_pengeluaran == 1) ? 'tp_logo2.png' : 'circle_check_yellow.png') }}" height='30px'
                                                                 alt="" data-toggle="tooltip" data-placement="bottom"
-                                                                title="Borang telah diluluskan oleh IPJPSM"
+                                                                title="{{ (!empty($data->tiada_pengeluaran) && $data->tiada_pengeluaran == 1) ? 'Borang telah dihantar - Tiada Pengeluaran' : 'Borang telah dihantar' }}"
                                                                 style="color: green; font-size: 20pt;"></i></a>
                                                     @elseif($data->status == 'Sedang Diisi' && $data->bulan == '10')
                                                         <a href="{{ route('user.shuttle-4-formC.KKB', ['bulan' => 10, 'year' => $year]) }}"
@@ -854,9 +854,9 @@
                                                     @elseif($data->status == 'Dihantar ke IPJPSM' && $data->bulan == '11')
                                                         <a
                                                             href="{{ route('pengguna.shuttle-4-view-formC', $data->id) }}">
-                                                            <img src="{{ asset('circle_check.png') }}" height='30px'
+                                                            <img src="{{ asset((!empty($data->tiada_pengeluaran) && $data->tiada_pengeluaran == 1) ? 'tp_logo2.png' : 'circle_check_yellow.png') }}" height='30px'
                                                                 alt="" data-toggle="tooltip" data-placement="bottom"
-                                                                title="Borang telah disahkan oleh PHD"
+                                                                title="{{ (!empty($data->tiada_pengeluaran) && $data->tiada_pengeluaran == 1) ? 'Borang telah dihantar - Tiada Pengeluaran' : 'Borang telah dihantar' }}"
                                                                 style="color: green; font-size: 20pt;"></i></a>
                                                     @elseif($data->status == 'Tidak Lengkap' && $data->bulan == '11')
                                                         <a href="{{ route('user.shuttle-4-formC.KKB', ['bulan' => 11, 'year' => $year]) }}"
@@ -865,9 +865,9 @@
                                                     @elseif($data->status == 'Lulus' && $data->bulan == '11')
                                                         <a
                                                             href="{{ route('pengguna.shuttle-4-view-formC', $data->id) }}">
-                                                            <img src="{{ asset('circle_check.png') }}" height='30px'
+                                                            <img src="{{ asset((!empty($data->tiada_pengeluaran) && $data->tiada_pengeluaran == 1) ? 'tp_logo2.png' : 'circle_check_yellow.png') }}" height='30px'
                                                                 alt="" data-toggle="tooltip" data-placement="bottom"
-                                                                title="Borang telah diluluskan oleh IPJPSM"
+                                                                title="{{ (!empty($data->tiada_pengeluaran) && $data->tiada_pengeluaran == 1) ? 'Borang telah dihantar - Tiada Pengeluaran' : 'Borang telah dihantar' }}"
                                                                 style="color: green; font-size: 20pt;"></i></a>
                                                     @elseif($data->status == 'Sedang Diisi' && $data->bulan == '11')
                                                         <a href="{{ route('user.shuttle-4-formC.KKB', ['bulan' => 11, 'year' => $year]) }}"
@@ -921,9 +921,9 @@
                                                     @elseif($data->status == 'Dihantar ke IPJPSM' && $data->bulan == '12')
                                                         <a
                                                             href="{{ route('pengguna.shuttle-4-view-formC', $data->id) }}">
-                                                            <img src="{{ asset('circle_check.png') }}" height='30px'
+                                                            <img src="{{ asset((!empty($data->tiada_pengeluaran) && $data->tiada_pengeluaran == 1) ? 'tp_logo2.png' : 'circle_check_yellow.png') }}" height='30px'
                                                                 alt="" data-toggle="tooltip" data-placement="bottom"
-                                                                title="Borang telah disahkan oleh PHD"
+                                                                title="{{ (!empty($data->tiada_pengeluaran) && $data->tiada_pengeluaran == 1) ? 'Borang telah dihantar - Tiada Pengeluaran' : 'Borang telah dihantar' }}"
                                                                 style="color: green; font-size: 20pt;"></i></a>
                                                     @elseif($data->status == 'Tidak Lengkap' && $data->bulan == '12')
                                                         <a href="{{ route('user.shuttle-4-formC.KKB', ['bulan' => 12, 'year' => $year]) }}"
@@ -932,9 +932,9 @@
                                                     @elseif($data->status == 'Lulus' && $data->bulan == '12')
                                                         <a
                                                             href="{{ route('pengguna.shuttle-4-view-formC', $data->id) }}">
-                                                            <img src="{{ asset('circle_check.png') }}" height='30px'
+                                                            <img src="{{ asset((!empty($data->tiada_pengeluaran) && $data->tiada_pengeluaran == 1) ? 'tp_logo2.png' : 'circle_check_yellow.png') }}" height='30px'
                                                                 alt="" data-toggle="tooltip" data-placement="bottom"
-                                                                title="Borang telah diluluskan oleh IPJPSM"
+                                                                title="{{ (!empty($data->tiada_pengeluaran) && $data->tiada_pengeluaran == 1) ? 'Borang telah dihantar - Tiada Pengeluaran' : 'Borang telah dihantar' }}"
                                                                 style="color: green; font-size: 20pt;"></i></a>
                                                     @elseif($data->status == 'Sedang Diisi' && $data->bulan == '12')
                                                         <a href="{{ route('user.shuttle-4-formC.KKB', ['bulan' => 12, 'year' => $year]) }}"

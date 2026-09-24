@@ -171,11 +171,11 @@
                                                                     title="Borang tidak lengkap "></i>
                                                             @elseif($data->status == 'Sedang Diproses')
                                                                 <a href="{{ route('jpn.shuttle-5-view-form5E', $data->id) }}"><img
-                                                                    src="{{ asset('circle_check_yellow.png') }}"
+                                                                    src="{{ asset('circle_times_yellow.png') }}"
                                                                     height='30px' alt=""
                                                                         style="color: white; font-size: 18pt;"
                                                                         data-toggle="tooltip" data-placement="bottom"
-                                                                        title="Borang telah dihantar"></i></a>
+                                                                        title="Borang perlu disahkan PHD"></i></a>
 
                                                             @elseif($data->status == 'Dihantar ke IPJPSM')
                                                                 <a
@@ -228,11 +228,11 @@
                                                             title="Borang tidak lengkap "></i>
                                                     @elseif($data->status == 'Sedang Diproses')
                                                         <a href="{{ route('jpn.shuttle-5-view-form5E', $data->id) }}"><img
-                                                            src="{{ asset('circle_check_yellow.png') }}"
+                                                            src="{{ asset('circle_times_yellow.png') }}"
                                                             height='30px' alt=""
                                                                 style="color: white; font-size: 18pt;" data-toggle="tooltip"
                                                                 data-placement="bottom"
-                                                                title="Borang telah dihantar"></i></a>
+                                                                title="Borang perlu disahkan PHD"></i></a>
 
                                                     @elseif($data->status == 'Dihantar ke IPJPSM')
                                                         <a href="{{ route('jpn.shuttle-5-view-form5E', $data->id) }}"><img src="{{ asset('circle_check.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang telah disahkan PHD"></a>
@@ -274,11 +274,11 @@
                                                             title="Borang tidak lengkap "></i>
                                                     @elseif($data->status == 'Sedang Diproses')
                                                         <a href="{{ route('jpn.shuttle-5-view-form5E', $data->id) }}"><img
-                                                            src="{{ asset('circle_check_yellow.png') }}"
+                                                            src="{{ asset('circle_times_yellow.png') }}"
                                                             height='30px' alt=""
                                                                 style="color: white; font-size: 18pt;" data-toggle="tooltip"
                                                                 data-placement="bottom"
-                                                                title="Borang telah dihantar"></i></a>
+                                                                title="Borang perlu disahkan PHD"></i></a>
 
                                                     @elseif($data->status == 'Dihantar ke IPJPSM')
                                                         <a href="{{ route('jpn.shuttle-5-view-form5E', $data->id) }}"><img src="{{ asset('circle_check.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang telah disahkan PHD"></a>
@@ -320,11 +320,11 @@
                                                             title="Borang tidak lengkap "></i>
                                                     @elseif($data->status == 'Sedang Diproses')
                                                         <a href="{{ route('jpn.shuttle-5-view-form5E', $data->id) }}"><img
-                                                            src="{{ asset('circle_check_yellow.png') }}"
+                                                            src="{{ asset('circle_times_yellow.png') }}"
                                                             height='30px' alt=""
                                                                 style="color: white; font-size: 18pt;" data-toggle="tooltip"
                                                                 data-placement="bottom"
-                                                                title="Borang telah dihantar"></i></a>
+                                                                title="Borang perlu disahkan PHD"></i></a>
 
                                                     @elseif($data->status == 'Dihantar ke IPJPSM')
                                                         <a href="{{ route('jpn.shuttle-5-view-form5E', $data->id) }}"><img src="{{ asset('circle_check.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang telah disahkan PHD"></a>
@@ -366,11 +366,11 @@
                                                             title="Borang tidak lengkap "></i>
                                                     @elseif($data->status == 'Sedang Diproses')
                                                         <a href="{{ route('jpn.shuttle-5-view-form5E', $data->id) }}"><img
-                                                            src="{{ asset('circle_check_yellow.png') }}"
+                                                            src="{{ asset('circle_times_yellow.png') }}"
                                                             height='30px' alt=""
                                                                 style="color: white; font-size: 18pt;" data-toggle="tooltip"
                                                                 data-placement="bottom"
-                                                                title="Borang telah dihantar"></i></a>
+                                                                title="Borang perlu disahkan PHD"></i></a>
 
                                                     @elseif($data->status == 'Dihantar ke IPJPSM')
                                                         <a href="{{ route('jpn.shuttle-5-view-form5E', $data->id) }}"><img src="{{ asset('circle_check.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang telah disahkan PHD"></a>
@@ -412,11 +412,11 @@
                                                             title="Borang tidak lengkap "></i>
                                                     @elseif($data->status == 'Sedang Diproses')
                                                         <a href="{{ route('jpn.shuttle-5-view-form5E', $data->id) }}"><img
-                                                            src="{{ asset('circle_check_yellow.png') }}"
+                                                            src="{{ asset('circle_times_yellow.png') }}"
                                                             height='30px' alt=""
                                                                 style="color: white; font-size: 18pt;" data-toggle="tooltip"
                                                                 data-placement="bottom"
-                                                                title="Borang telah dihantar"></i></a>
+                                                                title="Borang perlu disahkan PHD"></i></a>
 
                                                     @elseif($data->status == 'Dihantar ke IPJPSM')
                                                         <a href="{{ route('jpn.shuttle-5-view-form5E', $data->id) }}"><img src="{{ asset('circle_check.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang telah disahkan PHD"></a>
@@ -458,11 +458,11 @@
                                                             title="Borang tidak lengkap "></i>
                                                     @elseif($data->status == 'Sedang Diproses')
                                                         <a href="{{ route('jpn.shuttle-5-view-form5E', $data->id) }}"><img
-                                                            src="{{ asset('circle_check_yellow.png') }}"
+                                                            src="{{ asset('circle_times_yellow.png') }}"
                                                             height='30px' alt=""
                                                                 style="color: white; font-size: 18pt;" data-toggle="tooltip"
                                                                 data-placement="bottom"
-                                                                title="Borang telah dihantar"></i></a>
+                                                                title="Borang perlu disahkan PHD"></i></a>
 
                                                     @elseif($data->status == 'Dihantar ke IPJPSM')
                                                         <a href="{{ route('jpn.shuttle-5-view-form5E', $data->id) }}"><img src="{{ asset('circle_check.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang telah disahkan PHD"></a>
@@ -504,11 +504,11 @@
                                                             title="Borang tidak lengkap "></i>
                                                     @elseif($data->status == 'Sedang Diproses')
                                                         <a href="{{ route('jpn.shuttle-5-view-form5E', $data->id) }}"><img
-                                                            src="{{ asset('circle_check_yellow.png') }}"
+                                                            src="{{ asset('circle_times_yellow.png') }}"
                                                             height='30px' alt=""
                                                                 style="color: white; font-size: 18pt;" data-toggle="tooltip"
                                                                 data-placement="bottom"
-                                                                title="Borang telah dihantar"></i></a>
+                                                                title="Borang perlu disahkan PHD"></i></a>
 
                                                     @elseif($data->status == 'Dihantar ke IPJPSM')
                                                         <a href="{{ route('jpn.shuttle-5-view-form5E', $data->id) }}"><img src="{{ asset('circle_check.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang telah disahkan PHD"></a>
@@ -550,11 +550,11 @@
                                                             title="Borang tidak lengkap "></i>
                                                     @elseif($data->status == 'Sedang Diproses')
                                                         <a href="{{ route('jpn.shuttle-5-view-form5E', $data->id) }}"><img
-                                                            src="{{ asset('circle_check_yellow.png') }}"
+                                                            src="{{ asset('circle_times_yellow.png') }}"
                                                             height='30px' alt=""
                                                                 style="color: white; font-size: 18pt;" data-toggle="tooltip"
                                                                 data-placement="bottom"
-                                                                title="Borang telah dihantar"></i></a>
+                                                                title="Borang perlu disahkan PHD"></i></a>
 
                                                     @elseif($data->status == 'Dihantar ke IPJPSM')
                                                         <a href="{{ route('jpn.shuttle-5-view-form5E', $data->id) }}"><img src="{{ asset('circle_check.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang telah disahkan PHD"></a>
@@ -596,11 +596,11 @@
                                                             title="Borang tidak lengkap "></i>
                                                     @elseif($data->status == 'Sedang Diproses')
                                                         <a href="{{ route('jpn.shuttle-5-view-form5E', $data->id) }}"><img
-                                                            src="{{ asset('circle_check_yellow.png') }}"
+                                                            src="{{ asset('circle_times_yellow.png') }}"
                                                             height='30px' alt=""
                                                                 style="color: white; font-size: 18pt;" data-toggle="tooltip"
                                                                 data-placement="bottom"
-                                                                title="Borang telah dihantar"></i></a>
+                                                                title="Borang perlu disahkan PHD"></i></a>
 
                                                     @elseif($data->status == 'Dihantar ke IPJPSM')
                                                         <a href="{{ route('jpn.shuttle-5-view-form5E', $data->id) }}"><img src="{{ asset('circle_check.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang telah disahkan PHD"></a>
@@ -642,11 +642,11 @@
                                                             title="Borang tidak lengkap "></i>
                                                     @elseif($data->status == 'Sedang Diproses')
                                                         <a href="{{ route('jpn.shuttle-5-view-form5E', $data->id) }}"><img
-                                                            src="{{ asset('circle_check_yellow.png') }}"
+                                                            src="{{ asset('circle_times_yellow.png') }}"
                                                             height='30px' alt=""
                                                                 style="color: white; font-size: 18pt;" data-toggle="tooltip"
                                                                 data-placement="bottom"
-                                                                title="Borang telah dihantar"></i></a>
+                                                                title="Borang perlu disahkan PHD"></i></a>
 
                                                     @elseif($data->status == 'Dihantar ke IPJPSM')
                                                         <a href="{{ route('jpn.shuttle-5-view-form5E', $data->id) }}"><img src="{{ asset('circle_check.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang telah disahkan PHD"></a>
@@ -689,11 +689,11 @@
                                                             title="Borang tidak lengkap "></i>
                                                     @elseif($data->status == 'Sedang Diproses')
                                                         <a href="{{ route('jpn.shuttle-5-view-form5E', $data->id) }}"><img
-                                                            src="{{ asset('circle_check_yellow.png') }}"
+                                                            src="{{ asset('circle_times_yellow.png') }}"
                                                             height='30px' alt=""
                                                                 style="color: white; font-size: 18pt;" data-toggle="tooltip"
                                                                 data-placement="bottom"
-                                                                title="Borang telah dihantar"></i></a>
+                                                                title="Borang perlu disahkan PHD"></i></a>
 
                                                     @elseif($data->status == 'Dihantar ke IPJPSM')
                                                         <a href="{{ route('jpn.shuttle-5-view-form5E', $data->id) }}"><img src="{{ asset('circle_check.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang telah disahkan PHD"></a>
