@@ -116,10 +116,6 @@
                                                 <td>{{ $data->shuttle->no_ssm }}</td>
                                                 <td>{{ $data->shuttle->no_lesen }}</td>
                                                 <td>
-
-                                                    {{-- @if ($data->status == 'Dihantar ke IPJPSM')
-                                                        <span class="label label-success label-rounded"
-                                                            style="font-size: 11pt;">{{ $data->status }}</span> --}}
                                                     @php
                                                         $current_batch = null;
                                                         if ($data->shuttle->id == $data->shuttle_id && $data->tahun == date('Y')) {
@@ -131,32 +127,8 @@
                                                         }
                                                         $packageSent = $current_batch && $current_batch->status == 'Dihantar ke IPJPSM' && $current_batch->borang_a == 2;
                                                     @endphp
-                                                    @if ($data->shuttle->id == $data->shuttle_id && $data->tahun == date('Y'))
-
-                                                        @if ($data->status == 'Dihantar ke IPJPSM')
-                                                            @if ($packageSent)
-                                                            <span class="label label-success label-rounded"
-                                                            style="font-size: 11pt;">Dihantar ke IPJPSM</span>
-                                                            @else
-                                                            <span class="label label-warning label-rounded"
-                                                            style="font-size: 11pt;">Pakej Belum Dihantar</span>
-                                                            @endif
-                                                        @endif
-                                                        @endif
-
-                                                    @if($data->status == "Sedang Diproses")
-                                                        <span class="label label-primary label-rounded"
-                                                            style="font-size: 11pt;">Borang Perlu Disahkan</span>
-                                                    @elseif($data->status == "Tidak Lengkap")
-                                                        <span class="label label-danger label-rounded"
-                                                            style="font-size: 11pt;">{{ $data->status }}</span>
-                                                            @elseif($data->status == 'Lulus')
-                                                        <span class="label label-success label-rounded"
-                                                            style="font-size: 11pt;">Borang telah diperaku</span>
-                                                            @elseif($data->status == 'Lulus')
-                                                        <span class="label label-success label-rounded"
-                                                            style="font-size: 11pt;">Borang telah diperaku</span>
-                                                    @endif
+                                                    {{-- Same wording as the Tindakan icon (see partials/status-label). --}}
+                                                    @include('partials.status-label', ['role' => 'PHD', 'form' => $data, 'packageSent' => $packageSent ?? null])
                                                 </td>
                                                 <td>
                                                     @if ($data->status == 'Sedang Diproses')
@@ -166,6 +138,10 @@
                                                                 height='30px'
                                                                 data-toggle="tooltip" data-placement="bottom"
                                                                 title="Borang perlu disahkan PHD"></i></a>
+                                                    @elseif($data->status == 'Sedang Diisi')
+                                                        <img src="{{ asset('circle_times.png') }}" height='30px' data-toggle="tooltip" data-placement="bottom" title="Borang sedang diisi">
+                                                    @elseif($data->status == 'Ditutup')
+                                                        <img src="{{ asset('calendar.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang ditutup">
                                                     @elseif($data->status == "Tidak Lengkap")
                                                     <img src="{{ asset('history.png') }}"
                                                     height='30px'
@@ -185,9 +161,9 @@
                                                         @endif
                                                     @elseif($data->status == 'Lulus')
                                                     <a href="{{ route('phd.shuttle-3-view-formA-phd', $data->id) }}">
-                                                        <img src="{{ asset('double_check.png') }}" height='30px'
+                                                        <img src="{{ asset((!empty($data->tiada_pengeluaran) && $data->tiada_pengeluaran == 1) ? 'tpcoklat.png' : 'double_check.png') }}" height='30px'
                                                             data-toggle="tooltip" data-placement="bottom"
-                                                            title="Borang telah diperaku">
+                                                            title="{{ (!empty($data->tiada_pengeluaran) && $data->tiada_pengeluaran == 1) ? 'Borang telah diperaku IPJPSM - Tiada Pengeluaran' : 'Borang telah diperaku' }}">
                                                     </a>
                                                     @endif
                                                 </td>

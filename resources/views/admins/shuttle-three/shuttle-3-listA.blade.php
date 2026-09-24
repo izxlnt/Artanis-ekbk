@@ -131,24 +131,8 @@
                                                         }
                                                         $packageSent = $current_batch && $current_batch->status == 'Dihantar ke IPJPSM' && $current_batch->borang_a == 2;
                                                     @endphp
-                                                    @if ($data->status == 'Sedang Diproses')
-                                                        <span class="label label-primary label-rounded"
-                                                            style="font-size: 11pt;">Borang Perlu Disahkan</span>
-                                                    @elseif($data->status == 'Tidak Lengkap')
-                                                        <span class="label label-danger label-rounded"
-                                                            style="font-size: 11pt;">Tidak Lengkap</span>
-                                                    @elseif($data->status == 'Dihantar ke IPJPSM')
-                                                        @if ($packageSent)
-                                                            <span class="label label-success label-rounded"
-                                                                style="font-size: 11pt;">Dihantar ke IPJPSM</span>
-                                                        @else
-                                                            <span class="label label-warning label-rounded"
-                                                                style="font-size: 11pt;">Pakej Belum Dihantar</span>
-                                                        @endif
-                                                    @elseif($data->status == 'Lulus')
-                                                        <span class="label label-success label-rounded"
-                                                            style="font-size: 11pt;">Borang telah diperaku</span>
-                                                    @endif
+                                                    {{-- Same wording as the Tindakan icon (see partials/status-label). --}}
+                                                    @include('partials.status-label', ['role' => 'PHD', 'form' => $data, 'packageSent' => $packageSent ?? null])
                                                 </td>
                                                 <td>
                                                     @if ($data->status == 'Tidak Diisi')
@@ -179,9 +163,9 @@
                                                         @endif
                                                     @elseif($data->status == 'Lulus')
                                                     <a href="{{ route('phd.shuttle-3-view-formA-phd', $data->id) }}">
-                                                        <img src="{{ asset('double_check.png') }}" height='30px' alt=""
+                                                        <img src="{{ asset((!empty($data->tiada_pengeluaran) && $data->tiada_pengeluaran == 1) ? 'tpcoklat.png' : 'double_check.png') }}" height='30px' alt=""
                                                             style="color: green; font-size: 20pt;" data-toggle="tooltip"
-                                                            data-placement="bottom" title="Borang telah diperaku"></i>
+                                                            data-placement="bottom" title="{{ (!empty($data->tiada_pengeluaran) && $data->tiada_pengeluaran == 1) ? 'Borang telah diperaku IPJPSM - Tiada Pengeluaran' : 'Borang telah diperaku' }}"></i>
                                                     </a>
                                                     @endif
                                                 </td>

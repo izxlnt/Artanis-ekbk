@@ -121,37 +121,11 @@
                                                 <td>{{ $data->shuttle->no_lesen }}</td>
                                                 <td>{{ $data->tahun }}</td>
                                                 <td>
-                                                    @if ($data->status == 'Sedang Diproses' || $data->status == 'Dihantar ke IPJPSM')
-                                                        <span class="label label-warning label-rounded"
-                                                            style="font-size: 13px;">Sedang Diproses</span>
-                                                    @elseif($data->status == 'Lulus')
-
-                                                        <span class="label label-success label-rounded">Diperaku</span>
-
-                                                    @elseif($data->status == 'Tidak Diisi')
-                                                        <span
-                                                            class="label label-danger label-rounded">{{ $data->status }}</span>
-                                                    @elseif($data->status == 'Tidak Lengkap')
-                                                        <span
-                                                            class="label label-warning label-rounded">{{ $data->status }}</span>
-                                                    @endif
+                                                    {{-- Same wording as the Tindakan icon (see partials/status-label). --}}
+                                                    @include('partials.status-label', ['role' => 'IBK', 'form' => $data])
                                                 </td>
                                                 <td>
-                                                    @if ($data->status == 'Sedang Diproses')
-                                                        <a href="" class="mr-1 btn btn-dark disabled"><i
-                                                                class="fas fa-pencil-alt"></i></a>
-                                                    @elseif($data->status =="Dihantar ke IPJPSM")
-                                                        <a href="" class="mr-1 btn btn-dark disabled"><i
-                                                                class="fas fa-pencil-alt"></i></a>
-                                                    @elseif($data->status =="Tidak Lengkap")
-                                                        <a href="{{ url('/pengguna/shuttle-4-formA/' . $year) }}">
-                                                        <img src="{{ asset('history.png') }}" height='30px' alt="" style="font-size: 15pt;"
-                                                        data-toggle="tooltip" data-placement="bottom"
-                                                        title="Borang Tidak Lengkap"></i></a>
-                                                    @else
-                                                        <a href="" class="mr-1 btn btn-dark disabled"><i
-                                                                class="fas fa-pencil-alt"></i></a>
-                                                    @endif
+                                                    @include('partials.status-icon-ibk', ['form' => $data, 'editLink' => url('/pengguna/shuttle-4-formA/' . $year)])
                                                 </td>
 
 

@@ -110,10 +110,17 @@
 
                                                 <td>{{ $data->tahun }}</td>
                                                 <td>
-                                                    @if ($data->status == 'Lulus')
+                                                    {{-- Same branches as the Tindakan icon, so the text and the icon always agree. --}}
+                                                    @if ($data->status == 'Sedang Diproses')
+                                                        Borang perlu disahkan PHD
+                                                    @elseif ($data->status == 'Tidak Lengkap')
+                                                        Borang tidak lengkap
+                                                    @elseif ($data->status == 'Dihantar ke IPJPSM')
+                                                        Borang perlu diperaku
+                                                    @elseif ($data->status == 'Lulus')
                                                         Borang telah diperaku
                                                     @else
-                                                        Borang perlu diperaku
+                                                        Borang belum diisi
                                                     @endif
                                                 </td>
                                                 <td>
@@ -122,7 +129,7 @@
                                                     @elseif($data->status == 'Tidak Lengkap')
                                                        <img src="{{ asset('history.png') }}" height='30px' alt="" style="color: #dbd400; font-size: 20pt;"
                                                             data-toggle="tooltip" data-placement="bottom"
-                                                            title="Borang tidak lengkap "></i>
+                                                            title="Borang tidak lengkap"></i>
                                                     @elseif($data->status == 'Dihantar ke IPJPSM')
                                                         <a href="{{ route('ipjpsm.shuttle-3-view-formA', $data->shuttle_id) }}?year={{ $year }}">
                                                             <img src="{{ asset('circle_times_blue.png') }}"
@@ -134,7 +141,7 @@
                                                             <img src="{{ asset('double_check.png') }}" height='30px'
                                                                 alt="" style="color: green; font-size: 20pt;"
                                                                 data-toggle="tooltip" data-placement="bottom"
-                                                                title="Borang telah diperaku "></i></a>
+                                                                title="Borang telah diperaku"></i></a>
                                                     @else
                                                         <img src="{{ asset('circle_times.png') }}" height='30px' alt=""
                                                             data-toggle="tooltip" data-placement="bottom"

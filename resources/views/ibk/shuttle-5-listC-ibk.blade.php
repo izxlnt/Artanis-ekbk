@@ -119,37 +119,11 @@
                                             <td>{{ $data->no_lesen }}</td>
                                             <td>{{ $data->bulan }}</td>
                                             <td>
-                                                @if ($data->status == 'Sedang Diproses')
-                                                    <span
-                                                        class="label label-warning label-rounded">{{ $data->status }}</span>
-                                                @elseif($data->status =="Dihantar ke IPJPSM")
-                                                    <span class="label label-warning label-rounded">Sedang
-                                                        Diproses</span>
-                                                @elseif($data->status =="Tidak Lengkap")
-                                                    <span
-                                                        class="label label-danger label-rounded">{{ $data->status }}</span>
-                                                @elseif($data->status =="Lulus")
-                                                    <span
-                                                        class="label label-success label-rounded">Diperaku</span>
-                                                @else
-                                                    <span
-                                                        class="label label-dark bg-dark label-rounded">{{ $data->status }}</span>
-                                                @endif
+                                                {{-- Same wording as the Tindakan icon (see partials/status-label). --}}
+                                                @include('partials.status-label', ['role' => 'IBK', 'form' => $data])
                                             </td>
                                             <td>
-                                                @if($data->status =="Sedang Diproses")
-                                                <a href="" class="mr-1 btn btn-dark disabled"><i
-                                                    class="fas fa-pencil-alt"></i></a>
-                                                @elseif($data->status =="Dihantar ke IPJPSM")
-                                                <a href="" class="mr-1 btn btn-dark disabled"><i
-                                                    class="fas fa-pencil-alt"></i></a>
-                                                @elseif($data->status =="Tidak Lengkap")
-                                                <a href="{{ route('edit-form3b',$shuttle->id) }}" class="mr-1 btn btn-success"><i
-                                                    class="fas fa-pencil-alt"></i></a>
-                                                @else
-                                                <a href="" class="mr-1 btn btn-dark disabled"><i
-                                                    class="fas fa-pencil-alt"></i></a>
-                                                @endif
+                                                @include('partials.status-icon-ibk', ['form' => $data, 'editLink' => route('edit-form3b',$shuttle->id)])
                                             </td>
 
 

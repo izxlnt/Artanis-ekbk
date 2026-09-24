@@ -128,28 +128,14 @@
                                             <td>{{ $data->no_lesen }}</td>
                                             <td>{{ $data->suku_tahun }}</td>
                                             <td>
-                                                @if ($data->status == 'Sedang Diproses')
-                                                    <span
-                                                        class="label label-warning label-rounded">{{ $data->status }}</span>
-                                                @elseif($data->status =="Dihantar ke IPJPSM")
-                                                    <span class="label label-warning label-rounded">Sedang
-                                                        Diproses</span>
-                                                @elseif($data->status =="Tidak Lengkap")
-                                                    <span
-                                                        class="label label-danger label-rounded">{{ $data->status }}</span>
-                                                @elseif($data->status =="Lulus")
-                                                    <span
-                                                        class="label label-success label-rounded">Diperaku</span>
-                                                @else
-                                                    <span
-                                                        class="label label-dark bg-dark label-rounded">{{ $data->status }}</span>
-                                                @endif
+                                                {{-- Same wording as the Tindakan icon (see partials/status-label). --}}
+                                                @include('partials.status-label', ['role' => 'IBK', 'form' => $data])
                                             </td>
                                             <td>
                                                 @if($data->status =="Tidak Lengkap")
                                                 <a href="{{ route('edit-form3b',$shuttle->id) }}" ><img src="{{ asset('history.png') }}" height='30px' alt="" style="font-size: 15pt;"
                                                     data-toggle="tooltip" data-placement="bottom"
-                                                    title="Borang Tidak Lengkap"></i></a>
+                                                    title="Borang tidak lengkap"></i></a>
                                                 @elseif($data->status == 'Tidak Diisi')
                                                     <a href="{{ route('user.shuttle-5-formB', [$data->suku_tahun, $year]) }}"
                                                         class="mr-1 btn btn-danger"><img src="{{ asset('circle_times.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang belum diisi"></a>
@@ -160,6 +146,8 @@
                                                 @elseif($data->status == 'Sedang Diproses')
                                                     <img src="{{ asset('circle_check_yellow.png') }}" height='30px' alt=""
                                                         data-toggle="tooltip" data-placement="bottom" title="Borang telah dihantar">
+                                                @elseif($data->status == 'Ditutup')
+                                                    <img src="{{ asset('calendar.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang ditutup">
                                                 @elseif(in_array($data->status, ['Lulus', 'Dihantar ke IPJPSM']))
                                                     <img src="{{ asset((!empty($data->tiada_pengeluaran) && $data->tiada_pengeluaran == 1) ? 'tpbiru.png' : 'circle_check.png') }}" height='30px' alt=""
                                                         data-toggle="tooltip" data-placement="bottom" title="{{ (!empty($data->tiada_pengeluaran) && $data->tiada_pengeluaran == 1) ? 'Borang telah disahkan PHD - Tiada Pengeluaran' : 'Borang telah disahkan PHD' }}">
