@@ -142,6 +142,8 @@
                                                             <img src="{{ asset('circle_times_yellow.png') }}" height='30px'
                                                             data-toggle="tooltip" data-placement="bottom"
                                                             title="Borang perlu disahkan PHD"></i></a>
+                                                    @elseif($data->status == 'Tidak Diisi')
+                                                        <img src="{{ asset('circle_times.png') }}" height='30px' data-toggle="tooltip" data-placement="bottom" title="Borang belum diisi">
                                                     @elseif($data->status == 'Sedang Diisi')
                                                         <img src="{{ asset('circle_times.png') }}" height='30px' data-toggle="tooltip" data-placement="bottom" title="Borang sedang diisi">
                                                     @elseif($data->status == 'Ditutup')

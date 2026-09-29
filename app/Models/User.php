@@ -39,6 +39,7 @@ class User extends Authenticatable implements Auditable
         'jawatan',
         'negeri',
         'daerah',
+        'daerah_id',
         'bahagian',
         'no_telefon',
 
@@ -63,8 +64,66 @@ class User extends Authenticatable implements Auditable
         'email_verified_at' => 'datetime',
     ];
 
+    /**
+     * Users belonging to a district. Accepts a daerahs.id (numeric) or a
+     * daerah_hutan name, expands it to every daerahs row sharing that
+     * daerah_hutan, and matches on users.daerah_id. Users not yet linked to an
+     * id (or before the daerah_id migration has run) fall back to matching the
+     * users.daerah name, as before.
+     */
+    public function scopeInDaerah($query, $daerah)
+    {
+        if ($daerah === null || $daerah === '') {
+            return $query->whereRaw('1 = 0');
+        }
+
+        $hutan = is_numeric($daerah)
+            ? \DB::table('daerahs')->where('id', (int) $daerah)->value('daerah_hutan')
+            : $daerah;
+
+        if ($hutan === null) {
+            return $query->whereRaw('1 = 0');
+        }
+
+        static $hasIdColumn = null;
+        if ($hasIdColumn === null) {
+            $hasIdColumn = \Illuminate\Support\Facades\Schema::hasColumn('users', 'daerah_id');
+        }
+
+        if (!$hasIdColumn) {
+            return $query->where('users.daerah', $hutan);
+        }
+
+        $ids = \DB::table('daerahs')->where('daerah_hutan', $hutan)->pluck('id')->all();
+
+        return $query->where(function ($q) use ($ids, $hutan) {
+            $q->whereIn('users.daerah_id', $ids)
+              ->orWhere(function ($q2) use ($hutan) {
+                  $q2->whereNull('users.daerah_id')->where('users.daerah', $hutan);
+              });
+        });
+    }
+
+    /**
+     * Current daerah_hutan name of the user's district: read from daerahs via
+     * daerah_id (so it follows renames), falling back to the stored users.daerah.
+     */
+    public function getDaerahHutanAttribute()
+    {
+        if (!empty($this->attributes['daerah_id'])) {
+            $name = \DB::table('daerahs')->where('id', $this->attributes['daerah_id'])->value('daerah_hutan');
+            if ($name !== null) return $name;
+        }
+        return $this->attributes['daerah'] ?? null;
+    }
+
     public function getDaerahNumericIdAttribute()
     {
+        // Anchored on users.daerah_id; the name lookup is only a fallback for
+        // users that have not been linked to a daerahs row yet.
+        if (!empty($this->attributes['daerah_id'])) {
+            return (int) $this->attributes['daerah_id'];
+        }
         if (!$this->daerah) return null;
         static $cache = [];
         if (!array_key_exists($this->daerah, $cache)) {
@@ -75,6 +134,21 @@ class User extends Authenticatable implements Auditable
 
     public function getDaerahIdsAttribute()
     {
+        // Access is anchored on users.daerah_id, so a rename of daerahs.daerah_hutan
+        // cannot detach the user. It still spans every daerahs row that shares that
+        // row's daerah_hutan (e.g. Negeri Sembilan Barat = ids 91-94).
+        if (!empty($this->attributes['daerah_id'])) {
+            $anchor = (int) $this->attributes['daerah_id'];
+            static $idCache = [];
+            if (!array_key_exists($anchor, $idCache)) {
+                $hutan = \DB::table('daerahs')->where('id', $anchor)->value('daerah_hutan');
+                $idCache[$anchor] = $hutan === null
+                    ? [$anchor]
+                    : \DB::table('daerahs')->where('daerah_hutan', $hutan)->pluck('id')->toArray();
+            }
+            return $idCache[$anchor];
+        }
+
         if (!$this->daerah) return [];
         static $cache = [];
         if (!array_key_exists($this->daerah, $cache)) {

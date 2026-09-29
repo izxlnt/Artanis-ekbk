@@ -499,7 +499,7 @@ class FormCKayuKayuLainLain extends Component
         $daerah_id = $pengguna_kilang->shuttle()->first('daerah_id');
         $daerah_hutan = $daerah_id ? Daerah::where('id', $daerah_id->daerah_id)->value('daerah_hutan') : null;
 
-        $pegawais = $daerah_hutan ? User::where('daerah', $daerah_hutan)->where(
+        $pegawais = $daerah_hutan ? User::inDaerah($daerah_hutan)->where(
             'kategori_pengguna',
             'PHD'
         )->get() : collect();
@@ -710,7 +710,7 @@ class FormCKayuKayuLainLain extends Component
         $daerah_id = $pengguna_kilang->shuttle()->first('daerah_id');
         $daerah_hutan = $daerah_id ? Daerah::where('id', $daerah_id->daerah_id)->value('daerah_hutan') : null;
 
-        $pegawais = $daerah_hutan ? User::where('daerah', $daerah_hutan)->where('kategori_pengguna',
+        $pegawais = $daerah_hutan ? User::inDaerah($daerah_hutan)->where('kategori_pengguna',
             'PHD'
         )->get() : collect();
 

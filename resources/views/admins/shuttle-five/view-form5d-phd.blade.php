@@ -227,7 +227,7 @@
                                                             here at all - PHD already decided; without this gate they
                                                             could re-submit Sahkan/Tidak Lengkap and silently flip an
                                                             already-sent form's status back and forth. --}}
-                                                            @if ($form5d->status == 'Sedang Diproses')
+                                                            @if (in_array($form5d->status, ['Sedang Diproses', 'Tiada Pengeluaran']))
                                                             <div class="text-center form-group m-b-0">
                                                                 <button type="button" class="btn btn-primary" alt="default"
                                                                     data-toggle="modal" data-target="#responsive-modal-tidaklengkap"

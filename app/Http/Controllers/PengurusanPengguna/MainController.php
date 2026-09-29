@@ -41,7 +41,8 @@ class MainController extends Controller
         $hashed_random_password = Hash::make('1234567890');
 
         $negeri_name = Daerah::where('id', $request->negeri_id)->first('negeri');
-        $daerah_name = Daerah::where('id', $request->daerah_id)->first('daerah_hutan');
+        $daerah_name = Daerah::where('id', $request->daerah_id)->first(['daerah_hutan', 'negeri']);
+        $negeri_name = $daerah_name ?: $negeri_name; // the district decides the state, not the separate state field
 
         User::create([
             'login_id' => $request->kad_pengenalan,
@@ -51,6 +52,7 @@ class MainController extends Controller
             'jawatan' => $request->jawatan,
             'negeri' => $negeri_name->negeri ?? null,
             'daerah' => $daerah_name->daerah_hutan ?? null,
+            'daerah_id' => $daerah_name ? $request->daerah_id : null,
             'bahagian' => $request->bahagian,
             'no_telefon' => $request->no_telefon,
             'email' => $request->email,
@@ -111,10 +113,11 @@ class MainController extends Controller
 
         // dd($request->negeri_id);
         $negeri_name = Daerah::where('id', $request->negeri_id)->first('negeri');
-        $daerah_name = Daerah::where('id', $request->daerah_id)->first('daerah_hutan');
+        $daerah_name = Daerah::where('id', $request->daerah_id)->first(['daerah_hutan', 'negeri']);
+        if ($request->kategori_pengguna == 'PHD') { $negeri_name = $daerah_name ?: $negeri_name; } // PHD: the district decides the state
 
         if ($request->kategori_pengguna == 'PHD') {
-            $user_counter_phd = User::where('kategori_pengguna', 'PHD')->where('daerah', $daerah_name->daerah_hutan)->where('status', '1')->count();
+            $user_counter_phd = User::where('kategori_pengguna', 'PHD')->inDaerah($request->daerah_id)->where('status', '1')->count();
             // dd($user_counter_phd);
             if ($user_counter_phd >= 2) {
                 return redirect()->back()->with('error', 'Setiap Pejabat Hutan Daerah hanya boleh mendaftar terhad kepada dua pengguna aktif sahaja.');
@@ -130,7 +133,8 @@ class MainController extends Controller
         // dd($request->all());
         $negeri_name = Daerah::where('id', $request->negeri_id)->first('negeri');
 
-        $daerah_name = Daerah::where('id', $request->daerah_id)->first('daerah_hutan');
+        $daerah_name = Daerah::where('id', $request->daerah_id)->first(['daerah_hutan', 'negeri']);
+        if ($request->kategori_pengguna == 'PHD') { $negeri_name = $daerah_name ?: $negeri_name; } // PHD: the district decides the state
         // dd($daerah_name);
 
         $user = User::create([
@@ -140,6 +144,7 @@ class MainController extends Controller
             'jawatan' => $request->jawatan,
             'negeri' => $negeri_name->negeri ?? null,
             'daerah' => $daerah_name->daerah_hutan ?? null,
+            'daerah_id' => $daerah_name ? $request->daerah_id : null,
             'bahagian' => $request->bahagian ?? null,
             'no_telefon' => $request->no_telefon,
             'email' => $request->email,

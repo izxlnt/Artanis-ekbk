@@ -598,7 +598,7 @@ class FormD extends Component
         //notification hantar borang IBK to PHD
         $pengguna_kilang = auth()->user();
 
-        $pegawais = User::where('daerah', $pengguna_kilang->daerah)->where('kategori_pengguna', 'PHD')->get();
+        $pegawais = User::inDaerah(optional($pengguna_kilang->shuttle)->daerah_id)->where('kategori_pengguna', 'PHD')->get();
 
         $delay = now()->addMinutes(1);
 

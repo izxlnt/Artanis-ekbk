@@ -45,7 +45,7 @@ Route::post('/email/check-unique', [App\Http\Controllers\EmailValidationControll
 Route::post('/validate-email', [App\Http\Controllers\EmailValidationController::class, 'validateEmailForUpdate'])->name('validate-email');
 Route::post('/get-email-occurrences', [App\Http\Controllers\EmailValidationController::class, 'getEmailOccurrences'])->name('get-email-occurrences');
 
-Route::get('/shuttle-3-view-form3B/{id}', [App\Http\Controllers\ShuttleThree\ViewFormBController::class, 'shuttle_3_form_view_form3B'])->name('shuttle-3-view-formB');
+Route::get('/shuttle-3-view-form3B/{id}', [App\Http\Controllers\ShuttleThree\ViewFormBController::class, 'shuttle_3_form_view_form3B'])->name('shuttle-3-view-formB')->middleware(['auth', 'active_user', 'record.scope']);
 
 //custom forget password
 Route::get('/terlupa-kata-laluan', [App\Http\Controllers\ForgetPasswordController::class, 'forgetPassword'])->name('forget-password.show');
@@ -151,7 +151,7 @@ Route::middleware('auth')->group(
 
         Route::middleware('active_user')->group(function () {
 
-            Route::middleware('user')->group(function () {
+            Route::middleware(['user', 'record.scope'])->group(function () {
                 Route::get('/pengguna/halaman-utama', [App\Http\Controllers\UserController::class, 'index_user'])->name('home-user');
 
                 //pengurusan pengguna
@@ -390,7 +390,7 @@ Route::middleware('auth')->group(
                 });
             });
 
-            Route::middleware('jpn')->group(function () {
+            Route::middleware(['jpn', 'record.scope'])->group(function () {
                 Route::get('/jpn/halaman-utama', [App\Http\Controllers\UserController::class, 'index_jpn'])->name('home-jpn');
                 Route::get('/jpn/senarai-tugasan', [App\Http\Controllers\ShuttleThree\MainController::class, 'senarai_tugasan_jpn'])->name('jpn.senarai-tugasan');
 
@@ -455,7 +455,7 @@ Route::middleware('auth')->group(
             Route::get('/jpn/status-permohonan', [App\Http\Controllers\StatusPermohonanPengguna\PermohonanPenggunaController::class, 'status_permohonan_pengguna_jpn'])->name('jpn.status-permohonan-pengguna');
             Route::get('/jpn/lampiran-permohonan/{id}', [App\Http\Controllers\StatusPermohonanPengguna\PermohonanPenggunaController::class, 'lampiran_permohonan_jpn'])->name('jpn.lampiran-permohonan-pengguna');
 
-            Route::middleware('phd')->group(function () {
+            Route::middleware(['phd', 'record.scope'])->group(function () {
                 Route::get('/phd/halaman-utama', [App\Http\Controllers\UserController::class, 'index_phd'])->name('home-phd');
 
                 //Pengurusan pengguna
@@ -555,21 +555,28 @@ Route::middleware('auth')->group(
 
 
                 //shuttle 3
-                Route::get('/phd/shuttle-3-listA/{year}', [App\Http\Controllers\ShuttleThree\ListAController::class, 'shuttle_3_listA_phd'])->name('phd.shuttle-3-listA');
+                // Borang A list moved to senarai-tugasan (shows all statuses); old URL kept for emails/bookmarks.
+                Route::get('/phd/shuttle-3-listA/{year}', function ($year) {
+                    return redirect()->route('phd.senarai-tugasan-3A', $year);
+                })->name('phd.shuttle-3-listA');
                 Route::get('/phd/shuttle-3-listB/{year}', [App\Http\Controllers\ShuttleThree\ListBController::class, 'shuttle_3_listB_phd'])->name('phd.shuttle-3-listB');
                 Route::get('/phd/shuttle-3-listC/{year}', [App\Http\Controllers\ShuttleThree\ListCController::class, 'shuttle_3_listC_phd'])->name('phd.shuttle-3-listC');
                 Route::get('/phd/shuttle-3-listD/{year}', [App\Http\Controllers\ShuttleThree\ListDController::class, 'shuttle_3_listD_phd'])->name('phd.shuttle-3-listD');
 
 
                 //shuttle 4
-                Route::get('/phd/shuttle-4-listA/{year}', [App\Http\Controllers\ShuttleFour\ListAController::class, 'shuttle_4_listA'])->name('phd.shuttle-4-listA');
+                Route::get('/phd/shuttle-4-listA/{year}', function ($year) {
+                    return redirect()->route('phd.senarai-tugasan-4A', $year);
+                })->name('phd.shuttle-4-listA');
                 Route::get('/phd/shuttle-4-listB/{year}', [App\Http\Controllers\ShuttleFour\ListBController::class, 'shuttle_4_listB'])->name('phd.shuttle-4-listB');
                 Route::get('/phd/shuttle-4-listC/{year}', [App\Http\Controllers\ShuttleFour\ListCController::class, 'shuttle_4_listC'])->name('phd.shuttle-4-listC');
                 Route::get('/phd/shuttle-4-listD/{year}', [App\Http\Controllers\ShuttleFour\ListDController::class, 'shuttle_4_listD'])->name('phd.shuttle-4-listD');
                 Route::get('/phd/shuttle-4-listE/{year}', [App\Http\Controllers\ShuttleFour\ListEController::class, 'shuttle_4_listE'])->name('phd.shuttle-4-listE');
 
                 //shuttle 5
-                Route::get('/phd/shuttle-5-listA/{year}', [App\Http\Controllers\ShuttleFive\ListOverallController::class, 'shuttle_5_listA'])->name('phd.shuttle-5-listA');
+                Route::get('/phd/shuttle-5-listA/{year}', function ($year) {
+                    return redirect()->route('phd.senarai-tugasan-5A', $year);
+                })->name('phd.shuttle-5-listA');
                 Route::get('/phd/shuttle-5-listB/{year}', [App\Http\Controllers\ShuttleFive\ListOverallController::class, 'shuttle_5_listB'])->name('phd.shuttle-5-listB');
                 Route::get('/phd/shuttle-5-listC/{year}', [App\Http\Controllers\ShuttleFive\ListOverallController::class, 'shuttle_5_listC'])->name('phd.shuttle-5-listC');
                 Route::get('/phd/shuttle-5-listD/{year}', [App\Http\Controllers\ShuttleFive\ListOverallController::class, 'shuttle_5_listD'])->name('phd.shuttle-5-listD');

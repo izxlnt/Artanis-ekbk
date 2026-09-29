@@ -381,7 +381,7 @@
                                                         still awaiting that decision - without this gate, PHD could
                                                         re-submit Sahkan/Tidak Lengkap on a form they've already
                                                         decided. --}}
-                                                        @if ($formc->status == 'Sedang Diproses')
+                                                        @if (in_array($formc->status, ['Sedang Diproses', 'Tiada Pengeluaran']))
                                                         <div class="text-center form-group m-b-0">
                                                             <button type="button" class="btn btn-primary" alt="default"
                                                                         data-toggle="modal" data-target="#responsive-modal-tidaklengkap"

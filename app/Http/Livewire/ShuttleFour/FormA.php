@@ -125,6 +125,7 @@ class FormA extends Component
             'longtitude_x' => $this->longtitude_x ?? null,
             'langtitude_y' => $this->langtitude_y ?? null,
             'daerah_id' => $this->daerah_id ?? null,
+            'negeri_id' => $this->daerah_id ? \App\Models\Daerah::where('id', $this->daerah_id)->value('negeri') : null, // state follows the district
 
             'no_telefon' => $this->no_telefon ?? null,
             'no_faks' => $this->no_faks ?? null,

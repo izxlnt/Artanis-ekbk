@@ -450,7 +450,8 @@ class RegisterController extends Controller
         $keterangan= HakMilik::where('id',$request->status_hak_milik)->first('keterangan');
 
         $negeri_name= Daerah::where('id',$request->negeri_id)->first('negeri');
-        $daerah_name= Daerah::where('id',$request->daerah_id)->first('daerah_hutan');
+        $daerah_name= Daerah::where('id',$request->daerah_id)->first(['daerah_hutan', 'negeri']);
+        $negeri_name = $daerah_name ?: $negeri_name; // the district decides the state, not the separate state field
 
         event(new Registered($kilang = $this->createKilang($request->all(),$keterangan,$daerah_name,$negeri_name,$sijil_ssm,$lesen_kilang,$gambar_ic_hadapan,$gambar_ic_belakang, $gambar_passport,$gambar_kad_pekerja)));
         // event(new Registered($kilang = $this->createKilang($request->all(),$sijil_ssm,$lesen_kilang)));

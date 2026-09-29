@@ -227,9 +227,7 @@ class MainController extends Controller
             $pengguna_kilang = auth()->user();
             $daerah_id = $pengguna_kilang->shuttle()->first('daerah_id');
 
-            $pegawais = User::where('daerah',
-                $daerah_id->daerah_id
-            )->where('kategori_pengguna', 'PHD')->get();
+            $pegawais = User::inDaerah($daerah_id->daerah_id)->where('kategori_pengguna', 'PHD')->get();
 
             $delay = now()->addMinutes(1);
 
@@ -463,6 +461,9 @@ class MainController extends Controller
         // dd($id);
         $user = auth()->user();
         $form5D = Form5D::find($id);
+        if (!$form5D || $form5D->status === 'Sedang Diisi') {
+            return redirect()->back()->with('error', 'Borang masih sedang diisi oleh pengguna kilang.');
+        }
         $form5D->status = $request->status;
         $form5D->save();
 
@@ -500,6 +501,9 @@ class MainController extends Controller
         // dd($id);
         $user = auth()->user();
         $form5E = Form5E::where('id',$id)->first();
+        if (!$form5E || $form5E->status === 'Sedang Diisi') {
+            return redirect()->back()->with('error', 'Borang masih sedang diisi oleh pengguna kilang.');
+        }
         // dd( $form5E);
         $form5E->status = $request->status;
         $form5E->save();
@@ -536,7 +540,7 @@ class MainController extends Controller
     //Status Borang PHD shuttle 5
     public function senarai_tugasan_5A($year){
 
-        $formA = FormA::where('status', '!=', 'Tidak Diisi')->where('tahun', $year)
+        $formA = FormA::where('tahun', $year)
             ->whereHas('shuttle', function ($q) {
                 $q->whereIn('daerah_id', auth()->user()->daerah_ids)->where('shuttle_type', '5');
             })
@@ -572,7 +576,7 @@ class MainController extends Controller
 
     public function senarai_tugasan_5B($year){
 
-        $formB = FormB::whereNotIn('status', ['Tidak Diisi', 'Ditutup'])->where('tahun', $year)
+        $formB = FormB::whereNotIn('status', ['Ditutup'])->where('tahun', $year)
         ->whereHas('shuttle', function ($q) {
             $q->whereIn('daerah_id', auth()->user()->daerah_ids)->where('shuttle_type', '5');
         })
@@ -608,7 +612,7 @@ class MainController extends Controller
     }
 
     public function senarai_tugasan_5C($year){
-        $formC = FormC::whereNotIn('status', ['Tidak Diisi', 'Ditutup'])->where('tahun', $year)
+        $formC = FormC::whereNotIn('status', ['Ditutup'])->where('tahun', $year)
         ->whereHas('shuttle', function ($q) {
             $q->whereIn('daerah_id', auth()->user()->daerah_ids)->where('shuttle_type', '5');
         })
@@ -645,7 +649,7 @@ class MainController extends Controller
 
     public function senarai_tugasan_5D($year){
 
-        $form5D = Form5D::where('status', '!=', 'Tidak Diisi')->where('tahun', $year)
+        $form5D = Form5D::where('tahun', $year)
         ->whereHas('shuttle', function ($q) {
             $q->whereIn('daerah_id', auth()->user()->daerah_ids)->where('shuttle_type', '5');
         })
@@ -682,7 +686,7 @@ class MainController extends Controller
 
     public function senarai_tugasan_5E($year){
 
-        $form5E = Form5E::where('status', '!=', 'Tidak Diisi')->where('tahun', $year)
+        $form5E = Form5E::where('tahun', $year)
         ->whereHas('shuttle', function ($q) {
             $q->whereIn('daerah_id', auth()->user()->daerah_ids)->where('shuttle_type', '5');
         })

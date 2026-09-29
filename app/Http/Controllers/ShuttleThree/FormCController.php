@@ -2161,7 +2161,7 @@ class FormCController extends Controller
         // PHD never received a notification when a factory submitted Form 3C.
         $daerah_hutan = $daerah_id ? Daerah::where('id', $daerah_id->daerah_id)->value('daerah_hutan') : null;
 
-        $pegawais = User::where('daerah', $daerah_hutan)->where(
+        $pegawais = User::inDaerah($daerah_hutan)->where(
             'kategori_pengguna',
             'PHD'
         )->get();
@@ -2374,7 +2374,7 @@ class FormCController extends Controller
         // PHD never received a notification when a factory submitted Form 3C.
         $daerah_hutan = $daerah_id ? Daerah::where('id', $daerah_id->daerah_id)->value('daerah_hutan') : null;
 
-        $pegawais = User::where('daerah', $daerah_hutan)->where(
+        $pegawais = User::inDaerah($daerah_hutan)->where(
             'kategori_pengguna',
             'PHD'
         )->get();

@@ -15,7 +15,7 @@ class PengumumanController extends Controller
     {
         $user = auth()->user();
         // dd($user);
-        $pengumuman = pengumuman::where('daerah_hutan',$user->daerah)->get();
+        $pengumuman = pengumuman::where('daerah_hutan', $user->daerah_hutan)->get();
 
         // dd($pengumuman);
 
@@ -176,7 +176,7 @@ class PengumumanController extends Controller
         Pengumuman::create([
             'tajuk'=> $request->tajuk,
             'keterangan'=> $request->keterangan,
-            'daerah_hutan'=> $id->daerah,
+            'daerah_hutan'=> $id->daerah_hutan,
 
 
         ]);

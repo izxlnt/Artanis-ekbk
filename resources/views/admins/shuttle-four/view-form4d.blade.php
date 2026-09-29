@@ -293,7 +293,7 @@
                                                             BPE/IPJPSM's own decision (status already Dihantar ke
                                                             IPJPSM) share this block - each role's buttons must only
                                                             show during their own pending-decision window. --}}
-                                                            @if ((auth()->user()->kategori_pengguna == 'BPE' && $form4d->status == 'Dihantar ke IPJPSM') || (auth()->user()->kategori_pengguna != 'BPE' && $form4d->status == 'Sedang Diproses'))
+                                                            @if ((auth()->user()->kategori_pengguna == 'BPE' && $form4d->status == 'Dihantar ke IPJPSM') || (auth()->user()->kategori_pengguna != 'BPE' && in_array($form4d->status, ['Sedang Diproses', 'Tiada Pengeluaran'])))
                                                             <div class="text-center form-group m-b-0">
                                                                 @if(auth()->user()->kategori_pengguna == 'PHD')
                                                                 <button type="button" class="btn btn-warning mr-2" data-toggle="modal" data-target="#modal-tidak-lengkap">

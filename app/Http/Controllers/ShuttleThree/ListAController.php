@@ -255,7 +255,7 @@ class ListAController extends Controller
 
     public function send_email(Request $request){
 
-        $pegawai_list = User::where('kategori_pengguna', 'PHD')->where('daerah', $request->daerah_hutan)->get();
+        $pegawai_list = User::where('kategori_pengguna', 'PHD')->inDaerah($request->daerah_hutan)->get();
 
         foreach($pegawai_list as $pegawai){
             $pegawai->notify(new BorangTidakDiambilTindakan($pegawai));

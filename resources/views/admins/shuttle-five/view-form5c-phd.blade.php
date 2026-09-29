@@ -379,7 +379,7 @@
                                                         {{-- This "-phd" view is what PHD lands on for an
                                                         already-decided Form C - the decision buttons must not
                                                         appear here at all. --}}
-                                                        @if ($formc->status == 'Sedang Diproses')
+                                                        @if (in_array($formc->status, ['Sedang Diproses', 'Tiada Pengeluaran']))
                                                         <div class="text-center form-group m-b-0">
                                                             <button type="button" class="btn btn-primary" alt="default"
                                                                         data-toggle="modal" data-target="#responsive-modal-tidaklengkap"

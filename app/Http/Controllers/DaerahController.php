@@ -145,6 +145,7 @@ class DaerahController extends Controller
 
         ]);
         $daerah = Daerah::findOrFail($id);
+        $oldHutan = $daerah->daerah_hutan;
 
         // dd($daerah);
         $daerah->negeri = $request->negeri;
@@ -153,6 +154,14 @@ class DaerahController extends Controller
 
         $daerah->save();
 
+        // users.daerah (display/legacy lookups) and pengumuman.daerah_hutan hold the
+        // district NAME, so keep them in step with a renamed district.
+        if ($oldHutan !== $daerah->daerah_hutan) {
+            \DB::table('users')->where('daerah_id', $daerah->id)->update(['daerah' => $daerah->daerah_hutan]);
+            if (!Daerah::where('daerah_hutan', $oldHutan)->exists()) {
+                \DB::table('pengumuman')->where('daerah_hutan', $oldHutan)->update(['daerah_hutan' => $daerah->daerah_hutan]);
+            }
+        }
 
         return redirect('admin/daerah')->with('success','Maklumat Anda Telah Berjaya Dikemaskini.');
 

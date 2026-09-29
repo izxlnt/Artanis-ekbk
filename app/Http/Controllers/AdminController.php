@@ -197,9 +197,13 @@ class AdminController extends Controller{
         }
 
         if ($request->filled('daerah_id')) {
-            $daerah_name = Daerah::where('id', $request->daerah_id)->first('daerah_hutan');
+            $daerah_name = Daerah::where('id', $request->daerah_id)->first(['daerah_hutan', 'negeri']);
             if ($daerah_name) {
                 $user->daerah = $daerah_name->daerah_hutan;
+                $user->daerah_id = $request->daerah_id;
+                if ($user->kategori_pengguna === 'PHD') {
+                    $user->negeri = $daerah_name->negeri; // PHD: the district decides the state
+                }
             }
         }
 

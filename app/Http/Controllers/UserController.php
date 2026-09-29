@@ -366,7 +366,8 @@ class UserController extends Controller
         $form5E_count = Form5E::whereNotIn('status', $excludedStatuses)
             ->where('tahun', $year)->where('shuttle_id', $shuttleId)->count();
 
-        $user_daerah = Auth::user()->shuttle->daerah_id;
+        // pengumuman.daerah_hutan holds the district NAME; the kilang stores the district ID, so resolve it first.
+        $user_daerah = \DB::table('daerahs')->where('id', Auth::user()->shuttle->daerah_id)->value('daerah_hutan');
 
         $pengumuman = Pengumuman::where('daerah_hutan', $user_daerah)->orderBy('created_at', 'DESC')->get();
         if ($pengumuman->isEmpty()) {

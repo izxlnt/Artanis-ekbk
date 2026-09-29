@@ -109,7 +109,7 @@ class MainController extends Controller
     public function senarai_tugasan_3A($year)
     {
 
-        $formA = FormA::where('status', '!=', 'Tidak Diisi')->where('tahun', $year)
+        $formA = FormA::where('tahun', $year)
             ->whereHas('shuttle', function ($q) {
                 $q->whereIn('daerah_id', auth()->user()->daerah_ids)->where('shuttle_type', '3');
             })
@@ -146,7 +146,7 @@ class MainController extends Controller
     public function senarai_tugasan_3B($year)
     {
 
-        $formB = FormB::whereNotIn('status', ['Tidak Diisi', 'Ditutup'])->where('tahun', $year)
+        $formB = FormB::whereNotIn('status', ['Ditutup'])->where('tahun', $year)
             ->whereHas('shuttle', function ($q) {
                 $q->whereIn('daerah_id', auth()->user()->daerah_ids)->where('shuttle_type', '3');
             })
@@ -182,7 +182,7 @@ class MainController extends Controller
 
     public function senarai_tugasan_3C($year)
     {
-        $formC = FormC::whereNotIn('status', ['Tidak Diisi', 'Ditutup'])->where('tahun', $year)
+        $formC = FormC::whereNotIn('status', ['Ditutup'])->where('tahun', $year)
             ->whereHas('shuttle', function ($q) {
                 $q->whereIn('daerah_id', auth()->user()->daerah_ids)->where('shuttle_type', '3');
             })
@@ -220,7 +220,7 @@ class MainController extends Controller
     public function senarai_tugasan_3D($year)
     {
 
-        $formD = FormD::where('status', '!=', 'Tidak Diisi')->where('tahun', $year)
+        $formD = FormD::where('tahun', $year)
             ->whereHas('shuttle', function ($q) {
                 $q->whereIn('daerah_id', auth()->user()->daerah_ids)->where('shuttle_type', '3');
             })
@@ -622,6 +622,9 @@ class MainController extends Controller
 
         $user = auth()->user();
         $formA = FormA::find($id);
+        if (!$formA || $formA->status === 'Sedang Diisi') {
+            return redirect()->back()->with('error', 'Borang masih sedang diisi oleh pengguna kilang.');
+        }
         // dd($formA);
         $shuttle = Shuttle::where('id', $formA->shuttle_id)->first();
 
@@ -632,7 +635,12 @@ class MainController extends Controller
             $shuttle->langtitude_y = $request->langtitude_y;
         }
         if ($request->daerah_id) {
-            $shuttle->daerah_id = $request->daerah_id;
+            $newDaerah = \App\Models\Daerah::find($request->daerah_id);
+            if ($newDaerah) {
+                $shuttle->daerah_id = $newDaerah->id;
+                // shuttles.negeri_id holds the state name; keep it in step with the district
+                $shuttle->negeri_id = $newDaerah->negeri;
+            }
         }
         $shuttle->save();
 
@@ -702,6 +710,9 @@ class MainController extends Controller
         // dd($request->all());
         $user = auth()->user();
         $formB = FormB::findorfail($id);
+        if ($formB->status === 'Sedang Diisi') {
+            return redirect()->back()->with('error', 'Borang masih sedang diisi oleh pengguna kilang.');
+        }
         // dd($formB);
 
         $formB->status = $request->status;
@@ -796,6 +807,9 @@ class MainController extends Controller
         // dd($id);
         $user = auth()->user();
         $formC = FormC::find($id);
+        if (!$formC || $formC->status === 'Sedang Diisi') {
+            return redirect()->back()->with('error', 'Borang masih sedang diisi oleh pengguna kilang.');
+        }
         $formC->status = $request->status;
         $formC->save();
 
@@ -861,6 +875,9 @@ class MainController extends Controller
         // dd($id);
         $user = auth()->user();
         $formD = FormD::find($id);
+        if (!$formD || $formD->status === 'Sedang Diisi') {
+            return redirect()->back()->with('error', 'Borang masih sedang diisi oleh pengguna kilang.');
+        }
         $formD->status = $request->status;
         $formD->save();
 
@@ -1338,7 +1355,7 @@ class MainController extends Controller
         $daerah_id = $user_shuttle ? $user_shuttle->daerah_id : null;
 
         if ($daerah_id) {
-            $pegawais = User::where('daerah', $daerah_id)->where('kategori_pengguna', 'PHD')->get();
+            $pegawais = User::inDaerah($daerah_id)->where('kategori_pengguna', 'PHD')->get();
 
             $delay = now()->addMinutes(1);
 

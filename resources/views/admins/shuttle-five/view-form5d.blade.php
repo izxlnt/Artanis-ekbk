@@ -226,7 +226,7 @@
                                                             gate, PHD could re-submit Sahkan/Tidak Lengkap on a form
                                                             they've already decided (even one already sent to IPJPSM),
                                                             silently flipping its status back and forth. --}}
-                                                            @if ($form5d->status == 'Sedang Diproses')
+                                                            @if (in_array($form5d->status, ['Sedang Diproses', 'Tiada Pengeluaran']))
                                                             <div class="text-center form-group m-b-0">
                                                                 {{-- <button type="submit" class="btn btn-primary" >Simpan</button> --}}
                                                                 {{-- <button type="button" class="btn btn-primary">Kembali</button> --}}
