@@ -136,7 +136,7 @@
                                                             <a href="{{ route('user.shuttle-3-formD', ['year' => $year, 'id' => $data->bulan]) }}" data-toggle="tooltip" data-placement="bottom" title="Borang belum diisi">
                                                                 <img src="{{ asset('circle_times.png') }}" height='30px' alt="" style="font-size: 15pt;"></a>
                                                         @elseif ($flow['formD'][$data->bulan]['date_blocked'])
-                                                            <img src="{{ asset('calendar.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang ditutup" style="color: black; font-size: 20pt;">
+                                                            <img src="{{ asset('calendar.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="{{ $flow['formD'][$data->bulan]['reason'] }}" style="color: black; font-size: 20pt;">
                                                         @else
                                                             <img src="{{ asset('circle_times.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="{{ $flow['formD'][$data->bulan]['reason'] }}" style="opacity: 0.5;">
                                                         @endif
@@ -188,7 +188,7 @@
                                                             <a href="{{ route('user.shuttle-3-formD', ['year' => $year, 'id' => $data->bulan]) }}" data-toggle="tooltip" data-placement="bottom" title="Borang belum diisi">
                                                                 <img src="{{ asset('circle_times.png') }}" height='30px' alt="" style="font-size: 15pt;"></a>
                                                         @elseif ($flow['formD'][$data->bulan]['date_blocked'])
-                                                            <img src="{{ asset('calendar.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang ditutup" style="color: black; font-size: 20pt;">
+                                                            <img src="{{ asset('calendar.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="{{ $flow['formD'][$data->bulan]['reason'] }}" style="color: black; font-size: 20pt;">
                                                         @else
                                                             <img src="{{ asset('circle_times.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="{{ $flow['formD'][$data->bulan]['reason'] }}" style="opacity: 0.5;">
                                                         @endif
@@ -241,7 +241,7 @@
                                                             <a href="{{ route('user.shuttle-3-formD', ['year' => $year, 'id' => $data->bulan]) }}" data-toggle="tooltip" data-placement="bottom" title="Borang belum diisi">
                                                                 <img src="{{ asset('circle_times.png') }}" height='30px' alt="" style="font-size: 15pt;"></a>
                                                         @elseif ($flow['formD'][$data->bulan]['date_blocked'])
-                                                            <img src="{{ asset('calendar.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang ditutup" style="color: black; font-size: 20pt;">
+                                                            <img src="{{ asset('calendar.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="{{ $flow['formD'][$data->bulan]['reason'] }}" style="color: black; font-size: 20pt;">
                                                         @else
                                                             <img src="{{ asset('circle_times.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="{{ $flow['formD'][$data->bulan]['reason'] }}" style="opacity: 0.5;">
                                                         @endif
@@ -294,7 +294,7 @@
                                                             <a href="{{ route('user.shuttle-3-formD', ['year' => $year, 'id' => $data->bulan]) }}" data-toggle="tooltip" data-placement="bottom" title="Borang belum diisi">
                                                                 <img src="{{ asset('circle_times.png') }}" height='30px' alt="" style="font-size: 15pt;"></a>
                                                         @elseif ($flow['formD'][$data->bulan]['date_blocked'])
-                                                            <img src="{{ asset('calendar.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang ditutup" style="color: black; font-size: 20pt;">
+                                                            <img src="{{ asset('calendar.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="{{ $flow['formD'][$data->bulan]['reason'] }}" style="color: black; font-size: 20pt;">
                                                         @else
                                                             <img src="{{ asset('circle_times.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="{{ $flow['formD'][$data->bulan]['reason'] }}" style="opacity: 0.5;">
                                                         @endif
@@ -347,7 +347,7 @@
                                                             <a href="{{ route('user.shuttle-3-formD', ['year' => $year, 'id' => $data->bulan]) }}" data-toggle="tooltip" data-placement="bottom" title="Borang belum diisi">
                                                                 <img src="{{ asset('circle_times.png') }}" height='30px' alt="" style="font-size: 15pt;"></a>
                                                         @elseif ($flow['formD'][$data->bulan]['date_blocked'])
-                                                            <img src="{{ asset('calendar.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang ditutup" style="color: black; font-size: 20pt;">
+                                                            <img src="{{ asset('calendar.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="{{ $flow['formD'][$data->bulan]['reason'] }}" style="color: black; font-size: 20pt;">
                                                         @else
                                                             <img src="{{ asset('circle_times.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="{{ $flow['formD'][$data->bulan]['reason'] }}" style="opacity: 0.5;">
                                                         @endif
@@ -400,7 +400,7 @@
                                                             <a href="{{ route('user.shuttle-3-formD', ['year' => $year, 'id' => $data->bulan]) }}" data-toggle="tooltip" data-placement="bottom" title="Borang belum diisi">
                                                                 <img src="{{ asset('circle_times.png') }}" height='30px' alt="" style="font-size: 15pt;"></a>
                                                         @elseif ($flow['formD'][$data->bulan]['date_blocked'])
-                                                            <img src="{{ asset('calendar.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang ditutup" style="color: black; font-size: 20pt;">
+                                                            <img src="{{ asset('calendar.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="{{ $flow['formD'][$data->bulan]['reason'] }}" style="color: black; font-size: 20pt;">
                                                         @else
                                                             <img src="{{ asset('circle_times.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="{{ $flow['formD'][$data->bulan]['reason'] }}" style="opacity: 0.5;">
                                                         @endif
@@ -453,7 +453,7 @@
                                                             <a href="{{ route('user.shuttle-3-formD', ['year' => $year, 'id' => $data->bulan]) }}" data-toggle="tooltip" data-placement="bottom" title="Borang belum diisi">
                                                                 <img src="{{ asset('circle_times.png') }}" height='30px' alt="" style="font-size: 15pt;"></a>
                                                         @elseif ($flow['formD'][$data->bulan]['date_blocked'])
-                                                            <img src="{{ asset('calendar.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang ditutup" style="color: black; font-size: 20pt;">
+                                                            <img src="{{ asset('calendar.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="{{ $flow['formD'][$data->bulan]['reason'] }}" style="color: black; font-size: 20pt;">
                                                         @else
                                                             <img src="{{ asset('circle_times.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="{{ $flow['formD'][$data->bulan]['reason'] }}" style="opacity: 0.5;">
                                                         @endif
@@ -506,7 +506,7 @@
                                                             <a href="{{ route('user.shuttle-3-formD', ['year' => $year, 'id' => $data->bulan]) }}" data-toggle="tooltip" data-placement="bottom" title="Borang belum diisi">
                                                                 <img src="{{ asset('circle_times.png') }}" height='30px' alt="" style="font-size: 15pt;"></a>
                                                         @elseif ($flow['formD'][$data->bulan]['date_blocked'])
-                                                            <img src="{{ asset('calendar.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang ditutup" style="color: black; font-size: 20pt;">
+                                                            <img src="{{ asset('calendar.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="{{ $flow['formD'][$data->bulan]['reason'] }}" style="color: black; font-size: 20pt;">
                                                         @else
                                                             <img src="{{ asset('circle_times.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="{{ $flow['formD'][$data->bulan]['reason'] }}" style="opacity: 0.5;">
                                                         @endif
@@ -559,7 +559,7 @@
                                                             <a href="{{ route('user.shuttle-3-formD', ['year' => $year, 'id' => $data->bulan]) }}" data-toggle="tooltip" data-placement="bottom" title="Borang belum diisi">
                                                                 <img src="{{ asset('circle_times.png') }}" height='30px' alt="" style="font-size: 15pt;"></a>
                                                         @elseif ($flow['formD'][$data->bulan]['date_blocked'])
-                                                            <img src="{{ asset('calendar.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang ditutup" style="color: black; font-size: 20pt;">
+                                                            <img src="{{ asset('calendar.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="{{ $flow['formD'][$data->bulan]['reason'] }}" style="color: black; font-size: 20pt;">
                                                         @else
                                                             <img src="{{ asset('circle_times.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="{{ $flow['formD'][$data->bulan]['reason'] }}" style="opacity: 0.5;">
                                                         @endif
@@ -612,7 +612,7 @@
                                                             <a href="{{ route('user.shuttle-3-formD', ['year' => $year, 'id' => $data->bulan]) }}" data-toggle="tooltip" data-placement="bottom" title="Borang belum diisi">
                                                                 <img src="{{ asset('circle_times.png') }}" height='30px' alt="" style="font-size: 15pt;"></a>
                                                         @elseif ($flow['formD'][$data->bulan]['date_blocked'])
-                                                            <img src="{{ asset('calendar.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang ditutup" style="color: black; font-size: 20pt;">
+                                                            <img src="{{ asset('calendar.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="{{ $flow['formD'][$data->bulan]['reason'] }}" style="color: black; font-size: 20pt;">
                                                         @else
                                                             <img src="{{ asset('circle_times.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="{{ $flow['formD'][$data->bulan]['reason'] }}" style="opacity: 0.5;">
                                                         @endif
@@ -665,7 +665,7 @@
                                                             <a href="{{ route('user.shuttle-3-formD', ['year' => $year, 'id' => $data->bulan]) }}" data-toggle="tooltip" data-placement="bottom" title="Borang belum diisi">
                                                                 <img src="{{ asset('circle_times.png') }}" height='30px' alt="" style="font-size: 15pt;"></a>
                                                         @elseif ($flow['formD'][$data->bulan]['date_blocked'])
-                                                            <img src="{{ asset('calendar.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang ditutup" style="color: black; font-size: 20pt;">
+                                                            <img src="{{ asset('calendar.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="{{ $flow['formD'][$data->bulan]['reason'] }}" style="color: black; font-size: 20pt;">
                                                         @else
                                                             <img src="{{ asset('circle_times.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="{{ $flow['formD'][$data->bulan]['reason'] }}" style="opacity: 0.5;">
                                                         @endif
@@ -718,7 +718,7 @@
                                                             <a href="{{ route('user.shuttle-3-formD', ['year' => $year, 'id' => $data->bulan]) }}" data-toggle="tooltip" data-placement="bottom" title="Borang belum diisi">
                                                                 <img src="{{ asset('circle_times.png') }}" height='30px' alt="" style="font-size: 15pt;"></a>
                                                         @elseif ($flow['formD'][$data->bulan]['date_blocked'])
-                                                            <img src="{{ asset('calendar.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang ditutup" style="color: black; font-size: 20pt;">
+                                                            <img src="{{ asset('calendar.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="{{ $flow['formD'][$data->bulan]['reason'] }}" style="color: black; font-size: 20pt;">
                                                         @else
                                                             <img src="{{ asset('circle_times.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="{{ $flow['formD'][$data->bulan]['reason'] }}" style="opacity: 0.5;">
                                                         @endif
