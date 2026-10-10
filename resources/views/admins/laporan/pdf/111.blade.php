@@ -151,9 +151,9 @@
 
                                                     $data_jumlah_pendapatan = $data_jumlah_gaji_lelaki + $data_jumlah_gaji_perempuan;
 
-                                                    $purata_lelaki = $data_jumlah_gaji_lelaki / $data_total_pekerja_lelaki;
-                                                    $purata_perempuan = $data_jumlah_gaji_perempuan / $data_total_pekerja_perempuan;
-                                                    $purata_keseluruhan = $data_jumlah_pendapatan / $data_jumlah_guna_tenaga ;
+                                                    $purata_lelaki = $data_total_pekerja_lelaki ? $data_jumlah_gaji_lelaki / $data_total_pekerja_lelaki : 0;
+                                                    $purata_perempuan = $data_total_pekerja_perempuan ? $data_jumlah_gaji_perempuan / $data_total_pekerja_perempuan : 0;
+                                                    $purata_keseluruhan = $data_jumlah_guna_tenaga ? $data_jumlah_pendapatan / $data_jumlah_guna_tenaga : 0;
 
                                                     $jumlah_lelaki += $value->total_pekerja_lelaki;
                                                     $jumlah_perempuan += $value->total_pekerja_perempuan;

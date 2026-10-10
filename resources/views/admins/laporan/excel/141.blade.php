@@ -27,7 +27,7 @@
                         @if ($data[0]->bulan == $month_counter)
                             {{ number_format($data[0]->domestik) }}
                             @php
-                                $jumlah_jualan_keseluruhan += round($data[0]->domestik);
+                                $jumlah_jualan_keseluruhan += $data[0]->domestik;
                             @endphp
                         @endif
                     @endforeach

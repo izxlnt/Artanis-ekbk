@@ -55,15 +55,18 @@ class ExcelController extends Controller
             }
 
             $data_shuttles = DB::select("SELECT
-            shuttles.*
+            shuttles.*,
+            daerahs.daerah_hutan as daerah_hutan_laporan
 
             FROM
-            shuttles,
+            shuttles
+            LEFT JOIN daerahs ON daerahs.id = shuttles.daerah_id,
             form_a_s
 
             WHERE shuttles.id = form_a_s.shuttle_id
             AND shuttles.shuttle_type = '3'
             AND form_a_s.status IN ('Lulus', 'Dihantar ke IPJPSM')
+            AND form_a_s.tahun = '$tahun'
         ");
 
 
@@ -88,12 +91,11 @@ class ExcelController extends Controller
             AND shuttles.id = formbs.shuttle_id
             AND guna_tenagas.shuttle_id = shuttles.id
             AND guna_tenagas.formbs_id = formbs.id
-            AND formbs.suku_tahun = (SELECT MAX(formbs.suku_tahun)
-                                                FROM shuttles, guna_tenagas, formbs
-                                                WHERE shuttles.id = formbs.shuttle_id
-                                                AND shuttles.shuttle_type = '3'
-                                                AND guna_tenagas.shuttle_id = shuttles.id
-                                                AND guna_tenagas.formbs_id = formbs.id)
+            AND formbs.tahun = '$tahun'
+            AND formbs.suku_tahun = (SELECT MAX(f2.suku_tahun)
+                                                FROM formbs f2
+                                                WHERE f2.shuttle_id = '$data_shuttle->id'
+                                                AND f2.tahun = '$tahun')
 
             ORDER BY formbs.suku_tahun DESC
         ");
@@ -161,15 +163,18 @@ class ExcelController extends Controller
             }
 
             $data_shuttles = DB::select("SELECT
-            shuttles.*
+            shuttles.*,
+            daerahs.daerah_hutan as daerah_hutan_laporan
 
             FROM
-            shuttles,
+            shuttles
+            LEFT JOIN daerahs ON daerahs.id = shuttles.daerah_id,
             form_a_s
 
             WHERE shuttles.id = form_a_s.shuttle_id
             AND shuttles.shuttle_type = '3'
             AND form_a_s.status IN ('Lulus', 'Dihantar ke IPJPSM')
+            AND form_a_s.tahun = '$tahun'
         ");
 
 
@@ -194,12 +199,11 @@ class ExcelController extends Controller
             AND shuttles.id = formbs.shuttle_id
             AND guna_tenagas.shuttle_id = shuttles.id
             AND guna_tenagas.formbs_id = formbs.id
-            AND formbs.suku_tahun = (SELECT MAX(formbs.suku_tahun)
-                                                FROM shuttles, guna_tenagas, formbs
-                                                WHERE shuttles.id = formbs.shuttle_id
-                                                AND shuttles.shuttle_type = '3'
-                                                AND guna_tenagas.shuttle_id = shuttles.id
-                                                AND guna_tenagas.formbs_id = formbs.id)
+            AND formbs.tahun = '$tahun'
+            AND formbs.suku_tahun = (SELECT MAX(f2.suku_tahun)
+                                                FROM formbs f2
+                                                WHERE f2.shuttle_id = '$data_shuttle->id'
+                                                AND f2.tahun = '$tahun')
 
             ORDER BY formbs.suku_tahun DESC
         ");
@@ -267,15 +271,18 @@ class ExcelController extends Controller
             }
 
             $data_shuttles = DB::select("SELECT
-            shuttles.*
+            shuttles.*,
+            daerahs.daerah_hutan as daerah_hutan_laporan
 
             FROM
-            shuttles,
+            shuttles
+            LEFT JOIN daerahs ON daerahs.id = shuttles.daerah_id,
             form_a_s
 
             WHERE shuttles.id = form_a_s.shuttle_id
             AND shuttles.shuttle_type = '3'
             AND form_a_s.status IN ('Lulus', 'Dihantar ke IPJPSM')
+            AND form_a_s.tahun = '$tahun'
         ");
 
 
@@ -300,12 +307,11 @@ class ExcelController extends Controller
             AND shuttles.id = formbs.shuttle_id
             AND guna_tenagas.shuttle_id = shuttles.id
             AND guna_tenagas.formbs_id = formbs.id
-            AND formbs.suku_tahun = (SELECT MAX(formbs.suku_tahun)
-                                                FROM shuttles, guna_tenagas, formbs
-                                                WHERE shuttles.id = formbs.shuttle_id
-                                                AND shuttles.shuttle_type = '3'
-                                                AND guna_tenagas.shuttle_id = shuttles.id
-                                                AND guna_tenagas.formbs_id = formbs.id)
+            AND formbs.tahun = '$tahun'
+            AND formbs.suku_tahun = (SELECT MAX(f2.suku_tahun)
+                                                FROM formbs f2
+                                                WHERE f2.shuttle_id = '$data_shuttle->id'
+                                                AND f2.tahun = '$tahun')
 
             ORDER BY formbs.suku_tahun DESC
         ");
@@ -373,15 +379,18 @@ class ExcelController extends Controller
             }
 
             $data_shuttles = DB::select("SELECT
-            shuttles.*
+            shuttles.*,
+            daerahs.daerah_hutan as daerah_hutan_laporan
 
             FROM
-            shuttles,
+            shuttles
+            LEFT JOIN daerahs ON daerahs.id = shuttles.daerah_id,
             form_a_s
 
             WHERE shuttles.id = form_a_s.shuttle_id
             AND shuttles.shuttle_type = '3'
             AND form_a_s.status IN ('Lulus', 'Dihantar ke IPJPSM')
+            AND form_a_s.tahun = '$tahun'
         ");
 
 
@@ -406,12 +415,11 @@ class ExcelController extends Controller
             AND shuttles.id = formbs.shuttle_id
             AND guna_tenagas.shuttle_id = shuttles.id
             AND guna_tenagas.formbs_id = formbs.id
-            AND formbs.suku_tahun = (SELECT MAX(formbs.suku_tahun)
-                                                FROM shuttles, guna_tenagas, formbs
-                                                WHERE shuttles.id = formbs.shuttle_id
-                                                AND shuttles.shuttle_type = '3'
-                                                AND guna_tenagas.shuttle_id = shuttles.id
-                                                AND guna_tenagas.formbs_id = formbs.id)
+            AND formbs.tahun = '$tahun'
+            AND formbs.suku_tahun = (SELECT MAX(f2.suku_tahun)
+                                                FROM formbs f2
+                                                WHERE f2.shuttle_id = '$data_shuttle->id'
+                                                AND f2.tahun = '$tahun')
 
             ORDER BY formbs.suku_tahun DESC
         ");
@@ -478,7 +486,7 @@ class ExcelController extends Controller
             'Alamat 1',
             'Alamat 2',
             'Poskod',
-            'Daerah',
+            'Daerah Hutan',
             'Negeri',
 
             'Alamat Surat Menyurat 1',
@@ -549,11 +557,13 @@ class ExcelController extends Controller
             $datas_formc = DB::select("SELECT
                                     form_a_s.*,
                                     shuttles.*,
+                                    daerahs.daerah_hutan as daerah_hutan_laporan,
                                     sum(kemasukan_bahans.proses_masuk) as jumlah_penggunaan,
                                     sum(kemasukan_bahans.proses_keluar) as jumlah_pengeluaran
 
                                     FROM
-                                    shuttles,
+                                    shuttles
+                                    LEFT JOIN daerahs ON daerahs.id = shuttles.daerah_id,
                                     form_a_s,
                                     form_c_s,
                                     kemasukan_bahans,
@@ -596,11 +606,13 @@ class ExcelController extends Controller
             $datas_formc = DB::select("SELECT
                 form_a_s.*,
                 shuttles.*,
+                daerahs.daerah_hutan as daerah_hutan_laporan,
                 sum(kemasukan_bahans.proses_masuk) as jumlah_penggunaan,
                 sum(kemasukan_bahans.proses_keluar) as jumlah_pengeluaran
 
                 FROM
-                shuttles,
+                shuttles
+                LEFT JOIN daerahs ON daerahs.id = shuttles.daerah_id,
                 form_a_s,
                 form_c_s,
                 kemasukan_bahans,
@@ -625,8 +637,13 @@ class ExcelController extends Controller
                 shuttles.id
 
                 ORDER BY
-                jumlah_pengeluaran DESC;
+                jumlah_penggunaan DESC;
 ");
+            // Top 10 by log usage of the chosen species; the view prints jumlah_laporan
+            foreach ($datas_formc as $row) {
+                $row->jumlah_laporan = $row->jumlah_penggunaan;
+            }
+            $datas_formc = array_slice($datas_formc, 0, 10);
         }
 
         $columns = [
@@ -640,13 +657,13 @@ class ExcelController extends Controller
             'Alamat 1',
             'Alamat 2',
             'Poskod',
-            'Daerah',
+            'Daerah Hutan',
             'Negeri',
             'Tarikh Kilang Ditubuhkan',
             'Tarikh Kilang Mula Beroperasi',
             'Taraf Sah Syarikat',
             'Status Hak Milik',
-            'Jumlah Pengeluaran Kayu Gergaji',
+            $title == "6" ? 'Jumlah Penggunaan Kayu Balak' : 'Jumlah Pengeluaran Kayu Gergaji',
 
         ];
 
@@ -1497,37 +1514,40 @@ class ExcelController extends Controller
 
         $negeri_list = Daerah::distinct()->orderBy('negeri')->get('negeri');
 
+        // Single aggregate query instead of one heavy query per state per year (report timed out)
+        $rows = DB::select("SELECT shuttles.negeri_id as negeri,
+            form_c_s.tahun as tahun,
+            sum(round(kemasukan_bahans.proses_masuk)) as jumlah_penggunaan
+
+            FROM
+            shuttles,
+            form_c_s,
+            kemasukan_bahans
+
+            WHERE form_c_s.shuttle_id = shuttles.id
+            AND form_c_s.id = kemasukan_bahans.formcs_id
+
+            AND shuttles.shuttle_type = '3'
+            AND form_c_s.status = 'Lulus'
+            AND form_c_s.tahun BETWEEN ? AND ?
+
+            GROUP BY
+            shuttles.negeri_id, form_c_s.tahun
+        ", [$tahun_mula, $tahun_akhir]);
+
+        $lookup = [];
+        foreach ($rows as $row) {
+            $lookup[mb_strtolower(trim($row->negeri))][$row->tahun] = $row->jumlah_penggunaan;
+        }
+
         //dynamic year
         for ($x = $tahun_mula; $x <= $tahun_akhir; $x++) {
             $grandtotal[$x] = 0;
             foreach ($negeri_list as $negeri) {
-                $data = DB::select("SELECT shuttles.negeri_id as negeri,
-                    sum(round(kemasukan_bahans.proses_masuk)) as jumlah_penggunaan
-
-                    FROM
-                    shuttles,
-                    form_c_s,
-                    kemasukan_bahans
-
-                    WHERE form_c_s.shuttle_id = shuttles.id
-                    AND form_c_s.id = kemasukan_bahans.formcs_id
-
-                    AND shuttles.negeri_id = '$negeri->negeri'
-                    AND shuttles.shuttle_type = '3'
-                    AND form_c_s.status = 'Lulus'
-                    AND form_c_s.tahun = '$x'
-
-                    GROUP BY
-                    shuttles.negeri_id;
-                ");
-
-                if ($data) {
-                    $datas[$negeri->negeri][$x] = $data;
-                } else {
-                    $datas[$negeri->negeri][$x][0] = (object)[];
-                    $datas[$negeri->negeri][$x][0]->negeri = $negeri->negeri;
-                    $datas[$negeri->negeri][$x][0]->jumlah_penggunaan = 0;
-                }
+                $datas[$negeri->negeri][$x] = [(object)[
+                    'negeri' => $negeri->negeri,
+                    'jumlah_penggunaan' => $lookup[mb_strtolower(trim($negeri->negeri))][$x] ?? 0,
+                ]];
                 $grandtotal[$x] += $datas[$negeri->negeri][$x][0]->jumlah_penggunaan;
             }
         }
@@ -1596,45 +1616,47 @@ class ExcelController extends Controller
 
         $spesis = Spesis::get();
 
-        //count by spesis
-        foreach ($kumpulan_kayu as $count_kk => $kk) {
-            foreach ($spesis as $count_spesis => $sp) {
+        // Single aggregate query instead of one query per species per state (was 6000+ queries, timed out)
+        $rows = DB::select("SELECT
+            kumpulan_kayus.keterangan as keterangan,
+            spesis.nama_tempatan as nama_tempatan,
+            shuttles.negeri_id as negeri,
+            sum(round(kemasukan_bahans.proses_masuk)) as jumlah_penggunaan
+
+            FROM
+            shuttles,
+            form_c_s,
+            kemasukan_bahans,
+            spesis,
+            kumpulan_kayus
+
+            WHERE form_c_s.shuttle_id = shuttles.id
+            AND form_c_s.id = kemasukan_bahans.formcs_id
+            AND kemasukan_bahans.spesis_id = spesis.id
+            AND spesis.kumpulan_kayu_id = kumpulan_kayus.id
+
+            AND shuttles.shuttle_type = '3'
+            AND form_c_s.status = 'Lulus'
+            AND form_c_s.tahun = ?
+
+            GROUP BY
+            kumpulan_kayus.keterangan, spesis.nama_tempatan, shuttles.negeri_id
+        ", [$tahun]);
+
+        $key = function ($v) { return mb_strtolower(trim($v)); };
+        $lookup = [];
+        foreach ($rows as $row) {
+            $lookup[$key($row->keterangan)][$key($row->nama_tempatan)][$key($row->negeri)] = $row->jumlah_penggunaan;
+        }
+
+        foreach ($kumpulan_kayu as $kk) {
+            foreach ($spesis as $sp) {
                 if ($sp->kumpulan_kayu_id == $kk->id) {
                     foreach ($negeri_list as $negeri) {
-                        $data = DB::select("SELECT
-                    shuttles.negeri_id as negeri,
-                    sum(round(kemasukan_bahans.proses_masuk)) as jumlah_penggunaan
-
-                    FROM
-                    shuttles,
-                    form_c_s,
-                    kemasukan_bahans,
-                    spesis,
-                    kumpulan_kayus
-
-                    WHERE form_c_s.shuttle_id = shuttles.id
-                    AND form_c_s.id = kemasukan_bahans.formcs_id
-                    AND kemasukan_bahans.spesis_id = spesis.id
-                    AND spesis.kumpulan_kayu_id = kumpulan_kayus.id
-
-                    AND shuttles.shuttle_type = '3'
-                    AND shuttles.negeri_id = '$negeri->negeri'
-                    AND form_c_s.status = 'Lulus'
-                    AND form_c_s.tahun = '$tahun'
-                    AND kumpulan_kayus.keterangan = '$kk->keterangan'
-                    AND spesis.nama_tempatan = '$sp->nama_tempatan'
-
-                    GROUP BY
-                    shuttles.negeri_id
-                    ;");
-
-                        if ($data) {
-                            $datas[$kk->singkatan][$sp->nama_tempatan][$negeri->negeri] = $data;
-                        } else {
-                            $datas[$kk->singkatan][$sp->nama_tempatan][$negeri->negeri][0] = (object)[];
-                            $datas[$kk->singkatan][$sp->nama_tempatan][$negeri->negeri][0]->negeri = $negeri->negeri;
-                            $datas[$kk->singkatan][$sp->nama_tempatan][$negeri->negeri][0]->jumlah_penggunaan = 0;
-                        }
+                        $datas[$kk->singkatan][$sp->nama_tempatan][$negeri->negeri] = [(object)[
+                            'negeri' => $negeri->negeri,
+                            'jumlah_penggunaan' => $lookup[$key($kk->keterangan)][$key($sp->nama_tempatan)][$key($negeri->negeri)] ?? 0,
+                        ]];
                     }
                 }
             }
@@ -1698,37 +1720,49 @@ class ExcelController extends Controller
 
         $spesis = Spesis::get();
 
-        //count by spesis
+        // Single aggregate query instead of one query per species per month (was 6000+ queries, timed out)
+        $rows = DB::select("SELECT
+            kumpulan_kayus.keterangan as keterangan,
+            spesis.nama_tempatan as nama_tempatan,
+            form_c_s.bulan as bulan,
+            sum(round(kemasukan_bahans.proses_masuk)) as jumlah_penggunaan
+
+            FROM
+            shuttles,
+            form_c_s,
+            kemasukan_bahans,
+            spesis,
+            kumpulan_kayus
+
+            WHERE form_c_s.shuttle_id = shuttles.id
+            AND form_c_s.id = kemasukan_bahans.formcs_id
+            AND kemasukan_bahans.spesis_id = spesis.id
+            AND spesis.kumpulan_kayu_id = kumpulan_kayus.id
+
+            AND shuttles.shuttle_type = '3'
+            AND form_c_s.status = 'Lulus'
+            AND form_c_s.tahun = ?
+
+            GROUP BY
+            kumpulan_kayus.keterangan, spesis.nama_tempatan, form_c_s.bulan
+        ", [$tahun]);
+
+        $key = function ($v) { return mb_strtolower(trim($v)); };
+        $lookup = [];
+        foreach ($rows as $row) {
+            $lookup[$key($row->keterangan)][$key($row->nama_tempatan)][(int) $row->bulan] = $row->jumlah_penggunaan;
+        }
+
+        // same shape as before: [] when no data for that month, else one row
         for ($i = 1; $i < 13; $i++) {
-            foreach ($kumpulan_kayu as $count_kk => $kk) {
-                foreach ($spesis as $count_spesis => $sp) {
+            foreach ($kumpulan_kayu as $kk) {
+                foreach ($spesis as $sp) {
                     if ($sp->kumpulan_kayu_id == $kk->id) {
-                        $datas[$kk->singkatan][$sp->nama_tempatan][$i] = DB::select("SELECT
-                    form_c_s.bulan as bulan,
-                    sum(round(kemasukan_bahans.proses_masuk)) as jumlah_penggunaan
-
-                    FROM
-                    shuttles,
-                    form_c_s,
-                    kemasukan_bahans,
-                    spesis,
-                    kumpulan_kayus
-
-                    WHERE form_c_s.shuttle_id = shuttles.id
-                    AND form_c_s.id = kemasukan_bahans.formcs_id
-                    AND kemasukan_bahans.spesis_id = spesis.id
-                    AND spesis.kumpulan_kayu_id = kumpulan_kayus.id
-
-                    AND shuttles.shuttle_type = '3'
-                    AND form_c_s.status = 'Lulus'
-                    AND form_c_s.tahun = '$tahun'
-                    AND form_c_s.bulan = '$i'
-                    AND kumpulan_kayus.keterangan = '$kk->keterangan'
-                    AND spesis.nama_tempatan = '$sp->nama_tempatan'
-
-                    GROUP BY
-                    form_c_s.bulan
-                    ;");
+                        $value = $lookup[$key($kk->keterangan)][$key($sp->nama_tempatan)][$i] ?? null;
+                        $datas[$kk->singkatan][$sp->nama_tempatan][$i] = $value === null ? [] : [(object)[
+                            'bulan' => $i,
+                            'jumlah_penggunaan' => $value,
+                        ]];
                     }
                 }
             }
@@ -2088,51 +2122,51 @@ class ExcelController extends Controller
 
         $spesis = Spesis::get();
 
-        //count by spesis
-        foreach ($kumpulan_kayu as $count_kk => $kk) {
-            foreach ($spesis as $count_spesis => $sp) {
+        // Single aggregate query instead of one query per species per state (was 6000+ queries, timed out)
+        $rows = DB::select("SELECT
+            kumpulan_kayus.keterangan as keterangan,
+            spesis.nama_tempatan as nama_tempatan,
+            shuttles.negeri_id as negeri,
+            sum(round(kemasukan_bahans.proses_keluar)) as jumlah_pengeluaran
+
+            FROM
+            shuttles,
+            form_c_s,
+            kemasukan_bahans,
+            spesis,
+            kumpulan_kayus
+
+            WHERE form_c_s.shuttle_id = shuttles.id
+            AND form_c_s.id = kemasukan_bahans.formcs_id
+            AND kemasukan_bahans.spesis_id = spesis.id
+            AND spesis.kumpulan_kayu_id = kumpulan_kayus.id
+
+            AND shuttles.shuttle_type = '3'
+            AND form_c_s.status = 'Lulus'
+            AND form_c_s.tahun = ?
+
+            GROUP BY
+            kumpulan_kayus.keterangan, spesis.nama_tempatan, shuttles.negeri_id
+        ", [$tahun]);
+
+        $key = function ($v) { return mb_strtolower(trim($v)); };
+        $lookup = [];
+        foreach ($rows as $row) {
+            $lookup[$key($row->keterangan)][$key($row->nama_tempatan)][$key($row->negeri)] = $row->jumlah_pengeluaran;
+        }
+
+        foreach ($kumpulan_kayu as $kk) {
+            foreach ($spesis as $sp) {
                 if ($sp->kumpulan_kayu_id == $kk->id) {
                     foreach ($negeri_list as $negeri) {
-
-                        $data = DB::select("SELECT
-                    shuttles.negeri_id as negeri,
-                    sum(round(kemasukan_bahans.proses_keluar)) as jumlah_pengeluaran
-
-                    FROM
-                    shuttles,
-                    form_c_s,
-                    kemasukan_bahans,
-                    spesis,
-                    kumpulan_kayus
-
-                    WHERE form_c_s.shuttle_id = shuttles.id
-                    AND form_c_s.id = kemasukan_bahans.formcs_id
-                    AND kemasukan_bahans.spesis_id = spesis.id
-                    AND spesis.kumpulan_kayu_id = kumpulan_kayus.id
-
-                    AND shuttles.negeri_id = '$negeri->negeri'
-                    AND shuttles.shuttle_type = '3'
-                    AND form_c_s.status = 'Lulus'
-                    AND form_c_s.tahun = '$tahun'
-                    AND kumpulan_kayus.keterangan = '$kk->keterangan'
-                    AND spesis.nama_tempatan = '$sp->nama_tempatan'
-
-                    GROUP BY
-                    shuttles.negeri_id
-                    ;");
-                        if ($data) {
-                            $datas[$kk->singkatan][$sp->nama_tempatan][$negeri->negeri] = $data;
-                        } else {
-                            $datas[$kk->singkatan][$sp->nama_tempatan][$negeri->negeri][0] = (object)[];
-                            $datas[$kk->singkatan][$sp->nama_tempatan][$negeri->negeri][0]->negeri = $negeri->negeri;
-                            $datas[$kk->singkatan][$sp->nama_tempatan][$negeri->negeri][0]->jumlah_pengeluaran = 0;
-                        }
+                        $datas[$kk->singkatan][$sp->nama_tempatan][$negeri->negeri] = [(object)[
+                            'negeri' => $negeri->negeri,
+                            'jumlah_pengeluaran' => $lookup[$key($kk->keterangan)][$key($sp->nama_tempatan)][$key($negeri->negeri)] ?? 0,
+                        ]];
                     }
                 }
             }
         }
-
-        // dd($datas);
 
         $columns = [
             'Bil',
@@ -2191,37 +2225,49 @@ class ExcelController extends Controller
 
         $spesis = Spesis::get();
 
-        //count by spesis
+        // Single aggregate query instead of one query per species per month (was 6000+ queries, timed out)
+        $rows = DB::select("SELECT
+            kumpulan_kayus.keterangan as keterangan,
+            spesis.nama_tempatan as nama_tempatan,
+            form_c_s.bulan as bulan,
+            sum(round(kemasukan_bahans.proses_keluar)) as jumlah_pengeluaran
+
+            FROM
+            shuttles,
+            form_c_s,
+            kemasukan_bahans,
+            spesis,
+            kumpulan_kayus
+
+            WHERE form_c_s.shuttle_id = shuttles.id
+            AND form_c_s.id = kemasukan_bahans.formcs_id
+            AND kemasukan_bahans.spesis_id = spesis.id
+            AND spesis.kumpulan_kayu_id = kumpulan_kayus.id
+
+            AND shuttles.shuttle_type = '3'
+            AND form_c_s.status = 'Lulus'
+            AND form_c_s.tahun = ?
+
+            GROUP BY
+            kumpulan_kayus.keterangan, spesis.nama_tempatan, form_c_s.bulan
+        ", [$tahun]);
+
+        $key = function ($v) { return mb_strtolower(trim($v)); };
+        $lookup = [];
+        foreach ($rows as $row) {
+            $lookup[$key($row->keterangan)][$key($row->nama_tempatan)][(int) $row->bulan] = $row->jumlah_pengeluaran;
+        }
+
+        // same shape as before: [] when no data for that month, else one row
         for ($i = 1; $i < 13; $i++) {
-            foreach ($kumpulan_kayu as $count_kk => $kk) {
-                foreach ($spesis as $count_spesis => $sp) {
+            foreach ($kumpulan_kayu as $kk) {
+                foreach ($spesis as $sp) {
                     if ($sp->kumpulan_kayu_id == $kk->id) {
-                        $datas[$kk->singkatan][$sp->nama_tempatan][$i] = DB::select("SELECT
-                            form_c_s.bulan as bulan,
-                            sum(round(kemasukan_bahans.proses_keluar)) as jumlah_pengeluaran
-
-                            FROM
-                            shuttles,
-                            form_c_s,
-                            kemasukan_bahans,
-                            spesis,
-                            kumpulan_kayus
-
-                            WHERE form_c_s.shuttle_id = shuttles.id
-                            AND form_c_s.id = kemasukan_bahans.formcs_id
-                            AND kemasukan_bahans.spesis_id = spesis.id
-                            AND spesis.kumpulan_kayu_id = kumpulan_kayus.id
-
-                            AND shuttles.shuttle_type = '3'
-                            AND form_c_s.status = 'Lulus'
-                            AND form_c_s.tahun = '$tahun'
-                            AND form_c_s.bulan = '$i'
-                            AND kumpulan_kayus.keterangan = '$kk->keterangan'
-                            AND spesis.nama_tempatan = '$sp->nama_tempatan'
-
-                            GROUP BY
-                            form_c_s.bulan
-                            ;");
+                        $value = $lookup[$key($kk->keterangan)][$key($sp->nama_tempatan)][$i] ?? null;
+                        $datas[$kk->singkatan][$sp->nama_tempatan][$i] = $value === null ? [] : [(object)[
+                            'bulan' => $i,
+                            'jumlah_pengeluaran' => $value,
+                        ]];
                     }
                 }
             }
@@ -2296,35 +2342,49 @@ class ExcelController extends Controller
 
         $spesis = Spesis::get();
 
-        //count by spesis
-        foreach ($kumpulan_kayu as $count_kk => $kk) {
-            foreach ($spesis as $count_spesis => $sp) {
+        // Single aggregate query instead of one query per species (timed out). Filter on the
+        // form's reporting year, not the row's created_at, so a late submission lands in its own year.
+        $rows = DB::select("SELECT
+            kumpulan_kayus.keterangan as keterangan,
+            spesis.nama_tempatan as nama_tempatan,
+            form_c_s.tahun as tahun,
+            sum(round(kemasukan_bahans.proses_keluar)) as jumlah_pengeluaran
+
+            FROM
+            shuttles,
+            form_c_s,
+            kemasukan_bahans,
+            spesis,
+            kumpulan_kayus
+
+            WHERE form_c_s.shuttle_id = shuttles.id
+            AND form_c_s.id = kemasukan_bahans.formcs_id
+            AND kemasukan_bahans.spesis_id = spesis.id
+            AND spesis.kumpulan_kayu_id = kumpulan_kayus.id
+
+            AND shuttles.shuttle_type = '3'
+            AND form_c_s.status = 'Lulus'
+            AND form_c_s.tahun BETWEEN ? AND ?
+
+            GROUP BY
+            kumpulan_kayus.keterangan, spesis.nama_tempatan, form_c_s.tahun
+            ORDER BY
+            form_c_s.tahun
+        ", [$tahun_mula, $tahun_akhir]);
+
+        $key = function ($v) { return mb_strtolower(trim($v)); };
+        $lookup = [];
+        foreach ($rows as $row) {
+            $lookup[$key($row->keterangan)][$key($row->nama_tempatan)][] = (object)[
+                'tahun' => $row->tahun,
+                'jumlah_pengeluaran' => $row->jumlah_pengeluaran,
+            ];
+        }
+
+        foreach ($kumpulan_kayu as $kk) {
+            foreach ($spesis as $sp) {
                 if ($sp->kumpulan_kayu_id == $kk->id) {
-                    $datas[$kk->singkatan][$sp->nama_tempatan] = DB::select("SELECT
-                    form_c_s.tahun as tahun,
-                    sum(round(kemasukan_bahans.proses_keluar)) as jumlah_pengeluaran
-
-                    FROM
-                    shuttles,
-                    form_c_s,
-                    kemasukan_bahans,
-                    spesis,
-                    kumpulan_kayus
-
-                    WHERE form_c_s.shuttle_id = shuttles.id
-                    AND form_c_s.id = kemasukan_bahans.formcs_id
-                    AND kemasukan_bahans.spesis_id = spesis.id
-                    AND spesis.kumpulan_kayu_id = kumpulan_kayus.id
-
-                    AND shuttles.shuttle_type = '3'
-                    AND form_c_s.status = 'Lulus'
-                    AND kumpulan_kayus.keterangan = '$kk->keterangan'
-                    AND spesis.nama_tempatan = '$sp->nama_tempatan'
-                    AND (date(kemasukan_bahans.created_at) BETWEEN '$start_date' AND '$end_date')
-
-                    GROUP BY
-                    form_c_s.tahun
-                    ;");
+                    $datas[$kk->singkatan][$sp->nama_tempatan] = $lookup[$key($kk->keterangan)][$key($sp->nama_tempatan)] ?? [];
                 }
             }
         }
@@ -2572,7 +2632,7 @@ class ExcelController extends Controller
             $data = DB::select("SELECT
             shuttles.negeri_id as negeri,
             sum(form_d_s.total_export_laporan)  as export,
-            sum(round(form_d_s.jumlah_pasaran_tempatan_laporan)) as domestik,
+            sum(form_d_s.jumlah_pasaran_tempatan_laporan) as domestik,
             sum(form_d_s.total_export_laporan + form_d_s.jumlah_pasaran_tempatan_laporan) as jumlah_penjualan
 
             FROM
@@ -2736,7 +2796,7 @@ class ExcelController extends Controller
             for ($bulan = 1; $bulan <= 12; $bulan++) {
                 $data = DB::select("SELECT
                 pembelis.keterangan as pembeli_keterangan,
-                sum(ROUND(penjualan_pembelis.jumlah_jualan_laporan))  as jumlah_jualan,
+                sum(penjualan_pembelis.jumlah_jualan_laporan)  as jumlah_jualan,
                 form_d_s.bulan as bulan
 
                 FROM
@@ -2835,7 +2895,7 @@ class ExcelController extends Controller
 
                 $data = DB::select("SELECT
                 shuttles.negeri_id as negeri,
-                sum(round(penjualan_pembelis.jumlah_jualan_laporan))  as jumlah_jualan
+                sum(penjualan_pembelis.jumlah_jualan_laporan)  as jumlah_jualan
 
                 FROM
                 shuttles,
@@ -2934,7 +2994,7 @@ class ExcelController extends Controller
 
                 $data = DB::select("SELECT
                     pembelis.keterangan as pembeli_keterangan,
-                    sum(round(penjualan_pembelis.jumlah_jualan_laporan))  as jumlah_jualan
+                    sum(penjualan_pembelis.jumlah_jualan_laporan)  as jumlah_jualan
 
                     FROM
                     shuttles,
@@ -2953,7 +3013,7 @@ class ExcelController extends Controller
                     AND form_d_s.tahun = '$curr_year'
 
                     GROUP BY
-                    shuttles.negeri_id
+                    pembelis.keterangan
             ;");
             
                 if (!empty($data)) {
@@ -3021,7 +3081,7 @@ class ExcelController extends Controller
         for ($bulan = 1; $bulan <= 12; $bulan++) {
             $data = DB::select("SELECT
             shuttles.negeri_id as negeri,
-            sum(round(form_d_s.total_export_laporan))  as export,
+            sum(form_d_s.total_export_laporan)  as export,
             sum(form_d_s.jumlah_pasaran_tempatan_laporan) as domestik,
             sum(form_d_s.total_export_laporan + form_d_s.jumlah_pasaran_tempatan_laporan) as jumlah_penjualan
 
@@ -3037,7 +3097,7 @@ class ExcelController extends Controller
             AND form_d_s.bulan = '$bulan'
 
             GROUP BY
-            shuttles.negeri_id
+            form_d_s.bulan
             ;");
             
             if (!empty($data)) {
@@ -3111,7 +3171,7 @@ class ExcelController extends Controller
         foreach ($negeri_list as $negeri) {
             $data = DB::select("SELECT
                 shuttles.negeri_id as negeri,
-                sum(round(form_d_s.total_export_laporan))  as export,
+                sum(form_d_s.total_export_laporan)  as export,
                 sum(form_d_s.jumlah_pasaran_tempatan_laporan) as domestik,
                 sum(form_d_s.total_export_laporan + form_d_s.jumlah_pasaran_tempatan_laporan) as jumlah_penjualan
 
@@ -3235,12 +3295,11 @@ class ExcelController extends Controller
             AND shuttles.id = formbs.shuttle_id
             AND guna_tenagas.shuttle_id = shuttles.id
             AND guna_tenagas.formbs_id = formbs.id
-            AND formbs.suku_tahun = (SELECT MAX(formbs.suku_tahun)
-                                                FROM shuttles, guna_tenagas, formbs
-                                                WHERE shuttles.id = formbs.shuttle_id
-                                                AND shuttles.shuttle_type = '4'
-                                                AND guna_tenagas.shuttle_id = shuttles.id
-                                                AND guna_tenagas.formbs_id = formbs.id)
+            AND formbs.tahun = '$tahun'
+            AND formbs.suku_tahun = (SELECT MAX(f2.suku_tahun)
+                                                FROM formbs f2
+                                                WHERE f2.shuttle_id = '$data_shuttle->id'
+                                                AND f2.tahun = '$tahun')
 
             ORDER BY formbs.suku_tahun DESC
         ");
@@ -3436,12 +3495,11 @@ class ExcelController extends Controller
             AND shuttles.id = formbs.shuttle_id
             AND guna_tenagas.shuttle_id = shuttles.id
             AND guna_tenagas.formbs_id = formbs.id
-            AND formbs.suku_tahun = (SELECT MAX(formbs.suku_tahun)
-                                                FROM shuttles, guna_tenagas, formbs
-                                                WHERE shuttles.id = formbs.shuttle_id
-                                                AND shuttles.shuttle_type = '4'
-                                                AND guna_tenagas.shuttle_id = shuttles.id
-                                                AND guna_tenagas.formbs_id = formbs.id)
+            AND formbs.tahun = '$tahun'
+            AND formbs.suku_tahun = (SELECT MAX(f2.suku_tahun)
+                                                FROM formbs f2
+                                                WHERE f2.shuttle_id = '$data_shuttle->id'
+                                                AND f2.tahun = '$tahun')
 
             ORDER BY formbs.suku_tahun DESC
         ");
@@ -3609,12 +3667,11 @@ class ExcelController extends Controller
                 AND shuttles.id = formbs.shuttle_id
                 AND guna_tenagas.shuttle_id = shuttles.id
                 AND guna_tenagas.formbs_id = formbs.id
-                AND formbs.suku_tahun = (SELECT MAX(formbs.suku_tahun)
-                                                    FROM shuttles, guna_tenagas, formbs
-                                                    WHERE shuttles.id = formbs.shuttle_id
-                                                    AND shuttles.shuttle_type = '4'
-                                                    AND guna_tenagas.shuttle_id = shuttles.id
-                                                    AND guna_tenagas.formbs_id = formbs.id)
+                AND formbs.tahun = '$tahun'
+            AND formbs.suku_tahun = (SELECT MAX(f2.suku_tahun)
+                                                FROM formbs f2
+                                                WHERE f2.shuttle_id = '$data_shuttle->id'
+                                                AND f2.tahun = '$tahun')
 
                 ORDER BY formbs.suku_tahun DESC
             ");
@@ -3782,12 +3839,11 @@ class ExcelController extends Controller
                 AND shuttles.id = formbs.shuttle_id
                 AND guna_tenagas.shuttle_id = shuttles.id
                 AND guna_tenagas.formbs_id = formbs.id
-                AND formbs.suku_tahun = (SELECT MAX(formbs.suku_tahun)
-                                                    FROM shuttles, guna_tenagas, formbs
-                                                    WHERE shuttles.id = formbs.shuttle_id
-                                                    AND shuttles.shuttle_type = '4'
-                                                    AND guna_tenagas.shuttle_id = shuttles.id
-                                                    AND guna_tenagas.formbs_id = formbs.id)
+                AND formbs.tahun = '$tahun'
+            AND formbs.suku_tahun = (SELECT MAX(f2.suku_tahun)
+                                                FROM formbs f2
+                                                WHERE f2.shuttle_id = '$data_shuttle->id'
+                                                AND f2.tahun = '$tahun')
 
                 ORDER BY formbs.suku_tahun DESC
             ");
@@ -3920,7 +3976,7 @@ class ExcelController extends Controller
             'Alamat 1',
             'Alamat 2',
             'Poskod',
-            'Daerah',
+            'Daerah Hutan',
             'Negeri',
 
             'Alamat Surat Menyurat 1',
@@ -4107,7 +4163,7 @@ class ExcelController extends Controller
             'Alamat 1',
             'Alamat 2',
             'Poskod',
-            'Daerah',
+            'Daerah Hutan',
             'Negeri',
 
             'Alamat Surat Menyurat 1',
@@ -4276,7 +4332,7 @@ class ExcelController extends Controller
             'Alamat 1',
             'Alamat 2',
             'Poskod',
-            'Daerah',
+            'Daerah Hutan',
             'Negeri',
 
             'Alamat Surat Menyurat 1',
@@ -4374,7 +4430,7 @@ class ExcelController extends Controller
             'Alamat 1',
             'Alamat 2',
             'Poskod',
-            'Daerah',
+            'Daerah Hutan',
             'Negeri',
             'Tarikh Kilang Ditubuhkan',
             'Tarikh Kilang Mula Beroperasi',
@@ -4548,7 +4604,7 @@ class ExcelController extends Controller
             'Alamat 1',
             'Alamat 2',
             'Poskod',
-            'Daerah',
+            'Daerah Hutan',
             'Negeri',
 
             'Alamat Surat Menyurat 1',
@@ -7619,12 +7675,11 @@ class ExcelController extends Controller
             AND shuttles.id = formbs.shuttle_id
             AND guna_tenagas.shuttle_id = shuttles.id
             AND guna_tenagas.formbs_id = formbs.id
-            AND formbs.suku_tahun = (SELECT MAX(formbs.suku_tahun)
-                                                FROM shuttles, guna_tenagas, formbs
-                                                WHERE shuttles.id = formbs.shuttle_id
-                                                AND shuttles.shuttle_type = '5'
-                                                AND guna_tenagas.shuttle_id = shuttles.id
-                                                AND guna_tenagas.formbs_id = formbs.id)
+            AND formbs.tahun = '$tahun'
+            AND formbs.suku_tahun = (SELECT MAX(f2.suku_tahun)
+                                                FROM formbs f2
+                                                WHERE f2.shuttle_id = '$data_shuttle->id'
+                                                AND f2.tahun = '$tahun')
 
             ORDER BY formbs.suku_tahun DESC
         ");
@@ -7755,12 +7810,11 @@ class ExcelController extends Controller
             AND shuttles.id = formbs.shuttle_id
             AND guna_tenagas.shuttle_id = shuttles.id
             AND guna_tenagas.formbs_id = formbs.id
-            AND formbs.suku_tahun = (SELECT MAX(formbs.suku_tahun)
-                                                FROM shuttles, guna_tenagas, formbs
-                                                WHERE shuttles.id = formbs.shuttle_id
-                                                AND shuttles.shuttle_type = '5'
-                                                AND guna_tenagas.shuttle_id = shuttles.id
-                                                AND guna_tenagas.formbs_id = formbs.id)
+            AND formbs.tahun = '$tahun'
+            AND formbs.suku_tahun = (SELECT MAX(f2.suku_tahun)
+                                                FROM formbs f2
+                                                WHERE f2.shuttle_id = '$data_shuttle->id'
+                                                AND f2.tahun = '$tahun')
 
             ORDER BY formbs.suku_tahun DESC
         ");
@@ -7868,12 +7922,11 @@ class ExcelController extends Controller
             AND shuttles.id = formbs.shuttle_id
             AND guna_tenagas.shuttle_id = shuttles.id
             AND guna_tenagas.formbs_id = formbs.id
-            AND formbs.suku_tahun = (SELECT MAX(formbs.suku_tahun)
-                                                FROM shuttles, guna_tenagas, formbs
-                                                WHERE shuttles.id = formbs.shuttle_id
-                                                AND shuttles.shuttle_type = '5'
-                                                AND guna_tenagas.shuttle_id = shuttles.id
-                                                AND guna_tenagas.formbs_id = formbs.id)
+            AND formbs.tahun = '$tahun'
+            AND formbs.suku_tahun = (SELECT MAX(f2.suku_tahun)
+                                                FROM formbs f2
+                                                WHERE f2.shuttle_id = '$data_shuttle->id'
+                                                AND f2.tahun = '$tahun')
 
             ORDER BY formbs.suku_tahun DESC
         ");
@@ -7979,12 +8032,11 @@ class ExcelController extends Controller
             AND shuttles.id = formbs.shuttle_id
             AND guna_tenagas.shuttle_id = shuttles.id
             AND guna_tenagas.formbs_id = formbs.id
-            AND formbs.suku_tahun = (SELECT MAX(formbs.suku_tahun)
-                                                FROM shuttles, guna_tenagas, formbs
-                                                WHERE shuttles.id = formbs.shuttle_id
-                                                AND shuttles.shuttle_type = '5'
-                                                AND guna_tenagas.shuttle_id = shuttles.id
-                                                AND guna_tenagas.formbs_id = formbs.id)
+            AND formbs.tahun = '$tahun'
+            AND formbs.suku_tahun = (SELECT MAX(f2.suku_tahun)
+                                                FROM formbs f2
+                                                WHERE f2.shuttle_id = '$data_shuttle->id'
+                                                AND f2.tahun = '$tahun')
 
             ORDER BY formbs.suku_tahun DESC
         ");
@@ -8053,7 +8105,7 @@ class ExcelController extends Controller
                 'Alamat 1',
                 'Alamat 2',
                 'Poskod',
-                'Daerah',
+                'Daerah Hutan',
                 'Negeri',
 
                 'Alamat Surat Menyurat 1',
@@ -8199,7 +8251,7 @@ class ExcelController extends Controller
             'Alamat 1',
             'Alamat 2',
             'Poskod',
-            'Daerah',
+            'Daerah Hutan',
             'Negeri',
             'Tarikh Kilang Ditubuhkan',
             'Tarikh Kilang Mula Beroperasi',

@@ -98,9 +98,9 @@
                                             @foreach ($data_pembeli as $negeri => $data)
                                                 <td>{{ number_format(round($data[0]->jumlah_jualan)) }}</td>
                                                 @php
-                                                    $jumlah_row += round($data[0]->jumlah_jualan);
-                                                    $jumlah_negeri[$negeri] += round($data[0]->jumlah_jualan);
-                                                    $jumlah_keseluruhan += round($data[0]->jumlah_jualan);
+                                                    $jumlah_row += $data[0]->jumlah_jualan;
+                                                    $jumlah_negeri[$negeri] += $data[0]->jumlah_jualan;
+                                                    $jumlah_keseluruhan += $data[0]->jumlah_jualan;
                                                 @endphp
                                             @endforeach
 

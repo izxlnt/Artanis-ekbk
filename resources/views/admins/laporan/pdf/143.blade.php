@@ -78,8 +78,8 @@ $title = $results['title_laporan'] ?? '';
 
                                             @php
                                                 $jumlah_m3 = $jumlah_m3 + round($data_negeri[0]->domestik);
-                                                $jumlah_column[$bulan] += round($data_negeri[0]->domestik);
-                                                $jumlah_keseluruhan += round($data_negeri[0]->domestik);
+                                                $jumlah_column[$bulan] += $data_negeri[0]->domestik;
+                                                $jumlah_keseluruhan += $data_negeri[0]->domestik;
                                             @endphp
                                         @endforeach
 

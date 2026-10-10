@@ -5,7 +5,7 @@
         </tr>
         <tr>
             @foreach ($columns as $data)
-                @if ($data == 'Jumlah Pengeluaran Kayu Gergaji')
+                @if (in_array($data, ['Jumlah Pengeluaran Kayu Gergaji', 'Jumlah Penggunaan Kayu Balak']))
                     <th rowspan="1">{{ $data }}</th>
                 @else
                     <th rowspan="2">{{ $data }}</th>
@@ -21,7 +21,7 @@
     <tbody>
 
         @foreach ($datas_formc as $kilang)
-                                    @if($kilang->jumlah_pengeluaran > 0)
+                                    @if(($kilang->jumlah_laporan ?? $kilang->jumlah_pengeluaran) > 0)
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
                                             <td style="text-align: left">{{ $kilang->nama_kilang }}</td>
@@ -33,8 +33,8 @@
                                             <td style="text-align: left">{{ $kilang->alamat_kilang_1 }}</td>
                                             <td style="text-align: left">{{ $kilang->alamat_kilang_2 }}</td>
                                             <td style="text-align: left">{{ $kilang->alamat_kilang_poskod }}</td>
-                                            <td style="text-align: left">{{ $kilang->daerah->daerah_hutan ?? '' }}</td>
-                                            <td style="text-align: left">{{ $kilang->negeri->negeri ?? '' }}</td>
+                                            <td style="text-align: left">{{ $kilang->daerah_hutan_laporan ?? '' }}</td>
+                                            <td style="text-align: left">{{ $kilang->negeri_id ?? '' }}</td>
                                             <td >
                                                 {{ Carbon\Carbon::parse($kilang->tarikh_tubuh)->format('d-m-Y') }}
                                             </td>
@@ -46,7 +46,7 @@
                                             <td style="text-align: left">{{ $kilang->status_hak_milik }}</td>
 
                                             <td style="text-align: right" >
-                                                {{ number_format(round($kilang->jumlah_pengeluaran) ?? 0) }}
+                                                {{ number_format(round($kilang->jumlah_laporan ?? $kilang->jumlah_pengeluaran) ?? 0) }}
                                             </td>
 
                                         </tr>

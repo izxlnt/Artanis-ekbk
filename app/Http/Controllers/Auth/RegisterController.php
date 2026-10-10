@@ -15,6 +15,7 @@ use App\Rules\UniqueEmailAcrossAllTables;
 use App\Rules\DifferentEmailFields;
 use App\Rules\MalaysianIC;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
@@ -79,7 +80,7 @@ class RegisterController extends Controller
                 'jantina'=> ['required', 'string', 'max:255'],
                 'warganegara'=> ['required', 'string', 'max:255'],
                 'kaum'=> ['required', 'string', 'max:255'],
-                'no_kad_pengenalan'=> ['required', 'string', 'max:12', new MalaysianIC, 'unique:pengguna_kilangs'],
+                'no_kad_pengenalan'=> ['required', 'string', 'max:12', new MalaysianIC, 'unique:pengguna_kilangs,no_kad_pengenalan', 'unique:users,login_id'],
                 'gambar_ic_hadapan'=> ['required','max:10000', 'mimes:jpeg,jpg,png,gif'],
                 'gambar_ic_belakang'=> ['required','max:10000', 'mimes:jpeg,jpg,png,gif'],
                 'gambar_passport'=> ['required','max:10000', 'mimes:jpeg,jpg,png,gif'],
@@ -106,7 +107,7 @@ class RegisterController extends Controller
                 'no_faks'=> ['nullable', 'string', 'max:255'],
                 'no_ssm'=> ['required', 'string', 'max:255', function($attribute, $value, $fail) use ($data) {
                     $fullNoSsm = preg_replace('/[\/\\\\].*$/', '', $value) . '/' . ($data['shuttle_type'] ?? '');
-                    if (Shuttle::where('no_ssm', $fullNoSsm)->exists()) {
+                    if (Shuttle::where('no_ssm', $fullNoSsm)->exists() || User::where('login_id', $fullNoSsm)->exists()) {
                         $fail('No. SSM ini telah didaftarkan untuk jenis shuttle ini.');
                     }
                 }],
@@ -150,7 +151,7 @@ class RegisterController extends Controller
                 'jantina'=> ['required', 'string', 'max:255'],
                 'warganegara'=> ['required', 'string', 'max:255'],
                 'kaum'=> ['required', 'string', 'max:255'],
-                'no_kad_pengenalan'=> ['required', 'string', 'max:12', new MalaysianIC],
+                'no_kad_pengenalan'=> ['required', 'string', 'max:12', new MalaysianIC, 'unique:pengguna_kilangs,no_kad_pengenalan', 'unique:users,login_id'],
                 'gambar_ic_hadapan'=> ['required','max:10000'],
                 'gambar_ic_belakang'=> ['required','max:10000'],
                 'gambar_passport'=> ['required','max:10000'],
@@ -177,7 +178,7 @@ class RegisterController extends Controller
                 'no_faks'=> ['nullable', 'string', 'max:255'],
                 'no_ssm'=> ['required', 'string', 'max:255', function($attribute, $value, $fail) use ($data) {
                     $fullNoSsm = preg_replace('/[\/\\\\].*$/', '', $value) . '/' . ($data['shuttle_type'] ?? '');
-                    if (Shuttle::where('no_ssm', $fullNoSsm)->exists()) {
+                    if (Shuttle::where('no_ssm', $fullNoSsm)->exists() || User::where('login_id', $fullNoSsm)->exists()) {
                         $fail('No. SSM ini telah didaftarkan untuk jenis shuttle ini.');
                     }
                 }],
@@ -453,7 +454,11 @@ class RegisterController extends Controller
         $daerah_name= Daerah::where('id',$request->daerah_id)->first(['daerah_hutan', 'negeri']);
         $negeri_name = $daerah_name ?: $negeri_name; // the district decides the state, not the separate state field
 
-        event(new Registered($kilang = $this->createKilang($request->all(),$keterangan,$daerah_name,$negeri_name,$sijil_ssm,$lesen_kilang,$gambar_ic_hadapan,$gambar_ic_belakang, $gambar_passport,$gambar_kad_pekerja)));
+        // Shuttle, PenggunaKilang and both Users must be created together; a partial insert leaves an orphan shuttle that blocks re-registration
+        $kilang = DB::transaction(function () use ($request, $keterangan, $daerah_name, $negeri_name, $sijil_ssm, $lesen_kilang, $gambar_ic_hadapan, $gambar_ic_belakang, $gambar_passport, $gambar_kad_pekerja) {
+            return $this->createKilang($request->all(),$keterangan,$daerah_name,$negeri_name,$sijil_ssm,$lesen_kilang,$gambar_ic_hadapan,$gambar_ic_belakang, $gambar_passport,$gambar_kad_pekerja);
+        });
+        event(new Registered($kilang));
         // event(new Registered($kilang = $this->createKilang($request->all(),$sijil_ssm,$lesen_kilang)));
         // notification send pengesahan user
         $pegawais = User::where('kategori_pengguna', 'BPE')->get();

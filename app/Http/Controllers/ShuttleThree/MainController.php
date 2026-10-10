@@ -832,6 +832,21 @@ class MainController extends Controller
                 $batch->save();
             }
 
+            // A PHD-approved Borang D of the same month goes back to pending: it is built on this
+            // Borang C, so it must not stay approved while C is being corrected
+            if ($formC->shuttle_type == '3') {
+                $formD = FormD::where('shuttle_id', $formC->shuttle_id)->where('tahun', $formC->tahun)->where('bulan', $formC->bulan)
+                    ->where('status', 'Dihantar ke IPJPSM')->first();
+                if ($formD) {
+                    $formD->status = 'Sedang Diproses';
+                    $formD->save();
+                    if ($batch) {
+                        $batch->borang_d = "1";
+                        $batch->save();
+                    }
+                }
+            }
+
             //notification tidak lengkap
             $pengguna_kilang_data = PenggunaKilang::where('shuttle_id', $formC->shuttle->id)->first();
             $pengguna_kilangs = $pengguna_kilang_data ? User::where('pengguna_kilang_id', $pengguna_kilang_data->id)->get() : collect();
@@ -878,6 +893,15 @@ class MainController extends Controller
         if (!$formD || $formD->status === 'Sedang Diisi') {
             return redirect()->back()->with('error', 'Borang masih sedang diisi oleh pengguna kilang.');
         }
+
+        // Borang D is built on the same month's Borang C, so it cannot be approved ahead of it
+        if ($request->status == "Dihantar ke IPJPSM") {
+            $formC = FormC::where('shuttle_id', $formD->shuttle_id)->where('tahun', $formD->tahun)->where('bulan', $formD->bulan)->first();
+            if (!$formC || !in_array($formC->status, ['Dihantar ke IPJPSM', 'Lulus'])) {
+                return redirect()->back()->with('error', 'Sila sahkan Borang C bagi bulan yang sama terlebih dahulu sebelum mengesahkan Borang D.');
+            }
+        }
+
         $formD->status = $request->status;
         $formD->save();
 
@@ -1076,6 +1100,23 @@ class MainController extends Controller
             $value->jumlah_jualan_cleaning = $request->jumlah_jualan_cleaning[$key] ?? 0;
             $value->total_jumlah_jualan_cleaning = $request->total_jumlah_jualan_cleaning ?? 0;
             $value->save();
+        }
+
+        // The page totals only the cleaning inputs (blank = 0), so a touched-then-cleared field
+        // zeroed the domestic total while each buyer kept its value. Derive the report total from
+        // the per-buyer report values so Laporan 41-43 (form D total) and 44-46 (buyers) agree.
+        if ($penjualan_pembeli->count() > 0) {
+            $jumlah_domestik_laporan = round($penjualan_pembeli->sum(function ($p) {
+                return (float) $p->jumlah_jualan_laporan;
+            }), 2);
+
+            $formD->jumlah_pasaran_tempatan_laporan = $jumlah_domestik_laporan;
+            $formD->save();
+
+            foreach ($penjualan_pembeli as $value) {
+                $value->total_jumlah_jualan_laporan = $jumlah_domestik_laporan;
+                $value->save();
+            }
         }
 
         UlasanIpjpsm::create([

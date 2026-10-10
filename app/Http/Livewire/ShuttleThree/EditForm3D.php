@@ -9,6 +9,7 @@ use App\Models\PenjualanPembeli;
 use App\Models\Shuttle;
 use App\Models\UlasanPhd;
 use Livewire\Component;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 
 
@@ -35,24 +36,18 @@ class EditForm3D extends Component
         $kilang_info = Shuttle::where('id',$id->shuttle_id)->first();
         $idForm= FormD::where('id',$this->shuttle_id)->first();
         // dd($idForm);
-        $formD = PenjualanPembeli::where('formds_id',$this->shuttle_id)->get();
-
-        // dd($formD[9]->catatan);
-        // dd($idForm);
-
         $this->total_export=$idForm->total_export;
-        $this->jumlah_pasaran_tempatan=$idForm->jumlah_pasaran_tempatan;
 
-        foreach ($formD as $key => $value) {
-            $this->jumlah_jualan[$key] = $value->jumlah_jualan;
-            $this->total_jumlah_jualan = $value->total_jumlah_jualan;
-
-            // $this->catatan[$key] = $this->catatan ;
-            $this->catatan[$key] = $value->catatan;
-
+        // Map saved rows by buyer type (not by row position), so a buyer's figure always lands on
+        // its own input even if rows were saved out of order or duplicated
+        $existing = PenjualanPembeli::where('formds_id', $this->shuttle_id)->orderBy('id')->get()->keyBy('pembeli_id');
+        foreach (Pembeli::where('shuttle', 3)->get() as $key => $pembeli) {
+            $record = $existing->get($pembeli->id);
+            $this->jumlah_jualan[$key] = $record ? $record->jumlah_jualan : null;
+            $this->catatan[$key] = $record ? $record->catatan : null;
         }
-        // dd($this->catatan);
 
+        $this->calcTotalJumlahJualan();
     }
 
     public function calcTotalJumlahJualan()
@@ -97,16 +92,20 @@ class EditForm3D extends Component
         $kilang_info = Shuttle::where('id',$id->shuttle_id)->first();
         $idForm= FormD::where('id',$this->shuttle_id)->first();
 
-        // dd($idForm);
-
-        $formD = PenjualanPembeli::where('formds_id',$idForm->id)->get();
-        foreach ($formD as $key => $value) {
-           $value->delete();
+        // Totals are derived from the buyer rows on the server: the page only recalculates them when
+        // a field changes, so an untouched correction used to resubmit a stale (often 0) total
+        $total = 0;
+        foreach ($this->jumlah_jualan ?? [] as $val) {
+            $total += (float) $val;
         }
-
-        // $idForm->delete();
+        $this->total_jumlah_jualan = number_format($total, 2, '.', '');
+        $this->jumlah_pasaran_tempatan = number_format($total, 2, '.', '');
 
         $jenis_pembeli = Pembeli::where('shuttle', 3)->get();
+
+        // delete + re-insert as one unit, so a double submit cannot leave duplicated buyer rows
+        DB::transaction(function () use ($idForm, $jenis_pembeli) {
+        PenjualanPembeli::where('formds_id', $idForm->id)->delete();
 
         // $shuttle_id = Shuttle::first();
 
@@ -133,17 +132,19 @@ class EditForm3D extends Component
     $formd_id->save();
 
     $batch = Batch::where('tahun',$formd_id->tahun)->where('bulan', $formd_id->bulan)->where('shuttle_id', $formd_id->shuttle_id)->first();
-    $batch->borang_d = "1";
-    $batch->save();
+    if ($batch) {
+        $batch->borang_d = "1";
+        $batch->save();
+    }
 
         // dd($test);
 
         foreach ($jenis_pembeli as $key => $data) {
             if($data->keterangan == 'Sektor awam (Nyatakan)'){
-                $data_catatan= $this->catatan[$key];
+                $data_catatan= $this->catatan[$key] ?? null;
             }
             elseif($data->keterangan == 'Lain-lain (Nyatakan)'){
-                $data_catatan= $this->catatan[$key];
+                $data_catatan= $this->catatan[$key] ?? null;
             }
             else{
                 $data_catatan= "Tiada";
@@ -157,6 +158,7 @@ class EditForm3D extends Component
                 'total_jumlah_jualan' => $this->total_jumlah_jualan ?? 0,
             ]);
         }
+        });
         Session::flash('success', 'Maklumat berjaya dimasukkan. Sila tunggu untuk pengesahan PHD.');
 
         return redirect()->route('home-user');
