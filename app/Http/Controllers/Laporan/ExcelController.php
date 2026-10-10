@@ -4083,18 +4083,22 @@ class ExcelController extends Controller
 
             $produk_pengeluaran = DB::select("SELECT
                                     shuttles.id as shuttle_id,
-                                    sum(distinct produk_pengeluarans.jumlah_besar_mr)  as jumlah_besar_mr,
-                                    sum(distinct produk_pengeluarans.jumlah_besar_wbp) as jumlah_besar_wbp,
-                                    sum(distinct produk_pengeluarans.jumlah_kecil_1_mr) as jumlah_kecil_1_mr,
-                                    sum(distinct produk_pengeluarans.jumlah_kecil_1_wbp) as jumlah_kecil_1_wbp,
-                                    sum(distinct produk_pengeluarans.jumlah_kecil_2_mr) as jumlah_kecil_2_mr,
-                                    sum(distinct produk_pengeluarans.jumlah_kecil_2_wbp) as jumlah_kecil_2_wbp
+                                    sum(produk_pengeluarans.jumlah_besar_mr)  as jumlah_besar_mr,
+                                    sum(produk_pengeluarans.jumlah_besar_wbp) as jumlah_besar_wbp,
+                                    sum(produk_pengeluarans.jumlah_kecil_1_mr) as jumlah_kecil_1_mr,
+                                    sum(produk_pengeluarans.jumlah_kecil_1_wbp) as jumlah_kecil_1_wbp,
+                                    sum(produk_pengeluarans.jumlah_kecil_2_mr) as jumlah_kecil_2_mr,
+                                    sum(produk_pengeluarans.jumlah_kecil_2_wbp) as jumlah_kecil_2_wbp
 
 
 
                                     FROM
                                     shuttles,
-                                    produk_pengeluarans,
+                                    (SELECT form4ds_id,
+                    MAX(jumlah_besar_mr) AS jumlah_besar_mr, MAX(jumlah_besar_wbp) AS jumlah_besar_wbp,
+                    MAX(jumlah_kecil_1_mr) AS jumlah_kecil_1_mr, MAX(jumlah_kecil_1_wbp) AS jumlah_kecil_1_wbp,
+                    MAX(jumlah_kecil_2_mr) AS jumlah_kecil_2_mr, MAX(jumlah_kecil_2_wbp) AS jumlah_kecil_2_wbp
+                FROM produk_pengeluarans GROUP BY form4ds_id) produk_pengeluarans,
                                     form4_d_s
 
 
@@ -4149,6 +4153,15 @@ class ExcelController extends Controller
                 ->take(10)
                 ->values()
                 ->all();
+
+            // The PDF/Excel views loop over $shuttle (Borang A rows), which listed every approved
+            // kilang unsorted. Give them the same top-10 kilang, in the same order, as the screen.
+            $borangA = $shuttle->keyBy('shuttle_id');
+            $shuttle = collect($datas_formc)
+                ->filter(fn ($kilang) => $kilang->jumlah_penggunaan > 0)
+                ->map(fn ($kilang) => $borangA[$kilang->id] ?? null)
+                ->filter()
+                ->values();
         }
 
         $columns = [
@@ -4318,6 +4331,14 @@ class ExcelController extends Controller
                 ->take(10)
                 ->values()
                 ->all();
+
+            // PDF/Excel views loop over $shuttle: give them the same top-10 kilang, in order, as the screen
+            $borangA = $shuttle->keyBy('shuttle_id');
+            $shuttle = collect($datas_formc)
+                ->filter(fn ($kilang) => $kilang->jumlah_penggunaan > 0)
+                ->map(fn ($kilang) => $borangA[$kilang->id] ?? null)
+                ->filter()
+                ->values();
         }
 
         $columns = [
@@ -5858,7 +5879,7 @@ class ExcelController extends Controller
                     if ($sp->kumpulan_kayu_id == $kk->id) {
                         $datas[$kk->singkatan][$sp->nama_tempatan] = DB::select("SELECT
                     form_c_s.tahun as tahun,
-                    sum(round(kemasukan_bahans.proses_masuk)) as jumlah_penggunaan
+                    sum(kemasukan_bahans.proses_masuk) as jumlah_penggunaan
 
                     FROM
                     shuttles,
@@ -5943,13 +5964,17 @@ class ExcelController extends Controller
                 # code...
                 $data = DB::select("SELECT
                     shuttles.negeri_id as negeri,
-                    sum(distinct produk_pengeluarans.jumlah_besar_mr) as jumlah_besar_mr,
-                    sum(distinct produk_pengeluarans.jumlah_besar_wbp) as jumlah_besar_wbp
+                    sum(produk_pengeluarans.jumlah_besar_mr) as jumlah_besar_mr,
+                    sum(produk_pengeluarans.jumlah_besar_wbp) as jumlah_besar_wbp
 
                     FROM
                     shuttles,
                     form4_d_s,
-                    produk_pengeluarans
+                    (SELECT form4ds_id,
+                    MAX(jumlah_besar_mr) AS jumlah_besar_mr, MAX(jumlah_besar_wbp) AS jumlah_besar_wbp,
+                    MAX(jumlah_kecil_1_mr) AS jumlah_kecil_1_mr, MAX(jumlah_kecil_1_wbp) AS jumlah_kecil_1_wbp,
+                    MAX(jumlah_kecil_2_mr) AS jumlah_kecil_2_mr, MAX(jumlah_kecil_2_wbp) AS jumlah_kecil_2_wbp
+                FROM produk_pengeluarans GROUP BY form4ds_id) produk_pengeluarans
 
                     WHERE form4_d_s.shuttle_id = shuttles.id
                     AND form4_d_s.id = produk_pengeluarans.form4ds_id
@@ -5957,6 +5982,7 @@ class ExcelController extends Controller
                     AND shuttles.negeri_id = '$negeri->negeri'
                     AND shuttles.shuttle_type = '4'
                     AND form4_d_s.status = 'Lulus'
+                    AND form4_d_s.tahun = '$tahun'
                     AND form4_d_s.bulan = '$bulan'
 
 
@@ -6043,13 +6069,17 @@ class ExcelController extends Controller
         for ($x = $tahun_mula; $x <= $tahun_akhir; $x++) {
             foreach ($negeri_list as $negeri) {
                 $data = DB::select("SELECT shuttles.negeri_id as negeri,
-                    sum(distinct produk_pengeluarans.jumlah_besar_mr) as jumlah_besar_mr,
-                    sum(distinct produk_pengeluarans.jumlah_besar_wbp) as jumlah_besar_wbp
+                    sum(produk_pengeluarans.jumlah_besar_mr) as jumlah_besar_mr,
+                    sum(produk_pengeluarans.jumlah_besar_wbp) as jumlah_besar_wbp
 
                     FROM
                     shuttles,
                     form4_d_s,
-                    produk_pengeluarans
+                    (SELECT form4ds_id,
+                    MAX(jumlah_besar_mr) AS jumlah_besar_mr, MAX(jumlah_besar_wbp) AS jumlah_besar_wbp,
+                    MAX(jumlah_kecil_1_mr) AS jumlah_kecil_1_mr, MAX(jumlah_kecil_1_wbp) AS jumlah_kecil_1_wbp,
+                    MAX(jumlah_kecil_2_mr) AS jumlah_kecil_2_mr, MAX(jumlah_kecil_2_wbp) AS jumlah_kecil_2_wbp
+                FROM produk_pengeluarans GROUP BY form4ds_id) produk_pengeluarans
 
                     WHERE form4_d_s.shuttle_id = shuttles.id
                     AND form4_d_s.id = produk_pengeluarans.form4ds_id
@@ -6148,13 +6178,17 @@ class ExcelController extends Controller
                 # code...
                 $data = DB::select("SELECT
                     shuttles.negeri_id as negeri,
-                    sum(distinct produk_pengeluarans.jumlah_besar_mr) as jumlah_besar_mr,
-                    sum(distinct produk_pengeluarans.jumlah_besar_wbp) as jumlah_besar_wbp
+                    sum(produk_pengeluarans.jumlah_besar_mr) as jumlah_besar_mr,
+                    sum(produk_pengeluarans.jumlah_besar_wbp) as jumlah_besar_wbp
 
                     FROM
                     shuttles,
                     form4_d_s,
-                    produk_pengeluarans
+                    (SELECT form4ds_id,
+                    MAX(jumlah_besar_mr) AS jumlah_besar_mr, MAX(jumlah_besar_wbp) AS jumlah_besar_wbp,
+                    MAX(jumlah_kecil_1_mr) AS jumlah_kecil_1_mr, MAX(jumlah_kecil_1_wbp) AS jumlah_kecil_1_wbp,
+                    MAX(jumlah_kecil_2_mr) AS jumlah_kecil_2_mr, MAX(jumlah_kecil_2_wbp) AS jumlah_kecil_2_wbp
+                FROM produk_pengeluarans GROUP BY form4ds_id) produk_pengeluarans
 
                     WHERE form4_d_s.shuttle_id = shuttles.id
                     AND form4_d_s.id = produk_pengeluarans.form4ds_id
@@ -6162,6 +6196,7 @@ class ExcelController extends Controller
                     AND shuttles.negeri_id = '$negeri->negeri'
                     AND shuttles.shuttle_type = '4'
                     AND form4_d_s.status = 'Lulus'
+                    AND form4_d_s.tahun = '$tahun'
                     AND form4_d_s.bulan = '$bulan'
 
 
@@ -6267,15 +6302,19 @@ class ExcelController extends Controller
         for ($x = $tahun_mula; $x <= $tahun_akhir; $x++) {
             foreach ($negeri_list as $negeri) {
                 $data = DB::select("SELECT shuttles.negeri_id as negeri,
-                    sum(distinct produk_pengeluarans.jumlah_kecil_1_mr) as jumlah_kecil_1_mr,
-                    sum(distinct produk_pengeluarans.jumlah_kecil_1_wbp) as jumlah_kecil_1_wbp,
-                    sum(distinct produk_pengeluarans.jumlah_kecil_2_mr) as jumlah_kecil_2_mr,
-                    sum(distinct produk_pengeluarans.jumlah_kecil_2_wbp) as jumlah_kecil_2_wbp
+                    sum(produk_pengeluarans.jumlah_kecil_1_mr) as jumlah_kecil_1_mr,
+                    sum(produk_pengeluarans.jumlah_kecil_1_wbp) as jumlah_kecil_1_wbp,
+                    sum(produk_pengeluarans.jumlah_kecil_2_mr) as jumlah_kecil_2_mr,
+                    sum(produk_pengeluarans.jumlah_kecil_2_wbp) as jumlah_kecil_2_wbp
 
                     FROM
                     shuttles,
                     form4_d_s,
-                    produk_pengeluarans
+                    (SELECT form4ds_id,
+                    MAX(jumlah_besar_mr) AS jumlah_besar_mr, MAX(jumlah_besar_wbp) AS jumlah_besar_wbp,
+                    MAX(jumlah_kecil_1_mr) AS jumlah_kecil_1_mr, MAX(jumlah_kecil_1_wbp) AS jumlah_kecil_1_wbp,
+                    MAX(jumlah_kecil_2_mr) AS jumlah_kecil_2_mr, MAX(jumlah_kecil_2_wbp) AS jumlah_kecil_2_wbp
+                FROM produk_pengeluarans GROUP BY form4ds_id) produk_pengeluarans
 
                     WHERE form4_d_s.shuttle_id = shuttles.id
                     AND form4_d_s.id = produk_pengeluarans.form4ds_id
@@ -6379,15 +6418,19 @@ class ExcelController extends Controller
                 # code...
                 $data = DB::select("SELECT
                     shuttles.negeri_id as negeri,
-                    sum(distinct produk_pengeluarans.jumlah_kecil_1_mr) as jumlah_kecil_1_mr,
-                    sum(distinct produk_pengeluarans.jumlah_kecil_1_wbp) as jumlah_kecil_1_wbp,
-                    sum(distinct produk_pengeluarans.jumlah_kecil_2_mr) as jumlah_kecil_2_mr,
-                    sum(distinct produk_pengeluarans.jumlah_kecil_2_wbp) as jumlah_kecil_2_wbp
+                    sum(produk_pengeluarans.jumlah_kecil_1_mr) as jumlah_kecil_1_mr,
+                    sum(produk_pengeluarans.jumlah_kecil_1_wbp) as jumlah_kecil_1_wbp,
+                    sum(produk_pengeluarans.jumlah_kecil_2_mr) as jumlah_kecil_2_mr,
+                    sum(produk_pengeluarans.jumlah_kecil_2_wbp) as jumlah_kecil_2_wbp
 
                     FROM
                     shuttles,
                     form4_d_s,
-                    produk_pengeluarans
+                    (SELECT form4ds_id,
+                    MAX(jumlah_besar_mr) AS jumlah_besar_mr, MAX(jumlah_besar_wbp) AS jumlah_besar_wbp,
+                    MAX(jumlah_kecil_1_mr) AS jumlah_kecil_1_mr, MAX(jumlah_kecil_1_wbp) AS jumlah_kecil_1_wbp,
+                    MAX(jumlah_kecil_2_mr) AS jumlah_kecil_2_mr, MAX(jumlah_kecil_2_wbp) AS jumlah_kecil_2_wbp
+                FROM produk_pengeluarans GROUP BY form4ds_id) produk_pengeluarans
 
                     WHERE form4_d_s.shuttle_id = shuttles.id
                     AND form4_d_s.id = produk_pengeluarans.form4ds_id
@@ -6395,6 +6438,7 @@ class ExcelController extends Controller
                     AND shuttles.negeri_id = '$negeri->negeri'
                     AND shuttles.shuttle_type = '4'
                     AND form4_d_s.status = 'Lulus'
+                    AND form4_d_s.tahun = '$tahun'
                     AND form4_d_s.bulan = '$bulan'
 
 
@@ -6490,12 +6534,16 @@ class ExcelController extends Controller
                 # code...
                 $data = DB::select("SELECT
                     shuttles.negeri_id as negeri,
-                    sum(distinct(form4_d_s.jumlah_pengeluaran)) as jumlah_pengeluaran
+                    sum(form4_d_s.jumlah_pengeluaran) as jumlah_pengeluaran
 
                     FROM
                     shuttles,
                     form4_d_s,
-                    produk_pengeluarans
+                    (SELECT form4ds_id,
+                    MAX(jumlah_besar_mr) AS jumlah_besar_mr, MAX(jumlah_besar_wbp) AS jumlah_besar_wbp,
+                    MAX(jumlah_kecil_1_mr) AS jumlah_kecil_1_mr, MAX(jumlah_kecil_1_wbp) AS jumlah_kecil_1_wbp,
+                    MAX(jumlah_kecil_2_mr) AS jumlah_kecil_2_mr, MAX(jumlah_kecil_2_wbp) AS jumlah_kecil_2_wbp
+                FROM produk_pengeluarans GROUP BY form4ds_id) produk_pengeluarans
 
                     WHERE form4_d_s.shuttle_id = shuttles.id
                     AND form4_d_s.id = produk_pengeluarans.form4ds_id
@@ -6503,6 +6551,7 @@ class ExcelController extends Controller
                     AND shuttles.negeri_id = '$negeri->negeri'
                     AND shuttles.shuttle_type = '4'
                     AND form4_d_s.status = 'Lulus'
+                    AND form4_d_s.tahun = '$tahun'
                     AND form4_d_s.bulan = '$bulan'
 
 
@@ -6586,14 +6635,18 @@ class ExcelController extends Controller
         for ($x = $tahun_mula; $x <= $tahun_akhir; $x++) {
             foreach ($negeri_list as $negeri) {
                 $data = DB::select("SELECT shuttles.negeri_id as negeri,
-                    sum(distinct form4_d_s.rekod_veniermuka) as rekod_veniermuka,
-                    sum(distinct form4_d_s.rekod_venierteras) as rekod_venierteras
+                    sum(form4_d_s.rekod_veniermuka) as rekod_veniermuka,
+                    sum(form4_d_s.rekod_venierteras) as rekod_venierteras
 
 
                     FROM
                     shuttles,
                     form4_d_s,
-                    produk_pengeluarans
+                    (SELECT form4ds_id,
+                    MAX(jumlah_besar_mr) AS jumlah_besar_mr, MAX(jumlah_besar_wbp) AS jumlah_besar_wbp,
+                    MAX(jumlah_kecil_1_mr) AS jumlah_kecil_1_mr, MAX(jumlah_kecil_1_wbp) AS jumlah_kecil_1_wbp,
+                    MAX(jumlah_kecil_2_mr) AS jumlah_kecil_2_mr, MAX(jumlah_kecil_2_wbp) AS jumlah_kecil_2_wbp
+                FROM produk_pengeluarans GROUP BY form4ds_id) produk_pengeluarans
 
                     WHERE form4_d_s.shuttle_id = shuttles.id
                     AND form4_d_s.id = produk_pengeluarans.form4ds_id
@@ -6694,13 +6747,17 @@ class ExcelController extends Controller
                 # code...
                 $data = DB::select("SELECT
                     shuttles.negeri_id as negeri,
-                    sum(distinct form4_d_s.rekod_veniermuka) as rekod_veniermuka,
-                    sum(distinct form4_d_s.rekod_venierteras) as rekod_venierteras
+                    sum(form4_d_s.rekod_veniermuka) as rekod_veniermuka,
+                    sum(form4_d_s.rekod_venierteras) as rekod_venierteras
 
                     FROM
                     shuttles,
                     form4_d_s,
-                    produk_pengeluarans
+                    (SELECT form4ds_id,
+                    MAX(jumlah_besar_mr) AS jumlah_besar_mr, MAX(jumlah_besar_wbp) AS jumlah_besar_wbp,
+                    MAX(jumlah_kecil_1_mr) AS jumlah_kecil_1_mr, MAX(jumlah_kecil_1_wbp) AS jumlah_kecil_1_wbp,
+                    MAX(jumlah_kecil_2_mr) AS jumlah_kecil_2_mr, MAX(jumlah_kecil_2_wbp) AS jumlah_kecil_2_wbp
+                FROM produk_pengeluarans GROUP BY form4ds_id) produk_pengeluarans
 
                     WHERE form4_d_s.shuttle_id = shuttles.id
                     AND form4_d_s.id = produk_pengeluarans.form4ds_id
@@ -6708,6 +6765,7 @@ class ExcelController extends Controller
                     AND shuttles.negeri_id = '$negeri->negeri'
                     AND shuttles.shuttle_type = '4'
                     AND form4_d_s.status = 'Lulus'
+                    AND form4_d_s.tahun = '$tahun'
                     AND form4_d_s.bulan = '$bulan'
 
 
@@ -6799,7 +6857,7 @@ class ExcelController extends Controller
         for ($i = 1; $i <= 12; $i++) {
             $data = DB::select("SELECT
             form4_e_s.bulan as bulan,
-            sum(round(penjualan_pembelis.jumlah_jualan)) as domestik_papan_lapis,
+            sum(penjualan_pembelis.jumlah_jualan_laporan) as domestik_papan_lapis,
             (round(form4_e_s.jumlah_venier_tempatan_laporan)) as domestik_venier
 
             FROM
@@ -6894,7 +6952,7 @@ class ExcelController extends Controller
             $data = DB::select("SELECT
             form4_e_s.id,
             shuttles.negeri_id as negeri,
-            sum(round(penjualan_pembelis.jumlah_jualan)) as domestik_papan_lapis,
+            sum(penjualan_pembelis.jumlah_jualan_laporan) as domestik_papan_lapis,
             round(form4_e_s.jumlah_venier_tempatan_laporan) as domestik_venier
 
             FROM
@@ -6984,7 +7042,7 @@ class ExcelController extends Controller
             foreach ($negeri_list as $negeri) {
                 $data = DB::select("SELECT
                 shuttles.negeri_id as negeri,
-                sum(round(penjualan_pembelis.jumlah_jualan)) as domestik
+                sum(penjualan_pembelis.jumlah_jualan_laporan) as domestik
 
                 FROM
                 shuttles,
@@ -7159,7 +7217,7 @@ class ExcelController extends Controller
             for ($bulan = 1; $bulan <= 12; $bulan++) {
                 $datas[$pembeli->keterangan][$bulan] = DB::select("SELECT
                 pembelis.keterangan as pembeli_keterangan,
-                sum(round(penjualan_pembelis.jumlah_jualan)) as jumlah_jualan,
+                sum(penjualan_pembelis.jumlah_jualan_laporan) as jumlah_jualan,
 
                 -- sepatutnya ini yang betul
                 -- sum(penjualan_pembelis.jumlah_jualan_laporan) as jumlah_jualan,
@@ -7257,7 +7315,7 @@ class ExcelController extends Controller
 
                 $data = DB::select("SELECT
                     shuttles.negeri_id as negeri,
-                    sum(round(penjualan_pembelis.jumlah_jualan)) as domestik
+                    sum(penjualan_pembelis.jumlah_jualan_laporan) as domestik
 
 
                 -- sepatutnya ini yang betul
@@ -7375,7 +7433,7 @@ class ExcelController extends Controller
                 $datas[$pembeli->keterangan][$curr_year] =
                     DB::select("SELECT
                 pembelis.keterangan as pembeli_keterangan,
-                sum(round(penjualan_pembelis.jumlah_jualan)) as jumlah_jualan
+                sum(penjualan_pembelis.jumlah_jualan_laporan) as jumlah_jualan
 
 
                 -- sepatutnya ini yang betul
@@ -7455,8 +7513,8 @@ class ExcelController extends Controller
         for ($i = 1; $i <= 12; $i++) {
             $data = DB::select("SELECT
             form4_e_s.bulan as bulan,
-            sum(round(form4_e_s.total_export_laporan))  as export_papan_lapis,
-            sum(round(form4_e_s.jumlah_venier_eksport_laporan))  as export_venier,
+            sum(form4_e_s.total_export_laporan)  as export_papan_lapis,
+            sum(form4_e_s.jumlah_venier_eksport_laporan)  as export_venier,
             sum(form4_e_s.total_export_laporan + form4_e_s.jumlah_pasaran_tempatan_laporan) as jumlah_penjualan
 
             FROM
@@ -7550,8 +7608,8 @@ class ExcelController extends Controller
         foreach ($negeri_list as $negeri) {
             $data = DB::select("SELECT
             shuttles.negeri_id as negeri,
-            sum(round(form4_e_s.total_export_laporan))  as export_papan_lapis,
-            sum(round(form4_e_s.jumlah_venier_eksport_laporan))  as export_venier,
+            sum(form4_e_s.total_export_laporan)  as export_papan_lapis,
+            sum(form4_e_s.jumlah_venier_eksport_laporan)  as export_venier,
             sum(form4_e_s.jumlah_pasaran_tempatan_laporan) as domestik_papan_lapis,
             sum(form4_e_s.jumlah_venier_tempatan_laporan) as domestik_venier,
             sum(form4_e_s.total_export_laporan + form4_e_s.jumlah_pasaran_tempatan_laporan) as jumlah_penjualan

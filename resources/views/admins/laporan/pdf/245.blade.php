@@ -53,7 +53,7 @@ $columns = $results['columns'] ?? [];
                                                 <td>{{ number_format($data[$i][0]->jumlah_jualan ?? 0) }}</td>
                                                 @php
                                                     $total_jualan[$keterangan_pembeli_key] += $data[$i][0]->jumlah_jualan ?? 0;
-                                                    $total_jualan_bulan[$i] += round($data[$i][0]->jumlah_jualan ?? 0);
+                                                    $total_jualan_bulan[$i] += $data[$i][0]->jumlah_jualan ?? 0;
                                                 @endphp
                                             @endfor
                                             <td>{{ number_format($total_jualan[$keterangan_pembeli_key]) }}</td>

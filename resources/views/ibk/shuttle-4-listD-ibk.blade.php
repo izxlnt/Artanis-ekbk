@@ -137,7 +137,7 @@
                                                 </td>
 
                                                 <td>
-                                                    @include('partials.status-icon-ibk', ['form' => $data, 'editLink' => route('edit-form4d', $data->id)])
+                                                    @include('partials.status-icon-ibk', ['form' => $data, 'editLink' => route('edit-form4D', $data->bulan)])
                                                 </td>
                                         @endforeach
                                         </tr>

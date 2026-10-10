@@ -127,7 +127,7 @@
                                             </td>
 
                                             <td>
-                                                @include('partials.status-icon-ibk', ['form' => $data, 'editLink' => route('edit-form4c',$shuttle->id)])
+                                                @include('partials.status-icon-ibk', ['form' => $data, 'editLink' => route('user.shuttle-4-formC.KKB', [$data->bulan, $data->tahun])])
                                             </td>
 
 

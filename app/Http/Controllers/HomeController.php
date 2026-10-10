@@ -37,9 +37,10 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $count_shuttle3 = User::where('shuttle_type', 3)->where('is_approved', 1)->whereNull('pengguna_kilang_id')->count();
-        $count_shuttle4 = User::where('shuttle_type', 4)->where('is_approved', 1)->whereNull('pengguna_kilang_id')->count();
-        $count_shuttle5 = User::where('shuttle_type', 5)->where('is_approved', 1)->whereNull('pengguna_kilang_id')->count();
+        // "aktif" = approved and not deactivated (same rule as the PHD dashboard and kilang aktif lists)
+        $count_shuttle3 = User::where('shuttle_type', 3)->where('is_approved', 1)->where('status', 1)->whereNull('pengguna_kilang_id')->count();
+        $count_shuttle4 = User::where('shuttle_type', 4)->where('is_approved', 1)->where('status', 1)->whereNull('pengguna_kilang_id')->count();
+        $count_shuttle5 = User::where('shuttle_type', 5)->where('is_approved', 1)->where('status', 1)->whereNull('pengguna_kilang_id')->count();
 
 
 
@@ -846,11 +847,14 @@ class HomeController extends Controller
         // System-wide reset point: never chart data older than the start year.
         $year = max($year, (int) config('app.data_start_year'));
 
+        // Responden = kilang that submitted that year's Borang A; the seeded "Tidak Diisi"
+        // placeholder rows are not responses
         $rows = DB::select("SELECT shuttles.negeri_id, COUNT(DISTINCT form_a_s.shuttle_id) as total_kilang
             FROM form_a_s
             INNER JOIN shuttles ON form_a_s.shuttle_id = shuttles.id
             WHERE shuttles.shuttle_type = ?
             AND form_a_s.tahun = ?
+            AND form_a_s.status IN ('Sedang Diproses', 'Dihantar ke IPJPSM', 'Lulus')
             GROUP BY shuttles.negeri_id", [$shuttle_type, $year]);
 
         $byNegeri = collect($rows)->keyBy('negeri_id');

@@ -210,7 +210,7 @@
                                                                                 id="jumlah_pasaran_tempatan_cleaning"
                                                                                 type="text" size="10"
                                                                                 style="background-color: #9ac4f7;text-align:right"
-                                                                                value="{{ number_format($form4e->jumlah_pasaran_tempatan_cleaning ?? 0,2) }}"
+                                                                                value="{{ (float) ($form4e->jumlah_pasaran_tempatan_cleaning ?? 0) != 0 ? number_format($form4e->jumlah_pasaran_tempatan_cleaning, 2, '.', '') : '' }}"
                                                                                 name="jumlah_pasaran_tempatan_cleaning"
                                                                                 onkeypress="return isNumberKey(event)">
                                                                         </td>
@@ -228,7 +228,7 @@
                                                                                 onkeypress="return isNumberKey(event)">
 
                                                                             <input type="text" size="10" readonly style="text-align:right"
-                                                                            value="{{ number_format($form4e->jumlah_venier_eksport_cleaning ?? 0,2)}}"
+                                                                            value="{{ (float) ($form4e->jumlah_venier_eksport_cleaning ?? 0) != 0 ? number_format($form4e->jumlah_venier_eksport_cleaning, 2, '.', '') : '' }}"
                                                                                 name="jumlah_venier_eksport_cleaning"
                                                                                 onkeypress="return isNumberKey(event)">
                                                                         </td>
@@ -247,7 +247,7 @@
 
                                                                             <input type="text" size="10" style="text-align:right"
                                                                                 name="jumlah_venier_tempatan_cleaning"
-                                                                                value="{{ number_format($form4e->jumlah_venier_tempatan_cleaning ?? 0,2) }}"
+                                                                                value="{{ (float) ($form4e->jumlah_venier_tempatan_cleaning ?? 0) != 0 ? number_format($form4e->jumlah_venier_tempatan_cleaning, 2, '.', '') : '' }}"
                                                                                 onkeypress="return isNumberKey(event)" readonly>
                                                                         </td>
                                                                     </tr>
@@ -293,7 +293,7 @@
 
                                                                                 <input type="text" size="10" style="text-align:right"
                                                                                     name="jumlah_jualan_cleaning[]"
-                                                                                    value="{{ number_format($form4_e[$key]->jumlah_jualan_cleaning ?? 0,2) }}"
+                                                                                    value="{{ (float) ($form4_e[$key]->jumlah_jualan_cleaning ?? 0) != 0 ? number_format($form4_e[$key]->jumlah_jualan_cleaning, 2, '.', '') : '' }}"
                                                                                     onkeypress="return isNumberKey(event)" readonly>
                                                                             </td>
                                                                         </tr>
@@ -318,7 +318,7 @@
                                                                                 type="text" size="10"
                                                                                 style="background-color: #9ac4f7;text-align:right"
                                                                                 name="total_jumlah_jualan_cleaning"
-                                                                                value="{{ number_format($form4_e[0]->total_jumlah_jualan_cleaning ?? 0,2)}}"
+                                                                                value="{{ (float) ($form4_e[0]->total_jumlah_jualan_cleaning ?? 0) != 0 ? number_format($form4_e[0]->total_jumlah_jualan_cleaning, 2, '.', '') : '' }}"
                                                                                 onkeypress="return isNumberKey(event)">
                                                                         </td>
                                                                     </tr>

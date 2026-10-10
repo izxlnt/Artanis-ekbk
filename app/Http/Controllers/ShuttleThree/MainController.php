@@ -1155,66 +1155,37 @@ class MainController extends Controller
         $user = auth()->user();
         $Form4E = Form4E::find($id);
         $Form4E->status = $request->status;
-        $Form4E->total_export_cleaning = $request->total_export_cleaning ?? 0;
-        $Form4E->jumlah_venier_eksport_cleaning = $request->jumlah_venier_eksport_cleaning ?? 0;
-        $Form4E->jumlah_pasaran_tempatan_cleaning = $request->jumlah_pasaran_tempatan_cleaning ?? 0;
-        $Form4E->jumlah_venier_tempatan_cleaning = $request->jumlah_venier_tempatan_cleaning ?? 0;
-        $Form4E->status = $request->status;
 
+        // A cleaning box counts as an IPJPSM correction only when it holds a non-zero number. The page
+        // used to pre-fill every box with "0.00" (formatted with thousand separators), so approving
+        // without edits overwrote every report figure with 0 and Laporan 42-47 came out empty.
+        $cleaned = function ($value) {
+            $value = str_replace(',', '', (string) $value);
+            return ($value !== '' && is_numeric($value) && (float) $value != 0) ? (float) $value : null;
+        };
 
-        if(!$request->total_export_cleaning){
-            // dd('xmasuk');
-            $Form4E->total_export_laporan = $Form4E->total_export;
-            $Form4E->save();
-        }else{
-            $Form4E->total_export_laporan = $request->total_export_cleaning;
-            $Form4E->save();
-            // dd($formD);
+        foreach ([
+            'total_export',
+            'jumlah_venier_eksport',
+            'jumlah_pasaran_tempatan',
+            'jumlah_venier_tempatan',
+        ] as $field) {
+            $correction = $cleaned($request->input($field . '_cleaning'));
+            $Form4E->{$field . '_cleaning'} = $correction ?? 0;
+            $Form4E->{$field . '_laporan'} = $correction ?? ($Form4E->{$field} ?? 0);
         }
+        $Form4E->save();
 
-        if($request->jumlah_venier_eksport_cleaning == null ){
-            $Form4E->jumlah_venier_eksport_laporan = $Form4E->jumlah_venier_eksport;
-            $Form4E->save();
-        }else{
-            $Form4E->jumlah_venier_eksport_laporan = $request->jumlah_venier_eksport_cleaning;
-            $Form4E->save();
-        }
-
-        if($request->jumlah_pasaran_tempatan_cleaning == null ){
-            $Form4E->jumlah_pasaran_tempatan_laporan = $Form4E->jumlah_pasaran_tempatan;
-            $Form4E->save();
-        }else{
-            $Form4E->jumlah_pasaran_tempatan_laporan = $request->jumlah_pasaran_tempatan_cleaning;
-            $Form4E->save();
-        }
-
-        if($request->jumlah_venier_tempatan_cleaning == null ){
-            $Form4E->jumlah_venier_tempatan_laporan = $Form4E->jumlah_venier_tempatan;
-            $Form4E->save();
-        }else{
-            $Form4E->jumlah_venier_tempatan_laporan = $request->jumlah_venier_tempatan_cleaning;
-            $Form4E->save();
-        }
-
-
-        $penjualan_pembeli = PenjualanPembeli::where('form4es_id',$id)->get();
+        $penjualan_pembeli = PenjualanPembeli::where('form4es_id',$id)->orderBy('id')->get();
+        $jualan_cleaning = (array) $request->input('jumlah_jualan_cleaning', []);
+        $total_cleaning = $cleaned($request->input('total_jumlah_jualan_cleaning'));
 
         foreach ($penjualan_pembeli as $key => $value) {
-
-            if(!$request->jumlah_jualan_cleaning[$key]){
-                $value->jumlah_jualan_laporan = $value->jumlah_jualan ?? 0;
-            }else{
-                $value->jumlah_jualan_laporan = $request->jumlah_jualan_cleaning[$key];
-            }
-
-            if(!$request->total_jumlah_jualan_cleaning){
-                $value->total_jumlah_jualan_laporan = $value->total_jumlah_jualan;
-            }else{
-                $value->total_jumlah_jualan_laporan = $request->total_jumlah_jualan_cleaning;
-            }
-
-            $value->jumlah_jualan_cleaning = $request->jumlah_jualan_cleaning[$key] ?? 0;
-            $value->total_jumlah_jualan_cleaning = $request->total_jumlah_jualan_cleaning ?? 0;
+            $correction = $cleaned($jualan_cleaning[$key] ?? null);
+            $value->jumlah_jualan_laporan = $correction ?? ($value->jumlah_jualan ?? 0);
+            $value->total_jumlah_jualan_laporan = $total_cleaning ?? $value->total_jumlah_jualan;
+            $value->jumlah_jualan_cleaning = $correction ?? 0;
+            $value->total_jumlah_jualan_cleaning = $total_cleaning ?? 0;
             $value->save();
         }
 

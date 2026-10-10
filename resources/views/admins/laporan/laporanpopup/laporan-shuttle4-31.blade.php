@@ -93,9 +93,9 @@
                                                 <td class="text-right">
                                                     {{ number_format($data[0]->jumlah_besar_mr + $data[0]->jumlah_besar_wbp, 0) }}</td>
                                                 @php
-                                                    $jumlah_row += round($data[0]->jumlah_besar_mr + $data[0]->jumlah_besar_wbp);
-                                                    $jumlah[$bulan] += round($data[0]->jumlah_besar_mr + $data[0]->jumlah_besar_wbp);
-                                                    $jumlah_keseluruhan += round($data[0]->jumlah_besar_mr + $data[0]->jumlah_besar_wbp);
+                                                    $jumlah_row += $data[0]->jumlah_besar_mr + $data[0]->jumlah_besar_wbp;
+                                                    $jumlah[$bulan] += $data[0]->jumlah_besar_mr + $data[0]->jumlah_besar_wbp;
+                                                    $jumlah_keseluruhan += $data[0]->jumlah_besar_mr + $data[0]->jumlah_besar_wbp;
                                                 @endphp
                                             @endforeach
                                             <td class="text-right">{{ number_format($jumlah_row, 0) }}</td>
