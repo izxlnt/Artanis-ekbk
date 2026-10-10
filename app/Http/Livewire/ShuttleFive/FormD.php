@@ -158,7 +158,7 @@ class FormD extends Component
         PengeluaranForm5D::where('form5ds_id', $formd->id)->delete();
 
         foreach ($jenis_kayu as $key => $data) {
-            if($data->keterangan == 'Lain-lain Profil Kumai (Other Moulding Profiles) (Nyatakan)'){
+            if(stripos($data->keterangan, 'Lain-lain') !== false){ // stored label starts with "E. "
                 $data_catatan= $this->catatan[$key] ?? null;
             }
             else{
@@ -215,7 +215,7 @@ class FormD extends Component
         PengeluaranForm5D::where('form5ds_id', $formd->id)->delete();
 
         foreach ($jenis_kayu as $key => $data) {
-            if($data->keterangan == 'Lain-lain Profil Kumai (Other Moulding Profiles) (Nyatakan)'){
+            if(stripos($data->keterangan, 'Lain-lain') !== false){ // stored label starts with "E. "
                 $data_catatan= $this->catatan[$key] ?? null;
             }
             else{

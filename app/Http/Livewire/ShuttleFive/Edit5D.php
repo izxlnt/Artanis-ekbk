@@ -81,14 +81,17 @@ class Edit5D extends Component
         $form5d = Form5D::where('id',$this->bulan_id)->first();
         // dd($form5d);
 
-        $form5_d = PengeluaranForm5D::where('form5ds_id',$form5d->id)->get();
-        // dd($form5_d);
+        // Map saved rows by product type (not by row position), in the same order store() saves them,
+        // so a product's figure always lands on its own input
+        $form5_d = PengeluaranForm5D::where('form5ds_id',$form5d->id)->orderBy('id')->get()->keyBy('jenis_kayu_id');
 
-        foreach ($form5_d as $key => $value) {
-            $this->pengeluaran_kayu[$key] = $value->pengeluaran_kayu;
-            $this->catatan[$key] = $value->catatan;
-            $this->total_jumlah_pengeluaran = $value->total_jumlah_pengeluaran;
-
+        foreach (JenisKayu::get() as $key => $jenis) {
+            $value = $form5_d->get($jenis->id);
+            $this->pengeluaran_kayu[$key] = $value ? $value->pengeluaran_kayu : null;
+            $this->catatan[$key] = $value ? $value->catatan : null;
+            if ($value) {
+                $this->total_jumlah_pengeluaran = $value->total_jumlah_pengeluaran;
+            }
         }
 
 
@@ -136,43 +139,37 @@ class Edit5D extends Component
             return back();
         }
 
-        $formd->total_jumlah_pengeluaran = $this->total_jumlah_pengeluaran;
-        $formd->status = 'Sedang Diproses';
-        $formd->save();
-
-        //batch
-        $batch = Batch::where('tahun',$formd->tahun)->where('bulan',$formd->bulan)->where('shuttle_id',$formd->shuttle->id)->first();
-
-        $batch->status = "Sedang Diproses";
-        $batch->borang_d = 1;
-        $batch->save();
-
-
-        // dd($test);
         $total = $this->total_jumlah_pengeluaran;
-        // dd($total);
-        $form5_d = PengeluaranForm5D::where('form5ds_id',$formd->id)->get();
-        foreach ($form5_d as $key => $value) {
-            $value->delete();
-        }
-        foreach ($jenis_kayu as $key => $data) {
-            if($data->keterangan == 'Lain-lain Profil Kumai (Other Moulding Profiles) (Nyatakan)'){
-                $data_catatan= $this->catatan[$key] ?? null;
-            }
-            else{
-                $data_catatan= "Tiada";
-            }
-            PengeluaranForm5D::create([
-                'form5ds_id'=>$formd->id,
-                'jenis_kayu_id' => $data->id,
-                'catatan' => $data_catatan,
-                'pengeluaran_kayu' => $this->pengeluaran_kayu[$key] ?? null,
-                'total_jumlah_pengeluaran'=>$total,
-            ]);
-        // dd('masuk');
 
+        // form, package flag and product rows are saved as one unit, so a double submit
+        // cannot leave duplicated or missing product rows
+        \Illuminate\Support\Facades\DB::transaction(function () use ($formd, $jenis_kayu, $total) {
+            $formd->total_jumlah_pengeluaran = $total;
+            $formd->status = 'Sedang Diproses';
+            $formd->save();
 
-        }
+            $batch = Batch::where('tahun',$formd->tahun)->where('bulan',$formd->bulan)->where('shuttle_id',$formd->shuttle_id)->first();
+            if ($batch) {
+                $batch->status = "Sedang Diproses";
+                $batch->borang_d = 1;
+                $batch->save();
+            }
+
+            PengeluaranForm5D::where('form5ds_id', $formd->id)->delete();
+
+            foreach ($jenis_kayu as $key => $data) {
+                // the stored label is "E. Lain-lain Profil Kumai ..." - match on the name, not the full label
+                $data_catatan = stripos($data->keterangan, 'Lain-lain') !== false ? ($this->catatan[$key] ?? null) : "Tiada";
+
+                PengeluaranForm5D::create([
+                    'form5ds_id'=>$formd->id,
+                    'jenis_kayu_id' => $data->id,
+                    'catatan' => $data_catatan,
+                    'pengeluaran_kayu' => $this->pengeluaran_kayu[$key] ?? null,
+                    'total_jumlah_pengeluaran'=>$total,
+                ]);
+            }
+        });
         Session::flash('success', 'Maklumat berjaya dimasukkan. Sila tunggu untuk pengesahan PHD.');
 
         return redirect()->route('home-user');
