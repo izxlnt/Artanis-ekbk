@@ -133,7 +133,15 @@ class Edit5D extends Component
         $this->total_jumlah_pengeluaran = round($total, 2);
 
         $formc = \App\Models\FormC::where('shuttle_id', $formd->shuttle_id)->where('tahun', $formd->tahun)->where('bulan', $formd->bulan)->first();
-        $pengeluaran_5c = $formc ? round((float) \App\Models\KemasukanBahan::where('formcs_id', $formc->id)->sum('proses_keluar'), 2) : 0;
+
+        // 5D is checked against the 5C output, so 5C must be corrected and re-submitted first;
+        // otherwise a reopened 5D could be saved against the old (often 0) output
+        if (!$formc || !in_array($formc->status, \App\Services\FormFlowService::SUBMITTED, true)) {
+            $this->emit('alert', ['type' => 'error', 'message' => 'Sila lengkapkan dan hantar semula Borang 5C bulan ini terlebih dahulu sebelum mengemaskini Borang 5D.']);
+            return back();
+        }
+
+        $pengeluaran_5c = round((float) \App\Models\KemasukanBahan::where('formcs_id', $formc->id)->sum('proses_keluar'), 2);
         if ($this->total_jumlah_pengeluaran != $pengeluaran_5c) {
             $this->emit('alert', ['type' => 'error', 'message' => 'Jumlah Pengeluaran Kayu Kumai Mestilah Sama Dengan Jumlah Pengeluaran Di Borang 5C (' . $pengeluaran_5c . ')']);
             return back();
