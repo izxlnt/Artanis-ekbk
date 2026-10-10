@@ -2058,20 +2058,45 @@ class UserController extends Controller
         return view('ibk.shuttle-3-senaraiD-ibk', compact('returnArr', 'list', 'shuttle', 'year', 'year_list', 'flow'));
     }
 
+    /**
+     * A form sent back as "Tidak Lengkap" still follows A -> B -> C -> D -> E. Returns a redirect
+     * with the reason when the form it depends on is not (re)submitted yet, else null.
+     */
+    private function flowGuard($record, int $shuttleType, string $form)
+    {
+        if (!$record || (int) $record->shuttle_id !== (int) auth()->user()->shuttle_id) {
+            return redirect()->back()->with('error', 'Borang tidak dijumpai.');
+        }
+
+        $period = strtoupper($form) === 'B' ? (int) $record->suku_tahun : (int) $record->bulan;
+        $reason = FormFlowService::blockedReason((int) $record->shuttle_id, $shuttleType, (int) $record->tahun, $form, $period);
+
+        return $reason ? redirect()->back()->with('error', $reason) : null;
+    }
+
     public function editform3B($id)
     {
+        if ($blocked = $this->flowGuard(FormB::find($id), 3, 'B')) {
+            return $blocked;
+        }
 
         return view('ibk.editform3B', compact('id'));
     }
 
     public function editform3C($id)
     {
+        if ($blocked = $this->flowGuard(FormC::find($id), 3, 'C')) {
+            return $blocked;
+        }
 
         return view('ibk.editform3C', compact('id'));
     }
 
     public function editform3D($id)
     {
+        if ($blocked = $this->flowGuard(FormD::find($id), 3, 'D')) {
+            return $blocked;
+        }
 
         $breadcrumbs    = [
             ['link' => route('home-user'), 'name' => "Laman Utama"],
@@ -2091,13 +2116,21 @@ class UserController extends Controller
 
     public function editform4D($id)
     {
-
+        // this route passes the month (the page edits the current year's form)
+        $form4D = Form4D::where('shuttle_id', auth()->user()->shuttle_id)->where('tahun', date('Y'))->where('bulan', $id)->first();
+        if ($blocked = $this->flowGuard($form4D, 4, 'D')) {
+            return $blocked;
+        }
 
         return view('ibk.editform4D', compact('id'));
     }
 
     public function editform4E($id)
     {
+        if ($blocked = $this->flowGuard(Form4E::find($id), 4, 'E')) {
+            return $blocked;
+        }
+
         return view('ibk.editform4E', compact('id'));
     }
 

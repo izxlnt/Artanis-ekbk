@@ -365,6 +365,11 @@ class FormCController extends Controller
 
     public function store_kkb(Request $request, $bulan_id, $year = null)
     {
+        $flowBlocked = \App\Services\FormFlowService::blockedReason((int) auth()->user()->shuttle_id, (int) auth()->user()->shuttle_type, (int) ($year ?? date('Y')), 'C', (int) $bulan_id);
+        if ($flowBlocked) {
+            return redirect()->back()->with('error', $flowBlocked); // Form C follows A -> B -> C, also when reopened
+        }
+
         $groupTotals = $this->groupTotals($request);
 
         if (!$year) {
@@ -757,6 +762,11 @@ class FormCController extends Controller
 
     public function store_kks(Request $request, $bulan_id, $year = null)
     {
+        $flowBlocked = \App\Services\FormFlowService::blockedReason((int) auth()->user()->shuttle_id, (int) auth()->user()->shuttle_type, (int) ($year ?? date('Y')), 'C', (int) $bulan_id);
+        if ($flowBlocked) {
+            return redirect()->back()->with('error', $flowBlocked); // Form C follows A -> B -> C, also when reopened
+        }
+
         $groupTotals = $this->groupTotals($request);
 
         if (!$year) {
@@ -1146,6 +1156,11 @@ class FormCController extends Controller
 
     public function store_kkr(Request $request, $bulan_id, $year = null)
     {
+        $flowBlocked = \App\Services\FormFlowService::blockedReason((int) auth()->user()->shuttle_id, (int) auth()->user()->shuttle_type, (int) ($year ?? date('Y')), 'C', (int) $bulan_id);
+        if ($flowBlocked) {
+            return redirect()->back()->with('error', $flowBlocked); // Form C follows A -> B -> C, also when reopened
+        }
+
         $groupTotals = $this->groupTotals($request);
 
         // Default to current year if not provided
@@ -1538,6 +1553,11 @@ class FormCController extends Controller
 
     public function store_kayulembut(Request $request, $bulan_id, $year = null)
     {
+        $flowBlocked = \App\Services\FormFlowService::blockedReason((int) auth()->user()->shuttle_id, (int) auth()->user()->shuttle_type, (int) ($year ?? date('Y')), 'C', (int) $bulan_id);
+        if ($flowBlocked) {
+            return redirect()->back()->with('error', $flowBlocked); // Form C follows A -> B -> C, also when reopened
+        }
+
         $groupTotals = $this->groupTotals($request);
 
         // Default to current year if not provided
@@ -2032,6 +2052,11 @@ class FormCController extends Controller
 
     public function store_kayulainlain(Request $request, $bulan_id, $year = null)
     {
+        $flowBlocked = \App\Services\FormFlowService::blockedReason((int) auth()->user()->shuttle_id, (int) auth()->user()->shuttle_type, (int) ($year ?? date('Y')), 'C', (int) $bulan_id);
+        if ($flowBlocked) {
+            return redirect()->back()->with('error', $flowBlocked); // Form C follows A -> B -> C, also when reopened
+        }
+
         $groupTotals = $this->groupTotals($request);
 
         // Default to current year if not provided

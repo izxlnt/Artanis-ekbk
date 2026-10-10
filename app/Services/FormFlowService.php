@@ -39,6 +39,23 @@ class FormFlowService
     /** Statuses that count as "fully submitted" (not just started) */
     public const SUBMITTED = ['Sedang Diproses', 'Dihantar ke IPJPSM', 'Lulus', 'Tiada Pengeluaran'];
 
+    /**
+     * Why the kilang may not open/save this form now (null = allowed). For the edit links of
+     * forms sent back as "Tidak Lengkap" and their save actions, so a reopened form still
+     * follows A -> B -> C -> D -> E. $form is 'B', 'C', 'D' or 'E'; $period is the quarter for B,
+     * otherwise the month.
+     */
+    public static function blockedReason(int $shuttleId, int $shuttleType, int $year, string $form, int $period): ?string
+    {
+        $entry = self::getStatus($shuttleId, $shuttleType, $year)['form' . strtoupper($form)][$period] ?? null;
+
+        if ($entry === null || $entry['can_fill']) {
+            return null;
+        }
+
+        return $entry['reason'] ?? 'Borang ini belum boleh diisi.';
+    }
+
     public static function monthToSuku(int $month): int
     {
         return (int) ceil($month / 3);
@@ -303,7 +320,10 @@ class FormFlowService
         // bypass the sequential checks below — otherwise a future month whose
         // row happens to be seeded as "Ditutup" opens before its prerequisites
         // (previous month's Form C, current quarter's Form B) are met.
+        // It still has to respect the A -> B -> C order for its own period, though: a reopened
+        // Form C needs the Form B it depends on to be submitted.
         if ($fc && !in_array($fc->status, ['Tidak Diisi', 'Ditutup'])) {
+            if (!$sukuSubmitted) return [false, "Sila isi Borang B Suku {$suku} terlebih dahulu.", false];
             return [true, null, false];
         }
 
@@ -352,7 +372,10 @@ class FormFlowService
         // — including a PHD correction — regardless of what happens to an
         // EARLIER month afterwards (see checkFormC for the full rationale,
         // including why the seeded placeholder "Ditutup" is excluded).
+        // It still has to respect the C -> D order: a reopened Form D needs this month's Form C
+        // to be (re)submitted first.
         if ($fd && !in_array($fd->status, ['Tidak Diisi', 'Ditutup'])) {
+            if (!$fcSubmitted) return [false, 'Sila lengkapkan dan hantar Borang C bulan ini terlebih dahulu.', false];
             return [true, null, false];
         }
 
@@ -400,7 +423,10 @@ class FormFlowService
         // — including a PHD correction — regardless of what happens to an
         // EARLIER month afterwards (see checkFormC for the full rationale,
         // including why the seeded placeholder "Ditutup" is excluded).
+        // It still has to respect the D -> E order: a reopened Form E needs this month's Form D
+        // to be (re)submitted first.
         if ($fe && !in_array($fe->status, ['Tidak Diisi', 'Ditutup'])) {
+            if (!$fdFilled) return [false, 'Sila lengkapkan dan hantar Borang D bulan ini terlebih dahulu.', false];
             return [true, null, false];
         }
 

@@ -422,8 +422,23 @@ class MainController extends Controller
         return view('admins.shuttle-five.shuttle-5-formD', compact('id', 'form_c_data'));
     }
 
+    /** A reopened ("Tidak Lengkap") form still follows A -> B -> C -> D -> E (null = allowed) */
+    private function flowGuard($record, string $form)
+    {
+        if (!$record || (int) $record->shuttle_id !== (int) auth()->user()->shuttle_id) {
+            return redirect()->back()->with('error', 'Borang tidak dijumpai.');
+        }
+
+        $reason = FormFlowService::blockedReason((int) $record->shuttle_id, 5, (int) $record->tahun, $form, (int) $record->bulan);
+
+        return $reason ? redirect()->back()->with('error', $reason) : null;
+    }
+
     public function shuttle_5_edit_formD($id)
     {
+        if ($blocked = $this->flowGuard(Form5D::find($id), 'D')) {
+            return $blocked;
+        }
 
         return view('admins.shuttle-five.shuttle-5-edit-formD',compact('id'));
     }
@@ -432,6 +447,9 @@ class MainController extends Controller
     {
         // dd($id);
         $form_5e = Form5E::find($id);
+        if ($blocked = $this->flowGuard($form_5e, 'E')) {
+            return $blocked;
+        }
         $id = $form_5e->bulan;
 
         $form_5e_id =$form_5e->id;
