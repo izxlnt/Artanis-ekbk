@@ -237,6 +237,11 @@ $suku_tahun_akhir = $results['suku_tahun_akhir'] ?? [];
                                 </tbody>
                                 <tr style="background-color: lightgray; font-weight: bold; text-align: right;">
                                     <td style="text-align: center;"></td>
+@php
+    // L+P totals over all states (the loop above only kept the last state's figures)
+    $jumlah_guna_tenaga = $jumlah_lelaki + $jumlah_perempuan;
+    $jumlah_pendapatan = $jumlah_gaji_lelaki + $jumlah_gaji_perempuan;
+@endphp
                                     <td style="text-align: left;">Jumlah</td>
                                     <td>{{ number_format($jumlah_lelaki,0) }}</td>
                                     <td>{{ number_format($jumlah_perempuan,0) }}</td>

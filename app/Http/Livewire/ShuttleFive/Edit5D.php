@@ -119,6 +119,23 @@ class Edit5D extends Component
 
 
         $formd = Form5D::where('id',$this->bulan_id)->first();
+
+        // Same rule as the new-form page (FormD::store): the product breakdown must add up to the
+        // moulding output declared in the same month's Borang 5C. Without it a corrected 5C and its
+        // 5D drifted apart (Laporan 33 vs Borang 5C).
+        $total = 0;
+        foreach ($this->pengeluaran_kayu ?? [] as $val) {
+            $total += (float) $val;
+        }
+        $this->total_jumlah_pengeluaran = round($total, 2);
+
+        $formc = \App\Models\FormC::where('shuttle_id', $formd->shuttle_id)->where('tahun', $formd->tahun)->where('bulan', $formd->bulan)->first();
+        $pengeluaran_5c = $formc ? round((float) \App\Models\KemasukanBahan::where('formcs_id', $formc->id)->sum('proses_keluar'), 2) : 0;
+        if ($this->total_jumlah_pengeluaran != $pengeluaran_5c) {
+            $this->emit('alert', ['type' => 'error', 'message' => 'Jumlah Pengeluaran Kayu Kumai Mestilah Sama Dengan Jumlah Pengeluaran Di Borang 5C (' . $pengeluaran_5c . ')']);
+            return back();
+        }
+
         $formd->total_jumlah_pengeluaran = $this->total_jumlah_pengeluaran;
         $formd->status = 'Sedang Diproses';
         $formd->save();

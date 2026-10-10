@@ -1852,12 +1852,14 @@ class FormCController extends Controller
         }
 
         if (isset($kemasukan_bahans_lastmonth)) {
-            $jumlah_besar_baki_stok_bulan_lepas = $kemasukan_bahans_lastmonth->jumlah_besar_baki_stok_bulan_depan;
-            $jumlah_besar_kemasukan_kayu_ke_kilang = $kemasukan_bahans_lastmonth->jumlah_besar_kemasukan_kayu_ke_kilang;
-            $jumlah_besar_stok_kayu_balak = $kemasukan_bahans_lastmonth->jumlah_besar_stok_kayu_balak;
-            $jumlah_besar_kayu_ke_dalam_jentera = $kemasukan_bahans_lastmonth->jumlah_besar_kayu_ke_dalam_jentera;
-            $jumlah_besar_pengeluaran_kayu_daripada_jentera = $kemasukan_bahans_lastmonth->jumlah_besar_pengeluaran_kayu_daripada_jentera;
-            $jumlah_besar_baki_stok_bulan_depan = $kemasukan_bahans_lastmonth->jumlah_besar_baki_stok_bulan_depan;
+            // No production this month: last month's closing stock is carried through unchanged;
+            // intake and processing are 0 (was copying last month's intake/processing totals).
+            $jumlah_besar_baki_stok_bulan_lepas = $kemasukan_bahans_lastmonth->jumlah_besar_baki_stok_bulan_depan ?? 0;
+            $jumlah_besar_kemasukan_kayu_ke_kilang = 0;
+            $jumlah_besar_stok_kayu_balak = $jumlah_besar_baki_stok_bulan_lepas;
+            $jumlah_besar_kayu_ke_dalam_jentera = 0;
+            $jumlah_besar_pengeluaran_kayu_daripada_jentera = 0;
+            $jumlah_besar_baki_stok_bulan_depan = $jumlah_besar_baki_stok_bulan_lepas;
         } else {
             $jumlah_besar_baki_stok_bulan_lepas = 0;
             $jumlah_besar_kemasukan_kayu_ke_kilang = 0;

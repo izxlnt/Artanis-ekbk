@@ -464,6 +464,15 @@ class MainController extends Controller
         if (!$form5D || $form5D->status === 'Sedang Diisi') {
             return redirect()->back()->with('error', 'Borang masih sedang diisi oleh pengguna kilang.');
         }
+
+        // Borang D is built on the same month's Borang C, so it cannot be approved ahead of it
+        if ($request->status == "Dihantar ke IPJPSM") {
+            $formC = \App\Models\FormC::where('shuttle_id', $form5D->shuttle_id)->where('tahun', $form5D->tahun)->where('bulan', $form5D->bulan)->first();
+            if (!$formC || !in_array($formC->status, ['Dihantar ke IPJPSM', 'Lulus'])) {
+                return redirect()->back()->with('error', 'Sila sahkan Borang C bagi bulan yang sama terlebih dahulu sebelum mengesahkan Borang D.');
+            }
+        }
+
         $form5D->status = $request->status;
         $form5D->save();
 
@@ -752,6 +761,19 @@ class MainController extends Controller
         }
 
         $form5E->status = $request->status;
+
+        // Report figures (*_laporan) feed Laporan 41-45. This handler only changed the status, so
+        // every approved 5E had 0 report figures and those reports came out empty. A cleaning box
+        // counts as an IPJPSM correction only when it holds a non-zero number (the page pre-fills "0.00").
+        $cleaned = function ($value) {
+            $value = str_replace(',', '', (string) $value);
+            return ($value !== '' && is_numeric($value) && (float) $value != 0) ? (float) $value : null;
+        };
+        foreach (['jumlah_jualan_pasaran_tempatan', 'jumlah_jualan_eksport'] as $field) {
+            $correction = $cleaned($request->input($field . '_cleaning'));
+            $form5E->{$field . '_cleaning'} = $correction;
+            $form5E->{$field . '_laporan'} = $correction ?? ($form5E->{$field} ?? 0);
+        }
         $form5E->save();
 
         UlasanIpjpsm::create([

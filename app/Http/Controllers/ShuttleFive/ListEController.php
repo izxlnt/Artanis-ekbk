@@ -125,7 +125,8 @@ class ListEController extends Controller
             'kembali'     => $kembali,
         ];
 
-        return view('admins.shuttle-five.shuttle-5-listE-jpn',compact('returnArr','formE','user','year_list','year','buffer','formE_kilang'));
+        $batch = \App\Models\Batch::where('tahun', $year)->get();
+        return view('admins.shuttle-five.shuttle-5-listE-jpn',compact('batch','returnArr','formE','user','year_list','year','buffer','formE_kilang'));
     }
 
     public function ibk_shuttle_5_form5E_view($id)

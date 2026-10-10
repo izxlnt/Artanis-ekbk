@@ -1519,11 +1519,11 @@ $data_form_d_s[$data_shuttle->id] = !empty($fd_result) ? $fd_result[0] : (object
         for ($i = $suku_tahun; $i <= $suku_tahun_akhir; $i++) {
             foreach ($negeri_list as $key => $negeri) {
 
-                $datas[$i][$negeri->negeri] = DB::select("SELECT DISTINCT(shuttles.id), shuttles.negeri_id as negeri,
-                    (guna_tenagas.total_pekerja_lelaki_laporan) as total_pekerja_lelaki,
-                    (guna_tenagas.total_pekerja_perempuan_laporan) as total_pekerja_perempuan,
-                    (guna_tenagas.jumlah_gaji_lelaki_laporan) as jumlah_gaji_lelaki,
-                    (guna_tenagas.jumlah_gaji_perempuan_laporan) as jumlah_gaji_perempuan
+                $datas[$i][$negeri->negeri] = DB::select("SELECT shuttles.id, shuttles.negeri_id as negeri,
+                    SUM(guna_tenagas.jumlah_lelaki_laporan) as total_pekerja_lelaki,
+                    SUM(guna_tenagas.jumlah_perempuan_laporan) as total_pekerja_perempuan,
+                    SUM(guna_tenagas.total_gaji_lelaki_laporan) as jumlah_gaji_lelaki,
+                    SUM(guna_tenagas.total_gaji_perempuan_laporan) as jumlah_gaji_perempuan
 
                     FROM guna_tenagas, shuttles, formbs
 
@@ -1537,6 +1537,8 @@ $data_form_d_s[$data_shuttle->id] = !empty($fd_result) ? $fd_result[0] : (object
 
                     AND shuttles.shuttle_type = '3'
                     AND shuttles.negeri_id = '$negeri->negeri'
+                    
+                    GROUP BY shuttles.id, shuttles.negeri_id
                 ");
             }
         }
@@ -5478,11 +5480,11 @@ $data_form_d_s[$data_shuttle->id] = !empty($fd_result) ? $fd_result[0] : (object
         for ($i = $suku_tahun; $i <= $suku_tahun_akhir; $i++) {
             foreach ($negeri_list as $key => $negeri) {
 
-                $datas[$i][$negeri->negeri] = DB::select("SELECT DISTINCT(shuttles.id), shuttles.negeri_id as negeri,
-                    (guna_tenagas.total_pekerja_lelaki_laporan) as total_pekerja_lelaki,
-                    (guna_tenagas.total_pekerja_perempuan_laporan) as total_pekerja_perempuan,
-                    (guna_tenagas.jumlah_gaji_lelaki_laporan) as jumlah_gaji_lelaki,
-                    (guna_tenagas.jumlah_gaji_perempuan_laporan) as jumlah_gaji_perempuan
+                $datas[$i][$negeri->negeri] = DB::select("SELECT shuttles.id, shuttles.negeri_id as negeri,
+                    SUM(guna_tenagas.jumlah_lelaki_laporan) as total_pekerja_lelaki,
+                    SUM(guna_tenagas.jumlah_perempuan_laporan) as total_pekerja_perempuan,
+                    SUM(guna_tenagas.total_gaji_lelaki_laporan) as jumlah_gaji_lelaki,
+                    SUM(guna_tenagas.total_gaji_perempuan_laporan) as jumlah_gaji_perempuan
 
                     FROM guna_tenagas, shuttles, formbs
 
@@ -5496,6 +5498,8 @@ $data_form_d_s[$data_shuttle->id] = !empty($fd_result) ? $fd_result[0] : (object
 
                     AND shuttles.shuttle_type = '4'
                     AND shuttles.negeri_id = '$negeri->negeri'
+                    
+                    GROUP BY shuttles.id, shuttles.negeri_id
                 ");
             }
         }
@@ -9348,11 +9352,11 @@ $data_form_d_s[$data_shuttle->id] = !empty($fd_result) ? $fd_result[0] : (object
         for ($i = $suku_tahun; $i <= $suku_tahun_akhir; $i++) {
             foreach ($negeri_list as $key => $negeri) {
 
-                $datas[$i][$negeri->negeri] = DB::select("SELECT DISTINCT(shuttles.id), shuttles.negeri_id as negeri,
-                    (guna_tenagas.total_pekerja_lelaki_laporan) as total_pekerja_lelaki,
-                    (guna_tenagas.total_pekerja_perempuan_laporan) as total_pekerja_perempuan,
-                    (guna_tenagas.jumlah_gaji_lelaki_laporan) as jumlah_gaji_lelaki,
-                    (guna_tenagas.jumlah_gaji_perempuan_laporan) as jumlah_gaji_perempuan
+                $datas[$i][$negeri->negeri] = DB::select("SELECT shuttles.id, shuttles.negeri_id as negeri,
+                    SUM(guna_tenagas.jumlah_lelaki_laporan) as total_pekerja_lelaki,
+                    SUM(guna_tenagas.jumlah_perempuan_laporan) as total_pekerja_perempuan,
+                    SUM(guna_tenagas.total_gaji_lelaki_laporan) as jumlah_gaji_lelaki,
+                    SUM(guna_tenagas.total_gaji_perempuan_laporan) as jumlah_gaji_perempuan
 
                     FROM guna_tenagas, shuttles, formbs
 
@@ -9366,6 +9370,8 @@ $data_form_d_s[$data_shuttle->id] = !empty($fd_result) ? $fd_result[0] : (object
 
                     AND shuttles.shuttle_type = '5'
                     AND shuttles.negeri_id = '$negeri->negeri'
+                    
+                    GROUP BY shuttles.id, shuttles.negeri_id
                 ");
             }
         }

@@ -135,12 +135,12 @@
                                                         $current_batch = null;
                                                         if ($data->shuttle->id == $data->shuttle_id && $data->tahun == date('Y')) {
                                                             foreach ($batch as $checker) {
-                                                                if ($checker->tahun == $year && $checker->shuttle_id == $data->shuttle->id && $checker->bulan == $data->created_at->format('m')) {
+                                                                if ($checker->tahun == $year && $checker->shuttle_id == $data->shuttle->id && $checker->status == 'Dihantar ke IPJPSM') {
                                                                     $current_batch = $checker;
                                                                 }
                                                             }
                                                         }
-                                                        $packageSent = $current_batch && $current_batch->status == 'Dihantar ke IPJPSM' && $current_batch->borang_a == 2;
+                                                        $packageSent = (bool) $current_batch; // any package of this kilang+year already sent carries Form A
                                                     @endphp
                                                     {{-- Same wording as the Tindakan icon (see partials/status-label). --}}
                                                     @include('partials.status-label', ['role' => 'PHD', 'form' => $data, 'packageSent' => $packageSent ?? null])

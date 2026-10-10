@@ -149,12 +149,12 @@
                                                         $current_batch = null;
                                                         if ($data->tahun == date('Y')) {
                                                             foreach ($batch as $checker) {
-                                                                if ($checker->tahun == $year && $checker->shuttle_id == $data->shuttle_id && $checker->bulan == $data->created_at->format('m')) {
+                                                                if ($checker->tahun == $year && $checker->shuttle_id == $data->shuttle_id && $checker->status == 'Dihantar ke IPJPSM') {
                                                                     $current_batch = $checker;
                                                                 }
                                                             }
                                                         }
-                                                        $packageSent = $current_batch && $current_batch->status == 'Dihantar ke IPJPSM' && $current_batch->borang_a == 2;
+                                                        $packageSent = (bool) $current_batch; // any package of this kilang+year already sent carries Form A
                                                     @endphp
                                                         @if ($packageSent)
                                                         <a href="{{ route('jpn.shuttle-3-view-formA', $data->id) }}">

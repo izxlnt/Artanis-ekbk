@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Batch;
 use App\Http\Controllers\Controller;
 use App\Models\Batch;
 use App\Models\FormA;
+use App\Models\FormB;
 use Illuminate\Http\Request;
 
 class PhdController extends Controller
@@ -17,6 +18,8 @@ class PhdController extends Controller
             $q->whereIn('daerah_id', auth()->user()->daerah_ids)->where('shuttle_type', '3');
         })
         ->get();
+
+        $batch = $this->withLiveFormAB($batch);
 
         $year_list = Batch::where('status', 'Sedang Diproses')
         ->whereHas('shuttle', function ($q) {
@@ -70,6 +73,8 @@ class PhdController extends Controller
         })
         ->get();
 
+        $batch = $this->withLiveFormAB($batch);
+
         $year_list = Batch::where('status', 'Sedang Diproses')
         ->whereHas('shuttle', function ($q) {
             $q->whereIn('daerah_id', auth()->user()->daerah_ids)->where('shuttle_type', '4');
@@ -120,6 +125,8 @@ class PhdController extends Controller
         })
         ->get();
 
+        $batch = $this->withLiveFormAB($batch);
+
         $year_list = Batch::where('status', 'Sedang Diproses')
         ->whereHas('shuttle', function ($q) {
             $q->whereIn('daerah_id', auth()->user()->daerah_ids)->where('shuttle_type', '5');
@@ -159,6 +166,50 @@ class PhdController extends Controller
         //hantar email ke IPJPSM (lampiran baharu)
 
         return redirect()->back()->with('success', 'Borang berjaya dihantar ke IPJPSM.');
+    }
+
+    /** Batch flag for a form status: 0 = not submitted, 1 = waiting for PHD, 2 = approved by PHD */
+    private static function flagFor(?string $status): string
+    {
+        if (in_array($status, ['Dihantar ke IPJPSM', 'Lulus'], true)) {
+            return '2';
+        }
+
+        return in_array($status, ['Sedang Diproses', 'Tiada Pengeluaran'], true) ? '1' : '0';
+    }
+
+    /**
+     * borang_a (yearly) and borang_b (quarterly) on the monthly batch rows are copies that go
+     * stale: Borang A never updates later months, and a Borang B submitted for one year could
+     * leave a flag on another year's December row. Show the live form status instead, and drop
+     * month rows where nothing has actually been submitted (they only appeared via a stale flag).
+     */
+    private function withLiveFormAB($batches)
+    {
+        if ($batches->isEmpty()) {
+            return $batches;
+        }
+
+        $shuttleIds = $batches->pluck('shuttle_id')->unique();
+        $years = $batches->pluck('tahun')->unique();
+
+        $formA = FormA::whereIn('shuttle_id', $shuttleIds)->whereIn('tahun', $years)->get()
+            ->keyBy(fn ($f) => $f->shuttle_id . '-' . $f->tahun);
+        $formB = FormB::whereIn('shuttle_id', $shuttleIds)->whereIn('tahun', $years)->get()
+            ->keyBy(fn ($f) => $f->shuttle_id . '-' . $f->tahun . '-' . $f->suku_tahun);
+
+        return $batches->map(function ($batch) use ($formA, $formB) {
+            $batch->borang_a = self::flagFor(optional($formA->get($batch->shuttle_id . '-' . $batch->tahun))->status);
+
+            $bulan = (int) $batch->bulan;
+            $batch->borang_b = in_array($bulan, [3, 6, 9, 12], true)
+                ? self::flagFor(optional($formB->get($batch->shuttle_id . '-' . $batch->tahun . '-' . ($bulan / 3)))->status)
+                : '0';
+
+            return $batch;
+        })->filter(function ($batch) {
+            return $batch->borang_b != '0' || $batch->borang_c != '0' || $batch->borang_d != '0' || ($batch->borang_e ?? '0') != '0';
+        })->values();
     }
 
     /**
@@ -203,6 +254,20 @@ class PhdController extends Controller
                     ->value('status');
 
                 if (!in_array($formAStatus, ['Dihantar ke IPJPSM', 'Lulus'], true)) {
+                    return $labels[$field];
+                }
+
+                continue;
+            }
+
+            // Borang B on a quarter-end month: check the live quarterly form, not the stale copy
+            if ($field === 'borang_b') {
+                $formBStatus = FormB::where('shuttle_id', $batch->shuttle_id)
+                    ->where('tahun', $batch->tahun)
+                    ->where('suku_tahun', (int) $batch->bulan / 3)
+                    ->value('status');
+
+                if (self::flagFor($formBStatus) !== '2') {
                     return $labels[$field];
                 }
 

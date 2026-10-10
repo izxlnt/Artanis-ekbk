@@ -834,8 +834,9 @@ class MainController extends Controller
 
             // A PHD-approved Borang D of the same month goes back to pending: it is built on this
             // Borang C, so it must not stay approved while C is being corrected
-            if ($formC->shuttle_type == '3') {
-                $formD = FormD::where('shuttle_id', $formC->shuttle_id)->where('tahun', $formC->tahun)->where('bulan', $formC->bulan)
+            $formDModel = [3 => FormD::class, 4 => \App\Models\Form4D::class, 5 => \App\Models\Form5D::class][(int) $formC->shuttle_type] ?? null;
+            if ($formDModel) {
+                $formD = $formDModel::where('shuttle_id', $formC->shuttle_id)->where('tahun', $formC->tahun)->where('bulan', $formC->bulan)
                     ->where('status', 'Dihantar ke IPJPSM')->first();
                 if ($formD) {
                     $formD->status = 'Sedang Diproses';

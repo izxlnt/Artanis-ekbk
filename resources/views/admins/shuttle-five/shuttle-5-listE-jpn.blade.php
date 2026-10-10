@@ -178,12 +178,17 @@
                                                                         title="Borang perlu disahkan PHD"></i></a>
 
                                                             @elseif($data->status == 'Dihantar ke IPJPSM')
+                                                                @php $packageSent = $batch->contains(fn ($c) => $c->tahun == $data->tahun && $c->bulan == $data->bulan && $c->shuttle_id == $data->shuttle_id && $c->status == 'Dihantar ke IPJPSM' && $c->borang_e == 2); @endphp
+                                                                @if ($packageSent)
                                                                 <a
                                                                     href="{{ route('jpn.shuttle-5-view-form5E', $data->id) }}">
                                                                     <img src="{{ asset('circle_check.png') }}" height='30px' alt=""
                                                                         style="color: green; font-size: 18pt;"
                                                                         data-toggle="tooltip" data-placement="bottom"
                                                                         title="Borang telah disahkan PHD"></i></a>
+                                                                @else
+                                                                <img src="{{ asset('package.png') }}" height='40px' data-toggle="tooltip" data-placement="bottom" title="Pakej belum dihantar">
+                                                                @endif
 
                                                             @elseif($data->status == 'Lulus')
                                                                 <a
@@ -235,7 +240,12 @@
                                                                 title="Borang perlu disahkan PHD"></i></a>
 
                                                     @elseif($data->status == 'Dihantar ke IPJPSM')
+                                                        @php $packageSent = $batch->contains(fn ($c) => $c->tahun == $data->tahun && $c->bulan == $data->bulan && $c->shuttle_id == $data->shuttle_id && $c->status == 'Dihantar ke IPJPSM' && $c->borang_e == 2); @endphp
+                                                        @if ($packageSent)
                                                         <a href="{{ route('jpn.shuttle-5-view-form5E', $data->id) }}"><img src="{{ asset('circle_check.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang telah disahkan PHD"></a>
+                                                        @else
+                                                        <img src="{{ asset('package.png') }}" height='40px' data-toggle="tooltip" data-placement="bottom" title="Pakej belum dihantar">
+                                                        @endif
 
                                                     @elseif($data->status == 'Lulus')
                                                         <a href="{{ route('jpn.shuttle-5-view-form5E', $data->id) }}"><img src="{{ asset('double_check.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang telah diperaku"></a>
@@ -281,7 +291,12 @@
                                                                 title="Borang perlu disahkan PHD"></i></a>
 
                                                     @elseif($data->status == 'Dihantar ke IPJPSM')
+                                                        @php $packageSent = $batch->contains(fn ($c) => $c->tahun == $data->tahun && $c->bulan == $data->bulan && $c->shuttle_id == $data->shuttle_id && $c->status == 'Dihantar ke IPJPSM' && $c->borang_e == 2); @endphp
+                                                        @if ($packageSent)
                                                         <a href="{{ route('jpn.shuttle-5-view-form5E', $data->id) }}"><img src="{{ asset('circle_check.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang telah disahkan PHD"></a>
+                                                        @else
+                                                        <img src="{{ asset('package.png') }}" height='40px' data-toggle="tooltip" data-placement="bottom" title="Pakej belum dihantar">
+                                                        @endif
 
                                                     @elseif($data->status == 'Lulus')
                                                         <a href="{{ route('jpn.shuttle-5-view-form5E', $data->id) }}"><img src="{{ asset('double_check.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang telah diperaku"></a>
@@ -327,7 +342,12 @@
                                                                 title="Borang perlu disahkan PHD"></i></a>
 
                                                     @elseif($data->status == 'Dihantar ke IPJPSM')
+                                                        @php $packageSent = $batch->contains(fn ($c) => $c->tahun == $data->tahun && $c->bulan == $data->bulan && $c->shuttle_id == $data->shuttle_id && $c->status == 'Dihantar ke IPJPSM' && $c->borang_e == 2); @endphp
+                                                        @if ($packageSent)
                                                         <a href="{{ route('jpn.shuttle-5-view-form5E', $data->id) }}"><img src="{{ asset('circle_check.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang telah disahkan PHD"></a>
+                                                        @else
+                                                        <img src="{{ asset('package.png') }}" height='40px' data-toggle="tooltip" data-placement="bottom" title="Pakej belum dihantar">
+                                                        @endif
 
                                                     @elseif($data->status == 'Lulus')
                                                         <a href="{{ route('jpn.shuttle-5-view-form5E', $data->id) }}"><img src="{{ asset('double_check.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang telah diperaku"></a>
@@ -373,7 +393,12 @@
                                                                 title="Borang perlu disahkan PHD"></i></a>
 
                                                     @elseif($data->status == 'Dihantar ke IPJPSM')
+                                                        @php $packageSent = $batch->contains(fn ($c) => $c->tahun == $data->tahun && $c->bulan == $data->bulan && $c->shuttle_id == $data->shuttle_id && $c->status == 'Dihantar ke IPJPSM' && $c->borang_e == 2); @endphp
+                                                        @if ($packageSent)
                                                         <a href="{{ route('jpn.shuttle-5-view-form5E', $data->id) }}"><img src="{{ asset('circle_check.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang telah disahkan PHD"></a>
+                                                        @else
+                                                        <img src="{{ asset('package.png') }}" height='40px' data-toggle="tooltip" data-placement="bottom" title="Pakej belum dihantar">
+                                                        @endif
 
                                                     @elseif($data->status == 'Lulus')
                                                         <a href="{{ route('jpn.shuttle-5-view-form5E', $data->id) }}"><img src="{{ asset('double_check.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang telah diperaku"></a>
@@ -419,7 +444,12 @@
                                                                 title="Borang perlu disahkan PHD"></i></a>
 
                                                     @elseif($data->status == 'Dihantar ke IPJPSM')
+                                                        @php $packageSent = $batch->contains(fn ($c) => $c->tahun == $data->tahun && $c->bulan == $data->bulan && $c->shuttle_id == $data->shuttle_id && $c->status == 'Dihantar ke IPJPSM' && $c->borang_e == 2); @endphp
+                                                        @if ($packageSent)
                                                         <a href="{{ route('jpn.shuttle-5-view-form5E', $data->id) }}"><img src="{{ asset('circle_check.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang telah disahkan PHD"></a>
+                                                        @else
+                                                        <img src="{{ asset('package.png') }}" height='40px' data-toggle="tooltip" data-placement="bottom" title="Pakej belum dihantar">
+                                                        @endif
 
                                                     @elseif($data->status == 'Lulus')
                                                         <a href="{{ route('jpn.shuttle-5-view-form5E', $data->id) }}"><img src="{{ asset('double_check.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang telah diperaku"></a>
@@ -465,7 +495,12 @@
                                                                 title="Borang perlu disahkan PHD"></i></a>
 
                                                     @elseif($data->status == 'Dihantar ke IPJPSM')
+                                                        @php $packageSent = $batch->contains(fn ($c) => $c->tahun == $data->tahun && $c->bulan == $data->bulan && $c->shuttle_id == $data->shuttle_id && $c->status == 'Dihantar ke IPJPSM' && $c->borang_e == 2); @endphp
+                                                        @if ($packageSent)
                                                         <a href="{{ route('jpn.shuttle-5-view-form5E', $data->id) }}"><img src="{{ asset('circle_check.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang telah disahkan PHD"></a>
+                                                        @else
+                                                        <img src="{{ asset('package.png') }}" height='40px' data-toggle="tooltip" data-placement="bottom" title="Pakej belum dihantar">
+                                                        @endif
 
                                                     @elseif($data->status == 'Lulus')
                                                         <a href="{{ route('jpn.shuttle-5-view-form5E', $data->id) }}"><img src="{{ asset('double_check.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang telah diperaku"></a>
@@ -511,7 +546,12 @@
                                                                 title="Borang perlu disahkan PHD"></i></a>
 
                                                     @elseif($data->status == 'Dihantar ke IPJPSM')
+                                                        @php $packageSent = $batch->contains(fn ($c) => $c->tahun == $data->tahun && $c->bulan == $data->bulan && $c->shuttle_id == $data->shuttle_id && $c->status == 'Dihantar ke IPJPSM' && $c->borang_e == 2); @endphp
+                                                        @if ($packageSent)
                                                         <a href="{{ route('jpn.shuttle-5-view-form5E', $data->id) }}"><img src="{{ asset('circle_check.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang telah disahkan PHD"></a>
+                                                        @else
+                                                        <img src="{{ asset('package.png') }}" height='40px' data-toggle="tooltip" data-placement="bottom" title="Pakej belum dihantar">
+                                                        @endif
 
                                                     @elseif($data->status == 'Lulus')
                                                         <a href="{{ route('jpn.shuttle-5-view-form5E', $data->id) }}"><img src="{{ asset('double_check.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang telah diperaku"></a>
@@ -557,7 +597,12 @@
                                                                 title="Borang perlu disahkan PHD"></i></a>
 
                                                     @elseif($data->status == 'Dihantar ke IPJPSM')
+                                                        @php $packageSent = $batch->contains(fn ($c) => $c->tahun == $data->tahun && $c->bulan == $data->bulan && $c->shuttle_id == $data->shuttle_id && $c->status == 'Dihantar ke IPJPSM' && $c->borang_e == 2); @endphp
+                                                        @if ($packageSent)
                                                         <a href="{{ route('jpn.shuttle-5-view-form5E', $data->id) }}"><img src="{{ asset('circle_check.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang telah disahkan PHD"></a>
+                                                        @else
+                                                        <img src="{{ asset('package.png') }}" height='40px' data-toggle="tooltip" data-placement="bottom" title="Pakej belum dihantar">
+                                                        @endif
 
                                                     @elseif($data->status == 'Lulus')
                                                         <a href="{{ route('jpn.shuttle-5-view-form5E', $data->id) }}"><img src="{{ asset('double_check.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang telah diperaku"></a>
@@ -603,7 +648,12 @@
                                                                 title="Borang perlu disahkan PHD"></i></a>
 
                                                     @elseif($data->status == 'Dihantar ke IPJPSM')
+                                                        @php $packageSent = $batch->contains(fn ($c) => $c->tahun == $data->tahun && $c->bulan == $data->bulan && $c->shuttle_id == $data->shuttle_id && $c->status == 'Dihantar ke IPJPSM' && $c->borang_e == 2); @endphp
+                                                        @if ($packageSent)
                                                         <a href="{{ route('jpn.shuttle-5-view-form5E', $data->id) }}"><img src="{{ asset('circle_check.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang telah disahkan PHD"></a>
+                                                        @else
+                                                        <img src="{{ asset('package.png') }}" height='40px' data-toggle="tooltip" data-placement="bottom" title="Pakej belum dihantar">
+                                                        @endif
 
                                                     @elseif($data->status == 'Lulus')
                                                         <a href="{{ route('jpn.shuttle-5-view-form5E', $data->id) }}"><img src="{{ asset('double_check.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang telah diperaku"></a>
@@ -649,7 +699,12 @@
                                                                 title="Borang perlu disahkan PHD"></i></a>
 
                                                     @elseif($data->status == 'Dihantar ke IPJPSM')
+                                                        @php $packageSent = $batch->contains(fn ($c) => $c->tahun == $data->tahun && $c->bulan == $data->bulan && $c->shuttle_id == $data->shuttle_id && $c->status == 'Dihantar ke IPJPSM' && $c->borang_e == 2); @endphp
+                                                        @if ($packageSent)
                                                         <a href="{{ route('jpn.shuttle-5-view-form5E', $data->id) }}"><img src="{{ asset('circle_check.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang telah disahkan PHD"></a>
+                                                        @else
+                                                        <img src="{{ asset('package.png') }}" height='40px' data-toggle="tooltip" data-placement="bottom" title="Pakej belum dihantar">
+                                                        @endif
 
                                                     @elseif($data->status == 'Lulus')
                                                         <a href="{{ route('jpn.shuttle-5-view-form5E', $data->id) }}"><img src="{{ asset('double_check.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang telah diperaku"></a>
@@ -696,7 +751,12 @@
                                                                 title="Borang perlu disahkan PHD"></i></a>
 
                                                     @elseif($data->status == 'Dihantar ke IPJPSM')
+                                                        @php $packageSent = $batch->contains(fn ($c) => $c->tahun == $data->tahun && $c->bulan == $data->bulan && $c->shuttle_id == $data->shuttle_id && $c->status == 'Dihantar ke IPJPSM' && $c->borang_e == 2); @endphp
+                                                        @if ($packageSent)
                                                         <a href="{{ route('jpn.shuttle-5-view-form5E', $data->id) }}"><img src="{{ asset('circle_check.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang telah disahkan PHD"></a>
+                                                        @else
+                                                        <img src="{{ asset('package.png') }}" height='40px' data-toggle="tooltip" data-placement="bottom" title="Pakej belum dihantar">
+                                                        @endif
 
                                                     @elseif($data->status == 'Lulus')
                                                         <a href="{{ route('jpn.shuttle-5-view-form5E', $data->id) }}"><img src="{{ asset('double_check.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang telah diperaku"></a>

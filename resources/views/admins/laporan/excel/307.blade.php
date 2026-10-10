@@ -8,7 +8,7 @@
 
             <th>Bil</th>
             <th>Negeri</th>
-            <th>Harta Tetap</th>
+            <th>Harta Tetap (RM)</th>
 
         </tr>
     </thead>
@@ -29,7 +29,7 @@
                     }
                 @endphp
                 <td style="text-align: right">
-                    RM {{ number_format($jumlah_by_negeri, 2) }}
+                    {{ number_format($jumlah_by_negeri, 2) }}
                 </td>
             </tr>
         @endforeach

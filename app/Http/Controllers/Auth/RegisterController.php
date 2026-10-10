@@ -306,7 +306,7 @@ class RegisterController extends Controller
                 'email'=> $data['email_kilang'],
                 'website'=> $data['website'] ?? null,
                 'no_lesen'=> $data['no_lesen'],
-                'status_hak_milik'=> $data['status_hak_milik'],
+                'status_hak_milik'=> $keterangan->keterangan ?? $data['status_hak_milik'], // the form posts the hak_miliks id
                 'status_warganegara'=> $data['status_warganegara'],
                 'sijil_ssm' => $sijil_ssm,
                 'lesen_kilang' =>$lesen_kilang,

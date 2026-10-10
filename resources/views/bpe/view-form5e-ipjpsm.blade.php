@@ -205,7 +205,7 @@
                                                                                             size="15" value="{{ number_format($form5e->jumlah_jualan_pasaran_tempatan ?? '0.00',2)}}">
                                                                                         <input
                                                                                         name='jumlah_jualan_pasaran_tempatan_cleaning' onkeypress="return isNumberKey(event)"
-                                                                                        style="text-align:right" type="text" value="{{ number_format($form5e->jumlah_jualan_pasaran_tempatan_cleaning ?? '0.00',2)}}"
+                                                                                        style="text-align:right" type="text" value="{{ (float) ($form5e->jumlah_jualan_pasaran_tempatan_cleaning ?? 0) != 0 ? number_format($form5e->jumlah_jualan_pasaran_tempatan_cleaning, 2, '.', '') : '' }}"
                                                                                         size="15" readonly>
                                                                                     </td>
 
@@ -222,7 +222,7 @@
 
                                                                                         <input
                                                                                             name='jumlah_jualan_eksport_cleaning' onkeypress="return isNumberKey(event)"
-                                                                                            style="text-align:right" type="text" size="15" value="{{ number_format($form5e->jumlah_jualan_eksport_cleaning ?? '0.00',2)}}" readonly>
+                                                                                            style="text-align:right" type="text" size="15" value="{{ (float) ($form5e->jumlah_jualan_eksport_cleaning ?? 0) != 0 ? number_format($form5e->jumlah_jualan_eksport_cleaning, 2, '.', '') : '' }}" readonly>
                                                                                     </td>
                                                                                 </tr>
                                                                             </table>

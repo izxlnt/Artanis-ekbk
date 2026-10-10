@@ -18,6 +18,20 @@ use Illuminate\Support\Facades\Validator;
 
 class MainController extends Controller
 {
+    /**
+     * The add-user forms send the state either as a daerahs.id or as the state name
+     * (tambah-pengurusan-pengguna-ipjpsm), so accept both. Was a crash for JPN users.
+     */
+    private function findNegeri($negeri)
+    {
+        if ($negeri === null || $negeri === '') {
+            return null;
+        }
+
+        return Daerah::where('id', $negeri)->first('negeri')
+            ?? Daerah::where('negeri', $negeri)->first('negeri');
+    }
+
     public function pengurusan_pengguna()
     {
         return view('admins.pengurusan-pengguna.pengurusan-pengguna');
@@ -40,7 +54,7 @@ class MainController extends Controller
         $kategori_pengguna = 'PHD';
         $hashed_random_password = Hash::make('1234567890');
 
-        $negeri_name = Daerah::where('id', $request->negeri_id)->first('negeri');
+        $negeri_name = $this->findNegeri($request->negeri_id);
         $daerah_name = Daerah::where('id', $request->daerah_id)->first(['daerah_hutan', 'negeri']);
         $negeri_name = $daerah_name ?: $negeri_name; // the district decides the state, not the separate state field
 
@@ -112,7 +126,7 @@ class MainController extends Controller
         $hashed_random_password = Hash::make($random);
 
         // dd($request->negeri_id);
-        $negeri_name = Daerah::where('id', $request->negeri_id)->first('negeri');
+        $negeri_name = $this->findNegeri($request->negeri_id);
         $daerah_name = Daerah::where('id', $request->daerah_id)->first(['daerah_hutan', 'negeri']);
         if ($request->kategori_pengguna == 'PHD') { $negeri_name = $daerah_name ?: $negeri_name; } // PHD: the district decides the state
 
@@ -123,6 +137,9 @@ class MainController extends Controller
                 return redirect()->back()->with('error', 'Setiap Pejabat Hutan Daerah hanya boleh mendaftar terhad kepada dua pengguna aktif sahaja.');
             }
         } elseif ($request->kategori_pengguna == 'JPN') {
+            if (!$negeri_name) {
+                return redirect()->back()->withInput()->with('error', 'Sila pilih negeri bagi pengguna JPN.');
+            }
             $user_counter_jpn = User::where('kategori_pengguna', 'JPN')->where('negeri', $negeri_name->negeri)->where('status', '1')->count();
             // dd($user_counter_jpn);
             if ($user_counter_jpn >= 2) {
@@ -131,7 +148,7 @@ class MainController extends Controller
         }
 
         // dd($request->all());
-        $negeri_name = Daerah::where('id', $request->negeri_id)->first('negeri');
+        $negeri_name = $this->findNegeri($request->negeri_id);
 
         $daerah_name = Daerah::where('id', $request->daerah_id)->first(['daerah_hutan', 'negeri']);
         if ($request->kategori_pengguna == 'PHD') { $negeri_name = $daerah_name ?: $negeri_name; } // PHD: the district decides the state

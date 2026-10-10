@@ -669,6 +669,15 @@ class MainController extends Controller
         if (!$form4D || $form4D->status === 'Sedang Diisi') {
             return redirect()->back()->with('error', 'Borang masih sedang diisi oleh pengguna kilang.');
         }
+
+        // Borang D is built on the same month's Borang C, so it cannot be approved ahead of it
+        if ($request->status == "Dihantar ke IPJPSM") {
+            $formC = \App\Models\FormC::where('shuttle_id', $form4D->shuttle_id)->where('tahun', $form4D->tahun)->where('bulan', $form4D->bulan)->first();
+            if (!$formC || !in_array($formC->status, ['Dihantar ke IPJPSM', 'Lulus'])) {
+                return redirect()->back()->with('error', 'Sila sahkan Borang C bagi bulan yang sama terlebih dahulu sebelum mengesahkan Borang D.');
+            }
+        }
+
         $form4D->status = $request->status;
         $form4D->save();
         // dd($form4D);
