@@ -188,8 +188,7 @@
                                                                                         <input readonly class="text-right" style="background-color: #7ee48c6b;" type="text"
                                                                                         size="5" wire:model='total_export' value="{{ $formd->total_export ?? 0  }} ">
 
-                                                                                        <input class="text-right" style="" type="text"
-                                                                                        size="5" name="total_export_cleaning" value="{{ $formd->total_export_cleaning ?? 0  }} ">
+total_export_cleaning ?? 0  }} ">
                                                                                     </td>
                                                                                 </tr>
 
@@ -199,7 +198,7 @@
                                                                                         dalam pasaran tempatan (m³)</td>
                                                                                     <td style="text-align:center;">
                                                                                         <input style="background-color: #7ee48c6b;" class="text-right" type="text" size="5" value="{{ $formd->jumlah_pasaran_tempatan }}" readonly>
-                                                                                        <input type="text" size="5" class="text-right" name="jumlah_pasaran_tempatan_cleaning" value="{{ $formd->jumlah_pasaran_tempatan_cleaning }}" readonly>
+jumlah_pasaran_tempatan_cleaning }}" readonly>
                                                                                     </td>
                                                                                 </tr>
 
@@ -239,7 +238,7 @@
                                                                                         <td style="text-align:center;">
                                                                                             <input style="background-color:#7ee48c6b;text-align:right" type="text" size="5"  value="{{ $form_d[$key]->jumlah_jualan}}" readonly>
 
-                                                                                            <input  type="text" size="5" class="text-right" name="jumlah_jualan_cleaning[]" value="{{ $form_d[$key]->jumlah_jualan_cleaning}}" readonly >
+jumlah_jualan_cleaning}}" readonly >
                                                                                         </td>
                                                                                     </tr>
                                                                                 @endforeach
@@ -250,7 +249,7 @@
                                                                                         class="col-md-12">Jumlah</th>
                                                                                     <td style="text-align:center;background-color: #7ee48c6b;">
                                                                                         <input type="text" style="background-color:#7ee48c6b;text-align:right" size="5" wire:model='total_jumlah_jualan' value="{{ $form_d[0]->total_jumlah_jualan }}" readonly>
-                                                                                        <input type="text"  class="text-right" size="5" name="total_jumlah_jualan_cleaning" value="{{ $form_d[0]->total_jumlah_jualan_cleaning }}"  readonly>
+total_jumlah_jualan_cleaning }}"  readonly>
                                                                                     </td>  </span>
                                                                                 </tr>
                                                                             </table>

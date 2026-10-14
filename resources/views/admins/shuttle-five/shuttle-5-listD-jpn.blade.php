@@ -242,7 +242,7 @@
                                                                 @else
                                                                     <img src="{{ asset('package.png') }}" height='40px'
                                                                         data-toggle="tooltip" data-placement="bottom"
-                                                                        title="Pakej belum dihantar">
+                                                                        title="{{ \App\Support\PakejStatus::tooltip($data ?? null) }}">
                                                                 @endif
                                                             @elseif($data->status == 'Lulus' && $data->bulan == '1' && $shuttle->shuttle_id == $data->shuttle_id)
                                                                 @if ($data->tiada_pengeluaran == 1)
@@ -336,7 +336,7 @@
                                                         @else
                                                             <img src="{{ asset('package.png') }}" height='40px'
                                                                 data-toggle="tooltip" data-placement="bottom"
-                                                                title="Pakej belum dihantar">
+                                                                title="{{ \App\Support\PakejStatus::tooltip($data ?? null) }}">
                                                         @endif
                                                     @elseif($data->status == 'Lulus' && $data->bulan == '2' && $shuttle->shuttle_id == $data->shuttle_id)
                                                         @if ($data->tiada_pengeluaran == 1)
@@ -427,7 +427,7 @@
                                                         @else
                                                             <img src="{{ asset('package.png') }}" height='40px'
                                                                 data-toggle="tooltip" data-placement="bottom"
-                                                                title="Pakej belum dihantar">
+                                                                title="{{ \App\Support\PakejStatus::tooltip($data ?? null) }}">
                                                         @endif
                                                     @elseif($data->status == 'Lulus' && $data->bulan == '3' && $shuttle->shuttle_id == $data->shuttle_id)
                                                         @if ($data->tiada_pengeluaran == 1)
@@ -518,7 +518,7 @@
                                                         @else
                                                             <img src="{{ asset('package.png') }}" height='40px'
                                                                 data-toggle="tooltip" data-placement="bottom"
-                                                                title="Pakej belum dihantar">
+                                                                title="{{ \App\Support\PakejStatus::tooltip($data ?? null) }}">
                                                         @endif
                                                     @elseif($data->status == 'Lulus' && $data->bulan == '4' && $shuttle->shuttle_id == $data->shuttle_id)
                                                         @if ($data->tiada_pengeluaran == 1)
@@ -609,7 +609,7 @@
                                                         @else
                                                             <img src="{{ asset('package.png') }}" height='40px'
                                                                 data-toggle="tooltip" data-placement="bottom"
-                                                                title="Pakej belum dihantar">
+                                                                title="{{ \App\Support\PakejStatus::tooltip($data ?? null) }}">
                                                         @endif
                                                     @elseif($data->status == 'Lulus' && $data->bulan == '5' && $shuttle->shuttle_id == $data->shuttle_id)
                                                         @if ($data->tiada_pengeluaran == 1)
@@ -700,7 +700,7 @@
                                                         @else
                                                             <img src="{{ asset('package.png') }}" height='40px'
                                                                 data-toggle="tooltip" data-placement="bottom"
-                                                                title="Pakej belum dihantar">
+                                                                title="{{ \App\Support\PakejStatus::tooltip($data ?? null) }}">
                                                         @endif
                                                     @elseif($data->status == 'Lulus' && $data->bulan == '6' && $shuttle->shuttle_id == $data->shuttle_id)
                                                         @if ($data->tiada_pengeluaran == 1)
@@ -791,7 +791,7 @@
                                                         @else
                                                             <img src="{{ asset('package.png') }}" height='40px'
                                                                 data-toggle="tooltip" data-placement="bottom"
-                                                                title="Pakej belum dihantar">
+                                                                title="{{ \App\Support\PakejStatus::tooltip($data ?? null) }}">
                                                         @endif
                                                     @elseif($data->status == 'Lulus' && $data->bulan == '7' && $shuttle->shuttle_id == $data->shuttle_id)
                                                         @if ($data->tiada_pengeluaran == 1)
@@ -882,7 +882,7 @@
                                                         @else
                                                             <img src="{{ asset('package.png') }}" height='40px'
                                                                 data-toggle="tooltip" data-placement="bottom"
-                                                                title="Pakej belum dihantar">
+                                                                title="{{ \App\Support\PakejStatus::tooltip($data ?? null) }}">
                                                         @endif
                                                     @elseif($data->status == 'Lulus' && $data->bulan == '8' && $shuttle->shuttle_id == $data->shuttle_id)
                                                         @if ($data->tiada_pengeluaran == 1)
@@ -973,7 +973,7 @@
                                                         @else
                                                             <img src="{{ asset('package.png') }}" height='40px'
                                                                 data-toggle="tooltip" data-placement="bottom"
-                                                                title="Pakej belum dihantar">
+                                                                title="{{ \App\Support\PakejStatus::tooltip($data ?? null) }}">
                                                         @endif
                                                     @elseif($data->status == 'Lulus' && $data->bulan == '9' && $shuttle->shuttle_id == $data->shuttle_id)
                                                         @if ($data->tiada_pengeluaran == 1)
@@ -1064,7 +1064,7 @@
                                                         @else
                                                             <img src="{{ asset('package.png') }}" height='40px'
                                                                 data-toggle="tooltip" data-placement="bottom"
-                                                                title="Pakej belum dihantar">
+                                                                title="{{ \App\Support\PakejStatus::tooltip($data ?? null) }}">
                                                         @endif
                                                     @elseif($data->status == 'Lulus' && $data->bulan == '10' && $shuttle->shuttle_id == $data->shuttle_id)
                                                         @if ($data->tiada_pengeluaran == 1)
@@ -1156,7 +1156,7 @@
                                                         @else
                                                             <img src="{{ asset('package.png') }}" height='40px'
                                                                 data-toggle="tooltip" data-placement="bottom"
-                                                                title="Pakej belum dihantar">
+                                                                title="{{ \App\Support\PakejStatus::tooltip($data ?? null) }}">
                                                         @endif
                                                     @elseif($data->status == 'Lulus' && $data->bulan == '11' && $shuttle->shuttle_id == $data->shuttle_id)
                                                         @if ($data->tiada_pengeluaran == 1)
@@ -1249,7 +1249,7 @@
                                                         @else
                                                             <img src="{{ asset('package.png') }}" height='40px'
                                                                 data-toggle="tooltip" data-placement="bottom"
-                                                                title="Pakej belum dihantar">
+                                                                title="{{ \App\Support\PakejStatus::tooltip($data ?? null) }}">
                                                         @endif
                                                     @elseif($data->status == 'Lulus' && $data->bulan == '12' && $shuttle->shuttle_id == $data->shuttle_id)
                                                         @if ($data->tiada_pengeluaran == 1)

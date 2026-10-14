@@ -832,17 +832,23 @@ class MainController extends Controller
                 $batch->save();
             }
 
-            // A PHD-approved Borang D of the same month goes back to pending: it is built on this
-            // Borang C, so it must not stay approved while C is being corrected
+            // Borang D of the same month is built on this Borang C, so it goes back to the kilang
+            // too ("Tidak Lengkap"); the A -> B -> C -> D flow then only lets them correct it after
+            // this Borang C is re-submitted
             $formDModel = [3 => FormD::class, 4 => \App\Models\Form4D::class, 5 => \App\Models\Form5D::class][(int) $formC->shuttle_type] ?? null;
             if ($formDModel) {
                 $formD = $formDModel::where('shuttle_id', $formC->shuttle_id)->where('tahun', $formC->tahun)->where('bulan', $formC->bulan)
-                    ->where('status', 'Dihantar ke IPJPSM')->first();
+                    ->whereIn('status', ['Sedang Diproses', 'Tiada Pengeluaran', 'Dihantar ke IPJPSM'])->first();
                 if ($formD) {
-                    $formD->status = 'Sedang Diproses';
+                    $formD->status = 'Tidak Lengkap';
                     $formD->save();
+                    UlasanPhd::create([
+                        'ulasan' => 'Borang C bulan ini dikembalikan untuk pembetulan. Sila hantar semula Borang C, kemudian semak dan hantar semula Borang D.',
+                        'user_id' => $user->id,
+                        'form' . ((int) $formC->shuttle_type === 3 ? '' : $formC->shuttle_type) . 'ds_id' => $formD->id,
+                    ]);
                     if ($batch) {
-                        $batch->borang_d = "1";
+                        $batch->borang_d = "0";
                         $batch->save();
                     }
                 }

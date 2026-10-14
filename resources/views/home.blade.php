@@ -620,6 +620,8 @@
                         </div>
                     </a>
                 </div>
+                {{-- "Bilangan Responden Mengikut Negeri" chart removed after UAT 14 Oct 2026 (6.3): it counts
+                     kilang that submitted Borang A, which never equals the "aktif" cards; same as the JPN dashboard.
                 <div class="row">
                     <div class="col-md-12">
                         <div class="card shadow-lg">
@@ -664,6 +666,7 @@
                         </div>
                     </div>
                 </div>
+                --}}
 
 
 
@@ -892,6 +895,7 @@
         let currentChart = null; // Store current chart instance
 
         window.addEventListener("load", function() {
+            if (!document.getElementById('bar')) { return; } // chart removed from this dashboard
             load_data($('#select_kilang').val(), $('#select_year_graph').val());
         });
 
@@ -934,6 +938,7 @@
 
 <script>
     function ChartResponden(data) {
+        if (!document.getElementById('bar')) { return; } // chart removed from this dashboard
         var jsonData = data;
         console.log(jsonData);
 

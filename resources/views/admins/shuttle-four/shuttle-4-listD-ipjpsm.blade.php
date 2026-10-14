@@ -174,7 +174,7 @@
                                                                                     title="Borang perlu diperaku"></i></a>
                                                                         @endif
                                                                     @else
-                                                                        <img src="{{ asset('package.png') }}" height='40px' alt="" data-toggle="tooltip" data-placement="bottom" title="Pakej belum dihantar">
+                                                                        <img src="{{ asset('package.png') }}" height='40px' alt="" data-toggle="tooltip" data-placement="bottom" title="{{ \App\Support\PakejStatus::tooltip($data ?? null) }}">
                                                                     @endif
                                                                 @elseif($data->status == 'Sedang Diproses')
                                                                     <img src="{{ asset('circle_times_yellow.png') }}" height='30px' alt=""
@@ -263,7 +263,7 @@
                                                                                     title="Borang perlu diperaku"></i></a>
                                                                         @endif
                                                                     @else
-                                                                        <img src="{{ asset('package.png') }}" height='40px' alt="" data-toggle="tooltip" data-placement="bottom" title="Pakej belum dihantar">
+                                                                        <img src="{{ asset('package.png') }}" height='40px' alt="" data-toggle="tooltip" data-placement="bottom" title="{{ \App\Support\PakejStatus::tooltip($data ?? null) }}">
                                                                     @endif
                                                                 @elseif($data->status == 'Sedang Diproses')
                                                                     <img src="{{ asset('circle_times_yellow.png') }}" height='30px' alt=""
@@ -352,7 +352,7 @@
                                                                                     title="Borang perlu diperaku"></i></a>
                                                                         @endif
                                                                     @else
-                                                                        <img src="{{ asset('package.png') }}" height='40px' alt="" data-toggle="tooltip" data-placement="bottom" title="Pakej belum dihantar">
+                                                                        <img src="{{ asset('package.png') }}" height='40px' alt="" data-toggle="tooltip" data-placement="bottom" title="{{ \App\Support\PakejStatus::tooltip($data ?? null) }}">
                                                                     @endif
                                                                 @elseif($data->status == 'Sedang Diproses')
                                                                     <img src="{{ asset('circle_times_yellow.png') }}" height='30px' alt=""
@@ -441,7 +441,7 @@
                                                                                     title="Borang perlu diperaku"></i></a>
                                                                         @endif
                                                                     @else
-                                                                        <img src="{{ asset('package.png') }}" height='40px' alt="" data-toggle="tooltip" data-placement="bottom" title="Pakej belum dihantar">
+                                                                        <img src="{{ asset('package.png') }}" height='40px' alt="" data-toggle="tooltip" data-placement="bottom" title="{{ \App\Support\PakejStatus::tooltip($data ?? null) }}">
                                                                     @endif
                                                                 @elseif($data->status == 'Sedang Diproses')
                                                                     <img src="{{ asset('circle_times_yellow.png') }}" height='30px' alt=""
@@ -530,7 +530,7 @@
                                                                                     title="Borang perlu diperaku"></i></a>
                                                                         @endif
                                                                     @else
-                                                                        <img src="{{ asset('package.png') }}" height='40px' alt="" data-toggle="tooltip" data-placement="bottom" title="Pakej belum dihantar">
+                                                                        <img src="{{ asset('package.png') }}" height='40px' alt="" data-toggle="tooltip" data-placement="bottom" title="{{ \App\Support\PakejStatus::tooltip($data ?? null) }}">
                                                                     @endif
                                                                 @elseif($data->status == 'Sedang Diproses')
                                                                     <img src="{{ asset('circle_times_yellow.png') }}" height='30px' alt=""
@@ -619,7 +619,7 @@
                                                                                     title="Borang perlu diperaku"></i></a>
                                                                         @endif
                                                                     @else
-                                                                        <img src="{{ asset('package.png') }}" height='40px' alt="" data-toggle="tooltip" data-placement="bottom" title="Pakej belum dihantar">
+                                                                        <img src="{{ asset('package.png') }}" height='40px' alt="" data-toggle="tooltip" data-placement="bottom" title="{{ \App\Support\PakejStatus::tooltip($data ?? null) }}">
                                                                     @endif
                                                                 @elseif($data->status == 'Sedang Diproses')
                                                                     <img src="{{ asset('circle_times_yellow.png') }}" height='30px' alt=""
@@ -708,7 +708,7 @@
                                                                                     title="Borang perlu diperaku"></i></a>
                                                                         @endif
                                                                     @else
-                                                                        <img src="{{ asset('package.png') }}" height='40px' alt="" data-toggle="tooltip" data-placement="bottom" title="Pakej belum dihantar">
+                                                                        <img src="{{ asset('package.png') }}" height='40px' alt="" data-toggle="tooltip" data-placement="bottom" title="{{ \App\Support\PakejStatus::tooltip($data ?? null) }}">
                                                                     @endif
                                                                 @elseif($data->status == 'Sedang Diproses')
                                                                     <img src="{{ asset('circle_times_yellow.png') }}" height='30px' alt=""
@@ -797,7 +797,7 @@
                                                                                     title="Borang perlu diperaku"></i></a>
                                                                         @endif
                                                                     @else
-                                                                        <img src="{{ asset('package.png') }}" height='40px' alt="" data-toggle="tooltip" data-placement="bottom" title="Pakej belum dihantar">
+                                                                        <img src="{{ asset('package.png') }}" height='40px' alt="" data-toggle="tooltip" data-placement="bottom" title="{{ \App\Support\PakejStatus::tooltip($data ?? null) }}">
                                                                     @endif
                                                                 @elseif($data->status == 'Sedang Diproses')
                                                                     <img src="{{ asset('circle_times_yellow.png') }}" height='30px' alt=""
@@ -886,7 +886,7 @@
                                                                                     title="Borang perlu diperaku"></i></a>
                                                                         @endif
                                                                     @else
-                                                                        <img src="{{ asset('package.png') }}" height='40px' alt="" data-toggle="tooltip" data-placement="bottom" title="Pakej belum dihantar">
+                                                                        <img src="{{ asset('package.png') }}" height='40px' alt="" data-toggle="tooltip" data-placement="bottom" title="{{ \App\Support\PakejStatus::tooltip($data ?? null) }}">
                                                                     @endif
                                                                 @elseif($data->status == 'Sedang Diproses')
                                                                     <img src="{{ asset('circle_times_yellow.png') }}" height='30px' alt=""
@@ -975,7 +975,7 @@
                                                                                     title="Borang perlu diperaku"></i></a>
                                                                         @endif
                                                                     @else
-                                                                        <img src="{{ asset('package.png') }}" height='40px' alt="" data-toggle="tooltip" data-placement="bottom" title="Pakej belum dihantar">
+                                                                        <img src="{{ asset('package.png') }}" height='40px' alt="" data-toggle="tooltip" data-placement="bottom" title="{{ \App\Support\PakejStatus::tooltip($data ?? null) }}">
                                                                     @endif
                                                                 @elseif($data->status == 'Sedang Diproses')
                                                                     <img src="{{ asset('circle_times_yellow.png') }}" height='30px' alt=""
@@ -1064,7 +1064,7 @@
                                                                                     title="Borang perlu diperaku"></i></a>
                                                                         @endif
                                                                     @else
-                                                                        <img src="{{ asset('package.png') }}" height='40px' alt="" data-toggle="tooltip" data-placement="bottom" title="Pakej belum dihantar">
+                                                                        <img src="{{ asset('package.png') }}" height='40px' alt="" data-toggle="tooltip" data-placement="bottom" title="{{ \App\Support\PakejStatus::tooltip($data ?? null) }}">
                                                                     @endif
                                                                 @elseif($data->status == 'Sedang Diproses')
                                                                     <img src="{{ asset('circle_times_yellow.png') }}" height='30px' alt=""
@@ -1153,7 +1153,7 @@
                                                                                     title="Borang perlu diperaku"></i></a>
                                                                         @endif
                                                                     @else
-                                                                        <img src="{{ asset('package.png') }}" height='40px' alt="" data-toggle="tooltip" data-placement="bottom" title="Pakej belum dihantar">
+                                                                        <img src="{{ asset('package.png') }}" height='40px' alt="" data-toggle="tooltip" data-placement="bottom" title="{{ \App\Support\PakejStatus::tooltip($data ?? null) }}">
                                                                     @endif
                                                                 @elseif($data->status == 'Sedang Diproses')
                                                                     <img src="{{ asset('circle_times_yellow.png') }}" height='30px' alt=""

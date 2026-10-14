@@ -175,6 +175,7 @@ class ExcelController extends Controller
             AND shuttles.shuttle_type = '3'
             AND form_a_s.status IN ('Lulus', 'Dihantar ke IPJPSM')
             AND form_a_s.tahun = '$tahun'
+            AND shuttles.status_warganegara = 'Bumiputera'
         ");
 
 
@@ -283,6 +284,7 @@ class ExcelController extends Controller
             AND shuttles.shuttle_type = '3'
             AND form_a_s.status IN ('Lulus', 'Dihantar ke IPJPSM')
             AND form_a_s.tahun = '$tahun'
+            AND shuttles.status_warganegara = 'Bukan Bumiputera'
         ");
 
 
@@ -391,6 +393,7 @@ class ExcelController extends Controller
             AND shuttles.shuttle_type = '3'
             AND form_a_s.status IN ('Lulus', 'Dihantar ke IPJPSM')
             AND form_a_s.tahun = '$tahun'
+            AND shuttles.status_warganegara = 'Bukan Warganegara'
         ");
 
 
@@ -2542,9 +2545,9 @@ class ExcelController extends Controller
         for ($i = 1; $i <= 12; $i++) {
             $data = DB::select("SELECT
             form_d_s.bulan as bulan,
-            sum(form_d_s.total_export_laporan)  as export,
-            sum(form_d_s.jumlah_pasaran_tempatan_laporan) as domestik,
-            sum(form_d_s.total_export_laporan + form_d_s.jumlah_pasaran_tempatan_laporan) as jumlah_penjualan
+            sum(ROUND(form_d_s.total_export_laporan))  as export,
+            sum((SELECT COALESCE(SUM(ROUND(pp_r.jumlah_jualan_laporan)), 0) FROM penjualan_pembelis pp_r WHERE pp_r.formds_id = form_d_s.id)) as domestik,
+            sum(ROUND(form_d_s.total_export_laporan) + (SELECT COALESCE(SUM(ROUND(pp_r.jumlah_jualan_laporan)), 0) FROM penjualan_pembelis pp_r WHERE pp_r.formds_id = form_d_s.id)) as jumlah_penjualan
 
 
             FROM
@@ -2633,9 +2636,9 @@ class ExcelController extends Controller
         foreach ($negeri_list as $negeri) {
             $data = DB::select("SELECT
             shuttles.negeri_id as negeri,
-            sum(form_d_s.total_export_laporan)  as export,
-            sum(form_d_s.jumlah_pasaran_tempatan_laporan) as domestik,
-            sum(form_d_s.total_export_laporan + form_d_s.jumlah_pasaran_tempatan_laporan) as jumlah_penjualan
+            sum(ROUND(form_d_s.total_export_laporan))  as export,
+            sum((SELECT COALESCE(SUM(ROUND(pp_r.jumlah_jualan_laporan)), 0) FROM penjualan_pembelis pp_r WHERE pp_r.formds_id = form_d_s.id)) as domestik,
+            sum(ROUND(form_d_s.total_export_laporan) + (SELECT COALESCE(SUM(ROUND(pp_r.jumlah_jualan_laporan)), 0) FROM penjualan_pembelis pp_r WHERE pp_r.formds_id = form_d_s.id)) as jumlah_penjualan
 
             FROM
             shuttles,
@@ -2707,9 +2710,9 @@ class ExcelController extends Controller
             foreach ($negeri_list as $negeri) {
                 $data = DB::select("SELECT
                     shuttles.negeri_id as negeri,
-                    sum(form_d_s.total_export_laporan)  as export,
-                    sum(form_d_s.jumlah_pasaran_tempatan_laporan) as domestik,
-                    sum(form_d_s.total_export_laporan + form_d_s.jumlah_pasaran_tempatan_laporan) as jumlah_penjualan
+                    sum(ROUND(form_d_s.total_export_laporan))  as export,
+                    sum((SELECT COALESCE(SUM(ROUND(pp_r.jumlah_jualan_laporan)), 0) FROM penjualan_pembelis pp_r WHERE pp_r.formds_id = form_d_s.id)) as domestik,
+                    sum(ROUND(form_d_s.total_export_laporan) + (SELECT COALESCE(SUM(ROUND(pp_r.jumlah_jualan_laporan)), 0) FROM penjualan_pembelis pp_r WHERE pp_r.formds_id = form_d_s.id)) as jumlah_penjualan
 
                     FROM
                     shuttles,
@@ -2798,7 +2801,7 @@ class ExcelController extends Controller
             for ($bulan = 1; $bulan <= 12; $bulan++) {
                 $data = DB::select("SELECT
                 pembelis.keterangan as pembeli_keterangan,
-                sum(penjualan_pembelis.jumlah_jualan_laporan)  as jumlah_jualan,
+                sum(ROUND(penjualan_pembelis.jumlah_jualan_laporan))  as jumlah_jualan,
                 form_d_s.bulan as bulan
 
                 FROM
@@ -2897,7 +2900,7 @@ class ExcelController extends Controller
 
                 $data = DB::select("SELECT
                 shuttles.negeri_id as negeri,
-                sum(penjualan_pembelis.jumlah_jualan_laporan)  as jumlah_jualan
+                sum(ROUND(penjualan_pembelis.jumlah_jualan_laporan))  as jumlah_jualan
 
                 FROM
                 shuttles,
@@ -2996,7 +2999,7 @@ class ExcelController extends Controller
 
                 $data = DB::select("SELECT
                     pembelis.keterangan as pembeli_keterangan,
-                    sum(penjualan_pembelis.jumlah_jualan_laporan)  as jumlah_jualan
+                    sum(ROUND(penjualan_pembelis.jumlah_jualan_laporan))  as jumlah_jualan
 
                     FROM
                     shuttles,
@@ -3083,9 +3086,9 @@ class ExcelController extends Controller
         for ($bulan = 1; $bulan <= 12; $bulan++) {
             $data = DB::select("SELECT
             shuttles.negeri_id as negeri,
-            sum(form_d_s.total_export_laporan)  as export,
-            sum(form_d_s.jumlah_pasaran_tempatan_laporan) as domestik,
-            sum(form_d_s.total_export_laporan + form_d_s.jumlah_pasaran_tempatan_laporan) as jumlah_penjualan
+            sum(ROUND(form_d_s.total_export_laporan))  as export,
+            sum((SELECT COALESCE(SUM(ROUND(pp_r.jumlah_jualan_laporan)), 0) FROM penjualan_pembelis pp_r WHERE pp_r.formds_id = form_d_s.id)) as domestik,
+            sum(ROUND(form_d_s.total_export_laporan) + (SELECT COALESCE(SUM(ROUND(pp_r.jumlah_jualan_laporan)), 0) FROM penjualan_pembelis pp_r WHERE pp_r.formds_id = form_d_s.id)) as jumlah_penjualan
 
             FROM
             shuttles,
@@ -3173,9 +3176,9 @@ class ExcelController extends Controller
         foreach ($negeri_list as $negeri) {
             $data = DB::select("SELECT
                 shuttles.negeri_id as negeri,
-                sum(form_d_s.total_export_laporan)  as export,
-                sum(form_d_s.jumlah_pasaran_tempatan_laporan) as domestik,
-                sum(form_d_s.total_export_laporan + form_d_s.jumlah_pasaran_tempatan_laporan) as jumlah_penjualan
+                sum(ROUND(form_d_s.total_export_laporan))  as export,
+                sum((SELECT COALESCE(SUM(ROUND(pp_r.jumlah_jualan_laporan)), 0) FROM penjualan_pembelis pp_r WHERE pp_r.formds_id = form_d_s.id)) as domestik,
+                sum(ROUND(form_d_s.total_export_laporan) + (SELECT COALESCE(SUM(ROUND(pp_r.jumlah_jualan_laporan)), 0) FROM penjualan_pembelis pp_r WHERE pp_r.formds_id = form_d_s.id)) as jumlah_penjualan
 
                 FROM
                 shuttles,

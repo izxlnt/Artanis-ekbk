@@ -10,7 +10,7 @@
                     data-toggle="tooltip" data-placement="bottom" title="Borang perlu diperaku">
             </a>
         @else
-            <img src="{{ asset('package.png') }}" height='40px' alt="" data-toggle="tooltip" data-placement="bottom" title="Pakej belum dihantar">
+            <img src="{{ asset('package.png') }}" height='40px' alt="" data-toggle="tooltip" data-placement="bottom" title="{{ \App\Support\PakejStatus::tooltip($data ?? null) }}">
         @endif
     @elseif ($data->status == 'Lulus')
         <a href="{{ route($viewRoute, $data->id) . (isset($from) && $from ? '?from=' . $from : '') }}">

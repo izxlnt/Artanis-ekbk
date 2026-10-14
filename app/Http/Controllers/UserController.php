@@ -1472,13 +1472,14 @@ class UserController extends Controller
     {
         $negeri = auth()->user()->negeri;
 
-        $count_shuttle3 = User::where('shuttle_type', 3)->where('is_approved', 1)->whereNull('pengguna_kilang_id')
+        // same rule as the kilang aktif lists these cards open (approved and not deactivated)
+        $count_shuttle3 = User::where('shuttle_type', 3)->where('is_approved', 1)->where('status', 1)->whereNull('pengguna_kilang_id')
             ->whereHas('shuttle', fn($q) => $q->where('negeri_id', $negeri))->count();
 
-        $count_shuttle4 = User::where('shuttle_type', 4)->where('is_approved', 1)->whereNull('pengguna_kilang_id')
+        $count_shuttle4 = User::where('shuttle_type', 4)->where('is_approved', 1)->where('status', 1)->whereNull('pengguna_kilang_id')
             ->whereHas('shuttle', fn($q) => $q->where('negeri_id', $negeri))->count();
 
-        $count_shuttle5 = User::where('shuttle_type', 5)->where('is_approved', 1)->whereNull('pengguna_kilang_id')
+        $count_shuttle5 = User::where('shuttle_type', 5)->where('is_approved', 1)->where('status', 1)->whereNull('pengguna_kilang_id')
             ->whereHas('shuttle', fn($q) => $q->where('negeri_id', $negeri))->count();
 
         $pengumuman_ipjpsm = PengumumanIpjpsm::where('negeri', $negeri)

@@ -13,6 +13,7 @@
     $status = $form->status ?? 'Tidak Diisi';
     $isTp = !empty($form->tiada_pengeluaran) && $form->tiada_pengeluaran == 1;
     $sent = $packageSent ?? true;
+    $hint = null;
     $style = $role === 'IBK' ? '' : 'font-size: 11pt;';
 
     if ($status === 'Tidak Diisi') {
@@ -42,6 +43,7 @@
             [$text, $class] = ['Borang perlu disahkan PHD - Tiada Pengeluaran', 'label-primary'];
         } elseif ($status === 'Dihantar ke IPJPSM' && !$sent) {
             [$text, $class] = ['Pakej belum dihantar', 'label-warning'];
+            $hint = \App\Support\PakejStatus::tooltip($form);
         } elseif ($status === 'Dihantar ke IPJPSM') {
             if ($role === 'IPJPSM') {
                 [$text, $class] = [$isTp ? 'Borang perlu diperaku - Tiada Pengeluaran' : 'Borang perlu diperaku', 'label-primary'];
@@ -63,4 +65,4 @@
         $style .= ' background-color:#9c6035;';
     }
 @endphp
-<span class="label {{ $class }} label-rounded" @if(trim($style) !== '') style="{{ trim($style) }}" @endif>{{ $text }}</span>
+<span class="label {{ $class }} label-rounded" @if(!empty($hint)) title="{{ $hint }}" data-toggle="tooltip" @endif @if(trim($style) !== '') style="{{ trim($style) }}" @endif>{{ $text }}</span>

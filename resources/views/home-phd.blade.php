@@ -241,7 +241,7 @@
 
                 <div class="row">
 
-                    <div class="col-md-6">
+                    <div class="col-md-12">
                       <div class="card">
                         <div class="border card-header bg-info">
                           <h3 class="text-white m-b-0" style="text-align: center;font-size: 20px;font-weight: bold;">PENGUMUMAN</h3>
@@ -300,6 +300,8 @@
                         </div>
                       </div>
                     </div>
+                    {{-- "Bilangan Responden" chart removed after UAT 14 Oct 2026 (6.3): it counts kilang that
+                         submitted Borang A, which never equals the "aktif" cards; same as the JPN dashboard.
                     <div class="col-md-6">
                         <div class="card" style="height: 550px">
                             <div class="border card-header bg-info ">
@@ -320,6 +322,7 @@
                             </div>
                         </div>
                     </div>
+                    --}}
 
                   </div>
 
@@ -410,6 +413,7 @@
 
 <script>
     function ChartResponden(data) {
+        if (!document.getElementById('bar')) { return; } // chart removed from this dashboard
         var jsonData = data;
         console.log(jsonData);
 

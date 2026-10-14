@@ -184,7 +184,7 @@
                                                                             data-toggle="tooltip" data-placement="bottom"
                                                                             title="Borang perlu diperaku"></i></a>
                                                                 @else
-                                                                    <img src="{{ asset('package.png') }}" height='40px' alt="" data-toggle="tooltip" data-placement="bottom" title="Pakej belum dihantar">
+                                                                    <img src="{{ asset('package.png') }}" height='40px' alt="" data-toggle="tooltip" data-placement="bottom" title="{{ \App\Support\PakejStatus::tooltip($data ?? null) }}">
                                                                 @endif
                                                             @elseif($data->status == 'Lulus')
                                                                 <img src="{{ asset('double_check.png') }}" height='30px'
@@ -249,7 +249,7 @@
                                                                         data-toggle="tooltip" data-placement="bottom"
                                                                         title="Borang perlu diperaku"></i></a>
                                                             @else
-                                                                <img src="{{ asset('package.png') }}" height='40px' alt="" data-toggle="tooltip" data-placement="bottom" title="Pakej belum dihantar">
+                                                                <img src="{{ asset('package.png') }}" height='40px' alt="" data-toggle="tooltip" data-placement="bottom" title="{{ \App\Support\PakejStatus::tooltip($data ?? null) }}">
                                                             @endif
                                                         @elseif($data->status == 'Lulus')
                                                             <img src="{{ asset('double_check.png') }}" height='30px'
@@ -313,7 +313,7 @@
                                                                     data-toggle="tooltip" data-placement="bottom"
                                                                     title="Borang perlu diperaku"></i></a>
                                                         @else
-                                                            <img src="{{ asset('package.png') }}" height='40px' alt="" data-toggle="tooltip" data-placement="bottom" title="Pakej belum dihantar">
+                                                            <img src="{{ asset('package.png') }}" height='40px' alt="" data-toggle="tooltip" data-placement="bottom" title="{{ \App\Support\PakejStatus::tooltip($data ?? null) }}">
                                                         @endif
                                                     @elseif($data->status == 'Lulus')
                                                         <img src="{{ asset('double_check.png') }}" height='30px'
@@ -377,7 +377,7 @@
                                                                 data-toggle="tooltip" data-placement="bottom"
                                                                 title="Borang perlu diperaku"></i></a>
                                                     @else
-                                                        <img src="{{ asset('package.png') }}" height='40px' alt="" data-toggle="tooltip" data-placement="bottom" title="Pakej belum dihantar">
+                                                        <img src="{{ asset('package.png') }}" height='40px' alt="" data-toggle="tooltip" data-placement="bottom" title="{{ \App\Support\PakejStatus::tooltip($data ?? null) }}">
                                                     @endif
                                                 @elseif($data->status == 'Lulus')
                                                     <img src="{{ asset('double_check.png') }}" height='30px'
@@ -441,7 +441,7 @@
                                                             data-toggle="tooltip" data-placement="bottom"
                                                             title="Borang perlu diperaku"></i></a>
                                                 @else
-                                                    <img src="{{ asset('package.png') }}" height='40px' alt="" data-toggle="tooltip" data-placement="bottom" title="Pakej belum dihantar">
+                                                    <img src="{{ asset('package.png') }}" height='40px' alt="" data-toggle="tooltip" data-placement="bottom" title="{{ \App\Support\PakejStatus::tooltip($data ?? null) }}">
                                                 @endif
                                             @elseif($data->status == 'Lulus')
                                                 <img src="{{ asset('double_check.png') }}" height='30px'
@@ -505,7 +505,7 @@
                                                         data-toggle="tooltip" data-placement="bottom"
                                                         title="Borang perlu diperaku"></i></a>
                                             @else
-                                                <img src="{{ asset('package.png') }}" height='40px' alt="" data-toggle="tooltip" data-placement="bottom" title="Pakej belum dihantar">
+                                                <img src="{{ asset('package.png') }}" height='40px' alt="" data-toggle="tooltip" data-placement="bottom" title="{{ \App\Support\PakejStatus::tooltip($data ?? null) }}">
                                             @endif
                                         @elseif($data->status == 'Lulus')
                                             <img src="{{ asset('double_check.png') }}" height='30px'
@@ -569,7 +569,7 @@
                                                     data-toggle="tooltip" data-placement="bottom"
                                                     title="Borang perlu diperaku"></i></a>
                                         @else
-                                            <img src="{{ asset('package.png') }}" height='40px' alt="" data-toggle="tooltip" data-placement="bottom" title="Pakej belum dihantar">
+                                            <img src="{{ asset('package.png') }}" height='40px' alt="" data-toggle="tooltip" data-placement="bottom" title="{{ \App\Support\PakejStatus::tooltip($data ?? null) }}">
                                         @endif
                                     @elseif($data->status == 'Lulus')
                                         <img src="{{ asset('double_check.png') }}" height='30px'
@@ -633,7 +633,7 @@
                                                 data-toggle="tooltip" data-placement="bottom"
                                                 title="Borang perlu diperaku"></i></a>
                                     @else
-                                        <img src="{{ asset('package.png') }}" height='40px' alt="" data-toggle="tooltip" data-placement="bottom" title="Pakej belum dihantar">
+                                        <img src="{{ asset('package.png') }}" height='40px' alt="" data-toggle="tooltip" data-placement="bottom" title="{{ \App\Support\PakejStatus::tooltip($data ?? null) }}">
                                     @endif
                                 @elseif($data->status == 'Lulus')
                                     <img src="{{ asset('double_check.png') }}" height='30px'
@@ -697,7 +697,7 @@
                                             data-toggle="tooltip" data-placement="bottom"
                                             title="Borang perlu diperaku"></i></a>
                                 @else
-                                    <img src="{{ asset('package.png') }}" height='40px' alt="" data-toggle="tooltip" data-placement="bottom" title="Pakej belum dihantar">
+                                    <img src="{{ asset('package.png') }}" height='40px' alt="" data-toggle="tooltip" data-placement="bottom" title="{{ \App\Support\PakejStatus::tooltip($data ?? null) }}">
                                 @endif
                             @elseif($data->status == 'Lulus')
                                 <img src="{{ asset('double_check.png') }}" height='30px'
@@ -761,7 +761,7 @@
                                         data-toggle="tooltip" data-placement="bottom"
                                         title="Borang perlu diperaku"></i></a>
                             @else
-                                <img src="{{ asset('package.png') }}" height='40px' alt="" data-toggle="tooltip" data-placement="bottom" title="Pakej belum dihantar">
+                                <img src="{{ asset('package.png') }}" height='40px' alt="" data-toggle="tooltip" data-placement="bottom" title="{{ \App\Support\PakejStatus::tooltip($data ?? null) }}">
                             @endif
                         @elseif($data->status == 'Lulus')
                             <img src="{{ asset('double_check.png') }}" height='30px'
@@ -825,7 +825,7 @@
                                     data-toggle="tooltip" data-placement="bottom"
                                     title="Borang perlu diperaku"></i></a>
                         @else
-                            <img src="{{ asset('package.png') }}" height='40px' alt="" data-toggle="tooltip" data-placement="bottom" title="Pakej belum dihantar">
+                            <img src="{{ asset('package.png') }}" height='40px' alt="" data-toggle="tooltip" data-placement="bottom" title="{{ \App\Support\PakejStatus::tooltip($data ?? null) }}">
                         @endif
                     @elseif($data->status == 'Lulus')
                         <img src="{{ asset('double_check.png') }}" height='30px'
@@ -890,7 +890,7 @@
                                 data-toggle="tooltip" data-placement="bottom"
                                 title="Borang perlu diperaku"></i></a>
                     @else
-                        <img src="{{ asset('package.png') }}" height='40px' alt="" data-toggle="tooltip" data-placement="bottom" title="Pakej belum dihantar">
+                        <img src="{{ asset('package.png') }}" height='40px' alt="" data-toggle="tooltip" data-placement="bottom" title="{{ \App\Support\PakejStatus::tooltip($data ?? null) }}">
                     @endif
                 @elseif($data->status == 'Lulus')
                     <img src="{{ asset('double_check.png') }}" height='30px'

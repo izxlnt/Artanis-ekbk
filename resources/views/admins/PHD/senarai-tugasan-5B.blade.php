@@ -179,7 +179,7 @@
                                                         @else
                                                             <img src="{{ asset('package.png') }}" height='40px'
                                                                 data-toggle="tooltip" data-placement="bottom"
-                                                                title="Pakej belum dihantar">
+                                                                title="{{ \App\Support\PakejStatus::tooltip($data ?? null) }}">
                                                         @endif
                                                     @elseif($data->status == 'Lulus')
                                                     <a href="{{ route('phd.shuttle-3-view-formB-phd', $data->id) }}">

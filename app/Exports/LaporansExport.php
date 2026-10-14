@@ -4,9 +4,37 @@ namespace App\Exports;
 
 use Illuminate\Contracts\View\View;
 use Maatwebsite\Excel\Concerns\FromView;
+use Maatwebsite\Excel\Concerns\WithEvents;
+use Maatwebsite\Excel\Events\AfterSheet;
 
-class LaporansExport implements FromView
+class LaporansExport implements FromView, WithEvents
 {
+    /**
+     * The report views print numbers with number_format(), so values from 1,000 up reached Excel
+     * as text ("4,192") and SUM() silently skipped them. Turn such cells back into numbers and
+     * keep the thousand separator as a display format. Only the exact "1,234" / "1,234.50"
+     * pattern is touched, so phone/IC/SSM numbers and postcodes stay as they are.
+     */
+    public function registerEvents(): array
+    {
+        return [
+            AfterSheet::class => function (AfterSheet $event) {
+                $sheet = $event->sheet->getDelegate();
+                foreach ($sheet->getRowIterator() as $row) {
+                    $cells = $row->getCellIterator();
+                    $cells->setIterateOnlyExistingCells(true);
+                    foreach ($cells as $cell) {
+                        $value = $cell->getValue();
+                        if (is_string($value) && preg_match('/^-?\d{1,3}(,\d{3})+(\.\d+)?$/', trim($value), $m)) {
+                            $cell->setValueExplicit((float) str_replace(',', '', trim($value)), \PhpOffice\PhpSpreadsheet\Cell\DataType::TYPE_NUMERIC);
+                            $cell->getStyle()->getNumberFormat()->setFormatCode(isset($m[2]) ? '#,##0.' . str_repeat('0', strlen($m[2]) - 1) : '#,##0');
+                        }
+                    }
+                }
+            },
+        ];
+    }
+
     public function __construct($data)
     {
         // dd($data);

@@ -220,7 +220,7 @@
                                                                 @else
                                                                     <img src="{{ asset('package.png') }}" height='40px'
                                                                         data-toggle="tooltip" data-placement="bottom"
-                                                                        title="Pakej belum dihantar">
+                                                                        title="{{ \App\Support\PakejStatus::tooltip($data ?? null) }}">
                                                                 @endif
                                                             @elseif($data->status == 'Lulus' && $data->suku_tahun == '1' && $shuttle->shuttle_id == $data->shuttle_id)
                                                                 <a
@@ -292,7 +292,7 @@
                                                             @else
                                                                 <img src="{{ asset('package.png') }}" height='40px'
                                                                     data-toggle="tooltip" data-placement="bottom"
-                                                                    title="Pakej belum dihantar">
+                                                                    title="{{ \App\Support\PakejStatus::tooltip($data ?? null) }}">
                                                             @endif
                                                         @elseif($data->status == 'Lulus' && $data->suku_tahun == '2' && $shuttle->shuttle_id == $data->shuttle_id)
                                                             <a href="{{ route('jpn.shuttle-3-view-formB', $data->id) }}">
@@ -362,7 +362,7 @@
                                                             @else
                                                                 <img src="{{ asset('package.png') }}" height='40px'
                                                                     data-toggle="tooltip" data-placement="bottom"
-                                                                    title="Pakej belum dihantar">
+                                                                    title="{{ \App\Support\PakejStatus::tooltip($data ?? null) }}">
                                                             @endif
                                                         @elseif($data->status == 'Lulus' && $data->suku_tahun == '3' && $shuttle->shuttle_id == $data->shuttle_id)
                                                             <a href="{{ route('jpn.shuttle-3-view-formB', $data->id) }}">
@@ -428,7 +428,7 @@
                                                             @else
                                                                 <img src="{{ asset('package.png') }}" height='40px'
                                                                     data-toggle="tooltip" data-placement="bottom"
-                                                                    title="Pakej belum dihantar">
+                                                                    title="{{ \App\Support\PakejStatus::tooltip($data ?? null) }}">
                                                             @endif
                                                         @elseif($data->status == 'Lulus' && $data->suku_tahun == '4' && $shuttle->shuttle_id == $data->shuttle_id)
                                                             <a href="{{ route('jpn.shuttle-3-view-formB', $data->id) }}">

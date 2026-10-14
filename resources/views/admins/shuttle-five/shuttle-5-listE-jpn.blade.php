@@ -187,7 +187,7 @@
                                                                         data-toggle="tooltip" data-placement="bottom"
                                                                         title="Borang telah disahkan PHD"></i></a>
                                                                 @else
-                                                                <img src="{{ asset('package.png') }}" height='40px' data-toggle="tooltip" data-placement="bottom" title="Pakej belum dihantar">
+                                                                <img src="{{ asset('package.png') }}" height='40px' data-toggle="tooltip" data-placement="bottom" title="{{ \App\Support\PakejStatus::tooltip($data ?? null) }}">
                                                                 @endif
 
                                                             @elseif($data->status == 'Lulus')
@@ -244,7 +244,7 @@
                                                         @if ($packageSent)
                                                         <a href="{{ route('jpn.shuttle-5-view-form5E', $data->id) }}"><img src="{{ asset('circle_check.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang telah disahkan PHD"></a>
                                                         @else
-                                                        <img src="{{ asset('package.png') }}" height='40px' data-toggle="tooltip" data-placement="bottom" title="Pakej belum dihantar">
+                                                        <img src="{{ asset('package.png') }}" height='40px' data-toggle="tooltip" data-placement="bottom" title="{{ \App\Support\PakejStatus::tooltip($data ?? null) }}">
                                                         @endif
 
                                                     @elseif($data->status == 'Lulus')
@@ -295,7 +295,7 @@
                                                         @if ($packageSent)
                                                         <a href="{{ route('jpn.shuttle-5-view-form5E', $data->id) }}"><img src="{{ asset('circle_check.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang telah disahkan PHD"></a>
                                                         @else
-                                                        <img src="{{ asset('package.png') }}" height='40px' data-toggle="tooltip" data-placement="bottom" title="Pakej belum dihantar">
+                                                        <img src="{{ asset('package.png') }}" height='40px' data-toggle="tooltip" data-placement="bottom" title="{{ \App\Support\PakejStatus::tooltip($data ?? null) }}">
                                                         @endif
 
                                                     @elseif($data->status == 'Lulus')
@@ -346,7 +346,7 @@
                                                         @if ($packageSent)
                                                         <a href="{{ route('jpn.shuttle-5-view-form5E', $data->id) }}"><img src="{{ asset('circle_check.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang telah disahkan PHD"></a>
                                                         @else
-                                                        <img src="{{ asset('package.png') }}" height='40px' data-toggle="tooltip" data-placement="bottom" title="Pakej belum dihantar">
+                                                        <img src="{{ asset('package.png') }}" height='40px' data-toggle="tooltip" data-placement="bottom" title="{{ \App\Support\PakejStatus::tooltip($data ?? null) }}">
                                                         @endif
 
                                                     @elseif($data->status == 'Lulus')
@@ -397,7 +397,7 @@
                                                         @if ($packageSent)
                                                         <a href="{{ route('jpn.shuttle-5-view-form5E', $data->id) }}"><img src="{{ asset('circle_check.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang telah disahkan PHD"></a>
                                                         @else
-                                                        <img src="{{ asset('package.png') }}" height='40px' data-toggle="tooltip" data-placement="bottom" title="Pakej belum dihantar">
+                                                        <img src="{{ asset('package.png') }}" height='40px' data-toggle="tooltip" data-placement="bottom" title="{{ \App\Support\PakejStatus::tooltip($data ?? null) }}">
                                                         @endif
 
                                                     @elseif($data->status == 'Lulus')
@@ -448,7 +448,7 @@
                                                         @if ($packageSent)
                                                         <a href="{{ route('jpn.shuttle-5-view-form5E', $data->id) }}"><img src="{{ asset('circle_check.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang telah disahkan PHD"></a>
                                                         @else
-                                                        <img src="{{ asset('package.png') }}" height='40px' data-toggle="tooltip" data-placement="bottom" title="Pakej belum dihantar">
+                                                        <img src="{{ asset('package.png') }}" height='40px' data-toggle="tooltip" data-placement="bottom" title="{{ \App\Support\PakejStatus::tooltip($data ?? null) }}">
                                                         @endif
 
                                                     @elseif($data->status == 'Lulus')
@@ -499,7 +499,7 @@
                                                         @if ($packageSent)
                                                         <a href="{{ route('jpn.shuttle-5-view-form5E', $data->id) }}"><img src="{{ asset('circle_check.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang telah disahkan PHD"></a>
                                                         @else
-                                                        <img src="{{ asset('package.png') }}" height='40px' data-toggle="tooltip" data-placement="bottom" title="Pakej belum dihantar">
+                                                        <img src="{{ asset('package.png') }}" height='40px' data-toggle="tooltip" data-placement="bottom" title="{{ \App\Support\PakejStatus::tooltip($data ?? null) }}">
                                                         @endif
 
                                                     @elseif($data->status == 'Lulus')
@@ -550,7 +550,7 @@
                                                         @if ($packageSent)
                                                         <a href="{{ route('jpn.shuttle-5-view-form5E', $data->id) }}"><img src="{{ asset('circle_check.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang telah disahkan PHD"></a>
                                                         @else
-                                                        <img src="{{ asset('package.png') }}" height='40px' data-toggle="tooltip" data-placement="bottom" title="Pakej belum dihantar">
+                                                        <img src="{{ asset('package.png') }}" height='40px' data-toggle="tooltip" data-placement="bottom" title="{{ \App\Support\PakejStatus::tooltip($data ?? null) }}">
                                                         @endif
 
                                                     @elseif($data->status == 'Lulus')
@@ -601,7 +601,7 @@
                                                         @if ($packageSent)
                                                         <a href="{{ route('jpn.shuttle-5-view-form5E', $data->id) }}"><img src="{{ asset('circle_check.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang telah disahkan PHD"></a>
                                                         @else
-                                                        <img src="{{ asset('package.png') }}" height='40px' data-toggle="tooltip" data-placement="bottom" title="Pakej belum dihantar">
+                                                        <img src="{{ asset('package.png') }}" height='40px' data-toggle="tooltip" data-placement="bottom" title="{{ \App\Support\PakejStatus::tooltip($data ?? null) }}">
                                                         @endif
 
                                                     @elseif($data->status == 'Lulus')
@@ -652,7 +652,7 @@
                                                         @if ($packageSent)
                                                         <a href="{{ route('jpn.shuttle-5-view-form5E', $data->id) }}"><img src="{{ asset('circle_check.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang telah disahkan PHD"></a>
                                                         @else
-                                                        <img src="{{ asset('package.png') }}" height='40px' data-toggle="tooltip" data-placement="bottom" title="Pakej belum dihantar">
+                                                        <img src="{{ asset('package.png') }}" height='40px' data-toggle="tooltip" data-placement="bottom" title="{{ \App\Support\PakejStatus::tooltip($data ?? null) }}">
                                                         @endif
 
                                                     @elseif($data->status == 'Lulus')
@@ -703,7 +703,7 @@
                                                         @if ($packageSent)
                                                         <a href="{{ route('jpn.shuttle-5-view-form5E', $data->id) }}"><img src="{{ asset('circle_check.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang telah disahkan PHD"></a>
                                                         @else
-                                                        <img src="{{ asset('package.png') }}" height='40px' data-toggle="tooltip" data-placement="bottom" title="Pakej belum dihantar">
+                                                        <img src="{{ asset('package.png') }}" height='40px' data-toggle="tooltip" data-placement="bottom" title="{{ \App\Support\PakejStatus::tooltip($data ?? null) }}">
                                                         @endif
 
                                                     @elseif($data->status == 'Lulus')
@@ -755,7 +755,7 @@
                                                         @if ($packageSent)
                                                         <a href="{{ route('jpn.shuttle-5-view-form5E', $data->id) }}"><img src="{{ asset('circle_check.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang telah disahkan PHD"></a>
                                                         @else
-                                                        <img src="{{ asset('package.png') }}" height='40px' data-toggle="tooltip" data-placement="bottom" title="Pakej belum dihantar">
+                                                        <img src="{{ asset('package.png') }}" height='40px' data-toggle="tooltip" data-placement="bottom" title="{{ \App\Support\PakejStatus::tooltip($data ?? null) }}">
                                                         @endif
 
                                                     @elseif($data->status == 'Lulus')

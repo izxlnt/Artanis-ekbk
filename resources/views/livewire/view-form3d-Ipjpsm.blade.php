@@ -188,7 +188,6 @@
                                                                                         <input readonly class="text-right" style="background-color: #7ee48c6b;" type="text"
                                                                                         size="10" wire:model='total_export' value="{{ number_format($formd->total_export ?? 0,2,'.','')}} ">
 
-                                                                                        <input class="text-right" style="" type="text" oninput="validate(this)" onkeypress="return isNumberKey(event)" size="10" name="total_export_cleaning" >
                                                                                     </td>
                                                                                 </tr>
 
@@ -198,7 +197,6 @@
                                                                                         dalam pasaran tempatan (m³)</td>
                                                                                     <td style="text-align:center;">
                                                                                         <input style="background-color: #7ee48c6b;" class="text-right" type="text" size="10" value="{{ number_format($formd->jumlah_pasaran_tempatan,2,'.','')}}" readonly>
-                                                                                        <input type="text" style="background-color: #7ee48c6b;" class="text-right" size="10" oninput="validate(this)" onkeypress="return isNumberKey(event)" name="jumlah_pasaran_tempatan_cleaning" id="jumlah_pasaran_tempatan_cleaning" readonly>
                                                                                     </td>
                                                                                 </tr>
 
@@ -237,7 +235,6 @@
                                                                                         </td>
                                                                                         <td style="text-align:center;">
                                                                                             <input style="background-color:#7ee48c6b;text-align:right" type="text" size="10"  value="{{ number_format($form_d[$key]->jumlah_jualan,2,'.','')}}" readonly>
-                                                                                            <input  type="text" oninput="validate(this);calcTotalJumlahJualan()" onkeypress="return isNumberKey(event)" size="10" style="text-align: right" name="jumlah_jualan_cleaning[]" id="jumlah_jualan_cleaning.{{ $key }}"  >
                                                                                         </td>
                                                                                     </tr>
                                                                                 @endforeach
@@ -248,7 +245,6 @@
                                                                                         class="col-md-12">Jumlah</th>
                                                                                     <td style="text-align:center;background-color: #7ee48c6b;">
                                                                                         <input type="text" style="background-color:#7ee48c6b; text-align:right" size="10" wire:model='total_jumlah_jualan' value="{{ number_format($form_d[0]->total_jumlah_jualan,2,'.','')}} " readonly>
-                                                                                        <input type="text"  size="10" style="background-color:#7ee48c6b;text-align:right" name="total_jumlah_jualan_cleaning" id="total_jumlah_jualan_cleaning" readonly>
                                                                                     </td>  </span>
                                                                                 </tr>
                                                                             </table>
