@@ -126,7 +126,7 @@
                                                 </td>
                                                 <td>
                                                     @if ($data->status == 'Tidak Lengkap')
-                                                        <a href="{{ route('edit-form4a', $shuttle->id) }}"><img src="{{ asset('history.png') }}" height='30px' alt="" style="font-size: 15pt;"
+                                                        <a href="{{ url('/pengguna/shuttle-5-formA/' . $year) }}"><img src="{{ asset('history.png') }}" height='30px' alt="" style="font-size: 15pt;"
                                                             data-toggle="tooltip" data-placement="bottom"
                                                             title="Borang tidak lengkap"></i></a>
                                                     @elseif($data->status == 'Tidak Diisi')
