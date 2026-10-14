@@ -531,7 +531,13 @@ class MainController extends Controller
         if (!$form5E || $form5E->status === 'Sedang Diisi') {
             return redirect()->back()->with('error', 'Borang masih sedang diisi oleh pengguna kilang.');
         }
-        // dd( $form5E);
+        // A -> B -> C -> D -> E: E can only be approved once the same month's D is approved
+        if ($request->status == "Dihantar ke IPJPSM") {
+            $form5D = \App\Models\Form5D::where('shuttle_id', $form5E->shuttle_id)->where('tahun', $form5E->tahun)->where('bulan', $form5E->bulan)->first();
+            if (!$form5D || !in_array($form5D->status, ['Dihantar ke IPJPSM', 'Lulus'])) {
+                return redirect()->back()->with('error', 'Sila sahkan Borang D bagi bulan yang sama terlebih dahulu sebelum mengesahkan Borang E.');
+            }
+        }
         $form5E->status = $request->status;
         $form5E->save();
 
