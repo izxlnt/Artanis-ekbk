@@ -16,7 +16,10 @@
     $hint = null;
     $style = $role === 'IBK' ? '' : 'font-size: 11pt;';
 
-    if ($status === 'Tidak Diisi') {
+    if ($status === 'Tidak Diisi' && $role !== 'IBK' && \App\Support\TempohBorang::ditutup($form)) {
+        // period not opened yet (e.g. next months) - same "ditutup" as the JPN/PHD month grids
+        [$text, $class] = ['Borang ditutup', 'label-inverse'];
+    } elseif ($status === 'Tidak Diisi') {
         [$text, $class] = ['Borang belum diisi', 'label-danger'];
     } elseif ($status === 'Sedang Diisi') {
         [$text, $class] = ['Borang sedang diisi', 'label-danger'];

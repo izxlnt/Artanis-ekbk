@@ -153,7 +153,7 @@
                                                             data-toggle="tooltip" data-placement="bottom"
                                                             title="Borang tidak lengkap">
                                                     @elseif($data->status == 'Tidak Diisi')
-                                                        <img src="{{ asset('circle_times.png') }}" height='30px' data-toggle="tooltip" data-placement="bottom" title="Borang belum diisi">
+                                                        <img src="{{ asset(\App\Support\TempohBorang::ditutup($data) ? 'calendar.png' : 'circle_times.png') }}" height='30px' data-toggle="tooltip" data-placement="bottom" title="{{ \App\Support\TempohBorang::ditutup($data) ? 'Borang ditutup' : 'Borang belum diisi' }}">
                                                     @elseif($data->status == 'Sedang Diisi')
                                                         <img src="{{ asset('circle_times.png') }}" height='30px'
                                                             data-toggle="tooltip" data-placement="bottom"

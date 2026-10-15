@@ -221,54 +221,45 @@
                                 <div class="col-md-2"></div>
                             </div>
 
-                            {{-- <div class="row">
-                    <div class="col-md-2"></div>
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label for="wphoneNumber2"
-                                class="">Muat Naik Gambar Hadapan Kad Pengenalan</label>
-
-                            <input type='file' class="form-control"
-                                name="gambar_ic_hadapan" id="ssm" />
-
-
-                            @error('gambar_ic_hadapan')
-                                <div class="alert alert-danger">
-                                    <strong>{{ $message }}</strong>
-                                </div>
-                            @enderror
-                        </div>
-                    </div>
-
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label for="wphoneNumber2"
-                                class="">Muat Naik Gambar Belakang Kad Pengenalan</label>
-                            <input type="file" class="form-control"
-                                name="gambar_ic_belakang" id="lesenkilang">
-                            @error('lesen_kilang')
-                                <div class="alert alert-danger">
-                                    <strong>{{ $message }}</strong>
-                                </div>
-                            @enderror
-                        </div>
-                    </div>
-                </div> --}}
-
+                            {{-- The user's own documents (IC front/back, passport photo). Each shows what was
+                                 uploaded - an image preview, or a "Lihat PDF" button for a PDF - and its own
+                                 optional PILIH FAIL to replace it. --}}
+                            @php
+                                $dokumenPengguna = [
+                                    'gambar_ic_hadapan' => 'Gambar Hadapan Kad Pengenalan',
+                                    'gambar_ic_belakang' => 'Gambar Belakang Kad Pengenalan',
+                                    'gambar_passport' => 'Gambar Berukuran Passport',
+                                ];
+                            @endphp
                             <div class="row">
                                 <div class="col-md-2"></div>
-                                <div class="col-md-4">
-                                    <p>Gambar Dimuat Naik:</p>
-                                    <img src="{{ asset($image_path = str_replace('public', 'storage', $pengguna->gambar_ic_hadapan)) }}"
-                                        alt="Sila Muatnaik Gambar Sijil SSM" id="category-img-ssm"
-                                        style="width:70%;height:30vh;">
-                                </div>
-                                <div class="col-md-4">
-                                    <p>Gambar Dimuat Naik:</p>
-                                    <img src="{{ asset($image_path = str_replace('public', 'storage', $pengguna->gambar_ic_belakang)) }}"
-                                        alt="Sila Muatnaik Gambar Lesen Kilang" id="category-img-tag-lesenkilang"
-                                        style="width:70%;height:30vh;">
-                                </div>
+                                @foreach ($dokumenPengguna as $field => $label)
+                                    <div class="col-md-{{ $loop->last ? '2' : '3' }} mb-3" style="{{ $loop->last ? 'flex:0 0 22%;max-width:22%;' : '' }}">
+                                        <label class="font-weight-bold">{{ $label }}</label>
+                                        @php $docPath = $pengguna->$field ?? null; @endphp
+                                        @if ($docPath)
+                                            @php
+                                                $docUrl = asset(str_replace('public', 'storage', $docPath));
+                                                $docExt = strtolower(pathinfo($docPath, PATHINFO_EXTENSION));
+                                            @endphp
+                                            @if ($docExt === 'pdf')
+                                                <div class="mb-2"><a href="{{ $docUrl }}" target="_blank" class="btn btn-outline-primary btn-sm"><i class="fas fa-file-pdf"></i> Lihat PDF</a></div>
+                                            @else
+                                                <img src="{{ $docUrl }}" alt="{{ $label }}" style="width:100%;height:25vh;object-fit:contain;" class="mb-1">
+                                                <div class="mb-2"><a href="{{ $docUrl }}" target="_blank" class="btn btn-sm btn-outline-secondary">Lihat / Muat Turun</a></div>
+                                            @endif
+                                        @else
+                                            <p class="text-muted mb-2">Tiada fail dimuat naik</p>
+                                        @endif
+                                        <small class="form-text mb-1"><i class="fas fa-camera"></i> JPG, PNG atau PDF. Maks: 8MB</small>
+                                        <label for="{{ $field }}" class="form-control" style="cursor:pointer;" id="{{ $field }}_label">PILIH FAIL</label>
+                                        <input type="file" id="{{ $field }}" name="{{ $field }}" accept="image/jpeg,image/jpg,image/png,application/pdf" style="display: none"
+                                            onchange="document.getElementById('{{ $field }}_label').textContent = this.files.length ? this.files[0].name : 'PILIH FAIL';">
+                                        @error($field)
+                                            <div class="alert alert-danger mt-1 p-1"><strong>{{ $message }}</strong></div>
+                                        @enderror
+                                    </div>
+                                @endforeach
                             </div>
 
                             <br>
@@ -301,44 +292,65 @@
                                 <div class="col-md-2"></div>
                             </div>
 
-                            <div class="row">
+
+
+
+
+
+
+                            {{-- <div class="row">
+                    <div class="col-md-2"></div>
+                    <div class="col-md">
+                      <label>Telefon Bimbit</label>
+                      <div class="mb-3 input-group">
+                        <div class="mb-3 input-group">
+                            <input class="form-control  @error('mobile_phone') is-invalid @else border-dark @enderror" id="mobile_phone" name="no_telefon" type="text" value="{{ $info->no_telefon }}" oninput="let p=this.selectionStart;this.value=this.value.toUpperCase();this.setSelectionRange(p, p);" minlength="10" maxlength="11" onkeypress="return onlyNumberKey(event)">
+                          @error('mobile_phone')
+                          <span class="invalid-feedback" role="alert">
+                                  <strong>{{ $message }}</strong>
+                          </span>
+                          @enderror
+                        </div>
+                    </div>
+                    </div>
+
+                    <div class="col-md-2"></div>
+                  </div> --}}
+
+                            {{-- Submit Button --}}
+                            <div class="row" style="padding-top: 35px;">
                                 <div class="col-md-4"></div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-
-
-
-                                        <label for="wphoneNumber2" class="">Muat Naik Gambar
-                                            Berukuran Passport</label>
-
-                                        <small class="form-text mb-2">
-                                            <i class="fas fa-camera"></i> Format: JPG, PNG sahaja. Maks: 8MB
-                                        </small>
-                                        <label for="gambar_passport" class="form-control">PILIH FAIL</label>
-                                        <input type="file" id="gambar_passport" name="gambar_passport"
-                                            accept="image/jpeg,image/jpg,image/png" style="display: none" required
-                                            title="Sila isikan butiran ini.">
-                                        {{-- <input type="file" class="form-control"
-                                name="gambar_passport" id="lesenkilang">
-                            @error('lesen_kilang')
-                                <div class="alert alert-danger">
-                                    <strong>{{ $message }}</strong>
+                                <div class="col-md" style="text-align: center;">
+                                    <button type="button" class="btn waves-effect waves-light btn-info btn-block"
+                                        data-toggle="modal" data-target="#confirmation">Kemaskini Profil Pengguna</button>
                                 </div>
-                            @enderror --}}
+                                <div class="col-md-4"></div>
+                            </div>
+
+                            {{-- Hidden Gap - Just Ignore --}}
+                            <div class="alert alert-white" style="text-align: center;"></div>
+                            {{-- <div style="padding: 25px;"></div> --}}
+                        </div>
+
+                        <!-- Modal Confirmation -->
+                        <div class="modal fade" id="confirmation" tabindex="-1" role="dialog"
+                            aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header" style="background-color:#f3ce8f  !important">
+                                        <h5 class="modal-title" id="exampleModalLongTitle"><i
+                                                class="fa fa-exclamation-triangle" aria-hidden="true"
+                                                style="color:rgb(255, 255, 0)"></i>&nbspPENGESAHAN</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
                                     </div>
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="col-md-5"></div>
-                                <div class="col-md-3">
-                                    <p>Gambar Dimuat Naik:</p>
-                                    <img src="{{ asset($image_path = str_replace('public', 'storage', $pengguna->gambar_passport)) }}"
-                                        alt="Sila Muatnaik Gambar Sijil SSM" id="category-img-ssm"
-                                        style="width:70%;height:30vh;">
-                                </div>
-                            </div>
-
+                                    <div class="modal-body"><b>
+                                            Anda pasti mahu mengemaskini profil pengguna?</b>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-danger"
+                                            data-dismiss="modal">Kembal
 
 
 

@@ -226,7 +226,7 @@
                                                                 $jumlah_purata_keseluruhan = $jumlah_purata_keseluruhan + $purata_keseluruhan;
                                                             @endphp
 
-                                                            {{ number_format(round($jumlah_purata_keseluruhan = $jumlah_pendapatan / max($jumlah_guna_tenaga, 1), 2)) }}
+                                                            {{ number_format(round(($value[0]->jumlah_gaji_lelaki + $value[0]->jumlah_gaji_perempuan) / max($value[0]->jumlah_lelaki + $value[0]->jumlah_perempuan, 1), 2)) }}
                                                         @endif
                                                     </td>
 

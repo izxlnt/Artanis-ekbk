@@ -4100,9 +4100,7 @@ class ExcelController extends Controller
                                     FROM
                                     shuttles,
                                     (SELECT form4ds_id,
-                    MAX(jumlah_besar_mr) AS jumlah_besar_mr, MAX(jumlah_besar_wbp) AS jumlah_besar_wbp,
-                    MAX(jumlah_kecil_1_mr) AS jumlah_kecil_1_mr, MAX(jumlah_kecil_1_wbp) AS jumlah_kecil_1_wbp,
-                    MAX(jumlah_kecil_2_mr) AS jumlah_kecil_2_mr, MAX(jumlah_kecil_2_wbp) AS jumlah_kecil_2_wbp
+                    ROUND(MAX(jumlah_kecil_1_mr)) + ROUND(MAX(jumlah_kecil_2_mr)) AS jumlah_besar_mr, ROUND(MAX(jumlah_kecil_1_wbp)) + ROUND(MAX(jumlah_kecil_2_wbp)) AS jumlah_besar_wbp, ROUND(MAX(jumlah_kecil_1_mr)) AS jumlah_kecil_1_mr, ROUND(MAX(jumlah_kecil_1_wbp)) AS jumlah_kecil_1_wbp, ROUND(MAX(jumlah_kecil_2_mr)) AS jumlah_kecil_2_mr, ROUND(MAX(jumlah_kecil_2_wbp)) AS jumlah_kecil_2_wbp
                 FROM produk_pengeluarans GROUP BY form4ds_id) produk_pengeluarans,
                                     form4_d_s
 
@@ -5469,7 +5467,7 @@ class ExcelController extends Controller
             foreach ($negeri_list as $negeri) {
                 $data = DB::select("SELECT
                     shuttles.negeri_id as negeri,
-                    sum(kemasukan_bahans.proses_masuk) as jumlah_penggunaan,
+                    sum(ROUND(kemasukan_bahans.proses_masuk)) as jumlah_penggunaan,
                     form_c_s.bulan as bulan
 
                     FROM
@@ -5574,7 +5572,7 @@ class ExcelController extends Controller
             $grandtotal[$x] = 0;
             foreach ($negeri_list as $negeri) {
                 $data = DB::select("SELECT shuttles.negeri_id as negeri,
-                    sum(kemasukan_bahans.proses_masuk) as jumlah_penggunaan
+                    sum(ROUND(kemasukan_bahans.proses_masuk)) as jumlah_penggunaan
 
                     FROM
                     shuttles,
@@ -5684,7 +5682,7 @@ class ExcelController extends Controller
                     foreach ($negeri_list as $negeri) {
                         $data = DB::select("SELECT
                     shuttles.negeri_id as negeri,
-                    sum(kemasukan_bahans.proses_masuk) as jumlah_penggunaan
+                    sum(ROUND(kemasukan_bahans.proses_masuk)) as jumlah_penggunaan
 
                     FROM
                     shuttles,
@@ -5785,7 +5783,7 @@ class ExcelController extends Controller
                     if ($sp->kumpulan_kayu_id == $kk->id) {
                         $datas[$kk->singkatan][$sp->nama_tempatan][$i] = DB::select("SELECT
                     form_c_s.bulan as bulan,
-                    sum(kemasukan_bahans.proses_masuk) as jumlah_penggunaan
+                    sum(ROUND(kemasukan_bahans.proses_masuk)) as jumlah_penggunaan
 
                     FROM
                     shuttles,
@@ -5886,7 +5884,7 @@ class ExcelController extends Controller
                     if ($sp->kumpulan_kayu_id == $kk->id) {
                         $datas[$kk->singkatan][$sp->nama_tempatan] = DB::select("SELECT
                     form_c_s.tahun as tahun,
-                    sum(kemasukan_bahans.proses_masuk) as jumlah_penggunaan
+                    sum(ROUND(kemasukan_bahans.proses_masuk)) as jumlah_penggunaan
 
                     FROM
                     shuttles,
@@ -5978,9 +5976,7 @@ class ExcelController extends Controller
                     shuttles,
                     form4_d_s,
                     (SELECT form4ds_id,
-                    MAX(jumlah_besar_mr) AS jumlah_besar_mr, MAX(jumlah_besar_wbp) AS jumlah_besar_wbp,
-                    MAX(jumlah_kecil_1_mr) AS jumlah_kecil_1_mr, MAX(jumlah_kecil_1_wbp) AS jumlah_kecil_1_wbp,
-                    MAX(jumlah_kecil_2_mr) AS jumlah_kecil_2_mr, MAX(jumlah_kecil_2_wbp) AS jumlah_kecil_2_wbp
+                    ROUND(MAX(jumlah_kecil_1_mr)) + ROUND(MAX(jumlah_kecil_2_mr)) AS jumlah_besar_mr, ROUND(MAX(jumlah_kecil_1_wbp)) + ROUND(MAX(jumlah_kecil_2_wbp)) AS jumlah_besar_wbp, ROUND(MAX(jumlah_kecil_1_mr)) AS jumlah_kecil_1_mr, ROUND(MAX(jumlah_kecil_1_wbp)) AS jumlah_kecil_1_wbp, ROUND(MAX(jumlah_kecil_2_mr)) AS jumlah_kecil_2_mr, ROUND(MAX(jumlah_kecil_2_wbp)) AS jumlah_kecil_2_wbp
                 FROM produk_pengeluarans GROUP BY form4ds_id) produk_pengeluarans
 
                     WHERE form4_d_s.shuttle_id = shuttles.id
@@ -6083,9 +6079,7 @@ class ExcelController extends Controller
                     shuttles,
                     form4_d_s,
                     (SELECT form4ds_id,
-                    MAX(jumlah_besar_mr) AS jumlah_besar_mr, MAX(jumlah_besar_wbp) AS jumlah_besar_wbp,
-                    MAX(jumlah_kecil_1_mr) AS jumlah_kecil_1_mr, MAX(jumlah_kecil_1_wbp) AS jumlah_kecil_1_wbp,
-                    MAX(jumlah_kecil_2_mr) AS jumlah_kecil_2_mr, MAX(jumlah_kecil_2_wbp) AS jumlah_kecil_2_wbp
+                    ROUND(MAX(jumlah_kecil_1_mr)) + ROUND(MAX(jumlah_kecil_2_mr)) AS jumlah_besar_mr, ROUND(MAX(jumlah_kecil_1_wbp)) + ROUND(MAX(jumlah_kecil_2_wbp)) AS jumlah_besar_wbp, ROUND(MAX(jumlah_kecil_1_mr)) AS jumlah_kecil_1_mr, ROUND(MAX(jumlah_kecil_1_wbp)) AS jumlah_kecil_1_wbp, ROUND(MAX(jumlah_kecil_2_mr)) AS jumlah_kecil_2_mr, ROUND(MAX(jumlah_kecil_2_wbp)) AS jumlah_kecil_2_wbp
                 FROM produk_pengeluarans GROUP BY form4ds_id) produk_pengeluarans
 
                     WHERE form4_d_s.shuttle_id = shuttles.id
@@ -6192,9 +6186,7 @@ class ExcelController extends Controller
                     shuttles,
                     form4_d_s,
                     (SELECT form4ds_id,
-                    MAX(jumlah_besar_mr) AS jumlah_besar_mr, MAX(jumlah_besar_wbp) AS jumlah_besar_wbp,
-                    MAX(jumlah_kecil_1_mr) AS jumlah_kecil_1_mr, MAX(jumlah_kecil_1_wbp) AS jumlah_kecil_1_wbp,
-                    MAX(jumlah_kecil_2_mr) AS jumlah_kecil_2_mr, MAX(jumlah_kecil_2_wbp) AS jumlah_kecil_2_wbp
+                    ROUND(MAX(jumlah_kecil_1_mr)) + ROUND(MAX(jumlah_kecil_2_mr)) AS jumlah_besar_mr, ROUND(MAX(jumlah_kecil_1_wbp)) + ROUND(MAX(jumlah_kecil_2_wbp)) AS jumlah_besar_wbp, ROUND(MAX(jumlah_kecil_1_mr)) AS jumlah_kecil_1_mr, ROUND(MAX(jumlah_kecil_1_wbp)) AS jumlah_kecil_1_wbp, ROUND(MAX(jumlah_kecil_2_mr)) AS jumlah_kecil_2_mr, ROUND(MAX(jumlah_kecil_2_wbp)) AS jumlah_kecil_2_wbp
                 FROM produk_pengeluarans GROUP BY form4ds_id) produk_pengeluarans
 
                     WHERE form4_d_s.shuttle_id = shuttles.id
@@ -6318,9 +6310,7 @@ class ExcelController extends Controller
                     shuttles,
                     form4_d_s,
                     (SELECT form4ds_id,
-                    MAX(jumlah_besar_mr) AS jumlah_besar_mr, MAX(jumlah_besar_wbp) AS jumlah_besar_wbp,
-                    MAX(jumlah_kecil_1_mr) AS jumlah_kecil_1_mr, MAX(jumlah_kecil_1_wbp) AS jumlah_kecil_1_wbp,
-                    MAX(jumlah_kecil_2_mr) AS jumlah_kecil_2_mr, MAX(jumlah_kecil_2_wbp) AS jumlah_kecil_2_wbp
+                    ROUND(MAX(jumlah_kecil_1_mr)) + ROUND(MAX(jumlah_kecil_2_mr)) AS jumlah_besar_mr, ROUND(MAX(jumlah_kecil_1_wbp)) + ROUND(MAX(jumlah_kecil_2_wbp)) AS jumlah_besar_wbp, ROUND(MAX(jumlah_kecil_1_mr)) AS jumlah_kecil_1_mr, ROUND(MAX(jumlah_kecil_1_wbp)) AS jumlah_kecil_1_wbp, ROUND(MAX(jumlah_kecil_2_mr)) AS jumlah_kecil_2_mr, ROUND(MAX(jumlah_kecil_2_wbp)) AS jumlah_kecil_2_wbp
                 FROM produk_pengeluarans GROUP BY form4ds_id) produk_pengeluarans
 
                     WHERE form4_d_s.shuttle_id = shuttles.id
@@ -6434,9 +6424,7 @@ class ExcelController extends Controller
                     shuttles,
                     form4_d_s,
                     (SELECT form4ds_id,
-                    MAX(jumlah_besar_mr) AS jumlah_besar_mr, MAX(jumlah_besar_wbp) AS jumlah_besar_wbp,
-                    MAX(jumlah_kecil_1_mr) AS jumlah_kecil_1_mr, MAX(jumlah_kecil_1_wbp) AS jumlah_kecil_1_wbp,
-                    MAX(jumlah_kecil_2_mr) AS jumlah_kecil_2_mr, MAX(jumlah_kecil_2_wbp) AS jumlah_kecil_2_wbp
+                    ROUND(MAX(jumlah_kecil_1_mr)) + ROUND(MAX(jumlah_kecil_2_mr)) AS jumlah_besar_mr, ROUND(MAX(jumlah_kecil_1_wbp)) + ROUND(MAX(jumlah_kecil_2_wbp)) AS jumlah_besar_wbp, ROUND(MAX(jumlah_kecil_1_mr)) AS jumlah_kecil_1_mr, ROUND(MAX(jumlah_kecil_1_wbp)) AS jumlah_kecil_1_wbp, ROUND(MAX(jumlah_kecil_2_mr)) AS jumlah_kecil_2_mr, ROUND(MAX(jumlah_kecil_2_wbp)) AS jumlah_kecil_2_wbp
                 FROM produk_pengeluarans GROUP BY form4ds_id) produk_pengeluarans
 
                     WHERE form4_d_s.shuttle_id = shuttles.id
@@ -6547,9 +6535,7 @@ class ExcelController extends Controller
                     shuttles,
                     form4_d_s,
                     (SELECT form4ds_id,
-                    MAX(jumlah_besar_mr) AS jumlah_besar_mr, MAX(jumlah_besar_wbp) AS jumlah_besar_wbp,
-                    MAX(jumlah_kecil_1_mr) AS jumlah_kecil_1_mr, MAX(jumlah_kecil_1_wbp) AS jumlah_kecil_1_wbp,
-                    MAX(jumlah_kecil_2_mr) AS jumlah_kecil_2_mr, MAX(jumlah_kecil_2_wbp) AS jumlah_kecil_2_wbp
+                    ROUND(MAX(jumlah_kecil_1_mr)) + ROUND(MAX(jumlah_kecil_2_mr)) AS jumlah_besar_mr, ROUND(MAX(jumlah_kecil_1_wbp)) + ROUND(MAX(jumlah_kecil_2_wbp)) AS jumlah_besar_wbp, ROUND(MAX(jumlah_kecil_1_mr)) AS jumlah_kecil_1_mr, ROUND(MAX(jumlah_kecil_1_wbp)) AS jumlah_kecil_1_wbp, ROUND(MAX(jumlah_kecil_2_mr)) AS jumlah_kecil_2_mr, ROUND(MAX(jumlah_kecil_2_wbp)) AS jumlah_kecil_2_wbp
                 FROM produk_pengeluarans GROUP BY form4ds_id) produk_pengeluarans
 
                     WHERE form4_d_s.shuttle_id = shuttles.id
@@ -6650,9 +6636,7 @@ class ExcelController extends Controller
                     shuttles,
                     form4_d_s,
                     (SELECT form4ds_id,
-                    MAX(jumlah_besar_mr) AS jumlah_besar_mr, MAX(jumlah_besar_wbp) AS jumlah_besar_wbp,
-                    MAX(jumlah_kecil_1_mr) AS jumlah_kecil_1_mr, MAX(jumlah_kecil_1_wbp) AS jumlah_kecil_1_wbp,
-                    MAX(jumlah_kecil_2_mr) AS jumlah_kecil_2_mr, MAX(jumlah_kecil_2_wbp) AS jumlah_kecil_2_wbp
+                    ROUND(MAX(jumlah_kecil_1_mr)) + ROUND(MAX(jumlah_kecil_2_mr)) AS jumlah_besar_mr, ROUND(MAX(jumlah_kecil_1_wbp)) + ROUND(MAX(jumlah_kecil_2_wbp)) AS jumlah_besar_wbp, ROUND(MAX(jumlah_kecil_1_mr)) AS jumlah_kecil_1_mr, ROUND(MAX(jumlah_kecil_1_wbp)) AS jumlah_kecil_1_wbp, ROUND(MAX(jumlah_kecil_2_mr)) AS jumlah_kecil_2_mr, ROUND(MAX(jumlah_kecil_2_wbp)) AS jumlah_kecil_2_wbp
                 FROM produk_pengeluarans GROUP BY form4ds_id) produk_pengeluarans
 
                     WHERE form4_d_s.shuttle_id = shuttles.id
@@ -6761,9 +6745,7 @@ class ExcelController extends Controller
                     shuttles,
                     form4_d_s,
                     (SELECT form4ds_id,
-                    MAX(jumlah_besar_mr) AS jumlah_besar_mr, MAX(jumlah_besar_wbp) AS jumlah_besar_wbp,
-                    MAX(jumlah_kecil_1_mr) AS jumlah_kecil_1_mr, MAX(jumlah_kecil_1_wbp) AS jumlah_kecil_1_wbp,
-                    MAX(jumlah_kecil_2_mr) AS jumlah_kecil_2_mr, MAX(jumlah_kecil_2_wbp) AS jumlah_kecil_2_wbp
+                    ROUND(MAX(jumlah_kecil_1_mr)) + ROUND(MAX(jumlah_kecil_2_mr)) AS jumlah_besar_mr, ROUND(MAX(jumlah_kecil_1_wbp)) + ROUND(MAX(jumlah_kecil_2_wbp)) AS jumlah_besar_wbp, ROUND(MAX(jumlah_kecil_1_mr)) AS jumlah_kecil_1_mr, ROUND(MAX(jumlah_kecil_1_wbp)) AS jumlah_kecil_1_wbp, ROUND(MAX(jumlah_kecil_2_mr)) AS jumlah_kecil_2_mr, ROUND(MAX(jumlah_kecil_2_wbp)) AS jumlah_kecil_2_wbp
                 FROM produk_pengeluarans GROUP BY form4ds_id) produk_pengeluarans
 
                     WHERE form4_d_s.shuttle_id = shuttles.id
@@ -6864,19 +6846,14 @@ class ExcelController extends Controller
         for ($i = 1; $i <= 12; $i++) {
             $data = DB::select("SELECT
             form4_e_s.bulan as bulan,
-            sum(penjualan_pembelis.jumlah_jualan_laporan) as domestik_papan_lapis,
-            (round(form4_e_s.jumlah_venier_tempatan_laporan)) as domestik_venier
-
+            sum((SELECT COALESCE(SUM(ROUND(pp.jumlah_jualan_laporan)), 0) FROM penjualan_pembelis pp JOIN pembelis pb ON pb.id = pp.pembeli_id WHERE pp.form4es_id = form4_e_s.id)) as domestik_papan_lapis,
+            sum(ROUND(form4_e_s.jumlah_venier_tempatan_laporan)) as domestik_venier
+            
             FROM
             shuttles,
-            form4_e_s,
-            penjualan_pembelis,
-            pembelis
-
+            form4_e_s
+            
             WHERE form4_e_s.shuttle_id = shuttles.id
-
-            AND penjualan_pembelis.form4es_id = form4_e_s.id
-            AND penjualan_pembelis.pembeli_id = pembelis.id
             AND shuttles.shuttle_type = '4'
             AND form4_e_s.status = 'Lulus'
             AND form4_e_s.tahun = '$tahun'
@@ -6959,7 +6936,7 @@ class ExcelController extends Controller
             $data = DB::select("SELECT
             form4_e_s.id,
             shuttles.negeri_id as negeri,
-            sum(penjualan_pembelis.jumlah_jualan_laporan) as domestik_papan_lapis,
+            sum(ROUND(penjualan_pembelis.jumlah_jualan_laporan)) as domestik_papan_lapis,
             round(form4_e_s.jumlah_venier_tempatan_laporan) as domestik_venier
 
             FROM
@@ -7049,7 +7026,7 @@ class ExcelController extends Controller
             foreach ($negeri_list as $negeri) {
                 $data = DB::select("SELECT
                 shuttles.negeri_id as negeri,
-                sum(penjualan_pembelis.jumlah_jualan_laporan) as domestik
+                sum(ROUND(penjualan_pembelis.jumlah_jualan_laporan)) as domestik
 
                 FROM
                 shuttles,
@@ -7138,7 +7115,7 @@ class ExcelController extends Controller
             foreach ($negeri_list as $negeri) {
                 $data = DB::select("SELECT
                 shuttles.negeri_id as negeri,
-                sum(form4_e_s.jumlah_venier_tempatan_laporan) as domestik
+                sum(ROUND(form4_e_s.jumlah_venier_tempatan_laporan)) as domestik
 
                 FROM
                 shuttles,
@@ -7224,7 +7201,7 @@ class ExcelController extends Controller
             for ($bulan = 1; $bulan <= 12; $bulan++) {
                 $datas[$pembeli->keterangan][$bulan] = DB::select("SELECT
                 pembelis.keterangan as pembeli_keterangan,
-                sum(penjualan_pembelis.jumlah_jualan_laporan) as jumlah_jualan,
+                sum(ROUND(penjualan_pembelis.jumlah_jualan_laporan)) as jumlah_jualan,
 
                 -- sepatutnya ini yang betul
                 -- sum(penjualan_pembelis.jumlah_jualan_laporan) as jumlah_jualan,
@@ -7322,7 +7299,7 @@ class ExcelController extends Controller
 
                 $data = DB::select("SELECT
                     shuttles.negeri_id as negeri,
-                    sum(penjualan_pembelis.jumlah_jualan_laporan) as domestik
+                    sum(ROUND(penjualan_pembelis.jumlah_jualan_laporan)) as domestik
 
 
                 -- sepatutnya ini yang betul
@@ -7440,7 +7417,7 @@ class ExcelController extends Controller
                 $datas[$pembeli->keterangan][$curr_year] =
                     DB::select("SELECT
                 pembelis.keterangan as pembeli_keterangan,
-                sum(penjualan_pembelis.jumlah_jualan_laporan) as jumlah_jualan
+                sum(ROUND(penjualan_pembelis.jumlah_jualan_laporan)) as jumlah_jualan
 
 
                 -- sepatutnya ini yang betul
@@ -7520,9 +7497,9 @@ class ExcelController extends Controller
         for ($i = 1; $i <= 12; $i++) {
             $data = DB::select("SELECT
             form4_e_s.bulan as bulan,
-            sum(form4_e_s.total_export_laporan)  as export_papan_lapis,
-            sum(form4_e_s.jumlah_venier_eksport_laporan)  as export_venier,
-            sum(form4_e_s.total_export_laporan + form4_e_s.jumlah_pasaran_tempatan_laporan) as jumlah_penjualan
+            sum(ROUND(form4_e_s.total_export_laporan))  as export_papan_lapis,
+            sum(ROUND(form4_e_s.jumlah_venier_eksport_laporan))  as export_venier,
+            sum(ROUND(form4_e_s.total_export_laporan) + ROUND(form4_e_s.jumlah_pasaran_tempatan_laporan)) as jumlah_penjualan
 
             FROM
             shuttles,
@@ -7615,11 +7592,11 @@ class ExcelController extends Controller
         foreach ($negeri_list as $negeri) {
             $data = DB::select("SELECT
             shuttles.negeri_id as negeri,
-            sum(form4_e_s.total_export_laporan)  as export_papan_lapis,
-            sum(form4_e_s.jumlah_venier_eksport_laporan)  as export_venier,
-            sum(form4_e_s.jumlah_pasaran_tempatan_laporan) as domestik_papan_lapis,
-            sum(form4_e_s.jumlah_venier_tempatan_laporan) as domestik_venier,
-            sum(form4_e_s.total_export_laporan + form4_e_s.jumlah_pasaran_tempatan_laporan) as jumlah_penjualan
+            sum(ROUND(form4_e_s.total_export_laporan))  as export_papan_lapis,
+            sum(ROUND(form4_e_s.jumlah_venier_eksport_laporan))  as export_venier,
+            sum(ROUND(form4_e_s.jumlah_pasaran_tempatan_laporan)) as domestik_papan_lapis,
+            sum(ROUND(form4_e_s.jumlah_venier_tempatan_laporan)) as domestik_venier,
+            sum(ROUND(form4_e_s.total_export_laporan) + ROUND(form4_e_s.jumlah_pasaran_tempatan_laporan)) as jumlah_penjualan
 
             FROM
             shuttles,

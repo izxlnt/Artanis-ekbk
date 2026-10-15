@@ -101,7 +101,8 @@ class ListAController extends Controller
         $formA = FormA::whereHas('shuttle', function ($q) {
             $q->where('negeri_id', auth()->user()->negeri)->where('shuttle_type', '3');
         })->where('tahun', $year)
-        ->whereNotIn('status', ['Lulus', 'Tidak Diisi'])
+        // all statuses, as on the PHD list (JPN used to see only some of them)
+        ->orderByRaw("CASE status WHEN 'Sedang Diproses' THEN 1 WHEN 'Tiada Pengeluaran' THEN 2 WHEN 'Tidak Lengkap' THEN 3 WHEN 'Dihantar ke IPJPSM' THEN 4 WHEN 'Lulus' THEN 5 ELSE 6 END")
         ->get();
 
         // dd($formA);

@@ -23,7 +23,7 @@
                         class="btn btn-success">Excel</a>
                     <a href="{{ route('laporan_shuttle_5_41.excel', ['41', $tahun, ($file_type = 'pdf')]) }}"
                         class="btn btn-danger">PDF</a> <a
-                        href="{{ route('laporan_shuttle_5_41.excel', ['41', $tahun, ($file_type = 'pdf')]) }}"
+                        href="{{ route('laporan_shuttle_5_41.excel', ['41', $tahun, ($file_type = 'print')]) }}"
                         class="btn btn-warning">Print</a>
                 </div>
                 <div class="col-7 align-self-center">

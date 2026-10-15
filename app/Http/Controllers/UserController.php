@@ -1580,6 +1580,17 @@ class UserController extends Controller
         return view('tukar-kata-laluan', compact('returnArr', 'layout'));
     }
 
+    /**
+     * The pengguna_kilangs row of the logged-in kilang user. A kilang can have several users, so
+     * "first row of the kilang" showed (and saved over) another person's profile; the SSM owner
+     * account has no row of its own and keeps the old fallback.
+     */
+    private function profilePengguna($user, $info)
+    {
+        return ($user->pengguna_kilang_id ? PenggunaKilang::find($user->pengguna_kilang_id) : null)
+            ?? PenggunaKilang::where('shuttle_id', $info->id)->first();
+    }
+
     public function update_profile(Request $request)
     {
         $user = User::with(['pengguna_kilang', 'shuttle'])->findOrFail(Auth::user()->id);
@@ -1597,26 +1608,18 @@ class UserController extends Controller
         }
 
         $info = Shuttle::where('id', $user->shuttle_id)->first();
-        $pengguna = PenggunaKilang::where('shuttle_id', $info->id)->first();
+        $pengguna = $this->profilePengguna($user, $info);
 
-        if ($request->has('gambar_ic_hadapan')) {
-            $gambar_ic_hadapan = $request->file('gambar_ic_hadapan')->store('public/uploads/') ?? 0;
-            $pengguna->gambar_ic_hadapan  = $gambar_ic_hadapan;
-        } else if ($request->has('gambar_ic_belakang')) {
-            $gambar_ic_belakang = $request->file('gambar_ic_belakang')->store('public/uploads/');
-            $pengguna->gambar_ic_belakang  = $gambar_ic_belakang;
-        } else if ($request->has('gambar_passport')) {
-            $gambar_passport = $request->file('gambar_passport')->store('public/uploads/');
-            $pengguna->gambar_passport  = $gambar_passport;
-        } else if ($request->has('lesen_kilang') && $request->has('sijil_ssm')) {
-            $gambar_ic_hadapan = $request->file('lesen_kilang')->store('public/uploads/');
-            $pengguna->gambar_ic_hadapan  = $gambar_ic_hadapan;
-
-            $gambar_ic_belakang = $request->file('lesen_kilang')->store('public/uploads/');
-            $pengguna->gambar_ic_belakang  = $gambar_ic_belakang;
-
-            $gambar_passport = $request->file('lesen_kilang')->store('public/uploads/');
-            $pengguna->gambar_passport  = $gambar_passport;
+        // each document is optional and replaced on its own (the old chain saved only the first one sent)
+        $request->validate([
+            'gambar_ic_hadapan' => ['nullable', 'file', 'mimes:jpeg,jpg,png,pdf', 'max:8192'],
+            'gambar_ic_belakang' => ['nullable', 'file', 'mimes:jpeg,jpg,png,pdf', 'max:8192'],
+            'gambar_passport' => ['nullable', 'file', 'mimes:jpeg,jpg,png,pdf', 'max:8192'],
+        ]);
+        foreach (['gambar_ic_hadapan', 'gambar_ic_belakang', 'gambar_passport'] as $field) {
+            if ($request->hasFile($field)) {
+                $pengguna->$field = $request->file($field)->store('public/uploads');
+            }
         }
 
         // Update email in user and pengguna_kilang only if email was provided and changed
@@ -1648,7 +1651,7 @@ class UserController extends Controller
 
         $info = Shuttle::where('id', $user->shuttle_id)->first();
 
-        $pengguna = PenggunaKilang::where('shuttle_id', $info->id)->first();
+        $pengguna = $this->profilePengguna($user, $info);
 
         $layout = auth()->user()->kategori_pengguna == 'PHD' ? 'layouts.layout-phd-nicepage' : (auth()->user()->kategori_pengguna == 'BPM' ? 'layouts.layout-bpm-nicepage' : (auth()->user()->kategori_pengguna == 'BPE' ? 'layouts.layout-ipjpsm-nicepage' : (auth()->user()->kategori_pengguna == 'IBK' ? 'layouts.layout-ibk-nicepage' : '')));
 

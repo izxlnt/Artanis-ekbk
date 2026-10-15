@@ -546,22 +546,7 @@
 
                                                         </div><br>
 
-                                                        <div class="row">
-                                                            <div class="col-md-3"></div>
-                                                            <div class="col-md-4">
-                                                                <p>Gambar Sijil SSM:</p>
-                                                                <img src="{{ asset($image_path = str_replace('public', 'storage', $kilang_info->sijil_ssm)) }}"
-                                                                    alt="Sila Muatnaik Gambar Sijil SSM"
-                                                                    id="category-img-ssm" style="width:100%;height:30vh;">
-                                                            </div>
-                                                            <div class="col-md-4">
-                                                                <p>Gambar Lesen Kilang:</p>
-                                                                <img src="{{ asset($image_path = str_replace('public', 'storage', $kilang_info->lesen_kilang)) }}"
-                                                                    alt="Sila Muatnaik Gambar Lesen Kilang"
-                                                                    id="category-img-tag-lesenkilang"
-                                                                    style="width:100%;height:30vh;">
-                                                            </div>
-                                                        </div>
+                                                        @include('partials.dokumen-kilang')
 
                                                         <br>
 
