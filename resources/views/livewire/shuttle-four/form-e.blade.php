@@ -144,11 +144,11 @@
                                                                                         Jumlah papan lapis yang dijual
                                                                                         dalam pasaran tempatan (m³)</td>
                                                                                     <td style="text-align:center;">
-                                                                                        <input type="text" size="20"
-                                                                                            class="text-right"
-                                                                                            wire:model='jumlah_pasaran_tempatan'
-                                                                                            oninput="validate(this)"
-                                                                                            onkeypress="return isNumberKey(event)">
+                                                                                        {{-- filled from the buyer table below (UAT S4 7.4) --}}
+                                                                                        <input type="text" size="20" readonly
+                                                                                            class="text-right" id="fsum_pasaran"
+                                                                                            style="background-color: #9ac4f7;"
+                                                                                            value="{{ number_format(array_sum(array_map('floatval', (array) ($jumlah_jualan ?? []))), 2, '.', '') }}">
                                                                                         @error('jumlah_pasaran_tempatan')
                                                                                             <div class="alert alert-danger">
                                                                                                 <strong>{{ $message }}</strong>
@@ -259,7 +259,7 @@
                                                                                             class="text-right"
                                                                                             style="background-color: #9ac4f7;"
                                                                                             type="text" size="20"
-                                                                                            id="fsum_tot_jualan"
+                                                                                            id="fsum_tot_jualan" value="{{ number_format(array_sum(array_map('floatval', (array) ($jumlah_jualan ?? []))), 2, '.', '') }}"
                                                                                             oninput="validate(this)"
                                                                                             onkeypress="return isNumberKey(event)">
                                                                                     </td>
@@ -404,9 +404,11 @@
                 </script>
 
 <script>
+    document.addEventListener('DOMContentLoaded', function(){ fsumCalc(); });
     function fsumCalc() {
         var t=0; document.querySelectorAll('.fsum_jualan').forEach(function(e){t+=parseFloat(e.value)||0;});
         var el=document.getElementById('fsum_tot_jualan'); if(el) el.value=Math.round(t*10000)/10000||0;
+        var p=document.getElementById('fsum_pasaran'); if(p) p.value=(Math.round(t*100)/100).toFixed(2);
     }
 </script>
 

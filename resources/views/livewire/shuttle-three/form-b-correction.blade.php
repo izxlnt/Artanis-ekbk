@@ -165,10 +165,13 @@
     _laporan columns on blur (see calcJumlahPekerjaLelaki/Perempuan), so a
     typed correction is already recorded the moment it's set. Only Reset
     needs a distinct action, since it discards those corrections. --}}
+    {{-- Reset button hidden after UAT Shuttle 4 (15 Oct 2026, 7.6: "tiada keperluan button Reset Data").
+         resetToOriginal() is kept, so the button can be brought back by removing this comment.
     <div class="text-center form-group m-b-0" style="margin-top: 15px;">
         <button type="button" wire:click="resetToOriginal" class="btn btn-secondary"
             onclick="if(!confirm('Kembalikan semua nilai kepada rekod lama (data asal yang dihantar oleh IBK)? Sebarang pembetulan akan hilang.')){ event.stopImmediatePropagation(); return false; }">
             Reset Kepada Rekod Lama
         </button>
     </div>
+    --}}
 </div>

@@ -184,6 +184,8 @@ class Editform4e extends Component
         $status= 'Sedang Diproses';
 
             $form4e->total_export = $this->total_export;
+            // UAT S4 7.4: row 2 (local market) is the buyer-table total (the blue Jumlah), not typed separately
+            $this->jumlah_pasaran_tempatan = number_format(array_sum(array_map('floatval', (array) ($this->jumlah_jualan ?? []))), 2, '.', '');
             $form4e->jumlah_pasaran_tempatan = $this->jumlah_pasaran_tempatan;
             $form4e->jumlah_venier_eksport = $this->jumlah_venier_eksport;
             $form4e->jumlah_venier_tempatan = $this->jumlah_venier_tempatan;
