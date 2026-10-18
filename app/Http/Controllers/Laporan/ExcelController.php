@@ -965,7 +965,7 @@ class ExcelController extends Controller
                                         AND formbs.status = 'Lulus'
                                         AND formbs.tahun = '$tahun'
                                         AND formbs.suku_tahun = '$i'
-                                        AND (date(formbs.created_at) BETWEEN '$start_date' AND '$end_date')
+                                        AND (formbs.suku_tahun BETWEEN '$suku_tahun' AND '$suku_tahun_akhir')
 
                                         GROUP BY
                                         kategori_guna_tenagas.keterangan;
@@ -8049,7 +8049,9 @@ class ExcelController extends Controller
 
             WHERE shuttles.id = form_a_s.shuttle_id
             AND shuttles.shuttle_type = '5'
+            AND shuttles.status_warganegara = 'Bukan Warganegara'
             AND form_a_s.status IN ('Lulus', 'Dihantar ke IPJPSM')
+            AND form_a_s.tahun = '$tahun'
         ");
 
 
@@ -8112,7 +8114,7 @@ class ExcelController extends Controller
                     'shuttle_id' => $data_shuttle->id, 'jumlah_penggunaan' => 0, 'jumlah_pengeluaran' => 0,
                 ];
 
-            }
+                // sales of THIS kilang (the loop used to close above, so only the last kilang got a row)
                 $fd_result = DB::select("SELECT
             shuttles.id as shuttle_id,
             sum( form5_e_s.jumlah_jualan_eksport_laporan)  as export,
@@ -8125,6 +8127,7 @@ class ExcelController extends Controller
 
             WHERE form5_e_s.shuttle_id = shuttles.id
 
+            AND shuttles.id = '$data_shuttle->id'
             AND shuttles.shuttle_type = '5'
             AND form5_e_s.status = 'Lulus'
             AND form5_e_s.tahun = '$tahun'
@@ -8135,6 +8138,7 @@ class ExcelController extends Controller
                     'shuttle_id' => $data_shuttle->id, 'export' => 0, 'domestik' => 0, 'jumlah_penjualan' => 0,
                 ];
             }
+        }
 
             $columns = [
                 'Bil',
@@ -8610,7 +8614,7 @@ class ExcelController extends Controller
                                         AND formbs.status = 'Lulus'
                                         AND formbs.tahun = '$tahun'
                                         AND formbs.suku_tahun = '$i'
-                                        AND (date(formbs.created_at) BETWEEN '$start_date' AND '$end_date')
+                                        AND (formbs.suku_tahun BETWEEN '$suku_tahun' AND '$suku_tahun_akhir')
 
                                         GROUP BY
                                         kategori_guna_tenagas.keterangan;
@@ -8756,7 +8760,7 @@ class ExcelController extends Controller
                                         AND formbs.status = 'Lulus'
                                         AND formbs.tahun = '$tahun'
                                         AND formbs.suku_tahun = '$i'
-                                        AND (date(formbs.created_at) BETWEEN '$start_date' AND '$end_date')
+                                        AND (formbs.suku_tahun BETWEEN '$suku_tahun' AND '$suku_tahun_akhir')
 
                                         GROUP BY
                                         kategori_guna_tenagas.keterangan;

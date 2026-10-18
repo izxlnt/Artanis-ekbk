@@ -1333,7 +1333,7 @@ class UserController extends Controller
 
     public function list_kilang_papan_lapis_aktif()
     {
-        $user4 = User::where('shuttle_type', 4)->where('is_approved', 1)->where('pengguna_kilang_id', null)->whereHas('shuttle', function ($q) {
+        $user4 = User::where('shuttle_type', 4)->where('is_approved', 1)->where('status', 1)->where('pengguna_kilang_id', null)->whereHas('shuttle', function ($q) {
             $q->whereIn('daerah_id', auth()->user()->daerah_ids);
         })->get();
 
@@ -1364,7 +1364,7 @@ class UserController extends Controller
 
     public function list_kilang_papan_lapis_aktif_jpn()
     {
-        $user4 = User::where('shuttle_type', 4)->where('is_approved', 1)->where('pengguna_kilang_id', null)->whereHas('shuttle', function ($q) {
+        $user4 = User::where('shuttle_type', 4)->where('is_approved', 1)->where('status', 1)->where('pengguna_kilang_id', null)->whereHas('shuttle', function ($q) {
             $q->where('negeri_id', auth()->user()->negeri);
         })->get();
 
@@ -1385,7 +1385,7 @@ class UserController extends Controller
 
     public function list_kilang_papan_lapis_aktif_bpm()
     {
-        $user4 = User::where('shuttle_type', 4)->where('is_approved', 1)->where('pengguna_kilang_id', null)->whereHas('shuttle', function ($q) {
+        $user4 = User::where('shuttle_type', 4)->where('is_approved', 1)->where('status', 1)->where('pengguna_kilang_id', null)->whereHas('shuttle', function ($q) {
             $q->where('negeri_id', auth()->user()->negeri);
         })->get();
 
@@ -1407,7 +1407,7 @@ class UserController extends Controller
 
     public function list_kilang_kumai_aktif()
     {
-        $user5 = User::where('shuttle_type', 5)->where('is_approved', 1)->where('pengguna_kilang_id', null)->whereHas('shuttle', function ($q) {
+        $user5 = User::where('shuttle_type', 5)->where('is_approved', 1)->where('status', 1)->where('pengguna_kilang_id', null)->whereHas('shuttle', function ($q) {
             $q->whereIn('daerah_id', auth()->user()->daerah_ids);
         })->get();
 
@@ -1428,7 +1428,7 @@ class UserController extends Controller
 
     public function list_kilang_kumai_aktif_jpn()
     {
-        $user5 = User::where('shuttle_type', 5)->where('is_approved', 1)->where('pengguna_kilang_id', null)->whereHas('shuttle', function ($q) {
+        $user5 = User::where('shuttle_type', 5)->where('is_approved', 1)->where('status', 1)->where('pengguna_kilang_id', null)->whereHas('shuttle', function ($q) {
             $q->where('negeri_id', auth()->user()->negeri);
         })->get();
 
@@ -1449,7 +1449,7 @@ class UserController extends Controller
 
     public function list_kilang_kumai_aktif_bpm()
     {
-        $user5 = User::where('shuttle_type', 5)->where('is_approved', 1)->where('pengguna_kilang_id', null)->whereHas('shuttle', function ($q) {
+        $user5 = User::where('shuttle_type', 5)->where('is_approved', 1)->where('status', 1)->where('pengguna_kilang_id', null)->whereHas('shuttle', function ($q) {
             $q->where('negeri_id', auth()->user()->negeri);
         })->get();
 

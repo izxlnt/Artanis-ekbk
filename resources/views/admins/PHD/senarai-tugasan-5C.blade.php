@@ -119,7 +119,7 @@
                                                     @if($needsAction) <span class="label label-warning label-rounded" style="font-size:9pt;">Perlu Tindakan</span> @endif
                                                 </td>
                                                 <td>{{ $data->no_ssm }}</td>
-                                                <td>{{ $data->no_lesen }}</td>
+                                                <td>{{ $data->shuttle->no_lesen ?? $data->no_lesen }}</td>
 
                                                 <td>{{ $data->tahun }}</td>
                                                 <td>{{ $data->bulan }}</td>

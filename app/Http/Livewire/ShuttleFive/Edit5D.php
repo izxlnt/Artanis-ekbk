@@ -59,7 +59,7 @@ class Edit5D extends Component
         $breadcrumbs    = [
             ['link' => route('home-user'), 'name' => "Laman Utama"],
             ['link' => route('user.shuttle-5-senaraiD', date('Y')), 'name' => "Kemasukan Maklumat"],
-            ['link' => route('user.shuttle-5-formD', date('Y')), 'name' => "Borang 5D - PENYATA PENGELUARAN"],
+            ['link' => route('user.shuttle-5-edit-formD', $this->bulan_id), 'name' => "Borang 5D - PENYATA PENGELUARAN"],
         ];
 
         $kembali = route('home-user');

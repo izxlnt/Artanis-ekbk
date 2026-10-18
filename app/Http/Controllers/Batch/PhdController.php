@@ -199,7 +199,8 @@ class PhdController extends Controller
             ->keyBy(fn ($f) => $f->shuttle_id . '-' . $f->tahun . '-' . $f->suku_tahun);
 
         return $batches->map(function ($batch) use ($formA, $formB) {
-            $batch->borang_a = self::flagFor(optional($formA->get($batch->shuttle_id . '-' . $batch->tahun))->status);
+            $batch->status_a = optional($formA->get($batch->shuttle_id . '-' . $batch->tahun))->status;
+            $batch->borang_a = self::flagFor($batch->status_a);
 
             $bulan = (int) $batch->bulan;
             $batch->borang_b = in_array($bulan, [3, 6, 9, 12], true)

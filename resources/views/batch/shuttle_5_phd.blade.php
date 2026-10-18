@@ -125,6 +125,12 @@
                                                         <img src="{{ asset('circle_check.png') }}" height='30px' alt=""
                                                             style="color: green; font-size: 18pt;" data-toggle="tooltip"
                                                             data-placement="bottom" title="Borang telah disahkan"></i>
+                                                    @elseif (($data->status_a ?? null) === 'Tidak Lengkap')
+                                                        <img src="{{ asset('history.png') }}" height='30px' alt="" data-toggle="tooltip"
+                                                            data-placement="bottom" title="Borang A tidak lengkap - perlu dihantar semula oleh kilang">
+                                                    @elseif (in_array($data->status_a ?? null, ['Tidak Diisi', 'Sedang Diisi'], true))
+                                                        <img src="{{ asset('circle_times.png') }}" height='30px' alt="" data-toggle="tooltip"
+                                                            data-placement="bottom" title="Borang A belum diisi">
                                                     @else
                                                         -
                                                     @endif
