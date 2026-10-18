@@ -118,6 +118,11 @@ class FormFlowService
         $allD = self::loadFormD($shuttleId, $shuttleType, $year);
         $allE = self::loadFormE($shuttleId, $shuttleType, $year);
 
+        // A kilang registered during this year starts from its registration month: the months
+        // before it are seeded placeholders, not forms it owes, so they never block the next month.
+        $registered  = \Illuminate\Support\Facades\DB::table('shuttles')->where('id', $shuttleId)->value('created_at');
+        $startMonth  = ($registered && (int) date('Y', strtotime($registered)) === $year) ? (int) date('n', strtotime($registered)) : 1;
+
         // Previous-year December for January sequential checks
         $prevDecC = FormC::where('shuttle_id', $shuttleId)->where('bulan', 12)->where('tahun', $year - 1)
             ->whereIn('status', self::SUBMITTED)->exists();
@@ -171,8 +176,8 @@ class FormFlowService
             $fcFilled    = $fc && in_array($fc->status, self::FILLED);
             $fcSubmitted = $fc && in_array($fc->status, self::SUBMITTED);
 
-            $prevCFilled = ($month === 1)
-                ? ($isPrevYear ? $prevDecC : true)
+            $prevCFilled = ($month <= $startMonth)
+                ? ($startMonth > 1 || !$isPrevYear || $prevDecC)
                 : ($allC->get($month - 1) && in_array($allC->get($month - 1)->status, self::SUBMITTED));
 
             [$canFill, $reason, $dateBlocked] = self::checkFormC(
@@ -203,8 +208,8 @@ class FormFlowService
             $fdFilled    = $fd && in_array($fd->status, self::FILLED);
             $fdSubmitted = $fd && in_array($fd->status, self::SUBMITTED);
 
-            $prevDFilled = ($month === 1)
-                ? ($isPrevYear ? ($prevDecD && in_array($prevDecD->status, self::SUBMITTED)) : true)
+            $prevDFilled = ($month <= $startMonth)
+                ? ($startMonth > 1 || !$isPrevYear || ($prevDecD && in_array($prevDecD->status, self::SUBMITTED)))
                 : ($allD->get($month - 1) && in_array($allD->get($month - 1)->status, self::SUBMITTED));
 
             [$canFill, $reason, $dateBlocked] = self::checkFormD(
@@ -230,8 +235,8 @@ class FormFlowService
             $feFilled    = $fe && in_array($fe->status, self::FILLED);
             $feSubmitted = $fe && in_array($fe->status, self::SUBMITTED);
 
-            $prevEFilled = ($month === 1)
-                ? ($isPrevYear ? ($prevDecE && in_array($prevDecE->status, self::SUBMITTED)) : true)
+            $prevEFilled = ($month <= $startMonth)
+                ? ($startMonth > 1 || !$isPrevYear || ($prevDecE && in_array($prevDecE->status, self::SUBMITTED)))
                 : ($allE->get($month - 1) && in_array($allE->get($month - 1)->status, self::SUBMITTED));
 
             [$canFill, $reason, $dateBlocked] = self::checkFormE(
@@ -324,6 +329,11 @@ class FormFlowService
         // Form C needs the Form B it depends on to be submitted.
         if ($fc && !in_array($fc->status, ['Tidak Diisi', 'Ditutup'])) {
             if (!$sukuSubmitted) return [false, "Sila isi Borang B Suku {$suku} terlebih dahulu.", false];
+            // a form the kilang still has to (re)fill follows the month order too, so its opening
+            // stock is carried from a submitted previous month (UAT S5 15 Oct 2026)
+            if (in_array($fc->status, ['Tidak Lengkap', 'Sedang Diisi'], true) && !$prevCFilled) {
+                return [false, 'Sila hantar Borang C bulan sebelumnya terlebih dahulu.', false];
+            }
             return [true, null, false];
         }
 
@@ -376,6 +386,9 @@ class FormFlowService
         // to be (re)submitted first.
         if ($fd && !in_array($fd->status, ['Tidak Diisi', 'Ditutup'])) {
             if (!$fcSubmitted) return [false, 'Sila lengkapkan dan hantar Borang C bulan ini terlebih dahulu.', false];
+            if (in_array($fd->status, ['Tidak Lengkap', 'Sedang Diisi'], true) && !$prevDFilled) {
+                return [false, 'Sila hantar Borang D bulan sebelumnya terlebih dahulu.', false];
+            }
             return [true, null, false];
         }
 
@@ -427,6 +440,9 @@ class FormFlowService
         // to be (re)submitted first.
         if ($fe && !in_array($fe->status, ['Tidak Diisi', 'Ditutup'])) {
             if (!$fdFilled) return [false, 'Sila lengkapkan dan hantar Borang D bulan ini terlebih dahulu.', false];
+            if (in_array($fe->status, ['Tidak Lengkap', 'Sedang Diisi'], true) && !$prevEFilled) {
+                return [false, 'Sila hantar Borang E bulan sebelumnya terlebih dahulu.', false];
+            }
             return [true, null, false];
         }
 
