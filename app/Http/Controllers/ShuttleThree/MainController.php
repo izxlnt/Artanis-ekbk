@@ -801,6 +801,78 @@ class MainController extends Controller
         }
     }
 
+    /** Borang D of the same month as $formC goes back to the kilang ("Tidak Lengkap"). */
+    private function returnSameMonthFormD(FormC $formC, $user, $batch, string $ulasan = 'Borang C bulan ini dikembalikan untuk pembetulan. Sila hantar semula Borang C, kemudian semak dan hantar semula Borang D.'): void
+    {
+        $formDModel = [3 => FormD::class, 4 => \App\Models\Form4D::class, 5 => \App\Models\Form5D::class][(int) $formC->shuttle_type] ?? null;
+        if (!$formDModel) {
+            return;
+        }
+        $formD = $formDModel::where('shuttle_id', $formC->shuttle_id)->where('tahun', $formC->tahun)->where('bulan', $formC->bulan)
+            ->whereIn('status', ['Sedang Diproses', 'Tiada Pengeluaran', 'Dihantar ke IPJPSM'])->first();
+        if (!$formD) {
+            return;
+        }
+        $formD->status = 'Tidak Lengkap';
+        $formD->save();
+        UlasanPhd::create([
+            'ulasan' => $ulasan,
+            'user_id' => $user->id,
+            'form' . ((int) $formC->shuttle_type === 3 ? '' : $formC->shuttle_type) . 'ds_id' => $formD->id,
+        ]);
+        if ($batch) {
+            $batch->borang_d = "0";
+            $batch->save();
+        }
+    }
+
+    /**
+     * When an approved Borang C closes with a different stock (lajur 07) than the opening stock
+     * (lajur 02) the next month already used, that next month - if already sent - goes back to the
+     * kilang ("Tidak Lengkap") with its Borang D. Its opening stock is reloaded from this month when
+     * it is reopened; when it is approved again the same check runs for the month after it.
+     */
+    private function returnNextMonthIfStockChanged(FormC $formC, $user): void
+    {
+        if ((int) $formC->bulan >= 12) {
+            return;
+        }
+        $next = FormC::where('shuttle_id', $formC->shuttle_id)->where('tahun', $formC->tahun)->where('bulan', (int) $formC->bulan + 1)
+            ->whereIn('status', ['Sedang Diproses', 'Tiada Pengeluaran', 'Dihantar ke IPJPSM', 'Lulus'])->first();
+        if (!$next) {
+            return;
+        }
+
+        $closing = DB::table('kemasukan_bahans')->where('formcs_id', $formC->id)->pluck('baki_stok_kehadapan', 'spesis_id');
+        $opening = DB::table('kemasukan_bahans')->where('formcs_id', $next->id)->pluck('baki_stok', 'spesis_id');
+        $changed = false;
+        foreach ($closing->keys()->merge($opening->keys())->unique() as $spesis) {
+            if (round((float) ($closing[$spesis] ?? 0), 2) !== round((float) ($opening[$spesis] ?? 0), 2)) {
+                $changed = true;
+                break;
+            }
+        }
+        if (!$changed) {
+            return;
+        }
+
+        $namaBulan = [1 => 'Januari', 'Februari', 'Mac', 'April', 'Mei', 'Jun', 'Julai', 'Ogos', 'September', 'Oktober', 'November', 'Disember'][(int) $formC->bulan];
+        $next->status = 'Tidak Lengkap';
+        $next->save();
+        UlasanPhd::create([
+            'ulasan' => 'Baki stok akhir Borang C ' . $namaBulan . ' telah berubah. Sila semak semula baki stok bulan lepas (lajur 02) dan hantar semula Borang C bulan ini.',
+            'user_id' => $user->id,
+            'formcs_id' => $next->id,
+        ]);
+
+        $nextBatch = Batch::where('tahun', $next->tahun)->where('bulan', $next->bulan)->where('shuttle_id', $next->shuttle_id)->first();
+        if ($nextBatch) {
+            $nextBatch->borang_c = "0";
+            $nextBatch->save();
+        }
+        $this->returnSameMonthFormD($next, $user, $nextBatch);
+    }
+
     public function update_status_phd_form3C(Request $request, $id)
     {
         // dd($request->all());
@@ -835,24 +907,7 @@ class MainController extends Controller
             // Borang D of the same month is built on this Borang C, so it goes back to the kilang
             // too ("Tidak Lengkap"); the A -> B -> C -> D flow then only lets them correct it after
             // this Borang C is re-submitted
-            $formDModel = [3 => FormD::class, 4 => \App\Models\Form4D::class, 5 => \App\Models\Form5D::class][(int) $formC->shuttle_type] ?? null;
-            if ($formDModel) {
-                $formD = $formDModel::where('shuttle_id', $formC->shuttle_id)->where('tahun', $formC->tahun)->where('bulan', $formC->bulan)
-                    ->whereIn('status', ['Sedang Diproses', 'Tiada Pengeluaran', 'Dihantar ke IPJPSM'])->first();
-                if ($formD) {
-                    $formD->status = 'Tidak Lengkap';
-                    $formD->save();
-                    UlasanPhd::create([
-                        'ulasan' => 'Borang C bulan ini dikembalikan untuk pembetulan. Sila hantar semula Borang C, kemudian semak dan hantar semula Borang D.',
-                        'user_id' => $user->id,
-                        'form' . ((int) $formC->shuttle_type === 3 ? '' : $formC->shuttle_type) . 'ds_id' => $formD->id,
-                    ]);
-                    if ($batch) {
-                        $batch->borang_d = "0";
-                        $batch->save();
-                    }
-                }
-            }
+            $this->returnSameMonthFormD($formC, $user, $batch);
 
             //notification tidak lengkap
             $pengguna_kilang_data = PenggunaKilang::where('shuttle_id', $formC->shuttle->id)->first();
@@ -870,6 +925,10 @@ class MainController extends Controller
                 $batch->borang_c = "2";
                 $batch->save();
             }
+
+            // this month's closing stock is next month's opening stock: if a corrected month now
+            // closes differently, the already-sent next month goes back to be recalculated
+            $this->returnNextMonthIfStockChanged($formC, $user);
         }
 
 
