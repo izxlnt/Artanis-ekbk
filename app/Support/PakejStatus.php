@@ -34,7 +34,8 @@ class PakejStatus
 
         $missing = self::missing((int) $form->shuttle_id, (int) $form->tahun, $month);
 
-        return $missing ? $default . ' - ' . implode(', ', $missing) : $default;
+        // every form is approved: only PHD's "Hantar pakej" (Pengesahan Pakej) is left
+        return $default . ' - ' . ($missing ? implode(', ', $missing) : 'Semua borang telah disahkan, menunggu PHD menghantar pakej');
     }
 
     /** @return string[] e.g. ["Borang D belum diisi"] */
