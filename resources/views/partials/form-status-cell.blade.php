@@ -14,11 +14,11 @@
              flow data) gets the calendar icon; a missing prerequisite gets the
              dimmed X circle, not a date icon. --}}
         @if($dateBlocked || $canFill === null)
-            <img src="{{ asset('calendar.png') }}" height='28' alt=""
+            <img src="{{ asset('images/icons/calendar.png') }}" height='28' alt=""
                 style="color:grey;font-size:20pt"
                 data-toggle="tooltip" data-placement="bottom" title="Borang ditutup">
         @else
-            <img src="{{ asset('circle_times.png') }}" height='28' alt=""
+            <img src="{{ asset('images/icons/circle_times.png') }}" height='28' alt=""
                 data-toggle="tooltip" data-placement="bottom"
                 title="{{ $reason ?? 'Sila lengkapkan borang sebelumnya terlebih dahulu.' }}"
                 style="opacity:0.4">
@@ -26,30 +26,30 @@
     @elseif(in_array($status, ['Tidak Diisi', 'Sedang Diisi']) && $canFill === false)
         {{-- Due but prerequisites not met --}}
         @if($dateBlocked)
-            <img src="{{ asset('calendar.png') }}" height='28' alt=""
+            <img src="{{ asset('images/icons/calendar.png') }}" height='28' alt=""
                 data-toggle="tooltip" data-placement="bottom"
                 title="Borang ditutup"
                 style="color:black;font-size:20pt">
         @else
-            <img src="{{ asset('circle_times.png') }}" height='28' alt=""
+            <img src="{{ asset('images/icons/circle_times.png') }}" height='28' alt=""
                 data-toggle="tooltip" data-placement="bottom"
                 title="{{ $reason ?? 'Sila lengkapkan borang sebelumnya terlebih dahulu.' }}"
                 style="opacity:0.4">
         @endif
     @elseif($status === 'Tidak Diisi' || $status === 'Ditutup')
         @if($isOwner)
-            <img src="{{ asset('circle_times.png') }}" height="28" data-toggle="tooltip" data-placement="bottom" title="Borang belum diisi">
+            <img src="{{ asset('images/icons/circle_times.png') }}" height="28" data-toggle="tooltip" data-placement="bottom" title="Borang belum diisi">
         @else
             <a href="{{ $fillLink }}" data-toggle="tooltip" data-placement="bottom" title="Borang belum diisi">
-                <img src="{{ asset('circle_times.png') }}" height="28">
+                <img src="{{ asset('images/icons/circle_times.png') }}" height="28">
             </a>
         @endif
     @elseif($status === 'Tidak Lengkap')
         @if($isOwner)
-            <img src="{{ asset('history.png') }}" height="28" data-toggle="tooltip" data-placement="bottom" title="Borang tidak lengkap">
+            <img src="{{ asset('images/icons/history.png') }}" height="28" data-toggle="tooltip" data-placement="bottom" title="Borang tidak lengkap">
         @else
             <a href="{{ $fillLink }}" data-toggle="tooltip" data-placement="bottom" title="Borang tidak lengkap">
-                <img src="{{ asset('history.png') }}" height="28">
+                <img src="{{ asset('images/icons/history.png') }}" height="28">
             </a>
         @endif
     @elseif($status === 'Sedang Diisi')
@@ -58,39 +58,39 @@
              intentionally matches the Tidak Diisi branch above rather than using a
              distinct icon. --}}
         @if($isOwner)
-            <img src="{{ asset('circle_times.png') }}" height="28" data-toggle="tooltip" data-placement="bottom" title="Borang sedang diisi">
+            <img src="{{ asset('images/icons/circle_times.png') }}" height="28" data-toggle="tooltip" data-placement="bottom" title="Borang sedang diisi">
         @else
             <a href="{{ $fillLink }}" data-toggle="tooltip" data-placement="bottom" title="Borang sedang diisi">
-                <img src="{{ asset('circle_times.png') }}" height="28">
+                <img src="{{ asset('images/icons/circle_times.png') }}" height="28">
             </a>
         @endif
     @elseif($status === 'Tiada Pengeluaran')
         @if($isOwner)
-            <img src="{{ asset('tp_logo2.png') }}" height="28" data-toggle="tooltip" data-placement="bottom" title="Borang telah dihantar - Tiada Pengeluaran">
+            <img src="{{ asset('images/icons/tp_logo2.png') }}" height="28" data-toggle="tooltip" data-placement="bottom" title="Borang telah dihantar - Tiada Pengeluaran">
         @else
             <a href="{{ $viewLink }}" data-toggle="tooltip" data-placement="bottom" title="Borang telah dihantar - Tiada Pengeluaran">
-                <img src="{{ asset('tp_logo2.png') }}" height="28">
+                <img src="{{ asset('images/icons/tp_logo2.png') }}" height="28">
             </a>
         @endif
     @elseif($status === 'Sedang Diproses')
         @if($isOwner)
-            <img src="{{ asset('circle_check_yellow.png') }}" height="28" data-toggle="tooltip" data-placement="bottom" title="Borang telah dihantar">
+            <img src="{{ asset('images/icons/circle_check_yellow.png') }}" height="28" data-toggle="tooltip" data-placement="bottom" title="Borang telah dihantar">
         @else
             <a href="{{ $viewLink }}" data-toggle="tooltip" data-placement="bottom" title="Borang telah dihantar">
-                <img src="{{ asset('circle_check_yellow.png') }}" height="28">
+                <img src="{{ asset('images/icons/circle_check_yellow.png') }}" height="28">
             </a>
         @endif
     @else
         @if($isOwner)
-            <img src="{{ asset((!empty($form->tiada_pengeluaran) && $form->tiada_pengeluaran == 1) ? 'tpbiru.png' : 'circle_check.png') }}" height="28" data-toggle="tooltip" data-placement="bottom" title="{{ (!empty($form->tiada_pengeluaran) && $form->tiada_pengeluaran == 1) ? 'Borang telah disahkan PHD - Tiada Pengeluaran' : 'Borang telah disahkan PHD' }}">
+            <img src="{{ asset((!empty($form->tiada_pengeluaran) && $form->tiada_pengeluaran == 1) ? 'images/icons/tpbiru.png' : 'images/icons/circle_check.png') }}" height="28" data-toggle="tooltip" data-placement="bottom" title="{{ (!empty($form->tiada_pengeluaran) && $form->tiada_pengeluaran == 1) ? 'Borang telah disahkan PHD - Tiada Pengeluaran' : 'Borang telah disahkan PHD' }}">
         @else
             <a href="{{ $viewLink }}" data-toggle="tooltip" data-placement="bottom" title="{{ (!empty($form->tiada_pengeluaran) && $form->tiada_pengeluaran == 1) ? 'Borang telah disahkan PHD - Tiada Pengeluaran' : 'Borang telah disahkan PHD' }}">
-                <img src="{{ asset((!empty($form->tiada_pengeluaran) && $form->tiada_pengeluaran == 1) ? 'tpbiru.png' : 'circle_check.png') }}" height="28">
+                <img src="{{ asset((!empty($form->tiada_pengeluaran) && $form->tiada_pengeluaran == 1) ? 'images/icons/tpbiru.png' : 'images/icons/circle_check.png') }}" height="28">
             </a>
         @endif
     @endif
 @else
-    <img src="{{ asset('calendar.png') }}" height='28' alt=""
+    <img src="{{ asset('images/icons/calendar.png') }}" height='28' alt=""
         style="color:grey;font-size:20pt"
         data-toggle="tooltip" data-placement="bottom" title="Borang ditutup">
 @endif

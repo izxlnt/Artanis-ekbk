@@ -160,7 +160,7 @@
 
                         <span class="logo-text" style="align:left;">
 
-                            <img src="{{ asset('jata.png') }}" style="height: 50px;" alt="homepage"
+                            <img src="{{ asset('images/jata.png') }}" style="height: 50px;" alt="homepage"
                                 class="dark-logo" />
                         </span>
                     </ul>
@@ -343,14 +343,14 @@
                                 <ul aria-expanded="false" class="collapse first-level">
 
                                     <li class="sidebar-item"><a target="_blank"
-                                            href="{{ asset('panduan_pentadbir.pdf') }}" class="sidebar-link"><i
+                                            href="{{ asset('documents/panduan_pentadbir.pdf') }}" class="sidebar-link"><i
                                                 class="mdi mdi-collage"></i><span class="hide-menu">&nbsp Panduan
                                                 Pentadbir
                                                 Modul</span></a>
                                     </li>
 
                                     <li class="sidebar-item"><a target="_blank"
-                                            href="{{ asset('panduan_pengguna.pdf') }}" class="sidebar-link"><i
+                                            href="{{ asset('documents/panduan_pengguna.pdf') }}" class="sidebar-link"><i
                                                 class="mdi mdi-adjust"></i><span class="hide-menu">&nbsp Panduan
                                                 Pengguna
                                                 Modul</span></a>
@@ -449,7 +449,7 @@
 
 
                                     <li class="sidebar-item"><a target="_blank"
-                                            href="{{ asset('panduan_pengguna.pdf') }}" class="sidebar-link"><i
+                                            href="{{ asset('documents/panduan_pengguna.pdf') }}" class="sidebar-link"><i
                                                 class="mdi mdi-adjust"></i><span class="hide-menu">&nbsp Panduan
                                                 Pengguna
                                                 Modul</span></a>

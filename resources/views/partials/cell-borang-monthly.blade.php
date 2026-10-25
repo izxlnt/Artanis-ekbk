@@ -15,11 +15,11 @@
                 : null;
         @endphp
         @if (date('Y-m-d') >= $data->tarikh_buka_borang && (!$tarikh_tutup_terkini || date('Y-m-d') <= $tarikh_tutup_terkini))
-            <img src="{{ asset('circle_times.png') }}" height='30px' alt=""
+            <img src="{{ asset('images/icons/circle_times.png') }}" height='30px' alt=""
                 style="color:red;font-size:25pt"
                 data-toggle="tooltip" data-placement="bottom" title="Borang belum diisi">
         @else
-            <img src="{{ asset('calendar.png') }}" height='30px' alt=""
+            <img src="{{ asset('images/icons/calendar.png') }}" height='30px' alt=""
                 style="color:grey;font-size:20pt"
                 data-toggle="tooltip" data-placement="bottom" title="Borang ditutup">
         @endif
@@ -28,48 +28,48 @@
              as the same red-X icon (one combined row on that reference), so this
              intentionally matches the Tidak Diisi branch above rather than using a
              distinct icon. --}}
-        <img src="{{ asset('circle_times.png') }}" height='30px' alt=""
+        <img src="{{ asset('images/icons/circle_times.png') }}" height='30px' alt=""
             style="color:red;font-size:25pt"
             data-toggle="tooltip" data-placement="bottom" title="Borang sedang diisi">
     @elseif ($data->status == 'Tidak Lengkap')
-        <img src="{{ asset('history.png') }}" height='30px' alt=""
+        <img src="{{ asset('images/icons/history.png') }}" height='30px' alt=""
             style="color:#dbd400;font-size:20pt"
             data-toggle="tooltip" data-placement="bottom" title="Borang tidak lengkap">
     @elseif ($data->status == 'Sedang Diproses')
-        <img src="{{ asset('circle_times_yellow.png') }}" height='30px' alt=""
+        <img src="{{ asset('images/icons/circle_times_yellow.png') }}" height='30px' alt=""
             style="color:#dbd400;font-size:25pt"
             data-toggle="tooltip" data-placement="bottom" title="Borang perlu disahkan PHD">
     @elseif ($data->status == 'Tiada Pengeluaran')
-        <img src="{{ asset('circle_times_yellow.png') }}" height='30px' alt=""
+        <img src="{{ asset('images/icons/circle_times_yellow.png') }}" height='30px' alt=""
             style="color:#dbd400;font-size:20pt"
             data-toggle="tooltip" data-placement="bottom" title="Borang perlu disahkan PHD - Tiada Pengeluaran">
     @elseif ($data->status == 'Dihantar ke IPJPSM')
         @if ($current_batch && $current_batch->status == 'Dihantar ke IPJPSM' && $current_batch->$batchField == 2)
             @if (isset($data->tiada_pengeluaran) && $data->tiada_pengeluaran == 1)
                 <a href="{{ route($viewRoute, $data->id) . (isset($from) && $from ? '?from=' . $from : '') }}">
-                    <img src="{{ asset('circle_times_blue.png') }}" height='30px' alt=""
+                    <img src="{{ asset('images/icons/circle_times_blue.png') }}" height='30px' alt=""
                         data-toggle="tooltip" data-placement="bottom"
                         title="Borang perlu diperaku - Tiada Pengeluaran">
                 </a>
             @else
                 <a href="{{ route($viewRoute, $data->id) . (isset($from) && $from ? '?from=' . $from : '') }}">
-                    <img src="{{ asset('circle_times_blue.png') }}" height='30px' alt=""
+                    <img src="{{ asset('images/icons/circle_times_blue.png') }}" height='30px' alt=""
                         style="color:white;font-size:18pt"
                         data-toggle="tooltip" data-placement="bottom" title="Borang perlu diperaku">
                 </a>
             @endif
         @else
-            <img src="{{ asset('package.png') }}" height='40px' alt="" data-toggle="tooltip" data-placement="bottom" title="{{ \App\Support\PakejStatus::tooltip($data ?? null) }}">
+            <img src="{{ asset('images/icons/package.png') }}" height='40px' alt="" data-toggle="tooltip" data-placement="bottom" title="{{ \App\Support\PakejStatus::tooltip($data ?? null) }}">
         @endif
     @elseif ($data->status == 'Lulus')
         @if (isset($data->tiada_pengeluaran) && $data->tiada_pengeluaran == 1)
             <a href="{{ route($viewRoute, $data->id) . (isset($from) && $from ? '?from=' . $from : '') }}">
-                <img src="{{ asset('tpcoklat.png') }}" height='30px' alt=""
+                <img src="{{ asset('images/icons/tpcoklat.png') }}" height='30px' alt=""
                     data-toggle="tooltip" data-placement="bottom" title="Borang telah diperaku">
             </a>
         @else
             <a href="{{ route($viewRoute, $data->id) . (isset($from) && $from ? '?from=' . $from : '') }}">
-                <img src="{{ asset('double_check.png') }}" height='30px' alt=""
+                <img src="{{ asset('images/icons/double_check.png') }}" height='30px' alt=""
                     style="color:green;font-size:20pt"
                     data-toggle="tooltip" data-placement="bottom" title="Borang telah diperaku">
             </a>
@@ -78,22 +78,22 @@
         {{-- "Ditutup" is a placeholder sealed by the seeder for future months.
              Once the month has arrived (today >= tarikh_buka), show as "belum diisi". --}}
         @if ($data->tarikh_buka_borang && date('Y-m-d') >= $data->tarikh_buka_borang)
-            <img src="{{ asset('circle_times.png') }}" height='30px' alt=""
+            <img src="{{ asset('images/icons/circle_times.png') }}" height='30px' alt=""
                 style="color:red;font-size:25pt"
                 data-toggle="tooltip" data-placement="bottom" title="Borang belum diisi">
         @else
-            <img src="{{ asset('calendar.png') }}" height='30px' alt=""
+            <img src="{{ asset('images/icons/calendar.png') }}" height='30px' alt=""
                 style="color:grey;font-size:20pt"
                 data-toggle="tooltip" data-placement="bottom" title="Borang belum dibuka">
         @endif
     @endif
 @else
     @if (isset($bulan) && $bulan > (int) date('n'))
-        <img src="{{ asset('calendar.png') }}" height='30px' alt=""
+        <img src="{{ asset('images/icons/calendar.png') }}" height='30px' alt=""
             style="color:grey;font-size:20pt"
             data-toggle="tooltip" data-placement="bottom" title="Borang belum dibuka">
     @else
-        <img src="{{ asset('circle_times.png') }}" height='30px' alt=""
+        <img src="{{ asset('images/icons/circle_times.png') }}" height='30px' alt=""
             style="color:red;font-size:25pt"
             data-toggle="tooltip" data-placement="bottom" title="Borang belum diisi">
     @endif

@@ -307,7 +307,7 @@
                                                                                         <td style="text-align:center;padding: 5px" ><input style="" type="text" size="20"  wire:model='produk_isipadumr_b.{{ $value }}' wire:change="CalcJumlah_kecil_2_mr"></td>
                                                                                         <td style="text-align:center;padding: 5px;padding-left: 35px" ><input style="" type="text" size="20"  wire:model='produk_isipaduwbp_b.{{ $value }}' wire:change="CalcJumlah_kecil_2_wbp">
                                                                                         @if ($loop->last)
-                                                                                            <button class="btn btn-danger btn-sm" wire:click.prevent="removeTebal({{$key}},{{ $value }})"><img src="{{ asset('circle_times.png') }}"
+                                                                                            <button class="btn btn-danger btn-sm" wire:click.prevent="removeTebal({{$key}},{{ $value }})"><img src="{{ asset('images/icons/circle_times.png') }}"
                                                                             height='30px' alt=""></i></button></td>
                                                                                         @endif
                                                                                         </tr>

@@ -21,7 +21,7 @@
 
 
     <!-- Favicon icon -->
-    <link rel="icon" type="image/png" sizes="16x16" href={{ asset('logo.png') }}>
+    <link rel="icon" type="image/png" sizes="16x16" href={{ asset('images/logo.png') }}>
 
     <!-- font-awesome icon -->
     <link rel="stylesheet" href="{{ asset('nice-admin/icon/css/all.css') }}">
@@ -336,7 +336,7 @@
                     <ul class="float-left navbar-nav">
                         <span class="logo-icon" style="align:left;">
 
-                            <img src="{{ asset('jata.png') }}" style="height: 50px;" alt="homepage"
+                            <img src="{{ asset('images/jata.png') }}" style="height: 50px;" alt="homepage"
                                 class="dark-logo" />
 
 
@@ -528,14 +528,14 @@
                                 <ul aria-expanded="false" class="collapse first-level">
 
                                     <li class="sidebar-item"><a target="_blank"
-                                            href="{{ asset('panduan_pentadbir.pdf') }}" class="sidebar-link"><i
+                                            href="{{ asset('documents/panduan_pentadbir.pdf') }}" class="sidebar-link"><i
                                                 class="mdi mdi-collage"></i><span class="hide-menu">&nbsp Panduan
                                                 Pentadbir
                                                 Modul</span></a>
                                     </li>
 
                                     <li class="sidebar-item"><a target="_blank"
-                                            href="{{ asset('panduan_pengguna.pdf') }}" class="sidebar-link"><i
+                                            href="{{ asset('documents/panduan_pengguna.pdf') }}" class="sidebar-link"><i
                                                 class="mdi mdi-adjust"></i><span class="hide-menu">&nbsp Panduan
                                                 Pengguna
                                                 Modul</span></a>
@@ -664,28 +664,28 @@
                                 <ul aria-expanded="false" class="collapse first-level">
 
                                     {{-- <li class="sidebar-item"><a target="_blank"
-                                            href="{{ asset('panduan_pentadbir.pdf') }}" class="sidebar-link"><i
+                                            href="{{ asset('documents/panduan_pentadbir.pdf') }}" class="sidebar-link"><i
                                                 class="mdi mdi-collage"></i><span class="hide-menu">&nbsp Panduan
                                                 Pentadbir
                                                 Modul</span></a>
                                     </li> --}}
                                     @if (auth()->user()->shuttle_type == 3)
                                         <li class="sidebar-item"><a target="_blank"
-                                                href="{{ asset('Manual_shuttle3.pdf') }}" class="sidebar-link"><i
+                                                href="{{ asset('documents/Manual_shuttle3.pdf') }}" class="sidebar-link"><i
                                                     class="mdi mdi-adjust"></i><span class="hide-menu">&nbsp Panduan
                                                     Pengguna
                                                     Modul</span></a>
                                         </li>
                                     @elseif(auth()->user()->shuttle_type == 4)
                                         <li class="sidebar-item"><a target="_blank"
-                                                href="{{ asset('Manual_shuttle4.pdf') }}" class="sidebar-link"><i
+                                                href="{{ asset('documents/Manual_shuttle4.pdf') }}" class="sidebar-link"><i
                                                     class="mdi mdi-adjust"></i><span class="hide-menu">&nbsp Panduan
                                                     Pengguna
                                                     Modul</span></a>
                                         </li>
                                     @elseif(auth()->user()->shuttle_type == 5)
                                         <li class="sidebar-item"><a target="_blank"
-                                                href="{{ asset('Manual_shuttle5.pdf') }}" class="sidebar-link"><i
+                                                href="{{ asset('documents/Manual_shuttle5.pdf') }}" class="sidebar-link"><i
                                                     class="mdi mdi-adjust"></i><span class="hide-menu">&nbsp Panduan
                                                     Pengguna
                                                     Modul</span></a>
@@ -794,7 +794,7 @@
     </div>
 
     <footer class="text-center footer"
-        style="bottom:0;text-align:center;left:0; color: rgb(0, 0, 0) !important;background-image: url(/bghutan.png); background-position: bottom; opacity: 0.75;">
+        style="bottom:0;text-align:center;left:0; color: rgb(0, 0, 0) !important;background-image: url(/images/bghutan.png); background-position: bottom; opacity: 0.75;">
         <span style=" color: rgb(255, 255, 255)">Hakcipta Terpelihara © {{ date('Y') }}. SISTEM eSHUTTLE. <br>
             Paparan terbaik untuk sistem ini adalah 1920x1080 resolusi piksel.</span>
     </footer>

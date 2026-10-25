@@ -16,7 +16,7 @@
 {{-- toastr --}}
 <link href="{{ asset('nice-admin/assets/libs/toastr/build/toastr.min.css') }}" rel="stylesheet">
     <!-- Favicon icon -->
-    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('logo.png')  }}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('images/logo.png')  }}">
 
     <!-- font-awesome icon -->
     <link rel="stylesheet" href="{{ asset('nice-admin/icon/css/all.css') }}">
@@ -439,7 +439,7 @@
         <!-- End Page wrapper  -->
         <!-- ============================================================== -->
     </div>
-    <footer class="text-center footer" style="bottom:0;text-align:center;left:0; color: rgb(0, 0, 0) !important;background-image: url(/bghutan.png); background-position: bottom; opacity: 0.75;">
+    <footer class="text-center footer" style="bottom:0;text-align:center;left:0; color: rgb(0, 0, 0) !important;background-image: url(/images/bghutan.png); background-position: bottom; opacity: 0.75;">
         <span style=" color: rgb(255, 255, 255)">Hakcipta Terpelihara © {{ date('Y') }}. SISTEM eSHUTTLE. <br>
         Paparan terbaik untuk sistem ini adalah 1920x1080 resolusi piksel.</span>
     </footer>

@@ -29128,7 +29128,7 @@ html[dir="rtl"]
 .mailbox .drop-title:after {
   content: "";
   position: absolute;
-  /* background: url(../../../bghutan.png) no-repeat; */
+  /* background: url(../../../images/bghutan.png) no-repeat; */
   opacity: 0.2;
   top: 0;
   left: 0;
@@ -29659,7 +29659,7 @@ html[dir="rtl"]
 }
 @media (min-width: 768px) {
   #main-wrapper[data-layout="horizontal"] {
-    background-image: url("/bghutan.png");
+    background-image: url("/images/bghutan.png");
     background-size: 100% ;
     background-size: cover;
   }

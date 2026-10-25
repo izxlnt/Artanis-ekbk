@@ -128,25 +128,25 @@
                                                 <td>{{ $data->tahun }}</td>
                                                 <td>
                                                     @if ($data->status == 'Tidak Diisi')
-                                                        <img src="{{ asset('circle_times.png') }}" height='30px' alt=""
+                                                        <img src="{{ asset('images/icons/circle_times.png') }}" height='30px' alt=""
                                                             style="color: red; font-size: 20pt;"
                                                             data-toggle="tooltip" data-placement="bottom"
                                                             title="Borang belum diisi"></i>
                                                     @elseif ($data->status == 'Sedang Diproses')
                                                     <a href="{{ route('phd.shuttle-3-view-formA', $data->id) }}">
-                                                        <img src="{{ asset('circle_times_yellow.png') }}"
+                                                        <img src="{{ asset('images/icons/circle_times_yellow.png') }}"
                                                             height='30px' data-toggle="tooltip" data-placement="bottom"
                                                         title="Borang perlu disahkan PHD"></i></a>
                                                     @elseif($data->status == "Tidak Lengkap")
-                                                       <img src="{{ asset('history.png') }}" height='30px' alt="" style="color: #dbd400; font-size: 20pt;"
+                                                       <img src="{{ asset('images/icons/history.png') }}" height='30px' alt="" style="color: #dbd400; font-size: 20pt;"
                                                             data-toggle="tooltip" data-placement="bottom"
                                                             title="Borang tidak lengkap "></i>
                                                     @elseif($data->status == "Dihantar ke IPJPSM")
-                                                            <img src="{{ asset('circle_check_yellow.png') }}" height='30px' alt="" style="color: green; font-size: 20pt;"
+                                                            <img src="{{ asset('images/icons/circle_check_yellow.png') }}" height='30px' alt="" style="color: green; font-size: 20pt;"
                                                                 data-toggle="tooltip" data-placement="bottom"
                                                                 title="Borang telah disahkan"></i>
                                                     @elseif($data->status == "Lulus")
-                                                    <img src="{{ asset('double_check.png') }}" height='30px' alt="" style="color: green; font-size: 20pt;"
+                                                    <img src="{{ asset('images/icons/double_check.png') }}" height='30px' alt="" style="color: green; font-size: 20pt;"
                                                         data-toggle="tooltip" data-placement="bottom"
                                                         title="Borang telah diluluskan oleh IPJPSM"></i>
                                                     @endif

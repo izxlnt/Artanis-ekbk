@@ -169,13 +169,13 @@
                                                                     $tarikh_tutup_terkini = date('Y-m-d', strtotime($delay, $time));
                                                                 @endphp
                                                                 @if (date('Y-m-d') >= $data->tarikh_buka_borang && (!$buffer || !$buffer->aktif || date('Y-m-d') <= $tarikh_tutup_terkini))
-                                                                    <img src="{{ asset('circle_times.png') }}"
+                                                                    <img src="{{ asset('images/icons/circle_times.png') }}"
                                                                             height='30px' alt=""
                                                                         style="color: red; font-size: 20pt;"
                                                                         data-toggle="tooltip" data-placement="bottom"
                                                                         title="Borang belum diisi"></i>
                                                                 @else
-                                                                    <img src="{{ asset('calendar.png') }}" height='30px'
+                                                                    <img src="{{ asset('images/icons/calendar.png') }}" height='30px'
                                                                         alt="" style="color: grey; font-size: 20pt;"
                                                                         data-toggle="tooltip" data-placement="bottom"
                                                                         title="Borang ditutup"></i>
@@ -183,17 +183,17 @@
                                                             @elseif($data->status == 'Sedang Diproses' && $data->suku_tahun == '1' && $shuttle->shuttle_id == $data->shuttle_id)
                                                                 <a
                                                                     href="{{ route('jpn.shuttle-3-view-formB', $data->id) }}"><img
-                                                                        src="{{ asset('circle_times_yellow.png') }}"
+                                                                        src="{{ asset('images/icons/circle_times_yellow.png') }}"
                                                                         height='30px' alt=""
                                                                         style="color: white; font-size: 18pt;"
                                                                         data-toggle="tooltip" data-placement="bottom"
                                                                         title="Borang perlu disahkan PHD"></i></a>
                                                             @elseif($data->status == 'Tiada Pengeluaran' && $data->suku_tahun == '1' && $shuttle->shuttle_id == $data->shuttle_id)
-                                                                <a href="{{ route('jpn.shuttle-3-view-formB', $data->id) }}"><img src="{{ asset('circle_times_yellow.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang perlu disahkan PHD - Tiada Pengeluaran"></a>
+                                                                <a href="{{ route('jpn.shuttle-3-view-formB', $data->id) }}"><img src="{{ asset('images/icons/circle_times_yellow.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang perlu disahkan PHD - Tiada Pengeluaran"></a>
                                                             @elseif($data->status == 'Tidak Lengkap' && $data->suku_tahun == '1')
                                                                 <a
                                                                     href="{{ route('jpn.shuttle-3-view-formB', $data->id) }}">
-                                                                    <img src="{{ asset('history.png') }}" height='30px'
+                                                                    <img src="{{ asset('images/icons/history.png') }}" height='30px'
                                                                         alt="" style="color: #dbd400; font-size: 20pt;"
                                                                         data-toggle="tooltip" data-placement="bottom"
                                                                         title="Borang tidak lengkap "></i></a>
@@ -213,19 +213,19 @@
                                                                 @if ($packageSent)
                                                                 <a
                                                                     href="{{ route('jpn.shuttle-3-view-formB', $data->id) }}">
-                                                                    <img src="{{ asset('circle_check.png') }}" height='30px'
+                                                                    <img src="{{ asset('images/icons/circle_check.png') }}" height='30px'
                                                                         alt="" style="color: green; font-size: 20pt;"
                                                                         data-toggle="tooltip" data-placement="bottom"
                                                                         title="Borang telah disahkan PHD"></i></a>
                                                                 @else
-                                                                    <img src="{{ asset('package.png') }}" height='40px'
+                                                                    <img src="{{ asset('images/icons/package.png') }}" height='40px'
                                                                         data-toggle="tooltip" data-placement="bottom"
                                                                         title="{{ \App\Support\PakejStatus::tooltip($data ?? null) }}">
                                                                 @endif
                                                             @elseif($data->status == 'Lulus' && $data->suku_tahun == '1' && $shuttle->shuttle_id == $data->shuttle_id)
                                                                 <a
                                                                     href="{{ route('jpn.shuttle-3-view-formB', $data->id) }}">
-                                                                    <img src="{{ asset('double_check.png') }}"
+                                                                    <img src="{{ asset('images/icons/double_check.png') }}"
                                                                         height='30px' alt=""
                                                                         style="color: green; font-size: 18pt;"
                                                                         data-toggle="tooltip" data-placement="bottom"
@@ -244,29 +244,29 @@
                                                         @endphp
                                                         @if ($data->status == 'Tidak Diisi' && $data->suku_tahun == '2' && $shuttle->shuttle_id == $data->shuttle_id)
                                                             @if (date('Y-m-d') >= $data->tarikh_buka_borang && (!$buffer || !$buffer->aktif || date('Y-m-d') <= $tarikh_tutup_terkini))
-                                                                <img src="{{ asset('circle_times.png') }}"
+                                                                <img src="{{ asset('images/icons/circle_times.png') }}"
                                                                             height='30px' alt=""
                                                                     style="color: red; font-size: 20pt;"
                                                                     data-toggle="tooltip" data-placement="bottom"
                                                                     title="Borang belum diisi"></i>
                                                             @else
-                                                                <img src="{{ asset('calendar.png') }}" height='30px'
+                                                                <img src="{{ asset('images/icons/calendar.png') }}" height='30px'
                                                                     alt="" style="color: grey; font-size: 20pt;"
                                                                     data-toggle="tooltip" data-placement="bottom"
                                                                     title="Borang ditutup"></i>
                                                             @endif
                                                         @elseif($data->status == 'Sedang Diproses' && $data->suku_tahun == '2' && $shuttle->shuttle_id == $data->shuttle_id)
                                                             <a href="{{ route('jpn.shuttle-3-view-formB', $data->id) }}"><img
-                                                                    src="{{ asset('circle_times_yellow.png') }}"
+                                                                    src="{{ asset('images/icons/circle_times_yellow.png') }}"
                                                                     height='30px' alt=""
                                                                     style="color: white; font-size: 18pt;"
                                                                     data-toggle="tooltip" data-placement="bottom"
                                                                     title="Borang perlu disahkan PHD"></i></a>
                                                         @elseif($data->status == 'Tiada Pengeluaran' && $data->suku_tahun == '2' && $shuttle->shuttle_id == $data->shuttle_id)
-                                                            <a href="{{ route('jpn.shuttle-3-view-formB', $data->id) }}"><img src="{{ asset('circle_times_yellow.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang perlu disahkan PHD - Tiada Pengeluaran"></a>
+                                                            <a href="{{ route('jpn.shuttle-3-view-formB', $data->id) }}"><img src="{{ asset('images/icons/circle_times_yellow.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang perlu disahkan PHD - Tiada Pengeluaran"></a>
                                                         @elseif($data->status == 'Tidak Lengkap' && $data->suku_tahun == '2' && $shuttle->shuttle_id == $data->shuttle_id)
                                                             <a href="{{ route('jpn.shuttle-3-view-formB', $data->id) }}">
-                                                                <img src="{{ asset('history.png') }}" height='30px'
+                                                                <img src="{{ asset('images/icons/history.png') }}" height='30px'
                                                                     alt="" style="color: #dbd400; font-size: 20pt;"
                                                                     data-toggle="tooltip" data-placement="bottom"
                                                                     title="Borang tidak lengkap "></i></a>
@@ -285,18 +285,18 @@
                                                         @endphp
                                                             @if ($packageSent)
                                                             <a href="{{ route('jpn.shuttle-3-view-formB', $data->id) }}">
-                                                                <img src="{{ asset('circle_check.png') }}" height='30px' alt=""
+                                                                <img src="{{ asset('images/icons/circle_check.png') }}" height='30px' alt=""
                                                                     style="color: green; font-size: 20pt;"
                                                                     data-toggle="tooltip" data-placement="bottom"
                                                                     title="Borang telah disahkan PHD"></i></a>
                                                             @else
-                                                                <img src="{{ asset('package.png') }}" height='40px'
+                                                                <img src="{{ asset('images/icons/package.png') }}" height='40px'
                                                                     data-toggle="tooltip" data-placement="bottom"
                                                                     title="{{ \App\Support\PakejStatus::tooltip($data ?? null) }}">
                                                             @endif
                                                         @elseif($data->status == 'Lulus' && $data->suku_tahun == '2' && $shuttle->shuttle_id == $data->shuttle_id)
                                                             <a href="{{ route('jpn.shuttle-3-view-formB', $data->id) }}">
-                                                                <img src="{{ asset('double_check.png') }}" height='30px'
+                                                                <img src="{{ asset('images/icons/double_check.png') }}" height='30px'
                                                                     alt="" style="color: green; font-size: 18pt;"
                                                                     data-toggle="tooltip" data-placement="bottom"
                                                                     title="Borang telah diperaku"></i></a>
@@ -313,13 +313,13 @@
                                                         @endphp
                                                         @if ($data->status == 'Tidak Diisi' && $data->suku_tahun == '3' && $shuttle->shuttle_id == $data->shuttle_id)
                                                             @if (date('Y-m-d') >= $data->tarikh_buka_borang && (!$buffer || !$buffer->aktif || date('Y-m-d') <= $tarikh_tutup_terkini))
-                                                                <img src="{{ asset('circle_times.png') }}"
+                                                                <img src="{{ asset('images/icons/circle_times.png') }}"
                                                                             height='30px' alt=""
                                                                     style="color: red; font-size: 20pt;"
                                                                     data-toggle="tooltip" data-placement="bottom"
                                                                     title="Borang belum diisi"></i>
                                                             @else
-                                                                <img src="{{ asset('calendar.png') }}" height='30px'
+                                                                <img src="{{ asset('images/icons/calendar.png') }}" height='30px'
                                                                     alt="" style="color: grey; font-size: 20pt;"
                                                                     data-toggle="tooltip" data-placement="bottom"
                                                                     title="Borang ditutup"></i>
@@ -327,16 +327,16 @@
                                                             {{-- @if ($data->status == 'Tidak Diisi' && $data->bulan == '1' && $shuttle->shuttle_id == $data->shuttle_id) --}}
                                                         @elseif($data->status == 'Sedang Diproses' && $data->suku_tahun == '3' && $shuttle->shuttle_id == $data->shuttle_id)
                                                             <a href="{{ route('jpn.shuttle-3-view-formB', $data->id) }}"><img
-                                                                    src="{{ asset('circle_times_yellow.png') }}"
+                                                                    src="{{ asset('images/icons/circle_times_yellow.png') }}"
                                                                     height='30px' alt=""
                                                                     style="color: white; font-size: 18pt;"
                                                                     data-toggle="tooltip" data-placement="bottom"
                                                                     title="Borang perlu disahkan PHD"></i></a>
                                                         @elseif($data->status == 'Tiada Pengeluaran' && $data->suku_tahun == '3' && $shuttle->shuttle_id == $data->shuttle_id)
-                                                            <a href="{{ route('jpn.shuttle-3-view-formB', $data->id) }}"><img src="{{ asset('circle_times_yellow.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang perlu disahkan PHD - Tiada Pengeluaran"></a>
+                                                            <a href="{{ route('jpn.shuttle-3-view-formB', $data->id) }}"><img src="{{ asset('images/icons/circle_times_yellow.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang perlu disahkan PHD - Tiada Pengeluaran"></a>
                                                         @elseif($data->status == 'Tidak Lengkap' && $data->suku_tahun == '3' && $shuttle->shuttle_id == $data->shuttle_id)
                                                             <a href="{{ route('jpn.shuttle-3-view-formB', $data->id) }}">
-                                                                <img src="{{ asset('history.png') }}" height='30px'
+                                                                <img src="{{ asset('images/icons/history.png') }}" height='30px'
                                                                     alt="" style="color: #dbd400; font-size: 20pt;"
                                                                     data-toggle="tooltip" data-placement="bottom"
                                                                     title="Borang tidak lengkap "></i></a>
@@ -355,18 +355,18 @@
                                                         @endphp
                                                             @if ($packageSent)
                                                             <a href="{{ route('jpn.shuttle-3-view-formB', $data->id) }}">
-                                                                <img src="{{ asset('circle_check.png') }}" height='30px' alt=""
+                                                                <img src="{{ asset('images/icons/circle_check.png') }}" height='30px' alt=""
                                                                     style="color: green; font-size: 20pt;"
                                                                     data-toggle="tooltip" data-placement="bottom"
                                                                     title="Borang telah disahkan PHD"></i></a>
                                                             @else
-                                                                <img src="{{ asset('package.png') }}" height='40px'
+                                                                <img src="{{ asset('images/icons/package.png') }}" height='40px'
                                                                     data-toggle="tooltip" data-placement="bottom"
                                                                     title="{{ \App\Support\PakejStatus::tooltip($data ?? null) }}">
                                                             @endif
                                                         @elseif($data->status == 'Lulus' && $data->suku_tahun == '3' && $shuttle->shuttle_id == $data->shuttle_id)
                                                             <a href="{{ route('jpn.shuttle-3-view-formB', $data->id) }}">
-                                                                <img src="{{ asset('double_check.png') }}" height='30px'
+                                                                <img src="{{ asset('images/icons/double_check.png') }}" height='30px'
                                                                     alt="" style="color: green; font-size: 18pt;"
                                                                     data-toggle="tooltip" data-placement="bottom"
                                                                     title="Borang telah diperaku"></i></a>
@@ -382,27 +382,27 @@
                                                         @endphp
                                                         @if ($data->status == 'Tidak Diisi' && $data->suku_tahun == '4' && $shuttle->shuttle_id == $data->shuttle_id)
                                                             @if (date('Y-m-d') >= $data->tarikh_buka_borang && (!$buffer || !$buffer->aktif || date('Y-m-d') <= $tarikh_tutup_terkini))
-                                                                <img src="{{ asset('circle_times.png') }}"
+                                                                <img src="{{ asset('images/icons/circle_times.png') }}"
                                                                             height='30px' alt=""
                                                                     style="color: red; font-size: 20pt;"
                                                                     data-toggle="tooltip" data-placement="bottom"
                                                                     title="Borang belum diisi"></i>
                                                             @else
-                                                                <img src="{{ asset('calendar.png') }}" height='30px'
+                                                                <img src="{{ asset('images/icons/calendar.png') }}" height='30px'
                                                                     alt="" style="color: grey; font-size: 20pt;"
                                                                     data-toggle="tooltip" data-placement="bottom"
                                                                     title="Borang ditutup"></i>
                                                             @endif
                                                         @elseif($data->status == 'Sedang Diproses' && $data->suku_tahun == '4' && $shuttle->shuttle_id == $data->shuttle_id)
                                                             <a href="{{ route('jpn.shuttle-3-view-formB', $data->id) }}"><img
-                                                                    src="{{ asset('circle_times_yellow.png') }}"
+                                                                    src="{{ asset('images/icons/circle_times_yellow.png') }}"
                                                                     height='30px' alt=""
                                                                     style="color: white; font-size: 18pt;"
                                                                     data-toggle="tooltip" data-placement="bottom"
                                                                     title="Borang perlu disahkan PHD"></i></a>
                                                         @elseif($data->status == 'Tidak Lengkap' && $data->suku_tahun == '4' && $shuttle->shuttle_id == $data->shuttle_id)
                                                             <a href="{{ route('jpn.shuttle-3-view-formB', $data->id) }}">
-                                                                <img src="{{ asset('history.png') }}" height='30px'
+                                                                <img src="{{ asset('images/icons/history.png') }}" height='30px'
                                                                     alt="" style="color: #dbd400; font-size: 20pt;"
                                                                     data-toggle="tooltip" data-placement="bottom"
                                                                     title="Borang tidak lengkap "></i></a>
@@ -421,18 +421,18 @@
                                                         @endphp
                                                             @if ($packageSent)
                                                             <a href="{{ route('jpn.shuttle-3-view-formB', $data->id) }}">
-                                                                <img src="{{ asset('circle_check.png') }}" height='30px' alt=""
+                                                                <img src="{{ asset('images/icons/circle_check.png') }}" height='30px' alt=""
                                                                     style="color: green; font-size: 20pt;"
                                                                     data-toggle="tooltip" data-placement="bottom"
                                                                     title="Borang telah disahkan PHD"></i></a>
                                                             @else
-                                                                <img src="{{ asset('package.png') }}" height='40px'
+                                                                <img src="{{ asset('images/icons/package.png') }}" height='40px'
                                                                     data-toggle="tooltip" data-placement="bottom"
                                                                     title="{{ \App\Support\PakejStatus::tooltip($data ?? null) }}">
                                                             @endif
                                                         @elseif($data->status == 'Lulus' && $data->suku_tahun == '4' && $shuttle->shuttle_id == $data->shuttle_id)
                                                             <a href="{{ route('jpn.shuttle-3-view-formB', $data->id) }}">
-                                                                <img src="{{ asset('double_check.png') }}" height='30px'
+                                                                <img src="{{ asset('images/icons/double_check.png') }}" height='30px'
                                                                     alt="" style="color: green; font-size: 18pt;"
                                                                     data-toggle="tooltip" data-placement="bottom"
                                                                     title="Borang telah diperaku"></i></a>

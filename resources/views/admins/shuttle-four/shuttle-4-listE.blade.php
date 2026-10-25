@@ -150,7 +150,7 @@
 
                                                             @if ($data->status == 'Tidak Diisi' && $data->bulan == '1' && $shuttle->id == $data->id)
 
-                                                                <img src="{{ asset('calendar.png') }}" height='30px' alt=""
+                                                                <img src="{{ asset('images/icons/calendar.png') }}" height='30px' alt=""
                                                                     style="color: grey; font-size: 20pt;"
                                                                     data-toggle="tooltip" data-placement="bottom"
                                                                     title="Borang ditutup"></i>
@@ -158,7 +158,7 @@
                                                             @elseif($data->status =="Tidak Lengkap" && $data->bulan
                                                                 =='1'
                                                                 && $shuttle->id = $data->id)
-                                                               <img src="{{ asset('history.png') }}" height='30px' alt=""
+                                                               <img src="{{ asset('images/icons/history.png') }}" height='30px' alt=""
                                                                     style="color: #dbd400; font-size: 20pt;"
                                                                     data-toggle="tooltip" data-placement="bottom"
                                                                     title="Borang tidak lengkap "></i>
@@ -180,12 +180,12 @@
                                                             @elseif($data->status =="Lulus" &&
                                                                 $data->bulan =='1' && $shuttle->id ==
                                                                 $data->shuttle_id)
-                                                                <img src="{{ asset('double_check.png') }}" height='30px' alt=""
+                                                                <img src="{{ asset('images/icons/double_check.png') }}" height='30px' alt=""
                                                                     style="color: green; font-size: 20pt;"
                                                                     data-toggle="tooltip" data-placement="bottom"
                                                                     title="Borang telah disahkan"></i>
                                                             @else
-                                                                <img src="{{ asset('calendar.png') }}" height='30px' alt=""
+                                                                <img src="{{ asset('images/icons/calendar.png') }}" height='30px' alt=""
                                                                     style="color: grey; font-size: 20pt;"
                                                                     data-toggle="tooltip" data-placement="bottom"
                                                                     title="Borang ditutup"></i>
@@ -202,13 +202,13 @@
 
                                                     @if ($data->status == 'Tidak Diisi' && $data->bulan == '2' && $shuttle->id == $data->id)
 
-                                                        <img src="{{ asset('calendar.png') }}" height='30px' alt=""
+                                                        <img src="{{ asset('images/icons/calendar.png') }}" height='30px' alt=""
                                                             style="color: grey; font-size: 20pt;" data-toggle="tooltip"
                                                             data-placement="bottom" title="Borang ditutup"></i>
 
                                                     @elseif($data->status =="Tidak Lengkap" && $data->bulan =='2'
                                                         && $shuttle->id = $data->id)
-                                                       <img src="{{ asset('history.png') }}" height='30px' alt="" style="color: #dbd400; font-size: 20pt;"
+                                                       <img src="{{ asset('images/icons/history.png') }}" height='30px' alt="" style="color: #dbd400; font-size: 20pt;"
                                                             data-toggle="tooltip" data-placement="bottom"
                                                             title="Borang tidak lengkap "></i>
                                                     @elseif($data->status =="Sedang Diproses" &&
@@ -228,11 +228,11 @@
                                                     @elseif($data->status =="Lulus" &&
                                                         $data->bulan =='2' && $shuttle->id ==
                                                         $data->shuttle_id)
-                                                        <img src="{{ asset('double_check.png') }}" height='30px' alt="" style="color: green; font-size: 20pt;"
+                                                        <img src="{{ asset('images/icons/double_check.png') }}" height='30px' alt="" style="color: green; font-size: 20pt;"
                                                             data-toggle="tooltip" data-placement="bottom"
                                                             title="Borang telah disahkan"></i>
                                                     @else
-                                                        <img src="{{ asset('calendar.png') }}" height='30px' alt=""
+                                                        <img src="{{ asset('images/icons/calendar.png') }}" height='30px' alt=""
                                                             style="color: grey; font-size: 20pt;" data-toggle="tooltip"
                                                             data-placement="bottom" title="Borang ditutup"></i>
                                                     @break
@@ -248,13 +248,13 @@
 
                                                     @if ($data->status == 'Tidak Diisi' && $data->bulan == '3' && $shuttle->id == $data->id)
 
-                                                        <img src="{{ asset('calendar.png') }}" height='30px' alt=""
+                                                        <img src="{{ asset('images/icons/calendar.png') }}" height='30px' alt=""
                                                             style="color: grey; font-size: 20pt;" data-toggle="tooltip"
                                                             data-placement="bottom" title="Borang ditutup"></i>
 
                                                     @elseif($data->status =="Tidak Lengkap" && $data->bulan =='3'
                                                         && $shuttle->id = $data->id)
-                                                       <img src="{{ asset('history.png') }}" height='30px' alt="" style="color: #dbd400; font-size: 20pt;"
+                                                       <img src="{{ asset('images/icons/history.png') }}" height='30px' alt="" style="color: #dbd400; font-size: 20pt;"
                                                             data-toggle="tooltip" data-placement="bottom"
                                                             title="Borang tidak lengkap "></i>
                                                     @elseif($data->status =="Sedang Diproses" &&
@@ -274,11 +274,11 @@
                                                     @elseif($data->status =="Lulus" &&
                                                         $data->bulan =='3' && $shuttle->id ==
                                                         $data->shuttle_id)
-                                                        <img src="{{ asset('double_check.png') }}" height='30px' alt="" style="color: green; font-size: 20pt;"
+                                                        <img src="{{ asset('images/icons/double_check.png') }}" height='30px' alt="" style="color: green; font-size: 20pt;"
                                                             data-toggle="tooltip" data-placement="bottom"
                                                             title="Borang telah disahkan"></i>
                                                     @else
-                                                        <img src="{{ asset('calendar.png') }}" height='30px' alt=""
+                                                        <img src="{{ asset('images/icons/calendar.png') }}" height='30px' alt=""
                                                             style="color: grey; font-size: 20pt;" data-toggle="tooltip"
                                                             data-placement="bottom" title="Borang ditutup"></i>
                                                     @break
@@ -294,13 +294,13 @@
 
                                                     @if ($data->status == 'Tidak Diisi' && $data->bulan == '4' && $shuttle->id == $data->id)
 
-                                                        <img src="{{ asset('calendar.png') }}" height='30px' alt=""
+                                                        <img src="{{ asset('images/icons/calendar.png') }}" height='30px' alt=""
                                                             style="color: grey; font-size: 20pt;" data-toggle="tooltip"
                                                             data-placement="bottom" title="Borang ditutup"></i>
 
                                                     @elseif($data->status =="Tidak Lengkap" && $data->bulan =='4'
                                                         && $shuttle->id = $data->id)
-                                                       <img src="{{ asset('history.png') }}" height='30px' alt="" style="color: #dbd400; font-size: 20pt;"
+                                                       <img src="{{ asset('images/icons/history.png') }}" height='30px' alt="" style="color: #dbd400; font-size: 20pt;"
                                                             data-toggle="tooltip" data-placement="bottom"
                                                             title="Borang tidak lengkap "></i>
                                                     @elseif($data->status =="Sedang Diproses" &&
@@ -320,11 +320,11 @@
                                                     @elseif($data->status =="Lulus" &&
                                                         $data->bulan =='4' && $shuttle->id ==
                                                         $data->shuttle_id)
-                                                        <img src="{{ asset('double_check.png') }}" height='30px' alt="" style="color: green; font-size: 20pt;"
+                                                        <img src="{{ asset('images/icons/double_check.png') }}" height='30px' alt="" style="color: green; font-size: 20pt;"
                                                             data-toggle="tooltip" data-placement="bottom"
                                                             title="Borang telah disahkan"></i>
                                                     @else
-                                                        <img src="{{ asset('calendar.png') }}" height='30px' alt=""
+                                                        <img src="{{ asset('images/icons/calendar.png') }}" height='30px' alt=""
                                                             style="color: grey; font-size: 20pt;" data-toggle="tooltip"
                                                             data-placement="bottom" title="Borang ditutup"></i>
                                                     @break
@@ -340,13 +340,13 @@
 
                                                     @if ($data->status == 'Tidak Diisi' && $data->bulan == '5' && $shuttle->id == $data->id)
 
-                                                        <img src="{{ asset('calendar.png') }}" height='30px' alt=""
+                                                        <img src="{{ asset('images/icons/calendar.png') }}" height='30px' alt=""
                                                             style="color: grey; font-size: 20pt;" data-toggle="tooltip"
                                                             data-placement="bottom" title="Borang ditutup"></i>
 
                                                     @elseif($data->status =="Tidak Lengkap" && $data->bulan =='5'
                                                         && $shuttle->id == $data->id)
-                                                       <img src="{{ asset('history.png') }}" height='30px' alt="" style="color: #dbd400; font-size: 20pt;"
+                                                       <img src="{{ asset('images/icons/history.png') }}" height='30px' alt="" style="color: #dbd400; font-size: 20pt;"
                                                             data-toggle="tooltip" data-placement="bottom"
                                                             title="Borang tidak lengkap "></i>
                                                     @elseif($data->status =="Sedang Diproses" &&
@@ -366,11 +366,11 @@
                                                     @elseif($data->status =="Lulus" &&
                                                         $data->bulan =='5' && $shuttle->id ==
                                                         $data->shuttle_id)
-                                                        <img src="{{ asset('double_check.png') }}" height='30px' alt="" style="color: green; font-size: 20pt;"
+                                                        <img src="{{ asset('images/icons/double_check.png') }}" height='30px' alt="" style="color: green; font-size: 20pt;"
                                                             data-toggle="tooltip" data-placement="bottom"
                                                             title="Borang telah disahkan"></i>
                                                     @else
-                                                        <img src="{{ asset('calendar.png') }}" height='30px' alt=""
+                                                        <img src="{{ asset('images/icons/calendar.png') }}" height='30px' alt=""
                                                             style="color: grey; font-size: 20pt;" data-toggle="tooltip"
                                                             data-placement="bottom" title="Borang ditutup"></i>
                                                     @break
@@ -385,13 +385,13 @@
 
                                                     @if ($data->status == 'Tidak Diisi' && $data->bulan == '6' && $shuttle->id == $data->id)
 
-                                                        <img src="{{ asset('calendar.png') }}" height='30px' alt=""
+                                                        <img src="{{ asset('images/icons/calendar.png') }}" height='30px' alt=""
                                                             style="color: grey; font-size: 20pt;" data-toggle="tooltip"
                                                             data-placement="bottom" title="Borang ditutup"></i>
 
                                                     @elseif($data->status =="Tidak Lengkap" && $data->bulan =='6'
                                                         && $shuttle->id == $data->id)
-                                                       <img src="{{ asset('history.png') }}" height='30px' alt="" style="color: #dbd400; font-size: 20pt;"
+                                                       <img src="{{ asset('images/icons/history.png') }}" height='30px' alt="" style="color: #dbd400; font-size: 20pt;"
                                                             data-toggle="tooltip" data-placement="bottom"
                                                             title="Borang tidak lengkap "></i>
                                                     @elseif($data->status =="Sedang Diproses" &&
@@ -411,11 +411,11 @@
                                                     @elseif($data->status =="Lulus" &&
                                                         $data->bulan =='6' && $shuttle->id ==
                                                         $data->shuttle_id)
-                                                        <img src="{{ asset('double_check.png') }}" height='30px' alt="" style="color: green; font-size: 20pt;"
+                                                        <img src="{{ asset('images/icons/double_check.png') }}" height='30px' alt="" style="color: green; font-size: 20pt;"
                                                             data-toggle="tooltip" data-placement="bottom"
                                                             title="Borang telah disahkan"></i>
                                                     @else
-                                                        <img src="{{ asset('calendar.png') }}" height='30px' alt=""
+                                                        <img src="{{ asset('images/icons/calendar.png') }}" height='30px' alt=""
                                                             style="color: grey; font-size: 20pt;" data-toggle="tooltip"
                                                             data-placement="bottom" title="Borang ditutup"></i>
                                                     @break
@@ -430,13 +430,13 @@
 
                                                     @if ($data->status == 'Tidak Diisi' && $data->bulan == '7' && $shuttle->id == $data->id)
 
-                                                        <img src="{{ asset('calendar.png') }}" height='30px' alt=""
+                                                        <img src="{{ asset('images/icons/calendar.png') }}" height='30px' alt=""
                                                             style="color: grey; font-size: 20pt;" data-toggle="tooltip"
                                                             data-placement="bottom" title="Borang ditutup"></i>
 
                                                     @elseif($data->status =="Tidak Lengkap" && $data->bulan =='7'
                                                         && $shuttle->id = $data->id)
-                                                       <img src="{{ asset('history.png') }}" height='30px' alt="" style="color: #dbd400; font-size: 20pt;"
+                                                       <img src="{{ asset('images/icons/history.png') }}" height='30px' alt="" style="color: #dbd400; font-size: 20pt;"
                                                             data-toggle="tooltip" data-placement="bottom"
                                                             title="Borang tidak lengkap "></i>
                                                     @elseif($data->status =="Sedang Diproses" &&
@@ -456,11 +456,11 @@
                                                     @elseif($data->status =="Lulus" &&
                                                         $data->bulan =='7' && $shuttle->id ==
                                                         $data->shuttle_id)
-                                                        <img src="{{ asset('double_check.png') }}" height='30px' alt="" style="color: green; font-size: 20pt;"
+                                                        <img src="{{ asset('images/icons/double_check.png') }}" height='30px' alt="" style="color: green; font-size: 20pt;"
                                                             data-toggle="tooltip" data-placement="bottom"
                                                             title="Borang telah disahkan"></i>
                                                     @else
-                                                        <img src="{{ asset('calendar.png') }}" height='30px' alt=""
+                                                        <img src="{{ asset('images/icons/calendar.png') }}" height='30px' alt=""
                                                             style="color: grey; font-size: 20pt;" data-toggle="tooltip"
                                                             data-placement="bottom" title="Borang ditutup"></i>
                                                     @break
@@ -475,13 +475,13 @@
 
                                                     @if ($data->status == 'Tidak Diisi' && $data->bulan == '8' && $shuttle->id == $data->id)
 
-                                                        <img src="{{ asset('calendar.png') }}" height='30px' alt=""
+                                                        <img src="{{ asset('images/icons/calendar.png') }}" height='30px' alt=""
                                                             style="color: grey; font-size: 20pt;" data-toggle="tooltip"
                                                             data-placement="bottom" title="Borang ditutup"></i>
 
                                                     @elseif($data->status =="Tidak Lengkap" && $data->bulan =='8'
                                                         && $shuttle->id = $data->id)
-                                                       <img src="{{ asset('history.png') }}" height='30px' alt="" style="color: #dbd400; font-size: 20pt;"
+                                                       <img src="{{ asset('images/icons/history.png') }}" height='30px' alt="" style="color: #dbd400; font-size: 20pt;"
                                                             data-toggle="tooltip" data-placement="bottom"
                                                             title="Borang tidak lengkap "></i>
                                                     @elseif($data->status =="Sedang Diproses" &&
@@ -501,11 +501,11 @@
                                                     @elseif($data->status =="Lulus" &&
                                                         $data->bulan =='8' && $shuttle->id ==
                                                         $data->shuttle_id)
-                                                        <img src="{{ asset('double_check.png') }}" height='30px' alt="" style="color: green; font-size: 20pt;"
+                                                        <img src="{{ asset('images/icons/double_check.png') }}" height='30px' alt="" style="color: green; font-size: 20pt;"
                                                             data-toggle="tooltip" data-placement="bottom"
                                                             title="Borang telah disahkan"></i>
                                                     @else
-                                                        <img src="{{ asset('calendar.png') }}" height='30px' alt=""
+                                                        <img src="{{ asset('images/icons/calendar.png') }}" height='30px' alt=""
                                                             style="color: grey; font-size: 20pt;" data-toggle="tooltip"
                                                             data-placement="bottom" title="Borang ditutup"></i>
                                                     @break
@@ -520,7 +520,7 @@
 
                                                     @if ($data->status == 'Tidak Diisi' && $data->bulan == '9' && $shuttle->id == $data->id)
 
-                                                        <img src="{{ asset('calendar.png') }}" height='30px' alt=""
+                                                        <img src="{{ asset('images/icons/calendar.png') }}" height='30px' alt=""
                                                             style="color: grey; font-size: 20pt;" data-toggle="tooltip"
                                                             data-placement="bottom" title="Borang ditutup"></i>
 
@@ -540,16 +540,16 @@
                                                                 title="Borang perlu disahkan"></i></a>
                                                     @elseif($data->status =="Tidak Lengkap" && $data->bulan =='9' &&
                                                         $shuttle->id = $data->id)
-                                                       <img src="{{ asset('history.png') }}" height='30px' alt="" style="color: #dbd400; font-size: 20pt;"
+                                                       <img src="{{ asset('images/icons/history.png') }}" height='30px' alt="" style="color: #dbd400; font-size: 20pt;"
                                                             data-toggle="tooltip" data-placement="bottom"
                                                             title="Borang tidak lengkap "></i>
                                                     @elseif($data->status =="Dihantar ke IPJPSM" && $data->bulan
                                                         =='9' && $shuttle->id == $data->id)
-                                                        <img src="{{ asset('circle_check_yellow.png') }}" height='30px' alt="" style="color: green; font-size: 20pt;"
+                                                        <img src="{{ asset('images/icons/circle_check_yellow.png') }}" height='30px' alt="" style="color: green; font-size: 20pt;"
                                                             data-toggle="tooltip" data-placement="bottom"
                                                             title="Borang telah disahkan"></i>
                                                     @else
-                                                        <img src="{{ asset('calendar.png') }}" height='30px' alt=""
+                                                        <img src="{{ asset('images/icons/calendar.png') }}" height='30px' alt=""
                                                             style="color: grey; font-size: 20pt;" data-toggle="tooltip"
                                                             data-placement="bottom" title="Borang ditutup"></i>
                                                     @break
@@ -564,14 +564,14 @@
 
                                                     @if ($data->status == 'Tidak Diisi' && $data->bulan == '10' && ($shuttle->id = $data->id))
 
-                                                        <img src="{{ asset('calendar.png') }}" height='30px' alt=""
+                                                        <img src="{{ asset('images/icons/calendar.png') }}" height='30px' alt=""
                                                             style="color: grey; font-size: 20pt;" data-toggle="tooltip"
                                                             data-placement="bottom" title="Borang ditutup"></i>
 
 
                                                     @elseif($data->status =="Tidak Lengkap" && $data->bulan =='10'
                                                         && $shuttle->id = $data->id)
-                                                       <img src="{{ asset('history.png') }}" height='30px' alt="" style="color: #dbd400; font-size: 20pt;"
+                                                       <img src="{{ asset('images/icons/history.png') }}" height='30px' alt="" style="color: #dbd400; font-size: 20pt;"
                                                             data-toggle="tooltip" data-placement="bottom"
                                                             title="Borang tidak lengkap "></i>
                                                     @elseif($data->status =="Sedang Diproses" &&
@@ -591,11 +591,11 @@
                                                     @elseif($data->status =="Lulus" &&
                                                         $data->bulan =='10' && $shuttle->id ==
                                                         $data->shuttle_id)
-                                                        <img src="{{ asset('double_check.png') }}" height='30px' alt="" style="color: green; font-size: 20pt;"
+                                                        <img src="{{ asset('images/icons/double_check.png') }}" height='30px' alt="" style="color: green; font-size: 20pt;"
                                                             data-toggle="tooltip" data-placement="bottom"
                                                             title="Borang telah disahkan"></i>
                                                     @else
-                                                        <img src="{{ asset('calendar.png') }}" height='30px' alt=""
+                                                        <img src="{{ asset('images/icons/calendar.png') }}" height='30px' alt=""
                                                             style="color: grey; font-size: 20pt;" data-toggle="tooltip"
                                                             data-placement="bottom" title="Borang ditutup"></i>
                                                     @break
@@ -611,13 +611,13 @@
 
                                                     @if ($data->status == 'Tidak Diisi' && $data->bulan == '11' && $shuttle->id == $data->id)
 
-                                                        <img src="{{ asset('calendar.png') }}" height='30px' alt=""
+                                                        <img src="{{ asset('images/icons/calendar.png') }}" height='30px' alt=""
                                                             style="color: grey; font-size: 20pt;" data-toggle="tooltip"
                                                             data-placement="bottom" title="Borang ditutup"></i>
 
                                                     @elseif($data->status =="Tidak Lengkap" && $data->bulan =='11'
                                                         && $shuttle->id == $data->id)
-                                                       <img src="{{ asset('history.png') }}" height='30px' alt="" style="color: #dbd400; font-size: 20pt;"
+                                                       <img src="{{ asset('images/icons/history.png') }}" height='30px' alt="" style="color: #dbd400; font-size: 20pt;"
                                                             data-toggle="tooltip" data-placement="bottom"
                                                             title="Borang tidak lengkap "></i>
                                                     @elseif($data->status =="Sedang Diproses" &&
@@ -637,12 +637,12 @@
                                                     @elseif($data->status =="Lulus" &&
                                                         $data->bulan =='11' && $shuttle->id ==
                                                         $data->shuttle_id)
-                                                        <img src="{{ asset('double_check.png') }}" height='30px' alt="" style="color: green; font-size: 20pt;"
+                                                        <img src="{{ asset('images/icons/double_check.png') }}" height='30px' alt="" style="color: green; font-size: 20pt;"
                                                             data-toggle="tooltip" data-placement="bottom"
                                                             title="Borang telah disahkan"></i>
 
                                                     @else
-                                                        <img src="{{ asset('calendar.png') }}" height='30px' alt=""
+                                                        <img src="{{ asset('images/icons/calendar.png') }}" height='30px' alt=""
                                                             style="color: grey; font-size: 20pt;" data-toggle="tooltip"
                                                             data-placement="bottom" title="Borang ditutup"></i>
                                                     @break
@@ -658,13 +658,13 @@
 
                                                     @if ($data->status == 'Tidak Diisi' && $data->bulan == '12' && $shuttle->id == $data->id)
 
-                                                        <img src="{{ asset('calendar.png') }}" height='30px' alt=""
+                                                        <img src="{{ asset('images/icons/calendar.png') }}" height='30px' alt=""
                                                             style="color: grey; font-size: 20pt;" data-toggle="tooltip"
                                                             data-placement="bottom" title="Borang ditutup"></i>
 
                                                     @elseif($data->status =="Tidak Lengkap" && $data->bulan =='12'
                                                         && $shuttle->id == $data->id)
-                                                       <img src="{{ asset('history.png') }}" height='30px' alt="" style="color: #dbd400; font-size: 20pt;"
+                                                       <img src="{{ asset('images/icons/history.png') }}" height='30px' alt="" style="color: #dbd400; font-size: 20pt;"
                                                             data-toggle="tooltip" data-placement="bottom"
                                                             title="Borang tidak lengkap "></i>
                                                     @elseif($data->status =="Sedang Diproses" &&
@@ -684,11 +684,11 @@
                                                     @elseif($data->status =="Lulus" &&
                                                         $data->bulan =='12' && $shuttle->id ==
                                                         $data->shuttle_id)
-                                                        <img src="{{ asset('double_check.png') }}" height='30px' alt="" style="color: green; font-size: 20pt;"
+                                                        <img src="{{ asset('images/icons/double_check.png') }}" height='30px' alt="" style="color: green; font-size: 20pt;"
                                                             data-toggle="tooltip" data-placement="bottom"
                                                             title="Borang telah disahkan"></i>
                                                     @else
-                                                        <img src="{{ asset('calendar.png') }}" height='30px' alt=""
+                                                        <img src="{{ asset('images/icons/calendar.png') }}" height='30px' alt=""
                                                             style="color: grey; font-size: 20pt;" data-toggle="tooltip"
                                                             data-placement="bottom" title="Borang ditutup"></i>
                                                     @break

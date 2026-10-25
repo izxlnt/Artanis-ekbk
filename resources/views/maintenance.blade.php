@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Penyelenggaraan Sistem - SISTEM eSHUTTLE</title>
-    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('logo.png') }}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('images/logo.png') }}">
     <style>
         * {
             margin: 0;
@@ -231,7 +231,7 @@
         <div class="card">
 
             <div class="logo-wrapper">
-                <img src="{{ asset('logo.png') }}" alt="Logo eSHUTTLE" onerror="this.style.display='none'">
+                <img src="{{ asset('images/logo.png') }}" alt="Logo eSHUTTLE" onerror="this.style.display='none'">
             </div>
 
             <div class="icon-wrapper">

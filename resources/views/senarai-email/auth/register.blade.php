@@ -119,7 +119,7 @@
                 <tr>
                     <td align="center" valign="top" style="padding: 40px 10px 40px 10px;">
                         {{-- <a href="#" target="_blank"> --}}
-                          <img src="{{ asset('/logo.png') }}" style="height: 200px;" alt="homepage">
+                          <img src="{{ asset('/images/logo.png') }}" style="height: 200px;" alt="homepage">
                         {{-- </a> --}}
                     </td>
                 </tr>

@@ -139,34 +139,34 @@
 
                                                     @if ($data->status == 'Sedang Diproses')
                                                         <a href="{{ route('phd.shuttle-3-view-formD', $data->id) }}">
-                                                            <img src="{{ asset('circle_times_yellow.png') }}" height='30px'
+                                                            <img src="{{ asset('images/icons/circle_times_yellow.png') }}" height='30px'
                                                             data-toggle="tooltip" data-placement="bottom"
                                                             title="Borang perlu disahkan PHD"></i></a>
                                                     @elseif($data->status == 'Tidak Diisi')
-                                                        <img src="{{ asset(\App\Support\TempohBorang::ditutup($data) ? 'calendar.png' : 'circle_times.png') }}" height='30px' data-toggle="tooltip" data-placement="bottom" title="{{ \App\Support\TempohBorang::ditutup($data) ? 'Borang ditutup' : 'Borang belum diisi' }}">
+                                                        <img src="{{ asset(\App\Support\TempohBorang::ditutup($data) ? 'images/icons/calendar.png' : 'images/icons/circle_times.png') }}" height='30px' data-toggle="tooltip" data-placement="bottom" title="{{ \App\Support\TempohBorang::ditutup($data) ? 'Borang ditutup' : 'Borang belum diisi' }}">
                                                     @elseif($data->status == 'Sedang Diisi')
-                                                        <img src="{{ asset('circle_times.png') }}" height='30px' data-toggle="tooltip" data-placement="bottom" title="Borang sedang diisi">
+                                                        <img src="{{ asset('images/icons/circle_times.png') }}" height='30px' data-toggle="tooltip" data-placement="bottom" title="Borang sedang diisi">
                                                     @elseif($data->status == 'Ditutup')
-                                                        <img src="{{ asset('calendar.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang ditutup">
+                                                        <img src="{{ asset('images/icons/calendar.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang ditutup">
                                                     @elseif($data->status == 'Tidak Lengkap')
-                                                        <img src="{{ asset('history.png') }}" height='30px'
+                                                        <img src="{{ asset('images/icons/history.png') }}" height='30px'
                                                             data-toggle="tooltip" data-placement="bottom"
                                                             title="Borang tidak lengkap">
                                                             @elseif($data->status == 'Dihantar ke IPJPSM')
                                                                 @if ($packageSent)
                                                                     <a href="{{ route('phd.shuttle-3-view-formD-phd', $data->id) }}">
-                                                                        <img src="{{ asset('circle_check.png') }}" height='30px'
+                                                                        <img src="{{ asset('images/icons/circle_check.png') }}" height='30px'
                                                                             data-toggle="tooltip" data-placement="bottom"
                                                                             title="Borang telah disahkan PHD">
                                                                     </a>
                                                                 @else
-                                                                    <img src="{{ asset('package.png') }}" height='40px'
+                                                                    <img src="{{ asset('images/icons/package.png') }}" height='40px'
                                                                         data-toggle="tooltip" data-placement="bottom"
                                                                         title="{{ \App\Support\PakejStatus::tooltip($data ?? null) }}">
                                                                 @endif
                                                         @elseif($data->status == 'Lulus')
                                                         <a href="{{ route('phd.shuttle-3-view-formD-phd', $data->id) }}">
-                                                            <img src="{{ asset((!empty($data->tiada_pengeluaran) && $data->tiada_pengeluaran == 1) ? 'tpcoklat.png' : 'double_check.png') }}" height='30px'
+                                                            <img src="{{ asset((!empty($data->tiada_pengeluaran) && $data->tiada_pengeluaran == 1) ? 'images/icons/tpcoklat.png' : 'images/icons/double_check.png') }}" height='30px'
                                                                 data-toggle="tooltip" data-placement="bottom"
                                                                 title="{{ (!empty($data->tiada_pengeluaran) && $data->tiada_pengeluaran == 1) ? 'Borang telah diperaku IPJPSM - Tiada Pengeluaran' : 'Borang telah diperaku' }}">
                                                         </a>

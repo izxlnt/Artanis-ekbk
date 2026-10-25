@@ -92,7 +92,7 @@
                                     </div>
                                     <div class="ml-auto">
                                         <span class="text-white display-6"><img style="width:60px;height:60px"
-                                                src="{{ asset('kilang_kayu_balak.png') }}"></img></span>
+                                                src="{{ asset('images/icons/kilang_kayu_balak.png') }}"></img></span>
                                     </div>
                                 </div>
                             </div>
@@ -113,7 +113,7 @@
                                     </div>
                                     <div class="ml-auto">
                                         <span class="text-white display-6"><img style="width:50px;height:50px"
-                                                src="{{ asset('kilang_kayu_papan_lapis.png') }}"></img></span>
+                                                src="{{ asset('images/icons/kilang_kayu_papan_lapis.png') }}"></img></span>
                                     </div>
                                 </div>
                             </div>
@@ -133,7 +133,7 @@
                                     </div>
                                     <div class="ml-auto">
                                         <span class="text-white display-6"><img style="width:50px;height:50px"
-                                                src="{{ asset('kilang_kayu_kumai.png') }}"></img></span>
+                                                src="{{ asset('images/icons/kilang_kayu_kumai.png') }}"></img></span>
                                     </div>
                                 </div>
                             </div>

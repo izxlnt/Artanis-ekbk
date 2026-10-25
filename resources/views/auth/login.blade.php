@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <!-- Favicon icon -->
-    <link rel="icon" type="image/png" sizes="16x16" href={{ asset('logo.png') }}>
+    <link rel="icon" type="image/png" sizes="16x16" href={{ asset('images/logo.png') }}>
     <title>SISTEM eSHUTTLE</title>
     <!-- Custom CSS -->
     <link href="{{ asset('nice-admin/dist/css/style.min.css') }}" rel="stylesheet">
@@ -41,7 +41,7 @@
         <!-- Login box.scss -->
         <!-- ============================================================== -->
         <div class="auth-wrapper d-flex no-block justify-content-center align-items-center"
-            style="background:url({{ asset('/bglogin.png') }});background-size:cover;">
+            style="background:url({{ asset('/images/bglogin.png') }});background-size:cover;">
             <div class="row" style="justify-content: left;">
                 {{-- <div class="col-md-1"></div> --}}
                 <div class="col-md-8">
@@ -86,9 +86,9 @@
                     style="padding-top:10% ;background-image: linear-gradient(to right top, #f3ce8f, #f5d296, #f7d79d, #f9dba5, #fbdfac, #fce2b2, #fde6b7, #fee9bd, #feecc3, #feefc8, #fff1ce, #fff4d4);">
                     <div id="loginform">
                         <div class="logo">
-                            <span class="db"><img src="{{ asset('/jata.png') }}" style="width:30%"
+                            <span class="db"><img src="{{ asset('/images/jata.png') }}" style="width:30%"
                                 alt="logo" /></span>
-                            <span class="db"><img src="{{ asset('/logo.png') }}" style="width:30%"
+                            <span class="db"><img src="{{ asset('/images/logo.png') }}" style="width:30%"
                                     alt="logo" /></span>
                             <h3 class="font-medium m-b-20">Log Masuk</h3>
 

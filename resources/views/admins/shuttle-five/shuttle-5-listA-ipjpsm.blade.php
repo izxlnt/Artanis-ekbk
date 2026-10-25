@@ -126,25 +126,25 @@
                                                     @foreach ($formA as $form)
                                                         @if ($data->id == $form->shuttle_id)
                                                             @if ($form->status == 'Sedang Diproses')
-                                                                <img src="{{ asset('circle_times_yellow.png') }}" height='30px' alt=""
+                                                                <img src="{{ asset('images/icons/circle_times_yellow.png') }}" height='30px' alt=""
                                                                     style="color: white; font-size: 18pt;"
                                                                     data-toggle="tooltip" data-placement="bottom"
                                                                     title="Borang perlu disahkan PHD"></i>
                                                             @elseif($form->status == 'Tidak Lengkap')
-                                                               <img src="{{ asset('history.png') }}" height='30px' alt=""
+                                                               <img src="{{ asset('images/icons/history.png') }}" height='30px' alt=""
                                                                     style="color: red; font-size: 20pt;"
                                                                     data-toggle="tooltip" data-placement="bottom"
                                                                     title="Borang tidak lengkap "></i>
                                                             @elseif($form->status == 'Dihantar ke IPJPSM')
                                                                 <a
                                                                     href="{{ route('ipjpsm.shuttle-3-view-formA', $data->id) }}?year={{ $year }}">
-                                                                    <img src="{{ asset('circle_times_blue.png') }}"
+                                                                    <img src="{{ asset('images/icons/circle_times_blue.png') }}"
                                                                         height='30px' alt=""
                                                                         style="font-size: 18pt;"
                                                                         data-toggle="tooltip" data-placement="bottom"
                                                                         title="Borang perlu diperaku"></i></a>
                                                             @elseif($form->status == 'Lulus')
-                                                                <img src="{{ asset('double_check.png') }}" height='30px' alt=""
+                                                                <img src="{{ asset('images/icons/double_check.png') }}" height='30px' alt=""
                                                                     style="color: green; font-size: 20pt;"
                                                                     data-toggle="tooltip" data-placement="bottom"
                                                                     title="Borang telah diperaku "></i>

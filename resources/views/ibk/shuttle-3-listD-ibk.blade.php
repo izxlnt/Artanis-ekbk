@@ -154,21 +154,21 @@
                                             </td>
                                             <td>
                                                 @if($data->status =="Sedang Diproses")
-                                                <img src="{{ asset('circle_check_yellow.png') }}" height='30px' alt=""
+                                                <img src="{{ asset('images/icons/circle_check_yellow.png') }}" height='30px' alt=""
                                                     data-toggle="tooltip" data-placement="bottom" title="Borang telah dihantar">
                                                 @elseif($data->status == 'Ditutup')
-                                                    <img src="{{ asset('calendar.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang ditutup">
+                                                    <img src="{{ asset('images/icons/calendar.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang ditutup">
                                                 @elseif(in_array($data->status, ['Lulus', 'Dihantar ke IPJPSM']))
-                                                <img src="{{ asset((!empty($data->tiada_pengeluaran) && $data->tiada_pengeluaran == 1) ? 'tpbiru.png' : 'circle_check.png') }}" height='30px' alt=""
+                                                <img src="{{ asset((!empty($data->tiada_pengeluaran) && $data->tiada_pengeluaran == 1) ? 'images/icons/tpbiru.png' : 'images/icons/circle_check.png') }}" height='30px' alt=""
                                                     data-toggle="tooltip" data-placement="bottom" title="{{ (!empty($data->tiada_pengeluaran) && $data->tiada_pengeluaran == 1) ? 'Borang telah disahkan PHD - Tiada Pengeluaran' : 'Borang telah disahkan PHD' }}">
                                                 @elseif($data->status =="Tidak Lengkap")
                                                 <a href="{{ route('edit-form3d',$data->id) }}" >
-                                                    <img src="{{ asset('history.png') }}" height='30px' alt="" style="font-size: 15pt;"
+                                                    <img src="{{ asset('images/icons/history.png') }}" height='30px' alt="" style="font-size: 15pt;"
                                                             data-toggle="tooltip" data-placement="bottom"
                                                             title="Borang tidak lengkap"></i></a>
                                                 @elseif($data->status =="Sedang Diisi")
                                                 {{-- Per the official status spec, IBK sees "belum diisi" and "sedang diisi" as the same icon. --}}
-                                                <img src="{{ asset('circle_times.png') }}" height='30px' alt=""
+                                                <img src="{{ asset('images/icons/circle_times.png') }}" height='30px' alt=""
                                                     style="color:red;font-size:25pt"
                                                     data-toggle="tooltip" data-placement="bottom" title="Borang sedang diisi">
                                                 @else

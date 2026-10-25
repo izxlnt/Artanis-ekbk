@@ -514,7 +514,7 @@
 
                                                                                     <div class="modal-body modal-dialog1">
                                                                                         <img id="" class="img-responsive"
-                                                                                            src="{{ asset('/pdf.png') }}"
+                                                                                            src="{{ asset('/images/icons/pdf.png') }}"
                                                                                             alt="Lesen Kilang"
                                                                                             class="imgthumbnail"></img>
                                                                                     </div>
@@ -569,7 +569,7 @@
                             ->lesen_kilang)), PATHINFO_EXTENSION) == "pdf")
 
                             <div class="modal-body modal-dialog1">
-                                <img id="" class="img-responsive" src="{{ asset('/pdf.png') }}" alt="Lesen Kilang"
+                                <img id="" class="img-responsive" src="{{ asset('/images/icons/pdf.png') }}" alt="Lesen Kilang"
                                     class="imgthumbnail"></img>
                             </div>
                         @else

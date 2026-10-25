@@ -118,12 +118,12 @@
                                                                             data-toggle="tooltip" data-placement="bottom"
                                                                             title="Borang perlu disahkan"></i></a>
                                                                 @elseif($data->status =="Lulus")
-                                                                    <img src="{{ asset('double_check.png') }}" height='30px' alt=""
+                                                                    <img src="{{ asset('images/icons/double_check.png') }}" height='30px' alt=""
                                                                         style="color: green; font-size: 20pt;"
                                                                         data-toggle="tooltip" data-placement="bottom"
                                                                         title="Borang telah disahkan"></i>
                                                                 @elseif($data->status =="Tidak Lengkap")
-                                                                    <img src="{{ asset('history.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang tidak lengkap">
+                                                                    <img src="{{ asset('images/icons/history.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang tidak lengkap">
                                                                 @elseif($data->status == "Sedang Diproses")
                                                                     <i class="fas fa-hourglass-start"
                                                                         style="color: yellow;font-size: 25pt;"
@@ -136,20 +136,20 @@
                                                                         $tarikh_tutup_terkini = date('Y-m-d', strtotime($delay, $time));
                                                                     @endphp
                                                                     @if (date('Y-m-d') >= $data->tarikh_buka_borang && (!$buffer || !$buffer->aktif || date('Y-m-d') <= $tarikh_tutup_terkini))
-                                                                        <img src="{{ asset('circle_times.png') }}"
+                                                                        <img src="{{ asset('images/icons/circle_times.png') }}"
                                                                             height='30px' alt=""
                                                                             style="color: red; font-size: 25pt;"
                                                                             data-toggle="tooltip" data-placement="bottom"
                                                                             title="Borang tidak diisi"></i>
                                                                     @else
-                                                                        <img src="{{ asset('calendar.png') }}" height='30px' alt=""
+                                                                        <img src="{{ asset('images/icons/calendar.png') }}" height='30px' alt=""
                                                                             style="color: grey; font-size: 20pt;"
                                                                             data-toggle="tooltip" data-placement="bottom"
                                                                             title="Borang ditutup"></i>
                                                                     @endif
 
                                                                 @else
-                                                                    <img src="{{ asset('calendar.png') }}" height='30px' alt=""
+                                                                    <img src="{{ asset('images/icons/calendar.png') }}" height='30px' alt=""
                                                                         style="color: grey; font-size: 20pt;"
                                                                         data-toggle="tooltip" data-placement="bottom"
                                                                         title="Borang ditutup"></i>
@@ -161,7 +161,7 @@
                                                     @else
 
 
-                                                        <img src="{{ asset('calendar.png') }}" height='30px' alt=""
+                                                        <img src="{{ asset('images/icons/calendar.png') }}" height='30px' alt=""
                                                             style="color: grey; font-size: 20pt;" data-toggle="tooltip"
                                                             data-placement="bottom" title="Borang ditutup"></i>
                                                     @endif
@@ -179,12 +179,12 @@
                                                                             data-toggle="tooltip" data-placement="bottom"
                                                                             title="Borang perlu disahkan"></i></a>
                                                                 @elseif($data->status =="Lulus")
-                                                                    <img src="{{ asset('double_check.png') }}" height='30px' alt=""
+                                                                    <img src="{{ asset('images/icons/double_check.png') }}" height='30px' alt=""
                                                                         style="color: green; font-size: 20pt;"
                                                                         data-toggle="tooltip" data-placement="bottom"
                                                                         title="Borang telah disahkan"></i>
                                                                 @elseif($data->status =="Tidak Lengkap")
-                                                                    <img src="{{ asset('history.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang tidak lengkap">
+                                                                    <img src="{{ asset('images/icons/history.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang tidak lengkap">
                                                                 @elseif($data->status == "Sedang Diproses")
                                                                     <i class="fas fa-hourglass-start"
                                                                         style="color: yellow;font-size: 25pt;"
@@ -197,20 +197,20 @@
                                                                         $tarikh_tutup_terkini = date('Y-m-d', strtotime($delay, $time));
                                                                     @endphp
                                                                     @if (date('Y-m-d') >= $data->tarikh_buka_borang && (!$buffer || !$buffer->aktif || date('Y-m-d') <= $tarikh_tutup_terkini))
-                                                                        <img src="{{ asset('circle_times.png') }}"
+                                                                        <img src="{{ asset('images/icons/circle_times.png') }}"
                                                                             height='30px' alt=""
                                                                             style="color: red; font-size: 25pt;"
                                                                             data-toggle="tooltip" data-placement="bottom"
                                                                             title="Borang tidak diisi"></i>
                                                                     @else
-                                                                        <img src="{{ asset('calendar.png') }}" height='30px' alt=""
+                                                                        <img src="{{ asset('images/icons/calendar.png') }}" height='30px' alt=""
                                                                             style="color: grey; font-size: 20pt;"
                                                                             data-toggle="tooltip" data-placement="bottom"
                                                                             title="Borang ditutup"></i>
                                                                     @endif
 
                                                                 @else
-                                                                    <img src="{{ asset('calendar.png') }}" height='30px' alt=""
+                                                                    <img src="{{ asset('images/icons/calendar.png') }}" height='30px' alt=""
                                                                         style="color: grey; font-size: 20pt;"
                                                                         data-toggle="tooltip" data-placement="bottom"
                                                                         title="Borang ditutup"></i>
@@ -222,7 +222,7 @@
                                                     @else
 
 
-                                                        <img src="{{ asset('calendar.png') }}" height='30px' alt=""
+                                                        <img src="{{ asset('images/icons/calendar.png') }}" height='30px' alt=""
                                                             style="color: grey; font-size: 20pt;" data-toggle="tooltip"
                                                             data-placement="bottom" title="Borang ditutup"></i>
                                                     @endif
@@ -241,12 +241,12 @@
                                                                             data-toggle="tooltip" data-placement="bottom"
                                                                             title="Borang perlu disahkan"></i></a>
                                                                 @elseif($data->status =="Lulus")
-                                                                    <img src="{{ asset('double_check.png') }}" height='30px' alt=""
+                                                                    <img src="{{ asset('images/icons/double_check.png') }}" height='30px' alt=""
                                                                         style="color: green; font-size: 20pt;"
                                                                         data-toggle="tooltip" data-placement="bottom"
                                                                         title="Borang telah disahkan"></i>
                                                                 @elseif($data->status =="Tidak Lengkap")
-                                                                    <img src="{{ asset('history.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang tidak lengkap">
+                                                                    <img src="{{ asset('images/icons/history.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang tidak lengkap">
                                                                 @elseif($data->status == "Sedang Diproses")
                                                                     <i class="fas fa-hourglass-start"
                                                                         style="color: yellow;font-size: 25pt;"
@@ -259,20 +259,20 @@
                                                                         $tarikh_tutup_terkini = date('Y-m-d', strtotime($delay, $time));
                                                                     @endphp
                                                                     @if (date('Y-m-d') >= $data->tarikh_buka_borang && (!$buffer || !$buffer->aktif || date('Y-m-d') <= $tarikh_tutup_terkini))
-                                                                        <img src="{{ asset('circle_times.png') }}"
+                                                                        <img src="{{ asset('images/icons/circle_times.png') }}"
                                                                             height='30px' alt=""
                                                                             style="color: red; font-size: 25pt;"
                                                                             data-toggle="tooltip" data-placement="bottom"
                                                                             title="Borang tidak diisi"></i>
                                                                     @else
-                                                                        <img src="{{ asset('calendar.png') }}" height='30px' alt=""
+                                                                        <img src="{{ asset('images/icons/calendar.png') }}" height='30px' alt=""
                                                                             style="color: grey; font-size: 20pt;"
                                                                             data-toggle="tooltip" data-placement="bottom"
                                                                             title="Borang ditutup"></i>
                                                                     @endif
 
                                                                 @else
-                                                                    <img src="{{ asset('calendar.png') }}" height='30px' alt=""
+                                                                    <img src="{{ asset('images/icons/calendar.png') }}" height='30px' alt=""
                                                                         style="color: grey; font-size: 20pt;"
                                                                         data-toggle="tooltip" data-placement="bottom"
                                                                         title="Borang ditutup"></i>
@@ -284,7 +284,7 @@
                                                     @else
 
 
-                                                        <img src="{{ asset('calendar.png') }}" height='30px' alt=""
+                                                        <img src="{{ asset('images/icons/calendar.png') }}" height='30px' alt=""
                                                             style="color: grey; font-size: 20pt;" data-toggle="tooltip"
                                                             data-placement="bottom" title="Borang ditutup"></i>
                                                     @endif
@@ -303,12 +303,12 @@
                                                                             data-toggle="tooltip" data-placement="bottom"
                                                                             title="Borang perlu disahkan"></i></a>
                                                                 @elseif($data->status =="Lulus")
-                                                                    <img src="{{ asset('double_check.png') }}" height='30px' alt=""
+                                                                    <img src="{{ asset('images/icons/double_check.png') }}" height='30px' alt=""
                                                                         style="color: green; font-size: 20pt;"
                                                                         data-toggle="tooltip" data-placement="bottom"
                                                                         title="Borang telah disahkan"></i>
                                                                 @elseif($data->status =="Tidak Lengkap")
-                                                                    <img src="{{ asset('history.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang tidak lengkap">
+                                                                    <img src="{{ asset('images/icons/history.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom" title="Borang tidak lengkap">
                                                                 @elseif($data->status == "Sedang Diproses")
                                                                     <i class="fas fa-hourglass-start"
                                                                         style="color: yellow;font-size: 25pt;"
@@ -321,20 +321,20 @@
                                                                         $tarikh_tutup_terkini = date('Y-m-d', strtotime($delay, $time));
                                                                     @endphp
                                                                     @if (date('Y-m-d') >= $data->tarikh_buka_borang && (!$buffer || !$buffer->aktif || date('Y-m-d') <= $tarikh_tutup_terkini))
-                                                                        <img src="{{ asset('circle_times.png') }}"
+                                                                        <img src="{{ asset('images/icons/circle_times.png') }}"
                                                                             height='30px' alt=""
                                                                             style="color: red; font-size: 25pt;"
                                                                             data-toggle="tooltip" data-placement="bottom"
                                                                             title="Borang tidak diisi"></i>
                                                                     @else
-                                                                        <img src="{{ asset('calendar.png') }}" height='30px' alt=""
+                                                                        <img src="{{ asset('images/icons/calendar.png') }}" height='30px' alt=""
                                                                             style="color: grey; font-size: 20pt;"
                                                                             data-toggle="tooltip" data-placement="bottom"
                                                                             title="Borang ditutup"></i>
                                                                     @endif
 
                                                                 @else
-                                                                    <img src="{{ asset('calendar.png') }}" height='30px' alt=""
+                                                                    <img src="{{ asset('images/icons/calendar.png') }}" height='30px' alt=""
                                                                         style="color: grey; font-size: 20pt;"
                                                                         data-toggle="tooltip" data-placement="bottom"
                                                                         title="Borang ditutup"></i>
@@ -346,7 +346,7 @@
                                                     @else
 
 
-                                                        <img src="{{ asset('calendar.png') }}" height='30px' alt=""
+                                                        <img src="{{ asset('images/icons/calendar.png') }}" height='30px' alt=""
                                                             style="color: grey; font-size: 20pt;" data-toggle="tooltip"
                                                             data-placement="bottom" title="Borang ditutup"></i>
                                                     @endif

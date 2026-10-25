@@ -154,7 +154,7 @@
                                     </div>
                                     <div class="ml-auto">
                                         <span class="text-white display-6"><img style="width:60px;height:60px"
-                                                src="{{ asset('kilang_kayu_balak.png') }}"></img></span>
+                                                src="{{ asset('images/icons/kilang_kayu_balak.png') }}"></img></span>
                                     </div>
                                 </div>
                             </div>
@@ -175,7 +175,7 @@
                                     </div>
                                     <div class="ml-auto">
                                         <span class="text-white display-6"><img style="width:50px;height:50px"
-                                                src="{{ asset('kilang_kayu_papan_lapis.png') }}"></img></span>
+                                                src="{{ asset('images/icons/kilang_kayu_papan_lapis.png') }}"></img></span>
                                     </div>
                                 </div>
                             </div>
@@ -196,7 +196,7 @@
                                     </div>
                                     <div class="ml-auto">
                                         <span class="text-white display-6"><img style="width:50px;height:50px"
-                                                src="{{ asset('kilang_kayu_kumai.png') }}"></img></span>
+                                                src="{{ asset('images/icons/kilang_kayu_kumai.png') }}"></img></span>
                                     </div>
                                 </div>
                             </div>
@@ -678,28 +678,28 @@
                             </div>
                             <div style="col-md-3">
                                 IPJPSM <br><br>
-                                <img src="{{ asset('calendar.png') }}" height='30px' alt="" style="color: grey; font-size: 20pt;"
+                                <img src="{{ asset('images/icons/calendar.png') }}" height='30px' alt="" style="color: grey; font-size: 20pt;"
                                     data-toggle="tooltip" data-placement="bottom" title="Borang ditutup"></i> Borang
                                 ditutup<br><br>
 
-                                <img src="{{ asset('circle_times.png') }}"
+                                <img src="{{ asset('images/icons/circle_times.png') }}"
                                                                             height='30px' alt="" style="color: red; font-size: 25pt;" data-toggle="tooltip"
                                     data-placement="bottom" title="Borang tidak diisi"></i> Borang tidak diisi<br><br>
 
                                 <i class="fas fa-sync" style="color: yellow; font-size: 25pt;" data-toggle="tooltip"
                                     data-placement="bottom" title="Borang sedang diisi"> </i> Borang sedang diisi<br><br>
 
-                               <img src="{{ asset('history.png') }}" height='30px' alt="" style="color: red; font-size: 20pt;" data-toggle="tooltip"
+                               <img src="{{ asset('images/icons/history.png') }}" height='30px' alt="" style="color: red; font-size: 20pt;" data-toggle="tooltip"
                                     data-placement="bottom" title="Borang tidak lengkap "></i> Borang tidak lengkap<br><br>
 
-                                <img src="{{ asset('circle_times.png') }}"
+                                <img src="{{ asset('images/icons/circle_times.png') }}"
                                                                             height='30px' alt="" style="color: #dbd400; font-size: 20pt;"
                                     data-toggle="tooltip" data-placement="bottom" title="Borang belum disahkan PHD "></i>
                                 Borang belum disahkan PHD
                                 <br><br>
 
 
-                                <img src="{{ asset('tp_logo2.png') }}" height='30px' alt="" data-toggle="tooltip"
+                                <img src="{{ asset('images/icons/tp_logo2.png') }}" height='30px' alt="" data-toggle="tooltip"
                                     data-placement="bottom" title="Borang perlu diperaku - Tiada Pengeluaran"> Borang perlu
                                 diperaku - Tiada Pengeluaran <br><br>
 
@@ -707,14 +707,14 @@
                                         style="color: white; font-size: 18pt;" data-toggle="tooltip" data-placement="bottom"
                                         title="Borang perlu diperaku"></i></a> Borang perlu diperaku <br><br>
 
-                                <img src="{{ asset('package.png') }}" height='40px' alt="" data-toggle="tooltip"
+                                <img src="{{ asset('images/icons/package.png') }}" height='40px' alt="" data-toggle="tooltip"
                                     data-placement="bottom" title="Pakej belum dihantar"> Pakej belum dihantar PHD <br><br>
 
-                                <img src="{{ asset('tp_logo.png') }}" height='30px' alt="" data-toggle="tooltip"
+                                <img src="{{ asset('images/icons/tp_logo.png') }}" height='30px' alt="" data-toggle="tooltip"
                                     data-placement="bottom" title="Borang telah disahkan"> Borang telah diperaku - TP
                                 <br><br>
 
-                                <img src="{{ asset('double_check.png') }}" height='30px' alt="" style="color: green; font-size: 20pt;" data-toggle="tooltip"
+                                <img src="{{ asset('images/icons/double_check.png') }}" height='30px' alt="" style="color: green; font-size: 20pt;" data-toggle="tooltip"
                                     data-placement="bottom" title="Borang telah diperaku"></i> Borang telah diperaku
                                 <br><br>
                             </div>
@@ -724,21 +724,21 @@
 
                             <div style="col-md-3">
                                 PHD <br><br>
-                                <img src="{{ asset('calendar.png') }}" height='30px' alt="" style="color: grey; font-size: 20pt;"
+                                <img src="{{ asset('images/icons/calendar.png') }}" height='30px' alt="" style="color: grey; font-size: 20pt;"
                                     data-toggle="tooltip" data-placement="bottom" title="Borang ditutup"></i> Borang
                                 ditutup<br><br>
 
-                                <img src="{{ asset('circle_times.png') }}"
+                                <img src="{{ asset('images/icons/circle_times.png') }}"
                                                                             height='30px' alt="" style="color: red; font-size: 20pt;" data-toggle="tooltip"
                                     data-placement="bottom" title="Borang belum diisi"></i></i> Borang belum diisi<br><br>
 
                                 <i class="fas fa-sync" style="color: yellow; font-size: 25pt;" data-toggle="tooltip"
                                     data-placement="bottom" title="Borang sedang diisi"> </i> Borang sedang diisi<br><br>
 
-                               <img src="{{ asset('history.png') }}" height='30px' alt="" style="color: red; font-size: 20pt;" data-toggle="tooltip"
+                               <img src="{{ asset('images/icons/history.png') }}" height='30px' alt="" style="color: red; font-size: 20pt;" data-toggle="tooltip"
                                     data-placement="bottom" title="Borang tidak lengkap "></i> Borang tidak lengkap<br><br>
 
-                                <img src="{{ asset('tp_logo2.png') }}" height='30px' alt="" data-toggle="tooltip"
+                                <img src="{{ asset('images/icons/tp_logo2.png') }}" height='30px' alt="" data-toggle="tooltip"
                                     data-placement="bottom" title="Borang perlu diperaku - Tiada Pengeluaran"> Borang perlu
                                 disahkan - Tiada Pengeluaran <br><br>
 
@@ -747,11 +747,11 @@
                                         title="Borang perlu diperaku"></i></a> Borang perlu disahkan <br><br>
 
 
-                                <img src="{{ asset('tp_logo.png') }}" height='30px' alt="" data-toggle="tooltip"
+                                <img src="{{ asset('images/icons/tp_logo.png') }}" height='30px' alt="" data-toggle="tooltip"
                                     data-placement="bottom" title="Borang telah disahkan"> Borang telah disahkan - TP
                                 <br><br>
 
-                                <img src="{{ asset('double_check.png') }}" height='30px' alt="" style="color: green; font-size: 20pt;" data-toggle="tooltip"
+                                <img src="{{ asset('images/icons/double_check.png') }}" height='30px' alt="" style="color: green; font-size: 20pt;" data-toggle="tooltip"
                                     data-placement="bottom" title="Borang telah diperaku"></i> Borang telah diperaku oleh
                                 IPJPSM
                                 <br><br>
@@ -760,12 +760,12 @@
 
                             <div style="col-md-3">
                                 IBK <br><br>
-                                <img src="{{ asset('calendar.png') }}" height='30px' alt="" style="color: grey; font-size: 20pt;"
+                                <img src="{{ asset('images/icons/calendar.png') }}" height='30px' alt="" style="color: grey; font-size: 20pt;"
                                     data-toggle="tooltip" data-placement="bottom" title="Borang ditutup"></i> Borang
                                 ditutup<br><br>
 
                                 <a href="#" class="mr-1 btn btn-danger ">
-                                    <img src="{{ asset('circle_times.png') }}"
+                                    <img src="{{ asset('images/icons/circle_times.png') }}"
                                                                             height='30px' alt="" style="font-size: 15pt;"></i></a> Borang belum
                                 diisi<br><br>
 
@@ -779,14 +779,14 @@
 
 
                                 <a href="#">
-                                    <img src="{{ asset('circle_check.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom"
+                                    <img src="{{ asset('images/icons/circle_check.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom"
                                         title="Borang telah dihantar" style="color: green; font-size: 20pt;"></i></a> Borang
                                 telah dihantar<br><br>
 
 
 
                                 <a href="#">
-                                    <img src="{{ asset('circle_check.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom"
+                                    <img src="{{ asset('images/icons/circle_check.png') }}" height='30px' alt="" data-toggle="tooltip" data-placement="bottom"
                                         title="Borang telah diluluskan oleh IPJPSM"
                                         style="color: green; font-size: 20pt;"></i></a> Borang telah diperaku oleh IPJPSM
                                 <br><br>
@@ -795,11 +795,11 @@
 
                             <div style="col-md-3">
                                 JPN <br><br>
-                                <img src="{{ asset('calendar.png') }}" height='30px' alt="" style="color: grey; font-size: 20pt;"
+                                <img src="{{ asset('images/icons/calendar.png') }}" height='30px' alt="" style="color: grey; font-size: 20pt;"
                                     data-toggle="tooltip" data-placement="bottom" title="Borang ditutup"></i> Borang
                                 ditutup<br><br>
 
-                                <img src="{{ asset('circle_times.png') }}"
+                                <img src="{{ asset('images/icons/circle_times.png') }}"
                                                                             height='30px' alt="" style="color: red; font-size: 20pt;" data-toggle="tooltip"
                                     data-placement="bottom" title="Borang belum diisi"></i> Borang belum diisi<br><br>
 
@@ -807,7 +807,7 @@
                                     data-placement="bottom" title="Borang sedang diisi"> </i> Borang sedang diisi<br><br>
 
                                     <a href="#">
-                                       <img src="{{ asset('history.png') }}" height='30px' alt=""
+                                       <img src="{{ asset('images/icons/history.png') }}" height='30px' alt=""
                                         style="color: red; font-size: 20pt;"
                                         data-toggle="tooltip" data-placement="bottom"
                                         title="Borang tidak lengkap "></i></a>Borang tidak lengkap <br><br>
@@ -818,13 +818,13 @@
                                         data-toggle="tooltip" data-placement="bottom"
                                         title="Borang perlu disahkan"></i></a>Borang perlu disahkan PHD<br><br>
 
-                                        <img src="{{ asset('circle_check_yellow.png') }}" height='30px' alt="" style="color: green; font-size: 20pt;"
+                                        <img src="{{ asset('images/icons/circle_check_yellow.png') }}" height='30px' alt="" style="color: green; font-size: 20pt;"
                                         data-toggle="tooltip" data-placement="bottom"
                                         title="Borang telah disahkan"></i></a> Borang
                                         telah disahkan PHD<br><br>
 
 
-                                <img src="{{ asset('double_check.png') }}" height='30px' alt="" style="color: green; font-size: 20pt;" data-toggle="tooltip"
+                                <img src="{{ asset('images/icons/double_check.png') }}" height='30px' alt="" style="color: green; font-size: 20pt;" data-toggle="tooltip"
                                 data-placement="bottom" title="Borang telah diperaku"></i> Borang telah diperaku oleh
                             IPJPSM
                             <br><br>

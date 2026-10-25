@@ -39,9 +39,9 @@
 <style>
     html, body {
         /* background-color: #000; */
-        /* background-image: url('{{ asset('/woodfactory.png') }}'); */
+        /* background-image: url('{{ asset('/images/woodfactory.png') }}'); */
 
-        background:url({{ asset('/bghutan.png') }});
+        background:url({{ asset('/images/bghutan.png') }});
         background-size:cover;
         /* background-image: linear-gradient(to right top, #fa1c2d, #ff660f, #ff9900, #ffc700, #f6f234); */
         /* background-repeat: no-repeat;

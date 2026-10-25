@@ -153,21 +153,21 @@
 
                                                             @if ($data->status == 1)
                                                                 <td>
-                                                                    <img src="{{ asset('circle_check.png') }}" height="20px" alt=""
+                                                                    <img src="{{ asset('images/icons/circle_check.png') }}" height="20px" alt=""
                                                                         data-toggle="tooltip" data-placement="bottom" title="Kilang aktif">
                                                                     <span
                                                                         class="label label-success label-rounded">Aktif</span>
                                                                 </td>
                                                             @elseif($data->status == 0)
                                                                 <td>
-                                                                    <img src="{{ asset('circle_times.png') }}" height="20px" alt=""
+                                                                    <img src="{{ asset('images/icons/circle_times.png') }}" height="20px" alt=""
                                                                         data-toggle="tooltip" data-placement="bottom" title="Kilang tidak aktif">
                                                                     <span class="label label-danger label-rounded">Tidak
                                                                         Aktif</span> </td>
                                                             @endif
                                                             <td><a
                                                                     href="{{ route('ipjpsm.senaraiibk5', $data->shuttle_id) }}"><img
-                                                                        src="{{ asset('share.png') }}" height='30px'
+                                                                        src="{{ asset('images/icons/share.png') }}" height='30px'
                                                                         data-toggle="tooltip" data-placement="bottom"
                                                                         title="Pengguna Kilang"></a>
                                                             </td>

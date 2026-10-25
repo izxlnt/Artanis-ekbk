@@ -89,7 +89,7 @@
         <!-- Login box.scss -->
         <!-- ============================================================== -->
         <divwhats class="auth-wrapper d-flex no-block justify-content-center align-items-center"
-            style="background:url({{ asset('/woodfactory.png') }});background-size:cover;">
+            style="background:url({{ asset('/images/woodfactory.png') }});background-size:cover;">
             {{-- <div class="row">
                 <div class="col-md-1"></div>
                 <div class="col-md-6">

@@ -178,7 +178,7 @@
                                     style="height: 50px;" class="dark-logo" />
                                 <!-- Light Logo icon -->
                                 {{-- <span class="sispaa" style="margin-left: -20%">e-KBK</span> --}}
-                                <img src="{{ asset('Coat_of_Arms_of_Malaysia.png') }}"
+                                <img src="{{ asset('images/Coat_of_Arms_of_Malaysia.png') }}"
                                     style="height: 50px;" alt="homepage" class="dark-logo" />
                             </span>
                         </a>

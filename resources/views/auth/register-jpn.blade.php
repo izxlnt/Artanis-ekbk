@@ -32,7 +32,7 @@
 </head>
 
 <body>
-    <div class="main-wrapper" style="background:url({{ asset('/bghutan.png') }});background-size:cover;">
+    <div class="main-wrapper" style="background:url({{ asset('/images/bghutan.png') }});background-size:cover;">
         <!-- ============================================================== -->
         <!-- Preloader - style you can find in spinners.css -->
         <!-- ============================================================== -->
@@ -47,9 +47,9 @@
                 style="background-image: linear-gradient(to right top, #f3ce8f, #f5d296, #f7d79d, #f9dba5, #fbdfac, #fce2b2, #fde6b7, #fee9bd, #feecc3, #feefc8, #fff1ce, #fff4d4);">
                 <div class="">
                     <div class="text w-200">
-                        <span class="db"><img src="{{ asset('/jata.png') }}" style="width:30%"
+                        <span class="db"><img src="{{ asset('/images/jata.png') }}" style="width:30%"
                                 alt="logo" /></span>
-                        <span class="db"><img src="{{ asset('/logo.png') }}" style="width:30%"
+                        <span class="db"><img src="{{ asset('/images/logo.png') }}" style="width:30%"
                                 alt="logo" /></span>
 
                         <h3 class="text-center">Sistem</h3>

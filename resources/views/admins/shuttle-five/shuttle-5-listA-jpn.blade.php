@@ -138,19 +138,19 @@
                                                 <td>
                                                     @if ($data->status == 'Sedang Diproses')
                                                         <a href="{{ route('jpn.shuttle-3-view-formA', $data->id) }}"><img
-                                                                src="{{ asset('circle_times_yellow.png') }}"
+                                                                src="{{ asset('images/icons/circle_times_yellow.png') }}"
                                                                 height='30px' alt="" style="color: white; font-size: 20pt;"
                                                                 data-toggle="tooltip" data-placement="bottom"
                                                                 data-original-title="Borang perlu disahkan PHD"></i>
                                                         </a>
                                                     @elseif($data->status == 'Tidak Lengkap')
                                                         <a href="{{ route('jpn.shuttle-3-view-formA', $data->id) }}">
-                                                            <img src="{{ asset('history.png') }}" height='30px' alt=""
+                                                            <img src="{{ asset('images/icons/history.png') }}" height='30px' alt=""
                                                                 style="color: #dbd400; font-size: 20pt;"
                                                                 data-toggle="tooltip" data-placement="bottom"
                                                                 data-original-title="Borang tidak lengkap "></i></a>
                                                     @elseif($data->status == 'Tidak Diisi')
-                                                        <img src="{{ asset('circle_times.png') }}"
+                                                        <img src="{{ asset('images/icons/circle_times.png') }}"
                                                                             height='30px' alt="" style="color: red; font-size: 20pt;"
                                                             data-toggle="tooltip" data-placement="bottom"
                                                             data-original-title="Borang belum diisi"></i>
@@ -168,18 +168,18 @@
                                                     @endphp
                                                         @if ($packageSent)
                                                         <a href="{{ route('jpn.shuttle-3-view-formA', $data->id) }}">
-                                                            <img src="{{ asset('circle_check.png') }}" height='30px' alt=""
+                                                            <img src="{{ asset('images/icons/circle_check.png') }}" height='30px' alt=""
                                                                 style="color: green; font-size: 20pt;" data-toggle="tooltip"
                                                                 data-placement="bottom"
                                                                 data-original-title="Borang telah disahkan PHD"></i></a>
                                                         @else
-                                                            <img src="{{ asset('package.png') }}" height='40px'
+                                                            <img src="{{ asset('images/icons/package.png') }}" height='40px'
                                                                 data-toggle="tooltip" data-placement="bottom"
                                                                 title="{{ \App\Support\PakejStatus::tooltip($data ?? null) }}">
                                                         @endif
                                                     @elseif($data->status == 'Lulus')
                                                         <a href="{{ route('jpn.shuttle-3-view-formA', $data->id) }}">
-                                                            <img src="{{ asset('double_check.png') }}" height='30px'
+                                                            <img src="{{ asset('images/icons/double_check.png') }}" height='30px'
                                                                 alt="" style="color: green; font-size: 20pt;"
                                                                 data-toggle="tooltip" data-placement="bottom"
                                                                 data-original-title="Borang telah diperaku"></i></a>

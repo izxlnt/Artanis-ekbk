@@ -531,7 +531,7 @@
 
                                                                             <div class="modal-body modal-dialog1">
                                                                                 <img id="" class="img-responsive"
-                                                                                    src="{{ asset('/pdf.png') }}"
+                                                                                    src="{{ asset('/images/icons/pdf.png') }}"
                                                                                     alt="Lesen Kilang"
                                                                                     class="imgthumbnail"></img>
                                                                             </div>
@@ -586,7 +586,7 @@
 
                                                                             <div class="modal-body modal-dialog1">
                                                                                 <img id="" class="img-responsive"
-                                                                                    src="{{ asset('/pdf.png') }}"
+                                                                                    src="{{ asset('/images/icons/pdf.png') }}"
                                                                                     alt="Lesen Kilang"
                                                                                     class="imgthumbnail"></img>
                                                                             </div>

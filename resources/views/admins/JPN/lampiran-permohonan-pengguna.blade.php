@@ -474,7 +474,7 @@
                                                                             @if(pathinfo(asset( $image_path = str_replace('public', 'storage',  $kilang ->sijil_ssm)), PATHINFO_EXTENSION) == "pdf")
 
                                                                                 <div class="modal-body modal-dialog1" >
-                                                                                <img id="" class="img-responsive" src="{{asset('/pdf.png')}}" alt="Lesen Kilang" class="imgthumbnail" ></img>
+                                                                                <img id="" class="img-responsive" src="{{asset('/images/icons/pdf.png')}}" alt="Lesen Kilang" class="imgthumbnail" ></img>
                                                                                 </div>
                                                                                 @else
                                                                                 <div class="modal-body"  >
@@ -516,7 +516,7 @@
                                                                             @if(pathinfo(asset( $image_path = str_replace('public', 'storage',  $kilang ->lesen_kilang)), PATHINFO_EXTENSION) == "pdf")
 
                                                                                 <div class="modal-body modal-dialog1" >
-                                                                                <img id="" class="img-responsive" src="{{asset('/pdf.png')}}" alt="Lesen Kilang" class="imgthumbnail" ></img>
+                                                                                <img id="" class="img-responsive" src="{{asset('/images/icons/pdf.png')}}" alt="Lesen Kilang" class="imgthumbnail" ></img>
                                                                                 </div>
                                                                                 @else
                                                                                 <div class="modal-body"  >

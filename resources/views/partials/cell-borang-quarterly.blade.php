@@ -6,24 +6,24 @@
     @if ($data->status == 'Dihantar ke IPJPSM')
         @if ($current_batch && $current_batch->status == 'Dihantar ke IPJPSM' && $current_batch->$batchField == 2)
             <a href="{{ route($viewRoute, $data->id) . (isset($from) && $from ? '?from=' . $from : '') }}">
-                <img src="{{ asset('circle_times_blue.png') }}" height='30px' alt=""
+                <img src="{{ asset('images/icons/circle_times_blue.png') }}" height='30px' alt=""
                     data-toggle="tooltip" data-placement="bottom" title="Borang perlu diperaku">
             </a>
         @else
-            <img src="{{ asset('package.png') }}" height='40px' alt="" data-toggle="tooltip" data-placement="bottom" title="{{ \App\Support\PakejStatus::tooltip($data ?? null) }}">
+            <img src="{{ asset('images/icons/package.png') }}" height='40px' alt="" data-toggle="tooltip" data-placement="bottom" title="{{ \App\Support\PakejStatus::tooltip($data ?? null) }}">
         @endif
     @elseif ($data->status == 'Lulus')
         <a href="{{ route($viewRoute, $data->id) . (isset($from) && $from ? '?from=' . $from : '') }}">
-            <img src="{{ asset('double_check.png') }}" height='30px' alt=""
+            <img src="{{ asset('images/icons/double_check.png') }}" height='30px' alt=""
                 style="color:green;font-size:20pt"
                 data-toggle="tooltip" data-placement="bottom" title="Borang telah diperaku">
         </a>
     @elseif ($data->status == 'Tidak Lengkap')
-        <img src="{{ asset('history.png') }}" height='30px' alt=""
+        <img src="{{ asset('images/icons/history.png') }}" height='30px' alt=""
             style="color:#dbd400;font-size:20pt"
             data-toggle="tooltip" data-placement="bottom" title="Borang tidak lengkap">
     @elseif ($data->status == 'Sedang Diproses')
-        <img src="{{ asset('circle_times_yellow.png') }}" height='30px' alt=""
+        <img src="{{ asset('images/icons/circle_times_yellow.png') }}" height='30px' alt=""
             style="color:#dbd400;font-size:25pt"
             data-toggle="tooltip" data-placement="bottom" title="Borang perlu disahkan PHD">
     @elseif ($data->status == 'Tidak Diisi')
@@ -37,11 +37,11 @@
                 : null;
         @endphp
         @if (date('Y-m-d') >= $data->tarikh_buka_borang && (!$tarikh_tutup_terkini || date('Y-m-d') <= $tarikh_tutup_terkini))
-            <img src="{{ asset('circle_times.png') }}" height='30px' alt=""
+            <img src="{{ asset('images/icons/circle_times.png') }}" height='30px' alt=""
                 style="color:red;font-size:25pt"
                 data-toggle="tooltip" data-placement="bottom" title="Borang belum diisi">
         @else
-            <img src="{{ asset('calendar.png') }}" height='30px' alt=""
+            <img src="{{ asset('images/icons/calendar.png') }}" height='30px' alt=""
                 style="color:grey;font-size:20pt"
                 data-toggle="tooltip" data-placement="bottom" title="Borang ditutup">
         @endif
@@ -49,11 +49,11 @@
         {{-- "Ditutup" = seeder placeholder. Show as "belum diisi" once the quarter has started. --}}
         @php $current_quarter_b = (int) ceil(date('n') / 3); @endphp
         @if (isset($suku_tahun) && $current_quarter_b >= (int)$suku_tahun)
-            <img src="{{ asset('circle_times.png') }}" height='30px' alt=""
+            <img src="{{ asset('images/icons/circle_times.png') }}" height='30px' alt=""
                 style="color:red;font-size:25pt"
                 data-toggle="tooltip" data-placement="bottom" title="Borang belum diisi">
         @else
-            <img src="{{ asset('calendar.png') }}" height='30px' alt=""
+            <img src="{{ asset('images/icons/calendar.png') }}" height='30px' alt=""
                 style="color:grey;font-size:20pt"
                 data-toggle="tooltip" data-placement="bottom" title="Borang belum dibuka">
         @endif
@@ -62,11 +62,11 @@
     {{-- No DB record: Q opens at start of its first month (Q1=Jan, Q2=Apr, Q3=Jul, Q4=Oct). --}}
     @php $current_month = (int) date('n'); @endphp
     @if (isset($suku_tahun) && (int)ceil($current_month / 3) < (int)$suku_tahun)
-        <img src="{{ asset('calendar.png') }}" height='30px' alt=""
+        <img src="{{ asset('images/icons/calendar.png') }}" height='30px' alt=""
             style="color:grey;font-size:20pt"
             data-toggle="tooltip" data-placement="bottom" title="Borang belum dibuka">
     @else
-        <img src="{{ asset('circle_times.png') }}" height='30px' alt=""
+        <img src="{{ asset('images/icons/circle_times.png') }}" height='30px' alt=""
             style="color:red;font-size:25pt"
             data-toggle="tooltip" data-placement="bottom" title="Borang belum diisi">
     @endif

@@ -19,7 +19,7 @@
 
 
     <!-- Favicon icon -->
-    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('logo.png') }}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('images/logo.png') }}">
 
     <!-- font-awesome icon -->
     <link rel="stylesheet" href="{{ asset('nice-admin/icon/css/all.css') }}">
@@ -172,7 +172,7 @@
                 <div class="navbar-collapse collapse" id="navbarSupportedContent">
                     <ul class="float-left navbar-nav">
                         <span class="logo-icon" style="align:left;">
-                            <img src="{{ asset('jata.png') }}" style="height: 50px;" alt="homepage"
+                            <img src="{{ asset('images/jata.png') }}" style="height: 50px;" alt="homepage"
                                 class="dark-logo" />
 
 
@@ -625,7 +625,7 @@
                                     style="padding-left: 10px;font-size: large;">Bantuan</span></a>
                             <ul aria-expanded="false" class="collapse first-level">
 
-                                <li class="sidebar-item"><a target="_blank" href="{{ asset('Manual_IPJPSM.pdf') }}"
+                                <li class="sidebar-item"><a target="_blank" href="{{ asset('documents/Manual_IPJPSM.pdf') }}"
                                         class="sidebar-link"><i class="mdi mdi-collage"></i><span
                                             class="hide-menu">&nbsp Panduan
                                             Pentadbir
@@ -674,7 +674,7 @@
     </div>
 
     <footer class="text-center footer"
-        style="bottom:0;text-align:center;left:0; color: rgb(0, 0, 0) !important;background-image: url(/bghutan.png); background-position: bottom; opacity: 0.75;">
+        style="bottom:0;text-align:center;left:0; color: rgb(0, 0, 0) !important;background-image: url(/images/bghutan.png); background-position: bottom; opacity: 0.75;">
         <span style=" color: rgb(255, 255, 255)">Hakcipta Terpelihara © {{ date('Y') }}. SISTEM eSHUTTLE. <br>
             Paparan terbaik untuk sistem ini adalah 1920x1080 resolusi piksel.</span>
     </footer>

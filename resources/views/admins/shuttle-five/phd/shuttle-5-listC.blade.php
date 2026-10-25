@@ -159,27 +159,27 @@
                                                                 $tarikh_tutup_terkini = date('Y-m-d', strtotime($delay, $time));
                                                             @endphp
                                                             @if (date('Y-m-d') >= $data->tarikh_buka_borang && (!$buffer || !$buffer->aktif || date('Y-m-d') <= $tarikh_tutup_terkini))
-                                                                <img src="{{ asset('circle_times.png') }}"
+                                                                <img src="{{ asset('images/icons/circle_times.png') }}"
                                                                             height='30px' alt=""
                                                                     style="color: red; font-size: 20pt;"
                                                                     data-toggle="tooltip" data-placement="bottom"
                                                                     title="Borang belum diisi"></i>
                                                             @else
-                                                                <img src="{{ asset('calendar.png') }}" height='30px' alt=""
+                                                                <img src="{{ asset('images/icons/calendar.png') }}" height='30px' alt=""
                                                                     style="color: grey; font-size: 20pt;"
                                                                     data-toggle="tooltip" data-placement="bottom"
                                                                     title="Borang ditutup"></i>
                                                             @endif
                                                         @elseif($data->status == 'Sedang Diisi' && $data->bulan == '1' && $shuttle->shuttle_id == $data->shuttle_id)
 
-                                                            <img src="{{ asset('circle_times.png') }}"
+                                                            <img src="{{ asset('images/icons/circle_times.png') }}"
                                                                             height='30px' alt="" 
                                                                 data-toggle="tooltip" data-placement="bottom"
                                                                 title="Borang sedang diisi"></i>
 
                                                         @elseif($data->status == 'Sedang Diproses' && $data->bulan == '1' && $shuttle->shuttle_id == $data->shuttle_id)
                                                             <a href="{{ route('phd.shuttle-3-view-formC', $data->id) }}">
-                                                                <img src="{{ asset('circle_times_yellow.png') }}"
+                                                                <img src="{{ asset('images/icons/circle_times_yellow.png') }}"
                                                                 height='30px'
                                                                     style="color: white; font-size: 18pt;"
                                                                     data-toggle="tooltip" data-placement="bottom"
@@ -187,24 +187,24 @@
 
                                                         @elseif($data->status == 'Tiada Pengeluaran' && $data->bulan == '1' && $shuttle->shuttle_id == $data->shuttle_id)
                                                             <a href="{{ route('phd.shuttle-3-view-formC', $data->id) }}">
-                                                                <img src="{{ asset('circle_times_yellow.png') }}" height='30px'
+                                                                <img src="{{ asset('images/icons/circle_times_yellow.png') }}" height='30px'
                                                                     alt="" data-toggle="tooltip" data-placement="bottom"
                                                                     title="Borang perlu disahkan PHD - Tiada Pengeluaran"></a>
                                                         @elseif($data->status == 'Tidak Lengkap' && $data->bulan == '1' && $shuttle->shuttle_id == $data->shuttle_id)
-                                                           <img src="{{ asset('history.png') }}" height='30px' alt=""
+                                                           <img src="{{ asset('images/icons/history.png') }}" height='30px' alt=""
                                                                 style="color: #dbd400; font-size: 20pt;"
                                                                 data-toggle="tooltip" data-placement="bottom"
                                                                 title="Borang tidak lengkap "></i>
                                                         @elseif($data->status == 'Dihantar ke IPJPSM' && $data->bulan == '1' && $shuttle->shuttle_id == $data->shuttle_id)
                                                             @if ($data->tiada_pengeluaran == 1)
                                                             <a href="{{ route('phd.shuttle-3-view-formC-phd', $data->id) }}">
-                                                                <img src="{{ asset('tpbiru.png') }}" height='30px'
+                                                                <img src="{{ asset('images/icons/tpbiru.png') }}" height='30px'
                                                                     alt="" data-toggle="tooltip" data-placement="bottom"
                                                                     title="Borang telah disahkan PHD - Tiada Pengeluaran">
                                                             </a>
                                                             @else
                                                             <a href="{{ route('phd.shuttle-3-view-formC-phd', $data->id) }}">
-                                                                <img src="{{ asset('circle_check.png') }}" height='30px' alt=""
+                                                                <img src="{{ asset('images/icons/circle_check.png') }}" height='30px' alt=""
                                                                     style="color: green; font-size: 20pt;"
                                                                     data-toggle="tooltip" data-placement="bottom"
                                                                     title="Borang telah disahkan PHD"></a>
@@ -212,13 +212,13 @@
                                                         @elseif($data->status == 'Lulus' && $data->bulan == '1' && $shuttle->shuttle_id == $data->shuttle_id)
                                                             @if ($data->tiada_pengeluaran == 1)
                                                             <a href="{{ route('phd.shuttle-3-view-formC-phd', $data->id) }}">
-                                                                <img src="{{ asset('tpcoklat.png') }}" height='30px'
+                                                                <img src="{{ asset('images/icons/tpcoklat.png') }}" height='30px'
                                                                     alt="" data-toggle="tooltip" data-placement="bottom"
                                                                     title="Borang telah diperaku IPJPSM - Tiada Pengeluaran">
                                                             </a>
                                                             @else
                                                             <a href="{{ route('phd.shuttle-3-view-formC-phd', $data->id) }}">
-                                                                <img src="{{ asset('double_check.png') }}" height='30px' alt=""
+                                                                <img src="{{ asset('images/icons/double_check.png') }}" height='30px' alt=""
                                                                     style="color: green; font-size: 20pt;"
                                                                     data-toggle="tooltip" data-placement="bottom"
                                                                     title="Borang telah diperaku"></a>
@@ -238,26 +238,26 @@
                                                                 $tarikh_tutup_terkini = date('Y-m-d', strtotime($delay, $time));
                                                             @endphp
                                                             @if (date('Y-m-d') >= $data->tarikh_buka_borang && (!$buffer || !$buffer->aktif || date('Y-m-d') <= $tarikh_tutup_terkini))
-                                                                <img src="{{ asset('circle_times.png') }}"
+                                                                <img src="{{ asset('images/icons/circle_times.png') }}"
                                                                             height='30px' alt=""
                                                                     style="color: red; font-size: 20pt;"
                                                                     data-toggle="tooltip" data-placement="bottom"
                                                                     title="Borang belum diisi"></i>
                                                             @else
-                                                                <img src="{{ asset('calendar.png') }}" height='30px' alt=""
+                                                                <img src="{{ asset('images/icons/calendar.png') }}" height='30px' alt=""
                                                                     style="color: grey; font-size: 20pt;"
                                                                     data-toggle="tooltip" data-placement="bottom"
                                                                     title="Borang ditutup"></i>
                                                             @endif
                                                         @elseif($data->status == 'Sedang Diisi' && $data->bulan == '2' && $shuttle->shuttle_id == $data->shuttle_id)
 
-                                                            <img src="{{ asset('circle_times.png') }}"
+                                                            <img src="{{ asset('images/icons/circle_times.png') }}"
                                                                             height='30px' alt="" 
                                                                 data-toggle="tooltip" data-placement="bottom"
                                                                 title="Borang sedang diisi"></i>
                                                         @elseif($data->status == 'Sedang Diproses' && $data->bulan == '2' && $shuttle->shuttle_id == $data->shuttle_id)
                                                             <a href="{{ route('phd.shuttle-3-view-formC', $data->id) }}"
-                                                                ><img src="{{ asset('circle_times_yellow.png') }}"
+                                                                ><img src="{{ asset('images/icons/circle_times_yellow.png') }}"
                                                                 height='30px'
                                                                     style="color: white; font-size: 18pt;"
                                                                     data-toggle="tooltip" data-placement="bottom"
@@ -265,24 +265,24 @@
 
                                                         @elseif($data->status == 'Tiada Pengeluaran' && $data->bulan == '2' && $shuttle->shuttle_id == $data->shuttle_id)
                                                             <a href="{{ route('phd.shuttle-3-view-formC', $data->id) }}">
-                                                                <img src="{{ asset('circle_times_yellow.png') }}" height='30px'
+                                                                <img src="{{ asset('images/icons/circle_times_yellow.png') }}" height='30px'
                                                                     alt="" data-toggle="tooltip" data-placement="bottom"
                                                                     title="Borang perlu disahkan PHD - Tiada Pengeluaran"></a>
                                                         @elseif($data->status == 'Tidak Lengkap' && $data->bulan == '2' && $shuttle->shuttle_id == $data->shuttle_id)
-                                                           <img src="{{ asset('history.png') }}" height='30px' alt=""
+                                                           <img src="{{ asset('images/icons/history.png') }}" height='30px' alt=""
                                                                 style="color: #dbd400; font-size: 20pt;"
                                                                 data-toggle="tooltip" data-placement="bottom"
                                                                 title="Borang tidak lengkap "></i>
                                                         @elseif($data->status == 'Dihantar ke IPJPSM' && $data->bulan == '2' && $shuttle->shuttle_id == $data->shuttle_id)
                                                         @if ($data->tiada_pengeluaran == 1)
                                                         <a href="{{ route('phd.shuttle-3-view-formC-phd', $data->id) }}">
-                                                            <img src="{{ asset('tpbiru.png') }}" height='30px'
+                                                            <img src="{{ asset('images/icons/tpbiru.png') }}" height='30px'
                                                                 alt="" data-toggle="tooltip" data-placement="bottom"
                                                                 title="Borang telah disahkan PHD - Tiada Pengeluaran">
                                                         </a>
                                                         @else
                                                         <a href="{{ route('phd.shuttle-3-view-formC-phd', $data->id) }}">
-                                                            <img src="{{ asset('circle_check.png') }}" height='30px' alt=""
+                                                            <img src="{{ asset('images/icons/circle_check.png') }}" height='30px' alt=""
                                                                 style="color: green; font-size: 20pt;"
                                                                 data-toggle="tooltip" data-placement="bottom"
                                                                 title="Borang telah disahkan PHD"></a>
@@ -290,13 +290,13 @@
                                                         @elseif($data->status == 'Lulus' && $data->bulan == '2' && $shuttle->shuttle_id == $data->shuttle_id)
                                                         @if ($data->tiada_pengeluaran == 1)
                                                         <a href="{{ route('phd.shuttle-3-view-formC-phd', $data->id) }}">
-                                                            <img src="{{ asset('tpcoklat.png') }}" height='30px'
+                                                            <img src="{{ asset('images/icons/tpcoklat.png') }}" height='30px'
                                                                 alt="" data-toggle="tooltip" data-placement="bottom"
                                                                 title="Borang telah diperaku IPJPSM - Tiada Pengeluaran">
                                                         </a>
                                                         @else
                                                         <a href="{{ route('phd.shuttle-3-view-formC-phd', $data->id) }}">
-                                                            <img src="{{ asset('double_check.png') }}" height='30px' alt=""
+                                                            <img src="{{ asset('images/icons/double_check.png') }}" height='30px' alt=""
                                                                 style="color: green; font-size: 20pt;"
                                                                 data-toggle="tooltip" data-placement="bottom"
                                                                 title="Borang telah diperaku"></a>
@@ -316,26 +316,26 @@
                                                                 $tarikh_tutup_terkini = date('Y-m-d', strtotime($delay, $time));
                                                             @endphp
                                                             @if (date('Y-m-d') >= $data->tarikh_buka_borang && (!$buffer || !$buffer->aktif || date('Y-m-d') <= $tarikh_tutup_terkini))
-                                                                <img src="{{ asset('circle_times.png') }}"
+                                                                <img src="{{ asset('images/icons/circle_times.png') }}"
                                                                             height='30px' alt=""
                                                                     style="color: red; font-size: 20pt;"
                                                                     data-toggle="tooltip" data-placement="bottom"
                                                                     title="Borang belum diisi"></i>
                                                             @else
-                                                                <img src="{{ asset('calendar.png') }}" height='30px' alt=""
+                                                                <img src="{{ asset('images/icons/calendar.png') }}" height='30px' alt=""
                                                                     style="color: grey; font-size: 20pt;"
                                                                     data-toggle="tooltip" data-placement="bottom"
                                                                     title="Borang ditutup"></i>
                                                             @endif
                                                         @elseif($data->status == 'Sedang Diisi' && $data->bulan == '3' && $shuttle->shuttle_id == $data->shuttle_id)
 
-                                                            <img src="{{ asset('circle_times.png') }}"
+                                                            <img src="{{ asset('images/icons/circle_times.png') }}"
                                                                             height='30px' alt="" 
                                                                 data-toggle="tooltip" data-placement="bottom"
                                                                 title="Borang sedang diisi"></i>
                                                         @elseif($data->status == 'Sedang Diproses' && $data->bulan == '3' && $shuttle->shuttle_id == $data->shuttle_id)
                                                             <a href="{{ route('phd.shuttle-3-view-formC', $data->id) }}"
-                                                                ><img src="{{ asset('circle_times_yellow.png') }}"
+                                                                ><img src="{{ asset('images/icons/circle_times_yellow.png') }}"
                                                                 height='30px'
                                                                     style="color: white; font-size: 18pt;"
                                                                     data-toggle="tooltip" data-placement="bottom"
@@ -343,24 +343,24 @@
 
                                                         @elseif($data->status == 'Tiada Pengeluaran' && $data->bulan == '3' && $shuttle->shuttle_id == $data->shuttle_id)
                                                             <a href="{{ route('phd.shuttle-3-view-formC', $data->id) }}">
-                                                                <img src="{{ asset('circle_times_yellow.png') }}" height='30px'
+                                                                <img src="{{ asset('images/icons/circle_times_yellow.png') }}" height='30px'
                                                                     alt="" data-toggle="tooltip" data-placement="bottom"
                                                                     title="Borang perlu disahkan PHD - Tiada Pengeluaran"></a>
                                                         @elseif($data->status == 'Tidak Lengkap' && $data->bulan == '3' && $shuttle->shuttle_id == $data->shuttle_id)
-                                                           <img src="{{ asset('history.png') }}" height='30px' alt=""
+                                                           <img src="{{ asset('images/icons/history.png') }}" height='30px' alt=""
                                                                 style="color: #dbd400; font-size: 20pt;"
                                                                 data-toggle="tooltip" data-placement="bottom"
                                                                 title="Borang tidak lengkap "></i>
                                                         @elseif($data->status == 'Dihantar ke IPJPSM' && $data->bulan == '3' && $shuttle->shuttle_id == $data->shuttle_id)
                                                         @if ($data->tiada_pengeluaran == 1)
                                                         <a href="{{ route('phd.shuttle-3-view-formC-phd', $data->id) }}">
-                                                            <img src="{{ asset('tpbiru.png') }}" height='30px'
+                                                            <img src="{{ asset('images/icons/tpbiru.png') }}" height='30px'
                                                                 alt="" data-toggle="tooltip" data-placement="bottom"
                                                                 title="Borang telah disahkan PHD - Tiada Pengeluaran">
                                                         </a>
                                                         @else
                                                         <a href="{{ route('phd.shuttle-3-view-formC-phd', $data->id) }}">
-                                                            <img src="{{ asset('circle_check.png') }}" height='30px' alt=""
+                                                            <img src="{{ asset('images/icons/circle_check.png') }}" height='30px' alt=""
                                                                 style="color: green; font-size: 20pt;"
                                                                 data-toggle="tooltip" data-placement="bottom"
                                                                 title="Borang telah disahkan PHD"></a>
@@ -368,13 +368,13 @@
                                                         @elseif($data->status == 'Lulus' && $data->bulan == '3' && $shuttle->shuttle_id == $data->shuttle_id)
                                                         @if ($data->tiada_pengeluaran == 1)
                                                         <a href="{{ route('phd.shuttle-3-view-formC-phd', $data->id) }}">
-                                                            <img src="{{ asset('tpcoklat.png') }}" height='30px'
+                                                            <img src="{{ asset('images/icons/tpcoklat.png') }}" height='30px'
                                                                 alt="" data-toggle="tooltip" data-placement="bottom"
                                                                 title="Borang telah diperaku IPJPSM - Tiada Pengeluaran">
                                                         </a>
                                                         @else
                                                         <a href="{{ route('phd.shuttle-3-view-formC-phd', $data->id) }}">
-                                                            <img src="{{ asset('double_check.png') }}" height='30px' alt=""
+                                                            <img src="{{ asset('images/icons/double_check.png') }}" height='30px' alt=""
                                                                 style="color: green; font-size: 20pt;"
                                                                 data-toggle="tooltip" data-placement="bottom"
                                                                 title="Borang telah diperaku"></a>
@@ -394,26 +394,26 @@
                                                                 $tarikh_tutup_terkini = date('Y-m-d', strtotime($delay, $time));
                                                             @endphp
                                                             @if (date('Y-m-d') >= $data->tarikh_buka_borang && (!$buffer || !$buffer->aktif || date('Y-m-d') <= $tarikh_tutup_terkini))
-                                                                <img src="{{ asset('circle_times.png') }}"
+                                                                <img src="{{ asset('images/icons/circle_times.png') }}"
                                                                             height='30px' alt=""
                                                                     style="color: red; font-size: 20pt;"
                                                                     data-toggle="tooltip" data-placement="bottom"
                                                                     title="Borang belum diisi"></i>
                                                             @else
-                                                                <img src="{{ asset('calendar.png') }}" height='30px' alt=""
+                                                                <img src="{{ asset('images/icons/calendar.png') }}" height='30px' alt=""
                                                                     style="color: grey; font-size: 20pt;"
                                                                     data-toggle="tooltip" data-placement="bottom"
                                                                     title="Borang ditutup"></i>
                                                             @endif
                                                         @elseif($data->status == 'Sedang Diisi' && $data->bulan == '4' && $shuttle->shuttle_id == $data->shuttle_id)
 
-                                                            <img src="{{ asset('circle_times.png') }}"
+                                                            <img src="{{ asset('images/icons/circle_times.png') }}"
                                                                             height='30px' alt="" 
                                                                 data-toggle="tooltip" data-placement="bottom"
                                                                 title="Borang sedang diisi"></i>
                                                         @elseif($data->status == 'Sedang Diproses' && $data->bulan == '4' && $shuttle->shuttle_id == $data->shuttle_id)
                                                             <a href="{{ route('phd.shuttle-3-view-formC', $data->id) }}"
-                                                                ><img src="{{ asset('circle_times_yellow.png') }}"
+                                                                ><img src="{{ asset('images/icons/circle_times_yellow.png') }}"
                                                                 height='30px'
                                                                     style="color: white; font-size: 18pt;"
                                                                     data-toggle="tooltip" data-placement="bottom"
@@ -421,24 +421,24 @@
 
                                                         @elseif($data->status == 'Tiada Pengeluaran' && $data->bulan == '4' && $shuttle->shuttle_id == $data->shuttle_id)
                                                             <a href="{{ route('phd.shuttle-3-view-formC', $data->id) }}">
-                                                                <img src="{{ asset('circle_times_yellow.png') }}" height='30px'
+                                                                <img src="{{ asset('images/icons/circle_times_yellow.png') }}" height='30px'
                                                                     alt="" data-toggle="tooltip" data-placement="bottom"
                                                                     title="Borang perlu disahkan PHD - Tiada Pengeluaran"></a>
                                                         @elseif($data->status == 'Tidak Lengkap' && $data->bulan == '4' && $shuttle->shuttle_id == $data->shuttle_id)
-                                                           <img src="{{ asset('history.png') }}" height='30px' alt=""
+                                                           <img src="{{ asset('images/icons/history.png') }}" height='30px' alt=""
                                                                 style="color: #dbd400; font-size: 20pt;"
                                                                 data-toggle="tooltip" data-placement="bottom"
                                                                 title="Borang tidak lengkap "></i>
                                                         @elseif($data->status == 'Dihantar ke IPJPSM' && $data->bulan == '4' && $shuttle->shuttle_id == $data->shuttle_id)
                                                         @if ($data->tiada_pengeluaran == 1)
                                                         <a href="{{ route('phd.shuttle-3-view-formC-phd', $data->id) }}">
-                                                            <img src="{{ asset('tpbiru.png') }}" height='30px'
+                                                            <img src="{{ asset('images/icons/tpbiru.png') }}" height='30px'
                                                                 alt="" data-toggle="tooltip" data-placement="bottom"
                                                                 title="Borang telah disahkan PHD - Tiada Pengeluaran">
                                                         </a>
                                                         @else
                                                         <a href="{{ route('phd.shuttle-3-view-formC-phd', $data->id) }}">
-                                                            <img src="{{ asset('circle_check.png') }}" height='30px' alt=""
+                                                            <img src="{{ asset('images/icons/circle_check.png') }}" height='30px' alt=""
                                                                 style="color: green; font-size: 20pt;"
                                                                 data-toggle="tooltip" data-placement="bottom"
                                                                 title="Borang telah disahkan PHD"></a>
@@ -446,13 +446,13 @@
                                                         @elseif($data->status == 'Lulus' && $data->bulan == '4' && $shuttle->shuttle_id == $data->shuttle_id)
                                                         @if ($data->tiada_pengeluaran == 1)
                                                         <a href="{{ route('phd.shuttle-3-view-formC-phd', $data->id) }}">
-                                                            <img src="{{ asset('tpcoklat.png') }}" height='30px'
+                                                            <img src="{{ asset('images/icons/tpcoklat.png') }}" height='30px'
                                                                 alt="" data-toggle="tooltip" data-placement="bottom"
                                                                 title="Borang telah diperaku IPJPSM - Tiada Pengeluaran">
                                                         </a>
                                                         @else
                                                         <a href="{{ route('phd.shuttle-3-view-formC-phd', $data->id) }}">
-                                                            <img src="{{ asset('double_check.png') }}" height='30px' alt=""
+                                                            <img src="{{ asset('images/icons/double_check.png') }}" height='30px' alt=""
                                                                 style="color: green; font-size: 20pt;"
                                                                 data-toggle="tooltip" data-placement="bottom"
                                                                 title="Borang telah diperaku"></a>
@@ -472,26 +472,26 @@
                                                                 $tarikh_tutup_terkini = date('Y-m-d', strtotime($delay, $time));
                                                             @endphp
                                                             @if (date('Y-m-d') >= $data->tarikh_buka_borang && (!$buffer || !$buffer->aktif || date('Y-m-d') <= $tarikh_tutup_terkini))
-                                                                <img src="{{ asset('circle_times.png') }}"
+                                                                <img src="{{ asset('images/icons/circle_times.png') }}"
                                                                             height='30px' alt=""
                                                                     style="color: red; font-size: 20pt;"
                                                                     data-toggle="tooltip" data-placement="bottom"
                                                                     title="Borang belum diisi"></i>
                                                             @else
-                                                                <img src="{{ asset('calendar.png') }}" height='30px' alt=""
+                                                                <img src="{{ asset('images/icons/calendar.png') }}" height='30px' alt=""
                                                                     style="color: grey; font-size: 20pt;"
                                                                     data-toggle="tooltip" data-placement="bottom"
                                                                     title="Borang ditutup"></i>
                                                             @endif
                                                         @elseif($data->status == 'Sedang Diisi' && $data->bulan == '5' && $shuttle->shuttle_id == $data->shuttle_id)
 
-                                                            <img src="{{ asset('circle_times.png') }}"
+                                                            <img src="{{ asset('images/icons/circle_times.png') }}"
                                                                             height='30px' alt="" 
                                                                 data-toggle="tooltip" data-placement="bottom"
                                                                 title="Borang sedang diisi"></i>
                                                         @elseif($data->status == 'Sedang Diproses' && $data->bulan == '5' && $shuttle->shuttle_id == $data->shuttle_id)
                                                             <a href="{{ route('phd.shuttle-3-view-formC', $data->id) }}"
-                                                                ><img src="{{ asset('circle_times_yellow.png') }}"
+                                                                ><img src="{{ asset('images/icons/circle_times_yellow.png') }}"
                                                                 height='30px'
                                                                     style="color: white; font-size: 18pt;"
                                                                     data-toggle="tooltip" data-placement="bottom"
@@ -499,24 +499,24 @@
 
                                                         @elseif($data->status == 'Tiada Pengeluaran' && $data->bulan == '5' && $shuttle->shuttle_id == $data->shuttle_id)
                                                             <a href="{{ route('phd.shuttle-3-view-formC', $data->id) }}">
-                                                                <img src="{{ asset('circle_times_yellow.png') }}" height='30px'
+                                                                <img src="{{ asset('images/icons/circle_times_yellow.png') }}" height='30px'
                                                                     alt="" data-toggle="tooltip" data-placement="bottom"
                                                                     title="Borang perlu disahkan PHD - Tiada Pengeluaran"></a>
                                                         @elseif($data->status == 'Tidak Lengkap' && $data->bulan == '5' && $shuttle->shuttle_id == $data->shuttle_id)
-                                                           <img src="{{ asset('history.png') }}" height='30px' alt=""
+                                                           <img src="{{ asset('images/icons/history.png') }}" height='30px' alt=""
                                                                 style="color: #dbd400; font-size: 20pt;"
                                                                 data-toggle="tooltip" data-placement="bottom"
                                                                 title="Borang tidak lengkap "></i>
                                                         @elseif($data->status == 'Dihantar ke IPJPSM' && $data->bulan == '5' && $shuttle->shuttle_id == $data->shuttle_id)
                                                         @if ($data->tiada_pengeluaran == 1)
                                                         <a href="{{ route('phd.shuttle-3-view-formC-phd', $data->id) }}">
-                                                            <img src="{{ asset('tpbiru.png') }}" height='30px'
+                                                            <img src="{{ asset('images/icons/tpbiru.png') }}" height='30px'
                                                                 alt="" data-toggle="tooltip" data-placement="bottom"
                                                                 title="Borang telah disahkan PHD - Tiada Pengeluaran">
                                                         </a>
                                                         @else
                                                         <a href="{{ route('phd.shuttle-3-view-formC-phd', $data->id) }}">
-                                                            <img src="{{ asset('circle_check.png') }}" height='30px' alt=""
+                                                            <img src="{{ asset('images/icons/circle_check.png') }}" height='30px' alt=""
                                                                 style="color: green; font-size: 20pt;"
                                                                 data-toggle="tooltip" data-placement="bottom"
                                                                 title="Borang telah disahkan PHD"></a>
@@ -524,13 +524,13 @@
                                                         @elseif($data->status == 'Lulus' && $data->bulan == '5' && $shuttle->shuttle_id == $data->shuttle_id)
                                                         @if ($data->tiada_pengeluaran == 1)
                                                         <a href="{{ route('phd.shuttle-3-view-formC-phd', $data->id) }}">
-                                                            <img src="{{ asset('tpcoklat.png') }}" height='30px'
+                                                            <img src="{{ asset('images/icons/tpcoklat.png') }}" height='30px'
                                                                 alt="" data-toggle="tooltip" data-placement="bottom"
                                                                 title="Borang telah diperaku IPJPSM - Tiada Pengeluaran">
                                                         </a>
                                                         @else
                                                         <a href="{{ route('phd.shuttle-3-view-formC-phd', $data->id) }}">
-                                                            <img src="{{ asset('double_check.png') }}" height='30px' alt=""
+                                                            <img src="{{ asset('images/icons/double_check.png') }}" height='30px' alt=""
                                                                 style="color: green; font-size: 20pt;"
                                                                 data-toggle="tooltip" data-placement="bottom"
                                                                 title="Borang telah diperaku"></a>
@@ -550,26 +550,26 @@
                                                                 $tarikh_tutup_terkini = date('Y-m-d', strtotime($delay, $time));
                                                             @endphp
                                                             @if (date('Y-m-d') >= $data->tarikh_buka_borang && (!$buffer || !$buffer->aktif || date('Y-m-d') <= $tarikh_tutup_terkini))
-                                                                <img src="{{ asset('circle_times.png') }}"
+                                                                <img src="{{ asset('images/icons/circle_times.png') }}"
                                                                             height='30px' alt=""
                                                                     style="color: red; font-size: 20pt;"
                                                                     data-toggle="tooltip" data-placement="bottom"
                                                                     title="Borang belum diisi"></i>
                                                             @else
-                                                                <img src="{{ asset('calendar.png') }}" height='30px' alt=""
+                                                                <img src="{{ asset('images/icons/calendar.png') }}" height='30px' alt=""
                                                                     style="color: grey; font-size: 20pt;"
                                                                     data-toggle="tooltip" data-placement="bottom"
                                                                     title="Borang ditutup"></i>
                                                             @endif
                                                         @elseif($data->status == 'Sedang Diisi' && $data->bulan == '6' && $shuttle->shuttle_id == $data->shuttle_id)
 
-                                                            <img src="{{ asset('circle_times.png') }}"
+                                                            <img src="{{ asset('images/icons/circle_times.png') }}"
                                                                             height='30px' alt="" 
                                                                 data-toggle="tooltip" data-placement="bottom"
                                                                 title="Borang sedang diisi"></i>
                                                         @elseif($data->status == 'Sedang Diproses' && $data->bulan == '6' && $shuttle->shuttle_id == $data->shuttle_id)
                                                             <a href="{{ route('phd.shuttle-3-view-formC', $data->id) }}"
-                                                                ><img src="{{ asset('circle_times_yellow.png') }}"
+                                                                ><img src="{{ asset('images/icons/circle_times_yellow.png') }}"
                                                                 height='30px'
                                                                     style="color: white; font-size: 18pt;"
                                                                     data-toggle="tooltip" data-placement="bottom"
@@ -578,24 +578,24 @@
                                                         @elseif($data->status == 'Tiada Pengeluaran' && $data->bulan == '6' && $shuttle->shuttle_id == $data->shuttle_id)
                                                             <a
                                                                 href="{{ route('phd.shuttle-3-view-formC', $data->id) }}">
-                                                                <img src="{{ asset('circle_times_yellow.png') }}" height='30px'
+                                                                <img src="{{ asset('images/icons/circle_times_yellow.png') }}" height='30px'
                                                                     alt="" data-toggle="tooltip" data-placement="bottom"
                                                                     title="Borang perlu disahkan PHD - Tiada Pengeluaran"></a>
                                                             @elseif($data->status == 'Tidak Lengkap' && $data->bulan == '6' && $shuttle->shuttle_id == $data->shuttle_id)
-                                                               <img src="{{ asset('history.png') }}" height='30px' alt=""
+                                                               <img src="{{ asset('images/icons/history.png') }}" height='30px' alt=""
                                                                     style="color: #dbd400; font-size: 20pt;"
                                                                     data-toggle="tooltip" data-placement="bottom"
                                                                     title="Borang tidak lengkap "></i>
                                                             @elseif($data->status == 'Dihantar ke IPJPSM' && $data->bulan == '6' && $shuttle->shuttle_id == $data->shuttle_id)
                                                             @if ($data->tiada_pengeluaran == 1)
                                                             <a href="{{ route('phd.shuttle-3-view-formC-phd', $data->id) }}">
-                                                                <img src="{{ asset('tpbiru.png') }}" height='30px'
+                                                                <img src="{{ asset('images/icons/tpbiru.png') }}" height='30px'
                                                                     alt="" data-toggle="tooltip" data-placement="bottom"
                                                                     title="Borang telah disahkan PHD - Tiada Pengeluaran">
                                                             </a>
                                                             @else
                                                             <a href="{{ route('phd.shuttle-3-view-formC-phd', $data->id) }}">
-                                                                <img src="{{ asset('circle_check.png') }}" height='30px' alt=""
+                                                                <img src="{{ asset('images/icons/circle_check.png') }}" height='30px' alt=""
                                                                     style="color: green; font-size: 20pt;"
                                                                     data-toggle="tooltip" data-placement="bottom"
                                                                     title="Borang telah disahkan PHD"></a>
@@ -603,13 +603,13 @@
                                                             @elseif($data->status == 'Lulus' && $data->bulan == '6' && $shuttle->shuttle_id == $data->shuttle_id)
                                                             @if ($data->tiada_pengeluaran == 1)
                                                             <a href="{{ route('phd.shuttle-3-view-formC-phd', $data->id) }}">
-                                                                <img src="{{ asset('tpcoklat.png') }}" height='30px'
+                                                                <img src="{{ asset('images/icons/tpcoklat.png') }}" height='30px'
                                                                     alt="" data-toggle="tooltip" data-placement="bottom"
                                                                     title="Borang telah diperaku IPJPSM - Tiada Pengeluaran">
                                                             </a>
                                                             @else
                                                             <a href="{{ route('phd.shuttle-3-view-formC-phd', $data->id) }}">
-                                                                <img src="{{ asset('double_check.png') }}" height='30px' alt=""
+                                                                <img src="{{ asset('images/icons/double_check.png') }}" height='30px' alt=""
                                                                     style="color: green; font-size: 20pt;"
                                                                     data-toggle="tooltip" data-placement="bottom"
                                                                     title="Borang telah diperaku"></a>
@@ -629,26 +629,26 @@
                                                                 $tarikh_tutup_terkini = date('Y-m-d', strtotime($delay, $time));
                                                             @endphp
                                                             @if (date('Y-m-d') >= $data->tarikh_buka_borang && (!$buffer || !$buffer->aktif || date('Y-m-d') <= $tarikh_tutup_terkini))
-                                                                <img src="{{ asset('circle_times.png') }}"
+                                                                <img src="{{ asset('images/icons/circle_times.png') }}"
                                                                             height='30px' alt=""
                                                                     style="color: red; font-size: 20pt;"
                                                                     data-toggle="tooltip" data-placement="bottom"
                                                                     title="Borang belum diisi"></i>
                                                             @else
-                                                                <img src="{{ asset('calendar.png') }}" height='30px' alt=""
+                                                                <img src="{{ asset('images/icons/calendar.png') }}" height='30px' alt=""
                                                                     style="color: grey; font-size: 20pt;"
                                                                     data-toggle="tooltip" data-placement="bottom"
                                                                     title="Borang ditutup"></i>
                                                             @endif
                                                         @elseif($data->status == 'Sedang Diisi' && $data->bulan == '7' && $shuttle->shuttle_id == $data->shuttle_id)
 
-                                                            <img src="{{ asset('circle_times.png') }}"
+                                                            <img src="{{ asset('images/icons/circle_times.png') }}"
                                                                             height='30px' alt="" 
                                                                 data-toggle="tooltip" data-placement="bottom"
                                                                 title="Borang sedang diisi"></i>
                                                         @elseif($data->status == 'Sedang Diproses' && $data->bulan == '7' && $shuttle->shuttle_id == $data->shuttle_id)
                                                             <a href="{{ route('phd.shuttle-3-view-formC', $data->id) }}"
-                                                                ><img src="{{ asset('circle_times_yellow.png') }}"
+                                                                ><img src="{{ asset('images/icons/circle_times_yellow.png') }}"
                                                                 height='30px'
                                                                     style="color: white; font-size: 18pt;"
                                                                     data-toggle="tooltip" data-placement="bottom"
@@ -656,24 +656,24 @@
 
                                                         @elseif($data->status == 'Tiada Pengeluaran' && $data->bulan == '7' && $shuttle->shuttle_id == $data->shuttle_id)
                                                             <a href="{{ route('phd.shuttle-3-view-formC', $data->id) }}">
-                                                                <img src="{{ asset('circle_times_yellow.png') }}" height='30px'
+                                                                <img src="{{ asset('images/icons/circle_times_yellow.png') }}" height='30px'
                                                                     alt="" data-toggle="tooltip" data-placement="bottom"
                                                                     title="Borang perlu disahkan PHD - Tiada Pengeluaran"></a>
                                                         @elseif($data->status == 'Tidak Lengkap' && $data->bulan == '7' && $shuttle->shuttle_id == $data->shuttle_id)
-                                                           <img src="{{ asset('history.png') }}" height='30px' alt=""
+                                                           <img src="{{ asset('images/icons/history.png') }}" height='30px' alt=""
                                                                 style="color: #dbd400; font-size: 20pt;"
                                                                 data-toggle="tooltip" data-placement="bottom"
                                                                 title="Borang tidak lengkap "></i>
                                                         @elseif($data->status == 'Dihantar ke IPJPSM' && $data->bulan == '7' && $shuttle->shuttle_id == $data->shuttle_id)
                                                         @if ($data->tiada_pengeluaran == 1)
                                                         <a href="{{ route('phd.shuttle-3-view-formC-phd', $data->id) }}">
-                                                            <img src="{{ asset('tpbiru.png') }}" height='30px'
+                                                            <img src="{{ asset('images/icons/tpbiru.png') }}" height='30px'
                                                                 alt="" data-toggle="tooltip" data-placement="bottom"
                                                                 title="Borang telah disahkan PHD - Tiada Pengeluaran">
                                                         </a>
                                                         @else
                                                         <a href="{{ route('phd.shuttle-3-view-formC-phd', $data->id) }}">
-                                                            <img src="{{ asset('circle_check.png') }}" height='30px' alt=""
+                                                            <img src="{{ asset('images/icons/circle_check.png') }}" height='30px' alt=""
                                                                 style="color: green; font-size: 20pt;"
                                                                 data-toggle="tooltip" data-placement="bottom"
                                                                 title="Borang telah disahkan PHD"></a>
@@ -681,13 +681,13 @@
                                                         @elseif($data->status == 'Lulus' && $data->bulan == '7' && $shuttle->shuttle_id == $data->shuttle_id)
                                                         @if ($data->tiada_pengeluaran == 1)
                                                         <a href="{{ route('phd.shuttle-3-view-formC-phd', $data->id) }}">
-                                                            <img src="{{ asset('tpcoklat.png') }}" height='30px'
+                                                            <img src="{{ asset('images/icons/tpcoklat.png') }}" height='30px'
                                                                 alt="" data-toggle="tooltip" data-placement="bottom"
                                                                 title="Borang telah diperaku IPJPSM - Tiada Pengeluaran">
                                                         </a>
                                                         @else
                                                         <a href="{{ route('phd.shuttle-3-view-formC-phd', $data->id) }}">
-                                                            <img src="{{ asset('double_check.png') }}" height='30px' alt=""
+                                                            <img src="{{ asset('images/icons/double_check.png') }}" height='30px' alt=""
                                                                 style="color: green; font-size: 20pt;"
                                                                 data-toggle="tooltip" data-placement="bottom"
                                                                 title="Borang telah diperaku"></a>
@@ -707,26 +707,26 @@
                                                                 $tarikh_tutup_terkini = date('Y-m-d', strtotime($delay, $time));
                                                             @endphp
                                                             @if (date('Y-m-d') >= $data->tarikh_buka_borang && (!$buffer || !$buffer->aktif || date('Y-m-d') <= $tarikh_tutup_terkini))
-                                                                <img src="{{ asset('circle_times.png') }}"
+                                                                <img src="{{ asset('images/icons/circle_times.png') }}"
                                                                             height='30px' alt=""
                                                                     style="color: red; font-size: 20pt;"
                                                                     data-toggle="tooltip" data-placement="bottom"
                                                                     title="Borang belum diisi"></i>
                                                             @else
-                                                                <img src="{{ asset('calendar.png') }}" height='30px' alt=""
+                                                                <img src="{{ asset('images/icons/calendar.png') }}" height='30px' alt=""
                                                                     style="color: grey; font-size: 20pt;"
                                                                     data-toggle="tooltip" data-placement="bottom"
                                                                     title="Borang ditutup"></i>
                                                             @endif
                                                         @elseif($data->status == 'Sedang Diisi' && $data->bulan == '8' && $shuttle->shuttle_id == $data->shuttle_id)
 
-                                                            <img src="{{ asset('circle_times.png') }}"
+                                                            <img src="{{ asset('images/icons/circle_times.png') }}"
                                                                             height='30px' alt="" 
                                                                 data-toggle="tooltip" data-placement="bottom"
                                                                 title="Borang sedang diisi"></i>
                                                         @elseif($data->status == 'Sedang Diproses' && $data->bulan == '8' && $shuttle->shuttle_id == $data->shuttle_id)
                                                             <a href="{{ route('phd.shuttle-3-view-formC', $data->id) }}"
-                                                                ><img src="{{ asset('circle_times_yellow.png') }}"
+                                                                ><img src="{{ asset('images/icons/circle_times_yellow.png') }}"
                                                                 height='30px'
                                                                     style="color: white; font-size: 18pt;"
                                                                     data-toggle="tooltip" data-placement="bottom"
@@ -734,24 +734,24 @@
 
                                                         @elseif($data->status == 'Tiada Pengeluaran' && $data->bulan == '8' && $shuttle->shuttle_id == $data->shuttle_id)
                                                             <a href="{{ route('phd.shuttle-3-view-formC', $data->id) }}">
-                                                                <img src="{{ asset('circle_times_yellow.png') }}" height='30px'
+                                                                <img src="{{ asset('images/icons/circle_times_yellow.png') }}" height='30px'
                                                                     alt="" data-toggle="tooltip" data-placement="bottom"
                                                                     title="Borang perlu disahkan PHD - Tiada Pengeluaran"></a>
                                                         @elseif($data->status == 'Tidak Lengkap' && $data->bulan == '8' && $shuttle->shuttle_id == $data->shuttle_id)
-                                                           <img src="{{ asset('history.png') }}" height='30px' alt=""
+                                                           <img src="{{ asset('images/icons/history.png') }}" height='30px' alt=""
                                                                 style="color: #dbd400; font-size: 20pt;"
                                                                 data-toggle="tooltip" data-placement="bottom"
                                                                 title="Borang tidak lengkap "></i>
                                                         @elseif($data->status == 'Dihantar ke IPJPSM' && $data->bulan == '8' && $shuttle->shuttle_id == $data->shuttle_id)
                                                         @if ($data->tiada_pengeluaran == 1)
                                                         <a href="{{ route('phd.shuttle-3-view-formC-phd', $data->id) }}">
-                                                            <img src="{{ asset('tpbiru.png') }}" height='30px'
+                                                            <img src="{{ asset('images/icons/tpbiru.png') }}" height='30px'
                                                                 alt="" data-toggle="tooltip" data-placement="bottom"
                                                                 title="Borang telah disahkan PHD - Tiada Pengeluaran">
                                                         </a>
                                                         @else
                                                         <a href="{{ route('phd.shuttle-3-view-formC-phd', $data->id) }}">
-                                                            <img src="{{ asset('circle_check.png') }}" height='30px' alt=""
+                                                            <img src="{{ asset('images/icons/circle_check.png') }}" height='30px' alt=""
                                                                 style="color: green; font-size: 20pt;"
                                                                 data-toggle="tooltip" data-placement="bottom"
                                                                 title="Borang telah disahkan PHD"></a>
@@ -759,13 +759,13 @@
                                                         @elseif($data->status == 'Lulus' && $data->bulan == '8' && $shuttle->shuttle_id == $data->shuttle_id)
                                                         @if ($data->tiada_pengeluaran == 1)
                                                         <a href="{{ route('phd.shuttle-3-view-formC-phd', $data->id) }}">
-                                                            <img src="{{ asset('tpcoklat.png') }}" height='30px'
+                                                            <img src="{{ asset('images/icons/tpcoklat.png') }}" height='30px'
                                                                 alt="" data-toggle="tooltip" data-placement="bottom"
                                                                 title="Borang telah diperaku IPJPSM - Tiada Pengeluaran">
                                                         </a>
                                                         @else
                                                         <a href="{{ route('phd.shuttle-3-view-formC-phd', $data->id) }}">
-                                                            <img src="{{ asset('double_check.png') }}" height='30px' alt=""
+                                                            <img src="{{ asset('images/icons/double_check.png') }}" height='30px' alt=""
                                                                 style="color: green; font-size: 20pt;"
                                                                 data-toggle="tooltip" data-placement="bottom"
                                                                 title="Borang telah diperaku"></a>
@@ -785,26 +785,26 @@
                                                                 $tarikh_tutup_terkini = date('Y-m-d', strtotime($delay, $time));
                                                             @endphp
                                                             @if (date('Y-m-d') >= $data->tarikh_buka_borang && (!$buffer || !$buffer->aktif || date('Y-m-d') <= $tarikh_tutup_terkini))
-                                                                <img src="{{ asset('circle_times.png') }}"
+                                                                <img src="{{ asset('images/icons/circle_times.png') }}"
                                                                             height='30px' alt=""
                                                                     style="color: red; font-size: 20pt;"
                                                                     data-toggle="tooltip" data-placement="bottom"
                                                                     title="Borang belum diisi"></i>
                                                             @else
-                                                                <img src="{{ asset('calendar.png') }}" height='30px' alt=""
+                                                                <img src="{{ asset('images/icons/calendar.png') }}" height='30px' alt=""
                                                                     style="color: grey; font-size: 20pt;"
                                                                     data-toggle="tooltip" data-placement="bottom"
                                                                     title="Borang ditutup"></i>
                                                             @endif
                                                         @elseif($data->status == 'Sedang Diisi' && $data->bulan == '9' && $shuttle->shuttle_id == $data->shuttle_id)
 
-                                                            <img src="{{ asset('circle_times.png') }}"
+                                                            <img src="{{ asset('images/icons/circle_times.png') }}"
                                                                             height='30px' alt="" 
                                                                 data-toggle="tooltip" data-placement="bottom"
                                                                 title="Borang sedang diisi"></i>
                                                         @elseif($data->status == 'Sedang Diproses' && $data->bulan == '9' && $shuttle->shuttle_id == $data->shuttle_id)
                                                             <a href="{{ route('phd.shuttle-3-view-formC', $data->id) }}"
-                                                                ><img src="{{ asset('circle_times_yellow.png') }}"
+                                                                ><img src="{{ asset('images/icons/circle_times_yellow.png') }}"
                                                                 height='30px'
                                                                     style="color: white; font-size: 18pt;"
                                                                     data-toggle="tooltip" data-placement="bottom"
@@ -812,24 +812,24 @@
 
                                                         @elseif($data->status == 'Tiada Pengeluaran' && $data->bulan == '9' && $shuttle->shuttle_id == $data->shuttle_id)
                                                             <a href="{{ route('phd.shuttle-3-view-formC', $data->id) }}">
-                                                                <img src="{{ asset('circle_times_yellow.png') }}" height='30px'
+                                                                <img src="{{ asset('images/icons/circle_times_yellow.png') }}" height='30px'
                                                                     alt="" data-toggle="tooltip" data-placement="bottom"
                                                                     title="Borang perlu disahkan PHD - Tiada Pengeluaran"></a>
                                                         @elseif($data->status == 'Tidak Lengkap' && $data->bulan == '9' && $shuttle->shuttle_id == $data->shuttle_id)
-                                                           <img src="{{ asset('history.png') }}" height='30px' alt=""
+                                                           <img src="{{ asset('images/icons/history.png') }}" height='30px' alt=""
                                                                 style="color: #dbd400; font-size: 20pt;"
                                                                 data-toggle="tooltip" data-placement="bottom"
                                                                 title="Borang tidak lengkap "></i>
                                                         @elseif($data->status == 'Dihantar ke IPJPSM' && $data->bulan == '9' && $shuttle->shuttle_id == $data->shuttle_id)
                                                         @if ($data->tiada_pengeluaran == 1)
                                                         <a href="{{ route('phd.shuttle-3-view-formC-phd', $data->id) }}">
-                                                            <img src="{{ asset('tpbiru.png') }}" height='30px'
+                                                            <img src="{{ asset('images/icons/tpbiru.png') }}" height='30px'
                                                                 alt="" data-toggle="tooltip" data-placement="bottom"
                                                                 title="Borang telah disahkan PHD - Tiada Pengeluaran">
                                                         </a>
                                                         @else
                                                         <a href="{{ route('phd.shuttle-3-view-formC-phd', $data->id) }}">
-                                                            <img src="{{ asset('circle_check.png') }}" height='30px' alt=""
+                                                            <img src="{{ asset('images/icons/circle_check.png') }}" height='30px' alt=""
                                                                 style="color: green; font-size: 20pt;"
                                                                 data-toggle="tooltip" data-placement="bottom"
                                                                 title="Borang telah disahkan PHD"></a>
@@ -837,13 +837,13 @@
                                                         @elseif($data->status == 'Lulus' && $data->bulan == '9' && $shuttle->shuttle_id == $data->shuttle_id)
                                                         @if ($data->tiada_pengeluaran == 1)
                                                         <a href="{{ route('phd.shuttle-3-view-formC-phd', $data->id) }}">
-                                                            <img src="{{ asset('tpcoklat.png') }}" height='30px'
+                                                            <img src="{{ asset('images/icons/tpcoklat.png') }}" height='30px'
                                                                 alt="" data-toggle="tooltip" data-placement="bottom"
                                                                 title="Borang telah diperaku IPJPSM - Tiada Pengeluaran">
                                                         </a>
                                                         @else
                                                         <a href="{{ route('phd.shuttle-3-view-formC-phd', $data->id) }}">
-                                                            <img src="{{ asset('double_check.png') }}" height='30px' alt=""
+                                                            <img src="{{ asset('images/icons/double_check.png') }}" height='30px' alt=""
                                                                 style="color: green; font-size: 20pt;"
                                                                 data-toggle="tooltip" data-placement="bottom"
                                                                 title="Borang telah diperaku"></a>
@@ -863,27 +863,27 @@
                                                                 $tarikh_tutup_terkini = date('Y-m-d', strtotime($delay, $time));
                                                             @endphp
                                                             @if (date('Y-m-d') >= $data->tarikh_buka_borang && (!$buffer || !$buffer->aktif || date('Y-m-d') <= $tarikh_tutup_terkini))
-                                                                <img src="{{ asset('circle_times.png') }}"
+                                                                <img src="{{ asset('images/icons/circle_times.png') }}"
                                                                             height='30px' alt=""
                                                                     style="color: red; font-size: 20pt;"
                                                                     data-toggle="tooltip" data-placement="bottom"
                                                                     title="Borang belum diisi"></i>
                                                             @else
-                                                                <img src="{{ asset('calendar.png') }}" height='30px' alt=""
+                                                                <img src="{{ asset('images/icons/calendar.png') }}" height='30px' alt=""
                                                                     style="color: grey; font-size: 20pt;"
                                                                     data-toggle="tooltip" data-placement="bottom"
                                                                     title="Borang ditutup"></i>
                                                             @endif
                                                         @elseif($data->status == 'Sedang Diisi' && $data->bulan == '10' && $shuttle->shuttle_id == $data->shuttle_id)
 
-                                                            <img src="{{ asset('circle_times.png') }}"
+                                                            <img src="{{ asset('images/icons/circle_times.png') }}"
                                                                             height='30px' alt="" 
                                                                 data-toggle="tooltip" data-placement="bottom"
                                                                 title="Borang sedang diisi"></i>
 
                                                         @elseif($data->status == 'Sedang Diproses' && $data->bulan == '10' && $shuttle->shuttle_id == $data->shuttle_id)
                                                             <a href="{{ route('phd.shuttle-3-view-formC', $data->id) }}"
-                                                                ><img src="{{ asset('circle_times_yellow.png') }}"
+                                                                ><img src="{{ asset('images/icons/circle_times_yellow.png') }}"
                                                                 height='30px'
                                                                     style="color: white; font-size: 18pt;"
                                                                     data-toggle="tooltip" data-placement="bottom"
@@ -891,25 +891,25 @@
 
                                                         @elseif($data->status == 'Tiada Pengeluaran' && $data->bulan == '10' && $shuttle->shuttle_id == $data->shuttle_id)
                                                             <a href="{{ route('phd.shuttle-3-view-formC', $data->id) }}">
-                                                                <img src="{{ asset('circle_times_yellow.png') }}" height='30px'
+                                                                <img src="{{ asset('images/icons/circle_times_yellow.png') }}" height='30px'
                                                                     alt="" data-toggle="tooltip" data-placement="bottom"
                                                                     title="Borang perlu disahkan PHD - Tiada Pengeluaran"></a>
 
                                                         @elseif($data->status == 'Tidak Lengkap' && $data->bulan == '10' && $shuttle->shuttle_id == $data->shuttle_id)
-                                                           <img src="{{ asset('history.png') }}" height='30px' alt=""
+                                                           <img src="{{ asset('images/icons/history.png') }}" height='30px' alt=""
                                                                 style="color: #dbd400; font-size: 20pt;"
                                                                 data-toggle="tooltip" data-placement="bottom"
                                                                 title="Borang tidak lengkap "></i>
                                                         @elseif($data->status == 'Dihantar ke IPJPSM' && $data->bulan == '10' && $shuttle->shuttle_id == $data->shuttle_id)
                                                         @if ($data->tiada_pengeluaran == 1)
                                                         <a href="{{ route('phd.shuttle-3-view-formC-phd', $data->id) }}">
-                                                            <img src="{{ asset('tpbiru.png') }}" height='30px'
+                                                            <img src="{{ asset('images/icons/tpbiru.png') }}" height='30px'
                                                                 alt="" data-toggle="tooltip" data-placement="bottom"
                                                                 title="Borang telah disahkan PHD - Tiada Pengeluaran">
                                                         </a>
                                                         @else
                                                         <a href="{{ route('phd.shuttle-3-view-formC-phd', $data->id) }}">
-                                                            <img src="{{ asset('circle_check.png') }}" height='30px' alt=""
+                                                            <img src="{{ asset('images/icons/circle_check.png') }}" height='30px' alt=""
                                                                 style="color: green; font-size: 20pt;"
                                                                 data-toggle="tooltip" data-placement="bottom"
                                                                 title="Borang telah disahkan PHD"></a>
@@ -917,13 +917,13 @@
                                                         @elseif($data->status == 'Lulus' && $data->bulan == '10' && $shuttle->shuttle_id == $data->shuttle_id)
                                                         @if ($data->tiada_pengeluaran == 1)
                                                         <a href="{{ route('phd.shuttle-3-view-formC-phd', $data->id) }}">
-                                                            <img src="{{ asset('tpcoklat.png') }}" height='30px'
+                                                            <img src="{{ asset('images/icons/tpcoklat.png') }}" height='30px'
                                                                 alt="" data-toggle="tooltip" data-placement="bottom"
                                                                 title="Borang telah diperaku IPJPSM - Tiada Pengeluaran">
                                                         </a>
                                                         @else
                                                         <a href="{{ route('phd.shuttle-3-view-formC-phd', $data->id) }}">
-                                                            <img src="{{ asset('double_check.png') }}" height='30px' alt=""
+                                                            <img src="{{ asset('images/icons/double_check.png') }}" height='30px' alt=""
                                                                 style="color: green; font-size: 20pt;"
                                                                 data-toggle="tooltip" data-placement="bottom"
                                                                 title="Borang telah diperaku"></a>
@@ -943,26 +943,26 @@
                                                                 $tarikh_tutup_terkini = date('Y-m-d', strtotime($delay, $time));
                                                             @endphp
                                                             @if (date('Y-m-d') >= $data->tarikh_buka_borang && (!$buffer || !$buffer->aktif || date('Y-m-d') <= $tarikh_tutup_terkini))
-                                                                <img src="{{ asset('circle_times.png') }}"
+                                                                <img src="{{ asset('images/icons/circle_times.png') }}"
                                                                             height='30px' alt=""
                                                                     style="color: red; font-size: 20pt;"
                                                                     data-toggle="tooltip" data-placement="bottom"
                                                                     title="Borang belum diisi"></i>
                                                             @else
-                                                                <img src="{{ asset('calendar.png') }}" height='30px' alt=""
+                                                                <img src="{{ asset('images/icons/calendar.png') }}" height='30px' alt=""
                                                                     style="color: grey; font-size: 20pt;"
                                                                     data-toggle="tooltip" data-placement="bottom"
                                                                     title="Borang ditutup"></i>
                                                             @endif
                                                         @elseif($data->status == 'Sedang Diisi' && $data->bulan == '11' && $shuttle->shuttle_id == $data->shuttle_id)
 
-                                                            <img src="{{ asset('circle_times.png') }}"
+                                                            <img src="{{ asset('images/icons/circle_times.png') }}"
                                                                             height='30px' alt="" 
                                                                 data-toggle="tooltip" data-placement="bottom"
                                                                 title="Borang sedang diisi"></i>
                                                         @elseif($data->status == 'Sedang Diproses' && $data->bulan == '11' && $shuttle->shuttle_id == $data->shuttle_id)
                                                             <a href="{{ route('phd.shuttle-3-view-formC', $data->id) }}"
-                                                                ><img src="{{ asset('circle_times_yellow.png') }}"
+                                                                ><img src="{{ asset('images/icons/circle_times_yellow.png') }}"
                                                                 height='30px'
                                                                     style="color: white; font-size: 18pt;"
                                                                     data-toggle="tooltip" data-placement="bottom"
@@ -970,25 +970,25 @@
 
                                                         @elseif($data->status == 'Tiada Pengeluaran' && $data->bulan == '11' && $shuttle->shuttle_id == $data->shuttle_id)
                                                             <a href="{{ route('phd.shuttle-3-view-formC', $data->id) }}">
-                                                                <img src="{{ asset('circle_times_yellow.png') }}" height='30px'
+                                                                <img src="{{ asset('images/icons/circle_times_yellow.png') }}" height='30px'
                                                                     alt="" data-toggle="tooltip" data-placement="bottom"
                                                                     title="Borang perlu disahkan PHD - Tiada Pengeluaran"></a>
 
                                                         @elseif($data->status == 'Tidak Lengkap' && $data->bulan == '11' && $shuttle->shuttle_id == $data->shuttle_id)
-                                                           <img src="{{ asset('history.png') }}" height='30px' alt=""
+                                                           <img src="{{ asset('images/icons/history.png') }}" height='30px' alt=""
                                                                 style="color: #dbd400; font-size: 20pt;"
                                                                 data-toggle="tooltip" data-placement="bottom"
                                                                 title="Borang tidak lengkap "></i>
                                                         @elseif($data->status == 'Dihantar ke IPJPSM' && $data->bulan == '11' && $shuttle->shuttle_id == $data->shuttle_id)
                                                         @if ($data->tiada_pengeluaran == 1)
                                                         <a href="{{ route('phd.shuttle-3-view-formC-phd', $data->id) }}">
-                                                            <img src="{{ asset('tpbiru.png') }}" height='30px'
+                                                            <img src="{{ asset('images/icons/tpbiru.png') }}" height='30px'
                                                                 alt="" data-toggle="tooltip" data-placement="bottom"
                                                                 title="Borang telah disahkan PHD - Tiada Pengeluaran">
                                                         </a>
                                                         @else
                                                         <a href="{{ route('phd.shuttle-3-view-formC-phd', $data->id) }}">
-                                                            <img src="{{ asset('circle_check.png') }}" height='30px' alt=""
+                                                            <img src="{{ asset('images/icons/circle_check.png') }}" height='30px' alt=""
                                                                 style="color: green; font-size: 20pt;"
                                                                 data-toggle="tooltip" data-placement="bottom"
                                                                 title="Borang telah disahkan PHD"></a>
@@ -996,13 +996,13 @@
                                                         @elseif($data->status == 'Lulus' && $data->bulan == '11' && $shuttle->shuttle_id == $data->shuttle_id)
                                                         @if ($data->tiada_pengeluaran == 1)
                                                         <a href="{{ route('phd.shuttle-3-view-formC-phd', $data->id) }}">
-                                                            <img src="{{ asset('tpcoklat.png') }}" height='30px'
+                                                            <img src="{{ asset('images/icons/tpcoklat.png') }}" height='30px'
                                                                 alt="" data-toggle="tooltip" data-placement="bottom"
                                                                 title="Borang telah diperaku IPJPSM - Tiada Pengeluaran">
                                                         </a>
                                                         @else
                                                         <a href="{{ route('phd.shuttle-3-view-formC-phd', $data->id) }}">
-                                                            <img src="{{ asset('double_check.png') }}" height='30px' alt=""
+                                                            <img src="{{ asset('images/icons/double_check.png') }}" height='30px' alt=""
                                                                 style="color: green; font-size: 20pt;"
                                                                 data-toggle="tooltip" data-placement="bottom"
                                                                 title="Borang telah diperaku"></a>
@@ -1022,26 +1022,26 @@
                                                                 $tarikh_tutup_terkini = date('Y-m-d', strtotime($delay, $time));
                                                             @endphp
                                                             @if (date('Y-m-d') >= $data->tarikh_buka_borang && (!$buffer || !$buffer->aktif || date('Y-m-d') <= $tarikh_tutup_terkini))
-                                                                <img src="{{ asset('circle_times.png') }}"
+                                                                <img src="{{ asset('images/icons/circle_times.png') }}"
                                                                             height='30px' alt=""
                                                                     style="color: red; font-size: 20pt;"
                                                                     data-toggle="tooltip" data-placement="bottom"
                                                                     title="Borang belum diisi"></i>
                                                             @else
-                                                                <img src="{{ asset('calendar.png') }}" height='30px' alt=""
+                                                                <img src="{{ asset('images/icons/calendar.png') }}" height='30px' alt=""
                                                                     style="color: grey; font-size: 20pt;"
                                                                     data-toggle="tooltip" data-placement="bottom"
                                                                     title="Borang ditutup"></i>
                                                             @endif
                                                         @elseif($data->status == 'Sedang Diisi' && $data->bulan == '12' && $shuttle->shuttle_id == $data->shuttle_id)
 
-                                                            <img src="{{ asset('circle_times.png') }}"
+                                                            <img src="{{ asset('images/icons/circle_times.png') }}"
                                                                             height='30px' alt="" 
                                                                 data-toggle="tooltip" data-placement="bottom"
                                                                 title="Borang sedang diisi"></i>
                                                         @elseif($data->status == 'Sedang Diproses' && $data->bulan == '12' && $shuttle->shuttle_id == $data->shuttle_id)
                                                             <a href="{{ route('phd.shuttle-3-view-formC', $data->id) }}"
-                                                                ><img src="{{ asset('circle_times_yellow.png') }}"
+                                                                ><img src="{{ asset('images/icons/circle_times_yellow.png') }}"
                                                                 height='30px'
                                                                     style="color: white; font-size: 18pt;"
                                                                     data-toggle="tooltip" data-placement="bottom"
@@ -1049,24 +1049,24 @@
 
                                                         @elseif($data->status == 'Tiada Pengeluaran' && $data->bulan == '12' && $shuttle->shuttle_id == $data->shuttle_id)
                                                             <a href="{{ route('phd.shuttle-3-view-formC', $data->id) }}">
-                                                                <img src="{{ asset('circle_times_yellow.png') }}" height='30px'
+                                                                <img src="{{ asset('images/icons/circle_times_yellow.png') }}" height='30px'
                                                                     alt="" data-toggle="tooltip" data-placement="bottom"
                                                                     title="Borang perlu disahkan PHD - Tiada Pengeluaran"></a>
                                                         @elseif($data->status == 'Tidak Lengkap' && $data->bulan == '12' && $shuttle->shuttle_id == $data->shuttle_id)
-                                                           <img src="{{ asset('history.png') }}" height='30px' alt=""
+                                                           <img src="{{ asset('images/icons/history.png') }}" height='30px' alt=""
                                                                 style="color: #dbd400; font-size: 20pt;"
                                                                 data-toggle="tooltip" data-placement="bottom"
                                                                 title="Borang tidak lengkap "></i>
                                                         @elseif($data->status == 'Dihantar ke IPJPSM' && $data->bulan == '12' && $shuttle->shuttle_id == $data->shuttle_id)
                                                         @if ($data->tiada_pengeluaran == 1)
                                                         <a href="{{ route('phd.shuttle-3-view-formC-phd', $data->id) }}">
-                                                            <img src="{{ asset('tpbiru.png') }}" height='30px'
+                                                            <img src="{{ asset('images/icons/tpbiru.png') }}" height='30px'
                                                                 alt="" data-toggle="tooltip" data-placement="bottom"
                                                                 title="Borang telah disahkan PHD - Tiada Pengeluaran">
                                                         </a>
                                                         @else
                                                         <a href="{{ route('phd.shuttle-3-view-formC-phd', $data->id) }}">
-                                                            <img src="{{ asset('circle_check.png') }}" height='30px' alt=""
+                                                            <img src="{{ asset('images/icons/circle_check.png') }}" height='30px' alt=""
                                                                 style="color: green; font-size: 20pt;"
                                                                 data-toggle="tooltip" data-placement="bottom"
                                                                 title="Borang telah disahkan PHD"></a>
@@ -1074,13 +1074,13 @@
                                                         @elseif($data->status == 'Lulus' && $data->bulan == '12' && $shuttle->shuttle_id == $data->shuttle_id)
                                                         @if ($data->tiada_pengeluaran == 1)
                                                         <a href="{{ route('phd.shuttle-3-view-formC-phd', $data->id) }}">
-                                                            <img src="{{ asset('tpcoklat.png') }}" height='30px'
+                                                            <img src="{{ asset('images/icons/tpcoklat.png') }}" height='30px'
                                                                 alt="" data-toggle="tooltip" data-placement="bottom"
                                                                 title="Borang telah diperaku IPJPSM - Tiada Pengeluaran">
                                                         </a>
                                                         @else
                                                         <a href="{{ route('phd.shuttle-3-view-formC-phd', $data->id) }}">
-                                                            <img src="{{ asset('double_check.png') }}" height='30px' alt=""
+                                                            <img src="{{ asset('images/icons/double_check.png') }}" height='30px' alt=""
                                                                 style="color: green; font-size: 20pt;"
                                                                 data-toggle="tooltip" data-placement="bottom"
                                                                 title="Borang telah diperaku"></a>

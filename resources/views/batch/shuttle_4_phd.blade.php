@@ -119,19 +119,19 @@
 
                                                 <td>
                                                     @if ($data->borang_a == 1)
-                                                        <img src="{{ asset('circle_times_yellow.png') }}" height='30px' alt=""
+                                                        <img src="{{ asset('images/icons/circle_times_yellow.png') }}" height='30px' alt=""
                                                             style="color: green; font-size: 18pt;" data-toggle="tooltip"
                                                             data-placement="bottom" title="Borang perlu disahkan PHD"></i>
                                                     @elseif($data->borang_a == 2)
-                                                        <img src="{{ asset('circle_check.png') }}" height='30px'
+                                                        <img src="{{ asset('images/icons/circle_check.png') }}" height='30px'
                                                             alt="" style="color: green; font-size: 18pt;"
                                                             data-toggle="tooltip" data-placement="bottom"
                                                             title="Borang telah disahkan"></i>
                                                     @elseif (($data->status_a ?? null) === 'Tidak Lengkap')
-                                                        <img src="{{ asset('history.png') }}" height='30px' alt="" data-toggle="tooltip"
+                                                        <img src="{{ asset('images/icons/history.png') }}" height='30px' alt="" data-toggle="tooltip"
                                                             data-placement="bottom" title="Borang A tidak lengkap - perlu dihantar semula oleh kilang">
                                                     @elseif (in_array($data->status_a ?? null, ['Tidak Diisi', 'Sedang Diisi'], true))
-                                                        <img src="{{ asset('circle_times.png') }}" height='30px' alt="" data-toggle="tooltip"
+                                                        <img src="{{ asset('images/icons/circle_times.png') }}" height='30px' alt="" data-toggle="tooltip"
                                                             data-placement="bottom" title="Borang A belum diisi">
                                                     @else
                                                         -
@@ -140,17 +140,17 @@
 
                                                 <td>
                                                     @if ($data->borang_b == 1)
-                                                        <img src="{{ asset('circle_times_yellow.png') }}" height='30px' alt=""
+                                                        <img src="{{ asset('images/icons/circle_times_yellow.png') }}" height='30px' alt=""
                                                             style="color: green; font-size: 18pt;" data-toggle="tooltip"
                                                             data-placement="bottom" title="Borang perlu disahkan PHD"></i>
                                                     @elseif($data->borang_b == 2)
-                                                        <img src="{{ asset('circle_check.png') }}" height='30px'
+                                                        <img src="{{ asset('images/icons/circle_check.png') }}" height='30px'
                                                             alt="" style="color: green; font-size: 18pt;"
                                                             data-toggle="tooltip" data-placement="bottom"
                                                             title="Borang telah disahkan"></i>
                                                     @else
                                                         @if ($data->bulan == 3 || $data->bulan == 6 || $data->bulan == 9 || $data->bulan == 12)
-                                                            <img src="{{ asset('circle_times.png') }}" height='30px'
+                                                            <img src="{{ asset('images/icons/circle_times.png') }}" height='30px'
                                                                 alt="" style="color: black; font-size: 18pt;"
                                                                 data-toggle="tooltip" data-placement="bottom"
                                                                 title="Borang tidak diisi"></i>
@@ -162,16 +162,16 @@
 
                                                 <td>
                                                     @if ($data->borang_c == 1)
-                                                        <img src="{{ asset('circle_times_yellow.png') }}" height='30px' alt=""
+                                                        <img src="{{ asset('images/icons/circle_times_yellow.png') }}" height='30px' alt=""
                                                             style="color: green; font-size: 18pt;" data-toggle="tooltip"
                                                             data-placement="bottom" title="Borang perlu disahkan PHD"></i>
                                                     @elseif($data->borang_c == 2)
-                                                        <img src="{{ asset('circle_check.png') }}" height='30px'
+                                                        <img src="{{ asset('images/icons/circle_check.png') }}" height='30px'
                                                             alt="" style="color: green; font-size: 18pt;"
                                                             data-toggle="tooltip" data-placement="bottom"
                                                             title="Borang telah disahkan"></i>
                                                     @else
-                                                        <img src="{{ asset('circle_times.png') }}" height='30px'
+                                                        <img src="{{ asset('images/icons/circle_times.png') }}" height='30px'
                                                             alt="" style="color: black; font-size: 18pt;"
                                                             data-toggle="tooltip" data-placement="bottom"
                                                             title="Borang tidak diisi"></i>
@@ -180,17 +180,17 @@
 
                                                 <td>
                                                     @if ($data->borang_d == 1)
-                                                        <img src="{{ asset('circle_times_yellow.png') }}" height='30px'
+                                                        <img src="{{ asset('images/icons/circle_times_yellow.png') }}" height='30px'
                                                             alt="" style="color: green; font-size: 18pt;"
                                                             data-toggle="tooltip" data-placement="bottom"
                                                             title="Borang perlu disahkan PHD"></i>
                                                     @elseif($data->borang_d == 2)
-                                                        <img src="{{ asset('circle_check.png') }}" height='30px'
+                                                        <img src="{{ asset('images/icons/circle_check.png') }}" height='30px'
                                                             alt="" style="color: green; font-size: 18pt;"
                                                             data-toggle="tooltip" data-placement="bottom"
                                                             title="Borang telah disahkan"></i>
                                                     @else
-                                                        <img src="{{ asset('circle_times.png') }}" height='30px'
+                                                        <img src="{{ asset('images/icons/circle_times.png') }}" height='30px'
                                                             alt="" style="color: black; font-size: 18pt;"
                                                             data-toggle="tooltip" data-placement="bottom"
                                                             title="Borang tidak diisi"></i>
@@ -199,17 +199,17 @@
 
                                                 <td>
                                                     @if ($data->borang_e == 1)
-                                                        <img src="{{ asset('circle_times_yellow.png') }}" height='30px'
+                                                        <img src="{{ asset('images/icons/circle_times_yellow.png') }}" height='30px'
                                                             alt="" style="color: green; font-size: 18pt;"
                                                             data-toggle="tooltip" data-placement="bottom"
                                                             title="Borang perlu disahkan PHD"></i>
                                                     @elseif($data->borang_e == 2)
-                                                        <img src="{{ asset('circle_check.png') }}" height='30px'
+                                                        <img src="{{ asset('images/icons/circle_check.png') }}" height='30px'
                                                             alt="" style="color: green; font-size: 18pt;"
                                                             data-toggle="tooltip" data-placement="bottom"
                                                             title="Borang telah disahkan"></i>
                                                     @else
-                                                        <img src="{{ asset('circle_times.png') }}" height='30px'
+                                                        <img src="{{ asset('images/icons/circle_times.png') }}" height='30px'
                                                             alt="" style="color: black; font-size: 18pt;"
                                                             data-toggle="tooltip" data-placement="bottom"
                                                             title="Borang tidak diisi"></i>
@@ -237,7 +237,7 @@
                                                                         <a type="button" alt="default"
                                                                             data-toggle="modal"
                                                                             data-target="#confirmation_borang_a{{ $data->id }}"><img
-                                                                                src="{{ asset('share.png') }}"
+                                                                                src="{{ asset('images/icons/share.png') }}"
                                                                                 height='30px' alt=""
                                                                                 data-toggle="tooltip"
                                                                                 data-placement="bottom"
@@ -310,7 +310,7 @@
                                                                         value="{{ $year }}">
                                                                     <a type="button" alt="default" data-toggle="modal"
                                                                         data-target="#confirmation_borang_a{{ $data->id }}"><img
-                                                                            src="{{ asset('share.png') }}" height='30px'
+                                                                            src="{{ asset('images/icons/share.png') }}" height='30px'
                                                                             alt="" data-toggle="tooltip"
                                                                             data-placement="bottom"
                                                                             title="Hantar pakej"></i></a>
