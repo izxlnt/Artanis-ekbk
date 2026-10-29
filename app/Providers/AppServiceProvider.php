@@ -24,6 +24,12 @@ class AppServiceProvider extends ServiceProvider
                 $app->make(\Maatwebsite\Excel\Files\Filesystem::class)
             );
         });
+
+        // A mail server timeout must not break the user's action (see ResilientMailChannel)
+        $this->app->bind(
+            \Illuminate\Notifications\Channels\MailChannel::class,
+            \App\Notifications\Channels\ResilientMailChannel::class
+        );
     }
 
     /**

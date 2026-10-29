@@ -13,13 +13,31 @@ class CheckMaintenanceMode
     public function handle(Request $request, Closure $next)
     {
         // Allow login/logout paths — routeIs() misses the unnamed POST /login route
-        if ($request->is('login', 'logout', 'password/reset', 'password/email', 'password/*')) {
+        if ($request->is('login', 'logout', 'password/reset', 'password/email', 'password/*', 'terlupa-kata-laluan', 'terlupa-kata-laluan/*')) {
             return $next($request);
         }
 
         // Only BPE (IPJPSM admin) can access the system during maintenance
         if (Auth::check() && Auth::user()->kategori_pengguna === 'BPE') {
             return $next($request);
+        }
+
+        // Production testing (php artisan testing:access on): only the listed users get in,
+        // with or without maintenance; everyone else sees the maintenance page
+        $testers = \App\Console\Commands\TestingAccess::activeLoginIds();
+        if ($testers !== null) {
+            if (Auth::check() && in_array((string) Auth::user()->login_id, $testers, true)) {
+                return $next($request);
+            }
+            if (!Auth::check() && $request->is('/')) {
+                return $next($request); // "/" is the login form
+            }
+
+            return response()->view('maintenance', [
+                'start'   => null,
+                'end'     => null,
+                'message' => 'Sistem sedang dalam pengujian akhir dan hanya dibuka kepada pengguna yang terpilih. Akses kepada semua pengguna akan dibuka semula selepas pengujian selesai.',
+            ], 503);
         }
 
         $setting = $this->getSetting();

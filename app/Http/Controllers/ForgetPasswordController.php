@@ -36,7 +36,13 @@ class ForgetPasswordController extends Controller
             'created_at' => now(),
         ]);
 
-        Mail::send(new ResetPasswordMail($user, $token));
+        try {
+            Mail::send(new ResetPasswordMail($user, $token));
+        } catch (\Swift_TransportException $e) {
+            \Log::warning('Reset password email not sent to user #' . $user->id . ': ' . $e->getMessage());
+
+            return redirect()->back()->with('error', 'Emel tidak dapat dihantar buat masa ini. Sila cuba sebentar lagi.');
+        }
 
         return redirect()->route('login')->with('success', 'Sistem telah menghantar pautan tetapan semula kata laluan anda melalui emel!');
     }
